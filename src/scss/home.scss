@@ -7,7 +7,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	background-color: #fff;
+	// background-color: #fff;
 
 	#home-bg-tile {
 		position: fixed;
@@ -43,28 +43,28 @@
 			}
 
 			&.color-1 {
-				background-color: #ffffff;
+				background-color: transparent;
 			}
 			&.color-2 {
-				background-color: #ffffff;
+				background-color: transparent;
 			}
 			&.color-3 {
-				background-color: #ffffff;
+				background-color: transparent;
 			}
 			&.color-4 {
-				background-color: #fcfcfc;
+				background-color: #fcfcff;
 			}
 			&.color-5 {
-				background-color: #fafafa;
+				background-color: #fafafe;
 			}
 			&.color-6 {
-				background-color: #f4f4f4;
+				background-color: #f4f4f8;
 			}
 			&.color-7 {
-				background-color: #f8f8f8;
+				background-color: #f8f8fc;
 			}
 			&.color-8 {
-				background-color: #e4e4e4;
+				background-color: #e4e4e8;
 			}
 		}
 	}
@@ -84,6 +84,30 @@
 		padding: 2rem;
 		text-align: center;
 		overflow: hidden;
+
+		$transition-time: 1500ms;
+		$cb: cubic-bezier(.24,.49,.01,.99);
+
+		&.trans-enter {
+			transform: scale(2);
+			filter: blur(30px);
+			opacity: 0;
+		}
+		&.trans-enter.trans-enter-active {
+			transform: none;
+			filter: blur(0px);
+			opacity: 1;
+			transition: all $transition-time $cb;
+		}
+		&.trans-exit {
+			// transform: none;
+			opacity: 1;
+		}
+		&.trans-exit.trans-exit-active {
+			// transform: scale(2);
+			opacity: 0;
+			transition: all $transition-time $cb;
+		}
 
 		.logo {
 			width: 90%;
@@ -108,6 +132,7 @@
 
 			&:hover {
 				background-color: darken($light-blue, 3);
+				transform: $hover-transform;
 			}
 			&:active {
 				background-color: darken($light-blue, 10);

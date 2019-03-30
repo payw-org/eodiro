@@ -55,6 +55,7 @@ img {
 }
 
 button.go-back {
+	display: block;
 	width: 5rem;
 	height: 2rem;
 	background-image: url('/assets/images/eodiro/go-back.svg');
@@ -63,14 +64,63 @@ button.go-back {
 	background-position: center;
 	background-color: transparent;
 	transition: $smooth-transition;
-	filter: brightness(1);
+	// filter: brightness(1);
 
 	&:hover {
-		filter: brightness(0.7);
+		// filter: brightness(0.7);
+		transform: translateX(-0.25rem);
 	}
 
 	&:active {
-		filter: brightness(0);
-		transform: $click-transform;
+		// filter: brightness(0);
+		transform: translateX(-0.25rem) $click-transform;
 	}
+}
+
+.eodiro-app {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+
+	$transition-time: 500ms;
+
+	&.trans-enter {
+		// transform: translateX(50px);
+		opacity: 0;
+	}
+	&.trans-enter.trans-enter-active {
+		// transform: translateX(0);
+		opacity: 1;
+		transition: all $transition-time ease;
+		// transition-delay: $transition-time;
+	}
+	&.trans-exit {
+		// transform: translateX(0);
+		opacity: 1;
+		filter: blur(0);
+	}
+	&.trans-exit.trans-exit-active {
+		// transform: translateX(-50px);
+		opacity: 0;
+		filter: blur(10px);
+		transition: all $transition-time ease;
+		// transition-delay: $transition-time;
+	}
+}
+
+.example-enter {
+	transform: translateY(-100%);
+}
+.example-enter.example-enter-active {
+	transform: translateY(0);
+	transition: transform 500ms ease;
+	// transition-delay: 500ms;
+}
+.example-exit {
+	transform: translateY(0);
+}
+.example-exit.example-exit-active {
+	transform: translateY(-100%);
+	transition: transform 500ms ease;
 }
