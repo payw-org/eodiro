@@ -7,7 +7,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-	<div id="eodiro-app"></div>
-	<script src=""></script>
+	<div id="app"></div>
+	<script src="/assets/built/js/eodiro.app.built.js"></script>
 </body>
 </html>
