@@ -1,4 +1,6 @@
+import React from 'react'
 import ReactDOM from 'react-dom'
-import App from './shared/App'
+import Root from './client/Root'
+import './scss/globalstyle'
 
-ReactDOM.render(<App />, document.querySelector('#eodiro-app'))
+ReactDOM.render(<Root />, document.querySelector('#app'))
