@@ -19,6 +19,12 @@ export default class Home extends React.Component {
 		})
 	}
 
+	animateUnmount() {
+		this.setState({
+			goBoxMounted: !this.state.goBoxMounted
+		})
+	}
+
 	render() {
 		return (
 			<div id="home">				
@@ -33,7 +39,7 @@ export default class Home extends React.Component {
 					<div className="go-box">
 						<div>
 							<img className="logo" src="/assets/images/eodiro/logo.svg" alt=""/>
-							<Link to="/buildings"><button className="go-btn">GO</button></Link>
+							<Link to="/buildings"><button onClick={() => {this.animateUnmount()}} className="go-btn">GO</button></Link>
 						</div>
 					</div>
 				</CSSTransition>
