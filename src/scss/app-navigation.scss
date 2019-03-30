@@ -1,0 +1,31 @@
+@import './global-variables.scss';
+
+#app-navigation {
+	position: sticky;
+
+	.an-container {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 1rem 1rem 0.4rem;
+		max-width: 50rem;
+		margin: auto;
+		margin-top: 2rem;
+
+		$go-back-width: 2rem;
+
+		.go-back {
+			width: $go-back-width;
+		}
+
+		.title {
+			font-family: $font-display;
+			font-weight: 700;
+			font-size: 2rem;
+		}
+
+		.dummy {
+			width: $go-back-width;
+		}
+	}
+}

@@ -1,0 +1,76 @@
+@import './fonts.css';
+@import './global-variables.scss';
+
+html {
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+	-webkit-font-smoothing: antialiased;
+	font-size: 100%;
+	background-color: #fbfbfc;
+}
+
+@media only screen and (min-width: 700px) {
+	html {
+		font-size: 110%;
+	}
+}
+@media only screen and (min-width: 1400px) {
+	html {
+		font-size: 120%;
+	}
+}
+
+body {
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	-moz-osx-font-smoothing: grayscale;
+	-o-font-smoothing: antialiased;
+	font-family: $font-text;
+	margin: 0;
+	padding: 0;
+	word-wrap: break-word;
+	word-break: keep-all;
+	background-color: #fbfbfc;
+	font-size: 17px;
+	color: $base-black;
+	user-select: none;
+	cursor: default;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	outline: none;
+	cursor: default;
+}
+
+button {
+	border: none;
+}
+
+img {
+	user-select: none;
+	pointer-events: none;
+}
+
+button.go-back {
+	width: 5rem;
+	height: 2rem;
+	background-image: url('/assets/images/eodiro/go-back.svg');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: transparent;
+	transition: $smooth-transition;
+	filter: brightness(1);
+
+	&:hover {
+		filter: brightness(0.7);
+	}
+
+	&:active {
+		filter: brightness(0);
+		transform: $click-transform;
+	}
+}

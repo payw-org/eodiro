@@ -1,0 +1,118 @@
+@import './global-variables.scss';
+@import './global-mixins.scss';
+
+#home {
+	width: 100%;
+	height: 100vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #fff;
+
+	#home-bg-tile {
+		position: fixed;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		overflow: hidden;
+		display: grid;
+		grid-gap: 1.5rem;
+		padding: 1.5rem;
+		grid-template-columns: repeat(auto-fit, minmax(4rem, 1fr));
+
+		@include smaller-than(700px) {
+			grid-gap: 1rem;
+			padding: 1rem;
+			grid-template-columns: repeat(auto-fit, minmax(3rem, 1fr));
+		}
+
+		.tile {
+			background-color: #fff;
+			border-radius: 1rem;
+			transition: background-color 1s ease;
+
+			@include smaller-than(700px) {
+				border-radius: 0.8rem;
+			}
+
+			&::before {
+				content: '';
+				display: block;
+				padding-top: 100%;
+			}
+
+			&.color-1 {
+				background-color: #ffffff;
+			}
+			&.color-2 {
+				background-color: #ffffff;
+			}
+			&.color-3 {
+				background-color: #ffffff;
+			}
+			&.color-4 {
+				background-color: #fcfcfc;
+			}
+			&.color-5 {
+				background-color: #fafafa;
+			}
+			&.color-6 {
+				background-color: #f4f4f4;
+			}
+			&.color-7 {
+				background-color: #f8f8f8;
+			}
+			&.color-8 {
+				background-color: #e4e4e4;
+			}
+		}
+	}
+
+	.go-box {
+		z-index: 7777;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background-color: #fff;
+		border-radius: 3rem;
+		width: 90%;
+		max-width: 30rem;
+		height: 90vh;
+		max-height: 20rem;
+		box-shadow: 0 30px 300px rgba(0,0,0,0.2);
+		padding: 2rem;
+		text-align: center;
+		overflow: hidden;
+
+		.logo {
+			width: 90%;
+			max-width: 15rem;
+			margin: auto;
+			display: block;
+		}
+
+		.go-btn {
+			background-color: $light-blue;
+			border-radius: 50px;
+			padding: 0.5rem;
+			font-family: $font-text;
+			font-size: 1rem;
+			font-weight: 500;
+			color: #fff;
+			width: 100%;
+			max-width: 6rem;
+			margin-top: 2rem;
+			box-shadow: 0 0.5rem 1.5rem rgba($light-blue, 0.3);
+			transition: $smooth-transition;
+
+			&:hover {
+				background-color: darken($light-blue, 3);
+			}
+			&:active {
+				background-color: darken($light-blue, 10);
+				transform: $click-transform;
+			}
+		}
+	}
+}
