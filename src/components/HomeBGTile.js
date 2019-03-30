@@ -4,7 +4,7 @@ export default class HomeBGTile extends React.Component {
 	constructor() {
 		super()
 		this.state = {
-			colorState: new Array(500).fill(1),
+			colorState: new Array(550).fill(1),
 			interval: undefined
 		}
 	}
@@ -14,7 +14,7 @@ export default class HomeBGTile extends React.Component {
 		this.state.interval = setInterval(() => {
 			let newColorState = this.state.colorState.slice()
 			for (let a = 0; a < 30; a++) {
-				i = Math.floor(Math.random() * (499 - 0 + 1)) + 0;
+				i = Math.floor(Math.random() * (549 - 0 + 1)) + 0;
 				c = Math.floor(Math.random() * (8 - 1 + 1)) + 1;
 				newColorState[i] = c
 				
