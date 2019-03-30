@@ -5,6 +5,22 @@
 	position: sticky;
 	padding-top: 2rem;
 
+	$time: 700ms;
+	&.trans-enter {
+		transform: translateY(-100%);
+	}
+	&.trans-enter.trans-enter-active {
+		transform: translateY(0);
+		transition: transform $time $eodiro-cb;
+	}
+	&.trans-exit {
+		transform: translateY(0);
+	}
+	&.trans-exit.trans-exit-active {
+		transform: translateY(-100%);
+		transition: transform $time $eodiro-cb;
+	}
+
 	.an-container {
 		display: flex;
 		align-items: center;

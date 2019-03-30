@@ -103,7 +103,7 @@ button.go-back {
 	&.trans-exit.trans-exit-active {
 		// transform: translateX(-50px);
 		opacity: 0;
-		filter: blur(10px);
+		// filter: blur(10px);
 		transition: all $transition-time ease;
 		// transition-delay: $transition-time;
 	}

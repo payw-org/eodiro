@@ -100,11 +100,13 @@
 			transition: all $transition-time $cb;
 		}
 		&.trans-exit {
-			// transform: none;
+			transform: none;
+			filter: blur(0px);
 			opacity: 1;
 		}
 		&.trans-exit.trans-exit-active {
-			// transform: scale(2);
+			transform: scale(2);
+			filter: blur(30px);
 			opacity: 0;
 			transition: all $transition-time $cb;
 		}
