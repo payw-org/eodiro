@@ -9,7 +9,7 @@ module.exports = {
 		filename: '[name].built.js'
 	},
 	resolve: {
-		extensions: ['.js', '.ts']
+		extensions: ['.js', '.ts', '.scss']
 	},
 	module: {
 		rules: [
@@ -20,9 +20,28 @@ module.exports = {
 					{
 						loader: 'babel-loader',
 						options: {
-							presets: ['@babel/preset-env']
+							presets: ['@babel/preset-env', '@babel/preset-react']
 						}
 					}
+				]
+			},
+			{
+				test: [/\.scss$/],
+				use: [
+					'style-loader',
+					'css-loader',
+					{
+						loader: 'postcss-loader',
+						options: {
+							plugins: () => [
+								require('autoprefixer')
+								({
+									'browsers': ['> 1%', 'last 2 versions']
+								})
+							]
+						}
+					},
+					'sass-loader'
 				]
 			}
 		]
