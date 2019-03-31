@@ -114,17 +114,21 @@ button.go-back {
 	}
 }
 
-.fade-enter {
+.fade-enter,
+.fade-appear
+{
 	opacity: 0;
 }
-.fade-enter.fade-enter-active {
+.fade-enter.fade-enter-active,
+.fade-appear.fade-appear-active
+{
 	opacity: 1;
-	transition: opacity $exiting-time ease;
+	transition: all 2000ms ease;
 }
 .fade-exit {
 	opacity: 1;
 }
 .fade-exit.fade-exit-active {
 	opacity: 0;
-	transition: opacity $exiting-time ease;
+	transition: all 2000ms ease;
 }
