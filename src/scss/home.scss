@@ -64,7 +64,7 @@
 				background-color: #f8f8fc;
 			}
 			&.color-8 {
-				background-color: #e4e4e8;
+				background-color: #e4e4ea;
 			}
 		}
 	}
@@ -84,12 +84,13 @@
 		padding: 2rem;
 		text-align: center;
 		overflow: hidden;
+		will-change: transform;
 
 		$transition-time: 1500ms;
 		$cb: cubic-bezier(.24,.49,.01,.99);
 
 		&.trans-enter {
-			transform: scale(2);
+			transform: scale(3);
 			filter: blur(30px);
 			opacity: 0;
 		}
@@ -105,10 +106,10 @@
 			opacity: 1;
 		}
 		&.trans-exit.trans-exit-active {
-			transform: scale(2);
+			transform: scale(1.5);
 			filter: blur(30px);
 			opacity: 0;
-			transition: all $transition-time $cb;
+			transition: all $exiting-time $cb;
 		}
 
 		.logo {

@@ -4,6 +4,7 @@
 #app-navigation {
 	position: sticky;
 	padding-top: 2rem;
+	will-change: transform;
 
 	$time: 700ms;
 	&.trans-enter {
