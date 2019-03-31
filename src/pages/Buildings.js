@@ -11,7 +11,8 @@ export default class Buildings extends React.Component {
     super(props)
 
     this.state = {
-      mounted: true
+      mounted: true,
+      showChild: true
     }
   }
 
@@ -26,7 +27,6 @@ export default class Buildings extends React.Component {
   render() {
     return (
       <div id="buildings">
-        <TestComponent />
         <Components.AppNav title="Choose a building" willExit={!this.state.mounted} />
         <Switch>
           <Route path={`${this.props.match.url}/:buildingId`} render={() => (<h3><Link to="/buildings">back to buildings</Link></h3>)} />
