@@ -6,10 +6,17 @@ import { CSSTransition } from 'react-transition-group'
 import '../scss/home'
 
 export default class Home extends React.Component {
-	constructor() {
-		super()
+	constructor(props) {
+		super(props)
 		this.state = {
+			mounted: false,
 			goBoxMounted: false
+		}
+	}
+
+	componentDidUpdate(prevProps) {
+		if (this.props.willExit && this.state.goBoxMounted) {
+			this.animateUnmount()
 		}
 	}
 
@@ -27,8 +34,7 @@ export default class Home extends React.Component {
 
 	render() {
 		return (
-			<div id="home">				
-				<HomeBGTile />
+			<div id="home">
 				<CSSTransition
 					in={this.state.goBoxMounted}
 					appear
@@ -39,10 +45,11 @@ export default class Home extends React.Component {
 					<div className="go-box">
 						<div>
 							<img className="logo" src="/assets/images/eodiro/logo.svg" alt=""/>
-							<Link to="/buildings"><button onClick={() => {this.animateUnmount()}} className="go-btn">GO</button></Link>
+							<Link to="/buildings"><button className="go-btn">GO</button></Link>
 						</div>
 					</div>
 				</CSSTransition>
+				<HomeBGTile />
 			</div>
 		)
 	}

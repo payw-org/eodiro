@@ -14,14 +14,16 @@ export default class AppNav extends React.Component {
 
 	componentDidMount() {
 		this.setState({
-			mounted: !this.state.mounted
+			mounted: true
 		})
 	}
 
-	animateUnmount() {
-		this.setState({
-			mounted: !this.state.mounted
-		})
+	componentDidUpdate() {
+		if (this.props.willExit && this.state.mounted) {
+			this.setState({
+				mounted: false
+			})
+		}
 	}
 
 	render() {
@@ -35,7 +37,7 @@ export default class AppNav extends React.Component {
 			>
 				<nav id="app-navigation">
 					<div className="an-container">
-						<Link to="/"><button onClick={() => {this.animateUnmount()}} className="go-back"></button></Link>
+						<Link to="/"><button className="go-back"></button></Link>
 						<h1 className="title">{this.props.title}</h1>
 						<div className="dummy"></div>
 					</div>
