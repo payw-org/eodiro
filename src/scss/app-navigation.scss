@@ -1,0 +1,59 @@
+@import './global-variables.scss';
+@import './global-mixins.scss';
+
+#app-navigation {
+	position: sticky;
+	padding-top: 2rem;
+	will-change: transform;
+
+	$time: 700ms;
+	&.trans-enter {
+		transform: translateY(-100%);
+	}
+	&.trans-enter.trans-enter-active {
+		transform: translateY(0);
+		transition: transform $time $eodiro-cb;
+	}
+	&.trans-exit {
+		transform: translateY(0);
+	}
+	&.trans-exit.trans-exit-active {
+		transform: translateY(-100%);
+		transition: transform $time $eodiro-cb;
+	}
+
+	.an-container {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		padding: 1rem 1rem 0.4rem;
+		max-width: 50rem;
+		margin: auto;
+
+		$go-back-width: 2rem;
+
+		.go-back {
+			width: $go-back-width;
+
+			@include smaller-than(700px) {
+				width: $go-back-width/1.2;
+			}
+		}
+
+		.title {
+			font-family: $font-display;
+			font-weight: 700;
+			font-size: 2rem;
+			text-align: center;
+			margin: 0 1rem;
+
+			@include smaller-than(700px) {
+				font-size: 1.5rem;
+			}
+		}
+
+		.dummy {
+			width: $go-back-width;
+		}
+	}
+}

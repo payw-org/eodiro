@@ -1,0 +1,131 @@
+@import './fonts.css';
+@import './global-variables.scss';
+
+html {
+	-ms-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+	-webkit-font-smoothing: antialiased;
+	font-size: 100%;
+	background-color: #fbfbfc;
+}
+
+@media only screen and (min-width: 700px) {
+	html {
+		font-size: 110%;
+	}
+}
+@media only screen and (min-width: 1400px) {
+	html {
+		font-size: 120%;
+	}
+}
+
+body {
+	-webkit-font-smoothing: antialiased;
+	text-rendering: optimizeLegibility;
+	-moz-osx-font-smoothing: grayscale;
+	-o-font-smoothing: antialiased;
+	font-family: $font-text;
+	margin: 0;
+	padding: 0;
+	word-wrap: break-word;
+	word-break: keep-all;
+	background-color: #fbfbfc;
+	font-size: 17px;
+	color: $base-black;
+	user-select: none;
+	cursor: default;
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	outline: none;
+	cursor: default;
+}
+
+button {
+	border: none;
+}
+
+img {
+	user-select: none;
+	pointer-events: none;
+}
+
+button.go-back {
+	display: block;
+	width: 5rem;
+	height: 2rem;
+	background-image: url('/assets/images/eodiro/go-back.svg');
+	background-size: 100% 100%;
+	background-repeat: no-repeat;
+	background-position: center;
+	background-color: transparent;
+	transition: $smooth-transition;
+	// filter: brightness(1);
+
+	&:hover {
+		// filter: brightness(0.7);
+		transform: translateX(-0.25rem);
+	}
+
+	&:active {
+		// filter: brightness(0);
+		transform: translateX(-0.25rem) $click-transform;
+	}
+}
+
+.eodiro-app {
+	position: fixed;
+	top: 0;
+	right: 0;
+	left: 0;
+
+	&:first-child {
+		z-index: 1;
+	}
+
+	$transition-time: 500ms;
+
+	&.trans-enter {
+		// transform: translateX(50px);
+		opacity: 0;
+	}
+	&.trans-enter.trans-enter-active {
+		// transform: translateX(0);
+		opacity: 1;
+		transition: all $transition-time ease;
+		// transition-delay: $transition-time;
+	}
+	&.trans-exit {
+		// transform: translateX(0);
+		opacity: 1;
+		filter: blur(0);
+	}
+	&.trans-exit.trans-exit-active {
+		// transform: translateX(-50px);
+		// opacity: 1;
+		opacity: 0;
+		// filter: blur(10px);
+		transition: all $transition-time ease;
+		// transition-delay: $transition-time;
+	}
+}
+
+.example-enter {
+	transform: translateY(-100%);
+}
+.example-enter.example-enter-active {
+	transform: translateY(0);
+	transition: transform 500ms ease;
+	// transition-delay: 500ms;
+}
+.example-exit {
+	transform: translateY(0);
+}
+.example-exit.example-exit-active {
+	transform: translateY(-100%);
+	transition: transform 500ms ease;
+}

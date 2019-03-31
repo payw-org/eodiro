@@ -1,0 +1,101 @@
+/* sans-serif-display */
+@font-face {
+	font-family: 'display';
+	src: url('/assets/fonts/sans-serif-display/sans-serif-display-Bold.eot');
+	src: url('/assets/fonts/sans-serif-display/sans-serif-display-Bold.eot?#iefix') format('embedded-opentype'),
+			url('/assets/fonts/sans-serif-display/sans-serif-display-Bold.woff2') format('woff2'),
+			url('/assets/fonts/sans-serif-display/sans-serif-display-Bold.woff') format('woff'),
+			url('/assets/fonts/sans-serif-display/sans-serif-display-Bold.ttf') format('truetype');
+	font-weight: 700;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'display';
+	src: url('/assets/fonts/sans-serif-display/sans-serif-display-Light.eot');
+	src: url('/assets/fonts/sans-serif-display/sans-serif-display-Light.eot?#iefix') format('embedded-opentype'),
+			url('/assets/fonts/sans-serif-display/sans-serif-display-Light.woff2') format('woff2'),
+			url('/assets/fonts/sans-serif-display/sans-serif-display-Light.woff') format('woff'),
+			url('/assets/fonts/sans-serif-display/sans-serif-display-Light.ttf') format('truetype');
+	font-weight: 300;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'display';
+	src: url('/assets/fonts/sans-serif-display/sans-serif-display-Regular.eot');
+	src: url('/assets/fonts/sans-serif-display/sans-serif-display-Regular.eot?#iefix') format('embedded-opentype'),
+			url('/assets/fonts/sans-serif-display/sans-serif-display-Regular.woff2') format('woff2'),
+			url('/assets/fonts/sans-serif-display/sans-serif-display-Regular.woff') format('woff'),
+			url('/assets/fonts/sans-serif-display/sans-serif-display-Regular.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'display';
+	src: url('/assets/fonts/sans-serif-display/sans-serif-display-Medium.eot');
+	src: url('/assets/fonts/sans-serif-display/sans-serif-display-Medium.eot?#iefix') format('embedded-opentype'),
+			url('/assets/fonts/sans-serif-display/sans-serif-display-Medium.woff2') format('woff2'),
+			url('/assets/fonts/sans-serif-display/sans-serif-display-Medium.woff') format('woff'),
+			url('/assets/fonts/sans-serif-display/sans-serif-display-Medium.ttf') format('truetype');
+	font-weight: 500;
+	font-style: normal;
+}
+
+/* sans-serif-text */
+@font-face {
+	font-family: 'text';
+	src: url('/assets/fonts/sans-serif-text/sans-serif-text-Bold.eot');
+	src: url('/assets/fonts/sans-serif-text/sans-serif-text-Bold.eot?#iefix') format('embedded-opentype'),
+			url('/assets/fonts/sans-serif-text/sans-serif-text-Bold.woff2') format('woff2'),
+			url('/assets/fonts/sans-serif-text/sans-serif-text-Bold.woff') format('woff'),
+			url('/assets/fonts/sans-serif-text/sans-serif-text-Bold.ttf') format('truetype');
+	font-weight: 700;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'text';
+	src: url('/assets/fonts/sans-serif-text/sans-serif-text-Regular.eot');
+	src: url('/assets/fonts/sans-serif-text/sans-serif-text-Regular.eot?#iefix') format('embedded-opentype'),
+			url('/assets/fonts/sans-serif-text/sans-serif-text-Regular.woff2') format('woff2'),
+			url('/assets/fonts/sans-serif-text/sans-serif-text-Regular.woff') format('woff'),
+			url('/assets/fonts/sans-serif-text/sans-serif-text-Regular.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'text';
+	src: url('/assets/fonts/sans-serif-text/sans-serif-text-Medium.eot');
+	src: url('/assets/fonts/sans-serif-text/sans-serif-text-Medium.eot?#iefix') format('embedded-opentype'),
+			url('/assets/fonts/sans-serif-text/sans-serif-text-Medium.woff2') format('woff2'),
+			url('/assets/fonts/sans-serif-text/sans-serif-text-Medium.woff') format('woff'),
+			url('/assets/fonts/sans-serif-text/sans-serif-text-Medium.ttf') format('truetype');
+	font-weight: 500;
+	font-style: normal;
+}
+
+@font-face {
+	font-family: 'text';
+	src: url('/assets/fonts/sans-serif-text/sans-serif-text-Light.eot');
+	src: url('/assets/fonts/sans-serif-text/sans-serif-text-Light.eot?#iefix') format('embedded-opentype'),
+			url('/assets/fonts/sans-serif-text/sans-serif-text-Light.woff2') format('woff2'),
+			url('/assets/fonts/sans-serif-text/sans-serif-text-Light.woff') format('woff'),
+			url('/assets/fonts/sans-serif-text/sans-serif-text-Light.ttf') format('truetype');
+	font-weight: 300;
+	font-style: normal;
+}
+
+/* Monospaced font */
+@font-face {
+	font-family: 'mono';
+	src: url('/assets/fonts/monospace/monospace-Regular.eot');
+	src: url('/assets/fonts/monospace/monospace-Regular.eot?#iefix') format('embedded-opentype'),
+			url('/assets/fonts/monospace/monospace-Regular.woff2') format('woff2'),
+			url('/assets/fonts/monospace/monospace-Regular.woff') format('woff'),
+			url('/assets/fonts/monospace/monospace-Regular.ttf') format('truetype');
+	font-weight: 400;
+	font-style: normal;
+}
