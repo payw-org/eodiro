@@ -114,18 +114,17 @@ button.go-back {
 	}
 }
 
-.example-enter {
-	transform: translateY(-100%);
+.fade-enter {
+	opacity: 0;
 }
-.example-enter.example-enter-active {
-	transform: translateY(0);
-	transition: transform 500ms ease;
-	// transition-delay: 500ms;
+.fade-enter.fade-enter-active {
+	opacity: 1;
+	transition: opacity $exiting-time ease;
 }
-.example-exit {
-	transform: translateY(0);
+.fade-exit {
+	opacity: 1;
 }
-.example-exit.example-exit-active {
-	transform: translateY(-100%);
-	transition: transform 500ms ease;
+.fade-exit.fade-exit-active {
+	opacity: 0;
+	transition: opacity $exiting-time ease;
 }
