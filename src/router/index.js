@@ -24,18 +24,7 @@ export default new VueRouter({
         },
         {
           path: ':buildingID',
-          component: SelectFloor,
-          children: [
-            {
-              path: '',
-              component: SelectFloor,
-              children: [
-                {
-                  path: ':floorNum'
-                }
-              ]
-            }
-          ]
+          component: SelectFloor
         }
       ]
     }
