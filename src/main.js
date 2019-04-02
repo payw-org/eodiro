@@ -14,6 +14,6 @@ import router from './router'
 new Vue({
   el: "#app",
   router: router,
-  template: '<App/>',
+  template: '<App />',
   components: { App }
 })
