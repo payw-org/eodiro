@@ -114,8 +114,11 @@ button.go-back {
 	}
 }
 
+.fade-enter,.fade-enter-active {
+	z-index: 999;
+}
 .fade-enter-active, .fade-leave-active {
-	transition: all 300ms $eodiro-cb;
+	transition: all 400ms $eodiro-cb;
 	opacity: 1;
 }
 .fade-enter, .fade-leave-to {
