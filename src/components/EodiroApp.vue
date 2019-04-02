@@ -1,6 +1,6 @@
 <template>
   <div id="eodiro-app">
-    <AppNav />
+    <AppNav :navTitle="navTitle" />
     <div class="ea-content">
       <transition
         name="fade"
@@ -15,7 +15,29 @@
 import AppNav from './AppNav'
 
 export default {
-  components: { AppNav }
+  components: { AppNav },
+  watch: {
+    $route () {
+      this.setNavTitle()
+    }
+  },
+  mounted() {
+    this.setNavTitle()
+  },
+  data () {
+    return {
+      navTitle: ''
+    }
+  },
+  methods: {
+    setNavTitle () {
+      if (this.$route.params.hasOwnProperty('buildingID')) {
+        this.navTitle = 'Select a floor'
+      } else {
+        this.navTitle = 'Select a building'
+      }
+    }
+  }
 }
 </script>
 
@@ -26,7 +48,8 @@ export default {
   position: relative;
 
   .content-item {
-    padding: 2rem 1.2rem;
+    padding: 0 1.2rem 3rem;
+    margin-top: 3rem;
     // position: absolute;
     left: 0;
     top: 0;
