@@ -1,23 +1,41 @@
 <template>
   <div id="home-bg-tile">
-    <div v-for="tileState in tileStates" :class="'tile ' + tileState" :key="tileState"></div>
+    <div v-for="tileState in tileStates" :class="'tile ' + tileState.className" :key="tileState.key"></div>
   </div>
 </template>
 
 <script>
-let tileStates = new Array(500)
-for (let i = 0; i < 500; i++) {
-  tileStates.push({
-    key: i,
-    className: 'color-1'
-  })
-}
 export default {
   data() {
     return {
       key: 0,
-      tileStates: new Array(500).fill()
+      tileStates: undefined,
+      interval: 0
     }
+  },
+  mounted() {
+    let ts = []
+    let tileNum = 550
+    for (let i = 0; i < tileNum; i++) {
+      ts.push({
+        key: i,
+        className: 'color-1'
+      })
+    }
+    this.tileStates = ts
+
+    let i, c
+    this.interval = setInterval(() => {
+      // let newColorState = this.state.colorState.slice()
+      for (let a = 0; a < 30; a++) {
+        i = Math.floor(Math.random() * tileNum);
+        c = Math.floor(Math.random() * 9)
+        this.tileStates[i]['className'] = 'color-' + c;
+      }
+    }, 30)
+  },
+  beforeDestroy() {
+    clearInterval(this.interval)
   }
 }
 </script>
@@ -72,16 +90,16 @@ export default {
       background-color: #fcfcff;
     }
     &.color-5 {
-      background-color: #fafafe;
+      background-color: #fafafd;
     }
     &.color-6 {
-      background-color: #f4f4f8;
+      background-color: #f4f4f7;
     }
     &.color-7 {
-      background-color: #f8f8fc;
+      background-color: #f8f8fb;
     }
     &.color-8 {
-      background-color: #e4e4ea;
+      background-color: #e4e4e7;
     }
   }
 }
