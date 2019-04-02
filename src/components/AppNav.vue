@@ -6,12 +6,23 @@
     <nav id="app-navigation">
       <div class="an-container">
         <router-link to="/"><button class="go-back"></button></router-link>
-        <h1 class="title">AppNav</h1>
+        <h1 class="title">{{ navTitle }}</h1>
         <div class="dummy"></div>
       </div>
     </nav>
   </transition>
 </template>
+
+<script>
+export default {
+  props: ['navTitle'],
+  data() {
+    return {
+      
+    }
+  }
+}
+</script>
 
 
 <style lang="scss">
@@ -20,8 +31,9 @@
 
 #app-navigation {
   position: sticky;
-  padding-top: 2rem;
-  top: -2rem;
+  $top-gap: 4rem;
+  padding-top: $top-gap;
+  top: -$top-gap;
   will-change: transform;
   background-color: $base-white;
   z-index: 9999;
