@@ -1,7 +1,8 @@
 <template>
   <div class="content-item select-floor">
-    <router-link to="/buildings">Go back to building selection</router-link>
-    <p>{{ text }}</p>
+    <div class="cf-container">
+      <p>{{ text }}</p>
+    </div>
   </div>
 </template>
 
@@ -18,3 +19,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+.cf-container {
+  max-width: 80rem;
+  margin: auto;
+}
+</style>

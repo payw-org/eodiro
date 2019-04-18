@@ -4,6 +4,7 @@ import Home from '../components/Home'
 import EodiroApp from '../components/EodiroApp'
 import SelectBuilding from '../components/SelectBuilding'
 import SelectFloor from '../components/SelectFloor'
+import NotFound from '../components/NotFound'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,10 @@ export default new VueRouter({
           component: SelectFloor
         }
       ]
+    },
+    {
+      path: '*',
+      component: NotFound
     }
   ]
 })
