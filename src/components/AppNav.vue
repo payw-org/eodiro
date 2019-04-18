@@ -5,7 +5,7 @@
   >
     <nav id="app-navigation">
       <div class="an-container">
-        <router-link to="/"><button class="go-back"></button></router-link>
+        <router-link :to="backLink"><button class="go-back"></button></router-link>
         <h1 class="title">{{ navTitle }}</h1>
         <div class="dummy"></div>
       </div>
@@ -15,7 +15,7 @@
 
 <script>
 export default {
-  props: ['navTitle'],
+  props: ['navTitle', 'backLink'],
   data() {
     return {
       
@@ -30,15 +30,25 @@ export default {
 @import '../scss/global-mixins.scss';
 
 #app-navigation {
-  position: sticky;
   $top-gap: 4rem;
-  padding-top: $top-gap;
-  top: -$top-gap;
+
+  // padding-top: $top-gap;
+  // position: sticky;
+  // top: -$top-gap;
   will-change: transform;
   background-color: $base-white;
   z-index: 9999;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   $time: 700ms;
+
   &.trans-enter-active, &.trans-leave-active {
     transition: transform $time $eodiro-cb;
     transform: translateY(0);
@@ -52,6 +62,7 @@ export default {
     align-items: center;
     justify-content: space-between;
     padding: 0.5rem 1rem;
+    width: 100%;
     max-width: 50rem;
     margin: auto;
 
