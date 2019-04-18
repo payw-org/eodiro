@@ -1,6 +1,6 @@
 <template>
   <div id="eodiro-app">
-    <AppNav :navTitle="navTitle" />
+    <AppNav :navTitle="navTitle" :backLink="backLink" />
     <div class="ea-content">
       <transition
         name="fade"
@@ -18,23 +18,26 @@ export default {
   components: { AppNav },
   watch: {
     $route () {
-      this.setNavTitle()
+      this.setNavData()
     }
   },
   mounted() {
-    this.setNavTitle()
+    this.setNavData()
   },
   data () {
     return {
-      navTitle: ''
+      navTitle: '',
+      backLink: '/'
     }
   },
   methods: {
-    setNavTitle () {
+    setNavData () {
       if (this.$route.params.hasOwnProperty('buildingID')) {
         this.navTitle = 'Select a floor'
+        this.backLink = '/buildings'
       } else {
         this.navTitle = 'Select a building'
+        this.backLink = '/'
       }
     }
   }
@@ -45,19 +48,28 @@ export default {
 @import '../scss/global-variables.scss';
 
 .ea-content {
-  position: relative;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100%;
+  overflow: auto;
 
   .content-item {
-    padding: 0 1.2rem 3rem;
-    margin-top: 3rem;
-    // position: absolute;
+    padding: 5rem 1.5rem 3rem;
+    position: absolute;
     left: 0;
     top: 0;
-
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+  
     &.fade-enter-active, &.fade-leave-active {
       transition: all 300ms $eodiro-cb;
       opacity: 1;
       position: absolute;
+      width: 100%;
+      top: 0;
+      left: 0;
     }
     &.fade-enter, &.fade-leave-to {
       opacity: 0;
