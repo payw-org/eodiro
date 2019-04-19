@@ -8,6 +8,19 @@ html {
 	font-size: 100%;
 	background-color: $base-white;
 	height: 100%;
+
+	&.dark-mode {
+		background-color: $base-black;
+		.mode--light {
+			display: none !important;
+		}
+	}
+
+	&.light-mode {
+		.mode--dark {
+			display: none !important;
+		}
+	}
 }
 
 @media only screen and (min-width: 700px) {
@@ -38,6 +51,12 @@ body {
 	cursor: default;
 	height: 100%;
 	overflow: hidden;
+	transition: background-color 500ms ease;
+
+	html.dark-mode & {
+		background-color: $base-black;
+		color: $base-white;
+	}
 }
 
 * {
@@ -46,6 +65,11 @@ body {
 	box-sizing: border-box;
 	outline: none;
 	cursor: default;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
 }
 
 button {
@@ -67,17 +91,6 @@ button.go-back {
 	background-position: center;
 	background-color: transparent;
 	transition: $smooth-transition;
-	// filter: brightness(1);
-
-	&:hover {
-		// filter: brightness(0.7);
-		transform: translateX(-0.25rem);
-	}
-
-	&:active {
-		// filter: brightness(0);
-		transform: translateX(-0.25rem) $click-transform;
-	}
 }
 
 .eodiro-app {
@@ -117,13 +130,12 @@ button.go-back {
 	}
 }
 
-.fade-enter,.fade-enter-active {
-	z-index: 999;
+.slide-fade-enter-active {
+  transition: all 200ms ease;
 }
-.fade-enter-active, .fade-leave-active {
-	transition: all 400ms $eodiro-cb;
-	opacity: 1;
+.slide-fade-leave-active {
+  transition: all 200ms ease;
 }
-.fade-enter, .fade-leave-to {
-	opacity: 0;
+.slide-fade-enter, .slide-fade-leave-to {
+  opacity: 0;
 }
