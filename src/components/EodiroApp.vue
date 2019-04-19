@@ -1,11 +1,13 @@
 <template>
   <div id="eodiro-app">
-    <AppNav :navTitle="navTitle" :backLink="backLink" />
+    <AppNav :navTitle="navTitle" :backLink="backLink" :isHidden="isNavHidden"/>
     <div class="ea-content">
       <transition
         name="fade"
       >
-        <router-view></router-view>
+        <keep-alive>
+          <router-view @update-nav-view="updateNavView()"></router-view>
+        </keep-alive>
       </transition>
     </div>
   </div>
@@ -19,6 +21,8 @@ export default {
   watch: {
     $route () {
       this.setNavData()
+      this.$el.querySelector('.content-item').scrollTop
+      this.isNavHidden = false
     }
   },
   mounted() {
@@ -27,13 +31,27 @@ export default {
   data () {
     return {
       navTitle: '',
-      backLink: '/'
+      backLink: '/',
+      prevScrollpos: undefined,
+      isNavHidden: false
     }
   },
   methods: {
+    updateNavView() {
+      let contentItemElm = this.$el.querySelector('.content-item')
+      var currentScrollPos = contentItemElm.scrollTop
+      if (
+        this.prevScrollpos > currentScrollPos
+      ) {
+        this.isNavHidden = false
+      } else if (currentScrollPos > 0) {
+        this.isNavHidden = true
+      }
+      this.prevScrollpos = currentScrollPos
+    },
     setNavData () {
       if (this.$route.params.hasOwnProperty('buildingID')) {
-        this.navTitle = 'Select a floor'
+        this.navTitle = 'Select a floor from '
         this.backLink = '/buildings'
       } else {
         this.navTitle = 'Select a building'
@@ -55,11 +73,11 @@ export default {
   overflow: auto;
 
   .content-item {
-    padding: 5rem 1.5rem 3rem;
     position: absolute;
     left: 0;
     top: 0;
     width: 100%;
+    padding: 10rem 1.5rem 0;
     height: 100%;
     overflow: auto;
   
