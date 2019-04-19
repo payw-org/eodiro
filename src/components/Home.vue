@@ -6,8 +6,9 @@
     >
       <div class="go-box">
         <div class="wrapper">
-          <img class="logo" src="/assets/images/eodiro/logo.svg" alt="" />
-          <router-link to="/buildings"><button class="go-btn">GO</button></router-link>
+          <img class="logo mode--light" src="/assets/images/eodiro/logo.svg" alt="" />
+          <img class="logo mode--dark" src="/assets/images/eodiro/logo_dark.svg" alt="" />
+          <router-link to="/buildings"><button class="go-btn">Start</button></router-link>
         </div>
       </div>
     </transition>
@@ -61,21 +62,24 @@ export default {
     text-align: center;
     overflow: hidden;
     will-change: transform;
+    transition: background-color 500ms ease;
 
     $transition-time: 1500ms;
     $cb: cubic-bezier(.24,.49,.01,.99);
 
+    html.dark-mode & {
+      background-color: #222;
+      box-shadow: inset 0 0 0 2px rgba(#000, 0.7), inset 0 0 0 4px rgba(#fff, 0.15);
+    }
 
     &.zoom-enter-active, &.zoom-leave-active {
       transform: scale(1);
-      -moz-filter: blur(0px);
       filter: blur(0px);
       opacity: 1;
       transition: all $transition-time $cb;
     }
     &.zoom-enter, &.zoom-leave-to {
       transform: scale(3);
-      -moz-filter: blur(30px);
       filter: blur(30px);
       opacity: 0;
     }
@@ -92,8 +96,8 @@ export default {
       border-radius: 50px;
       padding: 0.5rem;
       font-family: $font-text;
-      font-size: 1rem;
-      font-weight: 500;
+      font-size: 1.2rem;
+      font-weight: 700;
       color: #fff;
       width: 100%;
       max-width: 6rem;
@@ -103,11 +107,15 @@ export default {
 
       &:hover {
         background-color: darken($light-blue, 3);
-        transform: $hover-transform;
       }
       &:active {
         background-color: darken($light-blue, 10);
         transform: $click-transform;
+      }
+
+      html.dark-mode & {
+        background-color: $light-yellow;
+        box-shadow: 0 0.5rem 1.5rem rgba(#000, 0.3);
       }
     }
   }
