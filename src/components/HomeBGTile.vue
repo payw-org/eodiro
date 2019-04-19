@@ -63,7 +63,6 @@ export default {
   }
 
   .tile {
-    background-color: #fff;
     border-radius: 1rem;
     transition: background-color 1s ease;
 
@@ -88,18 +87,38 @@ export default {
     }
     &.color-4 {
       background-color: #fcfcff;
+
+      html.dark-mode & {
+        background-color: #363636;
+      }
     }
     &.color-5 {
       background-color: #fafafd;
+
+      html.dark-mode & {
+        background-color: #383838;
+      }
     }
     &.color-6 {
       background-color: #f4f4f7;
+
+      html.dark-mode & {
+        background-color: #414141;
+      }
     }
     &.color-7 {
       background-color: #f8f8fb;
+
+      html.dark-mode & {
+        background-color: #4b4b4b;
+      }
     }
     &.color-8 {
       background-color: #e4e4e7;
+
+      html.dark-mode & {
+        background-color: #686868;
+      }
     }
   }
 }
