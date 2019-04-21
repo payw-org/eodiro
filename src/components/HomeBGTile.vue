@@ -27,12 +27,11 @@ export default {
     let i, c
     this.interval = setInterval(() => {
       // let newColorState = this.state.colorState.slice()
-      for (let a = 0; a < 30; a++) {
-        i = Math.floor(Math.random() * tileNum);
+      for (let a = 0; a < 550; a++) {
         c = Math.floor(Math.random() * 9)
-        this.tileStates[i]['className'] = 'color-' + c;
+        this.tileStates[a]['className'] = 'color-' + c;
       }
-    }, 30)
+    }, 500)
   },
   beforeDestroy() {
     clearInterval(this.interval)
@@ -88,35 +87,35 @@ export default {
     &.color-4 {
       background-color: #fcfcff;
 
-      html.dark-mode & {
+      @include dark-mode() {
         background-color: #363636;
       }
     }
     &.color-5 {
       background-color: #fafafd;
 
-      html.dark-mode & {
+      @include dark-mode() {
         background-color: #383838;
       }
     }
     &.color-6 {
       background-color: #f4f4f7;
 
-      html.dark-mode & {
+      @include dark-mode() {
         background-color: #414141;
       }
     }
     &.color-7 {
       background-color: #f8f8fb;
 
-      html.dark-mode & {
+      @include dark-mode() {
         background-color: #4b4b4b;
       }
     }
     &.color-8 {
       background-color: #e4e4e7;
 
-      html.dark-mode & {
+      @include dark-mode() {
         background-color: #686868;
       }
     }
