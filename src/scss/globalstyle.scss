@@ -1,5 +1,6 @@
 @import './fonts.css';
 @import './global-variables.scss';
+@import './global-mixins.scss';
 
 html {
 	-ms-text-size-adjust: 100%;
@@ -15,10 +16,27 @@ html {
 			display: none !important;
 		}
 	}
+	@media (prefers-color-scheme: dark) {
+		&.auto-color-scheme {
+			background-color: $base-black;
+			.mode--light {
+				display: none !important;
+			}
+		}
+	}
 
 	&.light-mode {
+		background-color: $base-white;
 		.mode--dark {
 			display: none !important;
+		}
+	}
+	@media (prefers-color-scheme: light) {
+		&.auto-color-scheme {
+			background-color: $base-white;
+			.mode--dark {
+				display: none !important;
+			}
 		}
 	}
 }
@@ -53,7 +71,7 @@ body {
 	overflow: hidden;
 	transition: background-color 500ms ease;
 
-	html.dark-mode & {
+	@include dark-mode() {
 		background-color: $base-black;
 		color: $base-white;
 	}
