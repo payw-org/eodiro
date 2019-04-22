@@ -63,6 +63,7 @@ export default {
   },
   watch: {
     navTitle: function (newTitle) {
+      this.$el.querySelector('.title').classList.remove('hover')
       if (this.$route.params.buildingID) {
         this.mutateNavTitle = this.generateNavTitle(newTitle)
       } else {
@@ -176,11 +177,6 @@ export default {
       align-items: center;
       justify-content: center;
 
-      html.dark-mode & {
-        background-color: $light-yellow;
-        box-shadow: 0 0.5rem 1.5rem rgba(#000, 0.3);
-      }
-
       @include smaller-than(700px) {
         font-size: 1rem;
         height: 2.3rem;
@@ -194,16 +190,25 @@ export default {
         background-color: $light-green;
         box-shadow: 0 0.5rem 1.5rem rgba($light-green, 0.3);
         border-radius: 50px 0.7rem 0.7rem 50px;
-
-        html.dark-mode & {
-          background-color: $light-red;
-          box-shadow: 0 0.5rem 1.5rem rgba(#000, 0.3);
-        }
       }
 
       &:active {
         background-color: darken($light-green, 8);
         transform: $click-transform;
+      }
+
+      @include dark-mode() {
+        background-color: $light-yellow;
+        box-shadow: 0 0.5rem 1.5rem rgba(#000, 0.3);
+
+        &.hover {
+          background-color: $light-red;
+          box-shadow: 0 0.5rem 1.5rem rgba(#000, 0.3);
+        }
+
+        &:active {
+          background-color: darken($light-red, 8);
+        }
       }
     }
 
