@@ -70,7 +70,7 @@ export default {
   top: 0;
   bottom: 0;
   width: 100%;
-  overflow: auto;
+  overflow: hidden;
 
   .content-item {
     position: absolute;
@@ -80,6 +80,7 @@ export default {
     padding: 10rem 1.5rem 0;
     height: 100%;
     overflow: auto;
+    -webkit-overflow-scrolling: touch;
   
     &.fade-enter-active, &.fade-leave-active {
       transition: all 300ms $eodiro-cb;
