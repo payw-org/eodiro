@@ -66,6 +66,13 @@ export default {
         },
         {
           name: {
+            number: 104,
+            text: '수림과학관'
+          },
+          imgLink: '/assets/images/buildings/104.png'
+        },
+        {
+          name: {
             number: 105,
             text: '제1의학관'
           },
@@ -122,6 +129,20 @@ export default {
         },
         {
           name: {
+            number: 301,
+            text: '중앙문화예술관'
+          },
+          imgLink: '/assets/images/buildings/301.png'
+        },
+        {
+          name: {
+            number: 303,
+            text: '법학관'
+          },
+          imgLink: '/assets/images/buildings/303.png'
+        },
+        {
+          name: {
             number: 310,
             text: '100주년기념관'
           },
@@ -144,6 +165,7 @@ export default {
   padding-top: 20px;
   max-width: 80rem;
   margin: auto;
+  margin-bottom: 5rem;
 
   @include smaller-than(500px) {
     grid-gap: 1.5rem;
@@ -157,6 +179,7 @@ export default {
     opacity: 0;
     transform: translateY(100px);
     will-change: transform, opacity;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
 
     &.appear {
       opacity: 1;
@@ -171,14 +194,14 @@ export default {
     }
 
     &:hover {
-      box-shadow: 0 0 0 5px $light-blue, 0 20px 20px rgba(0,0,0,0.2);
-
-      html.dark-mode & {
-        box-shadow: 0 0 0 5px $light-yellow, 0 20px 20px rgba(0,0,0,0.3);
-      }
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
 
       .building-image {
-        filter: blur(20px);
+        filter: blur(20px) saturate(2);
+        transform: scale(1.1);
+      }
+      .building-name {
+        background-color: rgba(#000, 0.1);
       }
     }
 
@@ -206,8 +229,8 @@ export default {
       width: 100%;
       height: 100%;
       object-fit: cover;
-      filter: blur(0);
-      transition: filter 300ms ease;
+      filter: blur(0) saturate(1.3);
+      transition: all 300ms ease;
     }
 
     .building-name {
@@ -219,11 +242,11 @@ export default {
       bottom: 0;
       padding: 1rem;
       max-height: 100%;
-      // background-image: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0));
       background-color: rgba(#000, 0.3);
       color: #fff;
       font-weight: 700;
       font-size: 1.5rem;
+      transition: background-color 300ms ease;
 
       .name--number, .name--text {
         display: block;
