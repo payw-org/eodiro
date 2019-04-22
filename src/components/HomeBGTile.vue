@@ -26,12 +26,12 @@ export default {
 
     let i, c
     this.interval = setInterval(() => {
-      // let newColorState = this.state.colorState.slice()
-      for (let a = 0; a < 550; a++) {
+      for (let a = 0; a < 30; a++) {
+        i = Math.floor(Math.random() * tileNum);
         c = Math.floor(Math.random() * 9)
-        this.tileStates[a]['className'] = 'color-' + c;
+        this.tileStates[i]['className'] = 'color-' + c;
       }
-    }, 500)
+    }, 30)
   },
   beforeDestroy() {
     clearInterval(this.interval)
