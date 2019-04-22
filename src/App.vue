@@ -12,6 +12,11 @@
 import './scss/globalstyle'
 
 export default {
+  mounted() {
+    window.addEventListener('dragstart', e => {
+      e.preventDefault()
+    })
+  },
   name: 'App',
   watch: {
   }
