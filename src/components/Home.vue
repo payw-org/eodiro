@@ -4,7 +4,7 @@
       appear
       name="zoom"
     >
-      <div class="go-box">
+      <div class="start-box">
         <div class="wrapper">
           <img class="logo mode--light" src="/assets/images/eodiro/logo.svg" alt="" />
           <img class="logo mode--dark" src="/assets/images/eodiro/logo_dark.svg" alt="" />
@@ -46,7 +46,7 @@ export default {
     width: 100%;
   }
 
-  .go-box {
+  .start-box {
     z-index: 7777;
     display: flex;
     align-items: center;
@@ -62,12 +62,18 @@ export default {
     text-align: center;
     overflow: hidden;
     will-change: transform;
-    transition: background-color 500ms ease;
+    transition: all 500ms ease;
 
     $transition-time: 1500ms;
     $cb: cubic-bezier(.24,.49,.01,.99);
 
-    html.dark-mode & {
+    @include smaller-than(700px) {
+      width: 100%;
+      max-width: none;
+      border-radius: 0;
+    }
+
+    @include dark-mode() {
       background-color: #222;
       box-shadow: inset 0 0 0 2px rgba(#000, 0.7), inset 0 0 0 4px rgba(#fff, 0.15);
     }
@@ -79,7 +85,7 @@ export default {
       transition: all $transition-time $cb;
     }
     &.zoom-enter, &.zoom-leave-to {
-      transform: scale(3);
+      // transform: scale(3);
       filter: blur(30px);
       opacity: 0;
     }
@@ -113,9 +119,16 @@ export default {
         transform: $click-transform;
       }
 
-      html.dark-mode & {
+      @include dark-mode() {
         background-color: $light-yellow;
         box-shadow: 0 0.5rem 1.5rem rgba(#000, 0.3);
+
+        &:hover {
+          background-color: darken($light-yellow, 3);
+        }
+        &:active {
+          background-color: darken($light-yellow, 10);
+        }
       }
     }
   }
