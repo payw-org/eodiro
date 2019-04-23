@@ -53,9 +53,9 @@ export default {
     background-color: #fff;
     border-radius: 3rem;
     width: 90%;
-    max-width: 30rem;
+    max-width: 35rem;
     height: 90vh;
-    max-height: 20rem;
+    max-height: 25rem;
     box-shadow: 0 30px 300px rgba(0,0,0,0.2);
     padding: 2rem;
     text-align: center;
@@ -84,7 +84,7 @@ export default {
       transition: all $transition-time $cb;
     }
     &.zoom-enter, &.zoom-leave-to {
-      // transform: scale(3);
+      transform: scale(0.7);
       filter: blur(30px);
       opacity: 0;
     }
