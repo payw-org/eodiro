@@ -6,7 +6,7 @@
         name="fade"
       >
         <keep-alive>
-          <router-view @update-nav-view="updateNavView()"></router-view>
+          <router-view @updateNavView="updateNavView()"></router-view>
         </keep-alive>
       </transition>
     </div>
@@ -42,6 +42,7 @@ export default {
       var currentScrollPos = contentItemElm.scrollTop
       if (
         this.prevScrollpos > currentScrollPos
+        && currentScrollPos < (contentItemElm.scrollHeight - contentItemElm.clientHeight)
       ) {
         this.isNavHidden = false
       } else if (currentScrollPos > 0) {
@@ -65,33 +66,45 @@ export default {
 <style lang="scss">
 @import '../scss/global-variables.scss';
 
-.ea-content {
-  position: absolute;
+#eodiro-app {
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   bottom: 0;
-  width: 100%;
   overflow: hidden;
 
-  .content-item {
+  .ea-content {
     position: absolute;
-    left: 0;
     top: 0;
+    bottom: 0;
     width: 100%;
-    padding-top: 10rem;
-    height: 100%;
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
+    overflow: hidden;
   
-    &.fade-enter-active, &.fade-leave-active {
-      transition: all 300ms $eodiro-cb;
-      opacity: 1;
-      position: absolute;
-      width: 100%;
+    .content-item {
+      position: fixed;
       top: 0;
+      right: 0;
+      bottom: 0;
       left: 0;
-    }
-    &.fade-enter, &.fade-leave-to {
-      opacity: 0;
+      width: 100%;
+      padding-top: 10rem;
+      height: 100%;
+      overflow-x: hidden;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+    
+      &.fade-enter-active, &.fade-leave-active {
+        transition: all 300ms $eodiro-cb;
+        opacity: 1;
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+      }
+      &.fade-enter, &.fade-leave-to {
+        opacity: 0;
+      }
     }
   }
 }
