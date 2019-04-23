@@ -3,7 +3,7 @@
     <transition
       name="fade"
     >
-      <router-view></router-view>
+      <router-view @changeColorScheme="toggleColorScheme()"></router-view>
     </transition>
   </div>
 </template>
@@ -43,6 +43,22 @@ export default {
     updateColorScheme(scheme) {
       window.localStorage.setItem('colorScheme', scheme)
       this.setColorScheme()
+    },
+    toggleColorScheme() {
+      let defaultColorScheme = window.localStorage.getItem('colorScheme')
+      if (!defaultColorScheme) {
+        defaultColorScheme = 'light'
+        window.localStorage.setItem('colorScheme', defaultColorScheme)
+      }
+
+      let newColorScheme
+      if (defaultColorScheme === 'light') {
+        newColorScheme = 'dark'
+      } else if (defaultColorScheme === 'dark') {
+        newColorScheme = 'light'
+      }
+
+      this.updateColorScheme(newColorScheme)
     }
   },
   name: 'App',
@@ -50,3 +66,14 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+#app {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+</style>
+
