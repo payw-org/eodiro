@@ -5,8 +5,10 @@
         <div class="building">
           <img :src="building.imgLink" alt="" class="building-image">
           <div class="building-name">
-            <span class="name--number">{{ building.name.number }}</span>
-            <span class="name--text">{{ building.name.text }}</span>
+            <div class="wrapper">
+              <span class="name--number">{{ building.name.number }}</span>
+              <span class="name--text">{{ building.name.text }}</span>
+            </div>
           </div>
         </div>
       </router-link>
@@ -158,17 +160,21 @@ export default {
 @import '../scss/global-variables.scss';
 @import '../scss/global-mixins.scss';
 
+$width-threshold: 500px;
+
 .building-container {
   display: grid;
   grid-gap: 3rem 2.5rem;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   padding-top: 20px;
+  width: calc(100% - 6rem);
   max-width: 80rem;
   margin: auto;
   margin-bottom: 5rem;
 
-  @include smaller-than(500px) {
-    grid-gap: 1.5rem;
+  @include smaller-than($width-threshold) {
+    grid-gap: 1rem;
+    width: 100%;
   }
 
   .building {
@@ -181,11 +187,15 @@ export default {
     will-change: transform, opacity;
     box-shadow: 0 5px 10px rgba(0,0,0,0.2);
 
+    @include smaller-than($width-threshold) {
+      border-radius: 0;
+    }
+
     &.appear {
       opacity: 1;
       transform: translateY(0);
       transition: all 1000ms $eodiro-cb;
-      pointer-events: none;
+      // pointer-events: none;
 
       &.done {
         transition: $smooth-transition;
@@ -194,12 +204,12 @@ export default {
     }
 
     &:hover {
-      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+      // box-shadow: 0 0 0 5px $light-blue, 0 15px 30px rgba(0,0,0,0.3);
 
-      .building-image {
-        filter: blur(20px) saturate(2);
-        transform: scale(1.1);
+      @include dark-mode() {
+        // box-shadow: 0 0 0 5px $light-yellow, 0 15px 30px rgba(0,0,0,0.3);
       }
+
       .building-name {
         background-color: rgba(#000, 0.1);
       }
@@ -208,6 +218,10 @@ export default {
     &:active {
       transform: scale(0.95);
       box-shadow: none;
+
+      @include smaller-than($width-threshold) {
+        transform: none;
+      }
     }
 
     &::before {
@@ -218,7 +232,7 @@ export default {
 
     @include smaller-than(500px) {
       &::before {
-        padding-top: 45%;
+        padding-top: 35%;
       }
     }
 
@@ -234,6 +248,9 @@ export default {
     }
 
     .building-name {
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-end;
       position: absolute;
       text-align: right;
       left: 0;
@@ -263,6 +280,25 @@ export default {
         font-weight: 500;
         line-height: 1.2;
         margin-top: 0.1rem;
+      }
+
+      @include smaller-than($width-threshold) {
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+
+        .name--number {
+          font-size: 2.5rem;
+          line-height: 1;
+          font-family: $font-display;
+        }
+        
+        .name--text {
+          font-size: 1rem;
+          font-weight: 500;
+          line-height: 1.2;
+          margin-top: 0.1rem;
+        }
       }
     }
   }
