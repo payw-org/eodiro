@@ -77,7 +77,7 @@ export default {
     left: 0;
     top: 0;
     width: 100%;
-    padding: 10rem 1.5rem 0;
+    padding-top: 10rem;
     height: 100%;
     overflow: auto;
     -webkit-overflow-scrolling: touch;
