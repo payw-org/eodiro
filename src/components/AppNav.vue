@@ -29,26 +29,25 @@ export default {
   mounted() {
     this.titleElm = this.$el.querySelector('.title')
 
-    ;['mouseenter', 'touchstart'].forEach(eventName => {
-      this.titleElm.addEventListener(eventName, e => {
-        this.mutateNavTitle = this.goBackTitle
-        this.titleElm.classList.add('hover')
-      })
-    })
-    
-    this.titleElm.addEventListener('click', e => {
-      this.titleElm.classList.remove('hover')
-    })
+    // ;['mouseenter', 'touchstart'].forEach(eventName => {
+    //   this.titleElm.addEventListener(eventName, e => {
+    //     this.mutateNavTitle = this.goBackTitle
+    //     this.titleElm.classList.add('hover')
+    //   })
+    // })
 
-    ;['mouseleave', 'touchend'].forEach(eventName => {
-      this.titleElm.addEventListener(eventName, e => {
-        this.mutateNavTitle = this.generateNavTitle(this.navTitle)
-        this.titleElm.classList.remove('hover')
-      })
-    })
+    // ;['mouseleave', 'touchend'].forEach(eventName => {
+    //   this.titleElm.addEventListener(eventName, e => {
+    //     this.mutateNavTitle = this.generateNavTitle(this.navTitle)
+    //     this.titleElm.classList.remove('hover')
+    //   })
+    // })
+    
+    // this.titleElm.addEventListener('click', e => {
+    //   this.titleElm.classList.remove('hover')
+    // })
 
     window.addEventListener('resize', e => {
-      this.mutateNavTitle = this.generateNavTitle(this.navTitle)
       this.transformTitleWidth(this.titleElm.clientWidth, this.getNewWidth(this.mutateNavTitle))
     })
   },
@@ -57,6 +56,7 @@ export default {
     return {
       originalWidth: 0,
       goBackTitle: '← Go back',
+      goBackTimeout: undefined,
       titleElm: undefined,
       mutateNavTitle: undefined
     }
@@ -69,6 +69,11 @@ export default {
       } else {
         this.mutateNavTitle = newTitle
       }
+      window.clearTimeout(this.goBackTimeout)
+      this.goBackTimeout = setTimeout(() => {
+        this.titleElm.classList.add('hover')
+        this.mutateNavTitle = this.goBackTitle
+      }, 1500)
     },
     mutateNavTitle: function (newTitle, oldTitle) {
       this.transformTitleWidth(this.titleElm.clientWidth, this.getNewWidth(newTitle))
@@ -169,7 +174,7 @@ export default {
       padding: 0 1.4rem;
       text-align: center;
       margin: 0 1rem;
-      transition: transform 700ms $eodiro-cb, width 700ms $eodiro-cb, border-radius 700ms $eodiro-cb, background-color 200ms ease;
+      transition: all 700ms $eodiro-cb;
       background-color: $light-blue;
       box-shadow: 0 0.5rem 1.5rem rgba($light-blue, 0.3);
       overflow: hidden;
@@ -190,10 +195,13 @@ export default {
         background-color: $light-green;
         box-shadow: 0 0.5rem 1.5rem rgba($light-green, 0.3);
         border-radius: 50px 0.7rem 0.7rem 50px;
+
+        &:active {
+          background-color: darken($light-green, 15%);
+        }
       }
 
       &:active {
-        background-color: darken($light-green, 8);
         transform: $click-transform;
       }
 
@@ -204,10 +212,10 @@ export default {
         &.hover {
           background-color: $light-red;
           box-shadow: 0 0.5rem 1.5rem rgba(#000, 0.3);
-        }
 
-        &:active {
-          background-color: darken($light-red, 8);
+          &:active {
+            background-color: lighten($light-red, 15%);
+          }
         }
       }
     }
