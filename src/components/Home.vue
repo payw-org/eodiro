@@ -31,15 +31,14 @@ export default {
 @import '../scss/global-mixins.scss';
 
 #home {
+  position: fixed;
+  left: 0;
+  top: 0;
   width: 100%;
   height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  // background-color: #fff;
-  position: absolute;
-  left: 0;
-  top: 0;
   overflow: hidden;
 
   .wrapper {
@@ -94,7 +93,12 @@ export default {
       width: 90%;
       max-width: 15rem;
       margin: auto;
+      padding-top: 1rem;
       display: block;
+
+      @include smaller-than(500px) {
+        max-width: 12rem;
+      }
     }
 
     .go-btn {
@@ -111,11 +115,8 @@ export default {
       box-shadow: 0 0.5rem 1.5rem rgba($light-blue, 0.3);
       transition: $smooth-transition;
 
-      &:hover {
-        background-color: darken($light-blue, 3);
-      }
       &:active {
-        background-color: darken($light-blue, 10);
+        background-color: darken($light-blue, 15);
         transform: $click-transform;
       }
 
@@ -123,11 +124,8 @@ export default {
         background-color: $light-yellow;
         box-shadow: 0 0.5rem 1.5rem rgba(#000, 0.3);
 
-        &:hover {
-          background-color: darken($light-yellow, 3);
-        }
         &:active {
-          background-color: darken($light-yellow, 10);
+          background-color: lighten($light-yellow, 15);
         }
       }
     }
