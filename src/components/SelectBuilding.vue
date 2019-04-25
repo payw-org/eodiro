@@ -177,7 +177,7 @@ $width-threshold: 500px;
   .building {
     position: relative;
     background-color: transparent;
-    border-radius: 0.6rem;
+    border-radius: 1rem;
     overflow: hidden;
     opacity: 0;
     transform: translateY(100px);
