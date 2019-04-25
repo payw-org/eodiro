@@ -5,9 +5,16 @@
       name="zoom"
     >
       <div class="start-box">
+        <button class="toggle-color-scheme" @click="$emit('changeColorScheme')">Dark ↔ Light</button>
         <div class="wrapper">
-          <img class="logo mode--light" src="/assets/images/eodiro/logo.svg" alt="" />
-          <img class="logo mode--dark" src="/assets/images/eodiro/logo_dark.svg" alt="" />
+          <div class="desktop">
+            <img class="logo mode--light" src="/assets/images/eodiro/logo.svg" alt="" />
+            <img class="logo mode--dark" src="/assets/images/eodiro/logo_dark.svg" alt="" />
+          </div>
+          <div class="mobile">
+            <img class="logo mode--light" src="/assets/images/eodiro/app-icon.png" alt="" />
+            <img class="logo mode--dark" src="/assets/images/eodiro/app-icon_dark.png" alt="" />
+          </div>
           <router-link to="/buildings"><button class="go-btn">Start</button></router-link>
         </div>
       </div>
@@ -53,28 +60,29 @@ export default {
     background-color: #fff;
     border-radius: 3rem;
     width: 90%;
-    max-width: 35rem;
-    height: 90vh;
-    max-height: 25rem;
+    max-width: 30rem;
+    height: 90%;
+    max-height: 22rem;
     box-shadow: 0 30px 300px rgba(0,0,0,0.2);
     padding: 2rem;
     text-align: center;
     overflow: hidden;
     will-change: transform;
     transition: all 500ms ease;
+    position: relative;
 
     $transition-time: 1500ms;
     $cb: cubic-bezier(.24,.49,.01,.99);
 
-    @include smaller-than(700px) {
-      width: 100%;
-      max-width: none;
-      border-radius: 0;
-    }
-
     @include dark-mode() {
       background-color: #222;
       box-shadow: inset 0 0 0 2px rgba(#000, 0.7), inset 0 0 0 4px rgba(#fff, 0.15);
+    }
+
+    @include smaller-than(700px) {
+      width: 100%;
+      background-color: transparent !important;
+      box-shadow: none !important;
     }
 
     &.zoom-enter-active, &.zoom-leave-active {
@@ -89,14 +97,55 @@ export default {
       opacity: 0;
     }
 
+    .toggle-color-scheme {
+      background-color: #f4f4f4;
+      padding: 0.5rem 0.8rem;
+      border-radius: 50px;
+      font-family: $font-text;
+      font-size: 0.7rem;
+      position: absolute;
+      left: 50%;
+      bottom: 1rem;
+      transform: translateX(-50%);
+      transition: all 200ms ease;
+
+      &:active {
+        color: inherit;
+        background-color: darken(#f4f4f4, 10);
+      }
+
+      @include dark-mode() {
+        color: $base-white;
+        background-color: #444;
+
+        &:active {
+          background-color: lighten(#444, 10);
+        }
+      }
+    }
+
+    .mobile {
+      display: none;
+      margin-top: -5rem;
+
+      @include smaller-than(700px) {
+        display: block;
+      }
+    }
+
+    @include smaller-than(700px) {
+      .desktop {
+        display: none;
+      }
+    }
+
     .logo {
       width: 90%;
       max-width: 15rem;
       margin: auto;
-      padding-top: 1rem;
       display: block;
 
-      @include smaller-than(500px) {
+      @include smaller-than(700px) {
         max-width: 12rem;
       }
     }
@@ -118,6 +167,10 @@ export default {
       &:active {
         background-color: darken($light-blue, 15);
         transform: $click-transform;
+      }
+
+      @include smaller-than(700px) {
+        margin-top: 0;
       }
 
       @include dark-mode() {
