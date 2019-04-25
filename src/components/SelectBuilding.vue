@@ -1,9 +1,8 @@
 <template>
-  <div class="content-item select-building" @scroll="$emit('update-nav-view')">
+  <div class="content-item select-building">
     <div class="building-container">
       <router-link v-for="(building, index) in buildings" :key="index" :to="'/buildings/' + building.name.number">
         <div class="building">
-          <img :src="building.imgLink" alt="" class="building-image">
           <div class="building-name">
             <div class="wrapper">
               <span class="name--number">{{ building.name.number }}</span>
@@ -21,7 +20,19 @@ export default {
   methods: {
   },
   mounted() {
-    
+    let buildings = this.$el.querySelectorAll('.building')
+    let data = []
+    buildings.forEach(building => {
+      let colorCode
+      while (1) {
+        colorCode = Math.floor(Math.random() * 76) + 1
+        if (data[colorCode] === undefined) {
+          data[colorCode] = 1
+          break
+        }
+      }
+      building.classList.add('gradient--' + colorCode)
+    })
   },
   activated() {
     let buildings = this.$el.querySelectorAll('.building')
@@ -49,106 +60,91 @@ export default {
           name: {
             number: 101,
             text: '영신관'
-          },
-          imgLink: '/assets/images/buildings/101.png'
+          }
         },
         {
           name: {
             number: 102,
             text: '약학대학 및 R&D센터'
-          },
-          imgLink: '/assets/images/buildings/102.png'
+          }
         },
         {
           name: {
             number: 103,
             text: '파이퍼홀'
-          },
-          imgLink: '/assets/images/buildings/103.png'
+          }
         },
         {
           name: {
             number: 104,
             text: '수림과학관'
-          },
-          imgLink: '/assets/images/buildings/104.png'
+          }
         },
         {
           name: {
             number: 105,
             text: '제1의학관'
-          },
-          imgLink: '/assets/images/buildings/105.png'
+          }
         },
         {
           name: {
             number: 106,
             text: '제2의학관'
-          },
-          imgLink: '/assets/images/buildings/106.png'
+          }
         },
         {
           name: {
             number: 107,
             text: '학생회관'
-          },
-          imgLink: '/assets/images/buildings/107.png'
+          }
         },
         {
           name: {
             number: 201,
             text: '본관'
-          },
-          imgLink: '/assets/images/buildings/201.png'
+          }
         },
         {
           name: {
             number: 203,
             text: '서라벌호'
-          },
-          imgLink: '/assets/images/buildings/203.png'
+          }
         },
         {
           name: {
             number: 207,
             text: '봅스트홀'
-          },
-          imgLink: '/assets/images/buildings/207.png'
+          }
         },
         {
           name: {
             number: 208,
             text: '제2공학관'
-          },
-          imgLink: '/assets/images/buildings/208.png'
+          }
         },
         {
           name: {
             number: 209,
             text: '창업보육관'
-          },
-          imgLink: '/assets/images/buildings/209.png'
+          }
         },
         {
           name: {
             number: 301,
             text: '중앙문화예술관'
-          },
-          imgLink: '/assets/images/buildings/301.png'
+          }
         },
         {
           name: {
             number: 303,
             text: '법학관'
-          },
-          imgLink: '/assets/images/buildings/303.png'
+          }
         },
         {
           name: {
             number: 310,
             text: '100주년기념관'
-          },
-          imgLink: '/assets/images/buildings/310.png'
+          }
         }
       ]
     }
@@ -159,21 +155,22 @@ export default {
 <style lang="scss">
 @import '../scss/global-variables.scss';
 @import '../scss/global-mixins.scss';
+@import '../scss/gradients.scss';
 
 $width-threshold: 500px;
 
 .building-container {
   display: grid;
   grid-gap: 3rem 2.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
   padding-top: 20px;
   width: calc(100% - 6rem);
   max-width: 80rem;
   margin: auto;
-  margin-bottom: 5rem;
+  padding-bottom: 10rem;
 
   @include smaller-than($width-threshold) {
-    grid-gap: 1rem;
+    grid-gap: 0.5rem;
     width: 100%;
   }
 
@@ -189,6 +186,7 @@ $width-threshold: 500px;
 
     @include smaller-than($width-threshold) {
       border-radius: 0;
+      box-shadow: none;
     }
 
     &.appear {
@@ -200,18 +198,6 @@ $width-threshold: 500px;
       &.done {
         transition: $smooth-transition;
         pointer-events: all;
-      }
-    }
-
-    &:hover {
-      // box-shadow: 0 0 0 5px $light-blue, 0 15px 30px rgba(0,0,0,0.3);
-
-      @include dark-mode() {
-        // box-shadow: 0 0 0 5px $light-yellow, 0 15px 30px rgba(0,0,0,0.3);
-      }
-
-      .building-name {
-        background-color: rgba(#000, 0.1);
       }
     }
 
@@ -236,21 +222,11 @@ $width-threshold: 500px;
       }
     }
 
-    .building-image {
-      position: absolute;
-      left: 0;
-      top: 0;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      filter: blur(0) saturate(1.3);
-      transition: all 300ms ease;
-    }
-
     .building-name {
       display: flex;
       align-items: flex-start;
       justify-content: flex-end;
+      text-shadow: 0 3px 15px rgba(0,0,0,0.15);
       position: absolute;
       text-align: right;
       left: 0;
@@ -259,8 +235,7 @@ $width-threshold: 500px;
       bottom: 0;
       padding: 1rem;
       max-height: 100%;
-      background-color: rgba(#000, 0.3);
-      color: #fff;
+      color: $base-white;
       font-weight: 700;
       font-size: 1.5rem;
       transition: background-color 300ms ease;
