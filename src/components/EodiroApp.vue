@@ -72,12 +72,17 @@ export default {
 
 <style lang="scss">
 @import '../scss/global-variables.scss';
+@import '../scss/global-mixins.scss';
 
 #eodiro-app {
   .ea-content {  
     .content-item {
       padding-top: 10rem;
       display: block;
+
+      @include smaller-than($mobile-width-threshold) {
+        padding-top: 7rem;
+      }
     
       &.fade-enter-active, &.fade-leave-active {
         transition: all 300ms ease;
