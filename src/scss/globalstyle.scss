@@ -1,12 +1,43 @@
 @import './fonts.css';
 @import './global-variables.scss';
+@import './global-mixins.scss';
 
 html {
 	-ms-text-size-adjust: 100%;
 	-webkit-text-size-adjust: 100%;
 	-webkit-font-smoothing: antialiased;
 	font-size: 100%;
-	background-color: #fbfbfc;
+	background-color: $base-white;
+
+	&.dark-mode {
+		background-color: $base-black;
+		.mode--light {
+			display: none !important;
+		}
+	}
+	@media (prefers-color-scheme: dark) {
+		&.auto-color-scheme {
+			background-color: $base-black;
+			.mode--light {
+				display: none !important;
+			}
+		}
+	}
+
+	&.light-mode {
+		background-color: $base-white;
+		.mode--dark {
+			display: none !important;
+		}
+	}
+	@media (prefers-color-scheme: light) {
+		&.auto-color-scheme {
+			background-color: $base-white;
+			.mode--dark {
+				display: none !important;
+			}
+		}
+	}
 }
 
 @media only screen and (min-width: 700px) {
@@ -30,11 +61,17 @@ body {
 	padding: 0;
 	word-wrap: break-word;
 	word-break: keep-all;
-	background-color: #fbfbfc;
+	background-color: $base-white;
 	font-size: 17px;
 	color: $base-black;
 	user-select: none;
 	cursor: default;
+	transition: background-color 500ms ease;
+
+	@include dark-mode() {
+		background-color: $base-black;
+		color: $base-white;
+	}
 }
 
 * {
@@ -43,6 +80,12 @@ body {
 	box-sizing: border-box;
 	outline: none;
 	cursor: default;
+	-webkit-tap-highlight-color: transparent;
+}
+
+a {
+	text-decoration: none;
+	color: inherit;
 }
 
 button {
@@ -64,17 +107,6 @@ button.go-back {
 	background-position: center;
 	background-color: transparent;
 	transition: $smooth-transition;
-	// filter: brightness(1);
-
-	&:hover {
-		// filter: brightness(0.7);
-		transform: translateX(-0.25rem);
-	}
-
-	&:active {
-		// filter: brightness(0);
-		transform: translateX(-0.25rem) $click-transform;
-	}
 }
 
 .eodiro-app {
@@ -114,18 +146,10 @@ button.go-back {
 	}
 }
 
-.example-enter {
-	transform: translateY(-100%);
+.fade-enter-active, .fade-leave-active {
+	transition: all 300ms ease;
+	opacity: 1;
 }
-.example-enter.example-enter-active {
-	transform: translateY(0);
-	transition: transform 500ms ease;
-	// transition-delay: 500ms;
-}
-.example-exit {
-	transform: translateY(0);
-}
-.example-exit.example-exit-active {
-	transform: translateY(-100%);
-	transition: transform 500ms ease;
+.fade-enter, .fade-leave-to {
+	opacity: 0;
 }

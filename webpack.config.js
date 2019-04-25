@@ -1,6 +1,8 @@
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+
 module.exports = {
 	entry: {
-		'eodiro.app': ['./src/index.js']
+		'eodiro.app': ['./src/main.js']
 	},
 	mode: 'development',
 	devtool: 'inline-source-map',
@@ -9,10 +11,17 @@ module.exports = {
 		filename: '[name].built.js'
 	},
 	resolve: {
-		extensions: ['.js', '.ts', '.scss']
+		extensions: ['.js', '.ts', '.scss', '.vue'],
+		alias: {
+			vue$: 'vue/dist/vue.esm.js'
+		}
 	},
 	module: {
 		rules: [
+			{
+        test: /\.vue$/,
+        loader: 'vue-loader'
+      },
 			{
 				test: [/\.js$/],
 				exclude: /(node_modules|bower_components)/,
@@ -45,5 +54,8 @@ module.exports = {
 				]
 			}
 		]
-	}
+	},
+	plugins: [
+    new VueLoaderPlugin()
+  ]
 }
