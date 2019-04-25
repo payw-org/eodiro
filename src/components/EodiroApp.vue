@@ -4,9 +4,10 @@
     <div class="ea-content">
       <transition
         name="fade"
+        mode="out-in"
       >
         <keep-alive>
-          <router-view @updateNavView="updateNavView()"></router-view>
+          <router-view></router-view>
         </keep-alive>
       </transition>
     </div>
@@ -27,28 +28,34 @@ export default {
   },
   mounted() {
     this.setNavData()
+    window.addEventListener('scroll', e => {
+      this.updateNavView()
+    })
   },
   data () {
     return {
       navTitle: '',
       backLink: '/',
-      prevScrollpos: undefined,
-      isNavHidden: false
+      isNavHidden: false,
+      lastScrollTop: 0,
+      threshold: window.scrollY
     }
   },
   methods: {
     updateNavView() {
-      let contentItemElm = this.$el.querySelector('.content-item')
-      var currentScrollPos = contentItemElm.scrollTop
-      if (
-        this.prevScrollpos > currentScrollPos
-        && currentScrollPos < (contentItemElm.scrollHeight - contentItemElm.clientHeight)
-      ) {
-        this.isNavHidden = false
-      } else if (currentScrollPos > 0) {
-        this.isNavHidden = true
+      let st = window.scrollY
+      if (st > this.threshold + 100 && st > 0) {
+        if (!this.isNavHidden) {
+          this.isNavHidden = true
+        }
       }
-      this.prevScrollpos = currentScrollPos
+      if (st < this.lastScrollTop) {
+        this.threshold = st
+        if (this.isNavHidden) {
+          this.isNavHidden = false
+        }
+      }
+      this.lastScrollTop = st
     },
     setNavData () {
       if (this.$route.params.hasOwnProperty('buildingID')) {
@@ -67,43 +74,18 @@ export default {
 @import '../scss/global-variables.scss';
 
 #eodiro-app {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
-
-  .ea-content {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 100%;
-    overflow: hidden;
-  
+  .ea-content {  
     .content-item {
-      position: fixed;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      width: 100%;
       padding-top: 10rem;
-      height: 100%;
-      overflow-x: hidden;
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
+      display: block;
     
       &.fade-enter-active, &.fade-leave-active {
-        transition: all 300ms $eodiro-cb;
-        opacity: 1;
-        position: absolute;
-        width: 100%;
-        top: 0;
-        left: 0;
+        transition: all 300ms ease;
+        // opacity: 1;
       }
       &.fade-enter, &.fade-leave-to {
         opacity: 0;
+        // transform: translateX(-30%);
       }
     }
   }
