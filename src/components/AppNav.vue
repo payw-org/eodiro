@@ -132,6 +132,10 @@ export default {
     max-width: 80rem;
     margin: auto;
 
+    @include smaller-than($mobile-width-threshold) {
+      padding-top: 3rem;
+    }
+
     .title {
       position: relative;
       height: 3rem;
@@ -153,7 +157,7 @@ export default {
       align-items: center;
       justify-content: center;
 
-      @include smaller-than(700px) {
+      @include smaller-than($mobile-width-threshold) {
         font-size: 1rem;
         height: 2.3rem;
       }
