@@ -9,11 +9,10 @@
       }"
     >
       <div class="an-container">
-        <!-- <router-link :to="backLink"><button class="go-back"></button></router-link> -->
         <div class="dummy"></div>
         <router-link :to="backLink">
           <h1 class="title">
-            <transition name="slide-fade">
+            <transition name="fade">
               <span class="text" :key="mutateNavTitle">{{ mutateNavTitle }}</span>
             </transition>
           </h1>
@@ -28,24 +27,6 @@
 export default {
   mounted() {
     this.titleElm = this.$el.querySelector('.title')
-
-    // ;['mouseenter', 'touchstart'].forEach(eventName => {
-    //   this.titleElm.addEventListener(eventName, e => {
-    //     this.mutateNavTitle = this.goBackTitle
-    //     this.titleElm.classList.add('hover')
-    //   })
-    // })
-
-    // ;['mouseleave', 'touchend'].forEach(eventName => {
-    //   this.titleElm.addEventListener(eventName, e => {
-    //     this.mutateNavTitle = this.generateNavTitle(this.navTitle)
-    //     this.titleElm.classList.remove('hover')
-    //   })
-    // })
-    
-    // this.titleElm.addEventListener('click', e => {
-    //   this.titleElm.classList.remove('hover')
-    // })
 
     window.addEventListener('resize', e => {
       this.transformTitleWidth(this.titleElm.clientWidth, this.getNewWidth(this.mutateNavTitle))
@@ -120,7 +101,7 @@ export default {
 
   will-change: transform;
   z-index: 9999;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
@@ -150,16 +131,6 @@ export default {
     width: calc(100% - 3rem);
     max-width: 80rem;
     margin: auto;
-
-    $go-back-width: 2rem;
-
-    .go-back {
-      width: $go-back-width;
-
-      @include smaller-than(700px) {
-        width: $go-back-width/1.2;
-      }
-    }
 
     .title {
       position: relative;
@@ -218,10 +189,6 @@ export default {
           }
         }
       }
-    }
-
-    .dummy {
-      width: $go-back-width;
     }
   }
 }
