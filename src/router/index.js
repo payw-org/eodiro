@@ -33,5 +33,10 @@ export default new VueRouter({
       path: '*',
       component: NotFound
     }
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    }
+  }
 })
