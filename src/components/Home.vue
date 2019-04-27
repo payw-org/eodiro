@@ -111,8 +111,8 @@ export default {
 
       &:active {
         color: inherit;
-        background-color: darken(#f4f4f4, 10);
-        transition: none;
+        // background-color: darken(#f4f4f4, 10);
+        // transition: none;
       }
 
       @include dark-mode() {
@@ -120,7 +120,7 @@ export default {
         background-color: #444;
 
         &:active {
-          background-color: lighten(#444, 10);
+          // background-color: lighten(#444, 10);
         }
       }
     }
