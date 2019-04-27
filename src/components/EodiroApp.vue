@@ -30,7 +30,9 @@ export default {
   mounted() {
     this.setNavData()
     window.addEventListener('scroll', e => {
-      this.updateNavView()
+      if (this.$route.name !== 'floors') {
+        this.updateNavView()
+      }
     })
   },
   props: [
@@ -63,13 +65,13 @@ export default {
     },
     setNavData () {
       if (this.$route.name === 'buildings') {
-        this.navTitle = 'Select a building'
+        this.navTitle = '건물을 선택하세요'
         this.backLink = '/'
       } else if (this.$route.name === 'floors') {
-        this.navTitle = 'Select a floor from '
+        this.navTitle = '원하는 층을 선택하세요'
         this.backLink = '/buildings'
       } else if (this.$route.name === 'result') {
-        this.navTitle = 'Good luck'
+        this.navTitle = '검색결과입니다'
         this.backLink = '/buildings/' + this.$route.params.buildingID + '/floors'
       }
     }
