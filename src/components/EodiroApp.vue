@@ -1,13 +1,15 @@
 <template>
   <div id="eodiro-app">
-    <AppNav :navTitle="navTitle" :backLink="backLink" :isHidden="isNavHidden"/>
+    <AppNav :nav-title="navTitle" :back-link="backLink" :is-hidden="isNavHidden"/>
     <div class="ea-content">
       <transition
         name="fade"
         mode="out-in"
       >
         <keep-alive>
-          <router-view></router-view>
+          <router-view
+            :is-right-direction="isRightDirection"
+          ></router-view>
         </keep-alive>
       </transition>
     </div>
@@ -20,9 +22,8 @@ import AppNav from './AppNav'
 export default {
   components: { AppNav },
   watch: {
-    $route () {
+    $route (to, from) {
       this.setNavData()
-      this.$el.querySelector('.content-item').scrollTop
       this.isNavHidden = false
     }
   },
@@ -32,6 +33,9 @@ export default {
       this.updateNavView()
     })
   },
+  props: [
+    'isRightDirection'
+  ],
   data () {
     return {
       navTitle: '',
@@ -58,12 +62,15 @@ export default {
       this.lastScrollTop = st
     },
     setNavData () {
-      if (this.$route.params.hasOwnProperty('buildingID')) {
-        this.navTitle = 'Select a floor from '
-        this.backLink = '/buildings'
-      } else {
+      if (this.$route.name === 'buildings') {
         this.navTitle = 'Select a building'
         this.backLink = '/'
+      } else if (this.$route.name === 'floors') {
+        this.navTitle = 'Select a floor from '
+        this.backLink = '/buildings'
+      } else if (this.$route.name === 'result') {
+        this.navTitle = 'Good luck'
+        this.backLink = '/buildings/' + this.$route.params.buildingID + '/floors'
       }
     }
   }
@@ -72,12 +79,17 @@ export default {
 
 <style lang="scss">
 @import '../scss/global-variables.scss';
+@import '../scss/global-mixins.scss';
 
 #eodiro-app {
   .ea-content {  
     .content-item {
-      padding-top: 10rem;
+      padding-top: 11.3rem;
       display: block;
+
+      @include smaller-than($mobile-width-threshold) {
+        padding-top: 8.5rem;
+      }
     
       &.fade-enter-active, &.fade-leave-active {
         transition: all 300ms ease;

@@ -45,7 +45,7 @@ export default {
   watch: {
     navTitle: function (newTitle) {
       this.$el.querySelector('.title').classList.remove('hover')
-      if (this.$route.params.buildingID) {
+      if (this.$route.name === 'floors') {
         this.mutateNavTitle = this.generateNavTitle(newTitle)
       } else {
         this.mutateNavTitle = newTitle
@@ -132,7 +132,12 @@ export default {
     max-width: 80rem;
     margin: auto;
 
+    @include smaller-than($mobile-width-threshold) {
+      padding-top: 3rem;
+    }
+
     .title {
+      cursor: pointer;
       position: relative;
       height: 3rem;
       text-align: center;
@@ -153,13 +158,18 @@ export default {
       align-items: center;
       justify-content: center;
 
-      @include smaller-than(700px) {
+      @include smaller-than($mobile-width-threshold) {
         font-size: 1rem;
         height: 2.3rem;
       }
 
       .text {
         position: absolute;
+      }
+
+      &:active {
+        transition: none;
+        background-color: darken($light-blue, 15%);
       }
 
       &.hover {
@@ -172,13 +182,14 @@ export default {
         }
       }
 
-      &:active {
-        transform: $click-transform;
-      }
-
       @include dark-mode() {
         background-color: $light-yellow;
         box-shadow: 0 0.5rem 1.5rem rgba(#000, 0.3);
+
+        &:active {
+          transition: none;
+          background-color: lighten($light-yellow, 15%);
+        }
 
         &.hover {
           background-color: $light-red;

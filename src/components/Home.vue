@@ -12,10 +12,10 @@
             <img class="logo mode--dark" src="/assets/images/eodiro/logo_dark.svg" alt="" />
           </div>
           <div class="mobile">
-            <img class="logo mode--light" src="/assets/images/eodiro/app-icon.png" alt="" />
-            <img class="logo mode--dark" src="/assets/images/eodiro/app-icon_dark.png" alt="" />
+            <img class="logo" src="/assets/images/eodiro/app-icon.png" alt="" />
+            <!-- <img class="logo mode--dark" src="/assets/images/eodiro/app-icon_dark.png" alt="" /> -->
           </div>
-          <router-link to="/buildings"><button class="go-btn">Start</button></router-link>
+          <router-link to="/buildings"><button class="go-btn eodiro-btn">Start</button></router-link>
         </div>
       </div>
     </transition>
@@ -68,7 +68,7 @@ export default {
     text-align: center;
     overflow: hidden;
     will-change: transform;
-    transition: all 500ms ease;
+    transition: all 1000ms ease;
     position: relative;
 
     $transition-time: 1500ms;
@@ -76,7 +76,7 @@ export default {
 
     @include dark-mode() {
       background-color: #222;
-      box-shadow: inset 0 0 0 2px rgba(#000, 0.7), inset 0 0 0 4px rgba(#fff, 0.15);
+      box-shadow: 0 30px 300px rgba(0,0,0,0.8), $dark-mode-border-shadow;
     }
 
     @include smaller-than(700px) {
@@ -112,6 +112,7 @@ export default {
       &:active {
         color: inherit;
         background-color: darken(#f4f4f4, 10);
+        transition: none;
       }
 
       @include dark-mode() {
@@ -151,35 +152,10 @@ export default {
     }
 
     .go-btn {
-      background-color: $light-blue;
-      border-radius: 50px;
-      padding: 0.5rem;
-      font-family: $font-text;
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: #fff;
-      width: 100%;
-      max-width: 6rem;
       margin-top: 2rem;
-      box-shadow: 0 0.5rem 1.5rem rgba($light-blue, 0.3);
-      transition: $smooth-transition;
-
-      &:active {
-        background-color: darken($light-blue, 15);
-        transform: $click-transform;
-      }
 
       @include smaller-than(700px) {
         margin-top: 0;
-      }
-
-      @include dark-mode() {
-        background-color: $light-yellow;
-        box-shadow: 0 0.5rem 1.5rem rgba(#000, 0.3);
-
-        &:active {
-          background-color: lighten($light-yellow, 15);
-        }
       }
     }
   }

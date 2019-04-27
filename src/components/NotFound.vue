@@ -5,18 +5,24 @@
         <img class="app-icon" src="/assets/images/eodiro/eodiro_app_icon.svg" alt="" />
       </div>
       <h1 class="manifesto">Ooops...<br />Could not found the route.</h1>
+      <button class="eodiro-btn go-back" @click="goBack">Go back</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  
+  methods: {
+    goBack() {
+      history.back()
+    }
+  }
 }
 </script>
 
 <style lang="scss">
 @import '../scss/global-variables.scss';
+@import '../scss/global-mixins.scss';
 
 #not-found {
   position: fixed;
@@ -55,6 +61,14 @@ export default {
       font-family: $font-display;
       font-size: 3rem;
       max-width: 90%;
+
+      @include smaller-than($mobile-width-threshold) {
+        font-size: 2rem;
+      }
+    }
+
+    .go-back {
+      margin-top: 1rem;
     }
   }
 }
