@@ -8,6 +8,7 @@ html {
 	-webkit-font-smoothing: antialiased;
 	font-size: 100%;
 	background-color: $base-white;
+	transition: background-color 1000ms ease;
 
 	&.dark-mode {
 		background-color: $base-black;
@@ -65,7 +66,6 @@ body {
 	font-size: 17px;
 	color: $base-black;
 	user-select: none;
-	cursor: default;
 	transition: background-color 500ms ease;
 
 	@include dark-mode() {
@@ -79,7 +79,6 @@ body {
 	padding: 0;
 	box-sizing: border-box;
 	outline: none;
-	cursor: default;
 	-webkit-tap-highlight-color: transparent;
 }
 
@@ -95,18 +94,6 @@ button {
 img {
 	user-select: none;
 	pointer-events: none;
-}
-
-button.go-back {
-	display: block;
-	width: 5rem;
-	height: 2rem;
-	background-image: url('/assets/images/eodiro/go-back.svg');
-	background-size: 100% 100%;
-	background-repeat: no-repeat;
-	background-position: center;
-	background-color: transparent;
-	transition: $smooth-transition;
 }
 
 .eodiro-app {
@@ -147,9 +134,36 @@ button.go-back {
 }
 
 .fade-enter-active, .fade-leave-active {
-	transition: all 300ms ease;
+	transition: all 200ms ease;
 	opacity: 1;
 }
 .fade-enter, .fade-leave-to {
 	opacity: 0;
+}
+
+.eodiro-btn {
+	cursor: pointer;
+	background-color: $light-blue;
+	border-radius: 50px;
+	padding: 0.6rem 1.2rem;
+	font-family: $font-text;
+	font-size: 1.2rem;
+	font-weight: 700;
+	color: #fff;
+	box-shadow: 0 0.5rem 1.5rem rgba($light-blue, 0.3);
+	transition: $smooth-transition;
+
+	&:active {
+		background-color: darken($light-blue, 15);
+		transition: none;
+	}
+
+	@include dark-mode() {
+		background-color: $light-yellow;
+		box-shadow: 0 0.5rem 1.5rem rgba(#000, 0.3);
+	
+		&:active {
+			background-color: lighten($light-yellow, 15);
+		}
+	}
 }
