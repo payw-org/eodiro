@@ -1,4 +1,5 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 module.exports = {
 	entry: {
@@ -40,7 +41,10 @@ module.exports = {
 			{
 				test: [/\.scss$/],
 				use: [
-					'style-loader',
+					// 'style-loader',
+					{
+						loader: MiniCssExtractPlugin.loader
+					},
 					'css-loader',
 					{
 						loader: 'postcss-loader',
@@ -59,6 +63,9 @@ module.exports = {
 		]
 	},
 	plugins: [
-    new VueLoaderPlugin()
+		new VueLoaderPlugin(),
+		new MiniCssExtractPlugin({
+			filename: "../css/[name].built.css"
+		})
   ]
 }
