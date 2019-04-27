@@ -1,16 +1,16 @@
 <template>
   <div class="content-item select-building">
     <div class="building-container">
-      <router-link v-for="(building, index) in buildings" :key="index" :to="'/buildings/' + building.name.number">
-        <div class="building">
+      <div class="building" v-for="(building, index) in buildings" :key="index">
+        <router-link :to="'./' + building.name.number + '/floors'" append>
           <div class="building-name">
             <div class="wrapper">
               <span class="name--number">{{ building.name.number }}</span>
               <span class="name--text">{{ building.name.text }}</span>
             </div>
           </div>
-        </div>
-      </router-link>
+        </router-link>
+      </div>
     </div>
   </div>
 </template>
@@ -19,13 +19,15 @@
 export default {
   methods: {
   },
+  watch: {
+  },
   mounted() {
     let buildings = this.$el.querySelectorAll('.building')
     let data = []
     buildings.forEach(building => {
       let colorCode
       while (1) {
-        colorCode = Math.floor(Math.random() * 76) + 1
+        colorCode = Math.floor(Math.random() * 80) + 1
         if (data[colorCode] === undefined) {
           data[colorCode] = 1
           break
@@ -38,23 +40,28 @@ export default {
     let buildings = this.$el.querySelectorAll('.building')
     buildings.forEach((building, index) => {
       building.classList.remove('appear')
-      building.classList.remove('done')
-      building.style.transitionDelay = (index / 15) + 0.1 + 's'
     })
     setTimeout(() => {
       buildings.forEach(building => {
         building.classList.add('appear')
-        building.addEventListener('transitionend', e => {
-          if (!building.classList.contains('done')) {
-            building.style = ''
-            building.classList.add('done')
-          }
-        })
       })
     }, 50)
+    
+    if (this.isRightDirection) {
+      window.scrollTo(0, 0)
+    } else {
+      window.scrollTo(0, this.scrollPos)
+    }
   },
+  deactivated() {
+    this.scrollPos = window.scrollY
+  },
+  props: [
+    'isRightDirection'
+  ],
   data() {
     return {
+      scrollPos: 0,
       buildings: [
         {
           name: {
@@ -163,7 +170,6 @@ $width-threshold: 500px;
   display: grid;
   grid-gap: 3rem 2.5rem;
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-  padding-top: 20px;
   width: calc(100% - 6rem);
   max-width: 80rem;
   margin: auto;
@@ -175,12 +181,13 @@ $width-threshold: 500px;
   }
 
   .building {
+    cursor: pointer;
     position: relative;
     background-color: transparent;
     border-radius: 1rem;
     overflow: hidden;
     opacity: 0;
-    transform: translateY(100px);
+    transform: translateY(10rem);
     will-change: transform, opacity;
     box-shadow: 0 5px 10px rgba(0,0,0,0.2);
 
@@ -193,18 +200,15 @@ $width-threshold: 500px;
       opacity: 1;
       transform: translateY(0);
       transition: all 1000ms $eodiro-cb;
-      // pointer-events: none;
+    }
 
-      &.done {
-        transition: $smooth-transition;
-        pointer-events: all;
+    @for $i from 0 through 50 {
+      &:nth-child(#{$i}) {
+        transition-delay: unquote(($i/15) + 's');
       }
     }
 
     &:active {
-      transform: scale(0.95);
-      box-shadow: none;
-
       @include smaller-than($width-threshold) {
         transform: none;
       }
@@ -220,6 +224,10 @@ $width-threshold: 500px;
       &::before {
         padding-top: 35%;
       }
+    }
+
+    @include dark-mode() {
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2), $dark-mode-border-shadow;
     }
 
     .building-name {
