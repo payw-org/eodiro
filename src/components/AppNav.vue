@@ -36,7 +36,7 @@ export default {
   data() {
     return {
       originalWidth: 0,
-      goBackTitle: '← Go back',
+      goBackTitle: '← 뒤로가기',
       goBackTimeout: undefined,
       titleElm: undefined,
       mutateNavTitle: undefined
@@ -54,7 +54,7 @@ export default {
       this.goBackTimeout = setTimeout(() => {
         this.titleElm.classList.add('hover')
         this.mutateNavTitle = this.goBackTitle
-      }, 1500)
+      }, 1700)
     },
     mutateNavTitle: function (newTitle, oldTitle) {
       this.transformTitleWidth(this.titleElm.clientWidth, this.getNewWidth(newTitle))
@@ -81,9 +81,9 @@ export default {
     },
     generateNavTitle(title) {
       let newTitle = this.navTitle
-      if (this.$route.params.buildingID) {
-        newTitle = title + this.$route.params.buildingID
-      }
+      // if (this.$route.params.buildingID) {
+      //   newTitle = title + this.$route.params.buildingID
+      // }
 
       return newTitle
     }
@@ -168,8 +168,8 @@ export default {
       }
 
       &:active {
-        transition: none;
-        background-color: darken($light-blue, 15%);
+        // transition: none;
+        // background-color: darken($light-blue, 15%);
       }
 
       &.hover {
@@ -178,7 +178,7 @@ export default {
         border-radius: 50px 0.7rem 0.7rem 50px;
 
         &:active {
-          background-color: darken($light-green, 15%);
+          // background-color: darken($light-green, 15%);
         }
       }
 
@@ -187,8 +187,8 @@ export default {
         box-shadow: 0 0.5rem 1.5rem rgba(#000, 0.3);
 
         &:active {
-          transition: none;
-          background-color: lighten($light-yellow, 15%);
+          // transition: none;
+          // background-color: lighten($light-yellow, 15%);
         }
 
         &.hover {
@@ -196,7 +196,7 @@ export default {
           box-shadow: 0 0.5rem 1.5rem rgba(#000, 0.3);
 
           &:active {
-            background-color: lighten($light-red, 15%);
+            // background-color: lighten($light-red, 15%);
           }
         }
       }
