@@ -1,13 +1,20 @@
 <template>
   <div class="content-item select-floor" @scroll="$emit('update-nav-view')">
     <div class="floor-container">
+      <div class="floor-wrapper">
+        <div class="floor building-id">
+          <h1 class="manifesto">{{ $route.params.buildingID }}관의 층은 다음과 같습니다.</h1>
+        </div>
+      </div>
       <div
-        class="floor"
+        class="floor-wrapper"
         v-for="index in 10"
         :key="index"
       >
-        <h1 class="num">{{ 10 - index + 1 + '층' }}</h1>
-        <router-link class="link" :to="'./' + (10 - index + 1)" append></router-link>
+        <div class="floor">
+          <router-link class="link" :to="'./' + (10 - index + 1)" append></router-link>
+          <h1 class="num">{{ 10 - index + 1 + '층' }}</h1>
+        </div>
       </div>
     </div>
   </div>
@@ -17,7 +24,8 @@
 export default {
   data() {
     return {
-      scrollPos: 0
+      scrollPos: 0,
+      interval: undefined
     }
   },
   props: [
@@ -25,28 +33,64 @@ export default {
   ],
   watch: {
   },
+  methods: {
+    checkScroll(floors) {
+      let baseOffset = parseFloat(window.getComputedStyle(this.$el, null).getPropertyValue('padding-top'))
+      floors.forEach((floor, index) => {
+        let offset = floor.parentElement.getBoundingClientRect().top
+        let opacity = offset/baseOffset
+        if (opacity <= 0) opacity = 0
+        if (opacity >= 1) opacity = 1
+        let y = (baseOffset - offset)/1.5
+        if (y <= 0) y = 0
+        let scale = (opacity+2)/3
+        floor.style.opacity = opacity
+        floor.style.transform = 'translateY(' + y + 'px) scale(' + scale + ')'
+        floor.style.webkitTransform = 'translateY(' + y + 'px) scale(' + scale + ')'
+        floor.style.filter = 'blur(' + (1 - opacity) * 15 + 'px)'
+        floor.style.webkitFilter = 'blur(' + (1 - opacity) * 15 + 'px)'
+      })
+    }
+  },
   mounted() {
+    let floors = this.$el.querySelectorAll('.floor')
+    let baseOffset = this.$el.querySelector('.floor-container').getBoundingClientRect().top
+    baseOffset = document.querySelector('#app-navigation').clientHeight
+    window.addEventListener('scroll', e => {
+      this.checkScroll(floors)
+    })
 
+    let floorsWrapper = this.$el.querySelectorAll('.floor-wrapper')
+    floorsWrapper[floorsWrapper.length - 1].addEventListener('transitionend', e => {
+      if (e.propertyName === 'opacity') {
+        window.clearInterval(this.interval)
+      }
+    })
   },
   activated() {
     let floors = this.$el.querySelectorAll('.floor')
-    floors.forEach((floor, index) => {
+    let floorWrappers = this.$el.querySelectorAll('.floor-wrapper')
+    floorWrappers.forEach((floor, index) => {
       floor.classList.remove('appear')
     })
     setTimeout(() => {
-      floors.forEach(floor => {
+      floorWrappers.forEach(floor => {
         floor.classList.add('appear')
       })
-    }, 0)
+    }, 4)
 
     if (this.isRightDirection) {
       window.scrollTo(0, 0)
     } else {
       window.scrollTo(0, this.scrollPos)
     }
+    this.interval = window.setInterval(() => {
+      this.checkScroll(floors)
+    }, 4)
   },
   deactivated() {
     this.scrollPos = window.scrollY
+    window.clearInterval(this.interval)
   }
 }
 </script>
@@ -60,19 +104,11 @@ export default {
   max-width: 30rem;
   margin: auto;
   padding-bottom: 10rem;
+  padding-bottom: 60vh;
 
-  .floor {
-    cursor: pointer;
-    padding: 1.5rem 0;
+  .floor-wrapper {
     position: relative;
     width: 100%;
-    background-color: #fff;
-    box-shadow: 0 1.2rem 2rem rgba(0,0,0,0.1);
-    color: inherit;
-    border-radius: 1rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     transition: all 200ms ease;
     transform: translateY(10rem);
     opacity: 0;
@@ -83,16 +119,16 @@ export default {
       opacity: 1;
       transform: translateY(0);
       transition: all 1000ms $eodiro-cb;
+
+      &.done {
+        transition-delay: 0s !important;
+      }
     }
 
     @for $i from 0 through 50 {
       &:nth-child(#{$i}) {
         transition-delay: unquote(($i/15) + 's');
       }
-    }
-
-    .num {
-      font-size: 1.5rem;
     }
 
     .link {
@@ -102,9 +138,50 @@ export default {
       height: 100%;
     }
 
-    @include dark-mode() {
-      background-color: #3e3e3e;
-      box-shadow: 0 1.2rem 2rem rgba(0,0,0,0.3), $dark-mode-border-shadow;
+    .floor {
+      cursor: pointer;
+      color: inherit;
+      border-radius: 1rem;
+      padding: 2rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: #fff;
+      box-shadow: 0 1rem 2rem rgba(0,0,0,0.15);
+      will-change: transform;
+      // transition: all 400ms cubic-bezier(0.18, 0.96, 0.43, 1);
+      // transition: all 400ms cubic-bezier(0.08, 0.92, 0.34, 1);
+
+      .num {
+        font-size: 1.5rem;
+      }
+
+      &.building-id {
+        padding: 1rem;
+        background-color: #744be6;
+        color: #fff;
+        cursor: default;
+
+        .manifesto {
+          font-size: 1.2rem;
+        }
+      }
+
+      @include dark-mode() {
+        background-color: #3e3e3e;
+        box-shadow: 0 1rem 2rem rgba(0,0,0,0.3), $dark-mode-border-shadow;
+
+        &.building-id {
+          padding: 1rem;
+          background-color: #744be6;
+          color: #fff;
+          cursor: default;
+        
+          .manifesto {
+            font-size: 1.2rem;
+          }
+        }
+      }
     }
   }
 }
