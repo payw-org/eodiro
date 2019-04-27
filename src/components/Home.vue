@@ -15,7 +15,7 @@
             <img class="logo" src="/assets/images/eodiro/app-icon.png" alt="" />
             <!-- <img class="logo mode--dark" src="/assets/images/eodiro/app-icon_dark.png" alt="" /> -->
           </div>
-          <router-link to="/buildings"><button class="go-btn eodiro-btn">Start</button></router-link>
+          <router-link to="/buildings"><button class="go-btn eodiro-btn">시작하기</button></router-link>
         </div>
       </div>
     </transition>
@@ -76,7 +76,7 @@ export default {
 
     @include dark-mode() {
       background-color: #222;
-      box-shadow: 0 30px 300px rgba(0,0,0,0.8), $dark-mode-border-shadow;
+      box-shadow: 0 30px 200px rgba(0,0,0,0.5), $dark-mode-border-shadow;
     }
 
     @include smaller-than(700px) {
