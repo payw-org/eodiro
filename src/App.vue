@@ -2,14 +2,19 @@
   <div id="app">
     <transition
       name="fade"
+      mode="out-in"
     >
-      <router-view @changeColorScheme="toggleColorScheme()"></router-view>
+      <router-view
+        @changeColorScheme="toggleColorScheme()"
+        :is-right-direction="isRightDirection"
+      ></router-view>
     </transition>
   </div>
 </template>
 
 <script>
 import './scss/globalstyle'
+import RouteLocation from './modules/RouteLocation'
 
 export default {
   beforeMount() {
@@ -18,6 +23,11 @@ export default {
   mounted() {
     window.addEventListener('dragstart', e => {
       e.preventDefault()
+      e.stopPropagation
+    })
+    window.addEventListener('contextmenu', e => {
+      e.preventDefault()
+      e.stopPropagation()
     })
   },
   methods: {
@@ -62,7 +72,19 @@ export default {
     }
   },
   name: 'App',
+  data() {
+    return {
+      isRightDirection: false
+    }
+  },
   watch: {
+    $route (to, from) {
+      if (RouteLocation.isRightDirection(to.name, from.name)) {
+        this.isRightDirection = true
+      } else {
+        this.isRightDirection = false
+      }
+    }
   }
 }
 </script>
