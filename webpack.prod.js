@@ -13,4 +13,4 @@ module.exports = merge(config, {
 			new OptimizeCSSAssetsPlugin({})
 		],
   }
-});
+})
