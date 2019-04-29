@@ -3,7 +3,7 @@
     <div class="floor-container">
       <div class="floor-wrapper">
         <div class="floor building-id">
-          <h1 class="manifesto">{{ $route.params.buildingID }}관의 층은 다음과 같습니다.</h1>
+          <h1 class="manifesto">{{ $route.params.buildingID }}관의 빈 강의실은 총 n개입니다</h1>
         </div>
       </div>
       <div
@@ -35,20 +35,29 @@ export default {
   },
   methods: {
     checkScroll(floors) {
-      let baseOffset = parseFloat(window.getComputedStyle(this.$el, null).getPropertyValue('padding-top'))
+      let topThreshold = parseFloat(window.getComputedStyle(this.$el, null).getPropertyValue('padding-top')) - 10
+      let baseOffset = -topThreshold/2
+      let offset, topGap, opacity, translateY, scale, blur, otz, zto
+      let bottomGap
+      // let floor = floors[0]
       floors.forEach((floor, index) => {
-        let offset = floor.parentElement.getBoundingClientRect().top
-        let opacity = offset/baseOffset
-        if (opacity <= 0) opacity = 0
-        if (opacity >= 1) opacity = 1
-        let y = (baseOffset - offset)/1.5
-        if (y <= 0) y = 0
-        let scale = (opacity+2)/3
+        offset = floor.parentElement.getBoundingClientRect().top
+        topGap = offset - baseOffset
+
+        otz = topGap / topThreshold
+        if (otz <= 0) otz = 0
+        if (otz >= 1) otz = 1
+        zto = 1 - otz
+
+        opacity = 1 / Math.pow(zto, 3) - 1
+        if (opacity === Infinity) opacity = 1
+        scale = (otz + 2) / 3
+        translateY = Math.pow(zto, 2) * Math.abs(baseOffset)
+        blur = (1 - otz) * 7
+        
         floor.style.opacity = opacity
-        floor.style.transform = 'translateY(' + y + 'px) scale(' + scale + ')'
-        floor.style.webkitTransform = 'translateY(' + y + 'px) scale(' + scale + ')'
-        floor.style.filter = 'blur(' + (1 - opacity) * 15 + 'px)'
-        floor.style.webkitFilter = 'blur(' + (1 - opacity) * 15 + 'px)'
+        floor.style.transform = 'translateY(' + translateY + 'px) scale(' + scale + ')'
+        floor.style.filter = 'blur(' + blur + 'px)'
       })
     }
   },

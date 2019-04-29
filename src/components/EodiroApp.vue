@@ -30,9 +30,9 @@ export default {
   mounted() {
     this.setNavData()
     window.addEventListener('scroll', e => {
-      if (this.$route.name !== 'floors') {
+      // if (this.$route.name !== 'floors') {
         this.updateNavView()
-      }
+      // }
     })
   },
   props: [

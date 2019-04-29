@@ -153,17 +153,8 @@ img {
 	box-shadow: 0 0.5rem 1.5rem rgba($light-blue, 0.3);
 	transition: $smooth-transition;
 
-	&:active {
-		// background-color: darken($light-blue, 15);
-		// transition: none;
-	}
-
 	@include dark-mode() {
 		background-color: $light-yellow;
 		box-shadow: 0 0.5rem 1.5rem rgba(#000, 0.3);
-	
-		&:active {
-			// background-color: lighten($light-yellow, 15);
-		}
 	}
 }

@@ -118,10 +118,6 @@ export default {
       @include dark-mode() {
         color: $base-white;
         background-color: #444;
-
-        &:active {
-          // background-color: lighten(#444, 10);
-        }
       }
     }
 
