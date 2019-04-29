@@ -2,7 +2,7 @@
   <div class="content-item select-building">
     <div class="building-container">
       <div class="building" v-for="(building, index) in buildings" :key="index">
-        <router-link :to="'./' + building.name.number + '/floors'" append>
+        <router-link :to="'./' + building.name.number" append>
           <div class="building-name">
             <div class="wrapper">
               <span class="name--number">{{ building.name.number }}</span>

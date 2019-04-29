@@ -15,7 +15,7 @@
             <img class="logo" src="/assets/images/eodiro/app-icon.png" alt="" />
             <!-- <img class="logo mode--dark" src="/assets/images/eodiro/app-icon_dark.png" alt="" /> -->
           </div>
-          <router-link to="/buildings"><button class="go-btn eodiro-btn">시작하기</button></router-link>
+          <router-link to="/cau"><button class="go-btn eodiro-btn">시작하기</button></router-link>
         </div>
       </div>
     </transition>

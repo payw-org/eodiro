@@ -64,15 +64,16 @@ export default {
       this.lastScrollTop = st
     },
     setNavData () {
-      if (this.$route.name === 'buildings') {
+      let rp = this.$route.params
+      if (this.$route.name === 'building') {
         this.navTitle = '건물을 선택하세요'
         this.backLink = '/'
-      } else if (this.$route.name === 'floors') {
+      } else if (this.$route.name === 'floor') {
         this.navTitle = '원하는 층을 선택하세요'
-        this.backLink = '/buildings'
+        this.backLink = '/' + rp.universityVendor
       } else if (this.$route.name === 'result') {
         this.navTitle = '검색결과입니다'
-        this.backLink = '/buildings/' + this.$route.params.buildingID + '/floors'
+        this.backLink = '/' + rp.universityVendor + '/' + rp.buildingID
       }
     }
   }
