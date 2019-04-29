@@ -1,5 +1,6 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
 	entry: {
@@ -12,7 +13,7 @@ module.exports = {
 		filename: '[name].built.js'
 	},
 	resolve: {
-		extensions: ['.js', '.ts', '.scss', '.vue'],
+		extensions: ['.js', '.ts', '.scss', '.css', '.vue'],
 		alias: {
 			vue$: 'vue/dist/vue.esm.js'
 		}
@@ -80,12 +81,15 @@ module.exports = {
 		]
 	},
 	plugins: [
+		// new HtmlWebpackPlugin({
+		// 	template: './public_html/index.template.html',
+		// 	filename: '../../index.html',
+		// 	hash: true
+		// }),
 		new VueLoaderPlugin(),
 		// new MiniCssExtractPlugin({
 		// 	filename: '[name].built.css',
-		// 	chunkFilename: '[name].built.css',
-		// 	path: __dirname + '/public_html/assets/build/',
-		// 	publicPath: '/public_html/assets/build/'
+		// 	chunkFilename: '[name].built.css'
 		// })
   ]
 }
