@@ -1,4 +1,5 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 module.exports = {
 	entry: {
@@ -7,7 +8,7 @@ module.exports = {
 	mode: 'development',
 	devtool: 'inline-source-map',
 	output: {
-		path: __dirname + '/public_html/assets/built/js',
+		path: __dirname + '/public_html/assets/build/',
 		filename: '[name].built.js'
 	},
 	resolve: {
@@ -38,9 +39,29 @@ module.exports = {
 				]
 			},
 			{
+				test: [/\.css$/],
+				use: [
+					'style-loader',
+					// MiniCssExtractPlugin.loader,
+					'css-loader',
+					{
+						loader: 'postcss-loader',
+						options: {
+							plugins: () => [
+								require('autoprefixer')
+								({
+									'browsers': ['> 1%', 'last 2 versions']
+								})
+							]
+						}
+					}
+				]
+			},
+			{
 				test: [/\.scss$/],
 				use: [
 					'style-loader',
+					// MiniCssExtractPlugin.loader,
 					'css-loader',
 					{
 						loader: 'postcss-loader',
@@ -59,6 +80,12 @@ module.exports = {
 		]
 	},
 	plugins: [
-    new VueLoaderPlugin()
+		new VueLoaderPlugin(),
+		// new MiniCssExtractPlugin({
+		// 	filename: '[name].built.css',
+		// 	chunkFilename: '[name].built.css',
+		// 	path: __dirname + '/public_html/assets/build/',
+		// 	publicPath: '/public_html/assets/build/'
+		// })
   ]
 }
