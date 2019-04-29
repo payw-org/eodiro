@@ -12,6 +12,26 @@ module.exports = {
 		path: __dirname + '/public_html/assets/build/',
 		filename: '[name].built.js'
 	},
+	optimization: {
+		splitChunks: {
+			chunks: 'all',
+// 			maxInitialRequests: Infinity,
+// 			minSize: 0,
+// 			cacheGroups: {
+// 				vendor: {
+// 					test: /[\\/]node_modules[\\/]/,
+// 					name (module) {
+// 						// get the name. E.g. node_modules/packageName/not/this/part.js
+//             // or node_modules/packageName
+//             const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
+
+//             // npm package names are URL-safe, but some servers don't like @ symbols
+// return `npm.${packageName.replace('@', '')}`
+// 					}
+// 				}
+// 			}
+		}
+	},
 	resolve: {
 		extensions: ['.js', '.ts', '.scss', '.css', '.vue'],
 		alias: {
@@ -22,7 +42,7 @@ module.exports = {
 		rules: [
 			{
         test: /\.vue$/,
-        loader: 'vue-loader'
+				loader: 'vue-loader'
       },
 			{
 				test: [/\.js$/],
@@ -32,8 +52,7 @@ module.exports = {
 						loader: 'babel-loader',
 						options: {
 							presets: [
-								'@babel/preset-env',
-								// '@babel/preset-react'
+								'@babel/preset-env'
 							]
 						}
 					}
@@ -42,7 +61,7 @@ module.exports = {
 			{
 				test: [/\.css$/],
 				use: [
-					'style-loader',
+					'vue-style-loader',
 					// MiniCssExtractPlugin.loader,
 					'css-loader',
 					{
@@ -61,7 +80,7 @@ module.exports = {
 			{
 				test: [/\.scss$/],
 				use: [
-					'style-loader',
+					'vue-style-loader',
 					// MiniCssExtractPlugin.loader,
 					'css-loader',
 					{
@@ -81,12 +100,12 @@ module.exports = {
 		]
 	},
 	plugins: [
+		new VueLoaderPlugin(),
 		// new HtmlWebpackPlugin({
 		// 	template: './public_html/index.template.html',
 		// 	filename: '../../index.html',
 		// 	hash: true
 		// }),
-		new VueLoaderPlugin(),
 		// new MiniCssExtractPlugin({
 		// 	filename: '[name].built.css',
 		// 	chunkFilename: '[name].built.css'
