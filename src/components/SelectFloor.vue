@@ -157,7 +157,7 @@ export default {
       justify-content: center;
       background-color: #fff;
       box-shadow: 0 1rem 2rem rgba(0,0,0,0.15);
-      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+      box-shadow: $eodiro-shadow;
       will-change: transform;
       // transition: all 400ms cubic-bezier(0.18, 0.96, 0.43, 1);
       // transition: all 200ms cubic-bezier(0.08, 0.92, 0.34, 1);
