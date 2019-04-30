@@ -107,7 +107,7 @@ export default {
       left: 50%;
       bottom: 1rem;
       transform: translateX(-50%);
-      transition: all 200ms ease;
+      transition: background-color 200ms ease, color 200ms ease;
 
       &:active {
         color: inherit;
