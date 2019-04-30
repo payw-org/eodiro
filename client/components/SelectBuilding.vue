@@ -200,7 +200,7 @@ $width-threshold: 500px;
     &.appear {
       opacity: 1;
       transform: translateY(0);
-      transition: all 1000ms $eodiro-cb;
+      transition: transform 1000ms $eodiro-cb, opacity 1000ms $eodiro-cb;
     }
 
     @for $i from 0 through 50 {
