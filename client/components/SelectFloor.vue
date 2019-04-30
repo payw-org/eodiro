@@ -3,7 +3,7 @@
     <div class="floor-container">
       <div class="floor-wrapper">
         <div class="floor building-id">
-          <h1 class="manifesto">{{ $route.params.buildingID }}관의 빈 강의실은 총 n개입니다</h1>
+          <h1 class="manifesto">{{ buildingName }}관의 빈 강의실은 총 n개입니다</h1>
         </div>
       </div>
       <div
@@ -25,7 +25,8 @@ export default {
   data() {
     return {
       scrollPos: 0,
-      interval: undefined
+      interval: undefined,
+      buildingName: ''
     }
   },
   props: [
@@ -77,6 +78,8 @@ export default {
     })
   },
   activated() {
+    this.buildingName = this.$route.params.buildingID
+
     let floors = this.$el.querySelectorAll('.floor')
     let floorWrappers = this.$el.querySelectorAll('.floor-wrapper')
     floorWrappers.forEach((floor, index) => {
@@ -118,7 +121,7 @@ export default {
   .floor-wrapper {
     position: relative;
     width: 100%;
-    transition: all 200ms ease;
+    transition: transform 200ms ease, opacity 200ms ease;
     transform: translateY(10rem);
     opacity: 0;
     margin-bottom: 1.5rem;
@@ -127,7 +130,7 @@ export default {
     &.appear {
       opacity: 1;
       transform: translateY(0);
-      transition: all 1000ms $eodiro-cb;
+      transition: transform 1000ms $eodiro-cb, opacity 1000ms $eodiro-cb;
 
       &.done {
         transition-delay: 0s !important;
@@ -159,8 +162,6 @@ export default {
       box-shadow: 0 1rem 2rem rgba(0,0,0,0.15);
       box-shadow: $eodiro-shadow;
       will-change: transform;
-      // transition: all 400ms cubic-bezier(0.18, 0.96, 0.43, 1);
-      // transition: all 200ms cubic-bezier(0.08, 0.92, 0.34, 1);
 
       .num {
         font-size: 1.5rem;
