@@ -89,10 +89,8 @@ export default {
     }, 4)
 
     if (this.isRightDirection) {
-      console.log('is right direction')
       window.scrollTo(0, 0)
     } else {
-      console.log('left direction')
       window.scrollTo(0, this.scrollPos)
     }
     this.interval = window.setInterval(() => {
