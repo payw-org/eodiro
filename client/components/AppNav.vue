@@ -1,44 +1,30 @@
 <template>
-  <transition
-    appear
-    name="trans"
-  >
-    <nav id="app-navigation"
-      :class="{
-        hidden: isHidden
-      }"
-    >
-      <div class="an-container">
-        <div class="dummy"></div>
-          <div class="single-button-wrapper">
-            <div class="single-button">
-              <router-link :to="backLink">
-                <h1 class="title">
-                  <transition name="fade">
-                    <span class="text" :key="mutateNavTitle">{{ mutateNavTitle }}</span>
-                  </transition>
-                </h1>
-              </router-link>
-            </div>
-            <div class="single-button">
-              <div class="left-tip"></div>
-              <dir class="title"></dir>
-              <div class="right-tip"></div>
-            </div>
+  <nav id="app-navigation">
+    <div class="an-container">
+      <div class="dummy"></div>
+        <div class="single-button-wrapper" :class="{ hidden: isHidden }">
+          <div class="single-button" :class="{'go-back-active': goBackActive}">
+            <router-link class="link" :to="backLink"></router-link>
+            <div class="left-tip"></div>
+            <div class="title-box"></div>
+            <div class="right-tip"></div>
+            <transition name="fade" mode="out-in">
+              <h1 class="title-text" :key="mutateNavTitle">{{ mutateNavTitle }}</h1>
+            </transition>
           </div>
-        <div class="dummy"></div>
-      </div>
-    </nav>
-  </transition>
+        </div>
+      <div class="dummy"></div>
+    </div>
+  </nav>
 </template>
 
 <script>
 export default {
   mounted() {
-    this.titleElm = this.$el.querySelector('.title')
+    this.titleElm = this.$el.querySelector('.title-text')
 
     window.addEventListener('resize', e => {
-      this.transformTitleWidth(this.titleElm.clientWidth, this.getNewWidth(this.mutateNavTitle))
+      this.transformSB(this.mutateNavTitle)
     })
   },
   props: ['navTitle', 'backLink', 'isHidden'],
@@ -47,13 +33,14 @@ export default {
       originalWidth: 0,
       goBackTitle: '← 뒤로가기',
       goBackTimeout: undefined,
+      goBackActive: false,
       titleElm: undefined,
       mutateNavTitle: undefined
     }
   },
   watch: {
     navTitle: function (newTitle) {
-      this.$el.querySelector('.title').classList.remove('hover')
+      this.goBackActive = false
       if (this.$route.name === 'floors') {
         this.mutateNavTitle = this.generateNavTitle(newTitle)
       } else {
@@ -61,40 +48,44 @@ export default {
       }
       window.clearTimeout(this.goBackTimeout)
       this.goBackTimeout = setTimeout(() => {
-        this.titleElm.classList.add('hover')
+        this.goBackActive = true
         this.mutateNavTitle = this.goBackTitle
       }, 1700)
     },
     mutateNavTitle: function (newTitle, oldTitle) {
-      this.transformTitleWidth(this.titleElm.clientWidth, this.getNewWidth(newTitle))
+      this.transformSB(newTitle)
     }
   },
   methods: {
-    getNewWidth(newTitle) {
-      let titleElmDup = this.titleElm.cloneNode(true)
-      titleElmDup.style.width = ''
-      titleElmDup.style.position = 'absolute'
-      titleElmDup.style.visibility = 'hidden'
-      titleElmDup.style.pointerEvents = 'none'
-      this.titleElm.parentElement.appendChild(titleElmDup)
-      titleElmDup.innerHTML = newTitle
-      let newWidth = titleElmDup.clientWidth
-      titleElmDup.parentElement.removeChild(titleElmDup)
-
-      return newWidth
-    },
-    transformTitleWidth(from, to) {
-      this.titleElm.style.width = from + 'px'
-      this.titleElm.getBoundingClientRect().width
-      this.titleElm.style.width = to + 'px'
-    },
     generateNavTitle(title) {
       let newTitle = this.navTitle
       // if (this.$route.params.buildingID) {
       //   newTitle = title + this.$route.params.buildingID
       // }
-
       return newTitle
+    },
+    transformSB(newTitle) {
+      let titleText = this.$el.querySelector('.title-text')
+      let titleTextClone = titleText.cloneNode(true)
+      titleTextClone.style.position = 'absolute'
+      titleTextClone.style.visibility = 'hidden'
+      titleTextClone.style.pointerEvents = 'none'
+      titleTextClone.innerHTML = newTitle
+      titleText.parentElement.appendChild(titleTextClone)
+      let titleTextWidth = titleTextClone.getBoundingClientRect().width
+      titleTextClone.parentElement.removeChild(titleTextClone)
+      let titleBox = this.$el.querySelector('.title-box')
+      let leftTip = this.$el.querySelector('.left-tip')
+      let rightTip = this.$el.querySelector('.right-tip')
+      let link = this.$el.querySelector('.link')
+
+      let titleBoxWidth = titleBox.clientWidth
+      let scaleX = titleTextWidth / titleBoxWidth
+      let translateX = -((titleTextWidth - titleBoxWidth) / 2 - 2)
+      titleBox.style.transform = 'scaleX(' + scaleX + ')'
+      leftTip.style.transform = 'translateX(' + translateX + 'px)'
+      rightTip.style.transform = 'translateX(' + -translateX + 'px)'
+      link.style.width = 'calc(' + titleTextWidth + 'px' + ' \+ 3rem)'
     }
   }
 }
@@ -120,17 +111,6 @@ export default {
 
   $time: 800ms;
 
-  &.trans-enter-active, &.trans-leave-active {
-    transition: transform $time $eodiro-cb, opacity $time $eodiro-cb;
-    transform: translateY(0);
-  }
-  &.trans-enter, &.trans-leave-to,
-  &.hidden {
-    .single-button-wrapper {
-      transform: translateY(calc(-100% - 2rem)) !important;
-    }
-  }
-
   .an-container {
     display: flex;
     align-items: center;
@@ -142,58 +122,119 @@ export default {
     .single-button-wrapper {
       padding-top: 4rem;
       transform: translateY(0);
-      transition: transform $time $eodiro-cb, opacity $time $eodiro-cb;
-      will-change: transform, opacity;
+      transition: transform $time $eodiro-cb;
+      will-change: transform;
 
       @include smaller-than($mobile-width-threshold) {
         padding-top: 3rem;
       }
 
+      &.hidden {
+        transform: translateY(calc(-100% - 2rem));
+      }
+
       .single-button {
-        .title {
-          cursor: pointer;
-          position: relative;
-          height: 3rem;
-          text-align: center;
+        position: relative;
+        $height: 58px;
+        height: $height;
+
+        @include smaller-than($mobile-width-threshold) {
+          height: 44px;
+        }
+
+        .link {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          width: 100%;
+          height: 100%;
+          transform: translateX(-50%) translateY(-50%);
+          z-index: 3;
+          transition: width 700ms $eodiro-cb, border-radius 700ms $eodiro-cb, box-shadow 700ms $eodiro-cb;
+          border-radius: 50px;
+          background-color: transparent;
+        }
+        .left-tip, .right-tip {
+          position: absolute;
+          top: 0;
+          background-color: $light-blue;
+          will-change: transform;
+          width: $height / 2 + 2;
+          height: $height;
+          z-index: 1;
+        }
+        .left-tip {
+          right: 100%;
+          border-radius: 50px 0 0 50px;
+          transition: transform 700ms $eodiro-cb, background-color 700ms $eodiro-cb;
+        }
+        .right-tip {
+          left: 100%;
+          border-radius: 0 50px 50px 0;
+          transition: transform 700ms $eodiro-cb, background-color 700ms $eodiro-cb, border-radius 500ms $eodiro-cb;
+        }
+        .title-box {
+          background-color: red;
+          height: $height;
+          width: 5rem;
+          box-shadow: 0 0.5rem 2rem rgba($light-blue, 0.5);
+          will-change: transform;
+          transition: transform 700ms $eodiro-cb, background-color 700ms $eodiro-cb, box-shadow 700ms $eodiro-cb;
+          background-color: $light-blue;
+        }
+        .title-text {
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translateX(-50%) translateY(-50%);
           white-space: nowrap;
           font-family: $font-display;
           font-weight: 700;
           font-size: 1.3rem;
-          border-radius: 50px;
           color: #fff;
-          padding: 0 1.4rem;
-          text-align: center;
-          margin: 0;
-          transition: width 700ms $eodiro-cb, background-color 700ms $eodiro-cb, border-radius 700ms $eodiro-cb, box-shadow 700ms $eodiro-cb;
-          background-color: $light-blue;
-          box-shadow: 0 0.5rem 1.5rem rgba($light-blue, 0.3);
-          overflow: hidden;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-        
-          @include smaller-than($mobile-width-threshold) {
-            font-size: 1rem;
-            height: 2.3rem;
+          z-index: 2;
+        }
+
+        @include smaller-than($mobile-width-threshold) {
+          $height: 44px;
+          height: $height;
+
+          .title-box {
+            height: $height;
           }
-        
-          .text {
-            position: absolute;
+          .left-tip, .right-tip {
+            height: $height;
+            width: $height / 2 + 2;
           }
-        
-          &.hover {
+        }
+
+        &.go-back-active {
+          .right-tip {
+            border-radius: 0 0.5rem 0.5rem 0;
+          }
+          .link {
+            border-radius: 50px 0.5rem 0.5rem 50px;
+          }
+          .title-box {
+            box-shadow: 0 0.5rem 2rem rgba($light-green, 0.5);
+          }
+          .title-box, .left-tip, .right-tip {
             background-color: $light-green;
-            box-shadow: 0 0.5rem 1.5rem rgba($light-green, 0.3);
-            border-radius: 50px 0.7rem 0.7rem 50px;
+          }
+        }
+        
+        @include dark-mode() {
+          .title-box, .left-tip, .right-tip {
+            background-color: $light-yellow;
           }
         
-          @include dark-mode() {
-            background-color: $light-yellow;
-            box-shadow: 0 0.5rem 1.5rem rgba(#000, 0.3);
+          .title-box {
+            box-shadow: 0 0.5rem 2rem rgba(#000, 0.5);
+          }
         
-            &.hover {
+          &.go-back-active {
+            .title-box, .left-tip, .right-tip {
               background-color: $light-red;
-              box-shadow: 0 0.5rem 1.5rem rgba(#000, 0.3);
             }
           }
         }

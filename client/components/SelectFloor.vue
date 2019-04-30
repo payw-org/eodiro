@@ -3,7 +3,7 @@
     <div class="floor-container">
       <div class="floor-wrapper">
         <div class="floor building-id">
-          <h1 class="manifesto">{{ $route.params.buildingID }}관의 빈 강의실은 총 n개입니다</h1>
+          <h1 class="manifesto">{{ buildingName }}관의 빈 강의실은 총 n개입니다</h1>
         </div>
       </div>
       <div
@@ -25,7 +25,8 @@ export default {
   data() {
     return {
       scrollPos: 0,
-      interval: undefined
+      interval: undefined,
+      buildingName: ''
     }
   },
   props: [
@@ -35,8 +36,8 @@ export default {
   },
   methods: {
     checkScroll(floors) {
-      let topThreshold = parseFloat(window.getComputedStyle(this.$el, null).getPropertyValue('padding-top')) - 10
-      let baseOffset = -topThreshold/2
+      let topThreshold = parseFloat(window.getComputedStyle(this.$el, null).getPropertyValue('padding-top'))
+      let baseOffset = 0
       let offset, topGap, opacity, translateY, scale, blur, otz, zto
       let bottomGap
       // let floor = floors[0]
@@ -49,15 +50,16 @@ export default {
         if (otz >= 1) otz = 1
         zto = 1 - otz
 
-        opacity = 1 / Math.pow(zto, 3) - 1
+        opacity = otz
         if (opacity === Infinity) opacity = 1
-        scale = (otz + 7) / 8
-        translateY = Math.pow(zto, 2) * Math.abs(baseOffset) * 1.3
-        blur = (1 - otz) * 3
+        scale = (otz + 6) / 7
+        translateY = Math.pow(zto, 2) * topThreshold / 2
+        blur = (1 - otz) * 5
         
         floor.style.opacity = opacity
-        floor.style.transform = 'translateY(' + translateY + 'px) scale(' + scale + ')'
-        floor.style.filter = 'blur(' + blur + 'px)'
+        // floor.style.transform = 'translateY(' + translateY + 'px) scale(' + scale + ')'
+        // floor.style.transform = 'translateY(' + -translateY + 'px)'
+        floor.style.filter = 'blur(' + blur + 'px)' 
       })
     }
   },
@@ -65,18 +67,20 @@ export default {
     let floors = this.$el.querySelectorAll('.floor')
     let baseOffset = this.$el.querySelector('.floor-container').getBoundingClientRect().top
     baseOffset = document.querySelector('#app-navigation').clientHeight
-    window.addEventListener('scroll', e => {
-      this.checkScroll(floors)
-    })
+    // window.addEventListener('scroll', e => {
+    //   this.checkScroll(floors)
+    // })
 
     let floorsWrapper = this.$el.querySelectorAll('.floor-wrapper')
-    floorsWrapper[floorsWrapper.length - 1].addEventListener('transitionend', e => {
-      if (e.propertyName === 'opacity') {
-        window.clearInterval(this.interval)
-      }
-    })
+    // floorsWrapper[floorsWrapper.length - 1].addEventListener('transitionend', e => {
+    //   if (e.propertyName === 'opacity') {
+    //     window.clearInterval(this.interval)
+    //   }
+    // })
   },
   activated() {
+    this.buildingName = this.$route.params.buildingID
+
     let floors = this.$el.querySelectorAll('.floor')
     let floorWrappers = this.$el.querySelectorAll('.floor-wrapper')
     floorWrappers.forEach((floor, index) => {
@@ -93,9 +97,9 @@ export default {
     } else {
       window.scrollTo(0, this.scrollPos)
     }
-    this.interval = window.setInterval(() => {
-      this.checkScroll(floors)
-    }, 4)
+    // this.interval = window.setInterval(() => {
+    //   this.checkScroll(floors)
+    // }, 4)
   },
   deactivated() {
     this.scrollPos = window.scrollY
@@ -113,12 +117,12 @@ export default {
   max-width: 30rem;
   margin: auto;
   padding-bottom: 10rem;
-  padding-bottom: 60vh;
+  // padding-bottom: 60vh;
 
   .floor-wrapper {
     position: relative;
     width: 100%;
-    transition: all 200ms ease;
+    transition: transform 200ms ease, opacity 200ms ease;
     transform: translateY(10rem);
     opacity: 0;
     margin-bottom: 1.5rem;
@@ -127,7 +131,7 @@ export default {
     &.appear {
       opacity: 1;
       transform: translateY(0);
-      transition: all 1000ms $eodiro-cb;
+      transition: transform 1000ms $eodiro-cb, opacity 1000ms $eodiro-cb;
 
       &.done {
         transition-delay: 0s !important;
@@ -156,11 +160,8 @@ export default {
       align-items: center;
       justify-content: center;
       background-color: #fff;
-      box-shadow: 0 1rem 2rem rgba(0,0,0,0.15);
       box-shadow: $eodiro-shadow;
       will-change: transform;
-      // transition: all 400ms cubic-bezier(0.18, 0.96, 0.43, 1);
-      // transition: all 200ms cubic-bezier(0.08, 0.92, 0.34, 1);
 
       .num {
         font-size: 1.5rem;
@@ -179,7 +180,7 @@ export default {
 
       @include dark-mode() {
         background-color: #3e3e3e;
-        box-shadow: 0 1rem 2rem rgba(0,0,0,0.3), $dark-mode-border-shadow;
+        box-shadow: $eodiro-shadow, $dark-mode-border-shadow;
 
         &.building-id {
           padding: 1rem;

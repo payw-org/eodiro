@@ -28,6 +28,7 @@ export default {
     }
   },
   mounted() {
+    this.isNavHidden = false
     this.setNavData()
     window.addEventListener('scroll', e => {
       // if (this.$route.name !== 'floors') {
@@ -42,7 +43,7 @@ export default {
     return {
       navTitle: '',
       backLink: '/',
-      isNavHidden: false,
+      isNavHidden: true,
       lastScrollTop: 0,
       threshold: window.scrollY
     }
@@ -72,7 +73,7 @@ export default {
         this.navTitle = '원하는 층을 선택하세요'
         this.backLink = '/' + rp.universityVendor
       } else if (this.$route.name === 'result') {
-        this.navTitle = '검색결과입니다'
+        this.navTitle = '빈 강의실 목록입니다'
         this.backLink = '/' + rp.universityVendor + '/' + rp.buildingID
       }
     }

@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
 	entry: {
-		'eodiro.app': ['./src/main.js']
+		'eodiro.app': ['./client/main.js']
 	},
 	mode: 'development',
 	devtool: 'inline-source-map',
@@ -35,7 +35,9 @@ module.exports = {
 	resolve: {
 		extensions: ['.js', '.ts', '.scss', '.css', '.vue'],
 		alias: {
-			vue$: 'vue/dist/vue.esm.js'
+			vue$: 'vue/dist/vue.esm.js',
+			SCSS: __dirname + '/client/scss/',
+			Components: __dirname + '/client/components/'
 		}
 	},
 	module: {
