@@ -21,14 +21,11 @@ export default {
     this.setColorScheme()
   },
   mounted() {
-    window.addEventListener('dragstart', e => {
-      e.preventDefault()
-      e.stopPropagation
-    })
-    window.addEventListener('contextmenu', e => {
+    window.oncontextmenu = function(e) {
       e.preventDefault()
       e.stopPropagation()
-    })
+      return false
+    }
   },
   methods: {
     setColorScheme() {

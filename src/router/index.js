@@ -1,11 +1,5 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-// import Home from '../components/Home'
-// import EodiroApp from '../components/EodiroApp'
-// import SelectBuilding from '../components/SelectBuilding'
-// import SelectFloor from '../components/SelectFloor'
-// import Result from '../components/Result'
-// import NotFound from '../components/NotFound'
 const Home = () => import(/* webpackChunkName: "eodiro-components" */ '../components/Home.vue')
 const EodiroApp = () => import(/* webpackChunkName: "eodiro-components" */ '../components/EodiroApp.vue')
 const SelectBuilding = () => import(/* webpackChunkName: "eodiro-components" */ '../components/SelectBuilding.vue')
@@ -15,38 +9,74 @@ const NotFound = () => import(/* webpackChunkName: "eodiro-components" */ '../co
 
 Vue.use(VueRouter)
 
+let routes1 = [
+  {
+    path: '/',
+    component: Home,
+    name: 'home'
+  },
+  {
+    path: '/buildings',
+    component: EodiroApp,
+    children: [
+      {
+        path: '',
+        component: SelectBuilding,
+        name: 'buildings'
+      },
+      {
+        path: ':buildingID/floors',
+        component: SelectFloor,
+        name: 'floors'
+      },
+      {
+        path: ':buildingID/floors/:floorID',
+        component: Result,
+        name: 'result'
+      }
+    ]
+  },
+  {
+    path: '*',
+    component: NotFound
+  }
+]
+
+let routes2 = [
+  {
+    path: '/',
+    component: Home,
+    name: 'home'
+  },
+  {
+    path: '/university',
+    component: undefined,
+    name: 'university'
+  },
+  {
+    path: '/:universityVendor',
+    component: EodiroApp,
+    children: [
+      {
+        path: '',
+        component: SelectBuilding,
+        name: 'building'
+      },
+      {
+        path: ':buildingID',
+        component: SelectFloor,
+        name: 'floor'
+      },
+      {
+        path: ':buildingID/:floorID',
+        component: Result,
+        name: 'result'
+      }
+    ]
+  }
+]
+
 export default new VueRouter({
   mode: 'history',
-  routes: [
-    {
-      path: '/',
-      component: Home,
-      name: 'home'
-    },
-    {
-      path: '/buildings',
-      component: EodiroApp,
-      children: [
-        {
-          path: '',
-          component: SelectBuilding,
-          name: 'buildings'
-        },
-        {
-          path: ':buildingID/floors',
-          component: SelectFloor,
-          name: 'floors'
-        },
-        {
-          path: ':buildingID/floors/:floorID',
-          component: Result,
-          name: 'result'
-        }
-      ]
-    },
-    {
-      path: '*',
-      component: NotFound
-    }
-  ]
+  routes: routes2
 })
