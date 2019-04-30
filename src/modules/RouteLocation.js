@@ -4,11 +4,16 @@ export default class Location {
   }
 
   static isRightDirection(to, from) {
-    if (
-      from === 'home' && to === 'buildings' ||
-      from === 'buildings' && to === 'floors' ||
-      from === 'floors' && to === 'result'
-    ) {
+    const routesList = [
+      'home',
+      'university',
+      'building',
+      'floor',
+      'result'
+    ]
+
+    let fromIndex = routesList.indexOf(from)
+    if (to === routesList[fromIndex + 1]) {
       return true
     } else {
       return false
