@@ -38,6 +38,10 @@ export default {
 @import '../scss/global-mixins.scss';
 
 #home {
+  $transition-time: 1500ms;
+  $cb: cubic-bezier(.24,.49,.01,.99);
+  $transition-property: $transition-time $cb;
+
   position: fixed;
   left: 0;
   top: 0;
@@ -47,6 +51,12 @@ export default {
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  background-color: $base-white;
+  transition: background-color $transition-property;
+
+  @include dark-mode() {
+    background-color: $base-black;
+  }
 
   .wrapper {
     width: 100%;
@@ -71,9 +81,6 @@ export default {
     transition: background-color 1s ease, box-shadow 1s ease;
     position: relative;
 
-    $transition-time: 1500ms;
-    $cb: cubic-bezier(.24,.49,.01,.99);
-
     @include dark-mode() {
       background-color: #222;
       box-shadow: 0 30px 200px rgba(0,0,0,0.5), $dark-mode-border-shadow;
@@ -89,7 +96,7 @@ export default {
       transform: scale(1);
       filter: blur(0px);
       opacity: 1;
-      transition: transform $transition-time $cb, opacity $transition-time/2 $cb, filter $transition-time $cb;
+      transition: transform $transition-time $cb, opacity $transition-time/2 $cb, filter $transition-time $cb, background-color $transition-property, box-shadow $transition-property;
     }
     &.zoom-enter, &.zoom-leave-to {
       transform: scale(0.7);
@@ -107,7 +114,7 @@ export default {
       left: 50%;
       bottom: 1rem;
       transform: translateX(-50%);
-      transition: background-color 200ms ease, color 200ms ease;
+      transition: background-color $transition-time $cb, color $transition-time $cb;
 
       &:active {
         color: inherit;
@@ -149,6 +156,7 @@ export default {
 
     .go-btn {
       margin-top: 2rem;
+      transition: background-color $transition-time $cb, box-shadow $transition-time $cb;
 
       @include smaller-than(700px) {
         margin-top: 0;
