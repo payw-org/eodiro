@@ -13,8 +13,8 @@ module.exports = {
 		filename: '[name].built.js'
 	},
 	optimization: {
-		splitChunks: {
-			chunks: 'all',
+// 		splitChunks: {
+// 			chunks: 'all',
 // 			maxInitialRequests: Infinity,
 // 			minSize: 0,
 // 			cacheGroups: {
@@ -30,7 +30,7 @@ module.exports = {
 // 					}
 // 				}
 // 			}
-		}
+// 		}
 	},
 	resolve: {
 		extensions: ['.js', '.ts', '.scss', '.css', '.vue'],
