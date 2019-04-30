@@ -109,32 +109,24 @@ img {
 	$transition-time: 500ms;
 
 	&.trans-enter {
-		// transform: translateX(50px);
 		opacity: 0;
 	}
 	&.trans-enter.trans-enter-active {
-		// transform: translateX(0);
 		opacity: 1;
-		transition: all $transition-time ease;
-		// transition-delay: $transition-time;
+		transition: opacity $transition-time ease;
 	}
 	&.trans-exit {
-		// transform: translateX(0);
 		opacity: 1;
 		filter: blur(0);
 	}
 	&.trans-exit.trans-exit-active {
-		// transform: translateX(-50px);
-		// opacity: 1;
 		opacity: 0;
-		// filter: blur(10px);
-		transition: all $transition-time ease;
-		// transition-delay: $transition-time;
+		transition: opacity $transition-time ease;
 	}
 }
 
 .fade-enter-active, .fade-leave-active {
-	transition: all 200ms ease;
+	transition: opacity 200ms ease;
 	opacity: 1;
 }
 .fade-enter, .fade-leave-to {
