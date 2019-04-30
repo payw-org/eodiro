@@ -51,9 +51,9 @@ export default {
 
         opacity = 1 / Math.pow(zto, 3) - 1
         if (opacity === Infinity) opacity = 1
-        scale = (otz + 2) / 3
-        translateY = Math.pow(zto, 2) * Math.abs(baseOffset)
-        blur = (1 - otz) * 7
+        scale = (otz + 7) / 8
+        translateY = Math.pow(zto, 2) * Math.abs(baseOffset) * 1.3
+        blur = (1 - otz) * 3
         
         floor.style.opacity = opacity
         floor.style.transform = 'translateY(' + translateY + 'px) scale(' + scale + ')'
@@ -89,8 +89,10 @@ export default {
     }, 4)
 
     if (this.isRightDirection) {
+      console.log('is right direction')
       window.scrollTo(0, 0)
     } else {
+      console.log('left direction')
       window.scrollTo(0, this.scrollPos)
     }
     this.interval = window.setInterval(() => {
@@ -109,7 +111,7 @@ export default {
 @import '../scss/global-mixins.scss';
 
 .floor-container {
-  width: calc(90% - 2rem);
+  width: calc(100% - 2rem);
   max-width: 30rem;
   margin: auto;
   padding-bottom: 10rem;
@@ -157,9 +159,10 @@ export default {
       justify-content: center;
       background-color: #fff;
       box-shadow: 0 1rem 2rem rgba(0,0,0,0.15);
+      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
       will-change: transform;
       // transition: all 400ms cubic-bezier(0.18, 0.96, 0.43, 1);
-      // transition: all 400ms cubic-bezier(0.08, 0.92, 0.34, 1);
+      // transition: all 200ms cubic-bezier(0.08, 0.92, 0.34, 1);
 
       .num {
         font-size: 1.5rem;
