@@ -20,6 +20,11 @@
                 </h1>
               </router-link>
             </div>
+            <div class="single-button">
+              <div class="left-tip"></div>
+              <dir class="title"></dir>
+              <div class="right-tip"></div>
+            </div>
           </div>
         <div class="dummy"></div>
       </div>
@@ -116,14 +121,13 @@ export default {
   $time: 800ms;
 
   &.trans-enter-active, &.trans-leave-active {
-    transition: all $time $eodiro-cb;
+    transition: transform $time $eodiro-cb, opacity $time $eodiro-cb;
     transform: translateY(0);
   }
   &.trans-enter, &.trans-leave-to,
   &.hidden {
     .single-button-wrapper {
       transform: translateY(calc(-100% - 2rem)) !important;
-      opacity: 0;
     }
   }
 
@@ -138,8 +142,7 @@ export default {
     .single-button-wrapper {
       padding-top: 4rem;
       transform: translateY(0);
-      opacity: 1;
-      transition: all $time $eodiro-cb;
+      transition: transform $time $eodiro-cb, opacity $time $eodiro-cb;
       will-change: transform, opacity;
 
       @include smaller-than($mobile-width-threshold) {
@@ -161,7 +164,7 @@ export default {
           padding: 0 1.4rem;
           text-align: center;
           margin: 0;
-          transition: all 700ms $eodiro-cb;
+          transition: width 700ms $eodiro-cb, background-color 700ms $eodiro-cb, border-radius 700ms $eodiro-cb, box-shadow 700ms $eodiro-cb;
           background-color: $light-blue;
           box-shadow: 0 0.5rem 1.5rem rgba($light-blue, 0.3);
           overflow: hidden;
