@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
 	entry: {
-		'eodiro.app': ['./src/main.js']
+		'eodiro.app': ['./client/main.js']
 	},
 	mode: 'development',
 	devtool: 'inline-source-map',
