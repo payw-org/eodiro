@@ -68,7 +68,7 @@ export default {
     text-align: center;
     overflow: hidden;
     will-change: transform;
-    transition: all 1000ms ease;
+    transition: background-color 1s ease, box-shadow 1s ease;
     position: relative;
 
     $transition-time: 1500ms;
@@ -89,7 +89,7 @@ export default {
       transform: scale(1);
       filter: blur(0px);
       opacity: 1;
-      transition: all $transition-time $cb;
+      transition: transform $transition-time $cb, opacity $transition-time/2 $cb, filter $transition-time $cb;
     }
     &.zoom-enter, &.zoom-leave-to {
       transform: scale(0.7);
