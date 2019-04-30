@@ -190,6 +190,7 @@ $width-threshold: 500px;
     transform: translateY(10rem);
     will-change: transform, opacity;
     box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+    box-shadow: $eodiro-shadow;
 
     @include smaller-than($width-threshold) {
       border-radius: 0;

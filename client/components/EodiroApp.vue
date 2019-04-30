@@ -95,12 +95,10 @@ export default {
       }
     
       &.fade-enter-active, &.fade-leave-active {
-        transition: all 300ms ease;
-        // opacity: 1;
+        transition: opacity 300ms ease;
       }
       &.fade-enter, &.fade-leave-to {
         opacity: 0;
-        // transform: translateX(-30%);
       }
     }
   }
