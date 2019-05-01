@@ -193,10 +193,24 @@ export default {
           font-size: 1.3rem;
           color: #fff;
           z-index: 2;
+
+          &.fade-enter-active, &.fade-leave-active {
+            transition: opacity 0.2s ease, transform 0.2s ease !important;
+            opacity: 1 !important;
+            transform: translateX(-50%) translateY(-50%);
+          }
+          &.fade-enter {
+            opacity: 0 !important;
+            // transform: translateX(-50%) translateY(calc(-50% + 1rem));
+          }
+          &.fade-leave-to {
+            opacity: 0 !important;
+            // transform: translateX(-50%) translateY(calc(-50% - 1rem));
+          }
         }
 
         @include smaller-than($mobile-width-threshold) {
-          $height: 44px;
+          $height: 40px;
           height: $height;
 
           .title-box {
