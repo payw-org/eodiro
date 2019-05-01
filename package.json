@@ -9,7 +9,10 @@
     "build:fast:watch": "node_modules/.bin/webpack -w --config webpack.fast.js",
     "build-s": "node_modules/.bin/webpack --config webpack.server.js",
     "build-s:watch": "node_modules/.bin/webpack -w --config webpack.server.js",
-    "start": "node ./server/lib/build/eodiro.server.built.js"
+    "stop": "forever stopall",
+    "start": "forever start server/lib/build/eodiro.server.built.js",
+    "build:all": "npm run build && npm run build-s",
+    "restart": "npm run stop && npm run start"
   },
   "repository": {
     "type": "git",
@@ -24,10 +27,10 @@
   "dependencies": {
     "app-root-path": "^2.2.1",
     "axios": "^0.18.0",
-    "connect-history-api-fallback": "^1.6.0",
     "cors": "^2.8.5",
-    "ejs": "^2.6.1",
     "express": "^4.16.4",
+    "forever": "^1.0.0",
+    "gsap": "^2.1.2",
     "lorem-ipsum": "^2.0.1",
     "react-dom": "^16.8.6",
     "vhost": "^3.0.2",
