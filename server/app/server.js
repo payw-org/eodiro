@@ -22,4 +22,4 @@ app.use(vhost(BASE_URI, web_app_provider.getApp()));
 app.use(vhost("dev." + BASE_URI, dev_app_provider.getApp()));
 app.use(vhost("api." + BASE_URI, api_app_provider.getApp()));
 
-app.listen(8080);
+app.listen(80);
