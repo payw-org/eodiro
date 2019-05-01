@@ -16,7 +16,7 @@ module.exports = {
         extensions: ['.js'],
         alias: {
             Server: __dirname + '/server/',
-            Provider: __dirname + '/server/app/providers/'
+            Providers: __dirname + '/server/app/providers/',
         }
     },
     module: {

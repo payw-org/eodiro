@@ -1,8 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import vhost from 'vhost';
-import WebAppServiceProvider from 'Provider/WebAppServiceProvider';
-import DevAppServiceProvider from 'Provider/DevAppServiceProvider';
+import WebAppServiceProvider from 'Providers/WebAppServiceProvider';
+import DevAppServiceProvider from 'Providers/DevAppServiceProvider';
+import APIAppServiceProvider from 'Providers/APIAppServiceProvider';
 
 const BASE_URI = "eodiro.local";
 
