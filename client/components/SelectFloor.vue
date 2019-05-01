@@ -1,9 +1,9 @@
 <template>
   <div class="content-item select-floor" @scroll="$emit('update-nav-view')">
     <div class="floor-container">
-      <div class="floor-wrapper">
+      <div class="floor-wrapper building-display">
         <div class="floor building-id">
-          <h1 class="manifesto">{{ buildingName }}관의 빈 강의실은 총 n개입니다</h1>
+          <h1 class="manifesto">{{ buildingName }}관</h1>
         </div>
       </div>
       <div
@@ -127,6 +127,12 @@ export default {
     opacity: 0;
     margin-bottom: 1.5rem;
     will-change: transform;
+
+    &.building-display {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
 
     &.appear {
       opacity: 1;
