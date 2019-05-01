@@ -7,7 +7,9 @@
     "build": "node_modules/.bin/webpack --config webpack.config.js",
     "build:watch": "node_modules/.bin/webpack -w --config webpack.config.js",
     "build:prod": "node_modules/.bin/webpack --config webpack.prod.js",
-    "build:fast:watch": "node_modules/.bin/webpack -w --config webpack.fast.js"
+    "build:fast:watch": "node_modules/.bin/webpack -w --config webpack.fast.js",
+    "build-s": "node_modules/.bin/webpack --config webpack.server.js",
+    "build-s:watch": "node_modules/.bin/webpack -w --config webpack.server.js"
   },
   "repository": {
     "type": "git",
@@ -20,10 +22,12 @@
   },
   "homepage": "https://github.com/eodiro/eodiro#readme",
   "dependencies": {
+    "app-root-path": "^2.2.1",
     "axios": "^0.18.0",
+    "connect-history-api-fallback": "^1.6.0",
+    "cors": "^2.8.5",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
-    "express-subdomain": "^1.0.5",
     "gsap": "^2.1.2",
     "lorem-ipsum": "^2.0.1",
     "react": "^16.8.6",
@@ -31,8 +35,10 @@
     "react-router-dom": "^5.0.0",
     "react-spring": "^8.0.19",
     "react-transition-group": "^4.0.0",
+    "vhost": "^3.0.2",
     "vue": "^2.6.10",
-    "vue-router": "^3.0.6"
+    "vue-router": "^3.0.6",
+    "webpack-node-externals": "^1.7.2"
   },
   "devDependencies": {
     "@babel/core": "^7.4.3",

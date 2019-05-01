@@ -3,3 +3,4 @@ node_modules
 package-lock.json
 
 public_html/assets/build
+server/lib/build
