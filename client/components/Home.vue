@@ -25,17 +25,19 @@
 
 <script>
 import HomeBGTile from './HomeBGTile'
-import { clearInterval } from 'timers';
 
 export default {
   name: 'Home',
   components: { HomeBGTile },
+  mounted() {
+    document.title = '어디로 | 대학교 빈강의실 찾기'
+  },
 }
 </script>
 
 <style lang="scss">
-@import '../scss/global-variables.scss';
-@import '../scss/global-mixins.scss';
+@import 'SCSS/global-variables.scss';
+@import 'SCSS/global-mixins.scss';
 
 #home {
   $transition-time: 1500ms;
