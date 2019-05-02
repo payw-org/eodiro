@@ -6,6 +6,7 @@
     "build": "node_modules/.bin/webpack --config webpack.config.js",
     "build:watch": "node_modules/.bin/webpack -w --config webpack.config.js",
     "build:prod": "node_modules/.bin/webpack --config webpack.prod.js",
+    "build:prod:watch": "node_modules/.bin/webpack -w --config webpack.prod.js",
     "build:fast:watch": "node_modules/.bin/webpack -w --config webpack.fast.js",
     "build-s": "node_modules/.bin/webpack --config webpack.server.js",
     "build-s:watch": "node_modules/.bin/webpack -w --config webpack.server.js",
