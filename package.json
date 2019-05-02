@@ -10,8 +10,11 @@
     "build:fast:watch": "node_modules/.bin/webpack -w --config webpack.fast.js",
     "build-s": "node_modules/.bin/webpack --config webpack.server.js",
     "build-s:watch": "node_modules/.bin/webpack -w --config webpack.server.js",
-    "stop": "forever stopall",
-    "start": "forever start server/lib/build/eodiro.server.built.js",
+    "stop-web": "forever stop eodiro_web",
+    "stop-dev-jhm": "forever stop eodiro_dev_jhm",
+    "stop-dev-hch": "forever stop eodiro_dev_hch",
+    "stop-dev-hcj": "forever stop eodiro_dev_hcj",
+    "start": "forever start ./forever.json",
     "build:all": "npm run build && npm run build-s",
     "restart": "npm run stop && npm run start"
   },
