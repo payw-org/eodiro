@@ -175,7 +175,7 @@ export default {
 
       &.building-id {
         padding: 1rem;
-        background-color: #744be6;
+        background-color: #6055df;
         color: #fff;
         cursor: default;
 
