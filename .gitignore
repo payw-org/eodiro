@@ -5,4 +5,4 @@ forever.json
 server/config.js
 
 public_html/assets/build
-server/app/lib/build
+server/lib/build
