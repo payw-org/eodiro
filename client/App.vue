@@ -5,7 +5,7 @@
       mode="out-in"
     >
       <router-view
-        @changeColorScheme="toggleColorScheme()"
+        @changeColorScheme="updateColorScheme"
         :is-right-direction="isRightDirection"
       ></router-view>
     </transition>
@@ -26,6 +26,26 @@ export default {
       e.stopPropagation()
       return false
     }
+
+    // prune all noscript tags
+    document.querySelectorAll('noscript').forEach(elm => {
+      elm.parentElement.removeChild(elm)
+    })
+
+    // platform detection
+    const platform = require('platform')
+
+    // store platform data to html tag for later use
+    document.documentElement.setAttribute('data-platform', JSON.stringify({
+      os: {
+        name: platform.os.family,
+        version: platform.os.version
+      },
+      browser: {
+        name: platform.name,
+        version: platform.version
+      }
+    }).toLowerCase())
   },
   methods: {
     setColorScheme() {
