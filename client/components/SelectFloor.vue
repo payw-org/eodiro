@@ -14,6 +14,7 @@
         <div class="floor">
           <router-link class="link" :to="'./' + (10 - index + 1)" append></router-link>
           <h1 class="num">{{ 10 - index + 1 + '층' }}</h1>
+          <div class="rooms-count">빈 강의실 3</div>
         </div>
       </div>
     </div>
@@ -165,17 +166,15 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-wrap: wrap;
       background-color: #fff;
       box-shadow: $eodiro-shadow;
       will-change: transform;
 
-      .num {
-        font-size: 1.5rem;
-      }
-
       &.building-id {
         padding: 1rem;
         background-color: #6055df;
+        background-color: #554CDA;
         color: #fff;
         cursor: default;
 
@@ -184,15 +183,21 @@ export default {
         }
       }
 
+      .num {
+        font-size: 1.5rem;
+      }
+
+      .rooms-count {
+        min-width: 100%;
+      }
+
       @include dark-mode() {
         background-color: #3e3e3e;
         box-shadow: $eodiro-shadow, $dark-mode-border-shadow;
 
         &.building-id {
           padding: 1rem;
-          background-color: #744be6;
-          color: #fff;
-          cursor: default;
+          background-color: #554CDA;
         
           .manifesto {
             font-size: 1.2rem;
