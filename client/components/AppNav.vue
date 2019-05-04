@@ -73,7 +73,7 @@ export default {
       titleTextClone.style.pointerEvents = 'none'
       titleTextClone.innerHTML = newTitle
       titleText.parentElement.appendChild(titleTextClone)
-      let titleTextWidth = titleTextClone.getBoundingClientRect().width
+      let titleTextWidth = titleTextClone.getBoundingClientRect().width - 10
       let titleBox = this.$el.querySelector('.title-box')
       let leftTip = this.$el.querySelector('.left-tip')
       let rightTip = this.$el.querySelector('.right-tip')
@@ -82,7 +82,7 @@ export default {
 
       let titleBoxWidth = titleBox.clientWidth
       let scaleX = titleTextWidth / titleBoxWidth
-      let translateX = -((titleTextWidth - titleBoxWidth) / 2 - 2)
+      let translateX = -((titleTextWidth - titleBoxWidth) / 2 - 5)
       titleBox.style.transform = 'scaleX(' + scaleX + ')'
       leftTip.style.transform = 'translateX(' + translateX + 'px)'
       rightTip.style.transform = 'translateX(' + -translateX + 'px)'
@@ -163,7 +163,7 @@ export default {
           top: 0;
           background-color: $light-blue;
           will-change: transform;
-          width: $height / 2 + 2;
+          width: $height / 2 + 5;
           height: $height;
           z-index: 1;
         }
@@ -181,7 +181,7 @@ export default {
           position: relative;
           background-color: red;
           height: $height;
-          width: 5rem;
+          width: 2rem;
           will-change: transform;
           transition: transform 700ms $eodiro-cb, background-color 700ms $eodiro-cb;
           background-color: $light-blue;
@@ -191,10 +191,10 @@ export default {
           top: 50%;
           left: 50%;
           width: 100%;
-          height: 100%;
+          height: 50%;
           z-index: -1;
           border-radius: 50px;
-          box-shadow: 0 0.5rem 2rem rgba($light-blue, 0.5);
+          box-shadow: 0 0.5rem 2rem 1rem rgba($light-blue, 0.5);
           transform: translateX(-50%) translateY(-50%);
           transition: width 700ms $eodiro-cb, box-shadow 700ms $eodiro-cb;
         }
@@ -234,7 +234,7 @@ export default {
           }
           .left-tip, .right-tip {
             height: $height;
-            width: $height / 2 + 2;
+            width: $height / 2 + 5;
           }
         }
 
@@ -246,7 +246,7 @@ export default {
             border-radius: 50px 0.5rem 0.5rem 50px;
           }
           .shadow {
-            box-shadow: 0 0.5rem 2rem rgba($light-green, 0.5);
+            box-shadow: 0 0.5rem 2rem 1rem rgba($light-green, 0.5);
           }
           .title-box, .left-tip, .right-tip {
             background-color: $light-green;
@@ -259,7 +259,7 @@ export default {
           }
         
           .shadow {
-            box-shadow: 0 0.5rem 2rem rgba(#000, 0.5);
+            box-shadow: 0 0.5rem 2rem 1rem rgba(#000, 0.5);
           }
         
           &.go-back-active {
