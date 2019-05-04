@@ -85,3 +85,10 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+#app {
+  display: block;
+  min-height: 100vh;
+}
+</style>
