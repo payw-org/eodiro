@@ -83,12 +83,38 @@ body {
 }
 
 a {
+  cursor: pointer;
   text-decoration: none;
   color: inherit;
+  -webkit-touch-callout: none;
+
+  &.inner-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 button {
+  cursor: pointer;
   border: none;
+  background: none;
+  font-family: $font-text;
+  font-size: 1rem;
+  color: $base-black;
+
+  &:active {
+    color: $base-black;
+  }
+
+  @include dark-mode() {
+    color: $base-white;
+    &:active {
+      color: $base-white;
+    }
+  }
 }
 
 img {
@@ -156,5 +182,14 @@ img {
   @include dark-mode() {
     background-color: $light-yellow;
     box-shadow: 0 0.5rem 1.5rem rgba(#000, 0.3);
+  }
+}
+
+// colors
+.base-gray {
+  color: $base-gray;
+
+  @include dark-mode() {
+    color: $base-gray--dark;
   }
 }
