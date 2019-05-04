@@ -8,6 +8,7 @@
             <div class="left-tip"></div>
             <div class="title-box"></div>
             <div class="right-tip"></div>
+            <div class="shadow"></div>
             <transition name="fade" mode="out-in">
               <h1 class="title-text" :key="mutateNavTitle">{{ mutateNavTitle }}</h1>
             </transition>
@@ -73,11 +74,11 @@ export default {
       titleTextClone.innerHTML = newTitle
       titleText.parentElement.appendChild(titleTextClone)
       let titleTextWidth = titleTextClone.getBoundingClientRect().width
-      titleTextClone.parentElement.removeChild(titleTextClone)
       let titleBox = this.$el.querySelector('.title-box')
       let leftTip = this.$el.querySelector('.left-tip')
       let rightTip = this.$el.querySelector('.right-tip')
       let link = this.$el.querySelector('.link')
+      let shadow = this.$el.querySelector('.shadow')
 
       let titleBoxWidth = titleBox.clientWidth
       let scaleX = titleTextWidth / titleBoxWidth
@@ -86,6 +87,9 @@ export default {
       leftTip.style.transform = 'translateX(' + translateX + 'px)'
       rightTip.style.transform = 'translateX(' + -translateX + 'px)'
       link.style.width = 'calc(' + titleTextWidth + 'px' + ' \+ 3rem)'
+      shadow.style.width = titleTextWidth + 'px'
+
+      titleTextClone.parentElement.removeChild(titleTextClone)
     }
   }
 }
@@ -171,16 +175,28 @@ export default {
         .right-tip {
           left: 100%;
           border-radius: 0 50px 50px 0;
-          transition: transform 700ms $eodiro-cb, background-color 700ms $eodiro-cb, border-radius 500ms $eodiro-cb;
+          transition: transform 700ms $eodiro-cb, background-color 700ms $eodiro-cb, border-radius 700ms ease;
         }
         .title-box {
+          position: relative;
           background-color: red;
           height: $height;
           width: 5rem;
-          box-shadow: 0 0.5rem 2rem rgba($light-blue, 0.5);
           will-change: transform;
-          transition: transform 700ms $eodiro-cb, background-color 700ms $eodiro-cb, box-shadow 700ms $eodiro-cb;
+          transition: transform 700ms $eodiro-cb, background-color 700ms $eodiro-cb;
           background-color: $light-blue;
+        }
+        .shadow {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 100%;
+          height: 100%;
+          z-index: -1;
+          border-radius: 50px;
+          box-shadow: 0 0.5rem 2rem rgba($light-blue, 0.5);
+          transform: translateX(-50%) translateY(-50%);
+          transition: width 700ms $eodiro-cb, box-shadow 700ms $eodiro-cb;
         }
         .title-text {
           position: absolute;
@@ -229,7 +245,7 @@ export default {
           .link {
             border-radius: 50px 0.5rem 0.5rem 50px;
           }
-          .title-box {
+          .shadow {
             box-shadow: 0 0.5rem 2rem rgba($light-green, 0.5);
           }
           .title-box, .left-tip, .right-tip {
@@ -242,7 +258,7 @@ export default {
             background-color: $light-yellow;
           }
         
-          .title-box {
+          .shadow {
             box-shadow: 0 0.5rem 2rem rgba(#000, 0.5);
           }
         
