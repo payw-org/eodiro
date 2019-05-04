@@ -13,25 +13,30 @@ export default {
       interval: 0
     }
   },
-  mounted() {
-    let ts = []
-    let tileNum = 550
-    for (let i = 0; i < tileNum; i++) {
-      ts.push({
-        key: i,
-        className: 'color-1'
-      })
-    }
-    this.tileStates = ts
-
-    let i, c
-    this.interval = setInterval(() => {
-      for (let a = 0; a < 30; a++) {
-        i = Math.floor(Math.random() * tileNum);
-        c = Math.floor(Math.random() * 9)
-        this.tileStates[i]['className'] = 'color-' + c;
+  methods: {
+    activeTile() {
+      let ts = []
+      let tileNum = 550
+      for (let i = 0; i < tileNum; i++) {
+        ts.push({
+          key: i,
+          className: 'color-1'
+        })
       }
-    }, 30)
+      this.tileStates = ts
+      
+      let i, c
+      this.interval = setInterval(() => {
+        for (let a = 0; a < 30; a++) {
+          i = Math.floor(Math.random() * tileNum);
+          c = Math.floor(Math.random() * 9)
+          this.tileStates[i]['className'] = 'color-' + c;
+        }
+      }, 30)
+    }
+  },
+  mounted() {
+    this.activeTile()
   },
   beforeDestroy() {
     clearInterval(this.interval)
