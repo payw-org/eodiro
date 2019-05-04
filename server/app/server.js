@@ -5,7 +5,7 @@ import WebAppServiceProvider from 'Providers/WebAppServiceProvider';
 import APIAppServiceProvider from 'Providers/APIAppServiceProvider';
 import { server_config } from 'Server/config';
 
-const BASE_URI = "eodiro.local";
+const BASE_URI = "eodiro.com";
 
 let app = express();
 app.use(cors());

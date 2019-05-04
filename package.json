@@ -14,6 +14,8 @@
     "stop-dev-jhm": "forever stop eodiro_dev_jhm",
     "stop-dev-hch": "forever stop eodiro_dev_hch",
     "stop-dev-hcj": "forever stop eodiro_dev_hcj",
+    "stop-beta": "forever stop eodiro_beta",
+    "stop-demo": "forever stop eodiro_demo",
     "start": "forever start ./forever.json",
     "build:all": "npm run build && npm run build-s",
     "restart": "npm run stop && npm run start"
