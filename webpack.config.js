@@ -1,6 +1,8 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
-const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-const HtmlWebpackPlugin = require('html-webpack-plugin')
+// const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+// const HtmlWebpackPlugin = require('html-webpack-plugin')
+// const WebpackNotifierPlugin = require('webpack-notifier')
+const WebpackMessages = require('webpack-messages')
 
 module.exports = {
 	entry: {
@@ -103,6 +105,11 @@ module.exports = {
 	},
 	plugins: [
 		new VueLoaderPlugin(),
+		// new WebpackNotifierPlugin(),
+		new WebpackMessages({
+      name: 'client',
+      logger: str => console.log(`>> ${str}`)
+    })
 		// new HtmlWebpackPlugin({
 		// 	template: './public_html/index.template.html',
 		// 	filename: '../../index.html',
