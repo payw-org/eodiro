@@ -5,18 +5,48 @@
       name="zoom"
     >
       <div class="start-box">
-        <button class="toggle-color-scheme" @click="$emit('changeColorScheme')">Dark ↔ Light</button>
-        <div class="wrapper">
-          <div class="desktop">
-            <img class="logo mode--light" src="/assets/images/eodiro/logo.svg" alt="" />
-            <img class="logo mode--dark" src="/assets/images/eodiro/logo_dark.svg" alt="" />
+
+        <div class="content-area">
+          <div class="main" v-show="!isSettingsActive">
+            <dir class="logo-container">
+              <img src="/assets/images/eodiro/app-icon_sq_b.svg" alt="">
+            </dir>
+            <h1 class="logo-text">어디로</h1>
+            <p class="description base-gray">대학교 빈 강의실 찾기 서비스</p>
+            <router-link to="/cau"><button class="go-btn eodiro-btn">시작하기 →</button></router-link>
           </div>
-          <div class="mobile">
-            <img class="logo" src="/assets/images/eodiro/app-icon.png" alt="" />
-            <!-- <img class="logo mode--dark" src="/assets/images/eodiro/app-icon_dark.png" alt="" /> -->
+          <div class="color-scheme-config" v-show="isSettingsActive">
+            <button
+              class="mode-btn light"
+              @click="$emit('changeColorScheme', 'light')"
+            >라이트 모드</button>
+            <button
+              class="mode-btn dark"
+              @click="$emit('changeColorScheme', 'dark')"
+            >다크 모드</button>
+            <button
+              class="mode-btn auto"
+              v-if="autoDarkModeSupport"
+              @click="$emit('changeColorScheme', 'auto')"
+            >자동 (macOS Mojave)</button>
           </div>
-          <router-link to="/cau"><button class="go-btn eodiro-btn">시작하기</button></router-link>
         </div>
+        <div class="settings-area">
+          <button
+            class="color-scheme-pref"
+            @click="isSettingsActive = !isSettingsActive"
+          >
+            <span v-if="!isSettingsActive">색상 모드 변경</span>
+            <span v-else>홈으로</span>
+          </button>
+        </div>
+
+        <!-- <div class="wrapper top-dummy"></div>
+        <div class="wrapper">
+          
+          
+        </div>
+         -->
       </div>
     </transition>
     <HomeBGTile/>
@@ -24,18 +54,33 @@
 </template>
 
 <script>
-import HomeBGTile from './HomeBGTile'
-import { clearInterval } from 'timers';
+import HomeBGTile from 'Components/HomeBGTile'
 
 export default {
   name: 'Home',
   components: { HomeBGTile },
+  mounted() {
+    // set document title
+    document.title = '어디로 | 대학교 빈강의실 찾기'
+
+    // check if the browser supports 'prefers-color-scheme' media query
+    if (window.matchMedia('(prefers-color-scheme: dark)').media != 'not all') {
+      this.autoDarkModeSupport = true
+      console.log('support auto dark mode')
+    }
+  },
+  data() {
+    return {
+      autoDarkModeSupport: false,
+      isSettingsActive: false
+    }
+  }
 }
 </script>
 
 <style lang="scss">
-@import '../scss/global-variables.scss';
-@import '../scss/global-mixins.scss';
+@import 'SCSS/global-variables.scss';
+@import 'SCSS/global-mixins.scss';
 
 #home {
   $transition-time: 1500ms;
@@ -59,107 +104,161 @@ export default {
   }
 
   .wrapper {
-    width: 100%;
+    min-width: 100%;
+
+    &.top-dummy {
+      height: 1.5rem;
+
+      @include smaller-than($mobile-width-threshold) {
+        display: none;
+      }
+    }
   }
 
   .start-box {
     z-index: 7777;
     display: flex;
+    position: relative;
+    flex-wrap: wrap;
     align-items: center;
+    align-content: space-between;
     justify-content: center;
     background-color: #fff;
     border-radius: 3rem;
     width: 90%;
     max-width: 30rem;
     height: 90%;
+    min-height: 22rem;
     max-height: 22rem;
-    box-shadow: 0 30px 300px rgba(0,0,0,0.2);
-    padding: 2rem;
+    box-shadow: 0 1rem 2rem rgba(0,0,0,0.1);
     text-align: center;
     overflow: hidden;
     will-change: transform;
     transition: background-color 1s ease, box-shadow 1s ease;
-    position: relative;
 
     @include dark-mode() {
-      background-color: #222;
-      box-shadow: 0 30px 200px rgba(0,0,0,0.5), $dark-mode-border-shadow;
+      background-color: #111;
+      box-shadow: 0 1rem 2rem rgba(0,0,0,0.3), $dark-mode-border-shadow;
     }
 
     @include smaller-than(700px) {
-      width: 100%;
-      background-color: transparent !important;
-      box-shadow: none !important;
+      width: calc(100% - 2rem);
+      border-radius: 2rem;
     }
 
     &.zoom-enter-active, &.zoom-leave-active {
       transform: scale(1);
       filter: blur(0px);
       opacity: 1;
+      box-shadow: 0 1rem 2rem rgba(0,0,0,0.1);
       transition: transform $transition-time $cb, opacity $transition-time/2 $cb, filter $transition-time $cb, background-color $transition-property, box-shadow $transition-property;
+
+      @include dark-mode() {
+        box-shadow: 0 1rem 2rem rgba(0,0,0,0.3), $dark-mode-border-shadow;
+      }
     }
     &.zoom-enter, &.zoom-leave-to {
       transform: scale(0.7);
       filter: blur(30px);
       opacity: 0;
+      box-shadow: none;
     }
 
-    .toggle-color-scheme {
-      background-color: #f4f4f4;
-      padding: 0.5rem 0.8rem;
-      border-radius: 50px;
-      font-family: $font-text;
-      font-size: 0.7rem;
+    .content-area {
       position: absolute;
-      left: 50%;
-      bottom: 1rem;
-      transform: translateX(-50%);
-      transition: background-color $transition-time $cb, color $transition-time $cb;
+      top: 0;
+      right: 0;
+      left: 0;
+      height: calc(100% - 3rem);
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-      &:active {
-        color: inherit;
-        // background-color: darken(#f4f4f4, 10);
-        // transition: none;
+      .main {
+        .logo-container {
+          img {
+            width: 5rem;
+          }
+        }
+
+        .logo-text {
+          font-family: $font-display;
+          font-size: 2.5rem;
+          font-weight: 700;
+          margin-top: 0.5rem;
+        }
+
+        .description {
+          font-family: $font-text;
+          font-size: 1rem;
+          font-weight: 400;
+        }
+
+        .go-btn {
+          margin-top: 2rem;
+          transition: background-color $transition-time $cb, box-shadow $transition-time $cb;
+        }
       }
 
-      @include dark-mode() {
-        color: $base-white;
-        background-color: #444;
+      .color-scheme-config {
+        text-align: center;
+        width: calc(100% - 2rem);
+
+        .mode-btn {
+          display: block;
+          width: 100%;
+          max-width: 15rem;
+          border-radius: 50px;
+          padding: 0.7rem 1rem;
+          font-size: 1.1rem;
+          font-weight: 500;
+          margin: auto;
+          margin-bottom: 1rem;
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+
+          &.light {
+            background-color: #f4f4f4;
+            color: $base-black;
+          }
+          &.dark {
+            background-color: #333;
+            color: $base-white;
+          }
+          &.auto {
+            // background-color: $light-blue;
+            background-image: linear-gradient(to right, #362c57, #fdd465);
+            color: $base-white;
+          }
+        }
       }
     }
 
-    .mobile {
-      display: none;
-      margin-top: -5rem;
+    .settings-area {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 3rem;
 
-      @include smaller-than(700px) {
-        display: block;
-      }
-    }
-
-    @include smaller-than(700px) {
-      .desktop {
-        display: none;
-      }
-    }
-
-    .logo {
-      width: 90%;
-      max-width: 15rem;
-      margin: auto;
-      display: block;
-
-      @include smaller-than(700px) {
-        max-width: 12rem;
-      }
-    }
-
-    .go-btn {
-      margin-top: 2rem;
-      transition: background-color $transition-time $cb, box-shadow $transition-time $cb;
-
-      @include smaller-than(700px) {
-        margin-top: 0;
+      .color-scheme-pref {
+        height: 2rem;
+        font-family: $font-text;
+        font-size: 0.8rem;
+        background-color: #f4f4f4;
+        padding: 0 0.8rem;
+        border-radius: 50px;
+        transition: background-color $transition-time $cb, color $transition-time $cb;
+      
+        @include dark-mode() {
+          color: $base-white;
+          background-color: #444;
+        }
       }
     }
   }

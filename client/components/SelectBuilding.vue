@@ -42,6 +42,8 @@ export default {
     })
   },
   activated() {
+    document.title = '중앙대학교'
+
     let buildings = this.$el.querySelectorAll('.building')
     buildings.forEach((building, index) => {
       building.classList.remove('appear')
@@ -50,7 +52,7 @@ export default {
       buildings.forEach(building => {
         building.classList.add('appear')
       })
-    }, 50)
+    }, 4)
     
     if (this.isRightDirection) {
       window.scrollTo(0, 0)
@@ -184,8 +186,6 @@ export default {
 @import 'SCSS/global-mixins.scss';
 @import 'SCSS/gradients.scss';
 
-$width-threshold: 500px;
-
 .building-container {
   display: grid;
   grid-gap: 3rem 2.5rem;
@@ -195,9 +195,9 @@ $width-threshold: 500px;
   margin: auto;
   padding-bottom: 10rem;
 
-  @include smaller-than($width-threshold) {
-    grid-gap: 0.5rem;
-    width: 100%;
+  @include smaller-than($mobile-width-threshold) {
+    grid-gap: 1rem;
+    width: calc(100% - 2rem);
   }
 
   .building {
@@ -210,13 +210,15 @@ $width-threshold: 500px;
     padding: 1rem;
     transform: translateY(10rem);
     will-change: transform, opacity;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.2);
     box-shadow: $eodiro-shadow;
     text-align: right;
 
-    @include smaller-than($width-threshold) {
-      border-radius: 0;
-      box-shadow: none;
+    @include dark-mode() {
+      box-shadow: $eodiro-shadow, $dark-mode-border-shadow;
+
+      @include smaller-than($mobile-width-threshold) {
+        box-shadow: $dark-mode-border-shadow;
+      }
     }
 
     &.appear {
@@ -231,12 +233,6 @@ $width-threshold: 500px;
       }
     }
 
-    &:active {
-      @include smaller-than($width-threshold) {
-        transform: none;
-      }
-    }
-
     // &::before {
     //   content: '';
     //   display: block;
@@ -246,10 +242,6 @@ $width-threshold: 500px;
     //     padding-top: 35%;
     //   }
     // }
-
-    @include dark-mode() {
-      box-shadow: 0 5px 10px rgba(0,0,0,0.2), $dark-mode-border-shadow;
-    }
 
     @include smaller-than($mobile-width-threshold) {
       text-align: center;

@@ -70,7 +70,7 @@ export default {
         this.navTitle = '건물을 선택하세요'
         this.backLink = '/'
       } else if (this.$route.name === 'floor') {
-        this.navTitle = '원하는 층을 선택하세요'
+        this.navTitle = '층을 선택하세요'
         this.backLink = '/' + rp.universityVendor
       } else if (this.$route.name === 'result') {
         this.navTitle = '빈 강의실 목록입니다'

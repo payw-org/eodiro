@@ -1,9 +1,9 @@
 <template>
   <div class="content-item select-floor" @scroll="$emit('update-nav-view')">
     <div class="floor-container">
-      <div class="floor-wrapper">
+      <div class="floor-wrapper building-display">
         <div class="floor building-id">
-          <h1 class="manifesto">{{ buildingName }}관의 빈 강의실은 총 n개입니다</h1>
+          <h1 class="manifesto">{{ buildingName }}관</h1>
         </div>
       </div>
       <div
@@ -14,6 +14,7 @@
         <div class="floor">
           <router-link class="link" :to="'./' + (10 - index + 1)" append></router-link>
           <h1 class="num">{{ 10 - index + 1 + '층' }}</h1>
+          <div class="rooms-count">빈 강의실 3</div>
         </div>
       </div>
     </div>
@@ -128,6 +129,12 @@ export default {
     margin-bottom: 1.5rem;
     will-change: transform;
 
+    &.building-display {
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
     &.appear {
       opacity: 1;
       transform: translateY(0);
@@ -159,17 +166,14 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-wrap: wrap;
       background-color: #fff;
       box-shadow: $eodiro-shadow;
       will-change: transform;
 
-      .num {
-        font-size: 1.5rem;
-      }
-
       &.building-id {
         padding: 1rem;
-        background-color: #744be6;
+        background-color: #554CDA;
         color: #fff;
         cursor: default;
 
@@ -178,15 +182,21 @@ export default {
         }
       }
 
+      .num {
+        font-size: 1.5rem;
+      }
+
+      .rooms-count {
+        min-width: 100%;
+      }
+
       @include dark-mode() {
         background-color: #3e3e3e;
         box-shadow: $eodiro-shadow, $dark-mode-border-shadow;
 
         &.building-id {
           padding: 1rem;
-          background-color: #744be6;
-          color: #fff;
-          cursor: default;
+          background-color: #554CDA;
         
           .manifesto {
             font-size: 1.2rem;

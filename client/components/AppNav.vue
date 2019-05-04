@@ -8,6 +8,7 @@
             <div class="left-tip"></div>
             <div class="title-box"></div>
             <div class="right-tip"></div>
+            <div class="shadow"></div>
             <transition name="fade" mode="out-in">
               <h1 class="title-text" :key="mutateNavTitle">{{ mutateNavTitle }}</h1>
             </transition>
@@ -72,20 +73,23 @@ export default {
       titleTextClone.style.pointerEvents = 'none'
       titleTextClone.innerHTML = newTitle
       titleText.parentElement.appendChild(titleTextClone)
-      let titleTextWidth = titleTextClone.getBoundingClientRect().width
-      titleTextClone.parentElement.removeChild(titleTextClone)
+      let titleTextWidth = titleTextClone.getBoundingClientRect().width - 10
       let titleBox = this.$el.querySelector('.title-box')
       let leftTip = this.$el.querySelector('.left-tip')
       let rightTip = this.$el.querySelector('.right-tip')
       let link = this.$el.querySelector('.link')
+      let shadow = this.$el.querySelector('.shadow')
 
       let titleBoxWidth = titleBox.clientWidth
       let scaleX = titleTextWidth / titleBoxWidth
-      let translateX = -((titleTextWidth - titleBoxWidth) / 2 - 2)
+      let translateX = -((titleTextWidth - titleBoxWidth) / 2 - 5)
       titleBox.style.transform = 'scaleX(' + scaleX + ')'
       leftTip.style.transform = 'translateX(' + translateX + 'px)'
       rightTip.style.transform = 'translateX(' + -translateX + 'px)'
       link.style.width = 'calc(' + titleTextWidth + 'px' + ' \+ 3rem)'
+      shadow.style.width = titleTextWidth + 'px'
+
+      titleTextClone.parentElement.removeChild(titleTextClone)
     }
   }
 }
@@ -159,7 +163,7 @@ export default {
           top: 0;
           background-color: $light-blue;
           will-change: transform;
-          width: $height / 2 + 2;
+          width: $height / 2 + 5;
           height: $height;
           z-index: 1;
         }
@@ -171,16 +175,28 @@ export default {
         .right-tip {
           left: 100%;
           border-radius: 0 50px 50px 0;
-          transition: transform 700ms $eodiro-cb, background-color 700ms $eodiro-cb, border-radius 500ms $eodiro-cb;
+          transition: transform 700ms $eodiro-cb, background-color 700ms $eodiro-cb, border-radius 700ms ease;
         }
         .title-box {
+          position: relative;
           background-color: red;
           height: $height;
-          width: 5rem;
-          box-shadow: 0 0.5rem 2rem rgba($light-blue, 0.5);
+          width: 2rem;
           will-change: transform;
-          transition: transform 700ms $eodiro-cb, background-color 700ms $eodiro-cb, box-shadow 700ms $eodiro-cb;
+          transition: transform 700ms $eodiro-cb, background-color 700ms $eodiro-cb;
           background-color: $light-blue;
+        }
+        .shadow {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 100%;
+          height: 50%;
+          z-index: -1;
+          border-radius: 50px;
+          box-shadow: 0 0.5rem 2rem 1rem rgba($light-blue, 0.5);
+          transform: translateX(-50%) translateY(-50%);
+          transition: width 700ms $eodiro-cb, box-shadow 700ms $eodiro-cb;
         }
         .title-text {
           position: absolute;
@@ -193,10 +209,24 @@ export default {
           font-size: 1.3rem;
           color: #fff;
           z-index: 2;
+
+          &.fade-enter-active, &.fade-leave-active {
+            transition: opacity 0.2s ease, transform 0.2s ease !important;
+            opacity: 1 !important;
+            transform: translateX(-50%) translateY(-50%);
+          }
+          &.fade-enter {
+            opacity: 0 !important;
+            // transform: translateX(-50%) translateY(calc(-50% + 1rem));
+          }
+          &.fade-leave-to {
+            opacity: 0 !important;
+            // transform: translateX(-50%) translateY(calc(-50% - 1rem));
+          }
         }
 
         @include smaller-than($mobile-width-threshold) {
-          $height: 44px;
+          $height: 40px;
           height: $height;
 
           .title-box {
@@ -204,7 +234,7 @@ export default {
           }
           .left-tip, .right-tip {
             height: $height;
-            width: $height / 2 + 2;
+            width: $height / 2 + 5;
           }
         }
 
@@ -215,8 +245,8 @@ export default {
           .link {
             border-radius: 50px 0.5rem 0.5rem 50px;
           }
-          .title-box {
-            box-shadow: 0 0.5rem 2rem rgba($light-green, 0.5);
+          .shadow {
+            box-shadow: 0 0.5rem 2rem 1rem rgba($light-green, 0.5);
           }
           .title-box, .left-tip, .right-tip {
             background-color: $light-green;
@@ -228,8 +258,8 @@ export default {
             background-color: $light-yellow;
           }
         
-          .title-box {
-            box-shadow: 0 0.5rem 2rem rgba(#000, 0.5);
+          .shadow {
+            box-shadow: 0 0.5rem 2rem 1rem rgba(#000, 0.5);
           }
         
           &.go-back-active {

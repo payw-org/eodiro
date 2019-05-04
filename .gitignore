@@ -1,6 +1,9 @@
 .vscode
+.DS_Store
 node_modules
 package-lock.json
+forever.json
+server/config.js
 
 public_html/assets/build
 server/lib/build
