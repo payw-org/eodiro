@@ -1,5 +1,6 @@
 <template>
   <div id="home">
+    <a href="http://payw.org" class="about-developers">{{ thisYear }} © Payw.org</a>
     <transition
       appear
       name="zoom"
@@ -7,15 +8,16 @@
       <div class="start-box">
 
         <div class="content-area">
-          <div class="main" v-show="!isSettingsActive">
+          <div class="main" v-show="!isSettingsActive" key="1">
             <dir class="logo-container">
-              <img src="/assets/images/eodiro/app-icon_sq_b.svg" alt="">
+              <img src="/assets/images/eodiro/app-icon_sq_b.svg" alt="" class="mode--light">
+              <img src="/assets/images/eodiro/app-icon_sq_b_dark.svg" alt="" class="mode--dark">
             </dir>
             <h1 class="logo-text">어디로</h1>
             <p class="description base-gray">대학교 빈 강의실 찾기 서비스</p>
-            <router-link to="/cau"><button class="go-btn eodiro-btn">시작하기 →</button></router-link>
+            <router-link to="/university"><button class="go-btn eodiro-btn">시작하기 <span class="arrow">→</span></button></router-link>
           </div>
-          <div class="color-scheme-config" v-show="isSettingsActive">
+          <div class="color-scheme-config" v-show="isSettingsActive" key="2">
             <button
               class="mode-btn light"
               @click="$emit('changeColorScheme', 'light')"
@@ -28,7 +30,7 @@
               class="mode-btn auto"
               v-if="autoDarkModeSupport"
               @click="$emit('changeColorScheme', 'auto')"
-            >자동 (macOS Mojave)</button>
+            >적응형 (macOS Mojave)</button>
           </div>
         </div>
         <div class="settings-area">
@@ -37,7 +39,7 @@
             @click="isSettingsActive = !isSettingsActive"
           >
             <span v-if="!isSettingsActive">색상 모드 변경</span>
-            <span v-else>홈으로</span>
+            <span v-else>완료</span>
           </button>
         </div>
 
@@ -57,7 +59,7 @@
 import HomeBGTile from 'Components/HomeBGTile'
 
 export default {
-  name: 'Home',
+  name: 'home',
   components: { HomeBGTile },
   mounted() {
     // set document title
@@ -66,13 +68,17 @@ export default {
     // check if the browser supports 'prefers-color-scheme' media query
     if (window.matchMedia('(prefers-color-scheme: dark)').media != 'not all') {
       this.autoDarkModeSupport = true
-      console.log('support auto dark mode')
     }
   },
   data() {
     return {
       autoDarkModeSupport: false,
       isSettingsActive: false
+    }
+  },
+  computed: {
+    thisYear() {
+      return new Date().getFullYear()
     }
   }
 }
@@ -115,6 +121,15 @@ export default {
     }
   }
 
+  .about-developers {
+    position: fixed;
+    left: 1rem;
+    bottom: 1rem;
+    z-index: 9999;
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+
   .start-box {
     z-index: 7777;
     display: flex;
@@ -124,7 +139,7 @@ export default {
     align-content: space-between;
     justify-content: center;
     background-color: #fff;
-    border-radius: 3rem;
+    border-radius: 2rem;
     width: 90%;
     max-width: 30rem;
     height: 90%;
@@ -137,13 +152,12 @@ export default {
     transition: background-color 1s ease, box-shadow 1s ease;
 
     @include dark-mode() {
-      background-color: #111;
+      background-color: #222;
       box-shadow: 0 1rem 2rem rgba(0,0,0,0.3), $dark-mode-border-shadow;
     }
 
     @include smaller-than(700px) {
       width: calc(100% - 2rem);
-      border-radius: 2rem;
     }
 
     &.zoom-enter-active, &.zoom-leave-active {
@@ -195,8 +209,30 @@ export default {
         }
 
         .go-btn {
-          margin-top: 2rem;
+          margin: 1.5rem auto 0;
           transition: background-color $transition-time $cb, box-shadow $transition-time $cb;
+          display: flex;
+
+          .arrow {
+            font-family: $font-text;
+            font-weight: 700;
+            animation-name: arrowMove;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+            margin-left: 0.2rem;
+          }
+
+          @keyframes arrowMove {
+            0% {
+              transform: translateX(0rem);
+            }
+            85% {
+              transform: translateX(0.5rem);
+            }
+            100% {
+              transform: translateX(0rem);
+            }
+          }
         }
       }
 
@@ -228,8 +264,8 @@ export default {
             color: $base-white;
           }
           &.auto {
-            // background-color: $light-blue;
-            background-image: linear-gradient(to right, #362c57, #fdd465);
+            background-color: #4442b1;
+            // background-image: linear-gradient(to right, #362c57, #fdd465);
             color: $base-white;
           }
         }
@@ -247,11 +283,11 @@ export default {
       height: 3rem;
 
       .color-scheme-pref {
-        height: 2rem;
+        height: 1.5rem;
         font-family: $font-text;
         font-size: 0.8rem;
         background-color: #f4f4f4;
-        padding: 0 0.8rem;
+        padding: 0 0.6rem;
         border-radius: 50px;
         transition: background-color $transition-time $cb, color $transition-time $cb;
       
