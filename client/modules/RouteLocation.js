@@ -1,7 +1,5 @@
 export default class Location {
-  constructor() {
-
-  }
+  constructor() {}
 
   static isRightDirection(to, from) {
     const routesList = [
@@ -12,8 +10,10 @@ export default class Location {
       'result'
     ]
 
-    let fromIndex = routesList.indexOf(from)
-    if (to === routesList[fromIndex + 1]) {
+    const fromIndex = routesList.indexOf(from)
+    const toIndex = routesList.indexOf(to)
+
+    if (fromIndex < toIndex) {
       return true
     } else {
       return false

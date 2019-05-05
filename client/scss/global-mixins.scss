@@ -1,3 +1,5 @@
+@import 'SCSS/global-variables.scss';
+
 @mixin smaller-than($width) {
 	@media only screen and (max-width: $width) {
 		@content;
@@ -7,6 +9,12 @@
 @mixin larger-than($width) {
 	@media only screen and (min-width: $width) {
 		@content;
+	}
+}
+
+@mixin on-mobile() {
+	@include smaller-than($mobile-width-threshold) {
+		@content
 	}
 }
 
@@ -29,5 +37,17 @@
 		.auto-color-scheme & {
 			@content;
 		}
+	}
+}
+
+@mixin color-all($color) {
+	color: $color;
+
+	&:active{
+		color: $color;
+	}
+
+	&:hover {
+		color: $color;
 	}
 }

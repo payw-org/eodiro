@@ -6,9 +6,11 @@
         name="fade"
         mode="out-in"
       >
-        <keep-alive>
+        <keep-alive :include="cachedComponents">
           <router-view
+            @forceHideNav="forceHideNav"
             :is-right-direction="isRightDirection"
+            :cached-components="cachedComponents"
           ></router-view>
         </keep-alive>
       </transition>
@@ -21,34 +23,36 @@ import AppNav from './AppNav'
 
 export default {
   components: { AppNav },
-  watch: {
-    $route (to, from) {
-      this.setNavData()
-      this.isNavHidden = false
-    }
-  },
-  mounted() {
-    this.isNavHidden = false
-    this.setNavData()
-    window.addEventListener('scroll', e => {
-      // if (this.$route.name !== 'floors') {
-        this.updateNavView()
-      // }
-    })
-  },
-  props: [
-    'isRightDirection'
-  ],
+  props: [ 'isRightDirection' ],
   data () {
     return {
       navTitle: '',
       backLink: '/',
       isNavHidden: true,
       lastScrollTop: 0,
-      threshold: window.scrollY
+      threshold: window.scrollY,
+      cachedComponents: []
+    }
+  },
+  watch: {
+    $route (to, from) {
+      this.setNavData()
+      this.isNavHidden = false
+
+      // if go left direction, remove last cached components
+      if (!this.isRightDirection) {
+        this.cachedComponents.splice(this.cachedComponents.length - 1, 1)
+      }
     }
   },
   methods: {
+    // ignore scroll-based nav update and hide
+    forceHideNav() {
+      setTimeout(() => {
+        this.isNavHidden = true
+      }, 10)
+    },
+    // update nav hidden state using scroll position
     updateNavView() {
       let st = window.scrollY
       if (st > this.threshold + 100 && st > 0) {
@@ -64,19 +68,30 @@ export default {
       }
       this.lastScrollTop = st
     },
+    // set nav title data
     setNavData () {
       let rp = this.$route.params
       if (this.$route.name === 'building') {
         this.navTitle = '건물을 선택하세요'
         this.backLink = '/'
       } else if (this.$route.name === 'floor') {
-        this.navTitle = '층을 선택하세요'
+        this.navTitle = '어느 층으로 가시겠어요?'
         this.backLink = '/' + rp.universityVendor
       } else if (this.$route.name === 'result') {
         this.navTitle = '빈 강의실 목록입니다'
         this.backLink = '/' + rp.universityVendor + '/' + rp.buildingID
+      } else if (this.$route.name === 'university') {
+        this.navTitle = '어느 학교 다니시나요?'
+        this.backLink = '/'
       }
     }
+  },
+  mounted() {
+    this.isNavHidden = false
+    this.setNavData()
+    window.addEventListener('scroll', e => {
+      this.updateNavView()
+    })
   }
 }
 </script>
@@ -89,6 +104,7 @@ export default {
   .ea-content {  
     .content-item {
       padding-top: 11.3rem;
+      padding-bottom: 10rem;
       display: block;
 
       @include smaller-than($mobile-width-threshold) {

@@ -11,9 +11,13 @@ $light-red: #f32d3e;
 $mobile-width-threshold: 700px;
 
 $eodiro-shadow: 0 0.5rem 1rem rgba(0,0,0,0.1);
+$eodiro-shadow--dark: 0 0.5rem 1rem rgba(0,0,0,0.4);
 $smooth-transition: all 0.2s ease;
 $hover-transform: scale(1.05);
 $click-transform: scale(0.88);
+
+$content-padding-top: 11.3rem;
+$content-padding-top--mobile: 8.5rem;
 
 // $eodiro-cb: cubic-bezier(.24,.49,.01,.99);
 // $eodiro-cb: cubic-bezier(0.08, 0.46, 0.01, 0.99);
@@ -21,7 +25,7 @@ $eodiro-cb: cubic-bezier(0.18, 0.37, 0.11, 0.98);
 
 $exiting-time: 500ms;
 
-$dark-mode-border-shadow: inset 0 0 0 1px rgba(#000, 1), inset 0 0 0 2px rgba(#fff, 0.3);
+$dark-mode-border-shadow: inset 0 0 0 1px rgba(#000, 1), inset 0 0 0 2px rgba(#fff, 0.4);
 
 $font-text: text, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 $font-display: display, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
