@@ -2,13 +2,13 @@
   <div class="content-item university-search">
     <div class="search-area">
       <div class="query-input-wrapper">
-        <input v-model="search" @click="clickInput" @keydown="clickInput" class="input" type="text" placeholder="학교 이름으로 검색" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <input v-model="search" @click="clickInput(false)" @keydown="clickInput(true)" class="input" type="text" placeholder="학교 이름으로 검색" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
       </div>
       <div class="university-list">
         <div
           v-for="(u, i) in filteredList"
           :key="i"
-          @click="selectUniversity(u.vendor)"
+          @click="selectUniversity(u)"
           class="university-item"
         >{{ u.name }}</div>
       </div>
@@ -76,13 +76,38 @@ export default {
     }
   },
   methods: {
-    clickInput() {
-      this.$emit('forceHideNav')
-      window.scrollTo(0, parseFloat(window.getComputedStyle(this.$el, null).getPropertyValue('padding-top')))
+    clickInput(power = false) {
+      this.$emit('toggleScrollEvent', false)
+
+      if (power || this.$el.querySelector('.query-input-wrapper').getBoundingClientRect().top < 1) {
+        window.scrollTo(0, parseFloat(window.getComputedStyle(this.$el, null).getPropertyValue('padding-top')))
+      } else {
+        const scrollBy = function (distance, duration) {
+          var initialY = document.body.scrollTop;
+          var y = initialY + distance;
+          var baseY = (initialY + y) * 0.5;
+          var difference = initialY - baseY;
+          var startTime = performance.now();
+        
+          function step() {
+              var normalizedTime = (performance.now() - startTime) / duration;
+              if (normalizedTime > 1) normalizedTime = 1;
+        
+              window.scrollTo(0, baseY + difference * Math.cos(normalizedTime * Math.PI));
+              if (normalizedTime < 1) window.requestAnimationFrame(step);
+          }
+          window.requestAnimationFrame(step);
+        }
+        
+        scrollBy(parseFloat(window.getComputedStyle(this.$el, null).getPropertyValue('padding-top')), 300)
+      }
+
+      this.$emit('toggleScrollEvent', true)
     },
-    selectUniversity(vendor) {
-      // redirect to vendor url
-      this.$router.push('/' + vendor)
+    selectUniversity(university) {
+      window.localStorage.setItem('defaultUniversity', JSON.stringify(university))
+      window.alert(`[ ${university.name} ] 기본 학교로 설정되었습니다. 나중에 변경 가능합니다.`)
+      this.$router.push('/' + university.vendor)
     }
   }
 }
@@ -128,7 +153,7 @@ export default {
 
     .university-list {
       width: calc(100% - 2rem);
-      max-width: 20rem;
+      max-width: 25rem;
       margin: auto;
       box-shadow: $eodiro-shadow;
       border-radius: 1rem;
@@ -139,15 +164,21 @@ export default {
       }
 
       .university-item {
-        border-bottom: 1px solid #f4f4f4;
-        padding: 1rem;
+        padding: 1.2rem 1rem;
         font-size: 1rem;
         text-align: center;
         background-color: $base-white;
 
+        &:nth-child(2n) {
+          background-color: #f8f8f8;
+        }
+
         @include dark-mode() {
           background-color: transparent;
-          border-bottom: 1px solid #000;
+
+          &:nth-child(2n) {
+            background-color: rgba(#fff, 0.05);
+          }
         }
 
         &, & * {
