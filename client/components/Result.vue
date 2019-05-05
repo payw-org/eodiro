@@ -21,41 +21,13 @@
       <div class="timetable-container" v-show="timeTableShow">
         <div class="background" @click="closeTimeTable()"></div>
         <div class="timetable">
+          <button class="close"></button>
           <h1 class="title">{{ selectedRoom }}호 강의 시간표</h1>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
-          <p>hello world</p>
+          <div class="lecture-container" v-for="i in 10" :key="i">
+            <div class="lecture">
+
+            </div>
+          </div>
         </div>
       </div>
     </transition>
@@ -275,7 +247,7 @@ export default {
       .timetable {
         opacity: 0;
         transform: scale(0.8);
-        filter: blur(20px);
+        filter: blur(10px);
       }
     }
 
@@ -306,10 +278,22 @@ export default {
         box-shadow: $dark-mode-border-shadow;
       }
 
+      .close {
+        position: sticky;
+        top: 0;
+        display: none;
+      }
+
       .title {
         font-size: 2rem;
         font-weight: 700;
         margin-top: 1.5rem;
+      }
+
+      .lecture-container {
+        .lecture {
+          
+        }
       }
     }
   }

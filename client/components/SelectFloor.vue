@@ -11,11 +11,12 @@
         v-for="index in 10"
         :key="index"
       >
-        <div class="floor">
-          <router-link class="link" :to="'./' + (10 - index + 1)" append></router-link>
-          <h1 class="num">{{ 10 - index + 1 + '층' }}</h1>
-          <div class="rooms-count">빈 강의실 3</div>
-        </div>
+        <router-link class="link" :to="'./' + (10 - index + 1)" append>
+          <div class="floor">
+            <div class="rooms-count">빈 강의실 3</div>
+            <h1 class="num">{{ 10 - index + 1 + '층' }}</h1>
+          </div>
+        </router-link>
       </div>
     </div>
   </div>
@@ -84,22 +85,13 @@ export default {
       transition: transform 1000ms $eodiro-cb, opacity 1000ms $eodiro-cb;
     }
 
-    .link {
-      display: block;
-      position: absolute;
-      width: 100%;
-      height: 100%;
-    }
-
     .floor {
       cursor: pointer;
       color: inherit;
       border-radius: 1rem;
-      padding: 2rem 1rem;
+      padding: 1.5rem;
       display: flex;
       align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
       background-color: #fff;
       box-shadow: $eodiro-shadow;
       will-change: transform;
@@ -112,19 +104,30 @@ export default {
 
         .manifesto {
           font-size: 1.2rem;
+          flex: 1;
+          text-align: center;
         }
       }
 
       .num {
-        font-size: 1.5rem;
+        font-family: $font-display;
+        font-size: 2.5rem;
+        flex: 1;
+        text-align: right;
       }
 
       .rooms-count {
-        min-width: 100%;
         text-align: center;
         font-family: $font-text;
-        font-size: 0.9rem;
-        margin-top: 0.2rem;
+        font-size: 1rem;
+        font-weight: 500;
+        background-color: rgba(#000, 0.05);
+        padding: 0.5rem 0.7rem;
+        border-radius: 0.5rem;
+
+        @include dark-mode() {
+          background-color: rgba(#fff, 0.05);
+        }
       }
 
       @include dark-mode() {

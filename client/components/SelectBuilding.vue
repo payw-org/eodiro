@@ -274,7 +274,7 @@ export default {
       .wrapper {
         display: inline-block;
         font-family: $font-text;
-        font-size: 0.9rem;
+        font-size: 1rem;
         font-weight: 500;
         color: #fff;
         background-color: rgba(#000, 0.15);
