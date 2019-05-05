@@ -20,11 +20,16 @@ export default {
     this.buildIn()
   },
   activated() {
+    this.$emit('toggleScrollEvent', false)
+
     if (this.isRightDirection) {
       window.scrollTo(0, 0)
     } else {
       window.scrollTo(0, this.scrollPos)
     }
+    setTimeout(() => {
+      this.$emit('toggleScrollEvent', true)
+    }, 10)
 
     this.buildIn()
   },
