@@ -8,7 +8,7 @@
       >
         <keep-alive :include="cachedComponents">
           <router-view
-            @forceHideNav="forceHideNav"
+            @toggleScrollEvent="toggleScrollEvent"
             :is-right-direction="isRightDirection"
             :cached-components="cachedComponents"
           ></router-view>
@@ -47,10 +47,14 @@ export default {
   },
   methods: {
     // ignore scroll-based nav update and hide
-    forceHideNav() {
-      setTimeout(() => {
-        this.isNavHidden = true
-      }, 10)
+    toggleScrollEvent(allow) {
+      window.removeEventListener('scroll', this.updateNavView)
+
+      if (allow) {
+        window.addEventListener('scroll', this.updateNavView)
+      }
+
+      this.lastScrollTop = window.scrollY
     },
     // update nav hidden state using scroll position
     updateNavView() {
@@ -75,13 +79,13 @@ export default {
         this.navTitle = '건물을 선택하세요'
         this.backLink = '/'
       } else if (this.$route.name === 'floor') {
-        this.navTitle = '어느 층으로 가시겠어요?'
+        this.navTitle = '층을 선택하세요'
         this.backLink = '/' + rp.universityVendor
       } else if (this.$route.name === 'result') {
         this.navTitle = '빈 강의실 목록입니다'
         this.backLink = '/' + rp.universityVendor + '/' + rp.buildingID
       } else if (this.$route.name === 'university') {
-        this.navTitle = '어느 학교 다니시나요?'
+        this.navTitle = '학교를 선택하세요'
         this.backLink = '/'
       }
     }
@@ -89,9 +93,7 @@ export default {
   mounted() {
     this.isNavHidden = false
     this.setNavData()
-    window.addEventListener('scroll', e => {
-      this.updateNavView()
-    })
+    window.addEventListener('scroll', this.updateNavView)
   }
 }
 </script>
