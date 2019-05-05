@@ -51,7 +51,7 @@ export default {
       this.goBackTimeout = setTimeout(() => {
         this.goBackActive = true
         this.mutateNavTitle = this.goBackTitle
-      }, 1700)
+      }, 2000)
     },
     mutateNavTitle: function (newTitle, oldTitle) {
       this.transformSB(newTitle)
@@ -112,6 +112,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+  pointer-events: none;
 
   $time: 800ms;
 
@@ -141,6 +142,7 @@ export default {
         position: relative;
         $height: 58px;
         height: $height;
+        pointer-events: all;
 
         @include smaller-than($mobile-width-threshold) {
           height: 44px;
@@ -187,6 +189,7 @@ export default {
           background-color: $light-blue;
         }
         .shadow {
+          // display: none;
           position: absolute;
           top: 50%;
           left: 50%;
@@ -194,7 +197,8 @@ export default {
           height: 50%;
           z-index: -1;
           border-radius: 50px;
-          box-shadow: 0 0.5rem 2rem 1rem rgba($light-blue, 0.5);
+          background-color: rgba($light-blue, 0.3);
+          box-shadow: 0 0.5rem 1.5rem 1rem rgba($light-blue, 0.3);
           transform: translateX(-50%) translateY(-50%);
           transition: width 700ms $eodiro-cb, box-shadow 700ms $eodiro-cb;
         }
@@ -246,7 +250,8 @@ export default {
             border-radius: 50px 0.5rem 0.5rem 50px;
           }
           .shadow {
-            box-shadow: 0 0.5rem 2rem 1rem rgba($light-green, 0.5);
+            background-color: rgba($light-green, 0.3);
+            box-shadow: 0 0.5rem 2rem 1rem rgba($light-green, 0.3);
           }
           .title-box, .left-tip, .right-tip {
             background-color: $light-green;
@@ -259,7 +264,8 @@ export default {
           }
         
           .shadow {
-            box-shadow: 0 0.5rem 2rem 1rem rgba(#000, 0.5);
+            background-color: rgba(#000, 0.3);
+            box-shadow: 0 0.5rem 2rem 1rem rgba(#000, 0.3);
           }
         
           &.go-back-active {
