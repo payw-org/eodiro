@@ -39,6 +39,14 @@ export default {
       return false
     }
 
+    window.addEventListener('keydown', e => {
+      if (e.key === 'D' && e.shiftKey) {
+        this.updateColorScheme('dark')
+      } else if (e.key === 'L' && e.shiftKey) {
+        this.updateColorScheme('light')
+      }
+    })
+
     // prune all noscript tags
     document.querySelectorAll('noscript').forEach(elm => {
       elm.parentElement.removeChild(elm)
