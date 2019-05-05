@@ -39,7 +39,8 @@ module.exports = {
 		alias: {
 			vue$: 'vue/dist/vue.esm.js',
 			SCSS: __dirname + '/client/scss/',
-			Components: __dirname + '/client/components/'
+			Components: __dirname + '/client/components/',
+			Modules: __dirname + '/client/modules/'
 		}
 	},
 	module: {
