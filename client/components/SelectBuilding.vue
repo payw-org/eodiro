@@ -21,51 +21,11 @@
 </template>
 
 <script>
-export default {
-  methods: {
-  },
-  watch: {
-  },
-  mounted() {
-    let buildings = this.$el.querySelectorAll('.building')
-    let data = []
-    buildings.forEach(building => {
-      let colorCode
-      while (1) {
-        colorCode = Math.floor(Math.random() * 80) + 1
-        if (data[colorCode] === undefined) {
-          data[colorCode] = 1
-          break
-        }
-      }
-      building.classList.add('gradient--' + colorCode)
-    })
-  },
-  activated() {
-    document.title = '중앙대학교'
+import Content from 'Components/Content.vue'
 
-    let buildings = this.$el.querySelectorAll('.building')
-    buildings.forEach((building, index) => {
-      building.classList.remove('appear')
-    })
-    setTimeout(() => {
-      buildings.forEach(building => {
-        building.classList.add('appear')
-      })
-    }, 4)
-    
-    if (this.isRightDirection) {
-      window.scrollTo(0, 0)
-    } else {
-      window.scrollTo(0, this.scrollPos)
-    }
-  },
-  deactivated() {
-    this.scrollPos = window.scrollY
-  },
-  props: [
-    'isRightDirection'
-  ],
+export default {
+  name: 'building',
+  extends: Content,
   data() {
     return {
       scrollPos: 0,
@@ -177,6 +137,42 @@ export default {
         }
       ]
     }
+  },
+  methods: {
+    buildIn() {
+      let buildings = this.$el.querySelectorAll('.building')
+      buildings.forEach((building, index) => {
+        building.classList.remove('appear')
+      })
+      
+      let i = 0
+      let interval = window.setInterval(() => {
+        buildings[i++].classList.add('appear')
+        if (i === buildings.length) {
+          window.clearInterval(interval)
+        }
+      }, 50)
+    },
+    setBuildingColor() {
+      let buildings = this.$el.querySelectorAll('.building')
+      let data = []
+      buildings.forEach(building => {
+        let colorCode
+        while (1) {
+          colorCode = Math.floor(Math.random() * 80) + 1
+          if (data[colorCode] === undefined) {
+            data[colorCode] = 1
+            break
+          }
+        }
+        building.classList.add('gradient--' + colorCode)
+      })
+    }
+  },
+  mounted() {
+    this.setBuildingColor()
+  },
+  activated() {
   }
 }
 </script>
@@ -227,12 +223,6 @@ export default {
       transition: transform 1000ms $eodiro-cb, opacity 1000ms $eodiro-cb;
     }
 
-    @for $i from 0 through 50 {
-      &:nth-child(#{$i}) {
-        transition-delay: unquote(($i/15) + 's');
-      }
-    }
-
     // &::before {
     //   content: '';
     //   display: block;
@@ -260,8 +250,9 @@ export default {
 
       .name--number {
         font-size: 3rem;
-        line-height: 1;
+        font-weight: 700;
         font-family: $font-display;
+        line-height: 1;
       }
 
       .name--text {
