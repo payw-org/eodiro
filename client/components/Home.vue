@@ -10,12 +10,11 @@
         <div class="content-area">
           <div class="main" v-show="!isSettingsActive" key="1">
             <dir class="logo-container">
-              <img src="/assets/images/eodiro/app-icon_sq_b.svg" alt="" class="mode--light">
-              <img src="/assets/images/eodiro/app-icon_sq_b_dark.svg" alt="" class="mode--dark">
+              <img src="/assets/images/eodiro/logo-arrow.svg" alt="eodiro-logo">
             </dir>
             <h1 class="logo-text">어디로</h1>
             <p class="description base-gray">대학교 빈 강의실 찾기 서비스</p>
-            <router-link to="/university"><button class="go-btn eodiro-btn">시작하기 <span class="arrow">→</span></button></router-link>
+            <router-link :to="'/' + startLink"><button class="go-btn eodiro-btn">{{ startMsg }} <span class="arrow">→</span></button></router-link>
           </div>
           <div class="color-scheme-config" v-show="isSettingsActive" key="2">
             <button
@@ -35,12 +34,15 @@
         </div>
         <div class="settings-area">
           <button
-            class="color-scheme-pref"
+            class="config-btn color-scheme-pref"
             @click="isSettingsActive = !isSettingsActive"
           >
-            <span v-if="!isSettingsActive">색상 모드 변경</span>
+            <span v-if="!isSettingsActive">색상 모드 설정</span>
             <span v-else>완료</span>
           </button>
+          <router-link to="/university">
+          <button class="config-btn" v-if="isDefaultUniversityExist && !isSettingsActive">학교 변경</button>
+          </router-link>
         </div>
 
         <!-- <div class="wrapper top-dummy"></div>
@@ -61,6 +63,30 @@ import HomeBGTile from 'Components/HomeBGTile'
 export default {
   name: 'home',
   components: { HomeBGTile },
+  data() {
+    return {
+      autoDarkModeSupport: false,
+      isSettingsActive: false,
+      isDefaultUniversityExist: false,
+      startLink: ''
+    }
+  },
+  computed: {
+    thisYear() {
+      return new Date().getFullYear()
+    },
+    startMsg() {
+      if (window.localStorage.getItem('defaultUniversity')) {
+        const defaultUniversity = JSON.parse(window.localStorage.getItem('defaultUniversity'))
+        this.isDefaultUniversityExist = true
+        this.startLink = defaultUniversity.vendor
+        return defaultUniversity.name
+      } else {
+        this.startLink = 'university'
+        return '대학교 선택'
+      }
+    }
+  },
   mounted() {
     // set document title
     document.title = '어디로 | 대학교 빈강의실 찾기'
@@ -68,17 +94,6 @@ export default {
     // check if the browser supports 'prefers-color-scheme' media query
     if (window.matchMedia('(prefers-color-scheme: dark)').media != 'not all') {
       this.autoDarkModeSupport = true
-    }
-  },
-  data() {
-    return {
-      autoDarkModeSupport: false,
-      isSettingsActive: false
-    }
-  },
-  computed: {
-    thisYear() {
-      return new Date().getFullYear()
     }
   }
 }
@@ -190,9 +205,29 @@ export default {
 
       .main {
         .logo-container {
+          width: 5rem;
+          height: 5rem;
+          margin: auto;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid #f0f0f0;
+          border-radius: 1.2rem;
+          transition: background-color 500ms ease, border 500ms ease;
+
           img {
-            width: 5rem;
+            width: 60%;
+            height: 60%;
+            transform: translateX(4%);
           }
+
+          @include dark-mode() {
+            border-color: #5f5f5f;
+          }
+        }
+
+        .logo-text, .description {
+          transition: color 500ms ease;
         }
 
         .logo-text {
@@ -282,7 +317,7 @@ export default {
       left: 0;
       height: 3rem;
 
-      .color-scheme-pref {
+      .config-btn {
         height: 1.5rem;
         font-family: $font-text;
         font-size: 0.8rem;
@@ -290,7 +325,13 @@ export default {
         padding: 0 0.6rem;
         border-radius: 50px;
         transition: background-color $transition-time $cb, color $transition-time $cb;
-      
+        margin-right: 0.5rem;
+        vertical-align: top;
+
+        &:last-child {
+          margin-right: 0;
+        }
+        
         @include dark-mode() {
           color: $base-white;
           background-color: #444;
