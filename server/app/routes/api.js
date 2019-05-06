@@ -24,7 +24,8 @@ router.get('/:vendor/:building/:floor', (req, res) => {
 
 router.get('*', (req, res) => {
     res.status(404).json({
-        error: "Incorrect request"
+        error: true,
+        msg: "incorrect message"
     });
 });
 
