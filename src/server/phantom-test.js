@@ -28,7 +28,7 @@ casper.then(function(){
  
 //스크린샷 찍고 페이지 저장하기
 casper.then(function(){
-    console.log("-Wait 6 second");
+    console.log("-Wait 6 second"); 
     this.wait(6000, function(){
       // After 6 seconds, this callback will be called, and then we will capture:
       this.capture('AfterLogin.png');
