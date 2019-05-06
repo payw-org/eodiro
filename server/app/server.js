@@ -16,7 +16,7 @@ let api_app_provider = new APIAppServiceProvider();
 web_app_provider.setApp();
 api_app_provider.setApp();
 
-app.use(web_app_provider.getApp());
 app.use(vhost("api." + BASE_URI, api_app_provider.getApp()));
+app.use(web_app_provider.getApp());
 
 app.listen(server_config['node_port']);
