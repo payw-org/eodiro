@@ -4,11 +4,9 @@
 "use strict";
 // Example using HTTP POST operation in PhantomJS
 // This website exists and is for test purposes, dont post sensitive information
-var page = require('webpage').create(),
-    server = 'http://everytime.kr/';
 
-    var webPage = require('webpage');
-    var page = webPage.create();
+    var page = require('webpage').create();
+    var server = 'http://everytime.kr/';
     var postBody = 'user=username&password=password';
 
     
@@ -16,3 +14,4 @@ var page = require('webpage').create(),
       console.log('Status: ' + status);
       
     });
+

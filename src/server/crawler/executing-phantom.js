@@ -3,7 +3,7 @@
  */
 
 var spawn = require('child_process').spawn;
-var args = ["./phantom-script.js"];
+var args = ["./src/server/crawler/casper-test.js"];
 // In case you want to customize the process, modify the options object
 var options = {};
 
