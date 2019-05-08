@@ -4,7 +4,7 @@ module.exports = {
     target: "node",
     externals: [nodeExternals()],
     entry: {
-        'eodiro.server': ['./server/app/server.js']
+        'eodiro.server': ['./server/server.js']
     },
     mode: 'development',
     devtool: 'inline-source-map',
@@ -16,7 +16,11 @@ module.exports = {
         extensions: ['.js'],
         alias: {
             Server: __dirname + '/server/',
-            Providers: __dirname + '/server/app/providers/',
+            Configs: __dirname + '/server/configs/',
+            Database: __dirname + '/server/database/',
+            Routes: __dirname + '/server/routes/',
+
+            Provider: __dirname + '/server/app/Provider/',
         }
     },
     module: {
