@@ -12,9 +12,7 @@
     "build-s:watch": "node_modules/.bin/webpack -w --config webpack.server.js",
     "build-all": "npm run build && npm run build-s",
     "build-all:watch": "concurrently --kill-others \"npm run build:watch\" \"npm run build-s:watch\"",
-    
     "start": "forever start ./forever.json",
-
     "stop-web": "forever stop eodiro_web",
     "stop-dev-jhm": "forever stop eodiro_dev_jhm",
     "stop-dev-hch": "forever stop eodiro_dev_hch",
@@ -35,11 +33,13 @@
   "dependencies": {
     "app-root-path": "^2.2.1",
     "axios": "^0.18.0",
+    "body-parser": "^1.19.0",
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
     "express": "^4.16.4",
     "forever": "^1.0.0",
     "lorem-ipsum": "^2.0.1",
+    "mongoose": "^5.5.5",
     "platform": "^1.3.5",
     "vhost": "^3.0.2",
     "vue": "^2.6.10",
