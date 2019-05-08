@@ -4,8 +4,8 @@ let host = "localhost";
 let port = 27017;
 let database = "eodiro_db";
 
-let db_config = {
+const config = {
     uri: "mongodb://" + username + ":" + password + "@" + host + ":" + port + "/" + database
-}
+};
 
-export { db_config };
+export default config;
