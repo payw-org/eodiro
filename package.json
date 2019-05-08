@@ -44,7 +44,8 @@
     "vhost": "^3.0.2",
     "vue": "^2.6.10",
     "vue-router": "^3.0.6",
-    "webpack-node-externals": "^1.7.2"
+    "webpack-node-externals": "^1.7.2",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@babel/core": "^7.4.4",
