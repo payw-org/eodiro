@@ -8,3 +8,4 @@ server/resources/result.json
 
 public_html/assets/build
 server/lib/build
+server/lib/log
