@@ -1,7 +1,7 @@
 import express from 'express';
 import app_root from 'app-root-path';
 import AppServiceProvider from './AppServiceProvider';
-import { router } from 'Server/app/routes/web';
+import { router } from 'Routes/web';
 
 export default class WebAppServiceProvider extends AppServiceProvider {
     setApp() {
