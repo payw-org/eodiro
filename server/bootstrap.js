@@ -2,13 +2,13 @@ import DBServiceProvider from 'Provider/DBServiceProvider';
 import WebAppServiceProvider from 'Provider/WebAppServiceProvider';
 import APIAppServiceProvider from 'Provider/APIAppServiceProvider';
 
-const db_service_provider = new DBServiceProvider();
-db_service_provider.boot();
+const db_provider = new DBServiceProvider();
+db_provider.boot();
 
-const api_app_provider = new APIAppServiceProvider();
-api_app_provider.setApp();
+const api_app = new APIAppServiceProvider();
+api_app.setApp();
 
-const web_app_provider = new WebAppServiceProvider();
-web_app_provider.setApp();
+const web_app = new WebAppServiceProvider();
+web_app.setApp();
 
-export { api_app_provider, web_app_provider };
+export { db_provider, api_app, web_app };

@@ -13,14 +13,16 @@ module.exports = {
         filename: '[name].built.js'
     },
     resolve: {
-        extensions: ['.js'],
+        extensions: ['.js', 'json'],
         alias: {
             Server: __dirname + '/server/',
             Configs: __dirname + '/server/configs/',
             Database: __dirname + '/server/database/',
+            Resources: __dirname + '/server/resources',
             Routes: __dirname + '/server/routes/',
 
-            Provider: __dirname + '/server/app/Provider/',
+            Provider: __dirname + '/server/app/provider/',
+            DB: __dirname + '/server/app/db',
         }
     },
     module: {
