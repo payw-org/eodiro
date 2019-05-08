@@ -1,10 +1,10 @@
 import express from 'express';
 
-let router = express.Router();
+const router = express.Router();
 
 // University list data
 router.get('/university', (req, res) => {
-
+    
 });
 
 // Building list data
