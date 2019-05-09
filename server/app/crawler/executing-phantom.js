@@ -1,11 +1,9 @@
 /**
  * executing-phantom.js
  */
-// import app_root from 'app-root-path';
-
 
 var spawn = require('child_process').spawn;
-var args = ["/home/bitnami/app/dev-hcj" + "/server/app/crawler/index.js"];
+var args = ["/home/bitnami/app/dev-hcj/server/app/crawler/index.js"];
 // In case you want to customize the process, modify the options object
 var options = {};
 

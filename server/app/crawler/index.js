@@ -1,8 +1,5 @@
-
-// import app_root from 'app-root-path';
-
-phantom.casperPath = "/home/bitnami/app/dev-hcj" + '/node_modules/casperjs';
-phantom.injectJs("/home/bitnami/app/dev-hcj" + '/node_modules/casperjs/bin/bootstrap.js');
+phantom.casperPath = '/home/bitnami/app/dev-hcj/node_modules/casperjs';
+phantom.injectJs('/home/bitnami/app/dev-hcj/node_modules/casperjs/bin/bootstrap.js');
 
 function parseIntToTime(src){ // parse int to time (##:00)
     src = src + 8;
@@ -270,7 +267,7 @@ casper.then(function(){
             time = d.getTime()/1000;
         }
 
-        else if(time + 10 < d.getTime()/1000 || numOfTemp >= 50){
+        else if(time + 10 < d.getTime()/1000 || numOfTemp >= 5000){
             console.log(numOfTemp);
             return true;
         }
