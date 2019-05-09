@@ -9,6 +9,6 @@ export default class DBServiceProvider {
 
   boot() {
     this.dbConnector.connect();
-    this.dbInitializer.saveCourses();
+    this.dbInitializer.init();
   }
 }
