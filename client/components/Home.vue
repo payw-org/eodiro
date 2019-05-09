@@ -1,3 +1,32 @@
+<i18n>
+{
+  "ko": {
+    "title": "어디로",
+    "description": "대학교 빈 강의실 찾기 서비스",
+    "colorMode": "색상 모드 설정",
+    "changeCollege": "학교 변경"
+  },
+  "en": {
+    "title": "eodiro",
+    "description": "Find empty classrooms",
+    "colorMode": "Set color scheme",
+    "changeCollege": "Change college"
+  },
+  "zh": {
+    "title": "eodiro",
+    "description": "找一個空蕩蕩的教室",
+    "colorMode": "設置配色方案",
+    "changeCollege": "改變大學"
+  },
+  "fr": {
+    "title": "eodiro",
+    "description": "Trouver une classe vide",
+    "colorMode": "Définir les couleurs",
+    "changeCollege": "Changer de collège"
+  }
+}
+</i18n>
+
 <template>
   <div id="home">
     <a href="http://payw.org" class="about-developers">{{ thisYear }} © Payw.org</a>
@@ -12,8 +41,8 @@
             <dir class="logo-container">
               <img src="/assets/images/eodiro/logo-arrow.svg" alt="eodiro-logo">
             </dir>
-            <h1 class="logo-text">어디로</h1>
-            <p class="description base-gray">대학교 빈 강의실 찾기 서비스</p>
+            <h1 class="logo-text">{{ $t('title') }}</h1>
+            <p class="description base-gray">{{ $t('description') }}</p>
             <router-link :to="'/' + startLink"><button class="go-btn eodiro-btn">{{ startMsg }} <span class="arrow">→</span></button></router-link>
           </div>
           <div class="color-scheme-config" v-show="isSettingsActive" key="2">
@@ -37,11 +66,11 @@
             class="config-btn color-scheme-pref"
             @click="isSettingsActive = !isSettingsActive"
           >
-            <span v-if="!isSettingsActive">색상 모드 설정</span>
+            <span v-if="!isSettingsActive">{{ $t('colorMode') }}</span>
             <span v-else>완료</span>
           </button>
           <router-link to="/university">
-          <button class="config-btn" v-if="isDefaultUniversityExist && !isSettingsActive">학교 변경</button>
+          <button class="config-btn" v-if="isDefaultUniversityExist && !isSettingsActive">{{ $t('changeCollege') }}</button>
           </router-link>
         </div>
 

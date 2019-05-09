@@ -29,6 +29,7 @@
   },
   "homepage": "https://github.com/eodiro/eodiro#readme",
   "dependencies": {
+    "@kazupon/vue-i18n-loader": "^0.3.0",
     "app-root-path": "^2.2.1",
     "axios": "^0.18.0",
     "cors": "^2.8.5",
@@ -39,6 +40,7 @@
     "simplebar": "^4.0.0-alpha.6",
     "vhost": "^3.0.2",
     "vue": "^2.6.10",
+    "vue-i18n": "^8.11.2",
     "vue-router": "^3.0.6",
     "webpack-node-externals": "^1.7.2"
   },
