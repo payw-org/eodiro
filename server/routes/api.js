@@ -4,7 +4,7 @@ const router = express.Router();
 
 // University list data
 router.get('/university', (req, res) => {
-    
+  
 });
 
 // Building list data
@@ -23,10 +23,10 @@ router.get('/:vendor/:building/:floor', (req, res) => {
 });
 
 router.get('*', (req, res) => {
-    res.status(404).json({
-        error: true,
-        msg: "incorrect message"
-    });
+  res.status(404).json({
+    error: true,
+    msg: "incorrect message"
+  });
 });
 
 export { router };

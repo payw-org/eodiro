@@ -8,8 +8,8 @@
 import mongoose from 'mongoose';
 
 const locationSchema = new mongoose.Schema({
-    building: { type: String, required: true },
-    room: { type: String, required: true }
+  building: { type: String, required: true },
+  room: { type: String, required: true }
 });
 
 export default locationSchema;

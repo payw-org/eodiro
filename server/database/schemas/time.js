@@ -8,9 +8,9 @@
 import mongoose from 'mongoose';
 
 const timeSchema = new mongoose.Schema({
-    day: { type: String, required: true },      // ex. MON
-    start: { type: String, required: true },    // ex. 3:30pm -> 1530
-    end: { type: String, required: true }
+  day: { type: String, required: true },      // ex. MON
+  start: { type: String, required: true },    // ex. 3:30pm -> 1530
+  end: { type: String, required: true }
 });
 
 export default timeSchema;
