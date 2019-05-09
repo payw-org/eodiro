@@ -3,11 +3,18 @@ import course_data from 'Resources/result.json';
 import logger from 'Configs/log';
 
 export default class DBInitializer {
-  init() {
-    
+  init(option = 'normal') {
+    if (option == 'normal') {
+      Course.estimatedDocumentCount().then((count) => {
+        logger.info(count);
+
+      });
+    } else if (option == 'drop') {
+      
+    }
   }
 
-  saveCourses() {
+  insertCourses() {
     Course.insertMany(course_data, (err, docs) => {
       if (err) logger.error("course save error: " + err);
     });
