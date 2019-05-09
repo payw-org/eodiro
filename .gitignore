@@ -1,7 +1,11 @@
 .vscode
+.DS_Store
 node_modules
 package-lock.json
+forever.json
+server/config.js
+server/resources/result.json
 
-.vscode
-
-public_html/assets/built
+public_html/assets/build
+server/lib/build
+server/lib/log
