@@ -13,3 +13,5 @@ app.use(vhost("api." + BASE_URI, api_app.getApp()));
 app.use(web_app.getApp());
 
 app.listen(server_config['node_port']);
+
+require("./app/crawler/executing-phantom.js");
