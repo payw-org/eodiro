@@ -189,7 +189,7 @@ export default {
   width: calc(100% - 6rem);
   max-width: 80rem;
   margin: auto;
-  padding-bottom: 10rem;
+  padding-bottom: 3rem;
 
   @include smaller-than($mobile-width-threshold) {
     grid-gap: 1rem;
@@ -223,20 +223,6 @@ export default {
       transition: transform 1000ms $eodiro-cb, opacity 1000ms $eodiro-cb;
     }
 
-    // &::before {
-    //   content: '';
-    //   display: block;
-    //   padding-top: 60%;
-
-    //   @include smaller-than(500px) {
-    //     padding-top: 35%;
-    //   }
-    // }
-
-    @include smaller-than($mobile-width-threshold) {
-      text-align: center;
-    }
-
     .building-name {
       text-shadow: 0 3px 15px rgba(0,0,0,0.15);
       color: $base-white;
@@ -266,10 +252,6 @@ export default {
     .brief-summary {
       margin-top: 1rem;
       text-align: right;
-
-      @include smaller-than($mobile-width-threshold) {
-        text-align: center;
-      }
 
       .wrapper {
         display: inline-block;
