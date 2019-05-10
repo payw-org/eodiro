@@ -37,8 +37,8 @@
 <script>
 import Content from 'Components/Content.vue'
 import SimpleBar from 'simplebar'
-// import 'simplebar/dist/simplebar.css'
 import 'SCSS/simplebar-custom.scss'
+import Stagger from 'Modules/Stagger'
 
 export default {
   name: 'result',
@@ -109,16 +109,7 @@ export default {
     },
     buildIn() {
       let rooms = this.$el.querySelectorAll('.ec-item-wrapper')
-      rooms.forEach(room => {
-        room.classList.remove('appear')
-      })
-      let i = 0
-      let interval = window.setInterval(() => {
-        rooms[i++].classList.add('appear')
-        if (i === rooms.length) {
-          window.clearInterval(interval)
-        }
-      }, 50)
+      Stagger.animate(rooms)
     }
   },
   mounted() {
@@ -145,7 +136,6 @@ export default {
     width: calc(100% - 6rem);
     max-width: 80rem;
     margin: auto;
-    padding-bottom: 10rem;
 
     @include smaller-than($mobile-width-threshold) {
       grid-gap: 1rem;
@@ -154,7 +144,7 @@ export default {
 
     .ec-item-wrapper {
       opacity: 0;
-      transform: translateY(10rem);
+      transform: translateY($stagger-gap);
 
       &.appear {
         opacity: 1;
@@ -231,11 +221,11 @@ export default {
     z-index: 10000;
 
     &.zoom-enter-active, &.zoom-leave-active {
-      transition: opacity 0.3s ease;
+      transition: opacity 200ms ease;
       opacity: 1;
 
       .timetable {
-        transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
+        transition: opacity 200ms ease, transform 200ms ease, filter 200ms ease;
         transform: scale(1);
         opacity: 1;
         filter: blur(0px);
@@ -246,7 +236,7 @@ export default {
       
       .timetable {
         opacity: 0;
-        transform: scale(0.8);
+        transform: scale(1.1);
         filter: blur(10px);
       }
     }
