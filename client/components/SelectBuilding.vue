@@ -1,17 +1,25 @@
 <template>
   <div class="content-item select-building">
     <div class="building-container">
-      <div class="building" v-for="(building, index) in buildings" :key="index">
+      <div
+        class="building"
+        v-for="(building, index) in buildings"
+        :key="index"
+      >
+        <img class="building-image" :src="bgImg(building.name.number)" alt="">
+        <div class="gradient-overlap"></div>
         <router-link :to="'./' + building.name.number" append>
-          <div class="building-name">
-            <div class="wrapper">
-              <span class="name--number">{{ building.name.number }}</span>
-              <span class="name--text">{{ building.name.text }}</span>
+          <div class="building-info">
+            <div class="building-name">
+              <div class="wrapper">
+                <span class="name--number">{{ building.name.number }}</span>
+                <span class="name--text">{{ building.name.text }}</span>
+              </div>
             </div>
-          </div>
-          <div class="brief-summary">
-            <div class="wrapper">
-              <span class="">빈 강의실 {{ building.emptyRoomCount }}</span>
+            <div class="brief-summary">
+              <div class="wrapper">
+                <span class="">빈 강의실 {{ building.emptyRoomCount }}</span>
+              </div>
             </div>
           </div>
         </router-link>
@@ -139,12 +147,15 @@ export default {
     }
   },
   methods: {
+    bgImg(buildingID) {
+      return '/assets/images/university/cau/' + buildingID + '.png'
+    },
     buildIn() {
       let buildings = this.$el.querySelectorAll('.building')
       Stagger.animate(buildings)
     },
     setBuildingColor() {
-      let buildings = this.$el.querySelectorAll('.building')
+      let buildings = this.$el.querySelectorAll('.gradient-overlap')
       let data = []
       buildings.forEach(building => {
         let colorCode
@@ -190,11 +201,10 @@ export default {
   .building {
     cursor: pointer;
     position: relative;
-    background-color: transparent;
+    background: transparent;
     border-radius: 1rem;
     overflow: hidden;
     opacity: 0;
-    padding: 1rem;
     transform: translateY($stagger-gap);
     will-change: transform, opacity;
     box-shadow: $eodiro-shadow;
@@ -214,45 +224,71 @@ export default {
       transition: transform 800ms $eodiro-cb, opacity 800ms $eodiro-cb;
     }
 
-    .building-name {
-      text-shadow: 0 3px 15px rgba(0,0,0,0.15);
-      color: $base-white;
-      font-weight: 700;
-      font-size: 1.5rem;
-      transition: background-color 300ms ease;
-
-      .name--number, .name--text {
-        display: block;
-      }
-
-      .name--number {
-        font-size: 3rem;
-        font-weight: 700;
-        font-family: $font-display;
-        line-height: 1;
-      }
-
-      .name--text {
-        font-size: 1.2rem;
-        font-weight: 500;
-        line-height: 1.2;
-        margin-top: 0.1rem;
-      }
+    .building-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+      filter: saturate(2) brightness(1);
     }
 
-    .brief-summary {
-      margin-top: 1rem;
-      text-align: right;
+    .gradient-overlap {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.9;
+      z-index: -1;
+    }
 
-      .wrapper {
-        display: inline-block;
-        font-family: $font-text;
-        font-size: 1rem;
-        font-weight: 500;
-        color: #fff;
-        background-color: rgba(#000, 0.15);
-        padding: 0.5rem 0.7rem;
-        border-radius: 0.5rem;
+    .building-info {
+      padding: 1rem;
+      z-index: 2;
+
+      .building-name {
+        text-shadow: 0 0.2rem 1rem rgba(0,0,0,0.2);
+        color: $base-white;
+        font-weight: 700;
+        font-size: 1.5rem;
+        transition: background-color 300ms ease;
+      
+        .name--number, .name--text {
+          display: block;
+        }
+      
+        .name--number {
+          font-size: 3.5rem;
+          font-weight: 700;
+          font-family: $font-display;
+          line-height: 1;
+        }
+      
+        .name--text {
+          font-size: 1.5rem;
+          font-weight: 500;
+          line-height: 1.2;
+          margin-top: 0.1rem;
+        }
+      }
+      
+      .brief-summary {
+        margin-top: 1rem;
+        text-align: right;
+      
+        .wrapper {
+          display: inline-block;
+          font-family: $font-text;
+          font-size: 1rem;
+          font-weight: 500;
+          color: #fff;
+          background-color: rgba(#000, 0.2);
+          padding: 0.5rem 0.7rem;
+          border-radius: 0.5rem;
+        }
       }
     }
   }
