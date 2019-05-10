@@ -10,5 +10,7 @@ export default class DBServiceProvider {
   boot() {
     this.dbConnector.connect();
     this.dbInitializer.init();
+
+    return Promise.resolve();
   }
 }
