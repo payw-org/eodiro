@@ -1,3 +1,32 @@
+<i18n>
+{
+  "ko": {
+    "navTitle_university": "학교를 선택하세요",
+    "navTitle_building": "건물을 선택하세요",
+    "navTitle_floor": "층을 선택하세요",
+    "navTitle_result": "강의실 현황입니다"
+  },
+  "en": {
+    "navTitle_university": "",
+    "navTitle_building": "",
+    "navTitle_floor": "",
+    "navTitle_result": ""
+  },
+  "zh": {
+    "navTitle_university": "",
+    "navTitle_building": "",
+    "navTitle_floor": "",
+    "navTitle_result": ""
+  },
+  "fr": {
+    "navTitle_university": "",
+    "navTitle_building": "",
+    "navTitle_floor": "",
+    "navTitle_result": ""
+  }
+}
+</i18n>
+
 <template>
   <nav id="app-navigation">
     <div class="an-container">
@@ -10,7 +39,7 @@
             <div class="right-tip"></div>
             <div class="shadow"></div>
             <transition name="fade" mode="out-in">
-              <h1 class="title-text" :key="mutateNavTitle">{{ mutateNavTitle }}</h1>
+              <h1 class="title-text" :key="navTitle">{{ navTitle }}</h1>
             </transition>
           </div>
         </div>
@@ -22,49 +51,63 @@
 <script>
 export default {
   mounted() {
-    this.titleElm = this.$el.querySelector('.title-text')
-
+    // Nav width sould be resized on window resize
+    // since the nav width is fixed by the calculation
     window.addEventListener('resize', e => {
-      this.transformSB(this.mutateNavTitle)
+      this.transformSB(this.navTitle)
     })
+
+    // On first mount, set navigation title
+    // based on the current route
+    this.setTitle(this.$route)
   },
-  props: ['navTitle', 'backLink', 'isHidden'],
+  props: ['isHidden'],
   data() {
     return {
-      originalWidth: 0,
       goBackTitle: '← 뒤로가기',
       goBackTimeout: undefined,
       goBackActive: false,
-      titleElm: undefined,
-      mutateNavTitle: undefined
+      navTitle: '',
+      backLink: ''
     }
   },
   watch: {
-    navTitle: function (newTitle) {
-      this.goBackActive = false
-      if (this.$route.name === 'floors') {
-        this.mutateNavTitle = this.generateNavTitle(newTitle)
-      } else {
-        this.mutateNavTitle = newTitle
-      }
-      window.clearTimeout(this.goBackTimeout)
-      this.goBackTimeout = setTimeout(() => {
-        this.goBackActive = true
-        this.mutateNavTitle = this.goBackTitle
-      }, 2000)
-    },
-    mutateNavTitle: function (newTitle, oldTitle) {
-      this.transformSB(newTitle)
+    $route() {
+      this.setTitle(this.$route)
     }
   },
   methods: {
-    generateNavTitle(title) {
-      let newTitle = this.navTitle
-      // if (this.$route.params.buildingID) {
-      //   newTitle = title + this.$route.params.buildingID
-      // }
-      return newTitle
+    // Set nav title based on the route name
+    setTitle(route) {
+      this.goBackActive = false
+      window.clearTimeout(this.goBackTimeout)
+
+      let rp = route.params
+      if (route.name === 'building') {
+        this.navTitle = this.$t('navTitle_building')
+        this.backLink = '/'
+      } else if (route.name === 'floor') {
+        this.navTitle = this.$t('navTitle_floor')
+        this.backLink = '/' + rp.universityVendor
+      } else if (route.name === 'result') {
+        this.navTitle = this.$t('navTitle_result')
+        this.backLink = '/' + rp.universityVendor + '/' + rp.buildingID
+      } else if (route.name === 'university') {
+        this.navTitle = this.$t('navTitle_university')
+        this.backLink = '/'
+      }
+
+      // Animate nav width
+      this.transformSB(this.navTitle)
+
+      // Set 'Go Back' navigation title after 2sec
+      this.goBackTimeout = setTimeout(() => {
+        this.goBackActive = true
+        this.navTitle = this.goBackTitle
+        this.transformSB(this.goBackTitle)
+      }, 2000)
     },
+    // Animate nav width
     transformSB(newTitle) {
       let titleText = this.$el.querySelector('.title-text')
       titleText.getBoundingClientRect().width
@@ -80,6 +123,9 @@ export default {
       let link = this.$el.querySelector('.link')
       let shadow = this.$el.querySelector('.shadow')
 
+      // Set timeout to fix a weird bug
+      // where on the first load, nav's width
+      // is slightly longer than it should be
       setTimeout(() => {
         let titleTextWidth = titleTextClone.getBoundingClientRect().width - 10
         let titleBoxWidth = titleBox.clientWidth
