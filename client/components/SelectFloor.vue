@@ -3,7 +3,7 @@
     <div class="floor-container">
       <div class="floor-wrapper building-display">
         <div class="floor building-id">
-          <h1 class="manifesto">{{ buildingName }}관</h1>
+          <h1 class="manifesto">{{ buildingName }}</h1>
         </div>
       </div>
       <div
@@ -14,7 +14,7 @@
         <router-link class="link" :to="'./' + (10 - index + 1)" append>
           <div class="floor">
             <div class="rooms-count">빈 강의실 3</div>
-            <h1 class="num">{{ 10 - index + 1 + '층' }}</h1>
+            <h1 class="num">{{ 10 - index + 1 + 'F' }}</h1>
           </div>
         </router-link>
       </div>
