@@ -1,24 +1,28 @@
 <i18n>
 {
   "ko": {
+    "navTitle_goBack": "뒤로가기",
     "navTitle_university": "학교를 선택하세요",
     "navTitle_building": "건물을 선택하세요",
     "navTitle_floor": "층을 선택하세요",
     "navTitle_result": "강의실 현황입니다"
   },
   "en": {
+    "navTitle_goBack": "",
     "navTitle_university": "",
     "navTitle_building": "",
     "navTitle_floor": "",
     "navTitle_result": ""
   },
   "zh": {
+    "navTitle_goBack": "",
     "navTitle_university": "",
     "navTitle_building": "",
     "navTitle_floor": "",
     "navTitle_result": ""
   },
   "fr": {
+    "navTitle_goBack": "",
     "navTitle_university": "",
     "navTitle_building": "",
     "navTitle_floor": "",
@@ -64,7 +68,6 @@ export default {
   props: ['isHidden'],
   data() {
     return {
-      goBackTitle: '← 뒤로가기',
       goBackTimeout: undefined,
       goBackActive: false,
       navTitle: '',
@@ -103,8 +106,8 @@ export default {
       // Set 'Go Back' navigation title after 2sec
       this.goBackTimeout = setTimeout(() => {
         this.goBackActive = true
-        this.navTitle = this.goBackTitle
-        this.transformSB(this.goBackTitle)
+        this.navTitle = '← ' + this.$t('navTitle_goBack')
+        this.transformSB('← ' + this.$t('navTitle_goBack'))
       }, 2000)
     },
     // Animate nav width
