@@ -133,7 +133,7 @@ export default {
 @import 'SCSS/global-mixins.scss';
 
 #home {
-  $transition-time: 1500ms;
+  $transition-time: 1200ms;
   $cb: cubic-bezier(.24,.49,.01,.99);
   $transition-property: $transition-time $cb;
 
