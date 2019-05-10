@@ -22,13 +22,13 @@
 
 <script>
 import Content from 'Components/Content.vue'
+import Stagger from 'Modules/Stagger'
 
 export default {
   name: 'building',
   extends: Content,
   data() {
     return {
-      scrollPos: 0,
       buildings: [
         {
           name: {
@@ -141,17 +141,7 @@ export default {
   methods: {
     buildIn() {
       let buildings = this.$el.querySelectorAll('.building')
-      buildings.forEach((building, index) => {
-        building.classList.remove('appear')
-      })
-      
-      let i = 0
-      let interval = window.setInterval(() => {
-        buildings[i++].classList.add('appear')
-        if (i === buildings.length) {
-          window.clearInterval(interval)
-        }
-      }, 50)
+      Stagger.animate(buildings)
     },
     setBuildingColor() {
       let buildings = this.$el.querySelectorAll('.building')
@@ -173,6 +163,7 @@ export default {
     this.setBuildingColor()
   },
   activated() {
+    
   }
 }
 </script>
@@ -204,7 +195,7 @@ export default {
     overflow: hidden;
     opacity: 0;
     padding: 1rem;
-    transform: translateY(10rem);
+    transform: translateY($stagger-gap);
     will-change: transform, opacity;
     box-shadow: $eodiro-shadow;
     text-align: right;
@@ -220,7 +211,7 @@ export default {
     &.appear {
       opacity: 1;
       transform: translateY(0);
-      transition: transform 1000ms $eodiro-cb, opacity 1000ms $eodiro-cb;
+      transition: transform 800ms $eodiro-cb, opacity 800ms $eodiro-cb;
     }
 
     .building-name {
