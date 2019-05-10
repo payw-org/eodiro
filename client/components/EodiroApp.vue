@@ -1,6 +1,6 @@
 <template>
   <div id="eodiro-app">
-    <AppNav :nav-title="navTitle" :back-link="backLink" :is-hidden="isNavHidden"/>
+    <AppNav :is-hidden="isNavHidden"/>
     <div class="ea-content">
       <transition
         name="fade"
@@ -106,7 +106,7 @@ export default {
   .ea-content {  
     .content-item {
       padding-top: 11.3rem;
-      padding-bottom: 10rem;
+      padding-bottom: $stagger-gap;
       display: block;
 
       @include smaller-than($mobile-width-threshold) {
