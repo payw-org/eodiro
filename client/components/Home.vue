@@ -260,7 +260,7 @@ export default {
           font-family: $font-display;
           font-size: 2.5rem;
           font-weight: 700;
-          margin-top: 0.5rem;
+          margin-top: 0.7rem;
         }
 
         .description {
