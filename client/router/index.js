@@ -16,12 +16,23 @@ export default new VueRouter({
     {
       path: '/',
       component: Home,
-      name: 'home'
+      name: 'home',
+      meta: {
+        title: {
+          'ko': '어디로',
+          'en': 'eodiro',
+          'zh': 'eodiro',
+          'fr': 'eodiro'
+        }
+      }
     },
     {
       path: '/404',
       component: NotFound,
-      name: '404'
+      name: '404',
+      meta: {
+        
+      }
     },
     {
       path: '/developers',
