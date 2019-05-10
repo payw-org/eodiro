@@ -117,9 +117,6 @@ export default {
     }
   },
   mounted() {
-    // set document title
-    document.title = '어디로 | 대학교 빈강의실 찾기'
-
     // check if the browser supports 'prefers-color-scheme' media query
     if (window.matchMedia('(prefers-color-scheme: dark)').media != 'not all') {
       this.autoDarkModeSupport = true
