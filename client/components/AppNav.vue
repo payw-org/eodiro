@@ -67,29 +67,32 @@ export default {
     },
     transformSB(newTitle) {
       let titleText = this.$el.querySelector('.title-text')
+      titleText.getBoundingClientRect().width
       let titleTextClone = titleText.cloneNode(true)
-      titleTextClone.style.position = 'absolute'
       titleTextClone.style.visibility = 'hidden'
       titleTextClone.style.pointerEvents = 'none'
       titleTextClone.innerHTML = newTitle
       titleText.parentElement.appendChild(titleTextClone)
-      let titleTextWidth = titleTextClone.getBoundingClientRect().width - 10
+      
       let titleBox = this.$el.querySelector('.title-box')
       let leftTip = this.$el.querySelector('.left-tip')
       let rightTip = this.$el.querySelector('.right-tip')
       let link = this.$el.querySelector('.link')
       let shadow = this.$el.querySelector('.shadow')
 
-      let titleBoxWidth = titleBox.clientWidth
-      let scaleX = titleTextWidth / titleBoxWidth
-      let translateX = -((titleTextWidth - titleBoxWidth) / 2 - 5)
-      titleBox.style.transform = 'scaleX(' + scaleX + ')'
-      leftTip.style.transform = 'translateX(' + translateX + 'px)'
-      rightTip.style.transform = 'translateX(' + -translateX + 'px)'
-      link.style.width = 'calc(' + titleTextWidth + 'px' + ' \+ 3rem)'
-      shadow.style.width = titleTextWidth + 'px'
+      setTimeout(() => {
+        let titleTextWidth = titleTextClone.getBoundingClientRect().width - 10
+        let titleBoxWidth = titleBox.clientWidth
+        let scaleX = titleTextWidth / titleBoxWidth
+        let translateX = -((titleTextWidth - titleBoxWidth) / 2 - 5)
+        titleBox.style.transform = 'scaleX(' + scaleX + ')'
+        leftTip.style.transform = 'translateX(' + translateX + 'px)'
+        rightTip.style.transform = 'translateX(' + -translateX + 'px)'
+        link.style.width = 'calc(' + titleTextWidth + 'px' + ' \+ 3rem)'
+        shadow.style.width = titleTextWidth + 'px'
 
-      titleTextClone.parentElement.removeChild(titleTextClone)
+        titleTextClone.parentElement.removeChild(titleTextClone)
+      }, 100)
     }
   }
 }
