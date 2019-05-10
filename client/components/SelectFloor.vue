@@ -24,6 +24,7 @@
 
 <script>
 import Content from 'Components/Content.vue'
+import Stagger from 'Modules/Stagger'
 
 export default {
   name: 'floor',
@@ -36,17 +37,7 @@ export default {
   methods: {
     buildIn() {
       let floorWrappers = this.$el.querySelectorAll('.floor-wrapper')
-      floorWrappers.forEach((floor, index) => {
-        floor.classList.remove('appear')
-      })
-      
-      let i = 0
-      let interval = window.setInterval(() => {
-        floorWrappers[i++].classList.add('appear')
-        if (i === floorWrappers.length) {
-          window.clearInterval(interval)
-        }
-      }, 50)
+      Stagger.animate(floorWrappers)
     }
   },
   mounted() {
@@ -63,12 +54,11 @@ export default {
   width: calc(100% - 2rem);
   max-width: 30rem;
   margin: auto;
-  padding-bottom: 10rem;
 
   .floor-wrapper {
     position: relative;
     width: 100%;
-    transform: translateY(10rem);
+    transform: translateY($stagger-gap);
     opacity: 0;
     margin-bottom: 1.5rem;
     will-change: transform;
