@@ -6,6 +6,7 @@ export default class Stagger {
   static animate(elms) {
     elms.forEach((elm, index) => {
       elm.classList.remove('appear')
+      elm.getBoundingClientRect().width
     })
 
     let i = 0
