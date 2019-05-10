@@ -1,5 +1,5 @@
 /**
- * Schema for classroom location
+ * Schema for room location
  * 
  * @author H.Chihoon
  * @copyright 2019 Payw
