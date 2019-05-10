@@ -100,8 +100,8 @@ export default {
 
 
 <style lang="scss">
-@import '../scss/global-variables.scss';
-@import '../scss/global-mixins.scss';
+@import 'SCSS/global-variables.scss';
+@import 'SCSS/global-mixins.scss';
 
 #app-navigation {
   $top-gap: 4rem;
