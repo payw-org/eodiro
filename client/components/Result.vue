@@ -221,14 +221,13 @@ export default {
     z-index: 10000;
 
     &.zoom-enter-active, &.zoom-leave-active {
-      transition: opacity 200ms ease;
+      transition: opacity 300ms ease;
       opacity: 1;
 
       .timetable {
-        transition: opacity 200ms ease, transform 200ms ease, filter 200ms ease;
+        transition: opacity 300ms ease, transform 300ms ease;
         transform: scale(1);
         opacity: 1;
-        filter: blur(0px);
       }
     }
     &.zoom-enter, &.zoom-leave-to {
@@ -236,8 +235,7 @@ export default {
       
       .timetable {
         opacity: 0;
-        transform: scale(1.1);
-        filter: blur(10px);
+        transform: scale(1.05);
       }
     }
 
@@ -248,7 +246,7 @@ export default {
       width: 100%;
       height: 100%;
       z-index: -1;
-      background-color: rgba(0,0,0,0.4);
+      background-color: rgba(0,0,0,0.5);
       backdrop-filter: blur(20px);
     }
 
