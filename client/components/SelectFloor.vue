@@ -3,7 +3,7 @@
     <div class="floor-container">
       <div class="floor-wrapper building-display">
         <div class="floor building-id">
-          <h1 class="manifesto">{{ buildingName }}관</h1>
+          <h1 class="manifesto">{{ buildingName }}</h1>
         </div>
       </div>
       <div
@@ -11,127 +11,61 @@
         v-for="index in 10"
         :key="index"
       >
-        <div class="floor">
-          <router-link class="link" :to="'./' + (10 - index + 1)" append></router-link>
-          <h1 class="num">{{ 10 - index + 1 + '층' }}</h1>
-          <div class="rooms-count">빈 강의실 3</div>
-        </div>
+        <router-link class="link" :to="'./' + (10 - index + 1)" append>
+          <div class="floor">
+            <div class="rooms-count">빈 강의실 3</div>
+            <h1 class="num">{{ 10 - index + 1 + 'F' }}</h1>
+          </div>
+        </router-link>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Content from 'Components/Content.vue'
+import Stagger from 'Modules/Stagger'
+
 export default {
+  name: 'floor',
+  extends: Content,
   data() {
     return {
-      scrollPos: 0,
-      interval: undefined,
       buildingName: ''
     }
   },
-  props: [
-    'isRightDirection'
-  ],
-  watch: {
-  },
   methods: {
-    checkScroll(floors) {
-      let topThreshold = parseFloat(window.getComputedStyle(this.$el, null).getPropertyValue('padding-top'))
-      let baseOffset = 0
-      let offset, topGap, opacity, translateY, scale, blur, otz, zto
-      let bottomGap
-      // let floor = floors[0]
-      floors.forEach((floor, index) => {
-        offset = floor.parentElement.getBoundingClientRect().top
-        topGap = offset - baseOffset
-
-        otz = topGap / topThreshold
-        if (otz <= 0) otz = 0
-        if (otz >= 1) otz = 1
-        zto = 1 - otz
-
-        opacity = otz
-        if (opacity === Infinity) opacity = 1
-        scale = (otz + 6) / 7
-        translateY = Math.pow(zto, 2) * topThreshold / 2
-        blur = (1 - otz) * 5
-        
-        floor.style.opacity = opacity
-        // floor.style.transform = 'translateY(' + translateY + 'px) scale(' + scale + ')'
-        // floor.style.transform = 'translateY(' + -translateY + 'px)'
-        floor.style.filter = 'blur(' + blur + 'px)' 
-      })
+    buildIn() {
+      let floorWrappers = this.$el.querySelectorAll('.floor-wrapper')
+      Stagger.animate(floorWrappers)
     }
   },
   mounted() {
-    let floors = this.$el.querySelectorAll('.floor')
-    let baseOffset = this.$el.querySelector('.floor-container').getBoundingClientRect().top
-    baseOffset = document.querySelector('#app-navigation').clientHeight
-    // window.addEventListener('scroll', e => {
-    //   this.checkScroll(floors)
-    // })
-
-    let floorsWrapper = this.$el.querySelectorAll('.floor-wrapper')
-    // floorsWrapper[floorsWrapper.length - 1].addEventListener('transitionend', e => {
-    //   if (e.propertyName === 'opacity') {
-    //     window.clearInterval(this.interval)
-    //   }
-    // })
-  },
-  activated() {
     this.buildingName = this.$route.params.buildingID
-
-    let floors = this.$el.querySelectorAll('.floor')
-    let floorWrappers = this.$el.querySelectorAll('.floor-wrapper')
-    floorWrappers.forEach((floor, index) => {
-      floor.classList.remove('appear')
-    })
-    setTimeout(() => {
-      floorWrappers.forEach(floor => {
-        floor.classList.add('appear')
-      })
-    }, 4)
-
-    if (this.isRightDirection) {
-      window.scrollTo(0, 0)
-    } else {
-      window.scrollTo(0, this.scrollPos)
-    }
-    // this.interval = window.setInterval(() => {
-    //   this.checkScroll(floors)
-    // }, 4)
-  },
-  deactivated() {
-    this.scrollPos = window.scrollY
-    window.clearInterval(this.interval)
   }
 }
 </script>
 
 <style lang="scss">
-@import '../scss/global-variables.scss';
-@import '../scss/global-mixins.scss';
+@import 'SCSS/global-variables.scss';
+@import 'SCSS/global-mixins.scss';
 
 .floor-container {
   width: calc(100% - 2rem);
   max-width: 30rem;
   margin: auto;
-  padding-bottom: 10rem;
-  // padding-bottom: 60vh;
 
   .floor-wrapper {
     position: relative;
     width: 100%;
-    transition: transform 200ms ease, opacity 200ms ease;
-    transform: translateY(10rem);
+    transform: translateY($stagger-gap);
     opacity: 0;
     margin-bottom: 1.5rem;
     will-change: transform;
 
     &.building-display {
       position: sticky;
-      top: 0;
+      top: 1rem;
       z-index: 1;
     }
 
@@ -139,34 +73,15 @@ export default {
       opacity: 1;
       transform: translateY(0);
       transition: transform 1000ms $eodiro-cb, opacity 1000ms $eodiro-cb;
-
-      &.done {
-        transition-delay: 0s !important;
-      }
-    }
-
-    @for $i from 0 through 50 {
-      &:nth-child(#{$i}) {
-        transition-delay: unquote(($i/15) + 's');
-      }
-    }
-
-    .link {
-      display: block;
-      position: absolute;
-      width: 100%;
-      height: 100%;
     }
 
     .floor {
       cursor: pointer;
       color: inherit;
       border-radius: 1rem;
-      padding: 2rem 1rem;
+      padding: 1.5rem;
       display: flex;
       align-items: center;
-      justify-content: center;
-      flex-wrap: wrap;
       background-color: #fff;
       box-shadow: $eodiro-shadow;
       will-change: transform;
@@ -179,15 +94,30 @@ export default {
 
         .manifesto {
           font-size: 1.2rem;
+          flex: 1;
+          text-align: center;
         }
       }
 
       .num {
-        font-size: 1.5rem;
+        font-family: $font-display;
+        font-size: 2.5rem;
+        flex: 1;
+        text-align: right;
       }
 
       .rooms-count {
-        min-width: 100%;
+        text-align: center;
+        font-family: $font-text;
+        font-size: 1rem;
+        font-weight: 500;
+        background-color: rgba(#000, 0.05);
+        padding: 0.5rem 0.7rem;
+        border-radius: 0.5rem;
+
+        @include dark-mode() {
+          background-color: rgba(#fff, 0.05);
+        }
       }
 
       @include dark-mode() {

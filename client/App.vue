@@ -13,19 +13,39 @@
 </template>
 
 <script>
-import './scss/globalstyle'
-import RouteLocation from './modules/RouteLocation'
+import 'SCSS/globalstyle'
+import RouteLocation from 'Modules/RouteLocation'
 
 export default {
+  name: 'App',
+  data() {
+    return {
+      isRightDirection: false
+    }
+  },
+  watch: {
+    $route (to, from) {
+      this.isRightDirection = RouteLocation.isRightDirection(to.name, from.name)
+    }
+  },
   beforeMount() {
     this.setColorScheme()
   },
   mounted() {
+    // prevent contextmenu popup
     window.oncontextmenu = function(e) {
       e.preventDefault()
       e.stopPropagation()
       return false
     }
+
+    window.addEventListener('keydown', e => {
+      if (e.key === 'D' && e.shiftKey) {
+        this.updateColorScheme('dark')
+      } else if (e.key === 'L' && e.shiftKey) {
+        this.updateColorScheme('light')
+      }
+    })
 
     // prune all noscript tags
     document.querySelectorAll('noscript').forEach(elm => {
@@ -46,11 +66,16 @@ export default {
         version: platform.version
       }
     }).toLowerCase())
+
+    // prevent browser's default scroll restoration behaviour
+    history.scrollRestoration = 'manual'
   },
   methods: {
+    // set color scheme using the stored value
     setColorScheme() {
       const html = document.documentElement
 
+      // clear theme
       html.classList.remove('light-mode')
       html.classList.remove('dark-mode')
       html.classList.remove('auto-color-scheme')
@@ -62,7 +87,7 @@ export default {
         html.classList.add('dark-mode')
       } else if (setting === 'auto') {
         html.classList.add('auto-color-scheme')
-      } else {
+      } else { // if there is no stored value, default is light mode
         window.localStorage.setItem('colorScheme', 'light')
         this.setColorScheme()
       }
@@ -71,6 +96,7 @@ export default {
       window.localStorage.setItem('colorScheme', scheme)
       this.setColorScheme()
     },
+    // toggle between light and dark (not working on auto mode)
     toggleColorScheme() {
       let defaultColorScheme = window.localStorage.getItem('colorScheme')
       if (!defaultColorScheme) {
@@ -86,21 +112,6 @@ export default {
       }
 
       this.updateColorScheme(newColorScheme)
-    }
-  },
-  name: 'App',
-  data() {
-    return {
-      isRightDirection: false
-    }
-  },
-  watch: {
-    $route (to, from) {
-      if (RouteLocation.isRightDirection(to.name, from.name)) {
-        this.isRightDirection = true
-      } else {
-        this.isRightDirection = false
-      }
     }
   }
 }

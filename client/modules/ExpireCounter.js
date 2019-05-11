@@ -16,7 +16,7 @@ export default class ExpireCounter{
         var atDateByValue;
 
         // get class array in room
-        classOfFloar.forEach(function(item,index){
+        this.classOfFloar.forEach(function(item,index){
             if(item['num'] == roomId)
                 classOfRoom = item['lectures'];
         });
@@ -78,5 +78,4 @@ export default class ExpireCounter{
         
         return "Error-Day"
     }
-
 }
