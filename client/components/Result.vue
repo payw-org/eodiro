@@ -120,12 +120,30 @@ export default {
         "num": 727,
         "lectures": [
           {
-            "name": "Hello World",
+            "name": "Hello World1",
             "instructor": "Julian",
             "time": {
-              "day": "Mon",
-              "start": "16:00",
-              "end": "18:00"
+              "day": "Sat",
+              "start": "18:00",
+              "end": "19:00"
+            }
+          },
+          {
+            "name": "Hello World2",
+            "instructor": "Julian",
+            "time": {
+              "day": "Sat",
+              "start": "12:00",
+              "end": "14:00"
+            }
+          },
+          {
+            "name": "Hello World3",
+            "instructor": "Julian",
+            "time": {
+              "day": "Sat",
+              "start": "19:00",
+              "end": "20:00"
             }
           }
         ]
