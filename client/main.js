@@ -8,12 +8,12 @@ Vue.use(VueI18n)
 let userLang = navigator.language || navigator.userLanguage
 userLang = userLang.slice(0, 2)
 
-// for debuggin
-userLang = 'zh'
+// for debugging
+userLang = 'en'
 
 const i18n = new VueI18n({
   locale: userLang,
-  fallbackLocale: 'en'
+  fallbackLocale: 'ko'
 })
 
 router.beforeEach((to, from, next) => {
@@ -30,10 +30,12 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
-new Vue({
-  i18n,
-  el: "#app",
-  router: router,
-  template: '<App />',
-  components: { App }
-})
+window.onload = function () {
+  new Vue({
+    i18n,
+    el: "#app",
+    router: router,
+    template: '<App />',
+    components: { App }
+  })
+}
