@@ -25,7 +25,6 @@ function parseDayToDay(src){
     if(src == "일")
         return "SUN";
     return "Error";
-
 }
 
 function mergeTimes(src){// 같은요일에 다른 강의실을 쓰는 경우는 없다고 가정
@@ -84,6 +83,7 @@ function parseClassRoom_Time(src){
     var partOfTimeInt;
     var temp;
     var day;
+
     if((temp = src.match(/\d\d\d관/g) ) != null){
         temp.forEach(function(item,index){
             tempOfRoom = item;
@@ -93,6 +93,12 @@ function parseClassRoom_Time(src){
     if((temp = src.match(/(?:[A-z]|)\d\d\d(?:-\d|)호/g) ) != null){
         temp.forEach(function(item,index){
             tempOfRoom = item;
+            ho.push(tempOfRoom);
+        });
+    }
+    if((temp = src.match(/(?:[A-z]|)\d\d\d-\d/g) ) != null){
+        temp.forEach(function(item,index){
+            tempOfRoom = item+"호";
             ho.push(tempOfRoom);
         });
     }
@@ -133,14 +139,14 @@ function parseClassRoom_Time(src){
     ho.forEach(function(item,index){
         if( /\d\d\d관 (?:[A-z]|)\d\d\d(?:-\d|)호/.test(item) == false){
             console.log(" - Error "+item);
-            console.log(time);
+            console.log(src);
             ho = "";
         }
     });
     time.forEach(function(item,index){
         if(/[월화수목금토일]\d\d:\d\d~\d\d:\d\d/.test(item) == false){
             console.log(" - Error "+item);
-            console.log(ho);
+            console.log(src);
             time = "";
         } 
     });
@@ -162,26 +168,26 @@ function parseToSend(src){
     src.forEach(function(item,index){
         course = new Object;
 
-        course.course_number = item['course_no'];
-        course.class_number = item['class_no'];
+        course.course_id = item['course_no'];
+        course.class_id = item['class_no'];
         course.name = item['name'];
         course.instructor = item['instructor'];
 
-        course.location = new Array;
+        course.locations = new Array;
         item['room'].forEach(function(item2,index){
             location = new Object;
             location.building = /\d\d\d관/.exec(item2)[0].split('관')[0];
-            location.room = /[A-z]\d\d\d(?:-\d|)호/.exec(item2)[0].split('호')[0];
-            course.location.push(location);
+            location.room = /(?:[A-z]|)\d\d\d(?:-\d|)호/.exec(item2)[0].split('호')[0];
+            course.locations.push(location);
         });
 
-        course.time = new Array;
+        course.times = new Array;
         item['time'].forEach(function(item2,index){
             time = new Object;
             time.day = parseDayToDay(/[월화수목금토]/.exec(item2)[0]);
             time.start = /\d\d:\d\d~/.exec(item2)[0].split('~')[0];
             time.end = /~\d\d:\d\d/.exec(item2)[0].split('~')[1];
-            course.time.push(time);
+            course.times.push(time);
         });
 
         newSrc.push(course);
