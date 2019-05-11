@@ -8,25 +8,10 @@
     "navTitle_result": "강의실 현황입니다"
   },
   "en": {
-    "navTitle_goBack": "",
-    "navTitle_university": "",
-    "navTitle_building": "",
-    "navTitle_floor": "",
-    "navTitle_result": ""
   },
   "zh": {
-    "navTitle_goBack": "",
-    "navTitle_university": "",
-    "navTitle_building": "",
-    "navTitle_floor": "",
-    "navTitle_result": ""
   },
   "fr": {
-    "navTitle_goBack": "",
-    "navTitle_university": "",
-    "navTitle_building": "",
-    "navTitle_floor": "",
-    "navTitle_result": ""
   }
 }
 </i18n>
@@ -179,8 +164,8 @@ export default {
     .single-button-wrapper {
       padding-top: 4rem;
       transform: translateY(0);
-      transition: transform $time $eodiro-cb;
-      will-change: transform;
+      transition: transform $time $eodiro-cb, opacity $time $eodiro-cb;
+      will-change: transform, opacity;
 
       @include smaller-than($mobile-width-threshold) {
         padding-top: 3rem;
@@ -188,6 +173,7 @@ export default {
 
       &.hidden {
         transform: translateY(calc(-100% - 2rem));
+        // opacity: 0;
       }
 
       .single-button {
