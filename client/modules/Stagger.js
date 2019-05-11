@@ -1,5 +1,3 @@
-import { TweenMax, Power3 } from 'gsap/TweenMax'
-
 export default class Stagger {
   constructor() {}
 
