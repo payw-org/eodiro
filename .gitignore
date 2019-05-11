@@ -4,6 +4,8 @@ node_modules
 package-lock.json
 forever.json
 server/config.js
+server/resources/result.json
 
 public_html/assets/build
 server/lib/build
+server/lib/log

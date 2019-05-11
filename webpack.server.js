@@ -4,7 +4,7 @@ module.exports = {
     target: "node",
     externals: [nodeExternals()],
     entry: {
-        'eodiro.server': ['./server/app/server.js']
+        'eodiro.server': ['./server/server.js']
     },
     mode: 'development',
     devtool: 'inline-source-map',
@@ -13,10 +13,16 @@ module.exports = {
         filename: '[name].built.js'
     },
     resolve: {
-        extensions: ['.js'],
+        extensions: ['.js', 'json'],
         alias: {
             Server: __dirname + '/server/',
-            Providers: __dirname + '/server/app/providers/',
+            Configs: __dirname + '/server/configs/',
+            Database: __dirname + '/server/database/',
+            Resources: __dirname + '/server/resources',
+            Routes: __dirname + '/server/routes/',
+
+            Provider: __dirname + '/server/app/provider/',
+            DB: __dirname + '/server/app/db',
         }
     },
     module: {
