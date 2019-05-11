@@ -10,7 +10,7 @@ $light-red: #f32d3e;
 
 $mobile-width-threshold: 700px;
 
-$stagger-gap: 8rem;
+$stagger-gap: 6rem;
 
 $eodiro-shadow: 0 0.4rem 1rem rgba(0,0,0,0.1);
 $eodiro-shadow--dark: 0 0.4rem 1rem rgba(0,0,0,0.4);
@@ -21,9 +21,10 @@ $click-transform: scale(0.88);
 $content-padding-top: 11.3rem;
 $content-padding-top--mobile: 8.5rem;
 
-// $eodiro-cb: cubic-bezier(.24,.49,.01,.99);
-// $eodiro-cb: cubic-bezier(0.08, 0.46, 0.01, 0.99);
 $eodiro-cb: cubic-bezier(0.18, 0.37, 0.11, 0.98);
+
+$stagger-cb: cubic-bezier(.28,.49,.24,1.08);
+$stagger-time: 500ms;
 
 $exiting-time: 500ms;
 
