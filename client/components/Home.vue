@@ -35,7 +35,6 @@
       name="zoom"
     >
       <div class="start-box">
-
         <div class="content-area">
           <div class="main" v-show="!isSettingsActive" key="1">
             <dir class="logo-container">
@@ -73,13 +72,6 @@
           <button class="config-btn" v-if="isDefaultUniversityExist && !isSettingsActive">{{ $t('changeCollege') }}</button>
           </router-link>
         </div>
-
-        <!-- <div class="wrapper top-dummy"></div>
-        <div class="wrapper">
-          
-          
-        </div>
-         -->
       </div>
     </transition>
     <HomeBGTile/>
@@ -206,6 +198,7 @@ export default {
       filter: blur(0px);
       opacity: 1;
       box-shadow: 0 1rem 2rem rgba(0,0,0,0.1);
+      transition-delay: 0.2;
       transition: transform $transition-time $cb, opacity $transition-time/2 $cb, filter $transition-time $cb, background-color $transition-property, box-shadow $transition-property;
 
       @include dark-mode() {
