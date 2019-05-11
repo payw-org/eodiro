@@ -17,7 +17,9 @@ export default {
       this.cachedComponents.push(this.$options.name)
     }
 
-    this.buildIn()
+    setTimeout(() => {
+      this.buildIn()
+    }, 100)
   },
   activated() {
     this.$emit('toggleScrollEvent', false)
