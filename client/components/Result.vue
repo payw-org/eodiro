@@ -39,6 +39,7 @@ import Content from 'Components/Content.vue'
 import SimpleBar from 'simplebar'
 import 'SCSS/simplebar-custom.scss'
 import Stagger from 'Modules/Stagger'
+import ExpireCounter from 'Modules/ExpireCounter'
 
 export default {
   name: 'result',
@@ -111,6 +112,28 @@ export default {
       let rooms = this.$el.querySelectorAll('.ec-item-wrapper')
       Stagger.animate(rooms)
     }
+  },
+  beforeMount() {
+    // fetch data
+    let example = [
+      {
+        "num": 727,
+        "lectures": [
+          {
+            "name": "Hello World",
+            "instructor": "Julian",
+            "time": {
+              "day": "Mon",
+              "start": "16:00",
+              "end": "18:00"
+            }
+          }
+        ]
+      }
+    ]
+    const expireCounter = new ExpireCounter(example)
+    let returnValue = expireCounter.run(727, new Date())
+    console.log(returnValue)
   },
   mounted() {
     this.sbTimeTable = new SimpleBar(this.$el.querySelector('.timetable'), {})
