@@ -36,7 +36,6 @@ export default {
   },
   watch: {
     $route (to, from) {
-      this.setNavData()
       this.isNavHidden = false
 
       // if go left direction, remove last cached components
@@ -71,36 +70,20 @@ export default {
         }
       }
       this.lastScrollTop = st
-    },
-    // set nav title data
-    setNavData () {
-      let rp = this.$route.params
-      if (this.$route.name === 'building') {
-        this.navTitle = '건물을 선택하세요'
-        this.backLink = '/'
-      } else if (this.$route.name === 'floor') {
-        this.navTitle = '층을 선택하세요'
-        this.backLink = '/' + rp.universityVendor
-      } else if (this.$route.name === 'result') {
-        this.navTitle = '빈 강의실 목록입니다'
-        this.backLink = '/' + rp.universityVendor + '/' + rp.buildingID
-      } else if (this.$route.name === 'university') {
-        this.navTitle = '학교를 선택하세요'
-        this.backLink = '/'
-      }
     }
   },
   mounted() {
-    this.isNavHidden = false
-    this.setNavData()
+    setTimeout(() => {
+      this.isNavHidden = false
+    }, 200)
     window.addEventListener('scroll', this.updateNavView)
   }
 }
 </script>
 
 <style lang="scss">
-@import '../scss/global-variables.scss';
-@import '../scss/global-mixins.scss';
+@import 'SCSS/global-variables.scss';
+@import 'SCSS/global-mixins.scss';
 
 #eodiro-app {
   .ea-content {  
