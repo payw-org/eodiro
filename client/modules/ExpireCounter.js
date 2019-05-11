@@ -16,13 +16,13 @@ export default class ExpireCounter{
         var atDateByValue;
 
         // get class array in room
-        classOfFloar.forEach(function(item,index){
+        this.classOfFloar.forEach(function(item,index){
             if(item['num'] == roomId)
                 classOfRoom = item['lectures'];
         });
 
         // get class array on the day
-        var day = atDate.getDay().freeze({"Sun":0,"Mon":1,"Tue":2,"Wed":3,"Thu":4,"Fri":5,"Sat":6});
+        var day = this.parseDayNumberToDay(atDate.getDay());
         classOfRoom.forEach(function(item,index){
             if(item['time']['day'] == day){
                classOfRoomOnDay.push(item);
@@ -60,4 +60,22 @@ export default class ExpireCounter{
         return parseInt(classTime.substr(0,2))*3600 + parseInt(classTime.substr(3,2)*60);
     }
 
+    parseDayNumberToDay(dayNumber){
+        if(dayNumber == 0)
+            return "Sun"
+        if(dayNumber == 1)
+            return "Mon"
+        if(dayNumber == 2)
+            return "Tue"
+        if(dayNumber == 3)
+            return "Wed"
+        if(dayNumber == 4)
+            return "Thu"
+        if(dayNumber == 5)
+            return "Fri"
+        if(dayNumber == 6)
+            return "Sat"
+        
+        return "Error-Day"
+    }
 }
