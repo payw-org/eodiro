@@ -8,12 +8,13 @@
       </div> -->
       <div
         class="floor-wrapper"
-        v-for="i in 10"
+        :class="{appear: floor.appear}"
+        v-for="(floor, i) in floors"
         :key="i"
       >
         <router-link class="link" :to="'./' + (10 - i + 1)" append>
-          <div class="floor" :class="'gradient--' + ((i-1) % 15 + 1)">
-            <div class="rooms-count">빈 강의실 3</div>
+          <div class="floor" :class="['gradient--' + floor.level]">
+            <button class="rooms-count">{{ floor.emptyRoomCount }}</button>
             <h1 class="num">{{ 10 - i + 1 + 'F' }}</h1>
           </div>
         </router-link>
@@ -31,14 +32,27 @@ export default {
   extends: Content,
   data() {
     return {
-      buildingName: ''
+      buildingName: '',
+      floors: []
     }
   },
   methods: {
     buildIn() {
-      let floorWrappers = this.$el.querySelectorAll('.floor-wrapper')
-      Stagger.animate(floorWrappers)
+      Stagger.animate(this.floors)
     }
+  },
+  created() {
+    let fetchedFloors = []
+    for (let i = 0; i < 20; i++) {
+      fetchedFloors.push({
+        num: i + 1,
+        emptyRoomCount: i + 1,
+        level: i % 15 + 1,
+        appear: false
+      })
+    }
+
+    this.floors = fetchedFloors
   },
   mounted() {
     this.buildingName = this.$route.params.buildingID
@@ -58,7 +72,6 @@ export default {
   .floor-wrapper {
     position: relative;
     width: 100%;
-    transform: translateY($stagger-gap);
     opacity: 0;
     margin-bottom: 1.5rem;
     will-change: transform;
@@ -106,13 +119,15 @@ export default {
       }
 
       .rooms-count {
+        min-width: 2rem;
+        min-height: 2rem;
         text-align: center;
         font-family: $font-text;
         font-size: 1rem;
+        color: $base-white;
         font-weight: 500;
-        background-color: rgba(#000, 0.1);
-        padding: 0.5rem 0.7rem;
-        border-radius: 0.5rem;
+        background-color: rgba(#000, 0.2);
+        border-radius: 50px;
       }
 
       @include dark-mode() {
