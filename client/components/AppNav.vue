@@ -167,7 +167,7 @@ export default {
     .single-button-wrapper {
       padding-top: 4rem;
       transform: translateY(0);
-      transition: transform $stagger-time $stagger-cb, opacity $stagger-time $stagger-cb;
+      transition: transform 500ms $eodiro-cb, opacity 500ms $eodiro-cb;
       will-change: transform, opacity;
 
       @include smaller-than($mobile-width-threshold) {
