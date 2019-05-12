@@ -1,5 +1,7 @@
-phantom.casperPath = '/home/bitnami/app/dev-hcj/node_modules/casperjs';
-phantom.injectJs('/home/bitnami/app/dev-hcj/node_modules/casperjs/bin/bootstrap.js');
+var app_path = "/home/bitnami/app/dev-hcj";
+
+phantom.casperPath = app_path+'/node_modules/casperjs';
+phantom.injectJs(app_path+'/node_modules/casperjs/bin/bootstrap.js');
 
 function parseIntToTime(src){ // parse int to time (##:00)
     src = src + 8;
@@ -198,7 +200,7 @@ function parseToSend(src){
 function createFile(src){
     src = JSON.stringify(src);
     var fs = require('fs');
-    fs.write("result.json", src, 'w');
+    fs.write(app_path+"/server/resource/result.json", src, 'w');
 }
  
 var casper = require('casper').create({
@@ -209,8 +211,8 @@ var casper = require('casper').create({
 
 //URL 및 로그인 정보 변수
 var url = "http://everytime.kr/timetable";
-var id = "bmh1218";
-var password = "audxo12";
+var id = "ckdwo3030";
+var password = "roothwang13";
 
 casper.start(url);
 
