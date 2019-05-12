@@ -11,7 +11,7 @@ let userLang = navigator.language || navigator.userLanguage
 userLang = userLang.slice(0, 2)
 
 // for debugging
-userLang = 'ko'
+userLang = 'zh'
 
 const i18n = new VueI18n({
   locale: userLang,
