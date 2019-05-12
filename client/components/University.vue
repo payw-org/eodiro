@@ -1,8 +1,22 @@
+<i18n>
+{
+  "ko": {
+    "search_placeholder": "학교 이름으로 검색"
+  },
+  "en": {
+  },
+  "zh": {
+  },
+  "fr": {
+  }
+}
+</i18n>
+
 <template>
   <div class="content-item university-search">
     <div class="search-area">
       <div class="query-input-wrapper">
-        <input v-model="search" @click="clickInput(false)" @keydown="clickInput(true)" class="input" type="text" placeholder="학교 이름으로 검색" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <input v-model="search" @click="clickInput(false)" @keydown="clickInput(true)" class="input" type="text" :placeholder="$t('search_placeholder')" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
       </div>
       <div class="university-list">
         <div
@@ -22,9 +36,6 @@ import Content from 'Components/Content.vue'
 export default {
   name: 'university',
   extends: Content,
-  activated() {
-    this.universityList.sort()
-  },
   data() {
     return {
       search: '',
@@ -109,6 +120,9 @@ export default {
       window.alert(`[ ${university.name} ] 기본 학교로 설정되었습니다. 나중에 변경 가능합니다.`)
       this.$router.push('/' + university.vendor)
     }
+  },
+  created() {
+    this.universityList.sort()
   }
 }
 </script>
