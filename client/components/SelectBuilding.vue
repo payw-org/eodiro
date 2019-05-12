@@ -5,7 +5,7 @@
         v-for="(building, i) in buildings"
         :key="i"
         class="building"
-        :class="'gradient--' + (i % 15 + 1)"
+        :class="['gradient--' + building.level, {appear: building.appear}]"
       >
         <!-- <img class="building-image" :src="bgImg(building.name.number)" alt=""> -->
         <!-- <div class="gradient-overlap"></div> -->
@@ -18,9 +18,9 @@
               </div>
             </div>
             <div class="brief-summary">
-              <div class="wrapper">
-                <span class="">빈 강의실 {{ building.emptyRoomCount }}</span>
-              </div>
+              <button class="wrapper">
+                <span class="">{{ building.emptyRoomCount }}</span>
+              </button>
             </div>
           </div>
         </router-link>
@@ -32,119 +32,14 @@
 <script>
 import Content from 'Components/Content.vue'
 import Stagger from 'Modules/Stagger'
+import _ from 'lodash'
 
 export default {
   name: 'building',
   extends: Content,
   data() {
     return {
-      buildings: [
-        {
-          name: {
-            number: 101,
-            text: '영신관'
-          },
-          emptyRoomCount: 10
-        },
-        {
-          name: {
-            number: 102,
-            text: '약학대학 및 R&D센터'
-          },
-          emptyRoomCount: 5
-        },
-        {
-          name: {
-            number: 103,
-            text: '파이퍼홀'
-          },
-          emptyRoomCount: 7
-        },
-        {
-          name: {
-            number: 104,
-            text: '수림과학관'
-          },
-          emptyRoomCount: 9
-        },
-        {
-          name: {
-            number: 105,
-            text: '제1의학관'
-          },
-          emptyRoomCount: 3
-        },
-        {
-          name: {
-            number: 106,
-            text: '제2의학관'
-          },
-          emptyRoomCount: 0
-        },
-        {
-          name: {
-            number: 107,
-            text: '학생회관'
-          },
-          emptyRoomCount: 12
-        },
-        {
-          name: {
-            number: 201,
-            text: '본관'
-          },
-          emptyRoomCount: 4
-        },
-        {
-          name: {
-            number: 203,
-            text: '서라벌호'
-          },
-          emptyRoomCount: 20
-        },
-        {
-          name: {
-            number: 207,
-            text: '봅스트홀'
-          },
-          emptyRoomCount: 100
-        },
-        {
-          name: {
-            number: 208,
-            text: '제2공학관'
-          },
-          emptyRoomCount: 1
-        },
-        {
-          name: {
-            number: 209,
-            text: '창업보육관'
-          },
-          emptyRoomCount: 2
-        },
-        {
-          name: {
-            number: 301,
-            text: '중앙문화예술관'
-          },
-          emptyRoomCount: 20
-        },
-        {
-          name: {
-            number: 303,
-            text: '법학관'
-          },
-          emptyRoomCount: 25
-        },
-        {
-          name: {
-            number: 310,
-            text: '100주년기념관'
-          },
-          emptyRoomCount: 3000
-        }
-      ]
+      buildings: []
     }
   },
   methods: {
@@ -152,13 +47,27 @@ export default {
       return '/assets/images/university/cau/' + buildingID + '.png'
     },
     buildIn() {
-      let buildings = this.$el.querySelectorAll('.building')
-      Stagger.animate(buildings)
+      Stagger.animate(this.buildings)
     }
   },
-  mounted() {
+  created() {
+    // Fetch data
+    let fetchedBuildings = []
+    for (let i = 0; i < 20; i++) {
+      fetchedBuildings.push({
+        name: {
+          number: i + 1,
+          text: i + 1 +'관'
+        },
+        emptyRoomCount: i + 1,
+        level: i % 15 + 1,
+        appear: false
+      })
+    }
+    this.buildings = fetchedBuildings
   },
-  activated() {
+  beforeMount() {
+    
   }
 }
 </script>
@@ -187,7 +96,6 @@ export default {
     border-radius: 1rem;
     overflow: hidden;
     opacity: 0;
-    transform: translateY($stagger-gap);
     will-change: transform, opacity;
     box-shadow: $eodiro-shadow;
     text-align: right;
@@ -251,7 +159,7 @@ export default {
           font-weight: 500;
           line-height: 1.2;
           margin-top: 0.1rem;
-          opacity: 0.9;
+          opacity: 0.8;
         }
       }
       
@@ -261,13 +169,17 @@ export default {
       
         .wrapper {
           display: inline-block;
+          min-width: 2rem;
+          height: 2rem;
           font-family: $font-text;
           font-size: 1rem;
-          font-weight: 500;
           color: #fff;
-          background-color: rgba(#000, 0.1);
-          padding: 0.5rem 0.7rem;
-          border-radius: 0.5rem;
+          background-color: rgba(#000, 0.2);
+          border-radius: 50px;
+
+          & * {
+            font-weight: 500;
+          }
         }
       }
     }
