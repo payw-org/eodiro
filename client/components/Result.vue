@@ -8,7 +8,7 @@
       >
         <div
           class="ec-item"
-          :class="'remaining-time--' + (i % 4 + 1)"
+          :class="'gradient--' + (i % 15 + 1)"
           @click="loadTimeTable(room)"
         >
           <h1 class="room-number">{{ room.roomID }}</h1>
@@ -207,24 +207,6 @@ export default {
           .time {
             font-weight: 700;
           }
-        }
-      
-        &.remaining-time--1 {
-          background-color: #4e99fc;
-          background-color: #006FFE;
-          background-color: #18B8F9;
-        }
-        &.remaining-time--2 {
-          background-color: #18d687;
-          background-color: #42D359;
-        }
-        &.remaining-time--3 {
-          background-color: #ff9f32;
-          background-color: #FF8902;
-        }
-        &.remaining-time--4 {
-          background-color: #f73434;
-          background-color: #FF264B;
         }
       }
     }
