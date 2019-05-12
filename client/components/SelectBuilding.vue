@@ -41,48 +41,6 @@ export default {
       buildings: [
         {
           name: {
-            number: 2010,
-            text: '이천영신관'
-          },
-          emptyRoomCount: 10
-        },
-        {
-          name: {
-            number: 1010,
-            text: '천영신관'
-          },
-          emptyRoomCount: 10
-        },
-        {
-          name: {
-            number: 2010,
-            text: '이천영신관'
-          },
-          emptyRoomCount: 10
-        },
-        {
-          name: {
-            number: 1010,
-            text: '천영신관'
-          },
-          emptyRoomCount: 10
-        },
-        {
-          name: {
-            number: 2010,
-            text: '이천영신관'
-          },
-          emptyRoomCount: 10
-        },
-        {
-          name: {
-            number: 1010,
-            text: '천영신관'
-          },
-          emptyRoomCount: 10
-        },
-        {
-          name: {
             number: 101,
             text: '영신관'
           },
