@@ -286,7 +286,6 @@ export default {
           font-weight: 700;
           font-family: $font-display;
           line-height: 1;
-          opacity: 0.9;
         }
       
         .name--text {
@@ -308,7 +307,7 @@ export default {
           font-size: 1rem;
           font-weight: 500;
           color: #fff;
-          background-color: rgba(#000, 0.2);
+          background-color: rgba(#000, 0.1);
           padding: 0.5rem 0.7rem;
           border-radius: 0.5rem;
         }
