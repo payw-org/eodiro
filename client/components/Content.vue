@@ -19,7 +19,7 @@ export default {
 
     setTimeout(() => {
       this.buildIn()
-    }, 100)
+    }, 200)
   },
   activated() {
     this.$emit('toggleScrollEvent', false)
