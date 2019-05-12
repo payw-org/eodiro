@@ -1,9 +1,10 @@
 /**
  * executing-phantom.js
  */
+var process = require('process');
 
 var spawn = require('child_process').spawn;
-var args = ["/home/bitnami/app/dev-hcj/server/app/crawler/index.js"];
+var args = ["/home/bitnami/app/dev-hcj/server/app/crawler/scraper.js",process.argv[2],process.argv[3]];
 // In case you want to customize the process, modify the options object
 var options = {};
 

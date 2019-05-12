@@ -1,3 +1,4 @@
+var system = require('system');
 var app_path = "/home/bitnami/app/dev-hcj";
 
 phantom.casperPath = app_path+'/node_modules/casperjs';
@@ -18,8 +19,8 @@ var casper = require('casper').create({
 
 //URL 및 로그인 정보 변수
 var url = "http://everytime.kr/timetable";
-var id = "";
-var password = "";
+var id = system.args[1];
+var password = system.args[2];
 
 casper.start(url);
 
