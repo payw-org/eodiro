@@ -150,7 +150,7 @@ img {
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 0.2s ease !important;
+  transition: opacity 150ms ease !important;
   opacity: 1 !important;
 }
 .fade-enter, .fade-leave-to {
