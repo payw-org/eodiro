@@ -149,7 +149,6 @@ export default {
 <style lang="scss">
 @import 'SCSS/global-variables.scss';
 @import 'SCSS/global-mixins.scss';
-@import 'SCSS/gradients.scss';
 
 .result {
   .empty-classrooms-container {
@@ -170,9 +169,8 @@ export default {
       transform: translateY($stagger-gap);
 
       &.appear {
-        opacity: 1;
-        transform: translateY(0);
-        transition: transform 1000ms $eodiro-cb, opacity 1000ms $eodiro-cb;
+        animation: $spring-time springFadeUp linear;
+        animation-fill-mode: both;
       }
 
       .ec-item {
