@@ -121,12 +121,11 @@ export default {
   // padding-bottom: 0 !important;
 
   .search-area {
-    min-height: calc(100vh - 10rem);
+    min-height: calc(100vh - #{$stagger-gap});
 
     .query-input-wrapper {
       width: 100%;
       margin-bottom: 2rem;
-      background-color: $base-white;
       position: sticky;
       top: 0;
       border-bottom: 1px solid #f4f4f4;
@@ -170,7 +169,7 @@ export default {
         background-color: $base-white;
 
         &:nth-child(2n) {
-          background-color: #f8f8f8;
+          background-color: darken($base-white, 2%);
         }
 
         @include dark-mode() {
