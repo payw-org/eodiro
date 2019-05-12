@@ -1,20 +1,20 @@
 <template>
   <div class="content-item select-floor" @scroll="$emit('update-nav-view')">
     <div class="floor-container">
-      <div class="floor-wrapper building-display">
+      <!-- <div class="floor-wrapper building-display">
         <div class="floor building-id">
           <h1 class="manifesto">{{ buildingName }}</h1>
         </div>
-      </div>
+      </div> -->
       <div
         class="floor-wrapper"
-        v-for="index in 10"
-        :key="index"
+        v-for="i in 100"
+        :key="i"
       >
-        <router-link class="link" :to="'./' + (10 - index + 1)" append>
-          <div class="floor">
+        <router-link class="link" :to="'./' + (10 - i + 1)" append>
+          <div class="floor" :class="'gradient--' + ((i-1) % 15 + 1)">
             <div class="rooms-count">빈 강의실 3</div>
-            <h1 class="num">{{ 10 - index + 1 + 'F' }}</h1>
+            <h1 class="num">{{ 10 - i + 1 + 'F' }}</h1>
           </div>
         </router-link>
       </div>
@@ -70,14 +70,13 @@ export default {
     }
 
     &.appear {
-      opacity: 1;
-      transform: translateY(0);
-      transition: transform 1000ms $eodiro-cb, opacity 1000ms $eodiro-cb;
+      animation: $spring-time springFadeUp linear;
+      animation-fill-mode: both;
     }
 
     .floor {
       cursor: pointer;
-      color: inherit;
+      color: $base-white;
       border-radius: 1rem;
       padding: 1.5rem;
       display: flex;
@@ -88,12 +87,12 @@ export default {
 
       &.building-id {
         padding: 1rem;
-        background-color: #554CDA;
-        color: #fff;
+        background-color: $base-white;
+        color: $base-black-soft;
         cursor: default;
 
         .manifesto {
-          font-size: 1.2rem;
+          font-size: 1.5rem;
           flex: 1;
           text-align: center;
         }
@@ -104,6 +103,7 @@ export default {
         font-size: 2.5rem;
         flex: 1;
         text-align: right;
+        opacity: 0.9;
       }
 
       .rooms-count {
@@ -125,12 +125,8 @@ export default {
         box-shadow: $eodiro-shadow, $dark-mode-border-shadow;
 
         &.building-id {
-          padding: 1rem;
-          background-color: #554CDA;
-        
-          .manifesto {
-            font-size: 1.2rem;
-          }
+          background-color: $base-black;
+          color: $base-white-soft;
         }
       }
     }
