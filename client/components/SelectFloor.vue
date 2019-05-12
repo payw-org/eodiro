@@ -8,7 +8,7 @@
       </div> -->
       <div
         class="floor-wrapper"
-        v-for="i in 100"
+        v-for="i in 10"
         :key="i"
       >
         <router-link class="link" :to="'./' + (10 - i + 1)" append>
@@ -103,7 +103,6 @@ export default {
         font-size: 2.5rem;
         flex: 1;
         text-align: right;
-        opacity: 0.9;
       }
 
       .rooms-count {
@@ -111,13 +110,9 @@ export default {
         font-family: $font-text;
         font-size: 1rem;
         font-weight: 500;
-        background-color: rgba(#000, 0.05);
+        background-color: rgba(#000, 0.1);
         padding: 0.5rem 0.7rem;
         border-radius: 0.5rem;
-
-        @include dark-mode() {
-          background-color: rgba(#fff, 0.05);
-        }
       }
 
       @include dark-mode() {
