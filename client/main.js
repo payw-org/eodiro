@@ -2,6 +2,8 @@ import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 import App from './App'
 import router from './router'
+import 'SCSS/spring.styl'
+import 'SCSS/gradients-simple.scss'
 
 Vue.use(VueI18n)
 
@@ -9,7 +11,7 @@ let userLang = navigator.language || navigator.userLanguage
 userLang = userLang.slice(0, 2)
 
 // for debugging
-userLang = 'en'
+userLang = 'ko'
 
 const i18n = new VueI18n({
   locale: userLang,
