@@ -176,6 +176,7 @@ export default {
           color: #fff;
           background-color: rgba(#000, 0.2);
           border-radius: 50px;
+          padding: 0 0.5rem;
 
           & * {
             font-weight: 500;
