@@ -128,6 +128,9 @@ export default {
         titleTextClone.parentElement.removeChild(titleTextClone)
       }, 100)
     }
+  },
+  beforeDestroy() {
+    window.clearTimeout(this.goBackTimeout)
   }
 }
 </script>
