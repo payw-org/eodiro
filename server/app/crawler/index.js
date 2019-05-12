@@ -209,8 +209,8 @@ var casper = require('casper').create({
 
 //URL 및 로그인 정보 변수
 var url = "http://everytime.kr/timetable";
-var id = "ckdwo3030";
-var password = "roothwang13";
+var id = "bmh1218";
+var password = "audxo12";
 
 casper.start(url);
 
