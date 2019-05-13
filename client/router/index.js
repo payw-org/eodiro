@@ -33,9 +33,9 @@ export default new VueRouter({
       meta: {
         title: {
           'ko': '페이지를 찾을 수 없음',
-          'en': '',
-          'zh': '',
-          'fr': ''
+          'en': 'Page not found',
+          'zh': '頁面未找到',
+          'fr': 'Page non trouvée'
         }
       }
     },
@@ -46,9 +46,9 @@ export default new VueRouter({
       meta: {
         title: {
           'ko': '개발자 정보',
-          'en': '',
-          'zh': '',
-          'fr': ''
+          'en': 'Developer Information',
+          'zh': '開發者信息',
+          'fr': 'Informations développeur'
         }
       }
     },
@@ -63,9 +63,9 @@ export default new VueRouter({
           meta: {
             title: {
               'ko': '대학교 선택',
-              'en': '',
-              'zh': '',
-              'fr': ''
+              'en': 'Select university',
+              'zh': '大學選擇',
+              'fr': 'Sélection universitaire'
             }
           }
         }
@@ -82,9 +82,9 @@ export default new VueRouter({
           meta: {
             title: {
               'ko': '건물 선택',
-              'en': '',
-              'zh': '',
-              'fr': ''
+              'en': 'Select building',
+              'zh': '選擇建築',
+              'fr': 'Sélectionnez un bâtiment'
             }
           }
         },
@@ -95,9 +95,9 @@ export default new VueRouter({
           meta: {
             title: {
               'ko': '층 선택',
-              'en': '',
-              'zh': '',
-              'fr': ''
+              'en': 'Floor selection',
+              'zh': '地板選擇',
+              'fr': 'Sélection du sol'
             }
           }
         },
@@ -108,9 +108,9 @@ export default new VueRouter({
           meta: {
             title: {
               'ko': '강의실 현황',
-              'en': '',
-              'zh': '',
-              'fr': ''
+              'en': 'Classroom Status',
+              'zh': '課堂狀況',
+              'fr': 'Statut de la classe'
             }
           }
         }
