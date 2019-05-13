@@ -19,12 +19,13 @@ const i18n = new VueI18n({
 })
 
 router.beforeEach((to, from, next) => {
+  let fallbackLocale = 'ko'
   if (!to.meta || !to.meta.title) {
     console.warn('Router doesn\'t have a title')
   } else {
     let title = to.meta.title[userLang]
     if (!title) {
-      title = to.meta.title['en']
+      title = to.meta.title[fallbackLocale]
     }
     document.title = title
   }
