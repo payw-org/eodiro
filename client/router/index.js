@@ -31,13 +31,26 @@ export default new VueRouter({
       component: NotFound,
       name: '404',
       meta: {
-        
+        title: {
+          'ko': '페이지를 찾을 수 없음',
+          'en': '',
+          'zh': '',
+          'fr': ''
+        }
       }
     },
     {
       path: '/developers',
       component: NotFound,
-      name: 'developers'
+      name: 'developers',
+      meta: {
+        title: {
+          'ko': '개발자 정보',
+          'en': '',
+          'zh': '',
+          'fr': ''
+        }
+      }
     },
     {
       path: '/university',
@@ -46,7 +59,15 @@ export default new VueRouter({
         {
           path: '',
           component: University,
-          name: 'university'
+          name: 'university',
+          meta: {
+            title: {
+              'ko': '대학교 선택',
+              'en': '',
+              'zh': '',
+              'fr': ''
+            }
+          }
         }
       ]
     },
@@ -57,17 +78,41 @@ export default new VueRouter({
         {
           path: '',
           component: SelectBuilding,
-          name: 'building'
+          name: 'building',
+          meta: {
+            title: {
+              'ko': '건물 선택',
+              'en': '',
+              'zh': '',
+              'fr': ''
+            }
+          }
         },
         {
           path: ':buildingID',
           component: SelectFloor,
-          name: 'floor'
+          name: 'floor',
+          meta: {
+            title: {
+              'ko': '층 선택',
+              'en': '',
+              'zh': '',
+              'fr': ''
+            }
+          }
         },
         {
           path: ':buildingID/:floorID',
           component: Result,
-          name: 'result'
+          name: 'result',
+          meta: {
+            title: {
+              'ko': '강의실 현황',
+              'en': '',
+              'zh': '',
+              'fr': ''
+            }
+          }
         }
       ]
     },
