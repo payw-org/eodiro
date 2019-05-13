@@ -98,7 +98,7 @@ function parseClassRoom_Time(src){
             ho.push(tempOfRoom);
         });
     }
-    if((temp = src.match(/(?:[A-z]|)\d\d\d-\d/g) ) != null){
+    if((temp = src.match(/(?:[A-z]|)\d\d\d-\d[^호]/g) ) != null){
         temp.forEach(function(item,index){
             tempOfRoom = item+"호";
             ho.push(tempOfRoom);
@@ -189,6 +189,8 @@ function parseToSend(src){
             time.day = parseDayToDay(/[월화수목금토]/.exec(item2)[0]);
             time.start = /\d\d:\d\d~/.exec(item2)[0].split('~')[0];
             time.end = /~\d\d:\d\d/.exec(item2)[0].split('~')[1];
+            time.start.replace(":","");
+            time.end.replace(":","");
             course.times.push(time);
         });
 

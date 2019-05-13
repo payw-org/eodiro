@@ -13,7 +13,7 @@ export default class ClientLandHandler{
    */
   static getClientLands(clientId){
     var clientInfo = this.findClientInfo(clientId);
-    console.log(clientInfo);
+    return clientInfo;
     if(clientInfo['public_id'] == clientId)
       return JSON.stringify(clientInfo['lands']);
     else{
@@ -23,9 +23,9 @@ export default class ClientLandHandler{
     }
   }
 
-  static findClientInfo(clientId){
+  static async findClientInfo(clientId){
     var clientInfo;
-    clientLand.findOne(
+    await clientLand.findOne(
       { "public_id": clientId },
       { "_id": false },
       (err,docs) => {
@@ -33,10 +33,12 @@ export default class ClientLandHandler{
           clientInfo = null;
           logger.error("clientInfo find error: " + err);
         }
-        else
+        else{
           clientInfo = docs;
-      });
-      return clientInfo;
+        }
+    });
+
+    return clientInfo;
   }
 
 

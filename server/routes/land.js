@@ -9,9 +9,10 @@ router.get('/', (req, res) => {
     if (req.session.clientInfo){
         var clientInfo = req.session.clientInfo;
         var clientLands = ClientLandHandler.getClientLands(clientInfo['public_id']);
-        clientInfo = {
-            public_id: clientInfo['public_id'],
-            lands: clientLands
+        res.send(clientLands);
+        req.session.clientInfo = {
+            "public_id": clientInfo['public_id'],
+            "lands": clientLands
         };
         res.send(req.session.clientInfo);
     }
