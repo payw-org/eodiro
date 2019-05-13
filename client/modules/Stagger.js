@@ -8,13 +8,16 @@ export default class Stagger {
       arr[i].appear = false
     }
 
-    let i = 0
-    let interval = setInterval(() => {
-      if (i === arr.length) {
-        clearInterval(interval)
-      } else {
-        arr[i++].appear = true
-      }
-    }, 40)
+    // let i = 0
+    // let interval = setInterval(() => {
+    //   if (i === arr.length) {
+    //     clearInterval(interval)
+    //   } else {
+    //     arr[i++].appear = true
+    //   }
+    // }, 40)
+    for (let i = 0; i < arr.length; i++) {
+      arr[i].appear = true
+    }
   }
 }
