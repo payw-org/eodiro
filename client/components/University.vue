@@ -32,6 +32,7 @@
 
 <script>
 import Content from 'Components/Content.vue'
+import axios from 'axios';
 
 export default {
   name: 'university',
@@ -123,6 +124,7 @@ export default {
   },
   created() {
     this.universityList.sort()
+    // axios.post('', {})
   }
 }
 </script>
@@ -143,6 +145,7 @@ export default {
       position: sticky;
       top: 0;
       border-bottom: 1px solid #f4f4f4;
+      background-color: $base-white;
 
       @include dark-mode() {
         background-color: $base-black;
