@@ -7,9 +7,9 @@
 
 import mongoose from 'mongoose';
 
-const courseSchema = new mongoose.Schema({
+const clientLandSchema = new mongoose.Schema({
   public_id: {type: String, required: true },
   land_list: [ { type: String, required: false } ]
 });
 
-export default courseSchema;
+export default clientLandSchema;

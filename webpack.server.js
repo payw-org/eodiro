@@ -23,6 +23,7 @@ module.exports = {
 
             Provider: __dirname + '/server/app/provider/',
             DB: __dirname + '/server/app/db',
+            Lander: __dirname + '/server/app/lander'
         }
     },
     module: {
