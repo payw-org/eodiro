@@ -8,10 +8,25 @@
     "navTitle_result": "강의실 현황입니다"
   },
   "en": {
+    "navTitle_goBack": "Back",
+    "navTitle_university": "Select a university name",
+    "navTitle_building": "Select a building",
+    "navTitle_floor": "Select a floor",
+    "navTitle_result": "Classroom status"
   },
   "zh": {
+    "navTitle_goBack": "回去",
+    "navTitle_university": "選擇一所學校",
+    "navTitle_building": "選擇一個建築物",
+    "navTitle_floor": "請選擇一個樓層",
+    "navTitle_result": "課堂狀態"
   },
   "fr": {
+    "navTitle_goBack": "Retour",
+    "navTitle_university": "Sélectionnez une école",
+    "navTitle_building": "Sélectionnez un bâtiment",
+    "navTitle_floor": "Veuillez choisir un étage",
+    "navTitle_result": "Statut de la classe"
   }
 }
 </i18n>

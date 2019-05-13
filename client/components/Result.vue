@@ -8,10 +8,25 @@
     "timetable": "강의 시간표"
   },
   "en": {
+    "nextClass": "Next class",
+    "hour": "Hour",
+    "min": "Minute",
+    "remain": "left",
+    "timetable": "Lecture Schedule"
   },
   "zh": {
+    "nextClass": "下一課",
+    "hour": "小時",
+    "min": "分鐘",
+    "remain": "留",
+    "timetable": "講座時間表"
   },
   "fr": {
+    "nextClass": "Prochain cours",
+    "hour": "heure",
+    "min": "Minute",
+    "remain": "Reste",
+    "timetable": "Calendrier des cours"
   }
 }
 </i18n>
