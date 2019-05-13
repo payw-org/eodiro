@@ -18,11 +18,13 @@ module.exports = {
             Server: __dirname + '/server/',
             Configs: __dirname + '/server/configs/',
             Database: __dirname + '/server/database/',
-            Resources: __dirname + '/server/resources',
+            Resources: __dirname + '/server/resources/',
             Routes: __dirname + '/server/routes/',
 
+            Controller: __dirname + '/server/app/controller/',
+            DB: __dirname + '/server/app/db/',
+            Middleware: __dirname + '/server/app/middleware/',
             Provider: __dirname + '/server/app/provider/',
-            DB: __dirname + '/server/app/db',
         }
     },
     module: {
