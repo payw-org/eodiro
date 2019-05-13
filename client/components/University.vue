@@ -4,10 +4,13 @@
     "search_placeholder": "학교 이름으로 검색"
   },
   "en": {
+     "search_placeholder": "Search by School Name"
   },
   "zh": {
+     "search_placeholder": "按學校名稱搜索"
   },
   "fr": {
+     "search_placeholder": "Rechercher par nom d'école"
   }
 }
 </i18n>

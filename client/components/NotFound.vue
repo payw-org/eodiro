@@ -5,10 +5,16 @@
     "second_line": "존재하지 않는 페이지에요."
   },
   "en": {
+    "first_line": "Oh My God...",
+    "second_line": "This page does not exist."
   },
   "zh": {
+    "first_line": "我的天啊...",
+    "second_line": "此頁面不存在."
   },
   "fr": {
+    "first_line": "Mon dieu..",
+    "second_line": "Cette page n'existe pas."
   }
 }
 </i18n>
