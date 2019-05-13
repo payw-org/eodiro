@@ -21,7 +21,7 @@
     <div class="empty-classrooms-container">
       <div
         class="ec-item-wrapper"
-        :class="{appear: room.appear}"
+        :class="[{appear: room.appear}, 'animation-delay--' + (i + 1)]"
         v-for="(room, i) in classRooms"
         :key="i"
       >

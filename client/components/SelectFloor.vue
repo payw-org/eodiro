@@ -7,10 +7,10 @@
         </div>
       </div> -->
       <div
-        class="floor-wrapper"
-        :class="{appear: floor.appear}"
         v-for="(floor, i) in floors"
         :key="i"
+        class="floor-wrapper"
+        :class="[{appear: floor.appear}, 'animation-delay--' + (i + 1)]"
       >
         <router-link class="link" :to="'./' + (10 - i + 1)" append>
           <div class="floor" :class="['gradient--' + floor.level]">
@@ -26,6 +26,7 @@
 <script>
 import Content from 'Components/Content.vue'
 import Stagger from 'Modules/Stagger'
+import axios from 'axios'
 
 export default {
   name: 'floor',
@@ -53,6 +54,8 @@ export default {
     }
 
     this.floors = fetchedFloors
+
+    // axios.post()
   },
   mounted() {
     this.buildingName = this.$route.params.buildingID

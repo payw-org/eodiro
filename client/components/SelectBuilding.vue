@@ -5,10 +5,8 @@
         v-for="(building, i) in buildings"
         :key="i"
         class="building"
-        :class="['gradient--' + building.level, {appear: building.appear}]"
+        :class="['gradient--' + building.level, {appear: building.appear}, 'animation-delay--' + (i + 1)]"
       >
-        <!-- <img class="building-image" :src="bgImg(building.name.number)" alt=""> -->
-        <!-- <div class="gradient-overlap"></div> -->
         <router-link :to="'./' + building.name.number" append>
           <div class="building-info">
             <div class="building-name">
@@ -86,7 +84,7 @@ export default {
   padding-bottom: 3rem;
 
   @include smaller-than($mobile-width-threshold) {
-    grid-gap: 1.5rem;
+    grid-gap: 1rem;
     width: calc(100% - 2rem);
   }
 
