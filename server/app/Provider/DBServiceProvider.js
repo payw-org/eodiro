@@ -7,8 +7,10 @@ export default class DBServiceProvider {
     // this.dbInitializer = new DBInitializer();
   }
 
-  boot() {
-    this.dbConnector.connect();
-    // this.dbInitializer.init();
+  async boot() {
+    await this.dbConnector.connect();
+    await this.dbInitializer.initialize();
+
+    return Promise.resolve();
   }
 }
