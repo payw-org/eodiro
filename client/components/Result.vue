@@ -106,7 +106,7 @@
                 <div class="name">{{ l.name }}</div>
               </div>
             </div>
-            <div v-else class="no-timetable-msg">강의 시간표가 없습니다.</div>
+            <div v-else class="no-timetable-msg">{{ $t('no_timetable') }}</div>
           </div>
         </div>
       </div>
@@ -383,6 +383,7 @@ export default {
           font-size: 0;
           white-space: nowrap;
           overflow-x: auto;
+          overflow-y: hidden;
         
           .day {
             display: inline-block;
