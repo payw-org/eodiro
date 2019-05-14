@@ -2,26 +2,30 @@
   <div class="content-item select-building">
     <div class="building-container">
       <div
+        class="building-wrapper"
         v-for="(building, i) in buildings"
         :key="i"
-        class="building"
-        :class="['gradient--' + (i % 15 + 1), {appear: building.appear}, 'animation-delay--' + (i + 1)]"
       >
-        <router-link :to="'./' + building.number" append>
-          <div class="building-info">
-            <div class="building-name">
-              <div class="wrapper">
-                <span class="name--number">{{ building.number }}</span>
-                <span class="name--text">{{ building.name }}</span>
+        <div
+          class="building"
+          :class="['gradient--' + (i % 15 + 1), {appear: building.appear}, 'animation-delay--' + (i + 1)]"
+        >
+          <router-link :to="'./' + building.number" append>
+            <div class="building-info">
+              <div class="building-name">
+                <div class="wrapper">
+                  <span class="name--number">{{ building.number }}</span>
+                  <span class="name--text">{{ building.name }}</span>
+                </div>
+              </div>
+              <div class="brief-summary">
+                <button class="empty-count-badge" :class="{loaded: building.loaded}">
+                  <span v-if="building.loaded">{{ building.empty_classroom }}</span>
+                </button>
               </div>
             </div>
-            <div class="brief-summary">
-              <button class="wrapper">
-                <span class="">{{ building.empty_classroom }}</span>
-              </button>
-            </div>
-          </div>
-        </router-link>
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -46,37 +50,44 @@ export default {
     },
     buildIn() {
       Stagger.animate(this.buildings)
+    },
+    fetchBuildings() {
+      axios.get('http://api.dev-jhm.eodiro.com' + location.pathname)
+        .then(response => {
+          let data = response.data
+          if (data.error) return
+          data.buildings.map(function (u) {
+            u.appear = false
+          })
+          this.buildings = data.buildings
+          this.buildIn()
+          this.fetchEmpty()
+        })
+        .catch(function (error) {
+          alert('어디로 서버 오류로 건물을 가져올 수 없습니다. 잠시 후 이용바랍니다.')
+        })
+    },
+    fetchEmpty() {
+      this.buildings.forEach(b => {
+        b.loaded = false
+      })
+      axios.get('http://api.dev-jhm.eodiro.com' + location.pathname +'/empty')
+        .then(response => {
+          if (response.data.error) return
+          response.data.buildings.map(function (b) {
+            b.appear = true
+            b.loaded = true
+          })
+          this.buildings = response.data.buildings
+        })
     }
   },
   created() {
     // Fetch data
-    axios.get('http://api.dev-jhm.eodiro.com/' + location.pathname)
-      .then(response => {
-        let data = response.data
-        if (data.error) return
-        data.buildings.map(function (u) {
-          u.appear = false
-        })
-        this.buildings = data.buildings
-        this.buildIn()
-
-        axios.get('http://api.dev-jhm.eodiro.com/' + location.pathname +'/empty')
-          .then(response => {
-            if (response.data.error) return
-            response.data.buildings.map(function (u) {
-              u.appear = true
-            })
-            console.log('done')
-            console.log(response.data)
-            this.buildings = response.data.buildings
-          })
-      })
-      .catch(function (error) {
-        alert('어디로 서버 오류로 건물을 가져올 수 없습니다. 잠시 후 이용바랍니다.')
-      })
+    this.fetchBuildings()
   },
-  beforeMount() {
-    
+  activated() {
+    this.fetchEmpty()
   }
 }
 </script>
@@ -175,22 +186,6 @@ export default {
       .brief-summary {
         margin-top: 1rem;
         text-align: right;
-      
-        .wrapper {
-          display: inline-block;
-          min-width: 2rem;
-          height: 2rem;
-          font-family: $font-text;
-          font-size: 1rem;
-          color: #fff;
-          background-color: rgba(#000, 0.2);
-          border-radius: 50px;
-          padding: 0 0.5rem;
-
-          & * {
-            font-weight: 500;
-          }
-        }
       }
     }
   }
