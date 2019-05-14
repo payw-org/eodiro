@@ -1,16 +1,31 @@
 import University from 'Database/models/university';
 import EmptyFacilityController from 'Controller/EmptyFacilityController';
+import logger from 'Configs/log';
 
 export default class BuildingListMiddleware {
   async getList(vendor, language = 'ko') {
     const university = await University.findOne(
       { vendor: vendor },
-      { _id: 0, buildings: 1 }
+      { _id: 0, buildings: 1 },
+      (err) => {
+        if (err) {
+          logger.error(err);
+        }
+      }
     ).populate({
       path: 'buildings',
       select: 'number name -_id',
       options: { sort: { 'number': 1 } }
     });
+
+    // if not found
+    if (!university) {
+      return Promise.reject("university not found");
+    }
+
+    if (university.buildings.length == 0) {
+      return Promise.reject("buildings not found");
+    }
 
     const building_list = [];
     
@@ -27,7 +42,12 @@ export default class BuildingListMiddleware {
   async getListIncludeEmptyNum(vendor, language = 'ko') {
     const university = await University.findOne(
       { vendor: vendor },
-      { _id: 0, buildings: 1 }
+      { _id: 0, buildings: 1 },
+      (err) => {
+        if (err) {
+          logger.error(err);
+        }
+      }
     ).populate({
       path: 'buildings',
       select: 'number name floors -_id',
@@ -37,6 +57,15 @@ export default class BuildingListMiddleware {
         select: 'classrooms -_id'
       }
     });
+
+    // if not found
+    if (!university) {
+      return Promise.reject("university not found");
+    }
+
+    if (university.buildings.length == 0) {
+      return Promise.reject("buildings not found");
+    }
 
     const empty_controller = new EmptyFacilityController();
     const building_list = [];

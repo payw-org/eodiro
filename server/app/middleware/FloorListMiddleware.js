@@ -5,7 +5,12 @@ export default class FloorListMiddleware {
   async getList(vendor, building_num) {
     const university = await University.findOne(
       { vendor: vendor },
-      { _id: 0, buildings: 1 }
+      { _id: 0, buildings: 1 },
+      (err) => {
+        if (err) {
+          logger.error(err);
+        }
+      }
     ).populate({
       path: 'buildings',
       select: 'number floors -_id',
@@ -15,6 +20,19 @@ export default class FloorListMiddleware {
         select: 'number -_id'
       }
     });
+
+    // if not found
+    if (!university) {
+      return Promise.reject("university not found");
+    }
+
+    if (!university.buildings[0]) {
+      return Promise.reject("building not found");
+    }
+
+    if (university.buildings[0].floors.length == 0) {
+      return Promise.reject("floors not found");
+    }
 
     const floors = university.buildings[0].floors;
     floors.sort((a, b) => {
@@ -48,6 +66,19 @@ export default class FloorListMiddleware {
         select: 'number classrooms -_id'
       }
     });
+    
+    // if not found
+    if (!university) {
+      return Promise.reject("university not found");
+    }
+
+    if (!university.buildings[0]) {
+      return Promise.reject("building not found");
+    }
+
+    if (university.buildings[0].floors.length == 0) {
+      return Promise.reject("floors not found");
+    }
 
     const floors = university.buildings[0].floors;
     floors.sort((a, b) => {
