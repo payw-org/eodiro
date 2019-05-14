@@ -90,7 +90,7 @@
             <button class="day thu" :class="{selected: timetableDay === 4}" @click="setTimeTableAtDay(4)">Thu</button>
             <button class="day fri" :class="{selected: timetableDay === 5}" @click="setTimeTableAtDay(5)">Fri</button>
             <button class="day sat" :class="{selected: timetableDay === 6}" @click="setTimeTableAtDay(6)">Sat</button>
-            <button class="day sun" :class="{selected: timetableDay === 0}" @click="setTimeTableAtDay(0)">Sun</button>
+            <!-- <button class="day sun" :class="{selected: timetableDay === 0}" @click="setTimeTableAtDay(0)">Sun</button> -->
           </div>
         </div>
         <div class="lecture-container">
@@ -384,7 +384,7 @@ export default {
         
           .day {
             display: inline-block;
-            width: 14.2857142857%;
+            width: unquote(100/6 + '%');
             min-width: 40px;
             border: none;
             border-radius: 0.3rem;
