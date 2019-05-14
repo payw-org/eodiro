@@ -165,6 +165,7 @@ img {
   opacity: 0 !important;
 }
 
+// global styles
 .eodiro-btn {
   cursor: pointer;
   background-color: $light-blue;
@@ -181,6 +182,74 @@ img {
     background-color: $light-yellow;
     box-shadow: 0 0.5rem 1.5rem rgba(#000, 0.3);
   }
+}
+
+.empty-count-badge {
+  position: relative;
+  display: inline-block;
+  min-width: 2rem;
+  min-height: 2rem;
+  font-family: $font-text;
+  font-size: 1rem;
+  color: #fff;
+  background-color: rgba(#000, 0.2);
+  border-radius: 50px;
+  padding: 0 0.5rem;
+  overflow: hidden;
+
+  &, & * {
+    font-weight: 500;
+  }
+
+  @keyframes badge-load {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    40% {
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0;
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+    background-color: rgba(#fff, 0.2);
+    animation: 1000ms badge-load ease;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    transition: opacity 500ms ease;
+  }
+
+  &.loaded {
+    &::before {
+      display: none;
+      animation: none;
+    }
+  }
+}
+
+.grid-dummy {
+  height: 0;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  pointer-events: none;
 }
 
 // colors

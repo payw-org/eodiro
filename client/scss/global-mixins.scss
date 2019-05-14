@@ -51,3 +51,7 @@
 		color: $color;
 	}
 }
+
+@function dark-mode-border-shadow($bg-color) {
+	@return 0 0 0 1px lighten($bg-color, 20%), 0 0 0 2px black;
+}
