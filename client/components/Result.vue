@@ -400,7 +400,7 @@ export default {
             }
         
             &.selected {
-              background-color: $light-red;
+              background-color: $light-blue;
               color: $base-white;
         
               @include dark-mode() {
@@ -438,9 +438,10 @@ export default {
             font-weight: 500;
             flex: 1;
             line-height: 1.5;
+            color: darken($light-blue, 10%);
 
             @include dark-mode() {
-              color: $light-yellow;
+              color: lighten($light-yellow, 10%);
             }
           }
           .instructor {
