@@ -94,7 +94,7 @@ export default new VueRouter({
           name: 'floor',
           meta: {
             title: {
-              'ko': '층 선택',
+              'ko': '층 선택', 
               'en': 'Floor selection',
               'zh': '地板選擇',
               'fr': 'Sélection du sol'
