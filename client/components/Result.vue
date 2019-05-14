@@ -271,6 +271,7 @@ export default {
         font-size: 2rem;
         font-weight: 700;
         margin-top: 1.5rem;
+        line-height: 1;
       }
 
       .lecture-container {
