@@ -10,7 +10,7 @@
      "search_placeholder": "按學校名稱搜索"
   },
   "fr": {
-     "search_placeholder": "Rechercher par nom d'école"
+     "search_placeholder": "Rechercher Par Nom D'éCole"
   }
 }
 </i18n>
