@@ -20,7 +20,9 @@
               </div>
               <div class="brief-summary">
                 <button class="empty-count-badge" :class="{loaded: building.loaded}">
-                  <span v-if="building.loaded">{{ building.empty_classroom }}</span>
+                  <transition name="fade-slow">
+                    <span v-if="building.loaded">{{ building.empty_classroom }}</span>
+                  </transition>
                 </button>
               </div>
             </div>
