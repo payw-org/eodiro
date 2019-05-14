@@ -3,12 +3,12 @@ import db_config from 'Configs/database';
 import logger from 'Configs/log';
 
 export default class DBConnector {
-  connect() {    
+  async connect() {    
     mongoose.connection.on('error', (err) => {
       logger.info("Mongoose default connection has occured " + err + " error");
     });
 
-    mongoose.connect(db_config.uri, {
+    await mongoose.connect(db_config.uri, {
       useNewUrlParser: true
     });
   
@@ -18,5 +18,7 @@ export default class DBConnector {
         process.exit(0)
       });
     });
+
+    return Promise.resolve();
   }
 }

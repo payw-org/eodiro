@@ -1,18 +1,25 @@
 import DBServiceProvider from 'Provider/DBServiceProvider';
-import WebAppServiceProvider from 'Provider/WebAppServiceProvider';
 import APIAppServiceProvider from 'Provider/APIAppServiceProvider';
 import LandAppServiceProvider from 'Provider/LandAppServiceProvider';
+import WebAppServiceProvider from 'Provider/WebAppServiceProvider';
 
 const db_provider = new DBServiceProvider();
-db_provider.boot();
-
 const api_app = new APIAppServiceProvider();
-api_app.setApp();
-
-const web_app = new WebAppServiceProvider();
-web_app.setApp();
-
 const land_app = new LandAppServiceProvider();
-land_app.setApp();
+const web_app = new WebAppServiceProvider();
 
-export { db_provider, api_app, web_app, land_app };
+export default new Promise(async (resolve, reject) => {
+  await db_provider.boot();
+  api_app.setApp();
+  land_app.setApp();
+  web_app.setApp();
+
+  const services = {
+    db: db_provider,
+    api_app: api_app,
+    land_app: land_app,
+    web_app: web_app
+  }
+
+  resolve(services);
+});

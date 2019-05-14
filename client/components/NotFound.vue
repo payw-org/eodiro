@@ -1,3 +1,24 @@
+<i18n>
+{
+  "ko": {
+    "first_line": "맙소사...",
+    "second_line": "존재하지 않는 페이지에요."
+  },
+  "en": {
+    "first_line": "Oh My God...",
+    "second_line": "This page does not exist."
+  },
+  "zh": {
+    "first_line": "我的天啊...",
+    "second_line": "此頁面不存在."
+  },
+  "fr": {
+    "first_line": "Mon dieu..",
+    "second_line": "Cette page n'existe pas."
+  }
+}
+</i18n>
+
 <template>
   <div id="not-found">
     <div class="wrapper">
@@ -5,7 +26,7 @@
         <img class="app-icon mode--light" src="/assets/images/eodiro/app-icon_sq.svg" alt="eodiro-logo" />
         <img class="app-icon mode--dark" src="/assets/images/eodiro/app-icon_sq_dark.svg" alt="eodiro-logo" />
       </div>
-      <h1 class="manifesto">맙소사...<br />존재하지 않는 페이지에요.</h1>
+      <h1 class="manifesto">{{ $t('first_line') }}<br />{{ $t('second_line') }}</h1>
       <button class="eodiro-btn go-back" @click="goBack">Go back</button>
     </div>
   </div>

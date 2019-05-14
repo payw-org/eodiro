@@ -1,20 +1,21 @@
 <template>
   <div class="content-item select-floor" @scroll="$emit('update-nav-view')">
     <div class="floor-container">
-      <div class="floor-wrapper building-display">
+      <!-- <div class="floor-wrapper building-display">
         <div class="floor building-id">
           <h1 class="manifesto">{{ buildingName }}</h1>
         </div>
-      </div>
+      </div> -->
       <div
+        v-for="(floor, i) in floors"
+        :key="i"
         class="floor-wrapper"
-        v-for="index in 10"
-        :key="index"
+        :class="[{appear: floor.appear}, 'animation-delay--' + (i + 1)]"
       >
-        <router-link class="link" :to="'./' + (10 - index + 1)" append>
-          <div class="floor">
-            <div class="rooms-count">빈 강의실 3</div>
-            <h1 class="num">{{ 10 - index + 1 + 'F' }}</h1>
+        <router-link class="link" :to="'./' + (10 - i + 1)" append>
+          <div class="floor" :class="['gradient--' + floor.level]">
+            <button class="rooms-count">{{ floor.emptyRoomCount }}</button>
+            <h1 class="num">{{ 10 - i + 1 + 'F' }}</h1>
           </div>
         </router-link>
       </div>
@@ -25,20 +26,36 @@
 <script>
 import Content from 'Components/Content.vue'
 import Stagger from 'Modules/Stagger'
+import axios from 'axios'
 
 export default {
   name: 'floor',
   extends: Content,
   data() {
     return {
-      buildingName: ''
+      buildingName: '',
+      floors: []
     }
   },
   methods: {
     buildIn() {
-      let floorWrappers = this.$el.querySelectorAll('.floor-wrapper')
-      Stagger.animate(floorWrappers)
+      Stagger.animate(this.floors)
     }
+  },
+  created() {
+    let fetchedFloors = []
+    for (let i = 0; i < 20; i++) {
+      fetchedFloors.push({
+        num: i + 1,
+        emptyRoomCount: i + 1,
+        level: i % 15 + 1,
+        appear: false
+      })
+    }
+
+    this.floors = fetchedFloors
+
+    // axios.post()
   },
   mounted() {
     this.buildingName = this.$route.params.buildingID
@@ -58,10 +75,13 @@ export default {
   .floor-wrapper {
     position: relative;
     width: 100%;
-    transform: translateY($stagger-gap);
     opacity: 0;
     margin-bottom: 1.5rem;
     will-change: transform;
+
+    @include on-mobile() {
+      margin-bottom: 1rem;
+    }
 
     &.building-display {
       position: sticky;
@@ -70,14 +90,13 @@ export default {
     }
 
     &.appear {
-      opacity: 1;
-      transform: translateY(0);
-      transition: transform 1000ms $eodiro-cb, opacity 1000ms $eodiro-cb;
+      animation: $spring-time springFadeUp linear;
+      animation-fill-mode: both;
     }
 
     .floor {
       cursor: pointer;
-      color: inherit;
+      color: $base-white;
       border-radius: 1rem;
       padding: 1.5rem;
       display: flex;
@@ -88,12 +107,12 @@ export default {
 
       &.building-id {
         padding: 1rem;
-        background-color: #554CDA;
-        color: #fff;
+        background-color: $base-white;
+        color: $base-black-soft;
         cursor: default;
 
         .manifesto {
-          font-size: 1.2rem;
+          font-size: 1.5rem;
           flex: 1;
           text-align: center;
         }
@@ -107,17 +126,16 @@ export default {
       }
 
       .rooms-count {
+        min-width: 2rem;
+        min-height: 2rem;
         text-align: center;
         font-family: $font-text;
         font-size: 1rem;
+        color: $base-white;
         font-weight: 500;
-        background-color: rgba(#000, 0.05);
-        padding: 0.5rem 0.7rem;
-        border-radius: 0.5rem;
-
-        @include dark-mode() {
-          background-color: rgba(#fff, 0.05);
-        }
+        background-color: rgba(#000, 0.2);
+        border-radius: 50px;
+        padding: 0 0.5rem;
       }
 
       @include dark-mode() {
@@ -125,12 +143,8 @@ export default {
         box-shadow: $eodiro-shadow, $dark-mode-border-shadow;
 
         &.building-id {
-          padding: 1rem;
-          background-color: #554CDA;
-        
-          .manifesto {
-            font-size: 1.2rem;
-          }
+          background-color: $base-black;
+          color: $base-white-soft;
         }
       }
     }

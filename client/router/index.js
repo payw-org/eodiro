@@ -31,13 +31,26 @@ export default new VueRouter({
       component: NotFound,
       name: '404',
       meta: {
-        
+        title: {
+          'ko': '페이지를 찾을 수 없음',
+          'en': 'Page not found',
+          'zh': '頁面未找到',
+          'fr': 'Page non trouvée'
+        }
       }
     },
     {
       path: '/developers',
       component: NotFound,
-      name: 'developers'
+      name: 'developers',
+      meta: {
+        title: {
+          'ko': '개발자 정보',
+          'en': 'Developer Information',
+          'zh': '開發者信息',
+          'fr': 'Informations développeur'
+        }
+      }
     },
     {
       path: '/university',
@@ -46,7 +59,15 @@ export default new VueRouter({
         {
           path: '',
           component: University,
-          name: 'university'
+          name: 'university',
+          meta: {
+            title: {
+              'ko': '대학교 선택',
+              'en': 'Select university',
+              'zh': '大學選擇',
+              'fr': 'Sélection universitaire'
+            }
+          }
         }
       ]
     },
@@ -57,17 +78,41 @@ export default new VueRouter({
         {
           path: '',
           component: SelectBuilding,
-          name: 'building'
+          name: 'building',
+          meta: {
+            title: {
+              'ko': '건물 선택',
+              'en': 'Select building',
+              'zh': '選擇建築',
+              'fr': 'Sélectionnez un bâtiment'
+            }
+          }
         },
         {
           path: ':buildingID',
           component: SelectFloor,
-          name: 'floor'
+          name: 'floor',
+          meta: {
+            title: {
+              'ko': '층 선택', 
+              'en': 'Floor selection',
+              'zh': '地板選擇',
+              'fr': 'Sélection du sol'
+            }
+          }
         },
         {
           path: ':buildingID/:floorID',
           component: Result,
-          name: 'result'
+          name: 'result',
+          meta: {
+            title: {
+              'ko': '강의실 현황',
+              'en': 'Classroom Status',
+              'zh': '課堂狀況',
+              'fr': 'Statut de la classe'
+            }
+          }
         }
       ]
     },

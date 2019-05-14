@@ -1,7 +1,7 @@
-import express from 'express';
-import app_root from 'app-root-path';
+import express from './node_modules/express';
+import app_root from './node_modules/app-root-path';
 import AppServiceProvider from './AppServiceProvider';
-import { router } from 'Routes/web';
+import { router } from './node_modules/Routes/web';
 
 export default class WebAppServiceProvider extends AppServiceProvider {
   setApp() {

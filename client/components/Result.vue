@@ -1,18 +1,52 @@
+<i18n>
+{
+  "ko": {
+    "nextClass": "다음 수업",
+    "hour": "시간",
+    "min": "분",
+    "remain": "남았어요",
+    "timetable": "강의 시간표"
+  },
+  "en": {
+    "nextClass": "Next class",
+    "hour": "Hour",
+    "min": "Minute",
+    "remain": "left",
+    "timetable": "Lecture Schedule"
+  },
+  "zh": {
+    "nextClass": "下一課",
+    "hour": "小時",
+    "min": "分鐘",
+    "remain": "留",
+    "timetable": "講座時間表"
+  },
+  "fr": {
+    "nextClass": "Prochain cours",
+    "hour": "heure",
+    "min": "Minute",
+    "remain": "Reste",
+    "timetable": "Calendrier des cours"
+  }
+}
+</i18n>
+
 <template>
   <div class="content-item result">
     <div class="empty-classrooms-container">
       <div
         class="ec-item-wrapper"
-        v-for="(room, i) in emptyRooms"
+        :class="[{appear: room.appear}, 'animation-delay--' + (i + 1)]"
+        v-for="(room, i) in classRooms"
         :key="i"
       >
         <div
           class="ec-item"
-          :class="'remaining-time--' + (i % 4 + 1)"
+          :class="'gradient--' + room.level"
           @click="loadTimeTable(room)"
         >
           <h1 class="room-number">{{ room.roomID }}</h1>
-          <p class="info">다음 수업<br><b>[휴먼입니까? ICT - 송노스]</b> 까지<br><span class="time">150시간 2300분</span> 남았어요.</p>
+          <p class="info">{{ $t('nextClass') }}: <b>{{ room.nextClass }}</b><br><span class="time">{{ room.remainingTime }}</span> {{ $t('remain') }}</p>
         </div>
       </div>
     </div>
@@ -22,10 +56,10 @@
         <div class="background" @click="closeTimeTable()"></div>
         <div class="timetable">
           <button class="close"></button>
-          <h1 class="title">{{ selectedRoom }}호 강의 시간표</h1>
+          <h1 class="title">{{ selectedRoom }} {{ $t('timetable') }}</h1>
           <div class="lecture-container" v-for="i in 10" :key="i">
             <div class="lecture">
-
+              <div v-for="i in 20" :key="i">{{ i }}</div>
             </div>
           </div>
         </div>
@@ -46,40 +80,7 @@ export default {
   extends: Content,
   data() {
     return {
-      emptyRooms: [
-        {
-          roomID: 727,
-          timeTable: []
-        },
-        {
-          roomID: 726,
-          timeTable: []
-        },
-        {
-          roomID: 728,
-          timeTable: []
-        },
-        {
-          roomID: 710,
-          timeTable: []
-        },
-        {
-          roomID: 715,
-          timeTable: []
-        },
-        {
-          roomID: 720,
-          timeTable: []
-        },
-        {
-          roomID: 729,
-          timeTable: []
-        },
-        {
-          roomID: 712,
-          timeTable: []
-        }
-      ],
+      classRooms: [],
       timeTableShow: false,
       selectedRoom: undefined,
       sbTimeTable: undefined
@@ -109,51 +110,24 @@ export default {
       }, 300)
     },
     buildIn() {
-      let rooms = this.$el.querySelectorAll('.ec-item-wrapper')
-      Stagger.animate(rooms)
+      Stagger.animate(this.classRooms)
     }
   },
-  beforeMount() {
-    // fetch data
-    let example = [
-      {
-        "num": 727,
-        "lectures": [
-          {
-            "name": "Hello World1",
-            "instructor": "Julian",
-            "time": {
-              "day": "Sat",
-              "start": "18:00",
-              "end": "19:00"
-            }
-          },
-          {
-            "name": "Hello World2",
-            "instructor": "Julian",
-            "time": {
-              "day": "Sat",
-              "start": "12:00",
-              "end": "14:00"
-            }
-          },
-          {
-            "name": "Hello World3",
-            "instructor": "Julian",
-            "time": {
-              "day": "Sat",
-              "start": "19:00",
-              "end": "20:00"
-            }
-          }
-        ]
-      }
-    ]
-    const expireCounter = new ExpireCounter(example)
-    let returnValue = expireCounter.run(727, new Date())
-    console.log(returnValue)
+  created() {
+    let fetchedClassrooms = []
+    for (let i = 0; i < 10; i++) {
+      fetchedClassrooms.push({
+        roomID: i + 1,
+        nextClass: '알고리즘',
+        remainingTime: '123',
+        level: i % 15 + 1,
+        appear: false
+      })
+    }
+    this.classRooms = fetchedClassrooms
   },
   mounted() {
+    console.log(this.$el.querySelector('.timetable'))
     this.sbTimeTable = new SimpleBar(this.$el.querySelector('.timetable'), {})
     ;['touchstart', 'mouseover'].forEach(eventName => {
       this.sbTimeTable.getScrollElement().addEventListener(eventName, e => {
@@ -167,7 +141,6 @@ export default {
 <style lang="scss">
 @import 'SCSS/global-variables.scss';
 @import 'SCSS/global-mixins.scss';
-@import 'SCSS/gradients.scss';
 
 .result {
   .empty-classrooms-container {
@@ -188,9 +161,8 @@ export default {
       transform: translateY($stagger-gap);
 
       &.appear {
-        opacity: 1;
-        transform: translateY(0);
-        transition: transform 1000ms $eodiro-cb, opacity 1000ms $eodiro-cb;
+        animation: $spring-time springFadeUp linear;
+        animation-fill-mode: both;
       }
 
       .ec-item {
@@ -228,24 +200,6 @@ export default {
             font-weight: 700;
           }
         }
-      
-        &.remaining-time--1 {
-          background-color: #4e99fc;
-          background-color: #006FFE;
-          background-color: #18B8F9;
-        }
-        &.remaining-time--2 {
-          background-color: #18d687;
-          background-color: #42D359;
-        }
-        &.remaining-time--3 {
-          background-color: #ff9f32;
-          background-color: #FF8902;
-        }
-        &.remaining-time--4 {
-          background-color: #f73434;
-          background-color: #FF264B;
-        }
       }
     }
   }
@@ -262,12 +216,12 @@ export default {
     z-index: 10000;
 
     &.zoom-enter-active, &.zoom-leave-active {
-      transition: opacity 300ms ease;
+      transition: opacity 200ms ease;
       opacity: 1;
 
       .timetable {
-        transition: opacity 300ms ease, transform 300ms ease;
-        transform: scale(1);
+        transition: opacity 200ms ease, transform 200ms ease;
+        transform: none;
         opacity: 1;
       }
     }
@@ -317,6 +271,7 @@ export default {
         font-size: 2rem;
         font-weight: 700;
         margin-top: 1.5rem;
+        line-height: 1;
       }
 
       .lecture-container {

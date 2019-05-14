@@ -150,7 +150,7 @@ img {
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 0.2s ease !important;
+  transition: opacity 150ms ease !important;
   opacity: 1 !important;
 }
 .fade-enter, .fade-leave-to {
@@ -189,5 +189,11 @@ img {
 
   @include dark-mode() {
     color: $base-gray--dark;
+  }
+}
+
+@for $i from 0 to 50 {
+  .animation-delay--#{$i + 1} {
+    animation-delay: unquote($i/15 + 's') !important;
   }
 }

@@ -2,12 +2,11 @@
   <div class="content-item select-building">
     <div class="building-container">
       <div
+        v-for="(building, i) in buildings"
+        :key="i"
         class="building"
-        v-for="(building, index) in buildings"
-        :key="index"
+        :class="['gradient--' + building.level, {appear: building.appear}, 'animation-delay--' + (i + 1)]"
       >
-        <!-- <img class="building-image" :src="bgImg(building.name.number)" alt=""> -->
-        <div class="gradient-overlap"></div>
         <router-link :to="'./' + building.name.number" append>
           <div class="building-info">
             <div class="building-name">
@@ -17,9 +16,9 @@
               </div>
             </div>
             <div class="brief-summary">
-              <div class="wrapper">
-                <span class="">빈 강의실 {{ building.emptyRoomCount }}</span>
-              </div>
+              <button class="wrapper">
+                <span class="">{{ building.emptyRoomCount }}</span>
+              </button>
             </div>
           </div>
         </router-link>
@@ -31,126 +30,14 @@
 <script>
 import Content from 'Components/Content.vue'
 import Stagger from 'Modules/Stagger'
+import _ from 'lodash'
 
 export default {
   name: 'building',
   extends: Content,
   data() {
     return {
-      buildings: [
-        {
-          name: {
-            number: 1010,
-            text: '천영신관'
-          },
-          emptyRoomCount: 10
-        },
-        {
-          name: {
-            number: 101,
-            text: '영신관'
-          },
-          emptyRoomCount: 10
-        },
-        {
-          name: {
-            number: 102,
-            text: '약학대학 및 R&D센터'
-          },
-          emptyRoomCount: 5
-        },
-        {
-          name: {
-            number: 103,
-            text: '파이퍼홀'
-          },
-          emptyRoomCount: 7
-        },
-        {
-          name: {
-            number: 104,
-            text: '수림과학관'
-          },
-          emptyRoomCount: 9
-        },
-        {
-          name: {
-            number: 105,
-            text: '제1의학관'
-          },
-          emptyRoomCount: 3
-        },
-        {
-          name: {
-            number: 106,
-            text: '제2의학관'
-          },
-          emptyRoomCount: 0
-        },
-        {
-          name: {
-            number: 107,
-            text: '학생회관'
-          },
-          emptyRoomCount: 12
-        },
-        {
-          name: {
-            number: 201,
-            text: '본관'
-          },
-          emptyRoomCount: 4
-        },
-        {
-          name: {
-            number: 203,
-            text: '서라벌호'
-          },
-          emptyRoomCount: 20
-        },
-        {
-          name: {
-            number: 207,
-            text: '봅스트홀'
-          },
-          emptyRoomCount: 100
-        },
-        {
-          name: {
-            number: 208,
-            text: '제2공학관'
-          },
-          emptyRoomCount: 1
-        },
-        {
-          name: {
-            number: 209,
-            text: '창업보육관'
-          },
-          emptyRoomCount: 2
-        },
-        {
-          name: {
-            number: 301,
-            text: '중앙문화예술관'
-          },
-          emptyRoomCount: 20
-        },
-        {
-          name: {
-            number: 303,
-            text: '법학관'
-          },
-          emptyRoomCount: 25
-        },
-        {
-          name: {
-            number: 310,
-            text: '100주년기념관'
-          },
-          emptyRoomCount: 3000
-        }
-      ]
+      buildings: []
     }
   },
   methods: {
@@ -158,48 +45,26 @@ export default {
       return '/assets/images/university/cau/' + buildingID + '.png'
     },
     buildIn() {
-      let buildings = this.$el.querySelectorAll('.building')
-      Stagger.animate(buildings)
-    },
-    setBuildingColor() {
-      // let buildings = this.$el.querySelectorAll('.gradient-overlap')
-      // let data = []
-      // let i = 0
-      // buildings.forEach(building => {
-      //   let colorCode
-      //   let colorCount = 15
-      //   while (1) {
-      //     colorCode = Math.floor(Math.random() * colorCount) + 1
-      //     if (data[colorCode] === undefined) {
-      //       data[colorCode] = 1
-      //       i++
-      //       break
-      //     }
-      //   }
-      //   building.classList.add('gradient--' + colorCode)
-      //   console.log(i)
-      //   if (i === colorCount) {
-      //     data = []
-      //   }
-      // })
-
-      let buildings = this.$el.querySelectorAll('.gradient-overlap')
-      let data = []
-      let colorCount = 15
-      let i = 1
-      buildings.forEach(building => {
-        building.classList.add('gradient--' + i)
-        i++
-        if (i > colorCount) {
-          i = 1
-        }
-      })
+      Stagger.animate(this.buildings)
     }
   },
-  mounted() {
-    this.setBuildingColor()
+  created() {
+    // Fetch data
+    let fetchedBuildings = []
+    for (let i = 0; i < 20; i++) {
+      fetchedBuildings.push({
+        name: {
+          number: i + 1,
+          text: i + 1 +'관'
+        },
+        emptyRoomCount: i + 1,
+        level: i % 15 + 1,
+        appear: false
+      })
+    }
+    this.buildings = fetchedBuildings
   },
-  activated() {
+  beforeMount() {
     
   }
 }
@@ -208,8 +73,6 @@ export default {
 <style lang="scss">
 @import 'SCSS/global-variables.scss';
 @import 'SCSS/global-mixins.scss';
-// @import 'SCSS/gradients.scss';
-@import 'SCSS/gradients-simple.scss';
 
 .building-container {
   display: grid;
@@ -228,12 +91,9 @@ export default {
   .building {
     cursor: pointer;
     position: relative;
-    background: transparent;
-    background-color: #fff;
     border-radius: 1rem;
     overflow: hidden;
     opacity: 0;
-    transform: translateY($stagger-gap);
     will-change: transform, opacity;
     box-shadow: $eodiro-shadow;
     text-align: right;
@@ -247,9 +107,8 @@ export default {
     }
 
     &.appear {
-      opacity: 1;
-      transform: translateY(0);
-      transition: transform $stagger-time $stagger-cb, opacity $stagger-time $stagger-cb;
+      animation: $spring-time springFadeUp linear;
+      animation-fill-mode: both;
     }
 
     .building-image {
@@ -278,7 +137,6 @@ export default {
       z-index: 2;
 
       .building-name {
-        // text-shadow: 0 0.2rem 1rem rgba(0,0,0,0.2);
         color: $base-white;
         font-weight: 700;
         transition: background-color 300ms ease;
@@ -292,7 +150,6 @@ export default {
           font-weight: 700;
           font-family: $font-display;
           line-height: 1;
-          // mix-blend-mode: difference;
         }
       
         .name--text {
@@ -300,6 +157,7 @@ export default {
           font-weight: 500;
           line-height: 1.2;
           margin-top: 0.1rem;
+          opacity: 0.8;
         }
       }
       
@@ -309,13 +167,18 @@ export default {
       
         .wrapper {
           display: inline-block;
+          min-width: 2rem;
+          height: 2rem;
           font-family: $font-text;
           font-size: 1rem;
-          font-weight: 500;
           color: #fff;
           background-color: rgba(#000, 0.2);
-          padding: 0.5rem 0.7rem;
-          border-radius: 0.5rem;
+          border-radius: 50px;
+          padding: 0 0.5rem;
+
+          & * {
+            font-weight: 500;
+          }
         }
       }
     }

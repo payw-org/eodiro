@@ -1,5 +1,8 @@
 $base-white: #fff;
+$base-white-blue: #f8f8fc;
+$base-white-soft: rgba(#fff, 0.85);
 $base-black: #333;
+$base-black-soft: rgba(#333, 0.85);
 $base-gray: #747474;
 $base-gray--dark: #cdcdcd;
 
@@ -25,6 +28,7 @@ $eodiro-cb: cubic-bezier(0.18, 0.37, 0.11, 0.98);
 
 $stagger-cb: cubic-bezier(.28,.49,.24,1.08);
 $stagger-time: 500ms;
+$spring-time: 1000ms;
 
 $exiting-time: 500ms;
 

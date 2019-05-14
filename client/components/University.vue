@@ -1,8 +1,25 @@
+<i18n>
+{
+  "ko": {
+    "search_placeholder": "학교 이름으로 검색"
+  },
+  "en": {
+     "search_placeholder": "Search by School Name"
+  },
+  "zh": {
+     "search_placeholder": "按學校名稱搜索"
+  },
+  "fr": {
+     "search_placeholder": "Rechercher par nom d'école"
+  }
+}
+</i18n>
+
 <template>
   <div class="content-item university-search">
     <div class="search-area">
       <div class="query-input-wrapper">
-        <input v-model="search" @click="clickInput(false)" @keydown="clickInput(true)" class="input" type="text" placeholder="학교 이름으로 검색" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
+        <input v-model="search" @click="clickInput(false)" @keydown="clickInput(true)" class="input" type="text" :placeholder="$t('search_placeholder')" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
       </div>
       <div class="university-list">
         <div
@@ -18,13 +35,11 @@
 
 <script>
 import Content from 'Components/Content.vue'
+import axios from 'axios';
 
 export default {
   name: 'university',
   extends: Content,
-  activated() {
-    this.universityList.sort()
-  },
   data() {
     return {
       search: '',
@@ -109,6 +124,10 @@ export default {
       window.alert(`[ ${university.name} ] 기본 학교로 설정되었습니다. 나중에 변경 가능합니다.`)
       this.$router.push('/' + university.vendor)
     }
+  },
+  created() {
+    this.universityList.sort()
+    // axios.post('', {})
   }
 }
 </script>
@@ -121,15 +140,15 @@ export default {
   // padding-bottom: 0 !important;
 
   .search-area {
-    min-height: calc(100vh - 10rem);
+    min-height: calc(100vh - #{$stagger-gap});
 
     .query-input-wrapper {
       width: 100%;
       margin-bottom: 2rem;
-      background-color: $base-white;
       position: sticky;
       top: 0;
       border-bottom: 1px solid #f4f4f4;
+      background-color: $base-white;
 
       @include dark-mode() {
         background-color: $base-black;
@@ -170,7 +189,7 @@ export default {
         background-color: $base-white;
 
         &:nth-child(2n) {
-          background-color: #f8f8f8;
+          background-color: darken($base-white, 2%);
         }
 
         @include dark-mode() {
