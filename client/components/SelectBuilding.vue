@@ -57,7 +57,10 @@ export default {
       axios.get('http://api.dev-jhm.eodiro.com' + location.pathname)
         .then(response => {
           let data = response.data
-          if (data.error) return
+          if (data.err) {
+            this.$router.push('/404')
+            return
+          }
           data.buildings.map(function (u) {
             u.appear = false
           })

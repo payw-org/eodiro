@@ -179,7 +179,10 @@ export default {
     fetchTimeTable() {
       axios.get('http://api.dev-jhm.eodiro.com' + location.pathname)
         .then(r => {
-          if (r.data.error) return
+          if (r.data.err) {
+            this.$router.push('/404')
+            return
+          }
       
           r.data.classrooms.map(c => {
             c.appear = false
@@ -211,18 +214,9 @@ export default {
           })
         })
     },
-    onKeyDown(e) {
-      console.log(e.key)
-      if (e.key === 'Escape') {
-
-      }
-    }
   },
   created() {
     this.fetchTimeTable()
-  },
-  beforeDestroy() {
-
   },
   mounted() {
     this.simplebarTimeTableElm = new SimpleBar(this.$el.querySelector('.timetable'), {})

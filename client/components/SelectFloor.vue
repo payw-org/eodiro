@@ -48,7 +48,10 @@ export default {
     fetchFloors() {
       axios.get('http://api.dev-jhm.eodiro.com' + location.pathname)
         .then(r => {
-          if (r.data.error) return
+          if (r.data.err) {
+            this.$router.push('/404')
+            return
+          }
           r.data.floors.map(function (f) {
             f.appear = false
           })
