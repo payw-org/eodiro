@@ -4,25 +4,29 @@
     "title": "어디로",
     "description": "대학교 빈 강의실 찾기 서비스",
     "colorMode": "색상 모드 설정",
-    "changeCollege": "학교 변경"
+    "changeCollege": "학교 변경",
+    "done": "완료"
   },
   "en": {
     "title": "eodiro",
-    "description": "Find empty classrooms",
-    "colorMode": "Set color scheme",
-    "changeCollege": "Change college"
+    "description": "Find Empty Classrooms",
+    "colorMode": "Set Color Scheme",
+    "changeCollege": "Change College",
+    "done": "Done"
   },
   "zh": {
     "title": "eodiro",
     "description": "找一個空蕩蕩的教室",
     "colorMode": "設置配色方案",
-    "changeCollege": "改變大學"
+    "changeCollege": "改變大學",
+    "done": "DONE"
   },
   "fr": {
     "title": "eodiro",
-    "description": "Trouver une classe vide",
-    "colorMode": "Définir les couleurs",
-    "changeCollege": "Changer de collège"
+    "description": "Trouver Une Classe Vide",
+    "colorMode": "Définir Les Couleurs",
+    "changeCollege": "Changer DE Collège",
+    "done": "Terminé"
   }
 }
 </i18n>
@@ -66,7 +70,7 @@
             @click="isSettingsActive = !isSettingsActive"
           >
             <span v-if="!isSettingsActive">{{ $t('colorMode') }}</span>
-            <span v-else>완료</span>
+            <span v-else>{{ $t('done') }}</span>
           </button>
           <router-link to="/university">
           <button class="config-btn" v-if="isDefaultUniversityExist && !isSettingsActive">{{ $t('changeCollege') }}</button>
