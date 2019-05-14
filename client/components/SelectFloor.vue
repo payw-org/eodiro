@@ -19,7 +19,7 @@
                 <span v-if="floor.loaded">{{ floor.empty_classroom }}</span>
               </transition>
             </button>
-            <h1 class="num">{{ floor.number }}</h1>
+            <h1 class="num">{{ floor.number }}F</h1>
           </div>
         </router-link>
       </div>
@@ -66,7 +66,10 @@ export default {
       })
       axios.get('http://api.dev-jhm.eodiro.com' + location.pathname + '/empty')
         .then(r => {
-          if (r.data.error) return
+          if (r.data.err) {
+            this.$router.push('/404')
+            return
+          }
           r.data.floors.map(function (f) {
             f.appear = true
             f.loaded = true
