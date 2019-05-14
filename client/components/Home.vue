@@ -5,28 +5,40 @@
     "description": "대학교 빈 강의실 찾기 서비스",
     "colorMode": "색상 모드 설정",
     "changeCollege": "학교 변경",
-    "done": "완료"
+    "done": "완료",
+    "light_mode": "라이트 모드",
+    "dark_mode": "다크 모드",
+    "adaptive": "적응형"
   },
   "en": {
     "title": "eodiro",
     "description": "Find Empty Classrooms",
     "colorMode": "Set Color Scheme",
     "changeCollege": "Change College",
-    "done": "Done"
+    "done": "Done",
+    "light_mode": "Light Mode",
+    "dark_mode": "Dark Mode",
+    "adaptive": "Adaptive"
   },
   "zh": {
     "title": "eodiro",
     "description": "找一個空蕩蕩的教室",
     "colorMode": "設置配色方案",
     "changeCollege": "改變大學",
-    "done": "DONE"
+    "done": "DONE",
+    "light_mode": "光模式",
+    "dark_mode": "黑暗模式",
+    "adaptive": "自適應"
   },
   "fr": {
     "title": "eodiro",
     "description": "Trouver Une Classe Vide",
     "colorMode": "Définir Les Couleurs",
     "changeCollege": "Changer DE Collège",
-    "done": "Terminé"
+    "done": "Terminé",
+    "light_mode": "Mode Lumière",
+    "dark_mode": "Mode Sombre",
+    "adaptive": "Adaptatif"
   }
 }
 </i18n>
@@ -52,16 +64,16 @@
             <button
               class="mode-btn light"
               @click="$emit('changeColorScheme', 'light')"
-            >라이트 모드</button>
+            >{{ $t('light_mode') }}</button>
             <button
               class="mode-btn dark"
               @click="$emit('changeColorScheme', 'dark')"
-            >다크 모드</button>
+            >{{ $t('dark_mode') }}</button>
             <button
               class="mode-btn auto"
               v-if="autoDarkModeSupport"
               @click="$emit('changeColorScheme', 'auto')"
-            >적응형 (macOS Mojave)</button>
+            >{{ $t('adaptive') }} (macOS Mojave)</button>
           </div>
         </div>
         <div class="settings-area">
@@ -296,12 +308,11 @@ export default {
 
       .color-scheme-config {
         text-align: center;
-        width: calc(100% - 2rem);
+        width: calc(100% - 3rem);
 
         .mode-btn {
           display: block;
           width: 100%;
-          max-width: 15rem;
           border-radius: 50px;
           padding: 0.7rem 1rem;
           font-size: 1.1rem;
