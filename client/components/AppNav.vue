@@ -9,10 +9,10 @@
   },
   "en": {
     "navTitle_goBack": "Back",
-    "navTitle_university": "Select a university name",
-    "navTitle_building": "Select a building",
-    "navTitle_floor": "Select a floor",
-    "navTitle_result": "Classroom status"
+    "navTitle_university": "Select a University Name",
+    "navTitle_building": "Select a Building",
+    "navTitle_floor": "Select a Floor",
+    "navTitle_result": "Classroom Status"
   },
   "zh": {
     "navTitle_goBack": "回去",
@@ -23,10 +23,10 @@
   },
   "fr": {
     "navTitle_goBack": "Retour",
-    "navTitle_university": "Sélectionnez une école",
-    "navTitle_building": "Sélectionnez un bâtiment",
-    "navTitle_floor": "Veuillez choisir un étage",
-    "navTitle_result": "Statut de la classe"
+    "navTitle_university": "Sélectionnez Une éCole",
+    "navTitle_building": "Sélectionnez Un Bâtiment",
+    "navTitle_floor": "Veuillez Choisir Un éTage",
+    "navTitle_result": "Statut DE La Classe"
   }
 }
 </i18n>
@@ -259,6 +259,7 @@ export default {
           transition: width 700ms $eodiro-cb, box-shadow 700ms $eodiro-cb;
         }
         .title-text {
+          line-height: 1;
           position: absolute;
           left: 50%;
           top: 50%;

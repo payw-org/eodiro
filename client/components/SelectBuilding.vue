@@ -2,26 +2,32 @@
   <div class="content-item select-building">
     <div class="building-container">
       <div
+        class="building-wrapper"
         v-for="(building, i) in buildings"
         :key="i"
-        class="building"
-        :class="['gradient--' + building.level, {appear: building.appear}, 'animation-delay--' + (i + 1)]"
       >
-        <router-link :to="'./' + building.name.number" append>
-          <div class="building-info">
-            <div class="building-name">
-              <div class="wrapper">
-                <span class="name--number">{{ building.name.number }}</span>
-                <span class="name--text">{{ building.name.text }}</span>
+        <div
+          class="building"
+          :class="['gradient--' + (i % 15 + 1), {appear: building.appear}, 'animation-delay--' + (i + 1)]"
+        >
+          <router-link :to="'./' + building.number" append>
+            <div class="building-info">
+              <div class="building-name">
+                <div class="wrapper">
+                  <span class="name--number">{{ building.number }}</span>
+                  <span class="name--text">{{ building.name }}</span>
+                </div>
+              </div>
+              <div class="brief-summary">
+                <button class="empty-count-badge" :class="{loaded: building.loaded}">
+                  <transition name="fade-slow">
+                    <span v-if="building.loaded">{{ building.empty_classroom }}</span>
+                  </transition>
+                </button>
               </div>
             </div>
-            <div class="brief-summary">
-              <button class="wrapper">
-                <span class="">{{ building.emptyRoomCount }}</span>
-              </button>
-            </div>
-          </div>
-        </router-link>
+          </router-link>
+        </div>
       </div>
     </div>
   </div>
@@ -30,7 +36,7 @@
 <script>
 import Content from 'Components/Content.vue'
 import Stagger from 'Modules/Stagger'
-import _ from 'lodash'
+import axios from 'axios'
 
 export default {
   name: 'building',
@@ -46,26 +52,47 @@ export default {
     },
     buildIn() {
       Stagger.animate(this.buildings)
+    },
+    fetchBuildings() {
+      axios.get('http://api.dev-jhm.eodiro.com' + location.pathname)
+        .then(response => {
+          let data = response.data
+          if (data.err) {
+            this.$router.push('/404')
+            return
+          }
+          data.buildings.map(function (u) {
+            u.appear = false
+          })
+          this.buildings = data.buildings
+          this.buildIn()
+          this.fetchEmpty()
+        })
+        .catch(function (error) {
+          alert('어디로 서버 오류로 건물을 가져올 수 없습니다. 잠시 후 이용바랍니다.')
+        })
+    },
+    fetchEmpty() {
+      this.buildings.forEach(b => {
+        b.loaded = false
+      })
+      axios.get('http://api.dev-jhm.eodiro.com' + location.pathname +'/empty')
+        .then(response => {
+          if (response.data.error) return
+          response.data.buildings.map(function (b) {
+            b.appear = true
+            b.loaded = true
+          })
+          this.buildings = response.data.buildings
+        })
     }
   },
   created() {
     // Fetch data
-    let fetchedBuildings = []
-    for (let i = 0; i < 20; i++) {
-      fetchedBuildings.push({
-        name: {
-          number: i + 1,
-          text: i + 1 +'관'
-        },
-        emptyRoomCount: i + 1,
-        level: i % 15 + 1,
-        appear: false
-      })
-    }
-    this.buildings = fetchedBuildings
+    this.fetchBuildings()
   },
-  beforeMount() {
-    
+  activated() {
+    this.fetchEmpty()
   }
 }
 </script>
@@ -164,22 +191,6 @@ export default {
       .brief-summary {
         margin-top: 1rem;
         text-align: right;
-      
-        .wrapper {
-          display: inline-block;
-          min-width: 2rem;
-          height: 2rem;
-          font-family: $font-text;
-          font-size: 1rem;
-          color: #fff;
-          background-color: rgba(#000, 0.2);
-          border-radius: 50px;
-          padding: 0 0.5rem;
-
-          & * {
-            font-weight: 500;
-          }
-        }
       }
     }
   }
