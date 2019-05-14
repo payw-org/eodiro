@@ -17,7 +17,9 @@ export default {
       this.cachedComponents.push(this.$options.name)
     }
 
-    this.buildIn()
+    // setTimeout(() => {
+    //   this.buildIn()
+    // }, 200)
   },
   activated() {
     this.$emit('toggleScrollEvent', false)
@@ -31,7 +33,7 @@ export default {
       this.$emit('toggleScrollEvent', true)
     }, 10)
 
-    this.buildIn()
+    // this.buildIn()
   },
   deactivated() {
     this.scrollPos = window.scrollY

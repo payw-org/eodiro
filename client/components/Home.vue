@@ -1,3 +1,48 @@
+<i18n>
+{
+  "ko": {
+    "title": "어디로",
+    "description": "대학교 빈 강의실 찾기 서비스",
+    "colorMode": "색상 모드 설정",
+    "changeCollege": "학교 변경",
+    "done": "완료",
+    "light_mode": "라이트 모드",
+    "dark_mode": "다크 모드",
+    "adaptive": "적응형"
+  },
+  "en": {
+    "title": "eodiro",
+    "description": "Find Empty Classrooms",
+    "colorMode": "Set Color Scheme",
+    "changeCollege": "Change College",
+    "done": "Done",
+    "light_mode": "Light Mode",
+    "dark_mode": "Dark Mode",
+    "adaptive": "Adaptive"
+  },
+  "zh": {
+    "title": "eodiro",
+    "description": "找一個空蕩蕩的教室",
+    "colorMode": "設置配色方案",
+    "changeCollege": "改變大學",
+    "done": "DONE",
+    "light_mode": "光模式",
+    "dark_mode": "黑暗模式",
+    "adaptive": "自適應"
+  },
+  "fr": {
+    "title": "eodiro",
+    "description": "Trouver Une Classe Vide",
+    "colorMode": "Définir Les Couleurs",
+    "changeCollege": "Changer DE Collège",
+    "done": "Terminé",
+    "light_mode": "Mode Lumière",
+    "dark_mode": "Mode Sombre",
+    "adaptive": "Adaptatif"
+  }
+}
+</i18n>
+
 <template>
   <div id="home">
     <a href="http://payw.org" class="about-developers">{{ thisYear }} © Payw.org</a>
@@ -6,30 +51,29 @@
       name="zoom"
     >
       <div class="start-box">
-
         <div class="content-area">
           <div class="main" v-show="!isSettingsActive" key="1">
             <dir class="logo-container">
               <img src="/assets/images/eodiro/logo-arrow.svg" alt="eodiro-logo">
             </dir>
-            <h1 class="logo-text">어디로</h1>
-            <p class="description base-gray">대학교 빈 강의실 찾기 서비스</p>
+            <h1 class="logo-text">{{ $t('title') }}</h1>
+            <p class="description base-gray">{{ $t('description') }}</p>
             <router-link :to="'/' + startLink"><button class="go-btn eodiro-btn">{{ startMsg }} <span class="arrow">→</span></button></router-link>
           </div>
           <div class="color-scheme-config" v-show="isSettingsActive" key="2">
             <button
               class="mode-btn light"
               @click="$emit('changeColorScheme', 'light')"
-            >라이트 모드</button>
+            >{{ $t('light_mode') }}</button>
             <button
               class="mode-btn dark"
               @click="$emit('changeColorScheme', 'dark')"
-            >다크 모드</button>
+            >{{ $t('dark_mode') }}</button>
             <button
               class="mode-btn auto"
               v-if="autoDarkModeSupport"
               @click="$emit('changeColorScheme', 'auto')"
-            >적응형 (macOS Mojave)</button>
+            >{{ $t('adaptive') }} (macOS Mojave)</button>
           </div>
         </div>
         <div class="settings-area">
@@ -37,20 +81,13 @@
             class="config-btn color-scheme-pref"
             @click="isSettingsActive = !isSettingsActive"
           >
-            <span v-if="!isSettingsActive">색상 모드 설정</span>
-            <span v-else>완료</span>
+            <span v-if="!isSettingsActive">{{ $t('colorMode') }}</span>
+            <span v-else>{{ $t('done') }}</span>
           </button>
           <router-link to="/university">
-          <button class="config-btn" v-if="isDefaultUniversityExist && !isSettingsActive">학교 변경</button>
+          <button class="config-btn" v-if="isDefaultUniversityExist && !isSettingsActive">{{ $t('changeCollege') }}</button>
           </router-link>
         </div>
-
-        <!-- <div class="wrapper top-dummy"></div>
-        <div class="wrapper">
-          
-          
-        </div>
-         -->
       </div>
     </transition>
     <HomeBGTile/>
@@ -88,9 +125,6 @@ export default {
     }
   },
   mounted() {
-    // set document title
-    document.title = '어디로 | 대학교 빈강의실 찾기'
-
     // check if the browser supports 'prefers-color-scheme' media query
     if (window.matchMedia('(prefers-color-scheme: dark)').media != 'not all') {
       this.autoDarkModeSupport = true
@@ -104,7 +138,7 @@ export default {
 @import 'SCSS/global-mixins.scss';
 
 #home {
-  $transition-time: 1500ms;
+  $transition-time: 1200ms;
   $cb: cubic-bezier(.24,.49,.01,.99);
   $transition-property: $transition-time $cb;
 
@@ -180,6 +214,7 @@ export default {
       filter: blur(0px);
       opacity: 1;
       box-shadow: 0 1rem 2rem rgba(0,0,0,0.1);
+      transition-delay: 0.2;
       transition: transform $transition-time $cb, opacity $transition-time/2 $cb, filter $transition-time $cb, background-color $transition-property, box-shadow $transition-property;
 
       @include dark-mode() {
@@ -234,7 +269,7 @@ export default {
           font-family: $font-display;
           font-size: 2.5rem;
           font-weight: 700;
-          margin-top: 0.5rem;
+          margin-top: 0.7rem;
         }
 
         .description {
@@ -273,12 +308,11 @@ export default {
 
       .color-scheme-config {
         text-align: center;
-        width: calc(100% - 2rem);
+        width: calc(100% - 3rem);
 
         .mode-btn {
           display: block;
           width: 100%;
-          max-width: 15rem;
           border-radius: 50px;
           padding: 0.7rem 1rem;
           font-size: 1.1rem;

@@ -1,10 +1,10 @@
 import express from 'express';
 import app_root from 'app-root-path';
 
-let router = express.Router();
+const router = express.Router();
 
 router.get('*', (req, res) => {
-    res.sendFile(app_root.path + '/public_html/home.html');
+  res.sendFile(app_root.path + '/public_html/home.html');
 });
 
 export { router };

@@ -1,3 +1,36 @@
+<i18n>
+{
+  "ko": {
+    "navTitle_goBack": "뒤로가기",
+    "navTitle_university": "학교를 선택하세요",
+    "navTitle_building": "건물을 선택하세요",
+    "navTitle_floor": "층을 선택하세요",
+    "navTitle_result": "강의실 현황입니다"
+  },
+  "en": {
+    "navTitle_goBack": "Back",
+    "navTitle_university": "Select a University Name",
+    "navTitle_building": "Select a Building",
+    "navTitle_floor": "Select a Floor",
+    "navTitle_result": "Classroom Status"
+  },
+  "zh": {
+    "navTitle_goBack": "回去",
+    "navTitle_university": "選擇一所學校",
+    "navTitle_building": "選擇一個建築物",
+    "navTitle_floor": "請選擇一個樓層",
+    "navTitle_result": "課堂狀態"
+  },
+  "fr": {
+    "navTitle_goBack": "Retour",
+    "navTitle_university": "Sélectionnez Une éCole",
+    "navTitle_building": "Sélectionnez Un Bâtiment",
+    "navTitle_floor": "Veuillez Choisir Un éTage",
+    "navTitle_result": "Statut DE La Classe"
+  }
+}
+</i18n>
+
 <template>
   <nav id="app-navigation">
     <div class="an-container">
@@ -10,7 +43,7 @@
             <div class="right-tip"></div>
             <div class="shadow"></div>
             <transition name="fade" mode="out-in">
-              <h1 class="title-text" :key="mutateNavTitle">{{ mutateNavTitle }}</h1>
+              <h1 class="title-text" :key="navTitle">{{ navTitle }}</h1>
             </transition>
           </div>
         </div>
@@ -22,83 +55,105 @@
 <script>
 export default {
   mounted() {
-    this.titleElm = this.$el.querySelector('.title-text')
-
+    // Nav width sould be resized on window resize
+    // since the nav width is fixed by the calculation
     window.addEventListener('resize', e => {
-      this.transformSB(this.mutateNavTitle)
+      this.transformSB(this.navTitle)
     })
+
+    // On first mount, set navigation title
+    // based on the current route
+    this.setTitle(this.$route)
   },
-  props: ['navTitle', 'backLink', 'isHidden'],
+  props: ['isHidden'],
   data() {
     return {
-      originalWidth: 0,
-      goBackTitle: '← 뒤로가기',
       goBackTimeout: undefined,
       goBackActive: false,
-      titleElm: undefined,
-      mutateNavTitle: undefined
+      navTitle: '',
+      backLink: ''
     }
   },
   watch: {
-    navTitle: function (newTitle) {
-      this.goBackActive = false
-      if (this.$route.name === 'floors') {
-        this.mutateNavTitle = this.generateNavTitle(newTitle)
-      } else {
-        this.mutateNavTitle = newTitle
-      }
-      window.clearTimeout(this.goBackTimeout)
-      this.goBackTimeout = setTimeout(() => {
-        this.goBackActive = true
-        this.mutateNavTitle = this.goBackTitle
-      }, 2000)
-    },
-    mutateNavTitle: function (newTitle, oldTitle) {
-      this.transformSB(newTitle)
+    $route() {
+      this.setTitle(this.$route)
     }
   },
   methods: {
-    generateNavTitle(title) {
-      let newTitle = this.navTitle
-      // if (this.$route.params.buildingID) {
-      //   newTitle = title + this.$route.params.buildingID
-      // }
-      return newTitle
+    // Set nav title based on the route name
+    setTitle(route) {
+      this.goBackActive = false
+      window.clearTimeout(this.goBackTimeout)
+
+      let rp = route.params
+      if (route.name === 'building') {
+        this.navTitle = this.$t('navTitle_building')
+        this.backLink = '/'
+      } else if (route.name === 'floor') {
+        this.navTitle = this.$t('navTitle_floor')
+        this.backLink = '/' + rp.universityVendor
+      } else if (route.name === 'result') {
+        this.navTitle = this.$t('navTitle_result')
+        this.backLink = '/' + rp.universityVendor + '/' + rp.buildingID
+      } else if (route.name === 'university') {
+        this.navTitle = this.$t('navTitle_university')
+        this.backLink = '/'
+      }
+
+      // Animate nav width
+      this.transformSB(this.navTitle)
+
+      // Set 'Go Back' navigation title after 2sec
+      this.goBackTimeout = setTimeout(() => {
+        this.goBackActive = true
+        this.navTitle = '← ' + this.$t('navTitle_goBack')
+        this.transformSB('← ' + this.$t('navTitle_goBack'))
+      }, 2000)
     },
+    // Animate nav width
     transformSB(newTitle) {
       let titleText = this.$el.querySelector('.title-text')
+      titleText.getBoundingClientRect().width
       let titleTextClone = titleText.cloneNode(true)
-      titleTextClone.style.position = 'absolute'
       titleTextClone.style.visibility = 'hidden'
       titleTextClone.style.pointerEvents = 'none'
       titleTextClone.innerHTML = newTitle
       titleText.parentElement.appendChild(titleTextClone)
-      let titleTextWidth = titleTextClone.getBoundingClientRect().width - 10
+      
       let titleBox = this.$el.querySelector('.title-box')
       let leftTip = this.$el.querySelector('.left-tip')
       let rightTip = this.$el.querySelector('.right-tip')
       let link = this.$el.querySelector('.link')
       let shadow = this.$el.querySelector('.shadow')
 
-      let titleBoxWidth = titleBox.clientWidth
-      let scaleX = titleTextWidth / titleBoxWidth
-      let translateX = -((titleTextWidth - titleBoxWidth) / 2 - 5)
-      titleBox.style.transform = 'scaleX(' + scaleX + ')'
-      leftTip.style.transform = 'translateX(' + translateX + 'px)'
-      rightTip.style.transform = 'translateX(' + -translateX + 'px)'
-      link.style.width = 'calc(' + titleTextWidth + 'px' + ' \+ 3rem)'
-      shadow.style.width = titleTextWidth + 'px'
+      // Set timeout to fix a weird bug
+      // where on the first load, nav's width
+      // is slightly longer than it should be
+      setTimeout(() => {
+        let titleTextWidth = titleTextClone.getBoundingClientRect().width - 10
+        let titleBoxWidth = titleBox.clientWidth
+        let scaleX = titleTextWidth / titleBoxWidth
+        let translateX = -((titleTextWidth - titleBoxWidth) / 2 - 5)
+        titleBox.style.transform = 'scaleX(' + scaleX + ')'
+        leftTip.style.transform = 'translateX(' + translateX + 'px)'
+        rightTip.style.transform = 'translateX(' + -translateX + 'px)'
+        link.style.width = 'calc(' + titleTextWidth + 'px' + ' \+ 3rem)'
+        shadow.style.width = titleTextWidth + 'px'
 
-      titleTextClone.parentElement.removeChild(titleTextClone)
+        titleTextClone.parentElement.removeChild(titleTextClone)
+      }, 100)
     }
+  },
+  beforeDestroy() {
+    window.clearTimeout(this.goBackTimeout)
   }
 }
 </script>
 
 
 <style lang="scss">
-@import '../scss/global-variables.scss';
-@import '../scss/global-mixins.scss';
+@import 'SCSS/global-variables.scss';
+@import 'SCSS/global-mixins.scss';
 
 #app-navigation {
   $top-gap: 4rem;
@@ -127,8 +182,8 @@ export default {
     .single-button-wrapper {
       padding-top: 4rem;
       transform: translateY(0);
-      transition: transform $time $eodiro-cb;
-      will-change: transform;
+      transition: transform 500ms $eodiro-cb, opacity 500ms $eodiro-cb;
+      will-change: transform, opacity;
 
       @include smaller-than($mobile-width-threshold) {
         padding-top: 3rem;
@@ -136,6 +191,7 @@ export default {
 
       &.hidden {
         transform: translateY(calc(-100% - 2rem));
+        // opacity: 0;
       }
 
       .single-button {
@@ -203,6 +259,7 @@ export default {
           transition: width 700ms $eodiro-cb, box-shadow 700ms $eodiro-cb;
         }
         .title-text {
+          line-height: 1;
           position: absolute;
           left: 50%;
           top: 50%;

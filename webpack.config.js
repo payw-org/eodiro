@@ -48,6 +48,11 @@ module.exports = {
 			{
         test: /\.vue$/,
 				loader: 'vue-loader'
+			},
+			{
+        resourceQuery: /blockType=i18n/,
+        type: 'javascript/auto',
+        loader: '@kazupon/vue-i18n-loader'
       },
 			{
 				test: [/\.js$/],
@@ -61,6 +66,14 @@ module.exports = {
 							]
 						}
 					}
+				]
+			},
+			{
+				test: [/\.styl$/],
+				use: [
+					'style-loader',
+					'css-loader',
+					'stylus-loader'
 				]
 			},
 			{

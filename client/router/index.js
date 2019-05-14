@@ -16,17 +16,41 @@ export default new VueRouter({
     {
       path: '/',
       component: Home,
-      name: 'home'
+      name: 'home',
+      meta: {
+        title: {
+          'ko': '어디로',
+          'en': 'eodiro',
+          'zh': 'eodiro',
+          'fr': 'eodiro'
+        }
+      }
     },
     {
       path: '/404',
       component: NotFound,
-      name: '404'
+      name: '404',
+      meta: {
+        title: {
+          'ko': '페이지를 찾을 수 없음',
+          'en': 'Page Not Found',
+          'zh': '頁面未找到',
+          'fr': 'Page Non Trouvée'
+        }
+      }
     },
     {
       path: '/developers',
       component: NotFound,
-      name: 'developers'
+      name: 'developers',
+      meta: {
+        title: {
+          'ko': '개발자 정보',
+          'en': 'Developer Information',
+          'zh': '開發者信息',
+          'fr': 'Informations Développeur'
+        }
+      }
     },
     {
       path: '/university',
@@ -35,7 +59,15 @@ export default new VueRouter({
         {
           path: '',
           component: University,
-          name: 'university'
+          name: 'university',
+          meta: {
+            title: {
+              'ko': '대학교 선택',
+              'en': 'Select University',
+              'zh': '大學選擇',
+              'fr': 'Sélection Universitaire'
+            }
+          }
         }
       ]
     },
@@ -46,17 +78,41 @@ export default new VueRouter({
         {
           path: '',
           component: SelectBuilding,
-          name: 'building'
+          name: 'building',
+          meta: {
+            title: {
+              'ko': '건물 선택',
+              'en': 'Select a Building',
+              'zh': '選擇建築',
+              'fr': 'Sélectionnez Un Bâtiment'
+            }
+          }
         },
         {
           path: ':buildingID',
           component: SelectFloor,
-          name: 'floor'
+          name: 'floor',
+          meta: {
+            title: {
+              'ko': '층 선택', 
+              'en': 'Select a Floor',
+              'zh': '地板選擇',
+              'fr': 'Sélection DU Sol'
+            }
+          }
         },
         {
           path: ':buildingID/:floorID',
           component: Result,
-          name: 'result'
+          name: 'result',
+          meta: {
+            title: {
+              'ko': '강의실 현황',
+              'en': 'Classroom Status',
+              'zh': '課堂狀況',
+              'fr': 'Statut DE La Classe'
+            }
+          }
         }
       ]
     },

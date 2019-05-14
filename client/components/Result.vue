@@ -1,87 +1,142 @@
+<i18n>
+{
+  "ko": {
+    "nextClass": "다음 수업",
+    "noNextClassMsg": "다음 수업이 없습니다.",
+    "hour": "시간",
+    "min": "분",
+    "remain": "남았어요",
+    "timetable": "강의 시간표",
+    "no_timetable": "강의 시간표가 없습니다"
+  },
+  "en": {
+    "nextClass": "Next Class",
+    "noNextClassMsg": "다음 수업이 없습니다.",
+    "hour": "h",
+    "min": "m",
+    "remain": "Left",
+    "timetable": "Timetable",
+    "no_timetable": "No Timetable"
+  },
+  "zh": {
+    "nextClass": "下一課",
+    "noNextClassMsg": "다음 수업이 없습니다.",
+    "hour": "小時",
+    "min": "分鐘",
+    "remain": "留",
+    "timetable": "時間表",
+    "no_timetable": "강의 시간표가 없습니다"
+  },
+  "fr": {
+    "nextClass": "Prochain Cours",
+    "noNextClassMsg": "다음 수업이 없습니다.",
+    "hour": "h",
+    "min": "m",
+    "remain": "Reste",
+    "timetable": "Calendrier",
+    "no_timetable": "강의 시간표가 없습니다"
+  }
+}
+</i18n>
+
 <template>
   <div class="content-item result">
     <div class="empty-classrooms-container">
       <div
         class="ec-item-wrapper"
-        v-for="(room, i) in emptyRooms"
+        :class="[{appear: room.appear}, 'animation-delay--' + (i + 1)]"
+        v-for="(room, i) in classrooms"
         :key="i"
       >
         <div
           class="ec-item"
-          :class="'remaining-time--' + (i % 4 + 1)"
-          @click="loadTimeTable(room)"
+          :class="'gradient--' + (i%15+1)"
+          @click="openTimeTable(room, new Date().getDay())"
         >
-          <h1 class="room-number">{{ room.roomID }}</h1>
-          <p class="info">다음 수업<br><b>[휴먼입니까? ICT - 송노스]</b> 까지<br><span class="time">150시간 2300분</span> 남았어요.</p>
+          <h1 class="room-number">{{ room.number }}</h1>
+          <p class="info">
+            <span v-if="room.nextClass">
+              {{ $t('nextClass') }}: <b>{{ room.nextClass }}</b>
+              <br>
+              <span class="time">
+                <span class="hour" v-if="room.hour">
+                  <b>{{ room.hour + $t('hour') }}</b>
+                </span>
+                <span class="min" v-if="room.min">
+                  <b>{{ room.min + $t('min') }}</b>
+                </span>
+              </span>
+              {{ $t('remain') }}
+            </span>
+            <span v-else>
+              {{ $t('noNextClassMsg') }}
+            </span>
+          </p>
+        </div>
+      </div>
+      <div class="ec-item-wrapper grid-dummy" v-for="i in 3" :key="'gridDummy' + i"></div>
+    </div>
+
+    <div class="timetable-container" :class="{show: timeTableShow}">
+      <div class="background" @click="closeTimeTable()"></div>
+      <div class="timetable">
+        <button class="close"></button>
+        <h1 class="title">{{ selectedRoom.number + ' ' + $t('timetable') }}</h1>
+        <div class="day-select-wrapper">
+          <div class="day-select">
+            <button class="day mon" :class="{selected: timetableDay === 1}" @click="setTimeTableAtDay(1)">Mon</button>
+            <button class="day tue" :class="{selected: timetableDay === 2}" @click="setTimeTableAtDay(2)">Tue</button>
+            <button class="day wed" :class="{selected: timetableDay === 3}" @click="setTimeTableAtDay(3)">Wed</button>
+            <button class="day thu" :class="{selected: timetableDay === 4}" @click="setTimeTableAtDay(4)">Thu</button>
+            <button class="day fri" :class="{selected: timetableDay === 5}" @click="setTimeTableAtDay(5)">Fri</button>
+            <button class="day sat" :class="{selected: timetableDay === 6}" @click="setTimeTableAtDay(6)">Sat</button>
+            <!-- <button class="day sun" :class="{selected: timetableDay === 0}" @click="setTimeTableAtDay(0)">Sun</button> -->
+          </div>
+        </div>
+        <div class="lecture-container">
+          <div v-if="selectedLectures.length > 0">
+            <div v-for="(l, i) in selectedLectures" :key="l.name + i" class="lecture">
+              <div class="time">
+                <div>{{ l.time.start.slice(0, 2) + ':' + l.time.start.slice(2, 4) }}</div>
+                <div>|</div>
+                <div>{{ l.time.end.slice(0, 2) + ':' + l.time.end.slice(2, 4) }}</div>
+              </div>
+              <div class="instructor">{{ l.instructor }}</div>
+              <div class="name">{{ l.name }}</div>
+            </div>
+          </div>
+          <div v-else class="no-timetable-msg">{{ $t('no_timetable') }}</div>
         </div>
       </div>
     </div>
-
-    <transition name="zoom">
-      <div class="timetable-container" v-show="timeTableShow">
-        <div class="background" @click="closeTimeTable()"></div>
-        <div class="timetable">
-          <button class="close"></button>
-          <h1 class="title">{{ selectedRoom }}호 강의 시간표</h1>
-          <div class="lecture-container" v-for="i in 10" :key="i">
-            <div class="lecture">
-
-            </div>
-          </div>
-        </div>
-      </div>
-    </transition>
   </div>
 </template>
 
 <script>
 import Content from 'Components/Content.vue'
 import SimpleBar from 'simplebar'
-// import 'simplebar/dist/simplebar.css'
 import 'SCSS/simplebar-custom.scss'
+import Stagger from 'Modules/Stagger'
+import ExpireCounter from 'Modules/ExpireCounter'
+import axios from 'axios'
+import DTS from 'Modules/DayToString'
 
 export default {
   name: 'result',
   extends: Content,
   data() {
     return {
-      emptyRooms: [
-        {
-          roomID: 727,
-          timeTable: []
-        },
-        {
-          roomID: 726,
-          timeTable: []
-        },
-        {
-          roomID: 728,
-          timeTable: []
-        },
-        {
-          roomID: 710,
-          timeTable: []
-        },
-        {
-          roomID: 715,
-          timeTable: []
-        },
-        {
-          roomID: 720,
-          timeTable: []
-        },
-        {
-          roomID: 729,
-          timeTable: []
-        },
-        {
-          roomID: 712,
-          timeTable: []
-        }
-      ],
+      classrooms: [],
       timeTableShow: false,
-      selectedRoom: undefined,
-      sbTimeTable: undefined
+      selectedRoom: {},
+      simplebarTimeTableElm: undefined,
+      timetableDay: new Date().getDay(),
+      selectedLectures: []
+    }
+  },
+  computed: {
+    timeInterval(start, end) {
+      return start + end
     }
   },
   methods: {
@@ -90,42 +145,90 @@ export default {
     },
     closeTimeTable() {
       this.timeTableShow = false
+      document.body.classList.remove('modal-active')
     },
-    loadTimeTable(room) {
+    openTimeTable(room) {
+      document.body.classList.add('modal-active')
+      this.timetableDay = new Date().getDay()
       this.timeTableShow = true
-      this.selectedRoom = room.roomID
+      this.selectedRoom = room
+
+      // set table data
+      this.setTimeTableAtDay(this.timetableDay)
   
       // recalculate and reset simplebar
       setTimeout(() => {
-        this.sbTimeTable.getScrollElement().scrollTo(0,0)
+        this.simplebarTimeTableElm.getScrollElement().scrollTo(0,0)
       }, 0)
   
       const interval = window.setInterval(() => {
-        this.sbTimeTable.recalculate()
+        this.simplebarTimeTableElm.recalculate()
       }, 100)
       window.setTimeout(() => {
         window.clearInterval(interval)
       }, 300)
     },
-    buildIn() {
-      let rooms = this.$el.querySelectorAll('.ec-item-wrapper')
-      rooms.forEach(room => {
-        room.classList.remove('appear')
+    setTimeTableAtDay(dayNum) {
+      this.timetableDay = dayNum
+      let dayStr = DTS.dts(dayNum)
+
+      let lectures = this.selectedRoom.lectures.filter(l => {
+        return l.time.day === dayStr
       })
-      let i = 0
-      let interval = window.setInterval(() => {
-        rooms[i++].classList.add('appear')
-        if (i === rooms.length) {
-          window.clearInterval(interval)
-        }
-      }, 50)
-    }
+      this.selectedLectures = lectures
+    },
+    buildIn() {
+      Stagger.animate(this.classrooms)
+    },
+    fetchTimeTable() {
+      axios.get('http://api.dev-jhm.eodiro.com' + location.pathname)
+        .then(r => {
+          if (r.data.err) {
+            this.$router.push('/404')
+            return
+          }
+      
+          r.data.classrooms.map(c => {
+            c.appear = false
+          })
+          this.classrooms = r.data.classrooms
+          this.buildIn()
+      
+          let counter = new ExpireCounter(this.classrooms)
+          let date = new Date()
+      
+          for (let i = 0; i < this.classrooms.length; i++) {
+            let c = this.classrooms[i]
+            let counterResult = counter.run(c.number, date)
+            c.remainingTime = counterResult.expireTime
+            counterResult.expireTime = Math.round(counterResult.expireTime)
+            c.nextClass = counterResult.nextClassName
+            c.hour = parseInt(counterResult.expireTime / 60)
+            c.min = counterResult.expireTime - c.hour * 60
+          }
+      
+          // sort the result classrooms
+          // default is sort by the classroom number
+          // this.classrooms.sort(function (a, b) {
+          //   if (!a.remainingTime) {
+          //     return -1
+          //   } else if (!b.remainingTime) {
+          //     return 1
+          //   } else {
+          //     return b.remainingTime - a.remainingTime
+          //   }
+          // })
+        })
+    },
+  },
+  created() {
+    this.fetchTimeTable()
   },
   mounted() {
-    this.sbTimeTable = new SimpleBar(this.$el.querySelector('.timetable'), {})
+    this.simplebarTimeTableElm = new SimpleBar(this.$el.querySelector('.timetable'), {})
     ;['touchstart', 'mouseover'].forEach(eventName => {
-      this.sbTimeTable.getScrollElement().addEventListener(eventName, e => {
-        this.sbTimeTable.recalculate()
+      this.simplebarTimeTableElm.getScrollElement().addEventListener(eventName, e => {
+        this.simplebarTimeTableElm.recalculate()
       })
     })
   }
@@ -135,17 +238,15 @@ export default {
 <style lang="scss">
 @import 'SCSS/global-variables.scss';
 @import 'SCSS/global-mixins.scss';
-@import 'SCSS/gradients.scss';
 
 .result {
   .empty-classrooms-container {
     display: grid;
     grid-gap: 3rem 2.5rem;
-    grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax($grid-max-width, 1fr));
     width: calc(100% - 6rem);
     max-width: 80rem;
     margin: auto;
-    padding-bottom: 10rem;
 
     @include smaller-than($mobile-width-threshold) {
       grid-gap: 1rem;
@@ -154,12 +255,11 @@ export default {
 
     .ec-item-wrapper {
       opacity: 0;
-      transform: translateY(10rem);
+      transform: translateY($stagger-gap);
 
       &.appear {
-        opacity: 1;
-        transform: translateY(0);
-        transition: transform 1000ms $eodiro-cb, opacity 1000ms $eodiro-cb;
+        animation: $spring-time springFadeUp linear;
+        animation-fill-mode: both;
       }
 
       .ec-item {
@@ -192,28 +292,6 @@ export default {
           // background-color: rgba(#000, 0.1);
           border-radius: 0.5rem;
           // padding: 1rem;
-      
-          .time {
-            font-weight: 700;
-          }
-        }
-      
-        &.remaining-time--1 {
-          background-color: #4e99fc;
-          background-color: #006FFE;
-          background-color: #18B8F9;
-        }
-        &.remaining-time--2 {
-          background-color: #18d687;
-          background-color: #42D359;
-        }
-        &.remaining-time--3 {
-          background-color: #ff9f32;
-          background-color: #FF8902;
-        }
-        &.remaining-time--4 {
-          background-color: #f73434;
-          background-color: #FF264B;
         }
       }
     }
@@ -229,25 +307,20 @@ export default {
     width: 100%;
     height: 100%;
     z-index: 10000;
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    transform: scale(1.05);
+    transition: opacity 300ms ease, visibility 300ms ease, transform 300ms ease;
 
-    &.zoom-enter-active, &.zoom-leave-active {
-      transition: opacity 0.3s ease;
+    &.show {
+      pointer-events: all;
+      visibility: visible;
       opacity: 1;
+      transform: scale(1);
 
       .timetable {
-        transition: opacity 0.3s ease, transform 0.3s ease, filter 0.3s ease;
-        transform: scale(1);
-        opacity: 1;
-        filter: blur(0px);
-      }
-    }
-    &.zoom-enter, &.zoom-leave-to {
-      opacity: 0;
-      
-      .timetable {
-        opacity: 0;
-        transform: scale(0.8);
-        filter: blur(10px);
+
       }
     }
 
@@ -258,16 +331,16 @@ export default {
       width: 100%;
       height: 100%;
       z-index: -1;
-      background-color: rgba(0,0,0,0.4);
+      background-color: rgba(0,0,0,0.6);
       backdrop-filter: blur(20px);
     }
 
     .timetable {
-      padding: 0 1rem;
+      padding: 0 1.5rem;
       width: calc(100% - 2rem);
       height: calc(100% - 2rem);
-      max-width: 22rem;
-      max-height: 30rem;
+      max-width: 25rem;
+      max-height: 35rem;
       background-color: $base-white;
       border-radius: 1rem;
       overflow-x: hidden;
@@ -275,7 +348,7 @@ export default {
 
       @include dark-mode() {
         background-color: #333;
-        box-shadow: $dark-mode-border-shadow;
+        box-shadow: dark-mode-border-shadow(#333);
       }
 
       .close {
@@ -287,12 +360,105 @@ export default {
       .title {
         font-size: 2rem;
         font-weight: 700;
-        margin-top: 1.5rem;
+        margin-top: 2rem;
+        line-height: 1;
+      }
+
+      .day-select-wrapper {
+        position: sticky;
+        top: 0;
+        background-color: $base-white;
+        padding: 0.5rem 0;
+        margin-top: 1rem;
+
+        @include dark-mode() {
+          background-color: #333;
+        }
+
+        .day-select {
+          display: block;
+          font-size: 0;
+          white-space: nowrap;
+          overflow-x: auto;
+          overflow-y: hidden;
+        
+          .day {
+            display: inline-block;
+            width: unquote(100/6 + '%');
+            min-width: 40px;
+            border: none;
+            border-radius: 0.3rem;
+            font-size: 0.9rem;
+            padding: 0.5rem;
+            cursor: pointer;
+            font-weight: 500;
+            background-color: $base-white;
+            color: $base-black;
+
+            @include dark-mode() {
+              color: $base-white;
+              background-color: #333;
+            }
+        
+            &.selected {
+              background-color: $light-blue;
+              color: $base-white;
+        
+              @include dark-mode() {
+                background-color: $light-yellow;
+                color: $base-black;
+              }
+            }
+          }
+        }
       }
 
       .lecture-container {
+        margin-top: 1rem;
+
         .lecture {
-          
+          display: flex;
+          align-items: center;
+          background-color: $base-white-blue;
+          border-radius: 0.4rem;
+          overflow: hidden;
+          margin-bottom: 1rem;
+          font-size: 1rem;
+          text-align: center;
+
+          @include dark-mode() {
+            background-color: #222;
+          }
+
+          .time, .instructor, .name {
+            padding: 1rem;
+            min-width: 0;
+            text-align: center;
+          }
+
+          .time {
+            font-weight: 500;
+            flex: 1;
+            line-height: 1.5;
+            color: darken($light-blue, 10%);
+
+            @include dark-mode() {
+              color: lighten($light-yellow, 10%);
+            }
+          }
+          .instructor {
+            flex: 1;
+          }
+          .name {
+            flex: 2;
+          }
+        }
+
+        .no-timetable-msg {
+          font-size: 1rem;
+          font-weight: 400;
+          text-align: center;
+          padding-top: calc(50% - 1rem);
         }
       }
     }

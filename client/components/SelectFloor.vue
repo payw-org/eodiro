@@ -1,20 +1,23 @@
 <template>
   <div class="content-item select-floor" @scroll="$emit('update-nav-view')">
     <div class="floor-container">
-      <div class="floor-wrapper building-display">
+      <!-- <div class="floor-wrapper building-display">
         <div class="floor building-id">
-          <h1 class="manifesto">{{ buildingName }}관</h1>
+          <h1 class="manifesto">{{ buildingName }}</h1>
         </div>
-      </div>
+      </div> -->
       <div
+        v-for="(floor, i) in floors"
+        :key="i"
         class="floor-wrapper"
-        v-for="index in 10"
-        :key="index"
+        :class="[{appear: floor.appear}, 'animation-delay--' + (i + 1)]"
       >
-        <router-link class="link" :to="'./' + (10 - index + 1)" append>
-          <div class="floor">
-            <div class="rooms-count">빈 강의실 3</div>
-            <h1 class="num">{{ 10 - index + 1 + '층' }}</h1>
+        <router-link class="link" :to="'./' + floor.number" append>
+          <div class="floor" :class="['gradient--' + (i%15 + 1)]">
+            <button class="empty-count-badge" :class="{loaded: floor.loaded}">
+              <span class="label" :class="{opaque: !floor.loaded}">{{ floor.empty_classroom }}</span>
+            </button>
+            <h1 class="num">{{ floor.number }}F</h1>
           </div>
         </router-link>
       </div>
@@ -24,30 +27,60 @@
 
 <script>
 import Content from 'Components/Content.vue'
+import Stagger from 'Modules/Stagger'
+import axios from 'axios'
 
 export default {
   name: 'floor',
   extends: Content,
   data() {
     return {
-      buildingName: ''
+      buildingName: '',
+      floors: []
     }
   },
   methods: {
     buildIn() {
-      let floorWrappers = this.$el.querySelectorAll('.floor-wrapper')
-      floorWrappers.forEach((floor, index) => {
-        floor.classList.remove('appear')
+      Stagger.animate(this.floors)
+    },
+    fetchFloors() {
+      axios.get('http://api.dev-jhm.eodiro.com' + location.pathname)
+        .then(r => {
+          if (r.data.err) {
+            this.$router.push('/404')
+            return
+          }
+          r.data.floors.map(function (f) {
+            f.appear = false
+          })
+          this.floors = r.data.floors
+          this.buildIn()
+          this.fetchEmpty()
+        })
+    },
+    fetchEmpty() {
+      this.floors.forEach(f => {
+        f.loaded = false
       })
-      
-      let i = 0
-      let interval = window.setInterval(() => {
-        floorWrappers[i++].classList.add('appear')
-        if (i === floorWrappers.length) {
-          window.clearInterval(interval)
-        }
-      }, 50)
+      axios.get('http://api.dev-jhm.eodiro.com' + location.pathname + '/empty')
+        .then(r => {
+          if (r.data.err) {
+            this.$router.push('/404')
+            return
+          }
+          r.data.floors.map(function (f) {
+            f.appear = true
+            f.loaded = true
+          })
+          this.floors = r.data.floors
+        })
     }
+  },
+  created() {
+    this.fetchFloors()
+  },
+  activated() {
+    this.fetchEmpty()
   },
   mounted() {
     this.buildingName = this.$route.params.buildingID
@@ -63,15 +96,17 @@ export default {
   width: calc(100% - 2rem);
   max-width: 30rem;
   margin: auto;
-  padding-bottom: 10rem;
 
   .floor-wrapper {
     position: relative;
     width: 100%;
-    transform: translateY(10rem);
     opacity: 0;
     margin-bottom: 1.5rem;
     will-change: transform;
+
+    @include on-mobile() {
+      margin-bottom: 1rem;
+    }
 
     &.building-display {
       position: sticky;
@@ -80,14 +115,13 @@ export default {
     }
 
     &.appear {
-      opacity: 1;
-      transform: translateY(0);
-      transition: transform 1000ms $eodiro-cb, opacity 1000ms $eodiro-cb;
+      animation: $spring-time springFadeUp linear;
+      animation-fill-mode: both;
     }
 
     .floor {
       cursor: pointer;
-      color: inherit;
+      color: $base-white;
       border-radius: 1rem;
       padding: 1.5rem;
       display: flex;
@@ -98,12 +132,12 @@ export default {
 
       &.building-id {
         padding: 1rem;
-        background-color: #554CDA;
-        color: #fff;
+        background-color: $base-white;
+        color: $base-black-soft;
         cursor: default;
 
         .manifesto {
-          font-size: 1.2rem;
+          font-size: 1.5rem;
           flex: 1;
           text-align: center;
         }
@@ -116,31 +150,13 @@ export default {
         text-align: right;
       }
 
-      .rooms-count {
-        text-align: center;
-        font-family: $font-text;
-        font-size: 1rem;
-        font-weight: 500;
-        background-color: rgba(#000, 0.05);
-        padding: 0.5rem 0.7rem;
-        border-radius: 0.5rem;
-
-        @include dark-mode() {
-          background-color: rgba(#fff, 0.05);
-        }
-      }
-
       @include dark-mode() {
         background-color: #3e3e3e;
         box-shadow: $eodiro-shadow, $dark-mode-border-shadow;
 
         &.building-id {
-          padding: 1rem;
-          background-color: #554CDA;
-        
-          .manifesto {
-            font-size: 1.2rem;
-          }
+          background-color: $base-black;
+          color: $base-white-soft;
         }
       }
     }
