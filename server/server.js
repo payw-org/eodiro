@@ -20,7 +20,7 @@ app.use(expressSession({
 
 services_promise.then((services) => {
   app.use(vhost("api." + BASE_URI, services['api_app'].getApp()));
-  app.use("/lander", land_app.getApp());
+  app.use("/lander", services['land_app'].getApp());
   app.use(services['web_app'].getApp());
 
   app.listen(server_private['node_port']);

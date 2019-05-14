@@ -5,8 +5,8 @@ import Building from 'Database/models/building';
 import Floor from 'Database/models/floor';
 import Classroom from 'Database/models/classroom';
 import Lecture from 'Database/models/lecture';
-// import class_data from 'Resources/result.json';
-// import metadata from 'Resources/metadata.json';
+import class_data from 'Resources/result.json';
+import metadata from 'Resources/metadata.json';
 
 export default class DBInitializer {
   async initialize(option = 'normal') {
