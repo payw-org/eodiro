@@ -77,40 +77,38 @@
       <div class="ec-item-wrapper grid-dummy" v-for="i in 3" :key="'gridDummy' + i"></div>
     </div>
 
-    <transition name="zoom">
-      <div class="timetable-container" v-show="timeTableShow">
-        <div class="background" @click="closeTimeTable()"></div>
-        <div class="timetable">
-          <button class="close"></button>
-          <h1 class="title">{{ selectedRoom.number + ' ' + $t('timetable') }}</h1>
-          <div class="day-select-wrapper">
-            <div class="day-select">
-              <button class="day mon" :class="{selected: timetableDay === 1}" @click="setTimeTableAtDay(1)">Mon</button>
-              <button class="day tue" :class="{selected: timetableDay === 2}" @click="setTimeTableAtDay(2)">Tue</button>
-              <button class="day wed" :class="{selected: timetableDay === 3}" @click="setTimeTableAtDay(3)">Wed</button>
-              <button class="day thu" :class="{selected: timetableDay === 4}" @click="setTimeTableAtDay(4)">Thu</button>
-              <button class="day fri" :class="{selected: timetableDay === 5}" @click="setTimeTableAtDay(5)">Fri</button>
-              <button class="day sat" :class="{selected: timetableDay === 6}" @click="setTimeTableAtDay(6)">Sat</button>
-              <button class="day sun" :class="{selected: timetableDay === 0}" @click="setTimeTableAtDay(0)">Sun</button>
-            </div>
-          </div>
-          <div class="lecture-container">
-            <div v-if="selectedLectures.length > 0">
-              <div v-for="(l, i) in selectedLectures" :key="l.name + i" class="lecture">
-                <div class="time">
-                  <div>{{ l.time.start.slice(0, 2) + ':' + l.time.start.slice(2, 4) }}</div>
-                  <div>|</div>
-                  <div>{{ l.time.end.slice(0, 2) + ':' + l.time.end.slice(2, 4) }}</div>
-                </div>
-                <div class="instructor">{{ l.instructor }}</div>
-                <div class="name">{{ l.name }}</div>
-              </div>
-            </div>
-            <div v-else class="no-timetable-msg">{{ $t('no_timetable') }}</div>
+    <div class="timetable-container" :class="{show: timeTableShow}">
+      <div class="background" @click="closeTimeTable()"></div>
+      <div class="timetable">
+        <button class="close"></button>
+        <h1 class="title">{{ selectedRoom.number + ' ' + $t('timetable') }}</h1>
+        <div class="day-select-wrapper">
+          <div class="day-select">
+            <button class="day mon" :class="{selected: timetableDay === 1}" @click="setTimeTableAtDay(1)">Mon</button>
+            <button class="day tue" :class="{selected: timetableDay === 2}" @click="setTimeTableAtDay(2)">Tue</button>
+            <button class="day wed" :class="{selected: timetableDay === 3}" @click="setTimeTableAtDay(3)">Wed</button>
+            <button class="day thu" :class="{selected: timetableDay === 4}" @click="setTimeTableAtDay(4)">Thu</button>
+            <button class="day fri" :class="{selected: timetableDay === 5}" @click="setTimeTableAtDay(5)">Fri</button>
+            <button class="day sat" :class="{selected: timetableDay === 6}" @click="setTimeTableAtDay(6)">Sat</button>
+            <button class="day sun" :class="{selected: timetableDay === 0}" @click="setTimeTableAtDay(0)">Sun</button>
           </div>
         </div>
+        <div class="lecture-container">
+          <div v-if="selectedLectures.length > 0">
+            <div v-for="(l, i) in selectedLectures" :key="l.name + i" class="lecture">
+              <div class="time">
+                <div>{{ l.time.start.slice(0, 2) + ':' + l.time.start.slice(2, 4) }}</div>
+                <div>|</div>
+                <div>{{ l.time.end.slice(0, 2) + ':' + l.time.end.slice(2, 4) }}</div>
+              </div>
+              <div class="instructor">{{ l.instructor }}</div>
+              <div class="name">{{ l.name }}</div>
+            </div>
+          </div>
+          <div v-else class="no-timetable-msg">{{ $t('no_timetable') }}</div>
+        </div>
       </div>
-    </transition>
+    </div>
   </div>
 </template>
 
@@ -147,8 +145,10 @@ export default {
     },
     closeTimeTable() {
       this.timeTableShow = false
+      document.body.classList.remove('modal-active')
     },
     openTimeTable(room) {
+      document.body.classList.add('modal-active')
       this.timetableDay = new Date().getDay()
       this.timeTableShow = true
       this.selectedRoom = room
@@ -307,23 +307,20 @@ export default {
     width: 100%;
     height: 100%;
     z-index: 10000;
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    transform: scale(1.05);
+    transition: opacity 300ms ease, visibility 300ms ease, transform 300ms ease;
 
-    &.zoom-enter-active, &.zoom-leave-active {
-      transition: opacity 200ms ease;
+    &.show {
+      pointer-events: all;
+      visibility: visible;
       opacity: 1;
+      transform: scale(1);
 
       .timetable {
-        transition: opacity 200ms ease, transform 200ms ease;
-        transform: none;
-        opacity: 1;
-      }
-    }
-    &.zoom-enter, &.zoom-leave-to {
-      opacity: 0;
-      
-      .timetable {
-        opacity: 0;
-        transform: scale(1.05);
+
       }
     }
 
