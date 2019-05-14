@@ -1,4 +1,3 @@
-
 export default class ExpireCounter {
   constructor(classOfFloor) {
     this.classOfFloor = classOfFloor;
@@ -17,7 +16,6 @@ export default class ExpireCounter {
     var classOfRoom;
     var classOfRoomOnDay = new Array;
     var atDateByValue;
-
 
     // get class array in room
     this.classOfFloor.forEach(function (item, index) {

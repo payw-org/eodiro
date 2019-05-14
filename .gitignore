@@ -3,8 +3,7 @@
 node_modules
 package-lock.json
 forever.json
-server/config.js
-server/resources/
+server/configs/private.js
 
 public_html/assets/build
 server/lib/build

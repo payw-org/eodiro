@@ -1,0 +1,154 @@
+[
+  {
+    "name": {
+      "ko": "중앙대학교",
+      "en": "Chung-Ang University",
+      "zh": "中央大學校",
+      "fr": "Chung-Ang University"
+    },
+    "campus": {
+      "ko": "서울",
+      "en": "Seoul",
+      "zh": "首尔",
+      "fr": "Séoul"
+    },
+    "vendor": "cau",
+    "buildings": [
+      {
+        "number": "102",
+        "name": {
+          "ko": "약학대학 및 R&D센터",
+          "en": "College of Pharmacy/R&D Center",
+          "zh": "College of Pharmacy/R&D Center",
+          "fr": "College of Pharmacy/R&D Center"
+        }
+      },
+      {
+        "number": "103",
+        "name": {
+          "ko": "파이퍼홀",
+          "en": "Pfeiffer Hall",
+          "zh": "Pfeiffer Hall",
+          "fr": "Pfeiffer Hall"
+        }
+      },
+      {
+        "number": "104",
+        "name": {
+          "ko": "수림과학관",
+          "en": "College of Natural Sciences",
+          "zh": "College of Natural Sciences",
+          "fr": "College of Natural Sciences"
+        }
+      },
+      {
+        "number": "105",
+        "name": {
+          "ko": "제1의학관",
+          "en": "College of Medicine 1",
+          "zh": "College of Medicine 1",
+          "fr": "College of Medicine 1"
+        }
+      },
+      {
+        "number": "106",
+        "name": {
+          "ko": "제2의학관",
+          "en": "College of Medicine 2",
+          "zh": "College of Medicine 2",
+          "fr": "College of Medicine 2"
+        }
+      },
+      {
+        "number": "203",
+        "name": {
+          "ko": "서라벌호",
+          "en": "College of Humanities",
+          "zh": "College of Humanities",
+          "fr": "College of Humanities"
+        }
+      },
+      {
+        "number": "207",
+        "name": {
+          "ko": "봅스트홀",
+          "en": "Bobst Hall",
+          "zh": "Bobst Hall",
+          "fr": "Bobst Hall"
+        }
+      },
+      {
+        "number": "208",
+        "name": {
+          "ko": "제2공학관",
+          "en": "College of Engineering 2",
+          "zh": "College of Engineering 2",
+          "fr": "College of Engineering 2ㄴ"
+        }
+      },
+      {
+        "number": "209",
+        "name": {
+          "ko": "창업보육관",
+          "en": "Business Incubator Center",
+          "zh": "Business Incubator Center",
+          "fr": "Business Incubator Center"
+        }
+      },
+      {
+        "number": "301",
+        "name": {
+          "ko": "중앙문화예술관",
+          "en": "Art Center",
+          "zh": "Art Center",
+          "fr": "Art Center"
+        }
+      },
+      {
+        "number": "303",
+        "name": {
+          "ko": "법학관",
+          "en": "Law School Bldg",
+          "zh": "Law School Bldg",
+          "fr": "Law School Bldg"
+        }
+      },
+      {
+        "number": "304",
+        "name": {
+          "ko": "미디어공연영상관",
+          "en": "Performing Arts and Media Bldg",
+          "zh": "Performing Arts and Media Bldg",
+          "fr": "Performing Arts and Media Bldg"
+        }
+      },
+      {
+        "number": "305",
+        "name": {
+          "ko": "교수연구동 및 체육관",
+          "en": "Faculty Office Building / Gymnasium",
+          "zh": "Faculty Office Building / Gymnasium",
+          "fr": "Faculty Office Building / Gymnasium"
+        }
+      },
+      {
+        "number": "309",
+        "name": {
+          "ko": "블루미르홀",
+          "en": "Blue Mir Hall 2",
+          "zh": "Blue Mir Hall 2",
+          "fr": "Blue Mir Hall 2"
+        }
+      },
+      {
+        "number": "310",
+        "name": {
+          "ko": "100주년기념관",
+          "en": "Centennial Hall",
+          "zh": "Centennial Hall",
+          "fr": "Centennial Hall"
+        }
+      }
+    ]
+  }
+]
