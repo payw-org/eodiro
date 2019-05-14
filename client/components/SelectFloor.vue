@@ -12,10 +12,14 @@
         class="floor-wrapper"
         :class="[{appear: floor.appear}, 'animation-delay--' + (i + 1)]"
       >
-        <router-link class="link" :to="'./' + (10 - i + 1)" append>
-          <div class="floor" :class="['gradient--' + floor.level]">
-            <button class="rooms-count">{{ floor.emptyRoomCount }}</button>
-            <h1 class="num">{{ 10 - i + 1 + 'F' }}</h1>
+        <router-link class="link" :to="'./' + floor.number" append>
+          <div class="floor" :class="['gradient--' + (i%15 + 1)]">
+            <button class="empty-count-badge" :class="{loaded: floor.loaded}">
+              <transition name="fade-slow">
+                <span v-if="floor.loaded">{{ floor.empty_classroom }}</span>
+              </transition>
+            </button>
+            <h1 class="num">{{ floor.number }}F</h1>
           </div>
         </router-link>
       </div>
@@ -40,22 +44,45 @@ export default {
   methods: {
     buildIn() {
       Stagger.animate(this.floors)
+    },
+    fetchFloors() {
+      axios.get('http://api.dev-jhm.eodiro.com' + location.pathname)
+        .then(r => {
+          if (r.data.err) {
+            this.$router.push('/404')
+            return
+          }
+          r.data.floors.map(function (f) {
+            f.appear = false
+          })
+          this.floors = r.data.floors
+          this.buildIn()
+          this.fetchEmpty()
+        })
+    },
+    fetchEmpty() {
+      this.floors.forEach(f => {
+        f.loaded = false
+      })
+      axios.get('http://api.dev-jhm.eodiro.com' + location.pathname + '/empty')
+        .then(r => {
+          if (r.data.err) {
+            this.$router.push('/404')
+            return
+          }
+          r.data.floors.map(function (f) {
+            f.appear = true
+            f.loaded = true
+          })
+          this.floors = r.data.floors
+        })
     }
   },
   created() {
-    let fetchedFloors = []
-    for (let i = 0; i < 20; i++) {
-      fetchedFloors.push({
-        num: i + 1,
-        emptyRoomCount: i + 1,
-        level: i % 15 + 1,
-        appear: false
-      })
-    }
-
-    this.floors = fetchedFloors
-
-    // axios.post()
+    this.fetchFloors()
+  },
+  activated() {
+    this.fetchEmpty()
   },
   mounted() {
     this.buildingName = this.$route.params.buildingID
@@ -123,19 +150,6 @@ export default {
         font-size: 2.5rem;
         flex: 1;
         text-align: right;
-      }
-
-      .rooms-count {
-        min-width: 2rem;
-        min-height: 2rem;
-        text-align: center;
-        font-family: $font-text;
-        font-size: 1rem;
-        color: $base-white;
-        font-weight: 500;
-        background-color: rgba(#000, 0.2);
-        border-radius: 50px;
-        padding: 0 0.5rem;
       }
 
       @include dark-mode() {
