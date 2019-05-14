@@ -4,8 +4,6 @@ import BuildingListMiddleware from 'Middleware/BuildingListMiddleware';
 import FloorListMiddleware from 'Middleware/FloorListMiddleware';
 import ClassroomListMiddleware from 'Middleware/ClassroomListMiddleware';
 
-import logger from 'Configs/log';
-
 const router = express.Router();
 
 // University list data
