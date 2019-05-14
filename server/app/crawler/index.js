@@ -232,13 +232,51 @@ casper.then(function(){
 
 // Click to open subject list
 casper.then(function(){
-    casper.waitForSelector(
-        '.search',
+    casper.waitForSelector('.search',
         function(success){
             casper.click('.search');
         },
         function(fail){
             console.log("-Error - \'.search\' is not exist.");
+        },
+        10000);
+});
+
+// wait banner
+casper.wait(3000);
+
+// click campus
+casper.then(function(){
+    this.waitForSelector('a[data-id=campus]',
+        function(success){
+            this.click('a[data-id=campus]',10,10);
+        },
+        function(fail){
+            console.log("-Error - \'#subject\' is not exist.");
+        },
+        5000);
+});
+
+// click second label
+casper.then(function(){
+    casper.waitForSelector('#subjectCampusFilter div label:nth-child(2)',
+        function(success){
+            casper.click('#subjectCampusFilter div label:nth-child(2)');
+        },
+        function(fail){
+            console.log("-Error - \'#subjectCampusFilter\' is not exist.");
+        },
+        5000);
+});
+
+// click submit
+casper.then(function(){
+    casper.waitForSelector('#subjectCampusFilter input[type=submit]',
+        function(success){
+            casper.click('#subjectCampusFilter input[type=submit]');
+        },
+        function(fail){
+            console.log("-Error - \'#subjectCampusFilter - button\' is not exist.");
         },
         10000);
 });
@@ -335,15 +373,6 @@ casper.then(function(){
     createFile(courseArray);
     console.log('-The number of class room is ' + numOfClass);
 
-});
-
-casper.then(function(){
-    casper.wait(1,function(){
-        casper.capture("capture-end.png", {
-            top:0, left:0, width:1280, height: 800
-        });
-        console.log("-Captured");
-    });
 });
 
 casper.then(function(){
