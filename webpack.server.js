@@ -4,7 +4,7 @@ module.exports = {
     target: "node",
     externals: [nodeExternals()],
     entry: {
-        'eodiro.server': ['./server/server.js']
+        'eodiro.server': ['babel-polyfill', './server/server.js']
     },
     mode: 'development',
     devtool: 'inline-source-map',

@@ -21,7 +21,7 @@ app.use(expressSession({
 
 app.use(cors());
 app.use(vhost("api." + BASE_URI, api_app.getApp()));
-app.use(land_app.getApp());
+app.use("/lander", land_app.getApp());
 app.use(web_app.getApp());
 
 

@@ -21,7 +21,7 @@ export default class ExpireCounter{
     
     // get class array in room
     this.classOfFloor.forEach(function(item,index){
-      if(item['num'] == roomId)
+      if(item['number'] == roomId)
         classOfRoom = item['lectures'];
     });
 
@@ -48,12 +48,24 @@ export default class ExpireCounter{
     // get next class and assign roomState property
     for(var i=0; i<classOfRoomOnDay.length; i++){
       let item = classOfRoomOnDay[i];
-      if( atDateByValue < this.parseClassTimeToValue(item['time']['start'])){
-        roomState.nextClassName = item['name'];
-        roomState.expireTime = (this.parseClassTimeToValue(item['time']['start']) - atDateByValue)/60;
-        roomState.expireTimeLevel = parseInt(roomState.expireTime/30);
-        break;
+      
+      if( atDateByValue < this.parseClassTimeToValue(item['time']['end'])){
+        // class is up coming
+        if( atDateByValue < this.parseClassTimeToValue(item['time']['start'])){
+          roomState.nextClassName = item['name'];
+          roomState.expireTime = (this.parseClassTimeToValue(item['time']['start']) - atDateByValue)/60;
+          roomState.expireTimeLevel = parseInt(roomState.expireTime/30);
+          break;
+        }
+        // class is now
+        else{
+          roomState.nextClassName = item['name'];
+          roomState.expireTime = (atDateByValue - this.parseClassTimeToValue(item['time']['end']))/60;
+          roomState.expireTimeLevel = -1;
+          break;
+        }
       }
+      
     }
 
 
@@ -66,7 +78,7 @@ export default class ExpireCounter{
    * @param {String} classTime 
    */
   parseClassTimeToValue(classTime){
-      return parseInt(classTime.substr(0,2))*3600 + parseInt(classTime.substr(3,2)*60);
+      return parseInt(classTime.substr(0,2))*3600 + parseInt(classTime.substr(2,2)*60);
   }
 
   /**
@@ -75,19 +87,19 @@ export default class ExpireCounter{
    */
   parseDayNumberToDay(dayNumber){
       if(dayNumber == 0)
-          return "Sun"
+          return "SUN"
       if(dayNumber == 1)
-          return "Mon"
+          return "MON"
       if(dayNumber == 2)
-          return "Tue"
+          return "TUE"
       if(dayNumber == 3)
-          return "Wed"
+          return "WED"
       if(dayNumber == 4)
-          return "Thu"
+          return "THU"
       if(dayNumber == 5)
-          return "Fri"
+          return "FRI"
       if(dayNumber == 6)
-          return "Sat"
+          return "SAT"
       
       return "Error-Day"
   }

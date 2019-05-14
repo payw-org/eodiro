@@ -7,9 +7,9 @@
 
 import mongoose from 'mongoose';
 
-const clientLandSchema = new mongoose.Schema({
+const landOwnerSchema = new mongoose.Schema({
   public_id: {type: String, required: true },
-  lands: [ { type: String, required: false } ]
+  owner_id: { type: String, required: true }
 });
 
-export default clientLandSchema;
+export default landOwnerSchema;
