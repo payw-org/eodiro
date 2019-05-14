@@ -6,7 +6,8 @@
     "hour": "시간",
     "min": "분",
     "remain": "남았어요",
-    "timetable": "강의 시간표"
+    "timetable": "강의 시간표",
+    "no_timetable": "강의 시간표가 없습니다"
   },
   "en": {
     "nextClass": "Next Class",
@@ -14,7 +15,8 @@
     "hour": "h",
     "min": "m",
     "remain": "Left",
-    "timetable": "Timetable"
+    "timetable": "Timetable",
+    "no_timetable": "No Timetable"
   },
   "zh": {
     "nextClass": "下一課",
@@ -22,7 +24,8 @@
     "hour": "小時",
     "min": "分鐘",
     "remain": "留",
-    "timetable": "時間表"
+    "timetable": "時間表",
+    "no_timetable": "강의 시간표가 없습니다"
   },
   "fr": {
     "nextClass": "Prochain Cours",
@@ -30,7 +33,8 @@
     "hour": "h",
     "min": "m",
     "remain": "Reste",
-    "timetable": "Calendrier"
+    "timetable": "Calendrier",
+    "no_timetable": "강의 시간표가 없습니다"
   }
 }
 </i18n>
@@ -94,9 +98,9 @@
             <div v-if="selectedLectures.length > 0">
               <div v-for="(l, i) in selectedLectures" :key="l.name + i" class="lecture">
                 <div class="time">
-                  {{ l.time.start.slice(0, 2) + ':' + l.time.start.slice(2, 4) }}
-                  <br>|<br>
-                  {{ l.time.end.slice(0, 2) + ':' + l.time.end.slice(2, 4) }}
+                  <div>{{ l.time.start.slice(0, 2) + ':' + l.time.start.slice(2, 4) }}</div>
+                  <div>|</div>
+                  <div>{{ l.time.end.slice(0, 2) + ':' + l.time.end.slice(2, 4) }}</div>
                 </div>
                 <div class="instructor">{{ l.instructor }}</div>
                 <div class="name">{{ l.name }}</div>
@@ -203,15 +207,17 @@ export default {
             c.min = counterResult.expireTime - c.hour * 60
           }
       
-          this.classrooms.sort(function (a, b) {
-            if (!a.remainingTime) {
-              return -1
-            } else if (!b.remainingTime) {
-              return 1
-            } else {
-              return b.remainingTime - a.remainingTime
-            }
-          })
+          // sort the result classrooms
+          // default is sort by the classroom number
+          // this.classrooms.sort(function (a, b) {
+          //   if (!a.remainingTime) {
+          //     return -1
+          //   } else if (!b.remainingTime) {
+          //     return 1
+          //   } else {
+          //     return b.remainingTime - a.remainingTime
+          //   }
+          // })
         })
     },
   },
@@ -375,10 +381,13 @@ export default {
         .day-select {
           display: block;
           font-size: 0;
+          white-space: nowrap;
+          overflow-x: auto;
         
           .day {
             display: inline-block;
             width: 14.2857142857%;
+            min-width: 40px;
             border: none;
             border-radius: 0.3rem;
             font-size: 0.9rem;
@@ -426,6 +435,7 @@ export default {
           .time, .instructor, .name {
             padding: 1rem;
             min-width: 0;
+            text-align: center;
           }
 
           .time {
@@ -450,7 +460,7 @@ export default {
           font-size: 1rem;
           font-weight: 400;
           text-align: center;
-          padding-top: 2rem;
+          padding-top: calc(50% - 1rem);
         }
       }
     }
