@@ -39,7 +39,8 @@ module.exports = {
 		alias: {
 			vue$: 'vue/dist/vue.esm.js',
 			SCSS: __dirname + '/client/scss/',
-			Components: __dirname + '/client/components/'
+			Components: __dirname + '/client/components/',
+			Modules: __dirname + '/client/modules/'
 		}
 	},
 	module: {
@@ -47,6 +48,11 @@ module.exports = {
 			{
         test: /\.vue$/,
 				loader: 'vue-loader'
+			},
+			{
+        resourceQuery: /blockType=i18n/,
+        type: 'javascript/auto',
+        loader: '@kazupon/vue-i18n-loader'
       },
 			{
 				test: [/\.js$/],
@@ -60,6 +66,14 @@ module.exports = {
 							]
 						}
 					}
+				]
+			},
+			{
+				test: [/\.styl$/],
+				use: [
+					'style-loader',
+					'css-loader',
+					'stylus-loader'
 				]
 			},
 			{

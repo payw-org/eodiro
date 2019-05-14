@@ -82,11 +82,21 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: $font-display;
+  font-weight: 700;
+}
+
+p, a, textarea, span, div, input {
+  font-family: $font-text;
+  font-weight: 400;
+}
+
 a {
   cursor: pointer;
   text-decoration: none;
   color: inherit;
-  -webkit-touch-callout: none;
+  -webkit-touch-callout: none !important;
 
   &.inner-link {
     position: absolute;
@@ -103,18 +113,6 @@ button {
   background: none;
   font-family: $font-text;
   font-size: 1rem;
-  color: $base-black;
-
-  &:active {
-    color: $base-black;
-  }
-
-  @include dark-mode() {
-    color: $base-white;
-    &:active {
-      color: $base-white;
-    }
-  }
 }
 
 img {
@@ -152,7 +150,7 @@ img {
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 0.2s ease !important;
+  transition: opacity 150ms ease !important;
   opacity: 1 !important;
 }
 .fade-enter, .fade-leave-to {
@@ -175,7 +173,7 @@ img {
   font-family: $font-text;
   font-size: 1.2rem;
   font-weight: 700;
-  color: #fff;
+  color: #fff !important;
   box-shadow: 0 0.5rem 1.5rem rgba($light-blue, 0.3);
   transition: $smooth-transition;
 
@@ -191,5 +189,11 @@ img {
 
   @include dark-mode() {
     color: $base-gray--dark;
+  }
+}
+
+@for $i from 0 to 50 {
+  .animation-delay--#{$i + 1} {
+    animation-delay: unquote($i/15 + 's') !important;
   }
 }

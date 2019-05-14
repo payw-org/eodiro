@@ -1,21 +1,50 @@
+<i18n>
+{
+  "ko": {
+    "title": "어디로",
+    "description": "대학교 빈 강의실 찾기 서비스",
+    "colorMode": "색상 모드 설정",
+    "changeCollege": "학교 변경"
+  },
+  "en": {
+    "title": "eodiro",
+    "description": "Find empty classrooms",
+    "colorMode": "Set color scheme",
+    "changeCollege": "Change college"
+  },
+  "zh": {
+    "title": "eodiro",
+    "description": "找一個空蕩蕩的教室",
+    "colorMode": "設置配色方案",
+    "changeCollege": "改變大學"
+  },
+  "fr": {
+    "title": "eodiro",
+    "description": "Trouver une classe vide",
+    "colorMode": "Définir les couleurs",
+    "changeCollege": "Changer de collège"
+  }
+}
+</i18n>
+
 <template>
   <div id="home">
+    <a href="http://payw.org" class="about-developers">{{ thisYear }} © Payw.org</a>
     <transition
       appear
       name="zoom"
     >
       <div class="start-box">
-
         <div class="content-area">
-          <div class="main" v-show="!isSettingsActive">
+          <div class="main" v-show="!isSettingsActive" key="1">
             <dir class="logo-container">
-              <img src="/assets/images/eodiro/app-icon_sq_b.svg" alt="">
+              <img src="/assets/images/eodiro/logo-arrow.svg" alt="eodiro-logo">
             </dir>
-            <h1 class="logo-text">어디로</h1>
-            <p class="description base-gray">대학교 빈 강의실 찾기 서비스</p>
-            <router-link to="/cau"><button class="go-btn eodiro-btn">시작하기 →</button></router-link>
+            <h1 class="logo-text">{{ $t('title') }}</h1>
+            <p class="description base-gray">{{ $t('description') }}</p>
+            <router-link :to="'/' + startLink"><button class="go-btn eodiro-btn">{{ startMsg }} <span class="arrow">→</span></button></router-link>
           </div>
-          <div class="color-scheme-config" v-show="isSettingsActive">
+          <div class="color-scheme-config" v-show="isSettingsActive" key="2">
             <button
               class="mode-btn light"
               @click="$emit('changeColorScheme', 'light')"
@@ -28,25 +57,21 @@
               class="mode-btn auto"
               v-if="autoDarkModeSupport"
               @click="$emit('changeColorScheme', 'auto')"
-            >자동 (macOS Mojave)</button>
+            >적응형 (macOS Mojave)</button>
           </div>
         </div>
         <div class="settings-area">
           <button
-            class="color-scheme-pref"
+            class="config-btn color-scheme-pref"
             @click="isSettingsActive = !isSettingsActive"
           >
-            <span v-if="!isSettingsActive">색상 모드 변경</span>
-            <span v-else>홈으로</span>
+            <span v-if="!isSettingsActive">{{ $t('colorMode') }}</span>
+            <span v-else>완료</span>
           </button>
+          <router-link to="/university">
+          <button class="config-btn" v-if="isDefaultUniversityExist && !isSettingsActive">{{ $t('changeCollege') }}</button>
+          </router-link>
         </div>
-
-        <!-- <div class="wrapper top-dummy"></div>
-        <div class="wrapper">
-          
-          
-        </div>
-         -->
       </div>
     </transition>
     <HomeBGTile/>
@@ -57,22 +82,36 @@
 import HomeBGTile from 'Components/HomeBGTile'
 
 export default {
-  name: 'Home',
+  name: 'home',
   components: { HomeBGTile },
-  mounted() {
-    // set document title
-    document.title = '어디로 | 대학교 빈강의실 찾기'
-
-    // check if the browser supports 'prefers-color-scheme' media query
-    if (window.matchMedia('(prefers-color-scheme: dark)').media != 'not all') {
-      this.autoDarkModeSupport = true
-      console.log('support auto dark mode')
-    }
-  },
   data() {
     return {
       autoDarkModeSupport: false,
-      isSettingsActive: false
+      isSettingsActive: false,
+      isDefaultUniversityExist: false,
+      startLink: ''
+    }
+  },
+  computed: {
+    thisYear() {
+      return new Date().getFullYear()
+    },
+    startMsg() {
+      if (window.localStorage.getItem('defaultUniversity')) {
+        const defaultUniversity = JSON.parse(window.localStorage.getItem('defaultUniversity'))
+        this.isDefaultUniversityExist = true
+        this.startLink = defaultUniversity.vendor
+        return defaultUniversity.name
+      } else {
+        this.startLink = 'university'
+        return '대학교 선택'
+      }
+    }
+  },
+  mounted() {
+    // check if the browser supports 'prefers-color-scheme' media query
+    if (window.matchMedia('(prefers-color-scheme: dark)').media != 'not all') {
+      this.autoDarkModeSupport = true
     }
   }
 }
@@ -83,7 +122,7 @@ export default {
 @import 'SCSS/global-mixins.scss';
 
 #home {
-  $transition-time: 1500ms;
+  $transition-time: 1200ms;
   $cb: cubic-bezier(.24,.49,.01,.99);
   $transition-property: $transition-time $cb;
 
@@ -115,6 +154,15 @@ export default {
     }
   }
 
+  .about-developers {
+    position: fixed;
+    left: 1rem;
+    bottom: 1rem;
+    z-index: 9999;
+    font-size: 0.8rem;
+    opacity: 0.7;
+  }
+
   .start-box {
     z-index: 7777;
     display: flex;
@@ -124,7 +172,7 @@ export default {
     align-content: space-between;
     justify-content: center;
     background-color: #fff;
-    border-radius: 3rem;
+    border-radius: 2rem;
     width: 90%;
     max-width: 30rem;
     height: 90%;
@@ -137,13 +185,12 @@ export default {
     transition: background-color 1s ease, box-shadow 1s ease;
 
     @include dark-mode() {
-      background-color: #111;
+      background-color: #222;
       box-shadow: 0 1rem 2rem rgba(0,0,0,0.3), $dark-mode-border-shadow;
     }
 
     @include smaller-than(700px) {
       width: calc(100% - 2rem);
-      border-radius: 2rem;
     }
 
     &.zoom-enter-active, &.zoom-leave-active {
@@ -151,6 +198,7 @@ export default {
       filter: blur(0px);
       opacity: 1;
       box-shadow: 0 1rem 2rem rgba(0,0,0,0.1);
+      transition-delay: 0.2;
       transition: transform $transition-time $cb, opacity $transition-time/2 $cb, filter $transition-time $cb, background-color $transition-property, box-shadow $transition-property;
 
       @include dark-mode() {
@@ -176,16 +224,36 @@ export default {
 
       .main {
         .logo-container {
+          width: 5rem;
+          height: 5rem;
+          margin: auto;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          border: 1px solid #f0f0f0;
+          border-radius: 1.2rem;
+          transition: background-color 500ms ease, border 500ms ease;
+
           img {
-            width: 5rem;
+            width: 60%;
+            height: 60%;
+            transform: translateX(4%);
           }
+
+          @include dark-mode() {
+            border-color: #5f5f5f;
+          }
+        }
+
+        .logo-text, .description {
+          transition: color 500ms ease;
         }
 
         .logo-text {
           font-family: $font-display;
           font-size: 2.5rem;
           font-weight: 700;
-          margin-top: 0.5rem;
+          margin-top: 0.7rem;
         }
 
         .description {
@@ -195,8 +263,30 @@ export default {
         }
 
         .go-btn {
-          margin-top: 2rem;
+          margin: 1.5rem auto 0;
           transition: background-color $transition-time $cb, box-shadow $transition-time $cb;
+          display: flex;
+
+          .arrow {
+            font-family: $font-text;
+            font-weight: 700;
+            animation-name: arrowMove;
+            animation-duration: 1s;
+            animation-iteration-count: infinite;
+            margin-left: 0.2rem;
+          }
+
+          @keyframes arrowMove {
+            0% {
+              transform: translateX(0rem);
+            }
+            85% {
+              transform: translateX(0.5rem);
+            }
+            100% {
+              transform: translateX(0rem);
+            }
+          }
         }
       }
 
@@ -228,8 +318,8 @@ export default {
             color: $base-white;
           }
           &.auto {
-            // background-color: $light-blue;
-            background-image: linear-gradient(to right, #362c57, #fdd465);
+            background-color: #4442b1;
+            // background-image: linear-gradient(to right, #362c57, #fdd465);
             color: $base-white;
           }
         }
@@ -246,15 +336,21 @@ export default {
       left: 0;
       height: 3rem;
 
-      .color-scheme-pref {
-        height: 2rem;
+      .config-btn {
+        height: 1.5rem;
         font-family: $font-text;
         font-size: 0.8rem;
         background-color: #f4f4f4;
-        padding: 0 0.8rem;
+        padding: 0 0.6rem;
         border-radius: 50px;
         transition: background-color $transition-time $cb, color $transition-time $cb;
-      
+        margin-right: 0.5rem;
+        vertical-align: top;
+
+        &:last-child {
+          margin-right: 0;
+        }
+        
         @include dark-mode() {
           color: $base-white;
           background-color: #444;
