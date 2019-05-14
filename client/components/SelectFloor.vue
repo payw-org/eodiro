@@ -15,9 +15,7 @@
         <router-link class="link" :to="'./' + floor.number" append>
           <div class="floor" :class="['gradient--' + (i%15 + 1)]">
             <button class="empty-count-badge" :class="{loaded: floor.loaded}">
-              <transition name="fade-slow">
-                <span v-if="floor.loaded">{{ floor.empty_classroom }}</span>
-              </transition>
+              <span class="label" :class="{opaque: !floor.loaded}">{{ floor.empty_classroom }}</span>
             </button>
             <h1 class="num">{{ floor.number }}F</h1>
           </div>
