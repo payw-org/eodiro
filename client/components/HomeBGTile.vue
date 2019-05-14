@@ -36,7 +36,7 @@ export default {
     }
   },
   mounted() {
-    // this.activeTile()
+    this.activeTile()
   },
   beforeDestroy() {
     clearInterval(this.interval)
