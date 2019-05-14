@@ -79,6 +79,10 @@ export default {
     margin-bottom: 1.5rem;
     will-change: transform;
 
+    @include on-mobile() {
+      margin-bottom: 1rem;
+    }
+
     &.building-display {
       position: sticky;
       top: 1rem;
