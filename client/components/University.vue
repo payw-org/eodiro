@@ -27,7 +27,7 @@
           :key="i"
           @click="selectUniversity(u)"
           class="university-item"
-        >{{ u.name }}</div>
+        >{{ u.name }}<span v-if="u.campus">({{ u.campus }})</span></div>
       </div>
     </div>
   </div>
@@ -35,7 +35,7 @@
 
 <script>
 import Content from 'Components/Content.vue'
-import axios from 'axios';
+import axios from 'axios'
 
 export default {
   name: 'university',
@@ -43,49 +43,12 @@ export default {
   data() {
     return {
       search: '',
-      universityList: [
-        {
-          name: '중앙대학교',
-          vendor: 'cau'
-        },
-        {
-          name: '서울대학교',
-          vendor: 'snu'
-        },
-        {
-          name: '고려대학교',
-          vendor: 'korea'
-        },
-        {
-          name: '연세대학교',
-          vendor: 'yonsei'
-        },
-        {
-          name: '서강대학교',
-          vendor: 'sogang'
-        },
-        {
-          name: '한양대학교',
-          vendor: 'hanyang'
-        },
-        {
-          name: '경희대학교',
-          vendor: 'khu'
-        },
-        {
-          name: '외국어대학교',
-          vendor: 'hufs'
-        },
-        {
-          name: '서울시립대학교',
-          vendor: 'uos'
-        }
-      ]
+      universities: []
     }
   },
   computed: {
     filteredList() {
-      return this.universityList.filter(u => {
+      return this.universities.filter(u => {
         return u.name.toLowerCase().includes(this.search.toLowerCase())
       })
     }
@@ -126,8 +89,12 @@ export default {
     }
   },
   created() {
-    this.universityList.sort()
-    // axios.post('', {})
+    axios.get('http://api.dev-jhm.eodiro.com/university')
+      .then(response => {
+        let data = response.data
+        if (data.error) return
+        this.universities = data.universities
+      })
   }
 }
 </script>
