@@ -1,7 +1,5 @@
-var app_path = "/home/bitnami/app/dev-hcj";
-
-phantom.casperPath = app_path+'/node_modules/casperjs';
-phantom.injectJs(app_path+'/node_modules/casperjs/bin/bootstrap.js');
+phantom.casperPath = './node_modules/casperjs';
+phantom.injectJs('./node_modules/casperjs/bin/bootstrap.js');
 
 function parseIntToTime(src){ // parse int to time (##:00)
     src = src + 8;
@@ -27,6 +25,7 @@ function parseDayToDay(src){
     if(src == "일")
         return "SUN";
     return "Error";
+
 }
 
 function mergeTimes(src){// 같은요일에 다른 강의실을 쓰는 경우는 없다고 가정
@@ -83,9 +82,8 @@ function parseClassRoom_Time(src){
     var tempOfTime;
     var tempOfRoom;
     var partOfTimeInt;
-    var temp,item,item2;
+    var temp;
     var day;
-
     if((temp = src.match(/\d\d\d관/g) ) != null){
         temp.forEach(function(item,index){
             tempOfRoom = item;
@@ -98,42 +96,32 @@ function parseClassRoom_Time(src){
             ho.push(tempOfRoom);
         });
     }
-    if((temp = src.match(/(?:[A-z]|)\d\d\d-\d[^호]/g) ) != null){
-        temp.forEach(function(item,index){
-            tempOfRoom = item.substr(0,item.length-1)+"호";
-            ho.push(tempOfRoom);
+
+    if( (temp = src.match(/[월화수목금토일]\d\d:\d\d~\d\d:\d\d/g) ) != null){
+        temp.forEach(function(item, index){
+            day = /[월화수목금토일]/.exec(item)[0];
+            src.replace(item,day+" "+/\d\d:\d\d~\d\d:\d\d/.exec(item)[0]);
         });
     }
 
-    if( (temp = src.match(/[월화수목금토일]\d\d:\d\d~\d\d:\d\d/g) ) != null){
-        for(var i=0; i<temp.length; i++){
-            item = temp[i];
-            day = /[월화수목금토일]/.exec(item)[0];
-            src = src.replace(day,day+" ");
-        }
-    }
-
     if( (temp = src.match(/[월화수목금토일]\d+(?:,\d+)*/g) ) != null){
-        for(var i=0; i<temp.length; i++){
-            item = temp[i];
+        temp.forEach(function(item,index){ // 월1,2,3
             day = /[월화수목금토일]/.exec(item)[0];
             item = item.split(',');
-            for(var j=0; j<item.length; j++){
-                item2 = item[j];
+            item.forEach(function(item2,index){ // 월1 2 3
                 partOfTimeInt = parseInt(/\d+/.exec(item2)[0]);
                 tempOfTime = day + parseIntToTime(partOfTimeInt) +"~"+ parseIntToTime(partOfTimeInt+1); // 월09:00~10:00 ...
                 time.push(tempOfTime);
-            }
-        }
+            });
+        });
     }
 
     if( (temp = src.match(/[월화수목금토일].\d\d:\d\d~\d\d:\d\d/g) ) != null){
-        for(var i=0; i<temp.length; i++){
-            item = temp[i];
+        temp.forEach(function(item,index){
             day = /[월화수목금토일]/.exec(item)[0];
             tempOfTime = item.replace(/[월화수목금토일]./,day);
             time.push(tempOfTime);
-        }
+        });
     }
 
 
@@ -145,14 +133,14 @@ function parseClassRoom_Time(src){
     ho.forEach(function(item,index){
         if( /\d\d\d관 (?:[A-z]|)\d\d\d(?:-\d|)호/.test(item) == false){
             console.log(" - Error "+item);
-            console.log(src);
+            console.log(time);
             ho = "";
         }
     });
     time.forEach(function(item,index){
         if(/[월화수목금토일]\d\d:\d\d~\d\d:\d\d/.test(item) == false){
             console.log(" - Error "+item);
-            console.log(src);
+            console.log(ho);
             time = "";
         } 
     });
@@ -174,28 +162,26 @@ function parseToSend(src){
     src.forEach(function(item,index){
         course = new Object;
 
-        course.course_id = item['course_no'];
-        course.class_id = item['class_no'];
+        course.course_number = item['course_no'];
+        course.class_number = item['class_no'];
         course.name = item['name'];
         course.instructor = item['instructor'];
 
-        course.locations = new Array;
+        course.location = new Array;
         item['room'].forEach(function(item2,index){
             location = new Object;
             location.building = /\d\d\d관/.exec(item2)[0].split('관')[0];
-            location.room = /(?:[A-z]|)\d\d\d(?:-\d|)호/.exec(item2)[0].split('호')[0];
-            course.locations.push(location);
+            location.room = /[A-z]\d\d\d(?:-\d|)호/.exec(item2)[0].split('호')[0];
+            course.location.push(location);
         });
 
-        course.times = new Array;
+        course.time = new Array;
         item['time'].forEach(function(item2,index){
             time = new Object;
             time.day = parseDayToDay(/[월화수목금토]/.exec(item2)[0]);
             time.start = /\d\d:\d\d~/.exec(item2)[0].split('~')[0];
             time.end = /~\d\d:\d\d/.exec(item2)[0].split('~')[1];
-            time.start = time.start.replace(":","");
-            time.end = time.end.replace(":","");
-            course.times.push(time);
+            course.time.push(time);
         });
 
         newSrc.push(course);
@@ -206,7 +192,7 @@ function parseToSend(src){
 function createFile(src){
     src = JSON.stringify(src);
     var fs = require('fs');
-    fs.write(app_path+"/server/resource/result.json", src, 'w');
+    fs.write("result.json", src, 'w');
 }
  
 var casper = require('casper').create({
