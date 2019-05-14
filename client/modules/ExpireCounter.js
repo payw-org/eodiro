@@ -17,6 +17,7 @@ export default class ExpireCounter{
     var classOfRoom;
     var classOfRoomOnDay = new Array;
     var atDateByValue;
+    var i;
 
     
     // get class array in room
@@ -46,7 +47,7 @@ export default class ExpireCounter{
     atDateByValue = atDate.getHours()*3600 + atDate.getMinutes()*60 + atDate.getSeconds();
 
     // get next class and assign roomState property
-    for(var i=0; i<classOfRoomOnDay.length; i++){
+    for(i=0; i<classOfRoomOnDay.length; i++){
       let item = classOfRoomOnDay[i];
       
       if( atDateByValue < this.parseClassTimeToValue(item['time']['end'])){
@@ -64,10 +65,8 @@ export default class ExpireCounter{
           roomState.expireTimeLevel = -1;
           break;
         }
-      }
-      
+      } 
     }
-
 
     return roomState;
   }

@@ -83,7 +83,7 @@ function parseClassRoom_Time(src){
     var tempOfTime;
     var tempOfRoom;
     var partOfTimeInt;
-    var temp;
+    var temp,item,item2;
     var day;
 
     if((temp = src.match(/\d\d\d관/g) ) != null){
@@ -100,36 +100,40 @@ function parseClassRoom_Time(src){
     }
     if((temp = src.match(/(?:[A-z]|)\d\d\d-\d[^호]/g) ) != null){
         temp.forEach(function(item,index){
-            tempOfRoom = item+"호";
+            tempOfRoom = item.substr(0,item.length-1)+"호";
             ho.push(tempOfRoom);
         });
     }
 
     if( (temp = src.match(/[월화수목금토일]\d\d:\d\d~\d\d:\d\d/g) ) != null){
-        temp.forEach(function(item, index){
+        for(var i=0; i<temp.length; i++){
+            item = temp[i];
             day = /[월화수목금토일]/.exec(item)[0];
-            src.replace(item,day+" "+/\d\d:\d\d~\d\d:\d\d/.exec(item)[0]);
-        });
+            src = src.replace(day,day+" ");
+        }
     }
 
     if( (temp = src.match(/[월화수목금토일]\d+(?:,\d+)*/g) ) != null){
-        temp.forEach(function(item,index){ // 월1,2,3
+        for(var i=0; i<temp.length; i++){
+            item = temp[i];
             day = /[월화수목금토일]/.exec(item)[0];
             item = item.split(',');
-            item.forEach(function(item2,index){ // 월1 2 3
+            for(var j=0; j<item.length; j++){
+                item2 = item[j];
                 partOfTimeInt = parseInt(/\d+/.exec(item2)[0]);
                 tempOfTime = day + parseIntToTime(partOfTimeInt) +"~"+ parseIntToTime(partOfTimeInt+1); // 월09:00~10:00 ...
                 time.push(tempOfTime);
-            });
-        });
+            }
+        }
     }
 
     if( (temp = src.match(/[월화수목금토일].\d\d:\d\d~\d\d:\d\d/g) ) != null){
-        temp.forEach(function(item,index){
+        for(var i=0; i<temp.length; i++){
+            item = temp[i];
             day = /[월화수목금토일]/.exec(item)[0];
             tempOfTime = item.replace(/[월화수목금토일]./,day);
             time.push(tempOfTime);
-        });
+        }
     }
 
 
@@ -189,8 +193,8 @@ function parseToSend(src){
             time.day = parseDayToDay(/[월화수목금토]/.exec(item2)[0]);
             time.start = /\d\d:\d\d~/.exec(item2)[0].split('~')[0];
             time.end = /~\d\d:\d\d/.exec(item2)[0].split('~')[1];
-            time.start.replace(":","");
-            time.end.replace(":","");
+            time.start = time.start.replace(":","");
+            time.end = time.end.replace(":","");
             course.times.push(time);
         });
 
