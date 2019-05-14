@@ -8,9 +8,10 @@
 import mongoose from 'mongoose';
 
 const globalNameSchema = new mongoose.Schema({
-  kor: { type: String, required: true },
-  eng: { type: String },
-  cn: { type: String }
+  ko: { type: String, required: true },
+  en: { type: String },
+  zh: { type: String },
+  fr: { type: String }
 });
 
 export default globalNameSchema;

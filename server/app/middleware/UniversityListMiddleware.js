@@ -1,7 +1,7 @@
 import University from 'Database/models/university';
 
 export default class UniversityListMiddleware {
-  async getList(language = 'kor') {
+  async getList(language = 'ko') {
     const universities = await University.find(
       {},
       { _id: 0, name: 1, campus: 1, vendor: 1 }
