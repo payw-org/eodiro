@@ -5,19 +5,19 @@
         v-for="(building, i) in buildings"
         :key="i"
         class="building"
-        :class="['gradient--' + building.level, {appear: building.appear}, 'animation-delay--' + (i + 1)]"
+        :class="['gradient--' + (i % 15 + 1), {appear: building.appear}, 'animation-delay--' + (i + 1)]"
       >
-        <router-link :to="'./' + building.name.number" append>
+        <router-link :to="'./' + building.number" append>
           <div class="building-info">
             <div class="building-name">
               <div class="wrapper">
-                <span class="name--number">{{ building.name.number }}</span>
-                <span class="name--text">{{ building.name.text }}</span>
+                <span class="name--number">{{ building.number }}</span>
+                <span class="name--text">{{ building.name }}</span>
               </div>
             </div>
             <div class="brief-summary">
               <button class="wrapper">
-                <span class="">{{ building.emptyRoomCount }}</span>
+                <span class="">{{ building.empty_classroom }}</span>
               </button>
             </div>
           </div>
@@ -30,7 +30,7 @@
 <script>
 import Content from 'Components/Content.vue'
 import Stagger from 'Modules/Stagger'
-import _ from 'lodash'
+import axios from 'axios'
 
 export default {
   name: 'building',
@@ -50,19 +50,30 @@ export default {
   },
   created() {
     // Fetch data
-    let fetchedBuildings = []
-    for (let i = 0; i < 20; i++) {
-      fetchedBuildings.push({
-        name: {
-          number: i + 1,
-          text: i + 1 +'관'
-        },
-        emptyRoomCount: i + 1,
-        level: i % 15 + 1,
-        appear: false
+    axios.get('http://api.dev-jhm.eodiro.com/' + location.pathname)
+      .then(response => {
+        let data = response.data
+        if (data.error) return
+        data.buildings.map(function (u) {
+          u.appear = false
+        })
+        this.buildings = data.buildings
+        this.buildIn()
+
+        axios.get('http://api.dev-jhm.eodiro.com/' + location.pathname +'/empty')
+          .then(response => {
+            if (response.data.error) return
+            response.data.buildings.map(function (u) {
+              u.appear = true
+            })
+            console.log('done')
+            console.log(response.data)
+            this.buildings = response.data.buildings
+          })
       })
-    }
-    this.buildings = fetchedBuildings
+      .catch(function (error) {
+        alert('어디로 서버 오류로 건물을 가져올 수 없습니다. 잠시 후 이용바랍니다.')
+      })
   },
   beforeMount() {
     
