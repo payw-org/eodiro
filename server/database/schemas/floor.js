@@ -6,11 +6,11 @@
  */
 
 import mongoose from 'mongoose';
-import classroomSchema from './classroom';
 
 const floorSchema = new mongoose.Schema({
+  building: { type: mongoose.Schema.Types.ObjectId, ref: 'Building' },
   number: { type: String, required: true },
-  classrooms: [ { type: classroomSchema, required: true } ]
+  classrooms: [ { type: mongoose.Schema.Types.ObjectId, ref: 'Classroom', required: true } ]
 });
 
 export default floorSchema;

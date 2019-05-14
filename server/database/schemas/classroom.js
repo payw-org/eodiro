@@ -6,11 +6,11 @@
  */
 
 import mongoose from 'mongoose';
-import lectureSchema from './lecture';
 
 const classroomSchema = new mongoose.Schema({
+  floor: { type: mongoose.Schema.Types.ObjectId, ref: 'Floor' },
   number: { type: String, required: true },
-  lectures: [ { type: lectureSchema, required: true } ]
+  lectures: [ { type: mongoose.Schema.Types.ObjectId, ref: 'Lecture', required: true } ]
 });
 
 export default classroomSchema;
