@@ -2,7 +2,7 @@ import University from 'Database/models/university';
 import EmptyFacilityController from 'Controller/EmptyFacilityController';
 
 export default class BuildingListMiddleware {
-  async getList(vendor, language = 'kor') {
+  async getList(vendor, language = 'ko') {
     const university = await University.findOne(
       { vendor: vendor },
       { _id: 0, buildings: 1 }
@@ -24,7 +24,7 @@ export default class BuildingListMiddleware {
     return building_list;
   }
 
-  async getListIncludeEmptyNum(vendor, language = 'kor') {
+  async getListIncludeEmptyNum(vendor, language = 'ko') {
     const university = await University.findOne(
       { vendor: vendor },
       { _id: 0, buildings: 1 }
