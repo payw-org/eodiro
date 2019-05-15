@@ -50,9 +50,7 @@ export default {
             this.$router.push('/404')
             return
           }
-          r.data.floors.map(function (f) {
-            f.appear = false
-          })
+
           this.floors = r.data.floors
           this.buildIn()
           this.fetchEmpty()
