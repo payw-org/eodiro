@@ -50,7 +50,7 @@ export default class ExpireCounter {
         if (atDateByValue < this.parseClassTimeToValue(item['time']['start'])) {
           roomState.nextClassName = item['name'];
           roomState.expireTime = (this.parseClassTimeToValue(item['time']['start']) - atDateByValue) / 60;
-          roomState.expireTimeLevel = parseInt(roomState.expireTime / 30);
+          roomState.expireTimeLevel = parseInt(roomState.expireTime / 15);
           break;
         }
         // class is now
