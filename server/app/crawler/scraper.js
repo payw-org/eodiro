@@ -51,6 +51,13 @@ casper.then(function(){
 // Click to open subject list
 waitForClick(casper, '.search');
 
+// campus_name
+casper.then(function(){
+    campus_name = casper.evaluate(function(){
+        return document.querySelector('.subname').innerText;
+    });
+});
+
 casper.then(function(){
     casper.wait(3000);
 })
@@ -144,11 +151,6 @@ casper.waitFor(
         console.log("-Searching class room is timeout");
     },1000*60*10    // 10 minute
 );
-
-// campus_name
-campus_name = casper.evaluate(function(){
-    return document.querySelector('.subname').innerText;
-})
 
 // save
 casper.then(function(){
