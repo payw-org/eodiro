@@ -1,16 +1,20 @@
 <i18n>
 {
   "ko": {
-    "search_placeholder": "학교 이름으로 검색"
+    "search_placeholder": "학교 이름으로 검색",
+    "set_university": "기본 학교로 설정되었습니다. 나중에 변경 가능합니다."
   },
   "en": {
-     "search_placeholder": "Search by School Name"
+    "search_placeholder": "Search by School Name",
+    "set_university": "Set as the default university. You can change it later."
   },
   "zh": {
-     "search_placeholder": "按學校名稱搜索"
+    "search_placeholder": "按學校名稱搜索",
+    "set_university": "設為默認大學。您可以稍後更改。"
   },
   "fr": {
-     "search_placeholder": "Rechercher Par Nom D'éCole"
+     "search_placeholder": "Rechercher Par Nom D'éCole",
+     "set_university": "Définir comme université par défaut. Vous pouvez le changer plus tard."
   }
 }
 </i18n>
@@ -84,7 +88,7 @@ export default {
     },
     selectUniversity(university) {
       window.localStorage.setItem('defaultUniversity', JSON.stringify(university))
-      window.alert(`[ ${university.name} ] 기본 학교로 설정되었습니다. 나중에 변경 가능합니다.`)
+      window.alert(`[ ${university.name}(${university.campus}) ] ${this.$t('set_university')}`)
       this.$router.push('/' + university.vendor)
     }
   },
