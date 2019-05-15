@@ -3,6 +3,7 @@
   "ko": {
     "title": "어디로",
     "description": "대학교 빈 강의실 찾기 서비스",
+    "start": "대학교 선택",
     "colorMode": "색상 모드 설정",
     "changeCollege": "학교 변경",
     "done": "완료",
@@ -13,6 +14,7 @@
   "en": {
     "title": "eodiro",
     "description": "Find Empty Classrooms",
+    "start": "Select University",
     "colorMode": "Set Color Scheme",
     "changeCollege": "Change College",
     "done": "Done",
@@ -23,6 +25,7 @@
   "zh": {
     "title": "eodiro",
     "description": "找一個空蕩蕩的教室",
+    "start": "選擇大學",
     "colorMode": "設置配色方案",
     "changeCollege": "改變大學",
     "done": "DONE",
@@ -33,6 +36,7 @@
   "fr": {
     "title": "eodiro",
     "description": "Trouver Une Classe Vide",
+    "start": "Choisir L'Université",
     "colorMode": "Définir Les Couleurs",
     "changeCollege": "Changer DE Collège",
     "done": "Terminé",
@@ -45,7 +49,7 @@
 
 <template>
   <div id="home">
-    <a href="http://payw.org" class="about-developers">{{ thisYear }} © Payw.org</a>
+    <a href="http://payw.org" class="about-developers">{{ thisYear }} © eodiro</a>
     <transition
       appear
       name="zoom"
@@ -120,7 +124,7 @@ export default {
         return defaultUniversity.name
       } else {
         this.startLink = 'university'
-        return '대학교 선택'
+        return this.$t('start')
       }
     }
   },
