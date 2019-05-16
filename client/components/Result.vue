@@ -54,8 +54,7 @@
             'gradient--' + (room.expireTimeLevel + 1),
             {
               grayed: room.expireTimeLevel === -1,
-              'full-time': !room.nextClass,
-              'gradient--11': room.expireTimeLevel >= 10
+              'full-time': !room.nextClass
             }
           ]"
           @click="openTimeTable(room, new Date().getDay())"
@@ -148,9 +147,7 @@ export default {
       selectedRoom: {},
       simplebarTimeTableElm: undefined,
       timetableDay: new Date().getDay(),
-      selectedLectures: [],
-      minLevel: Infinity,
-      maxLevel: 0
+      selectedLectures: []
     }
   },
   computed: {
@@ -212,7 +209,6 @@ export default {
           }
 
           this.classrooms = r.data.classrooms
-          this.buildIn()
       
           let counter = new ExpireCounter(this.classrooms)
           let date = new Date()
@@ -225,11 +221,10 @@ export default {
             counterResult.expireTime = Math.round(counterResult.expireTime)
             c.expireTimeLevel = counterResult.expireTimeLevel
 
-            if (c.expireTimeLevel >= 0 && c.expireTimeLevel < this.minLevel) {
-              this.minLevel = c.expireTimeLevel
-            }
-            if (c.expireTimeLevel > this.maxLevel) {
-              this.maxLevel = c.expireTimeLevel
+            // max expireTimeLevel should be 10
+            // since we use 11 colors (red ~ purple)
+            if (c.expireTimeLevel > 10) {
+              c.expireTimeLevel = 10
             }
 
             c.nextClass = counterResult.nextClassName
@@ -248,6 +243,8 @@ export default {
           //     return b.remainingTime - a.remainingTime
           //   }
           // })
+
+          this.buildIn()
         })
     },
     isCurrentLecture(start, end, day) {
