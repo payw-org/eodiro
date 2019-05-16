@@ -59,9 +59,7 @@ export default {
             this.$router.push('/404')
             return
           }
-          data.buildings.map(function (u) {
-            u.appear = false
-          })
+
           this.buildings = data.buildings
           this.buildIn()
           this.fetchEmpty()

@@ -50,23 +50,33 @@
       >
         <div
           class="ec-item"
-          :class="'gradient--' + (i%15+1)"
+          :class="[
+            'gradient--' + (room.expireTimeLevel + 1),
+            {
+              grayed: room.expireTimeLevel === -1,
+              'full-time': !room.nextClass
+            }
+          ]"
           @click="openTimeTable(room, new Date().getDay())"
         >
           <h1 class="room-number">{{ room.number }}</h1>
           <p class="info">
-            <span v-if="room.nextClass">
-              {{ $t('nextClass') }}: <b>{{ room.nextClass }}</b>
-              <br>
-              <span class="time">
-                <span class="hour" v-if="room.hour">
-                  <b>{{ room.hour + $t('hour') }}</b>
+            <span v-if="room.nextClass && room.expireTimeLevel >= 0">
+              <div>{{ $t('nextClass') }}: <b>{{ room.nextClass }}</b></div>
+              <div>
+                <span class="time">
+                  <span class="hour" v-if="room.hour">
+                    <b>{{ room.hour + $t('hour') }}</b>
+                  </span>
+                  <span class="min" v-if="room.min">
+                    <b>{{ room.min + $t('min') }}</b>
+                  </span>
                 </span>
-                <span class="min" v-if="room.min">
-                  <b>{{ room.min + $t('min') }}</b>
-                </span>
-              </span>
-              {{ $t('remain') }}
+                {{ $t('remain') }}
+              </div>
+            </span>
+            <span v-else-if="room.expireTimeLevel === -1">
+              <div>현재 수업중입니다</div>
             </span>
             <span v-else>
               {{ $t('noNextClassMsg') }}
@@ -95,7 +105,12 @@
         </div>
         <div class="lecture-container">
           <div v-if="selectedLectures.length > 0">
-            <div v-for="(l, i) in selectedLectures" :key="l.name + i" class="lecture">
+            <div
+              v-for="(l, i) in selectedLectures"
+              :key="l.name + i"
+              class="lecture"
+              :class="{current: isCurrentLecture(l.time.start, l.time.end, l.time.day)}"
+            >
               <div class="time">
                 <div>{{ l.time.start.slice(0, 2) + ':' + l.time.start.slice(2, 4) }}</div>
                 <div>|</div>
@@ -120,6 +135,7 @@ import Stagger from 'Modules/Stagger'
 import ExpireCounter from 'Modules/ExpireCounter'
 import axios from 'axios'
 import DTS from 'Modules/DayToString'
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 
 export default {
   name: 'result',
@@ -145,10 +161,14 @@ export default {
     },
     closeTimeTable() {
       this.timeTableShow = false
-      document.body.classList.remove('modal-active')
+
+      // unlock body scroll
+      enableBodyScroll(this.$el.querySelector('.simplebar-content-wrapper'))
     },
     openTimeTable(room) {
-      document.body.classList.add('modal-active')
+      // lock body scroll
+      disableBodyScroll(this.$el.querySelector('.simplebar-content-wrapper'))
+
       this.timetableDay = new Date().getDay()
       this.timeTableShow = true
       this.selectedRoom = room
@@ -187,12 +207,8 @@ export default {
             this.$router.push('/404')
             return
           }
-      
-          r.data.classrooms.map(c => {
-            c.appear = false
-          })
+
           this.classrooms = r.data.classrooms
-          this.buildIn()
       
           let counter = new ExpireCounter(this.classrooms)
           let date = new Date()
@@ -200,8 +216,17 @@ export default {
           for (let i = 0; i < this.classrooms.length; i++) {
             let c = this.classrooms[i]
             let counterResult = counter.run(c.number, date)
+
             c.remainingTime = counterResult.expireTime
             counterResult.expireTime = Math.round(counterResult.expireTime)
+            c.expireTimeLevel = counterResult.expireTimeLevel
+
+            // max expireTimeLevel should be 10
+            // since we use 11 colors (red ~ purple)
+            if (c.expireTimeLevel > 10) {
+              c.expireTimeLevel = 10
+            }
+
             c.nextClass = counterResult.nextClassName
             c.hour = parseInt(counterResult.expireTime / 60)
             c.min = counterResult.expireTime - c.hour * 60
@@ -218,8 +243,21 @@ export default {
           //     return b.remainingTime - a.remainingTime
           //   }
           // })
+
+          this.buildIn()
         })
     },
+    isCurrentLecture(start, end, day) {
+      let date = new Date()
+      let hours = (date.getHours()<10?'0':'') + date.getHours()
+      let mins = (date.getMinutes()<10?'0':'') + date.getMinutes()
+      let time = Number(hours + mins)
+      if (Number(start) < Number(time) && Number(time) < Number(end) && DTS.dts(date.getDay()) === day) {
+        return true
+      } else {
+        return false
+      }
+    }
   },
   created() {
     this.fetchTimeTable()
@@ -370,6 +408,7 @@ export default {
         background-color: $base-white;
         padding: 0.5rem 0;
         margin-top: 1rem;
+        height: 3.2rem;
 
         @include dark-mode() {
           background-color: #333;
@@ -381,6 +420,7 @@ export default {
           white-space: nowrap;
           overflow-x: auto;
           overflow-y: hidden;
+          height: 100%;
         
           .day {
             display: inline-block;
@@ -389,7 +429,7 @@ export default {
             border: none;
             border-radius: 0.3rem;
             font-size: 0.9rem;
-            padding: 0.5rem;
+            height: 100%;
             cursor: pointer;
             font-weight: 500;
             background-color: $base-white;
@@ -430,6 +470,14 @@ export default {
             background-color: #222;
           }
 
+          &.current {
+            box-shadow: 0 0 0 0.2rem $light-blue;
+
+            @include dark-mode() {
+              box-shadow: 0 0 0 0.2rem $light-yellow;
+            }
+          }
+
           .time, .instructor, .name {
             padding: 1rem;
             min-width: 0;
@@ -437,10 +485,13 @@ export default {
           }
 
           .time {
-            font-weight: 500;
+            &, & * {
+              font-weight: 700;
+            }
             flex: 1;
             line-height: 1.5;
             color: darken($light-blue, 10%);
+            color: $light-blue;
 
             @include dark-mode() {
               color: lighten($light-yellow, 10%);
