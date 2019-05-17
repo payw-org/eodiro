@@ -5,7 +5,7 @@
     "second_line": "존재하지 않는 페이지에요."
   },
   "en": {
-    "first_line": "Oh My God...",
+    "first_line": "Oh my god...",
     "second_line": "This page does not exist."
   },
   "zh": {
@@ -13,7 +13,7 @@
     "second_line": "此頁面不存在."
   },
   "fr": {
-    "first_line": "Mon dieu..",
+    "first_line": "Mon dieu...",
     "second_line": "Cette page n'existe pas."
   }
 }
@@ -36,7 +36,7 @@
 export default {
   methods: {
     goBack() {
-      history.back()
+      this.$router.push('/')
     }
   }
 }

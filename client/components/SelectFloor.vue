@@ -15,9 +15,7 @@
         <router-link class="link" :to="'./' + floor.number" append>
           <div class="floor" :class="['gradient--' + (i%15 + 1)]">
             <button class="empty-count-badge" :class="{loaded: floor.loaded}">
-              <transition name="fade-slow">
-                <span v-if="floor.loaded">{{ floor.empty_classroom }}</span>
-              </transition>
+              <span class="label" :class="{opaque: !floor.loaded}">{{ floor.empty_classroom }}</span>
             </button>
             <h1 class="num">{{ floor.number }}F</h1>
           </div>
@@ -30,6 +28,7 @@
 <script>
 import Content from 'Components/Content.vue'
 import Stagger from 'Modules/Stagger'
+import ApiUrl from 'Modules/ApiUrl'
 import axios from 'axios'
 
 export default {
@@ -46,15 +45,13 @@ export default {
       Stagger.animate(this.floors)
     },
     fetchFloors() {
-      axios.get('http://api.dev-jhm.eodiro.com' + location.pathname)
+      axios.get(ApiUrl.get() + location.pathname)
         .then(r => {
           if (r.data.err) {
             this.$router.push('/404')
             return
           }
-          r.data.floors.map(function (f) {
-            f.appear = false
-          })
+
           this.floors = r.data.floors
           this.buildIn()
           this.fetchEmpty()
@@ -64,7 +61,7 @@ export default {
       this.floors.forEach(f => {
         f.loaded = false
       })
-      axios.get('http://api.dev-jhm.eodiro.com' + location.pathname + '/empty')
+      axios.get(ApiUrl.get() + location.pathname + '/empty')
         .then(r => {
           if (r.data.err) {
             this.$router.push('/404')

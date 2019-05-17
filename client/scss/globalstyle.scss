@@ -186,7 +186,7 @@ img {
 
 .empty-count-badge {
   position: relative;
-  display: inline-block;
+  display: block;
   min-width: 2.5rem;
   min-height: 2.5rem;
   font-family: $font-text;
@@ -237,6 +237,14 @@ img {
     &::before {
       display: none;
       animation: none;
+    }
+  }
+
+  .label {
+    transition: opacity 400ms ease;
+
+    &.opaque {
+      opacity: 0;
     }
   }
 }

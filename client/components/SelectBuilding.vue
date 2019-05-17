@@ -20,9 +20,7 @@
               </div>
               <div class="brief-summary">
                 <button class="empty-count-badge" :class="{loaded: building.loaded}">
-                  <transition name="fade-slow">
-                    <span v-if="building.loaded">{{ building.empty_classroom }}</span>
-                  </transition>
+                  <span class="label" :class="{opaque: !building.loaded}">{{ building.empty_classroom }}</span>
                 </button>
               </div>
             </div>
@@ -36,6 +34,7 @@
 <script>
 import Content from 'Components/Content.vue'
 import Stagger from 'Modules/Stagger'
+import ApiUrl from 'Modules/ApiUrl'
 import axios from 'axios'
 
 export default {
@@ -54,16 +53,14 @@ export default {
       Stagger.animate(this.buildings)
     },
     fetchBuildings() {
-      axios.get('http://api.dev-jhm.eodiro.com' + location.pathname)
+      axios.get(ApiUrl.get() + location.pathname)
         .then(response => {
           let data = response.data
           if (data.err) {
             this.$router.push('/404')
             return
           }
-          data.buildings.map(function (u) {
-            u.appear = false
-          })
+
           this.buildings = data.buildings
           this.buildIn()
           this.fetchEmpty()
@@ -76,7 +73,7 @@ export default {
       this.buildings.forEach(b => {
         b.loaded = false
       })
-      axios.get('http://api.dev-jhm.eodiro.com' + location.pathname +'/empty')
+      axios.get(ApiUrl.get() + location.pathname +'/empty')
         .then(response => {
           if (response.data.error) return
           response.data.buildings.map(function (b) {

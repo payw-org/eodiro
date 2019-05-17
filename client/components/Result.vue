@@ -50,23 +50,33 @@
       >
         <div
           class="ec-item"
-          :class="'gradient--' + (i%15+1)"
+          :class="[
+            'gradient--' + (room.expireTimeLevel + 1),
+            {
+              grayed: room.expireTimeLevel === -1,
+              'full-time': !room.nextClass
+            }
+          ]"
           @click="openTimeTable(room, new Date().getDay())"
         >
           <h1 class="room-number">{{ room.number }}</h1>
           <p class="info">
-            <span v-if="room.nextClass">
-              {{ $t('nextClass') }}: <b>{{ room.nextClass }}</b>
-              <br>
-              <span class="time">
-                <span class="hour" v-if="room.hour">
-                  <b>{{ room.hour + $t('hour') }}</b>
+            <span v-if="room.nextClass && room.expireTimeLevel >= 0">
+              <div>{{ $t('nextClass') }}: <b>{{ room.nextClass }}</b></div>
+              <div>
+                <span class="time">
+                  <span class="hour" v-if="room.hour">
+                    <b>{{ room.hour + $t('hour') }}</b>
+                  </span>
+                  <span class="min" v-if="room.min">
+                    <b>{{ room.min + $t('min') }}</b>
+                  </span>
                 </span>
-                <span class="min" v-if="room.min">
-                  <b>{{ room.min + $t('min') }}</b>
-                </span>
-              </span>
-              {{ $t('remain') }}
+                {{ $t('remain') }}
+              </div>
+            </span>
+            <span v-else-if="room.expireTimeLevel === -1">
+              <div>현재 수업중입니다</div>
             </span>
             <span v-else>
               {{ $t('noNextClassMsg') }}
@@ -77,40 +87,43 @@
       <div class="ec-item-wrapper grid-dummy" v-for="i in 3" :key="'gridDummy' + i"></div>
     </div>
 
-    <transition name="zoom">
-      <div class="timetable-container" v-show="timeTableShow">
-        <div class="background" @click="closeTimeTable()"></div>
-        <div class="timetable">
-          <button class="close"></button>
-          <h1 class="title">{{ selectedRoom.number + ' ' + $t('timetable') }}</h1>
-          <div class="day-select-wrapper">
-            <div class="day-select">
-              <button class="day mon" :class="{selected: timetableDay === 1}" @click="setTimeTableAtDay(1)">Mon</button>
-              <button class="day tue" :class="{selected: timetableDay === 2}" @click="setTimeTableAtDay(2)">Tue</button>
-              <button class="day wed" :class="{selected: timetableDay === 3}" @click="setTimeTableAtDay(3)">Wed</button>
-              <button class="day thu" :class="{selected: timetableDay === 4}" @click="setTimeTableAtDay(4)">Thu</button>
-              <button class="day fri" :class="{selected: timetableDay === 5}" @click="setTimeTableAtDay(5)">Fri</button>
-              <button class="day sat" :class="{selected: timetableDay === 6}" @click="setTimeTableAtDay(6)">Sat</button>
-              <button class="day sun" :class="{selected: timetableDay === 0}" @click="setTimeTableAtDay(0)">Sun</button>
-            </div>
-          </div>
-          <div class="lecture-container">
-            <div v-if="selectedLectures.length > 0">
-              <div v-for="(l, i) in selectedLectures" :key="l.name + i" class="lecture">
-                <div class="time">
-                  <div>{{ l.time.start.slice(0, 2) + ':' + l.time.start.slice(2, 4) }}</div>
-                  <div>|</div>
-                  <div>{{ l.time.end.slice(0, 2) + ':' + l.time.end.slice(2, 4) }}</div>
-                </div>
-                <div class="instructor">{{ l.instructor }}</div>
-                <div class="name">{{ l.name }}</div>
-              </div>
-            </div>
-            <div v-else class="no-timetable-msg">{{ $t('no_timetable') }}</div>
+    <div class="timetable-container" :class="{show: timeTableShow}">
+      <div class="background" @click="closeTimeTable()"></div>
+      <div class="timetable">
+        <button class="close"></button>
+        <h1 class="title">{{ selectedRoom.number + ' ' + $t('timetable') }}</h1>
+        <div class="day-select-wrapper">
+          <div class="day-select">
+            <button class="day mon" :class="{selected: timetableDay === 1}" @click="setTimeTableAtDay(1)">Mon</button>
+            <button class="day tue" :class="{selected: timetableDay === 2}" @click="setTimeTableAtDay(2)">Tue</button>
+            <button class="day wed" :class="{selected: timetableDay === 3}" @click="setTimeTableAtDay(3)">Wed</button>
+            <button class="day thu" :class="{selected: timetableDay === 4}" @click="setTimeTableAtDay(4)">Thu</button>
+            <button class="day fri" :class="{selected: timetableDay === 5}" @click="setTimeTableAtDay(5)">Fri</button>
+            <button class="day sat" :class="{selected: timetableDay === 6}" @click="setTimeTableAtDay(6)">Sat</button>
+            <!-- <button class="day sun" :class="{selected: timetableDay === 0}" @click="setTimeTableAtDay(0)">Sun</button> -->
           </div>
         </div>
+        <div class="lecture-container">
+          <div v-if="selectedLectures.length > 0">
+            <div
+              v-for="(l, i) in selectedLectures"
+              :key="l.name + i"
+              class="lecture"
+              :class="{current: isCurrentLecture(l.time.start, l.time.end, l.time.day)}"
+            >
+              <div class="time">
+                <div>{{ l.time.start.slice(0, 2) + ':' + l.time.start.slice(2, 4) }}</div>
+                <div>|</div>
+                <div>{{ l.time.end.slice(0, 2) + ':' + l.time.end.slice(2, 4) }}</div>
+              </div>
+              <div class="instructor">{{ l.instructor }}</div>
+              <div class="name">{{ l.name }}</div>
+            </div>
+          </div>
+          <div v-else class="no-timetable-msg">{{ $t('no_timetable') }}</div>
+        </div>
       </div>
-    </transition>
+    </div>
   </div>
 </template>
 
@@ -122,6 +135,8 @@ import Stagger from 'Modules/Stagger'
 import ExpireCounter from 'Modules/ExpireCounter'
 import axios from 'axios'
 import DTS from 'Modules/DayToString'
+import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
+import ApiUrl from 'Modules/ApiUrl'
 
 export default {
   name: 'result',
@@ -147,8 +162,14 @@ export default {
     },
     closeTimeTable() {
       this.timeTableShow = false
+
+      // unlock body scroll
+      enableBodyScroll(this.$el.querySelector('.simplebar-content-wrapper'))
     },
     openTimeTable(room) {
+      // lock body scroll
+      disableBodyScroll(this.$el.querySelector('.simplebar-content-wrapper'))
+
       this.timetableDay = new Date().getDay()
       this.timeTableShow = true
       this.selectedRoom = room
@@ -181,18 +202,14 @@ export default {
       Stagger.animate(this.classrooms)
     },
     fetchTimeTable() {
-      axios.get('http://api.dev-jhm.eodiro.com' + location.pathname)
+      axios.get(ApiUrl.get() + location.pathname)
         .then(r => {
           if (r.data.err) {
             this.$router.push('/404')
             return
           }
-      
-          r.data.classrooms.map(c => {
-            c.appear = false
-          })
+
           this.classrooms = r.data.classrooms
-          this.buildIn()
       
           let counter = new ExpireCounter(this.classrooms)
           let date = new Date()
@@ -200,8 +217,17 @@ export default {
           for (let i = 0; i < this.classrooms.length; i++) {
             let c = this.classrooms[i]
             let counterResult = counter.run(c.number, date)
+
             c.remainingTime = counterResult.expireTime
             counterResult.expireTime = Math.round(counterResult.expireTime)
+            c.expireTimeLevel = counterResult.expireTimeLevel
+
+            // max expireTimeLevel should be 10
+            // since we use 11 colors (red ~ purple)
+            if (c.expireTimeLevel > 10) {
+              c.expireTimeLevel = 10
+            }
+
             c.nextClass = counterResult.nextClassName
             c.hour = parseInt(counterResult.expireTime / 60)
             c.min = counterResult.expireTime - c.hour * 60
@@ -218,8 +244,21 @@ export default {
           //     return b.remainingTime - a.remainingTime
           //   }
           // })
+
+          this.buildIn()
         })
     },
+    isCurrentLecture(start, end, day) {
+      let date = new Date()
+      let hours = (date.getHours()<10?'0':'') + date.getHours()
+      let mins = (date.getMinutes()<10?'0':'') + date.getMinutes()
+      let time = Number(hours + mins)
+      if (Number(start) < Number(time) && Number(time) < Number(end) && DTS.dts(date.getDay()) === day) {
+        return true
+      } else {
+        return false
+      }
+    }
   },
   created() {
     this.fetchTimeTable()
@@ -307,23 +346,20 @@ export default {
     width: 100%;
     height: 100%;
     z-index: 10000;
+    pointer-events: none;
+    visibility: hidden;
+    opacity: 0;
+    transform: scale(1.05);
+    transition: opacity 300ms ease, visibility 300ms ease, transform 300ms ease;
 
-    &.zoom-enter-active, &.zoom-leave-active {
-      transition: opacity 200ms ease;
+    &.show {
+      pointer-events: all;
+      visibility: visible;
       opacity: 1;
+      transform: scale(1);
 
       .timetable {
-        transition: opacity 200ms ease, transform 200ms ease;
-        transform: none;
-        opacity: 1;
-      }
-    }
-    &.zoom-enter, &.zoom-leave-to {
-      opacity: 0;
-      
-      .timetable {
-        opacity: 0;
-        transform: scale(1.05);
+
       }
     }
 
@@ -373,6 +409,7 @@ export default {
         background-color: $base-white;
         padding: 0.5rem 0;
         margin-top: 1rem;
+        height: 3.2rem;
 
         @include dark-mode() {
           background-color: #333;
@@ -384,15 +421,16 @@ export default {
           white-space: nowrap;
           overflow-x: auto;
           overflow-y: hidden;
+          height: 100%;
         
           .day {
             display: inline-block;
-            width: 14.2857142857%;
+            width: unquote(100/6 + '%');
             min-width: 40px;
             border: none;
             border-radius: 0.3rem;
             font-size: 0.9rem;
-            padding: 0.5rem;
+            height: 100%;
             cursor: pointer;
             font-weight: 500;
             background-color: $base-white;
@@ -433,6 +471,14 @@ export default {
             background-color: #222;
           }
 
+          &.current {
+            box-shadow: 0 0 0 0.2rem $light-blue;
+
+            @include dark-mode() {
+              box-shadow: 0 0 0 0.2rem $light-yellow;
+            }
+          }
+
           .time, .instructor, .name {
             padding: 1rem;
             min-width: 0;
@@ -440,10 +486,13 @@ export default {
           }
 
           .time {
-            font-weight: 500;
+            &, & * {
+              font-weight: 700;
+            }
             flex: 1;
             line-height: 1.5;
             color: darken($light-blue, 10%);
+            color: $light-blue;
 
             @include dark-mode() {
               color: lighten($light-yellow, 10%);

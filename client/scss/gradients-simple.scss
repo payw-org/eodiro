@@ -30,3 +30,11 @@ $gradient-collection: (
     @include bgGradient(nth($gradient-collection, $i + 1));
   }
 }
+
+.grayed {
+  @include bgGradient(nth($gradient-collection, 13));
+}
+
+.full-time {
+  @include bgGradient(nth($gradient-collection, 14));
+}
