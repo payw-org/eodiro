@@ -39,6 +39,7 @@
 
 <script>
 import Content from 'Components/Content.vue'
+import ApiUrl from 'Modules/ApiUrl'
 import axios from 'axios'
 
 export default {
@@ -93,7 +94,7 @@ export default {
     }
   },
   created() {
-    axios.get('http://api.dev-jhm.eodiro.com/university')
+    axios.get(`${ApiUrl.get()}/university`)
       .then(response => {
         let data = response.data
         if (data.error) return

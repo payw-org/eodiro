@@ -28,6 +28,7 @@
 <script>
 import Content from 'Components/Content.vue'
 import Stagger from 'Modules/Stagger'
+import ApiUrl from 'Modules/ApiUrl'
 import axios from 'axios'
 
 export default {
@@ -44,7 +45,7 @@ export default {
       Stagger.animate(this.floors)
     },
     fetchFloors() {
-      axios.get('http://api.dev-jhm.eodiro.com' + location.pathname)
+      axios.get(ApiUrl.get() + location.pathname)
         .then(r => {
           if (r.data.err) {
             this.$router.push('/404')
@@ -60,7 +61,7 @@ export default {
       this.floors.forEach(f => {
         f.loaded = false
       })
-      axios.get('http://api.dev-jhm.eodiro.com' + location.pathname + '/empty')
+      axios.get(ApiUrl.get() + location.pathname + '/empty')
         .then(r => {
           if (r.data.err) {
             this.$router.push('/404')
