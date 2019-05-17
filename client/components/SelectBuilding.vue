@@ -174,6 +174,7 @@ export default {
           font-weight: 700;
           font-family: $font-display;
           line-height: 1;
+          word-break: break-word;
         }
       
         .name--text {
