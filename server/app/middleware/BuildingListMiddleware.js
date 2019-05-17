@@ -14,7 +14,7 @@ export default class BuildingListMiddleware {
       }
     ).populate({
       path: 'buildings',
-      select: 'number name -_id',
+      select: 'number name floors -_id',
       options: { sort: { 'number': 1 } }
     });
 
@@ -30,10 +30,12 @@ export default class BuildingListMiddleware {
     const building_list = [];
     
     university.buildings.forEach((building) => {
-      building_list.push({
-        number: building['number'],
-        name: building['name'][language]
-      });
+      if (building.floors.length != 0) {
+        building_list.push({
+          number: building['number'],
+          name: building['name'][language]
+        });
+      }
     });
 
     return building_list;
@@ -71,20 +73,22 @@ export default class BuildingListMiddleware {
     const building_list = [];
     const promise_lists = [];
 
-    university.buildings.forEach((building, index) => {
-      promise_lists[index] = [];
+    university.buildings.forEach((building) => {
+      if (building.floors.length != 0) {
+        promise_lists.push([]);
 
-      building.floors.forEach((floor) => {
-        floor.classrooms.forEach((classroom_id) => {
-          promise_lists[index].push(empty_controller.isClassroomEmpty(classroom_id));
+        building.floors.forEach((floor) => {
+          floor.classrooms.forEach((classroom_id) => {
+            promise_lists[promise_lists.length - 1].push(empty_controller.isClassroomEmpty(classroom_id));
+          });
         });
-      });
 
-      building_list.push({
-        number: building['number'],
-        name: building['name'][language],
-        empty_classroom: 0
-      });
+        building_list.push({
+          number: building['number'],
+          name: building['name'][language],
+          empty_classroom: 0
+        });
+      }
     });
 
     for (let i = 0; i < promise_lists.length; i++) {
