@@ -136,6 +136,7 @@ import ExpireCounter from 'Modules/ExpireCounter'
 import axios from 'axios'
 import DTS from 'Modules/DayToString'
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
+import ApiUrl from 'Modules/ApiUrl'
 
 export default {
   name: 'result',
@@ -201,7 +202,7 @@ export default {
       Stagger.animate(this.classrooms)
     },
     fetchTimeTable() {
-      axios.get('http://api.dev-jhm.eodiro.com' + location.pathname)
+      axios.get(ApiUrl.get() + location.pathname)
         .then(r => {
           if (r.data.err) {
             this.$router.push('/404')

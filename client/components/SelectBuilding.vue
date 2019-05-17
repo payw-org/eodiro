@@ -34,6 +34,7 @@
 <script>
 import Content from 'Components/Content.vue'
 import Stagger from 'Modules/Stagger'
+import ApiUrl from 'Modules/ApiUrl'
 import axios from 'axios'
 
 export default {
@@ -52,7 +53,7 @@ export default {
       Stagger.animate(this.buildings)
     },
     fetchBuildings() {
-      axios.get('http://api.dev-jhm.eodiro.com' + location.pathname)
+      axios.get(ApiUrl.get() + location.pathname)
         .then(response => {
           let data = response.data
           if (data.err) {
@@ -72,7 +73,7 @@ export default {
       this.buildings.forEach(b => {
         b.loaded = false
       })
-      axios.get('http://api.dev-jhm.eodiro.com' + location.pathname +'/empty')
+      axios.get(ApiUrl.get() + location.pathname +'/empty')
         .then(response => {
           if (response.data.error) return
           response.data.buildings.map(function (b) {
