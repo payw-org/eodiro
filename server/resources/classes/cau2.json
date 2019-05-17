@@ -447,20 +447,11 @@
         {
           "building": "810",
           "room": "103"
-        },
-        {
-          "building": "810",
-          "room": "103"
         }
       ],
       "times": [
         {
           "day": "TUE",
-          "start": "0930",
-          "end": "1045"
-        },
-        {
-          "day": "THU",
           "start": "0930",
           "end": "1045"
         }
@@ -475,20 +466,11 @@
         {
           "building": "810",
           "room": "203"
-        },
-        {
-          "building": "810",
-          "room": "203"
         }
       ],
       "times": [
         {
           "day": "TUE",
-          "start": "0930",
-          "end": "1045"
-        },
-        {
-          "day": "THU",
           "start": "0930",
           "end": "1045"
         }
@@ -503,20 +485,11 @@
         {
           "building": "810",
           "room": "211"
-        },
-        {
-          "building": "810",
-          "room": "211"
         }
       ],
       "times": [
         {
           "day": "TUE",
-          "start": "0930",
-          "end": "1045"
-        },
-        {
-          "day": "THU",
           "start": "0930",
           "end": "1045"
         }
@@ -531,20 +504,11 @@
         {
           "building": "801",
           "room": "309"
-        },
-        {
-          "building": "801",
-          "room": "309"
         }
       ],
       "times": [
         {
           "day": "TUE",
-          "start": "0930",
-          "end": "1045"
-        },
-        {
-          "day": "THU",
           "start": "0930",
           "end": "1045"
         }
@@ -559,20 +523,11 @@
         {
           "building": "810",
           "room": "415"
-        },
-        {
-          "building": "810",
-          "room": "415"
         }
       ],
       "times": [
         {
           "day": "TUE",
-          "start": "0930",
-          "end": "1045"
-        },
-        {
-          "day": "THU",
           "start": "0930",
           "end": "1045"
         }
@@ -587,20 +542,11 @@
         {
           "building": "810",
           "room": "103"
-        },
-        {
-          "building": "810",
-          "room": "103"
         }
       ],
       "times": [
         {
           "day": "TUE",
-          "start": "1100",
-          "end": "1215"
-        },
-        {
-          "day": "THU",
           "start": "1100",
           "end": "1215"
         }
@@ -615,20 +561,11 @@
         {
           "building": "810",
           "room": "203"
-        },
-        {
-          "building": "810",
-          "room": "203"
         }
       ],
       "times": [
         {
           "day": "TUE",
-          "start": "1100",
-          "end": "1215"
-        },
-        {
-          "day": "THU",
           "start": "1100",
           "end": "1215"
         }
@@ -643,20 +580,11 @@
         {
           "building": "810",
           "room": "211"
-        },
-        {
-          "building": "810",
-          "room": "211"
         }
       ],
       "times": [
         {
           "day": "TUE",
-          "start": "1100",
-          "end": "1215"
-        },
-        {
-          "day": "THU",
           "start": "1100",
           "end": "1215"
         }
@@ -671,20 +599,11 @@
         {
           "building": "801",
           "room": "309"
-        },
-        {
-          "building": "801",
-          "room": "309"
         }
       ],
       "times": [
         {
           "day": "TUE",
-          "start": "1100",
-          "end": "1215"
-        },
-        {
-          "day": "THU",
           "start": "1100",
           "end": "1215"
         }
@@ -699,20 +618,11 @@
         {
           "building": "810",
           "room": "415"
-        },
-        {
-          "building": "810",
-          "room": "415"
         }
       ],
       "times": [
         {
           "day": "TUE",
-          "start": "1100",
-          "end": "1215"
-        },
-        {
-          "day": "THU",
           "start": "1100",
           "end": "1215"
         }
@@ -727,20 +637,11 @@
         {
           "building": "810",
           "room": "103"
-        },
-        {
-          "building": "810",
-          "room": "103"
         }
       ],
       "times": [
         {
           "day": "MON",
-          "start": "1100",
-          "end": "1215"
-        },
-        {
-          "day": "WED",
           "start": "1100",
           "end": "1215"
         }
@@ -755,20 +656,11 @@
         {
           "building": "810",
           "room": "203"
-        },
-        {
-          "building": "810",
-          "room": "203"
         }
       ],
       "times": [
         {
           "day": "MON",
-          "start": "1100",
-          "end": "1215"
-        },
-        {
-          "day": "WED",
           "start": "1100",
           "end": "1215"
         }
@@ -783,20 +675,11 @@
         {
           "building": "810",
           "room": "211"
-        },
-        {
-          "building": "810",
-          "room": "211"
         }
       ],
       "times": [
         {
           "day": "MON",
-          "start": "1100",
-          "end": "1215"
-        },
-        {
-          "day": "WED",
           "start": "1100",
           "end": "1215"
         }
@@ -811,20 +694,11 @@
         {
           "building": "810",
           "room": "213"
-        },
-        {
-          "building": "810",
-          "room": "213"
         }
       ],
       "times": [
         {
           "day": "MON",
-          "start": "1100",
-          "end": "1215"
-        },
-        {
-          "day": "WED",
           "start": "1100",
           "end": "1215"
         }
@@ -839,20 +713,11 @@
         {
           "building": "801",
           "room": "309"
-        },
-        {
-          "building": "801",
-          "room": "309"
         }
       ],
       "times": [
         {
           "day": "MON",
-          "start": "1100",
-          "end": "1215"
-        },
-        {
-          "day": "WED",
           "start": "1100",
           "end": "1215"
         }
@@ -867,20 +732,11 @@
         {
           "building": "810",
           "room": "103"
-        },
-        {
-          "building": "810",
-          "room": "103"
         }
       ],
       "times": [
         {
           "day": "TUE",
-          "start": "1400",
-          "end": "1515"
-        },
-        {
-          "day": "THU",
           "start": "1400",
           "end": "1515"
         }
@@ -895,20 +751,11 @@
         {
           "building": "810",
           "room": "203"
-        },
-        {
-          "building": "810",
-          "room": "203"
         }
       ],
       "times": [
         {
           "day": "TUE",
-          "start": "1400",
-          "end": "1515"
-        },
-        {
-          "day": "THU",
           "start": "1400",
           "end": "1515"
         }
@@ -923,20 +770,11 @@
         {
           "building": "810",
           "room": "211"
-        },
-        {
-          "building": "810",
-          "room": "211"
         }
       ],
       "times": [
         {
           "day": "TUE",
-          "start": "1400",
-          "end": "1515"
-        },
-        {
-          "day": "THU",
           "start": "1400",
           "end": "1515"
         }
@@ -951,20 +789,11 @@
         {
           "building": "810",
           "room": "103"
-        },
-        {
-          "building": "810",
-          "room": "103"
         }
       ],
       "times": [
         {
           "day": "MON",
-          "start": "1530",
-          "end": "1645"
-        },
-        {
-          "day": "WED",
           "start": "1530",
           "end": "1645"
         }
@@ -979,20 +808,11 @@
         {
           "building": "810",
           "room": "203"
-        },
-        {
-          "building": "810",
-          "room": "203"
         }
       ],
       "times": [
         {
           "day": "MON",
-          "start": "1530",
-          "end": "1645"
-        },
-        {
-          "day": "WED",
           "start": "1530",
           "end": "1645"
         }
@@ -1007,20 +827,11 @@
         {
           "building": "810",
           "room": "211"
-        },
-        {
-          "building": "810",
-          "room": "211"
         }
       ],
       "times": [
         {
           "day": "MON",
-          "start": "1530",
-          "end": "1645"
-        },
-        {
-          "day": "WED",
           "start": "1530",
           "end": "1645"
         }
@@ -1035,20 +846,11 @@
         {
           "building": "810",
           "room": "103"
-        },
-        {
-          "building": "810",
-          "room": "103"
         }
       ],
       "times": [
         {
           "day": "MON",
-          "start": "0930",
-          "end": "1045"
-        },
-        {
-          "day": "WED",
           "start": "0930",
           "end": "1045"
         }
@@ -1063,20 +865,11 @@
         {
           "building": "810",
           "room": "203"
-        },
-        {
-          "building": "810",
-          "room": "203"
         }
       ],
       "times": [
         {
           "day": "MON",
-          "start": "0930",
-          "end": "1045"
-        },
-        {
-          "day": "WED",
           "start": "0930",
           "end": "1045"
         }
@@ -1091,20 +884,11 @@
         {
           "building": "810",
           "room": "211"
-        },
-        {
-          "building": "810",
-          "room": "211"
         }
       ],
       "times": [
         {
           "day": "MON",
-          "start": "0930",
-          "end": "1045"
-        },
-        {
-          "day": "WED",
           "start": "0930",
           "end": "1045"
         }
@@ -1119,20 +903,11 @@
         {
           "building": "810",
           "room": "213"
-        },
-        {
-          "building": "810",
-          "room": "213"
         }
       ],
       "times": [
         {
           "day": "MON",
-          "start": "0930",
-          "end": "1045"
-        },
-        {
-          "day": "WED",
           "start": "0930",
           "end": "1045"
         }
@@ -1147,20 +922,11 @@
         {
           "building": "801",
           "room": "310"
-        },
-        {
-          "building": "801",
-          "room": "310"
         }
       ],
       "times": [
         {
           "day": "MON",
-          "start": "0930",
-          "end": "1045"
-        },
-        {
-          "day": "WED",
           "start": "0930",
           "end": "1045"
         }
@@ -1175,20 +941,11 @@
         {
           "building": "810",
           "room": "211"
-        },
-        {
-          "building": "810",
-          "room": "211"
         }
       ],
       "times": [
         {
           "day": "TUE",
-          "start": "1530",
-          "end": "1645"
-        },
-        {
-          "day": "THU",
           "start": "1530",
           "end": "1645"
         }
@@ -1203,20 +960,11 @@
         {
           "building": "810",
           "room": "203"
-        },
-        {
-          "building": "810",
-          "room": "203"
         }
       ],
       "times": [
         {
           "day": "TUE",
-          "start": "1530",
-          "end": "1645"
-        },
-        {
-          "day": "THU",
           "start": "1530",
           "end": "1645"
         }
@@ -4276,7 +4024,7 @@
       "instructor": "이승하",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "258"
         }
       ],
@@ -4295,11 +4043,11 @@
       "instructor": "조동범 전성태",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "256"
         },
         {
-          "building": "806",
+          "building": "805-806",
           "room": "258"
         }
       ],
@@ -4323,11 +4071,11 @@
       "instructor": "전성태 정은경",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "258"
         },
         {
-          "building": "805",
+          "building": "805-806",
           "room": "258"
         }
       ],
@@ -4351,7 +4099,7 @@
       "instructor": "김민정",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "258"
         }
       ],
@@ -4370,7 +4118,7 @@
       "instructor": "이준희",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "258"
         }
       ],
@@ -4389,11 +4137,11 @@
       "instructor": "서성란 이승하",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "151"
         },
         {
-          "building": "806",
+          "building": "805-806",
           "room": "258"
         }
       ],
@@ -4417,11 +4165,11 @@
       "instructor": "서성란 김장근",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "252"
         },
         {
-          "building": "806",
+          "building": "805-806",
           "room": "258"
         }
       ],
@@ -4445,7 +4193,7 @@
       "instructor": "이대영",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "257"
         }
       ],
@@ -4464,7 +4212,7 @@
       "instructor": "이대영",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "257"
         }
       ],
@@ -4483,11 +4231,11 @@
       "instructor": "김동환 주찬옥",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "152"
         },
         {
-          "building": "806",
+          "building": "805-806",
           "room": "256"
         }
       ],
@@ -4511,11 +4259,11 @@
       "instructor": "김동환 주찬옥",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "152"
         },
         {
-          "building": "806",
+          "building": "805-806",
           "room": "256"
         }
       ],
@@ -4539,7 +4287,7 @@
       "instructor": "정은경",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "256"
         }
       ],
@@ -4558,7 +4306,7 @@
       "instructor": "정홍수",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "256"
         }
       ],
@@ -4577,11 +4325,11 @@
       "instructor": "고은주 조동범",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "256"
         },
         {
-          "building": "805",
+          "building": "805-806",
           "room": "256"
         }
       ],
@@ -4605,11 +4353,11 @@
       "instructor": "고은주 김장근",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "252"
         },
         {
-          "building": "806",
+          "building": "805-806",
           "room": "256"
         }
       ],
@@ -4633,7 +4381,7 @@
       "instructor": "고은주",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "256"
         }
       ],
@@ -4652,7 +4400,7 @@
       "instructor": "이훈영",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "257"
         }
       ],
@@ -4671,7 +4419,7 @@
       "instructor": "김민정",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "257"
         }
       ],
@@ -4690,7 +4438,7 @@
       "instructor": "김민정",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "257"
         }
       ],
@@ -4709,7 +4457,7 @@
       "instructor": "정홍수",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "256"
         }
       ],
@@ -4728,7 +4476,7 @@
       "instructor": "박광규",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "228"
         }
       ],
@@ -4747,7 +4495,7 @@
       "instructor": "윤숙희",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "252"
         }
       ],
@@ -4766,7 +4514,7 @@
       "instructor": "김인애",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "152"
         }
       ],
@@ -4785,7 +4533,7 @@
       "instructor": "이수명",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "252"
         }
       ],
@@ -4804,7 +4552,7 @@
       "instructor": "조경란",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "257"
         }
       ],
@@ -4823,7 +4571,7 @@
       "instructor": "조경란",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "257"
         }
       ],
@@ -4880,7 +4628,7 @@
       "instructor": "심명희",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "257"
         }
       ],
@@ -4899,7 +4647,7 @@
       "instructor": "김민정",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "258"
         }
       ],
@@ -4918,7 +4666,7 @@
       "instructor": "박정준",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "256"
         }
       ],
@@ -4937,7 +4685,7 @@
       "instructor": "전성태",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "151"
         }
       ],
@@ -4956,7 +4704,7 @@
       "instructor": "전성태",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "151"
         }
       ],
@@ -4975,7 +4723,7 @@
       "instructor": "주찬옥",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "152"
         }
       ],
@@ -4994,7 +4742,7 @@
       "instructor": "이지현",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "257"
         }
       ],
@@ -5127,7 +4875,7 @@
       "instructor": "이경률",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "154"
         }
       ],
@@ -5146,7 +4894,7 @@
       "instructor": "천경우",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "215"
         }
       ],
@@ -5165,7 +4913,7 @@
       "instructor": "주종우",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "224"
         }
       ],
@@ -5184,7 +4932,7 @@
       "instructor": "홍정의",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "117"
         }
       ],
@@ -5203,7 +4951,7 @@
       "instructor": "박현두",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "213"
         }
       ],
@@ -5222,7 +4970,7 @@
       "instructor": "홍정의",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "154"
         }
       ],
@@ -5241,7 +4989,7 @@
       "instructor": "이승주",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "224"
         }
       ],
@@ -5260,7 +5008,7 @@
       "instructor": "심대원",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "224"
         }
       ],
@@ -5279,7 +5027,7 @@
       "instructor": "사샤폴레",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "154"
         }
       ],
@@ -5298,7 +5046,7 @@
       "instructor": "손욱수",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "214"
         }
       ],
@@ -5317,7 +5065,7 @@
       "instructor": "주재홍",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "214"
         }
       ],
@@ -5336,7 +5084,7 @@
       "instructor": "퐁섬유",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "214"
         }
       ],
@@ -5355,7 +5103,7 @@
       "instructor": "이형수",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "154"
         }
       ],
@@ -5374,7 +5122,7 @@
       "instructor": "주종우",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "224"
         }
       ],
@@ -5393,7 +5141,7 @@
       "instructor": "이현우",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "224"
         }
       ],
@@ -5412,7 +5160,7 @@
       "instructor": "권택주",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "224"
         }
       ],
@@ -5431,7 +5179,7 @@
       "instructor": "이신구",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "228"
         }
       ],
@@ -5450,7 +5198,7 @@
       "instructor": "김민관",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "213"
         }
       ],
@@ -5469,7 +5217,7 @@
       "instructor": "정창용",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "214"
         }
       ],
@@ -5488,7 +5236,7 @@
       "instructor": "구스타브헬베르그",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "228"
         }
       ],
@@ -5507,7 +5255,7 @@
       "instructor": "퐁섬유",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "215"
         }
       ],
@@ -5526,7 +5274,7 @@
       "instructor": "김한준",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "215"
         }
       ],
@@ -5545,7 +5293,7 @@
       "instructor": "장문기",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "228"
         }
       ],
@@ -5564,7 +5312,7 @@
       "instructor": "박지은",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "215"
         }
       ],
@@ -5583,7 +5331,7 @@
       "instructor": "사샤폴레",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "215"
         }
       ],
@@ -5602,7 +5350,7 @@
       "instructor": "사샤폴레",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "213"
         }
       ],
@@ -5621,7 +5369,7 @@
       "instructor": "이경률",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "154"
         }
       ],
@@ -5640,7 +5388,7 @@
       "instructor": "이경률",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "154"
         }
       ],
@@ -5659,7 +5407,7 @@
       "instructor": "이종근",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "213"
         }
       ],
@@ -5678,7 +5426,7 @@
       "instructor": "김정은",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "215"
         }
       ],
@@ -5697,7 +5445,7 @@
       "instructor": "구스타브헬베르그",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "228"
         }
       ],
@@ -5716,7 +5464,7 @@
       "instructor": "이형수",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "224"
         }
       ],
@@ -5735,7 +5483,7 @@
       "instructor": "천경우",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "213"
         }
       ],
@@ -5754,7 +5502,7 @@
       "instructor": "천경우",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "213"
         }
       ],
@@ -5792,7 +5540,7 @@
       "instructor": "김승일",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "233"
         }
       ],
@@ -5811,7 +5559,7 @@
       "instructor": "최상철",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "238"
         }
       ],
@@ -5830,7 +5578,7 @@
       "instructor": "김긍수",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "238"
         }
       ],
@@ -5849,11 +5597,11 @@
       "instructor": "조은숙",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "238"
         },
         {
-          "building": "806",
+          "building": "805-806",
           "room": "224"
         }
       ],
@@ -5877,15 +5625,15 @@
       "instructor": "김문채 김지현 박차은 백은희 정하진 외",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "134"
         },
         {
-          "building": "806",
+          "building": "805-806",
           "room": "135"
         },
         {
-          "building": "806",
+          "building": "805-806",
           "room": "135"
         }
       ],
@@ -5914,15 +5662,15 @@
       "instructor": "김경신 배가영 임우빈 정현미 홍준호 외",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "242"
         },
         {
-          "building": "805",
+          "building": "805-806",
           "room": "242"
         },
         {
-          "building": "805",
+          "building": "805-806",
           "room": "242"
         }
       ],
@@ -5951,15 +5699,15 @@
       "instructor": "공혜진 김은미 김주희 김태은 최다연 외",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "243"
         },
         {
-          "building": "805",
+          "building": "805-806",
           "room": "243"
         },
         {
-          "building": "805",
+          "building": "805-806",
           "room": "243"
         }
       ],
@@ -5988,7 +5736,7 @@
       "instructor": "황혜연 박문성",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "134"
         }
       ],
@@ -6007,7 +5755,7 @@
       "instructor": "장두익 김민정",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "242"
         }
       ],
@@ -6026,7 +5774,7 @@
       "instructor": "김광진 이로사",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "226"
         }
       ],
@@ -6045,7 +5793,7 @@
       "instructor": "이주희",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "238"
         }
       ],
@@ -6064,7 +5812,7 @@
       "instructor": "김스완",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "233"
         }
       ],
@@ -6083,15 +5831,15 @@
       "instructor": "김주하 김지현 송영은 정하진 황혜연 외",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "134"
         },
         {
-          "building": "806",
+          "building": "805-806",
           "room": "135"
         },
         {
-          "building": "806",
+          "building": "805-806",
           "room": "135"
         }
       ],
@@ -6120,15 +5868,15 @@
       "instructor": "김정훈 라세영 이지민 장두익 정현미 외",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "226"
         },
         {
-          "building": "806",
+          "building": "805-806",
           "room": "242"
         },
         {
-          "building": "806",
+          "building": "805-806",
           "room": "242"
         }
       ],
@@ -6157,15 +5905,15 @@
       "instructor": "박민영 백누리 이대원 임수연 임지영 외",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "243"
         },
         {
-          "building": "805",
+          "building": "805-806",
           "room": "243"
         },
         {
-          "building": "805",
+          "building": "805-806",
           "room": "243"
         }
       ],
@@ -6194,7 +5942,7 @@
       "instructor": "이혜경 이강용",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "134"
         }
       ],
@@ -6213,7 +5961,7 @@
       "instructor": "임우빈 차종현",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "242"
         }
       ],
@@ -6232,7 +5980,7 @@
       "instructor": "김주희 공혜진",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "243"
         }
       ],
@@ -6251,11 +5999,15 @@
       "instructor": "서현주",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "226"
         },
         {
-          "building": "806",
+          "building": "805-806",
+          "room": "238"
+        },
+        {
+          "building": "805-806",
           "room": "238"
         }
       ],
@@ -6263,6 +6015,11 @@
         {
           "day": "MON",
           "start": "0900",
+          "end": "1000"
+        },
+        {
+          "day": "MON",
+          "start": "1000",
           "end": "1100"
         },
         {
@@ -6279,7 +6036,7 @@
       "instructor": "반수현",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "238"
         }
       ],
@@ -6298,11 +6055,11 @@
       "instructor": "심숙경",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "238"
         },
         {
-          "building": "805",
+          "building": "805-806",
           "room": "238"
         }
       ],
@@ -6326,7 +6083,7 @@
       "instructor": "박정선",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "233"
         }
       ],
@@ -6345,11 +6102,11 @@
       "instructor": "이주희",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "233"
         },
         {
-          "building": "806",
+          "building": "805-806",
           "room": "238"
         }
       ],
@@ -6373,11 +6130,11 @@
       "instructor": "김문채 백은희 정연정 김승일",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "135"
         },
         {
-          "building": "805",
+          "building": "805-806",
           "room": "135"
         }
       ],
@@ -6401,11 +6158,11 @@
       "instructor": "김성현 이지민 임우빈 김경신",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "242"
         },
         {
-          "building": "805",
+          "building": "805-806",
           "room": "242"
         }
       ],
@@ -6429,11 +6186,11 @@
       "instructor": "이대원 임수연 최다연 김은미",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "243"
         },
         {
-          "building": "805",
+          "building": "805-806",
           "room": "243"
         }
       ],
@@ -6457,7 +6214,7 @@
       "instructor": "김아롱",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "233"
         }
       ],
@@ -6476,7 +6233,7 @@
       "instructor": "김문채 채향순",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "134"
         }
       ],
@@ -6495,7 +6252,7 @@
       "instructor": "김민정 최상철",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "242"
         }
       ],
@@ -6514,7 +6271,7 @@
       "instructor": "김긍수",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "243"
         }
       ],
@@ -6533,7 +6290,7 @@
       "instructor": "박정선",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "233"
         }
       ],
@@ -6552,7 +6309,7 @@
       "instructor": "김스완",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "233"
         }
       ],
@@ -6571,7 +6328,7 @@
       "instructor": "최상철",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "242"
         }
       ],
@@ -6590,7 +6347,7 @@
       "instructor": "정옥희",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "238"
         }
       ],
@@ -6609,11 +6366,11 @@
       "instructor": "정옥희",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "226"
         },
         {
-          "building": "806",
+          "building": "805-806",
           "room": "238"
         }
       ],
@@ -6637,11 +6394,11 @@
       "instructor": "김승일 박문성 백은희 채향순",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "134"
         },
         {
-          "building": "806",
+          "building": "805-806",
           "room": "135"
         }
       ],
@@ -6665,11 +6422,11 @@
       "instructor": "라세영 배가영 장혜주 김주연",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "242"
         },
         {
-          "building": "805",
+          "building": "805-806",
           "room": "242"
         }
       ],
@@ -6693,11 +6450,11 @@
       "instructor": "김광진 김태은 임지영 김긍수",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "243"
         },
         {
-          "building": "805",
+          "building": "805-806",
           "room": "243"
         }
       ],
@@ -6721,7 +6478,7 @@
       "instructor": "공혜진 원혜인",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "243"
         }
       ],
@@ -6740,7 +6497,7 @@
       "instructor": "공혜진 박민영",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "243"
         }
       ],
@@ -6759,14 +6516,23 @@
       "instructor": "송영은",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "226"
+        },
+        {
+          "building": "805-806",
+          "room": "238"
         }
       ],
       "times": [
         {
           "day": "THU",
           "start": "1500",
+          "end": "1600"
+        },
+        {
+          "day": "THU",
+          "start": "1600",
           "end": "1700"
         }
       ]
@@ -6778,14 +6544,23 @@
       "instructor": "김문채",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "226"
+        },
+        {
+          "building": "805-806",
+          "room": "238"
         }
       ],
       "times": [
         {
           "day": "THU",
           "start": "1300",
+          "end": "1400"
+        },
+        {
+          "day": "THU",
+          "start": "1400",
           "end": "1500"
         }
       ]
@@ -6797,7 +6572,7 @@
       "instructor": "이주희",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "238"
         }
       ],
@@ -6816,7 +6591,7 @@
       "instructor": "정연정 유지숙",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "135"
         }
       ],
@@ -6835,7 +6610,7 @@
       "instructor": "장두익 최상철",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "242"
         }
       ],
@@ -7084,12 +6859,21 @@
         {
           "building": "808",
           "room": "302"
+        },
+        {
+          "building": "808",
+          "room": "407"
         }
       ],
       "times": [
         {
           "day": "TUE",
           "start": "1300",
+          "end": "1400"
+        },
+        {
+          "day": "TUE",
+          "start": "1400",
           "end": "1600"
         }
       ]
@@ -8988,7 +8772,7 @@
       "instructor": "강인구",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "233"
         }
       ],
@@ -9007,7 +8791,7 @@
       "instructor": "강인구",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "233"
         }
       ],
@@ -18617,7 +18401,7 @@
       "instructor": "심숙경",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "238"
         }
       ],
@@ -18636,7 +18420,7 @@
       "instructor": "김민웅",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "224"
         }
       ],
@@ -18655,7 +18439,7 @@
       "instructor": "최정인",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "101"
         }
       ],
@@ -18674,7 +18458,7 @@
       "instructor": "최진호",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "101"
         }
       ],
@@ -18693,7 +18477,7 @@
       "instructor": "김민정",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "101"
         }
       ],
@@ -18712,7 +18496,7 @@
       "instructor": "최정인",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "101"
         }
       ],
@@ -18731,7 +18515,7 @@
       "instructor": "김동환",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "233"
         }
       ],
@@ -18750,7 +18534,7 @@
       "instructor": "이승영",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "151"
         }
       ],
@@ -18769,7 +18553,7 @@
       "instructor": "윤부희",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "101"
         }
       ],
@@ -18788,7 +18572,7 @@
       "instructor": "이인균",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "152"
         }
       ],
@@ -18807,7 +18591,7 @@
       "instructor": "김희현",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "101"
         }
       ],
@@ -18826,7 +18610,7 @@
       "instructor": "김희선",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "201"
         }
       ],
@@ -18845,14 +18629,23 @@
       "instructor": "김희선",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "151"
+        },
+        {
+          "building": "805-806",
+          "room": "201"
         }
       ],
       "times": [
         {
           "day": "WED",
           "start": "1400",
+          "end": "1500"
+        },
+        {
+          "day": "WED",
+          "start": "1500",
           "end": "1700"
         }
       ]
@@ -18864,7 +18657,7 @@
       "instructor": "구선경",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "101"
         }
       ],
@@ -18883,7 +18676,7 @@
       "instructor": "이현재",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "101"
         }
       ],
@@ -18902,7 +18695,7 @@
       "instructor": "구선경",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "101"
         }
       ],
@@ -18921,7 +18714,7 @@
       "instructor": "이현재",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "101"
         }
       ],
@@ -18940,7 +18733,7 @@
       "instructor": "오승준",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "226"
         }
       ],
@@ -18959,7 +18752,7 @@
       "instructor": "김지숙",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "119"
         }
       ],
@@ -18978,7 +18771,7 @@
       "instructor": "김지숙",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "119"
         }
       ],
@@ -18997,7 +18790,7 @@
       "instructor": "김준아",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "226"
         }
       ],
@@ -19016,7 +18809,7 @@
       "instructor": "김은국",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "201"
         }
       ],
@@ -19035,7 +18828,7 @@
       "instructor": "김은국",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "201"
         }
       ],
@@ -19054,7 +18847,7 @@
       "instructor": "최진호",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "201"
         }
       ],
@@ -19073,7 +18866,7 @@
       "instructor": "김윤곤",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "201"
         }
       ],
@@ -19092,7 +18885,7 @@
       "instructor": "김효선",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "151"
         }
       ],
@@ -19130,7 +18923,7 @@
       "instructor": "조범진",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "118"
         }
       ],
@@ -19149,7 +18942,7 @@
       "instructor": "이인균",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "152"
         }
       ],
@@ -19168,7 +18961,7 @@
       "instructor": "김윤곤",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "201"
         }
       ],
@@ -19187,7 +18980,7 @@
       "instructor": "고경만",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "226"
         }
       ],
@@ -19206,7 +18999,7 @@
       "instructor": "김동환",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "151"
         }
       ],
@@ -19244,7 +19037,7 @@
       "instructor": "김은국",
       "locations": [
         {
-          "building": "805",
+          "building": "805-806",
           "room": "201"
         }
       ],
@@ -22655,20 +22448,11 @@
         {
           "building": "810",
           "room": "105"
-        },
-        {
-          "building": "810",
-          "room": "105"
         }
       ],
       "times": [
         {
           "day": "MON",
-          "start": "1530",
-          "end": "1645"
-        },
-        {
-          "day": "WED",
           "start": "1530",
           "end": "1645"
         }
@@ -22805,20 +22589,11 @@
         {
           "building": "810",
           "room": "210"
-        },
-        {
-          "building": "810",
-          "room": "210"
         }
       ],
       "times": [
         {
           "day": "MON",
-          "start": "1230",
-          "end": "1345"
-        },
-        {
-          "day": "WED",
           "start": "1230",
           "end": "1345"
         }
@@ -22833,20 +22608,11 @@
         {
           "building": "810",
           "room": "210"
-        },
-        {
-          "building": "810",
-          "room": "210"
         }
       ],
       "times": [
         {
           "day": "MON",
-          "start": "1400",
-          "end": "1515"
-        },
-        {
-          "day": "WED",
           "start": "1400",
           "end": "1515"
         }
@@ -22945,20 +22711,11 @@
         {
           "building": "810",
           "room": "307"
-        },
-        {
-          "building": "810",
-          "room": "307"
         }
       ],
       "times": [
         {
           "day": "TUE",
-          "start": "0930",
-          "end": "1045"
-        },
-        {
-          "day": "THU",
           "start": "0930",
           "end": "1045"
         }
@@ -23057,20 +22814,11 @@
         {
           "building": "810",
           "room": "209"
-        },
-        {
-          "building": "810",
-          "room": "209"
         }
       ],
       "times": [
         {
           "day": "MON",
-          "start": "1230",
-          "end": "1345"
-        },
-        {
-          "day": "WED",
           "start": "1230",
           "end": "1345"
         }
@@ -23085,20 +22833,11 @@
         {
           "building": "810",
           "room": "209"
-        },
-        {
-          "building": "810",
-          "room": "209"
         }
       ],
       "times": [
         {
           "day": "MON",
-          "start": "1400",
-          "end": "1515"
-        },
-        {
-          "day": "WED",
           "start": "1400",
           "end": "1515"
         }
