@@ -79,6 +79,7 @@ function parseClassRoom_Time(src){
     var gwan = new Array;
     var ho = new Array;
     var time = new Array;
+    var time_ ;
     var num;
     var tempOfTime;
     var tempOfRoom;
@@ -89,7 +90,12 @@ function parseClassRoom_Time(src){
     if((temp = src.match(/\d\d\d관/g) ) != null){
         temp.forEach(function(item,index){
             tempOfRoom = item;
-            gwan.push(tempOfRoom);
+            if(tempOfRoom == "806관"){
+
+            }
+            else{
+                gwan.push(tempOfRoom);
+            }
         });
     }
     if((temp = src.match(/(?:[A-z]|)\d\d\d(?:-\d|)호/g) ) != null){
@@ -118,28 +124,31 @@ function parseClassRoom_Time(src){
             item = temp[i];
             day = /[월화수목금토일]/.exec(item)[0];
             item = item.split(',');
+            time_ = new Array;
             for(var j=0; j<item.length; j++){
                 item2 = item[j];
                 partOfTimeInt = parseInt(/\d+/.exec(item2)[0]);
                 tempOfTime = day + parseIntToTime(partOfTimeInt) +"~"+ parseIntToTime(partOfTimeInt+1); // 월09:00~10:00 ...
-                time.push(tempOfTime);
+                time_.push(tempOfTime);
             }
+            time.push(mergeTimes(time_));
         }
     }
 
     if( (temp = src.match(/[월화수목금토일].\d\d:\d\d~\d\d:\d\d/g) ) != null){
+        time_ = new Array;
         for(var i=0; i<temp.length; i++){
             item = temp[i];
             day = /[월화수목금토일]/.exec(item)[0];
             tempOfTime = item.replace(/[월화수목금토일]./,day);
-            time.push(tempOfTime);
+            time_.push(tempOfTime);
         }
+        time.push(mergeTimes(time_));
     }
 
 
 
     ho = mergeRooms(ho,gwan);
-    time = mergeTimes(time);
     ho = duplicateRoom(ho,time);
 
     ho.forEach(function(item,index){
@@ -182,7 +191,10 @@ function parseToSend(src){
         course.locations = new Array;
         item['room'].forEach(function(item2,index){
             location = new Object;
-            location.building = /\d\d\d관/.exec(item2)[0].split('관')[0];
+            if(/\d\d\d관/.exec(item2)[0].split('관')[0] == "805")
+                location.building = "805-806";
+            else
+                location.building = /\d\d\d관/.exec(item2)[0].split('관')[0];
             location.room = /(?:[A-z]|)\d\d\d(?:-\d|)호/.exec(item2)[0].split('호')[0];
             course.locations.push(location);
         });
@@ -206,7 +218,7 @@ function parseToSend(src){
 function createFile(src){
     src = JSON.stringify(src);
     var fs = require('fs');
-    fs.write(app_path+"/server/resource/result.json", src, 'w');
+    fs.write(app_path+"/server/resources/result.json", src, 'w');
 }
  
 var casper = require('casper').create({
