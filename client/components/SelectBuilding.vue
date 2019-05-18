@@ -10,7 +10,7 @@
           class="building"
           :class="['gradient--' + (i % 15 + 1)]"
         >
-          <router-link :to="'./' + building.number" append>
+          <router-link :to="`/${$route.params.universityVendor}/${building.number}`">
             <div class="building-info">
               <div class="building-name">
                 <div class="wrapper">
