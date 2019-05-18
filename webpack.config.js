@@ -120,7 +120,9 @@ module.exports = {
 	},
 	plugins: [
 		new VueLoaderPlugin(),
-		new CleanTerminalPlugin()
+		new CleanTerminalPlugin({
+			message: 'eodiro has been successfully built'
+		})
 		// new WebpackNotifierPlugin(),
 		// new WebpackMessages({
     //   name: 'client',
