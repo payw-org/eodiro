@@ -58,7 +58,24 @@
         <div class="content-area">
           <div class="main" v-show="!isSettingsActive" key="1">
             <dir class="logo-container">
-              <img src="/assets/images/eodiro/logo-arrow.svg" alt="eodiro-logo">
+              <svg width="122px" height="198px" viewBox="0 0 122 198" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+                <title>Fill 3</title>
+                <desc>Created with Sketch.</desc>
+                <defs>
+                  <linearGradient x1="52.8981037%" y1="0%" x2="38.2508483%" y2="101.650823%" id="linearGradient-1">
+                    <stop stop-color="#FFDF00" offset="0%"></stop>
+                    <stop stop-color="#FF006D" offset="100%"></stop>
+                  </linearGradient>
+                </defs>
+                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g id="eodiro_logo_r" transform="translate(-102.000000, -52.000000)" fill="url(#linearGradient-1)">
+                    <g id="eodiro_logo" transform="translate(102.000000, 52.000000)">
+                      <path d="M66.059,33.499 L57.209,24.649 C55.111,22.551 53.933,19.705 53.933,16.738 C53.933,13.771 55.111,10.926 57.209,8.828 C58.796,7.241 60.464,5.573 62.051,3.986 C64.149,1.888 66.994,0.71 69.962,0.71 C72.929,0.71 75.774,1.888 77.872,3.986 C88.646,14.76 107.822,33.936 118.596,44.71 C122.965,49.079 122.965,56.162 118.596,60.531 C107.822,71.305 88.646,90.481 77.872,101.255 C75.774,103.353 72.929,104.532 69.962,104.532 C66.994,104.532 64.149,103.353 62.051,101.255 C60.464,99.668 58.796,98.001 57.209,96.414 C55.111,94.316 53.933,91.47 53.933,88.503 C53.933,85.536 55.111,82.69 57.209,80.592 L66.007,71.794 L49.985,71.794 C43.807,71.794 38.798,76.803 38.798,82.982 C38.798,106.787 38.798,162.225 38.798,186.031 C38.798,192.209 33.789,197.218 27.611,197.218 C22.599,197.218 16.702,197.218 11.69,197.218 C8.722,197.218 5.877,196.039 3.779,193.941 C1.681,191.843 0.502,188.998 0.502,186.031 C0.502,161.446 0.502,101.962 0.502,64.963 C0.502,56.618 3.817,48.615 9.718,42.714 C15.619,36.813 23.622,33.499 31.966,33.499 L66.059,33.499 Z" id="Fill-3"></path>
+                    </g>
+                  </g>
+                </g>
+              </svg>
             </dir>
             <h1 class="logo-text">{{ $t('title') }}</h1>
             <p class="description base-gray">{{ $t('description') }}</p>
@@ -254,9 +271,9 @@ export default {
           border-radius: 1.2rem;
           transition: background-color 500ms ease, border 500ms ease;
 
-          img {
-            width: 60%;
-            height: 60%;
+          svg {
+            width: auto;
+            height: 3rem;
             transform: translateX(4%);
           }
 
