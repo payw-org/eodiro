@@ -11,6 +11,24 @@ $light-green: #06db58;
 $light-yellow: #ffb109;
 $light-red: #f32d3e;
 
+$gradient-collection: (
+  rgb(189, 1, 7),
+  rgb(216, 45, 0),
+  rgb(223, 89, 0),
+  rgb(227, 133, 0),
+  rgb(80, 165, 37),
+  rgb(0, 164, 144),
+  rgb(0, 157, 198),
+  rgb(1, 112, 209),
+  rgb(2, 72, 194),
+  rgb(76,	35,	187),
+  rgb(124, 6, 163),
+  rgb(212, 14, 116),
+  rgb(85, 87, 90),
+  rgb(128, 122, 106),
+  rgb(108, 118, 142)
+);
+
 $mobile-width-threshold: 700px;
 
 $stagger-gap: 6rem;
