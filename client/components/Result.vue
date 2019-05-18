@@ -42,11 +42,11 @@
 <template>
   <div class="content-item result">
     <div class="empty-classrooms-container">
+      <Loading v-if="classrooms.length === 0" />
       <div
         class="ec-item-wrapper"
-        :class="[{appear: room.appear}, 'animation-delay--' + (i + 1)]"
-        v-for="(room, i) in classrooms"
-        :key="i"
+        v-for="room in classrooms"
+        :key="room.number"
       >
         <div
           class="ec-item"
@@ -128,7 +128,8 @@
 </template>
 
 <script>
-import Content from 'Components/Content.vue'
+import Content from 'Components/Content'
+import Loading from 'Components/Loading'
 import SimpleBar from 'simplebar'
 import 'SCSS/simplebar-custom.scss'
 import Stagger from 'Modules/Stagger'
@@ -141,6 +142,7 @@ import ApiUrl from 'Modules/ApiUrl'
 export default {
   name: 'result',
   extends: Content,
+  components: {Loading},
   data() {
     return {
       classrooms: [],
@@ -199,7 +201,10 @@ export default {
       this.selectedLectures = lectures
     },
     buildIn() {
-      Stagger.animate(this.classrooms)
+      Stagger.show(this.$el.querySelectorAll('.ec-item'), true)
+    },
+    buildOut() {
+      Stagger.hide(this.$el.querySelectorAll('.ec-item'))
     },
     fetchTimeTable() {
       axios.get(ApiUrl.get() + location.pathname)
@@ -244,8 +249,6 @@ export default {
           //     return b.remainingTime - a.remainingTime
           //   }
           // })
-
-          this.buildIn()
         })
     },
     isCurrentLecture(start, end, day) {
@@ -262,6 +265,9 @@ export default {
   },
   created() {
     this.fetchTimeTable()
+  },
+  updated() {
+    this.buildIn()
   },
   mounted() {
     this.simplebarTimeTableElm = new SimpleBar(this.$el.querySelector('.timetable'), {})
@@ -280,6 +286,7 @@ export default {
 
 .result {
   .empty-classrooms-container {
+    position: relative;
     display: grid;
     grid-gap: 3rem 2.5rem;
     grid-template-columns: repeat(auto-fit, minmax($grid-max-width, 1fr));
@@ -293,15 +300,8 @@ export default {
     }
 
     .ec-item-wrapper {
-      opacity: 0;
-      transform: translateY($stagger-gap);
-
-      &.appear {
-        animation: $spring-time springFadeUp linear;
-        animation-fill-mode: both;
-      }
-
       .ec-item {
+        opacity: 0;
         cursor: pointer;
         padding: 1rem;
         box-shadow: $eodiro-shadow;
