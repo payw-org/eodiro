@@ -41,7 +41,7 @@ export default {
 
   .spinner {
     opacity: 0;
-    transition: opacity 200ms ease;
+    transition: opacity 300ms ease;
     transition-delay: 350ms;
     margin-top: 5rem;
     width: 20px;
