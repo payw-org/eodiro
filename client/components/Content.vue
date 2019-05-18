@@ -32,8 +32,6 @@ export default {
     setTimeout(() => {
       this.$emit('toggleScrollEvent', true)
     }, 10)
-
-    // this.buildIn()
   },
   deactivated() {
     this.scrollPos = window.scrollY
