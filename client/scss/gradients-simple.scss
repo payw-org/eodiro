@@ -36,5 +36,5 @@ $gradient-collection: (
 }
 
 .full-time {
-  @include bgGradient(nth($gradient-collection, 14));
+  @include bgGradient(nth($gradient-collection, 12));
 }
