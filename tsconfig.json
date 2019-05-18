@@ -1,0 +1,21 @@
+{
+	"compilerOptions": {
+		"lib": ["dom", "es5", "es2015"],
+    "noImplicitAny": true,
+		"module": "es2015",
+		"target": "es5",
+		"sourceMap": true,
+		"allowJs": true,
+		"checkJs": false,
+		"types": [
+			"node"
+		],
+		"moduleResolution": "node",
+		"allowSyntheticDefaultImports": true,
+		"baseUrl": ".",
+	},
+	"exclude": [
+		"node_modules",
+		"vendor"
+	]
+}
