@@ -16,8 +16,9 @@ export default class Stagger {
       if (hasParent) {
         boundaryTarget = elms[i].parentElement
       }
-      let top = boundaryTarget.offsetTop - window.scrollY
-      let bottom = boundaryTarget.offsetTop + boundaryTarget.offsetHeight - window.scrollY
+      let rect = boundaryTarget.getBoundingClientRect()
+      let top = rect.top
+      let bottom = rect.bottom
 
       if (
         (top < 0 && bottom < 0) ||
