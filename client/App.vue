@@ -14,7 +14,8 @@
 </template>
 
 <script>
-import Notification from 'Components/Notification'
+// import Notification from 'Components/Notification'
+const Notification = () => import(/* webpackChunkName: "component-notification" */ 'Components/Notification')
 import RouteLocation from 'Modules/RouteLocation'
 import 'SCSS/globalstyle'
 import 'SCSS/spring.styl'
