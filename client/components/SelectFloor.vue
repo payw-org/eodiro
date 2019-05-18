@@ -1,61 +1,92 @@
 <template>
   <div class="content-item select-floor" @scroll="$emit('update-nav-view')">
     <div class="floor-container">
-      <!-- <div class="floor-wrapper building-display">
-        <div class="floor building-id">
-          <h1 class="manifesto">{{ buildingName }}</h1>
-        </div>
-      </div> -->
       <div
         v-for="(floor, i) in floors"
-        :key="i"
+        :key="floor.number"
         class="floor-wrapper"
-        :class="[{appear: floor.appear}, 'animation-delay--' + (i + 1)]"
+        :class="[{appear: floor.appear}]"
       >
-        <router-link class="link" :to="'./' + (10 - i + 1)" append>
-          <div class="floor" :class="['gradient--' + floor.level]">
-            <button class="rooms-count">{{ floor.emptyRoomCount }}</button>
-            <h1 class="num">{{ 10 - i + 1 + 'F' }}</h1>
+        <router-link class="link" :to="`/${$route.params.universityVendor}/${$route.params.buildingID}/${floor.number}`">
+          <div class="floor" :class="['gradient--' + (i%15 + 1)]">
+            <button class="empty-count-badge" :class="{loaded: isEmptyLoaded}">
+              <span class="label" :class="{opaque: !isEmptyLoaded}">{{ floor.empty_classroom }}</span>
+            </button>
+            <h1 class="num">{{ floor.number }}F</h1>
           </div>
         </router-link>
       </div>
+      <Loading v-if="floors.length === 0" />
     </div>
   </div>
 </template>
 
 <script>
-import Content from 'Components/Content.vue'
+import Content from 'Components/Content'
+import Loading from 'Components/Loading'
 import Stagger from 'Modules/Stagger'
+import ApiUrl from 'Modules/ApiUrl'
 import axios from 'axios'
 
 export default {
   name: 'floor',
   extends: Content,
+  components: {Loading},
   data() {
     return {
       buildingName: '',
-      floors: []
+      floors: [],
+      isEmptyLoaded: false
     }
   },
   methods: {
     buildIn() {
-      Stagger.animate(this.floors)
+      Stagger.show(this.$el.querySelectorAll('.floor-wrapper'))
+    },
+    buildOut() {
+      Stagger.hide(this.$el.querySelectorAll('.floor-wrapper'))
+    },
+    fetchFloors() {
+      // setTimeout(() => {
+        axios.get(ApiUrl.get() + location.pathname)
+          .then(r => {
+            if (r.data.err) {
+              this.$router.push('/404')
+              return
+            }
+        
+            this.floors = r.data.floors
+            this.buildIn()
+            this.fetchEmpty()
+          })
+      // }, 4000);
+      
+    },
+    fetchEmpty() {
+      this.isEmptyLoaded = false
+
+      axios.get(ApiUrl.get() + location.pathname + '/empty')
+        .then(r => {
+          if (r.data.err) {
+            this.$router.push('/404')
+            return
+          }
+
+          this.floors = r.data.floors
+          this.isEmptyLoaded = true
+        })
     }
   },
   created() {
-    let fetchedFloors = []
-    for (let i = 0; i < 20; i++) {
-      fetchedFloors.push({
-        num: i + 1,
-        emptyRoomCount: i + 1,
-        level: i % 15 + 1,
-        appear: false
-      })
-    }
-
-    this.floors = fetchedFloors
-
-    // axios.post()
+    this.fetchFloors()
+  },
+  updated() {
+    this.buildIn()
+  },
+  activated() {
+    this.buildOut()
+    this.buildIn()
+    this.fetchEmpty()
   },
   mounted() {
     this.buildingName = this.$route.params.buildingID
@@ -68,6 +99,7 @@ export default {
 @import 'SCSS/global-mixins.scss';
 
 .floor-container {
+  position: relative;
   width: calc(100% - 2rem);
   max-width: 30rem;
   margin: auto;
@@ -87,11 +119,6 @@ export default {
       position: sticky;
       top: 1rem;
       z-index: 1;
-    }
-
-    &.appear {
-      animation: $spring-time springFadeUp linear;
-      animation-fill-mode: both;
     }
 
     .floor {
@@ -123,19 +150,6 @@ export default {
         font-size: 2.5rem;
         flex: 1;
         text-align: right;
-      }
-
-      .rooms-count {
-        min-width: 2rem;
-        min-height: 2rem;
-        text-align: center;
-        font-family: $font-text;
-        font-size: 1rem;
-        color: $base-white;
-        font-weight: 500;
-        background-color: rgba(#000, 0.2);
-        border-radius: 50px;
-        padding: 0 0.5rem;
       }
 
       @include dark-mode() {

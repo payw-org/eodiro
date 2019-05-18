@@ -3,33 +3,53 @@
   "ko": {
     "title": "어디로",
     "description": "대학교 빈 강의실 찾기 서비스",
+    "start": "대학교 선택",
     "colorMode": "색상 모드 설정",
-    "changeCollege": "학교 변경"
+    "changeCollege": "학교 변경",
+    "done": "완료",
+    "light_mode": "라이트 모드",
+    "dark_mode": "다크 모드",
+    "adaptive": "적응형"
   },
   "en": {
     "title": "eodiro",
-    "description": "Find empty classrooms",
-    "colorMode": "Set color scheme",
-    "changeCollege": "Change college"
+    "description": "Find Empty Classrooms",
+    "start": "Select University",
+    "colorMode": "Set Color Scheme",
+    "changeCollege": "Change College",
+    "done": "Done",
+    "light_mode": "Light Mode",
+    "dark_mode": "Dark Mode",
+    "adaptive": "Adaptive"
   },
   "zh": {
     "title": "eodiro",
     "description": "找一個空蕩蕩的教室",
+    "start": "選擇大學",
     "colorMode": "設置配色方案",
-    "changeCollege": "改變大學"
+    "changeCollege": "改變大學",
+    "done": "DONE",
+    "light_mode": "光模式",
+    "dark_mode": "黑暗模式",
+    "adaptive": "自適應"
   },
   "fr": {
     "title": "eodiro",
-    "description": "Trouver une classe vide",
-    "colorMode": "Définir les couleurs",
-    "changeCollege": "Changer de collège"
+    "description": "Trouver Une Classe Vide",
+    "start": "Choisir L'Université",
+    "colorMode": "Définir Les Couleurs",
+    "changeCollege": "Changer DE Collège",
+    "done": "Terminé",
+    "light_mode": "Mode Lumière",
+    "dark_mode": "Mode Sombre",
+    "adaptive": "Adaptatif"
   }
 }
 </i18n>
 
 <template>
   <div id="home">
-    <a href="http://payw.org" class="about-developers">{{ thisYear }} © Payw.org</a>
+    <a href="http://payw.org" class="about-developers">{{ thisYear }} © eodiro</a>
     <transition
       appear
       name="zoom"
@@ -38,7 +58,24 @@
         <div class="content-area">
           <div class="main" v-show="!isSettingsActive" key="1">
             <dir class="logo-container">
-              <img src="/assets/images/eodiro/logo-arrow.svg" alt="eodiro-logo">
+              <svg width="122px" height="198px" viewBox="0 0 122 198" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
+                <title>Fill 3</title>
+                <desc>Created with Sketch.</desc>
+                <defs>
+                  <linearGradient x1="52.8981037%" y1="0%" x2="38.2508483%" y2="101.650823%" id="linearGradient-1">
+                    <stop stop-color="#FFDF00" offset="0%"></stop>
+                    <stop stop-color="#FF006D" offset="100%"></stop>
+                  </linearGradient>
+                </defs>
+                <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+                  <g id="eodiro_logo_r" transform="translate(-102.000000, -52.000000)" fill="url(#linearGradient-1)">
+                    <g id="eodiro_logo" transform="translate(102.000000, 52.000000)">
+                      <path d="M66.059,33.499 L57.209,24.649 C55.111,22.551 53.933,19.705 53.933,16.738 C53.933,13.771 55.111,10.926 57.209,8.828 C58.796,7.241 60.464,5.573 62.051,3.986 C64.149,1.888 66.994,0.71 69.962,0.71 C72.929,0.71 75.774,1.888 77.872,3.986 C88.646,14.76 107.822,33.936 118.596,44.71 C122.965,49.079 122.965,56.162 118.596,60.531 C107.822,71.305 88.646,90.481 77.872,101.255 C75.774,103.353 72.929,104.532 69.962,104.532 C66.994,104.532 64.149,103.353 62.051,101.255 C60.464,99.668 58.796,98.001 57.209,96.414 C55.111,94.316 53.933,91.47 53.933,88.503 C53.933,85.536 55.111,82.69 57.209,80.592 L66.007,71.794 L49.985,71.794 C43.807,71.794 38.798,76.803 38.798,82.982 C38.798,106.787 38.798,162.225 38.798,186.031 C38.798,192.209 33.789,197.218 27.611,197.218 C22.599,197.218 16.702,197.218 11.69,197.218 C8.722,197.218 5.877,196.039 3.779,193.941 C1.681,191.843 0.502,188.998 0.502,186.031 C0.502,161.446 0.502,101.962 0.502,64.963 C0.502,56.618 3.817,48.615 9.718,42.714 C15.619,36.813 23.622,33.499 31.966,33.499 L66.059,33.499 Z" id="Fill-3"></path>
+                    </g>
+                  </g>
+                </g>
+              </svg>
             </dir>
             <h1 class="logo-text">{{ $t('title') }}</h1>
             <p class="description base-gray">{{ $t('description') }}</p>
@@ -48,16 +85,16 @@
             <button
               class="mode-btn light"
               @click="$emit('changeColorScheme', 'light')"
-            >라이트 모드</button>
+            >{{ $t('light_mode') }}</button>
             <button
               class="mode-btn dark"
               @click="$emit('changeColorScheme', 'dark')"
-            >다크 모드</button>
+            >{{ $t('dark_mode') }}</button>
             <button
               class="mode-btn auto"
               v-if="autoDarkModeSupport"
               @click="$emit('changeColorScheme', 'auto')"
-            >적응형 (macOS Mojave)</button>
+            >{{ $t('adaptive') }} (macOS Mojave)</button>
           </div>
         </div>
         <div class="settings-area">
@@ -66,7 +103,7 @@
             @click="isSettingsActive = !isSettingsActive"
           >
             <span v-if="!isSettingsActive">{{ $t('colorMode') }}</span>
-            <span v-else>완료</span>
+            <span v-else>{{ $t('done') }}</span>
           </button>
           <router-link to="/university">
           <button class="config-btn" v-if="isDefaultUniversityExist && !isSettingsActive">{{ $t('changeCollege') }}</button>
@@ -104,7 +141,7 @@ export default {
         return defaultUniversity.name
       } else {
         this.startLink = 'university'
-        return '대학교 선택'
+        return this.$t('start')
       }
     }
   },
@@ -234,9 +271,9 @@ export default {
           border-radius: 1.2rem;
           transition: background-color 500ms ease, border 500ms ease;
 
-          img {
-            width: 60%;
-            height: 60%;
+          svg {
+            width: auto;
+            height: 3rem;
             transform: translateX(4%);
           }
 
@@ -292,12 +329,11 @@ export default {
 
       .color-scheme-config {
         text-align: center;
-        width: calc(100% - 2rem);
+        width: calc(100% - 3rem);
 
         .mode-btn {
           display: block;
           width: 100%;
-          max-width: 15rem;
           border-radius: 50px;
           padding: 0.7rem 1rem;
           font-size: 1.1rem;

@@ -2,70 +2,99 @@
   <div class="content-item select-building">
     <div class="building-container">
       <div
+        class="building-wrapper"
         v-for="(building, i) in buildings"
-        :key="i"
-        class="building"
-        :class="['gradient--' + building.level, {appear: building.appear}, 'animation-delay--' + (i + 1)]"
+        :key="building.number + building.name"
       >
-        <router-link :to="'./' + building.name.number" append>
-          <div class="building-info">
-            <div class="building-name">
-              <div class="wrapper">
-                <span class="name--number">{{ building.name.number }}</span>
-                <span class="name--text">{{ building.name.text }}</span>
+        <div
+          class="building"
+          :class="['gradient--' + (i % 15 + 1)]"
+        >
+          <router-link :to="`/${$route.params.universityVendor}/${building.number}`">
+            <div class="building-info">
+              <div class="building-name">
+                <div class="wrapper">
+                  <span class="name--number">{{ building.number }}</span>
+                  <span class="name--text">{{ building.name }}</span>
+                </div>
+              </div>
+              <div class="brief-summary">
+                <button class="empty-count-badge" :class="{loaded: isEmptyLoaded}">
+                  <span class="label" :class="{opaque: !isEmptyLoaded}">{{ building.empty_classroom }}</span>
+                </button>
               </div>
             </div>
-            <div class="brief-summary">
-              <button class="wrapper">
-                <span class="">{{ building.emptyRoomCount }}</span>
-              </button>
-            </div>
-          </div>
-        </router-link>
+          </router-link>
+        </div>
       </div>
+      <Loading v-if="buildings.length === 0" />
     </div>
   </div>
 </template>
 
 <script>
-import Content from 'Components/Content.vue'
+import Content from 'Components/Content'
+import Loading from 'Components/Loading'
 import Stagger from 'Modules/Stagger'
-import _ from 'lodash'
+import ApiUrl from 'Modules/ApiUrl'
+import axios from 'axios'
 
 export default {
   name: 'building',
   extends: Content,
+  components: {Loading},
   data() {
     return {
-      buildings: []
+      buildings: [],
+      isEmptyLoaded: false
     }
   },
   methods: {
-    bgImg(buildingID) {
-      return '/assets/images/university/cau/' + buildingID + '.png'
-    },
     buildIn() {
-      Stagger.animate(this.buildings)
+      Stagger.show(this.$el.querySelectorAll('.building'), true)
+    },
+    buildOut() {
+      Stagger.hide(this.$el.querySelectorAll('.building'))
+    },
+    fetchBuildings() {
+      axios.get(ApiUrl.get() + location.pathname)
+        .then(response => {
+          let data = response.data
+          if (data.err) {
+            this.$router.push('/404')
+            return
+          }
+
+          this.buildings = data.buildings
+          this.fetchEmpty()
+        })
+        .catch(function (error) {
+          alert('어디로 서버 오류로 건물을 가져올 수 없습니다. 잠시 후 이용바랍니다.')
+        })
+    },
+    fetchEmpty() {
+      this.isEmptyLoaded = false
+
+      axios.get(ApiUrl.get() + location.pathname +'/empty')
+        .then(response => {
+          if (response.data.error) return
+
+          this.buildings = response.data.buildings
+          this.isEmptyLoaded = true
+        })
     }
   },
   created() {
     // Fetch data
-    let fetchedBuildings = []
-    for (let i = 0; i < 20; i++) {
-      fetchedBuildings.push({
-        name: {
-          number: i + 1,
-          text: i + 1 +'관'
-        },
-        emptyRoomCount: i + 1,
-        level: i % 15 + 1,
-        appear: false
-      })
-    }
-    this.buildings = fetchedBuildings
+    this.fetchBuildings()
   },
-  beforeMount() {
-    
+  updated() {
+    this.buildIn()
+  },
+  activated() {
+    this.buildOut()
+    this.buildIn()
+    this.fetchEmpty()
   }
 }
 </script>
@@ -75,6 +104,7 @@ export default {
 @import 'SCSS/global-mixins.scss';
 
 .building-container {
+  position: relative;
   display: grid;
   grid-gap: 3rem 2.5rem;
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
@@ -104,11 +134,6 @@ export default {
       @include smaller-than($mobile-width-threshold) {
         box-shadow: $dark-mode-border-shadow;
       }
-    }
-
-    &.appear {
-      animation: $spring-time springFadeUp linear;
-      animation-fill-mode: both;
     }
 
     .building-image {
@@ -150,6 +175,7 @@ export default {
           font-weight: 700;
           font-family: $font-display;
           line-height: 1;
+          word-break: break-word;
         }
       
         .name--text {
@@ -164,22 +190,6 @@ export default {
       .brief-summary {
         margin-top: 1rem;
         text-align: right;
-      
-        .wrapper {
-          display: inline-block;
-          min-width: 2rem;
-          height: 2rem;
-          font-family: $font-text;
-          font-size: 1rem;
-          color: #fff;
-          background-color: rgba(#000, 0.2);
-          border-radius: 50px;
-          padding: 0 0.5rem;
-
-          & * {
-            font-weight: 500;
-          }
-        }
       }
     }
   }

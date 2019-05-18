@@ -1,16 +1,20 @@
 <i18n>
 {
   "ko": {
-    "search_placeholder": "학교 이름으로 검색"
+    "search_placeholder": "학교 이름으로 검색",
+    "set_university": "기본 학교로 설정되었습니다. 나중에 변경 가능합니다."
   },
   "en": {
-     "search_placeholder": "Search by School Name"
+    "search_placeholder": "Search by School Name",
+    "set_university": "Set as the default university. You can change it later."
   },
   "zh": {
-     "search_placeholder": "按學校名稱搜索"
+    "search_placeholder": "按學校名稱搜索",
+    "set_university": "設為默認大學。您可以稍後更改。"
   },
   "fr": {
-     "search_placeholder": "Rechercher par nom d'école"
+     "search_placeholder": "Rechercher Par Nom D'éCole",
+     "set_university": "Définir comme université par défaut. Vous pouvez le changer plus tard."
   }
 }
 </i18n>
@@ -27,7 +31,7 @@
           :key="i"
           @click="selectUniversity(u)"
           class="university-item"
-        >{{ u.name }}</div>
+        >{{ u.name }}<span v-if="u.campus">({{ u.campus }})</span></div>
       </div>
     </div>
   </div>
@@ -35,7 +39,8 @@
 
 <script>
 import Content from 'Components/Content.vue'
-import axios from 'axios';
+import ApiUrl from 'Modules/ApiUrl'
+import axios from 'axios'
 
 export default {
   name: 'university',
@@ -43,49 +48,12 @@ export default {
   data() {
     return {
       search: '',
-      universityList: [
-        {
-          name: '중앙대학교',
-          vendor: 'cau'
-        },
-        {
-          name: '서울대학교',
-          vendor: 'snu'
-        },
-        {
-          name: '고려대학교',
-          vendor: 'korea'
-        },
-        {
-          name: '연세대학교',
-          vendor: 'yonsei'
-        },
-        {
-          name: '서강대학교',
-          vendor: 'sogang'
-        },
-        {
-          name: '한양대학교',
-          vendor: 'hanyang'
-        },
-        {
-          name: '경희대학교',
-          vendor: 'khu'
-        },
-        {
-          name: '외국어대학교',
-          vendor: 'hufs'
-        },
-        {
-          name: '서울시립대학교',
-          vendor: 'uos'
-        }
-      ]
+      universities: []
     }
   },
   computed: {
     filteredList() {
-      return this.universityList.filter(u => {
+      return this.universities.filter(u => {
         return u.name.toLowerCase().includes(this.search.toLowerCase())
       })
     }
@@ -121,13 +89,17 @@ export default {
     },
     selectUniversity(university) {
       window.localStorage.setItem('defaultUniversity', JSON.stringify(university))
-      window.alert(`[ ${university.name} ] 기본 학교로 설정되었습니다. 나중에 변경 가능합니다.`)
+      window.alert(`[ ${university.name}(${university.campus}) ] ${this.$t('set_university')}`)
       this.$router.push('/' + university.vendor)
     }
   },
   created() {
-    this.universityList.sort()
-    // axios.post('', {})
+    axios.get(`${ApiUrl.get()}/university`)
+      .then(response => {
+        let data = response.data
+        if (data.error) return
+        this.universities = data.universities
+      })
   }
 }
 </script>
