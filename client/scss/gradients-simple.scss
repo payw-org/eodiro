@@ -1,3 +1,5 @@
+@import 'SCSS/global-variables';
+
 @function lightenFancy($color) {
   @return adjust-hue(saturate(lighten($color, 15%), 0%), 0%);
 }
@@ -6,24 +8,6 @@
   background-image: radial-gradient(at -10% -10%, lightenFancy($color), $color);
   // background-image: linear-gradient(to right, lightenFancy($color), $color);
 }
-
-$gradient-collection: (
-  rgb(189, 1, 7),
-  rgb(216, 45, 0),
-  rgb(223, 89, 0),
-  rgb(227, 133, 0),
-  rgb(80, 165, 37),
-  rgb(0, 164, 144),
-  rgb(0, 157, 198),
-  rgb(1, 112, 209),
-  rgb(2, 72, 194),
-  rgb(76,	35,	187),
-  rgb(124, 6, 163),
-  rgb(212, 14, 116),
-  rgb(85, 87, 90),
-  rgb(128, 122, 106),
-  rgb(108, 118, 142)
-);
 
 @for $i from 0 to length($gradient-collection) {
   .gradient--#{$i+1} {

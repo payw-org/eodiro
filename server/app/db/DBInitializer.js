@@ -9,6 +9,7 @@ import Lecture from 'Database/models/lecture';
 import metadata from 'Resources/metadata.json';
 import classes_cau from 'Resources/classes/cau.json';
 import classes_cau2 from 'Resources/classes/cau2.json';
+import classes_korea from 'Resources/classes/korea.json';
 
 export default class DBInitializer {
   async initialize(option = 'normal') {
@@ -38,12 +39,14 @@ export default class DBInitializer {
     await this.insertMetadata();
     await Promise.all([
       this.insertClasses(classes_cau),
-      this.insertClasses(classes_cau2)
+      this.insertClasses(classes_cau2),
+      this.insertClasses(classes_korea)
     ]);
 
     await Promise.all([
       this.build('cau'),
-      this.build('cau2')
+      this.build('cau2'),
+      this.build('korea')
     ]);
 
     return Promise.resolve();
@@ -107,8 +110,7 @@ export default class DBInitializer {
       for (let j = 0; j < cls.locations.length; j++) {
         let location = cls.locations[j];
     
-        let floor_num = location['room'].split('-')[0];
-        floor_num = floor_num.substr(0, floor_num.length - 2);
+        let floor_num = location['room'].match(/^(?:[Bb]|)\d+(?=\d\d)/)[0];
 
         const building = await Building.findOne({
           number: location['building']
