@@ -23,7 +23,7 @@ var data_scrap = require(app_path + "/server/resources/scrap/scrap_고려대 서
 function createFile(src,title){
     src = JSON.stringify(src);
     var fs = require('fs');
-    fs.writeFileSync(app_path+"/server/resources/parse/"+title, src,  { encoding: 'utf8', flag: "w" });
+    fs.writeFileSync(app_path+"/server/resources/"+title, src,  { encoding: 'utf8', flag: "w" });
 }
 
 function parseIntToTime(num){
@@ -192,6 +192,7 @@ let classInfo_error;
 let data_scrap_unit;
 
 let resultOfParse;
+let buildings = new Array;
 for(let i=0; i<data_scrap.length; i++){
     data_scrap_unit = data_scrap[i];
 
@@ -226,16 +227,19 @@ for(let i=0; i<data_scrap.length; i++){
     if(classInfo_error == null && classInfo.times.length != classInfo.locations.length){
         classInfo_error = new Object;
         classInfo_error.srcOrigin = data_scrap_unit['강의시간/강의실'];
-        classInfo_error.result = "error";      
+        classInfo_error.result = "error";
     }
 
     if(classInfo_error == null){
         data_parse.push(classInfo);
+        if(buildings.includes(classInfo.locations[0].building) == false)
+            buildings.push(classInfo.locations[0].building);   
     }
     if(classInfo_error != null){
         data_parse_error.push(classInfo_error);
     }
 }
 
-createFile(data_parse,"parse-korea.json");
-createFile(data_parse_error,"parse-korea-error.json");
+createFile(data_parse,"/parse/parse-korea.json");
+createFile(data_parse_error,"/parse-debug/parse-korea-error.json");
+createFile(buildings,"/parse-debug/buildings.json");
