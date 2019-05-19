@@ -4,13 +4,13 @@
       <div
         class="building-wrapper"
         v-for="(building, i) in buildings"
-        :key="i"
+        :key="building.number + building.name"
       >
         <div
           class="building"
-          :class="['gradient--' + (i % 15 + 1), {appear: building.appear}, 'animation-delay--' + (i + 1)]"
+          :class="['gradient--' + (i % 15 + 1)]"
         >
-          <router-link :to="'./' + building.number" append>
+          <router-link :to="`/${$route.params.universityVendor}/${building.number}`">
             <div class="building-info">
               <div class="building-name">
                 <div class="wrapper">
@@ -19,20 +19,22 @@
                 </div>
               </div>
               <div class="brief-summary">
-                <button class="empty-count-badge" :class="{loaded: building.loaded}">
-                  <span class="label" :class="{opaque: !building.loaded}">{{ building.empty_classroom }}</span>
+                <button class="empty-count-badge" :class="{loaded: isEmptyLoaded}">
+                  <span class="label" :class="{opaque: !isEmptyLoaded}">{{ building.empty_classroom }}</span>
                 </button>
               </div>
             </div>
           </router-link>
         </div>
       </div>
+      <Loading v-if="buildings.length === 0" />
     </div>
   </div>
 </template>
 
 <script>
-import Content from 'Components/Content.vue'
+import Content from 'Components/Content'
+import Loading from 'Components/Loading'
 import Stagger from 'Modules/Stagger'
 import ApiUrl from 'Modules/ApiUrl'
 import axios from 'axios'
@@ -40,17 +42,19 @@ import axios from 'axios'
 export default {
   name: 'building',
   extends: Content,
+  components: {Loading},
   data() {
     return {
-      buildings: []
+      buildings: [],
+      isEmptyLoaded: false
     }
   },
   methods: {
-    bgImg(buildingID) {
-      return '/assets/images/university/cau/' + buildingID + '.png'
-    },
     buildIn() {
-      Stagger.animate(this.buildings)
+      Stagger.show(this.$el.querySelectorAll('.building'), true)
+    },
+    buildOut() {
+      Stagger.hide(this.$el.querySelectorAll('.building'))
     },
     fetchBuildings() {
       axios.get(ApiUrl.get() + location.pathname)
@@ -62,7 +66,6 @@ export default {
           }
 
           this.buildings = data.buildings
-          this.buildIn()
           this.fetchEmpty()
         })
         .catch(function (error) {
@@ -70,17 +73,14 @@ export default {
         })
     },
     fetchEmpty() {
-      this.buildings.forEach(b => {
-        b.loaded = false
-      })
+      this.isEmptyLoaded = false
+
       axios.get(ApiUrl.get() + location.pathname +'/empty')
         .then(response => {
           if (response.data.error) return
-          response.data.buildings.map(function (b) {
-            b.appear = true
-            b.loaded = true
-          })
+
           this.buildings = response.data.buildings
+          this.isEmptyLoaded = true
         })
     }
   },
@@ -88,7 +88,12 @@ export default {
     // Fetch data
     this.fetchBuildings()
   },
+  updated() {
+    this.buildIn()
+  },
   activated() {
+    this.buildOut()
+    this.buildIn()
     this.fetchEmpty()
   }
 }
@@ -99,6 +104,7 @@ export default {
 @import 'SCSS/global-mixins.scss';
 
 .building-container {
+  position: relative;
   display: grid;
   grid-gap: 3rem 2.5rem;
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
@@ -128,11 +134,6 @@ export default {
       @include smaller-than($mobile-width-threshold) {
         box-shadow: $dark-mode-border-shadow;
       }
-    }
-
-    &.appear {
-      animation: $spring-time springFadeUp linear;
-      animation-fill-mode: both;
     }
 
     .building-image {
@@ -174,6 +175,7 @@ export default {
           font-weight: 700;
           font-family: $font-display;
           line-height: 1;
+          word-break: break-word;
         }
       
         .name--text {

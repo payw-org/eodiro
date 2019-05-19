@@ -269,8 +269,12 @@ img {
   }
 }
 
-@for $i from 0 to 50 {
-  .animation-delay--#{$i + 1} {
-    animation-delay: unquote($i/15 + 's') !important;
-  }
+// stagger appear animation
+.stagger-appear {
+  animation: $spring-time springFadeUp linear;
+  animation-fill-mode: both;
+}
+
+.stagger-appear-fix {
+  opacity: 1 !important;
 }

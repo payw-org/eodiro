@@ -2,8 +2,6 @@ import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 import App from './App'
 import router from './router'
-import 'SCSS/spring.styl'
-import 'SCSS/gradients-simple.scss'
 
 Vue.use(VueI18n)
 

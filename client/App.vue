@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <Notification />
     <transition
       name="fade"
       mode="out-in"
@@ -13,11 +14,16 @@
 </template>
 
 <script>
-import 'SCSS/globalstyle'
+// import Notification from 'Components/Notification'
+const Notification = () => import(/* webpackChunkName: "component-notification" */ 'Components/Notification')
 import RouteLocation from 'Modules/RouteLocation'
+import 'SCSS/globalstyle'
+import 'SCSS/spring.styl'
+import 'SCSS/gradients-simple.scss'
 
 export default {
   name: 'App',
+  components: {Notification},
   data() {
     return {
       isRightDirection: false

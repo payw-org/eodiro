@@ -1,32 +1,29 @@
 <template>
   <div class="content-item select-floor" @scroll="$emit('update-nav-view')">
     <div class="floor-container">
-      <!-- <div class="floor-wrapper building-display">
-        <div class="floor building-id">
-          <h1 class="manifesto">{{ buildingName }}</h1>
-        </div>
-      </div> -->
       <div
         v-for="(floor, i) in floors"
-        :key="i"
+        :key="floor.number"
         class="floor-wrapper"
-        :class="[{appear: floor.appear}, 'animation-delay--' + (i + 1)]"
+        :class="[{appear: floor.appear}]"
       >
-        <router-link class="link" :to="'./' + floor.number" append>
+        <router-link class="link" :to="`/${$route.params.universityVendor}/${$route.params.buildingID}/${floor.number}`">
           <div class="floor" :class="['gradient--' + (i%15 + 1)]">
-            <button class="empty-count-badge" :class="{loaded: floor.loaded}">
-              <span class="label" :class="{opaque: !floor.loaded}">{{ floor.empty_classroom }}</span>
+            <button class="empty-count-badge" :class="{loaded: isEmptyLoaded}">
+              <span class="label" :class="{opaque: !isEmptyLoaded}">{{ floor.empty_classroom }}</span>
             </button>
             <h1 class="num">{{ floor.number }}F</h1>
           </div>
         </router-link>
       </div>
+      <Loading v-if="floors.length === 0" />
     </div>
   </div>
 </template>
 
 <script>
-import Content from 'Components/Content.vue'
+import Content from 'Components/Content'
+import Loading from 'Components/Loading'
 import Stagger from 'Modules/Stagger'
 import ApiUrl from 'Modules/ApiUrl'
 import axios from 'axios'
@@ -34,18 +31,41 @@ import axios from 'axios'
 export default {
   name: 'floor',
   extends: Content,
+  components: {Loading},
   data() {
     return {
       buildingName: '',
-      floors: []
+      floors: [],
+      isEmptyLoaded: false
     }
   },
   methods: {
     buildIn() {
-      Stagger.animate(this.floors)
+      Stagger.show(this.$el.querySelectorAll('.floor-wrapper'))
+    },
+    buildOut() {
+      Stagger.hide(this.$el.querySelectorAll('.floor-wrapper'))
     },
     fetchFloors() {
-      axios.get(ApiUrl.get() + location.pathname)
+      // setTimeout(() => {
+        axios.get(ApiUrl.get() + location.pathname)
+          .then(r => {
+            if (r.data.err) {
+              this.$router.push('/404')
+              return
+            }
+        
+            this.floors = r.data.floors
+            this.buildIn()
+            this.fetchEmpty()
+          })
+      // }, 4000);
+      
+    },
+    fetchEmpty() {
+      this.isEmptyLoaded = false
+
+      axios.get(ApiUrl.get() + location.pathname + '/empty')
         .then(r => {
           if (r.data.err) {
             this.$router.push('/404')
@@ -53,32 +73,19 @@ export default {
           }
 
           this.floors = r.data.floors
-          this.buildIn()
-          this.fetchEmpty()
-        })
-    },
-    fetchEmpty() {
-      this.floors.forEach(f => {
-        f.loaded = false
-      })
-      axios.get(ApiUrl.get() + location.pathname + '/empty')
-        .then(r => {
-          if (r.data.err) {
-            this.$router.push('/404')
-            return
-          }
-          r.data.floors.map(function (f) {
-            f.appear = true
-            f.loaded = true
-          })
-          this.floors = r.data.floors
+          this.isEmptyLoaded = true
         })
     }
   },
   created() {
     this.fetchFloors()
   },
+  updated() {
+    this.buildIn()
+  },
   activated() {
+    this.buildOut()
+    this.buildIn()
     this.fetchEmpty()
   },
   mounted() {
@@ -92,6 +99,7 @@ export default {
 @import 'SCSS/global-mixins.scss';
 
 .floor-container {
+  position: relative;
   width: calc(100% - 2rem);
   max-width: 30rem;
   margin: auto;
@@ -111,11 +119,6 @@ export default {
       position: sticky;
       top: 1rem;
       z-index: 1;
-    }
-
-    &.appear {
-      animation: $spring-time springFadeUp linear;
-      animation-fill-mode: both;
     }
 
     .floor {
