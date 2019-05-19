@@ -26,6 +26,24 @@ function createFile(src,title){
     fs.writeFileSync(app_path+"/server/resources/"+title, src,  { encoding: 'utf8', flag: "w" });
 }
 
+function parseDayToDay(src){
+    if(src == "월")
+        return "MON";
+    if(src == "화")
+        return "TUE";
+    if(src == "수")
+        return "WED";
+    if(src == "목")
+        return "THU";
+    if(src == "금")
+        return "FRI";
+    if(src == "토")
+        return "SAT";
+    if(src == "일")
+        return "SUN";
+    return "ErrorDay";
+}
+
 function parseIntToTime(num){
     if(num<10)
         num = "0" + num + "00";
@@ -162,7 +180,7 @@ function parseToTimes(src){
                 end = parseInt(number[i].match(endRegEx),10)+9;
                 end = parseIntToTime(end);
             }
-            time.day = day[i];
+            time.day = parseDayToDay(day[i]);
             time.start = start;
             time.end = end;
             times.push(time);
