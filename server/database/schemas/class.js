@@ -10,7 +10,6 @@ import locationSchema from './location';
 import timeSchema from './time';
 
 const classSchema = new mongoose.Schema({
-  course_id: { type: String, required: true },
   class_id: { type: String, required: true },
   name: { type: String, required: true },
   instructor: { type: String, default: "" },
