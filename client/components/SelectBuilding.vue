@@ -15,7 +15,7 @@
               <div class="building-name">
                 <div class="wrapper">
                   <span class="name--number">{{ building.number }}</span>
-                  <span class="name--text">{{ building.name }}</span>
+                  <span class="name--text" v-if="building.number !== building.name">{{ building.name }}</span>
                 </div>
               </div>
               <div class="brief-summary">
@@ -57,7 +57,8 @@ export default {
       Stagger.hide(this.$el.querySelectorAll('.building'))
     },
     fetchBuildings() {
-      axios.get(ApiUrl.get() + location.pathname)
+      let url = ApiUrl.get() + location.pathname
+      axios.get(url)
         .then(response => {
           let data = response.data
           if (data.err) {
