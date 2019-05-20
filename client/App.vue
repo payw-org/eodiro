@@ -14,8 +14,7 @@
 </template>
 
 <script>
-// import Notification from 'Components/Notification'
-const Notification = () => import(/* webpackChunkName: "component-notification" */ 'Components/Notification')
+import Notification from 'Components/Notification'
 import RouteLocation from 'Modules/RouteLocation'
 import 'SCSS/globalstyle'
 import 'SCSS/spring.styl'
@@ -33,48 +32,6 @@ export default {
     $route (to, from) {
       this.isRightDirection = RouteLocation.isRightDirection(to.name, from.name)
     }
-  },
-  beforeMount() {
-    this.setColorScheme()
-  },
-  mounted() {
-    // prevent contextmenu popup
-    window.oncontextmenu = function(e) {
-      e.preventDefault()
-      e.stopPropagation()
-      return false
-    }
-
-    window.addEventListener('keydown', e => {
-      if (e.key === 'D' && e.shiftKey) {
-        this.updateColorScheme('dark')
-      } else if (e.key === 'L' && e.shiftKey) {
-        this.updateColorScheme('light')
-      }
-    })
-
-    // prune all noscript tags
-    document.querySelectorAll('noscript').forEach(elm => {
-      elm.parentElement.removeChild(elm)
-    })
-
-    // platform detection
-    const platform = require('platform')
-
-    // store platform data to html tag for later use
-    document.documentElement.setAttribute('data-platform', JSON.stringify({
-      os: {
-        name: platform.os.family,
-        version: platform.os.version
-      },
-      browser: {
-        name: platform.name,
-        version: platform.version
-      }
-    }).toLowerCase())
-
-    // prevent browser's default scroll restoration behaviour
-    history.scrollRestoration = 'manual'
   },
   methods: {
     // set color scheme using the stored value
@@ -119,6 +76,48 @@ export default {
 
       this.updateColorScheme(newColorScheme)
     }
+  },
+  beforeMount() {
+    this.setColorScheme()
+  },
+  mounted() {
+    // prevent contextmenu popup
+    window.oncontextmenu = function(e) {
+      e.preventDefault()
+      e.stopPropagation()
+      return false
+    }
+  
+    window.addEventListener('keydown', e => {
+      if (e.key === 'D' && e.shiftKey) {
+        this.updateColorScheme('dark')
+      } else if (e.key === 'L' && e.shiftKey) {
+        this.updateColorScheme('light')
+      }
+    })
+  
+    // prune all noscript tags
+    document.querySelectorAll('noscript').forEach(elm => {
+      elm.parentElement.removeChild(elm)
+    })
+  
+    // platform detection
+    const platform = require('platform')
+  
+    // store platform data to html tag for later use
+    document.documentElement.setAttribute('data-platform', JSON.stringify({
+      os: {
+        name: platform.os.family,
+        version: platform.os.version
+      },
+      browser: {
+        name: platform.name,
+        version: platform.version
+      }
+    }).toLowerCase())
+  
+    // prevent browser's default scroll restoration behaviour
+    history.scrollRestoration = 'manual'
   }
 }
 </script>
