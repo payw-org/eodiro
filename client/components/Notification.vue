@@ -2,7 +2,7 @@
   <transition name="slide">
     <aside id="notification" v-if="!isCompleted">
       <div class="banner" @click="complete">
-        <h1 class="content">🎉 중앙대학교 안성 캠퍼스와 고려대학교 안암 캠퍼스가 추가되었습니다!<br>친구들에게 알려주세요!</h1>
+        <h1 class="content">🎉 중앙대학교 안성 캠퍼스가 추가되었습니다!<br>친구들에게 알려주세요!</h1>
       </div>
     </aside>
   </transition>
