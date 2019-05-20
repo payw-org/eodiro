@@ -4,9 +4,9 @@ export default class ApiUrl {
   static get() {
     let hostname = window.location.hostname
     if (hostname === '127.0.0.1' || hostname === 'localhost') {
-      return 'http://api.eodiro.com'
+      return `${window.location.protocol}//api.eodiro.com`
     } else {
-      return `http://api.${window.location.hostname.replace(/www./, '')}`
+      return `${window.location.protocol}//api.${window.location.hostname.replace(/www./, '')}`
     }
   }
 }
