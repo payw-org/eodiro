@@ -3,11 +3,24 @@ export default class Stagger {
 
   /**
    * Returns a callback function to be used in setTimeout
-   * @param {HTMLElement} elm 
+   * @param {Array<HTMLElement>} elms
+   * @param {number} i
    */
-  static showElement(elm) {
-    return function () {
-      elm.classList.add('stagger-appear')
+  static showElement(elms, i) {
+    if (!elms[i]) {
+      return
+    } else {
+      let that = this
+      let f
+      elms[i].addEventListener('animationstart', f = function (e) {
+        if (e.animationName === 'springFadeUp') {
+          setTimeout(() => {
+            that.showElement(elms, i + 1)
+            this.removeEventListener('animationstart', f)
+          }, 40)
+        }
+      })
+      elms[i].classList.add('stagger-appear')
     }
   }
 
@@ -46,6 +59,8 @@ export default class Stagger {
       }
     }
 
+    this.showElement(elms, i)
+
     // @deprecated
     // using forEach
 
@@ -55,13 +70,15 @@ export default class Stagger {
     //   })
     // }, 0)
 
-    for (let j = 0; i < elms.length; i++, j++) {
-      if (elms[i].classList.contains('stagger-appear') || elms[i].classList.contains('stagger-appear-fix')) {
-        break
-      }
-      let callback = this.showElement(elms[i])
-      setTimeout(callback, j * 55);
-    }
+    // @deprecated
+    // using setTimeout
+    // for (let j = 0; i < elms.length; i++, j++) {
+    //   if (elms[i].classList.contains('stagger-appear') || elms[i].classList.contains('stagger-appear-fix')) {
+    //     break
+    //   }
+    //   let callback = this.showElement(elms[i])
+    //   setTimeout(callback, j * 55);
+    // }
 
     // @deprecated
     // using setInterval
