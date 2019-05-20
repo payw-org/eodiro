@@ -75,8 +75,8 @@ function parseToLocations(src){
     let location;
     let gwan,ho,base;
 
-    let hoRegEx = /(?:[A-z]|)\d\d\d(?:[A-z]|)|제\d강의실/g;
-    let gwanRegEx = /[가-힣]+(?:관|어|합|과|대)(?:\(.+\)|)(?!\))|L-P/g;
+    let hoRegEx = /(?:[A-z]|)\d\d\d(?:[A-z]|)/g;
+    let gwanRegEx = /[가-힣]+(?:관|어|합|과)(?:\(.+\)|)(?!\))|L-P/g;
     let baseRegEx = /지하/g;
 
     // convert 지하 to B
