@@ -27,7 +27,7 @@
         <img class="app-icon mode--dark" src="/assets/images/eodiro/app-icon_sq_dark.svg" alt="eodiro-logo" />
       </div>
       <h1 class="manifesto">{{ $t('first_line') }}<br />{{ $t('second_line') }}</h1>
-      <button class="eodiro-btn go-back" @click="goBack">Go back</button>
+      <button class="eodiro-btn go-back" @click="goBack">Go Home</button>
     </div>
   </div>
 </template>
