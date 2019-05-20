@@ -62,7 +62,8 @@ export default {
         .then(response => {
           let data = response.data
           if (data.err) {
-            this.$router.push('/404')
+            // this.$router.push('/404')
+            location.replace('/404')
             return
           }
 
