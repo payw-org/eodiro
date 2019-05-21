@@ -6,7 +6,7 @@ import Floor from 'Database/models/floor';
 import Classroom from 'Database/models/classroom';
 import Lecture from 'Database/models/lecture';
 
-import metadata from 'Resources/metadata.json';
+import all_metadata from 'Resources/metadata.json';
 import classes_cau from 'Resources/classes/cau.json';
 import classes_cau2 from 'Resources/classes/cau2.json';
 import classes_korea from 'Resources/classes/korea.json';
@@ -36,7 +36,8 @@ export default class DBInitializer {
       Lecture.deleteMany({})
     ]);
 
-    await this.insertMetadata();
+    await this.insertMetadata(all_metadata);
+    
     await Promise.all([
       this.insertClasses(classes_cau),
       this.insertClasses(classes_cau2),
@@ -52,7 +53,7 @@ export default class DBInitializer {
     return Promise.resolve();
   }
 
-  async insertMetadata() {
+  async insertMetadata(metadata) {
     for (let i = 0; i < metadata.length; i++) {
       const university = await University.create({
         name: metadata[i].name,
