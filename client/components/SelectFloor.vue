@@ -57,8 +57,11 @@ export default {
             }
         
             this.floors = r.data.floors
-            this.buildIn()
             this.fetchEmpty()
+
+            this.$nextTick(() => {
+              this.buildIn()
+            })
           })
       // }, 4000);
       
@@ -80,9 +83,6 @@ export default {
   },
   created() {
     this.fetchFloors()
-  },
-  updated() {
-    this.buildIn()
   },
   activated() {
     this.buildOut()

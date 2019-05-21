@@ -69,6 +69,10 @@ export default {
 
           this.buildings = data.buildings
           this.fetchEmpty()
+
+          this.$nextTick(() => {
+            this.buildIn()
+          })
         })
         .catch(function (error) {
           alert('어디로 서버 오류로 건물을 가져올 수 없습니다. 잠시 후 이용바랍니다.')
@@ -89,9 +93,6 @@ export default {
   created() {
     // Fetch data
     this.fetchBuildings()
-  },
-  updated() {
-    this.buildIn()
   },
   activated() {
     this.buildOut()
@@ -173,7 +174,7 @@ export default {
         }
       
         .name--number {
-          font-size: 3.5rem;
+          font-size: 3rem;
           font-weight: 700;
           font-family: $font-display;
           line-height: 1;

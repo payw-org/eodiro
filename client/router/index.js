@@ -1,12 +1,13 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-const Home = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/Home.vue')
-const EodiroApp = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/EodiroApp.vue')
-const SelectBuilding = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/SelectBuilding.vue')
-const SelectFloor = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/SelectFloor.vue')
-const Result = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/Result.vue')
-const NotFound = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/NotFound.vue')
-const University = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/University.vue')
+const Home = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/Home')
+const EodiroApp = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/EodiroApp')
+const SelectBuilding = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/SelectBuilding')
+const SelectFloor = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/SelectFloor')
+const Result = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/Result')
+const NotFound = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/NotFound')
+const University = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/University')
+const Deck = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/Deck')
 
 Vue.use(VueRouter)
 
@@ -40,9 +41,9 @@ export default new VueRouter({
       }
     },
     {
-      path: '/developers',
-      component: NotFound,
-      name: 'developers',
+      path: '/deck',
+      component: Deck,
+      name: 'deck',
       meta: {
         title: {
           'ko': '개발자 정보',

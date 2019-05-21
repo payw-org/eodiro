@@ -27,5 +27,37 @@ lerp(a, b, p)
     {i + '%'}
       t = i / 100
       p = spring-gentle(t)
-      transform: translateY(lerp(6rem, 0rem, p))
+      transform: translateY(lerp(7rem, 0rem, p))
+      opacity: lerp(0, 1, p)
+
+@keyframes springZoomOut
+  for i in (0..100)
+    {i + '%'}
+      t = i / 100
+      p = spring-gentle(t)
+      transform: scale(lerp(0.5, 1, p))
+      opacity: lerp(0, 1, p)
+
+@keyframes springZoomIn
+  for i in (0..100)
+    {i + '%'}
+      t = i / 100
+      p = spring-nicely(t)
+      transform: scale(lerp(1.5, 1, p))
+      opacity: lerp(0, 1, p)
+
+@keyframes springSlideUp
+  for i in (0..100)
+    {i + '%'}
+      t = i / 100
+      p = spring-gentle(t)
+      transform: translateY(lerp(50%, 0%, p))
+      opacity: lerp(0, 1, p)
+
+@keyframes springSlideDown
+  for i in (0..100)
+    {i + '%'}
+      t = i / 100
+      p = spring-gentle(t)
+      transform: translateY(lerp(0%, 100%, p))
       opacity: lerp(0, 1, p)
