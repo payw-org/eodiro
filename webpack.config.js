@@ -1,6 +1,6 @@
 const VueLoaderPlugin = require('vue-loader/lib/plugin')
 // const MiniCssExtractPlugin = require("mini-css-extract-plugin")
-// const HtmlWebpackPlugin = require('html-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 // const WebpackNotifierPlugin = require('webpack-notifier')
 const WebpackMessages = require('webpack-messages')
 const CleanTerminalPlugin = require('clean-terminal-webpack-plugin')
@@ -16,24 +16,24 @@ module.exports = {
 		filename: '[name].built.js'
 	},
 	optimization: {
-// 		splitChunks: {
-// 			chunks: 'all',
-// 			maxInitialRequests: Infinity,
-// 			minSize: 0,
-// 			cacheGroups: {
-// 				vendor: {
-// 					test: /[\\/]node_modules[\\/]/,
-// 					name (module) {
-// 						// get the name. E.g. node_modules/packageName/not/this/part.js
-//             // or node_modules/packageName
-//             const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
+		// splitChunks: {
+		// 	chunks: 'all',
+		// 	maxInitialRequests: Infinity,
+		// 	minSize: 0,
+		// 	cacheGroups: {
+		// 		vendor: {
+		// 			test: /[\\/]node_modules[\\/]/,
+		// 			name (module) {
+		// 				// get the name. E.g. node_modules/packageName/not/this/part.js
+    //         // or node_modules/packageName
+    //         const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1]
 
-//             // npm package names are URL-safe, but some servers don't like @ symbols
-// return `npm.${packageName.replace('@', '')}`
-// 					}
-// 				}
-// 			}
-// 		}
+    //         // npm package names are URL-safe, but some servers don't like @ symbols
+		// 				return `npm.${packageName.replace('@', '')}`
+		// 			}
+		// 		}
+		// 	}
+		// }
 	},
 	resolve: {
 		extensions: ['.js', '.ts', '.scss', '.css', '.vue'],
@@ -122,16 +122,16 @@ module.exports = {
 		new VueLoaderPlugin(),
 		new CleanTerminalPlugin({
 			message: 'eodiro has been successfully built'
-		})
+		}),
 		// new WebpackNotifierPlugin(),
 		// new WebpackMessages({
     //   name: 'client',
     //   logger: str => console.log(`>> ${str}`)
-    // })
+    // }),
 		// new HtmlWebpackPlugin({
-		// 	template: './public_html/index.template.html',
-		// 	filename: '../../index.html',
-		// 	hash: true
+		// 	filename: '../../generated.html',
+		// 	hash: true,
+		// 	chunks: 'all'
 		// }),
 		// new MiniCssExtractPlugin({
 		// 	filename: '[name].built.css',
