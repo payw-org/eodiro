@@ -3,7 +3,7 @@ import cors from 'cors';
 import vhost from 'vhost';
 import cookieParser from 'cookie-parser';
 import expressSession from 'express-session';
-import services_promise from './bootstrap';
+import { api_app, land_app, web_app } from './bootstrap';
 import { server_private } from 'Configs/private';
 
 const BASE_URI = "eodiro.com";
@@ -18,10 +18,8 @@ app.use(expressSession({
   saveUninitialized:true
 }));
 
-services_promise.then((services) => {
-  app.use(vhost("api." + BASE_URI, services['api_app'].getApp()));
-  app.use("/lander", services['land_app'].getApp());
-  app.use(services['web_app'].getApp());
+app.use(vhost("api." + BASE_URI, api_app.getApp()));
+app.use("/lander", land_app.getApp());
+app.use(web_app.getApp());
 
-  app.listen(server_private['node_port']);
-});
+app.listen(server_private['node_port']);
