@@ -49,15 +49,18 @@
 
 <template>
   <div id="home">
-    <a href="http://payw.org" class="about-developers">{{ thisYear }} © eodiro</a>
-    <transition
+    <p class="about-developers">{{ thisYear }} © eodiro |&nbsp;<a href="mailto:support@eodiro.com" class="contact">문의하기</a></p>
+    <!-- <transition
       appear
       name="zoom"
-    >
+    > -->
       <div class="start-box">
+        <div class="top-area">
+          <button>문의하기</button>
+        </div>
         <div class="content-area">
           <div class="main" v-show="!isSettingsActive" key="1">
-            <dir class="logo-container">
+            <div class="logo-container">
               <svg width="122px" height="198px" viewBox="0 0 122 198" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
                 <!-- Generator: Sketch 54.1 (76490) - https://sketchapp.com -->
                 <title>Fill 3</title>
@@ -76,7 +79,7 @@
                   </g>
                 </g>
               </svg>
-            </dir>
+            </div>
             <h1 class="logo-text">{{ $t('title') }}</h1>
             <p class="description base-gray">{{ $t('description') }}</p>
             <router-link :to="'/' + startLink"><button class="go-btn eodiro-btn">{{ startMsg }} <span class="arrow">→</span></button></router-link>
@@ -110,7 +113,7 @@
           </router-link>
         </div>
       </div>
-    </transition>
+    <!-- </transition> -->
     <HomeBGTile/>
   </div>
 </template>
@@ -147,9 +150,15 @@ export default {
   },
   mounted() {
     // check if the browser supports 'prefers-color-scheme' media query
+    // if the autoDarkModeSupport is true,
+    // dark mode option will appear in the color scheme settings
     if (window.matchMedia('(prefers-color-scheme: dark)').media != 'not all') {
       this.autoDarkModeSupport = true
     }
+
+    setTimeout(() => {
+      this.$el.querySelector('.start-box').classList.add('appear')
+    }, 200)
   }
 }
 </script>
@@ -193,11 +202,26 @@ export default {
 
   .about-developers {
     position: fixed;
-    left: 1rem;
-    bottom: 1rem;
+    left: 0;
+    right: 0;
+    bottom: 1.5rem;
+    height: 2rem;
     z-index: 9999;
-    font-size: 0.8rem;
-    opacity: 0.7;
+    font-size: 1rem;
+    opacity: 0.9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: default;
+
+    a.contact {
+      color: $light-blue;
+      font-weight: 500;
+
+      @include dark-mode() {
+        color: $light-yellow;
+      }
+    }
   }
 
   .start-box {
@@ -209,17 +233,23 @@ export default {
     align-content: space-between;
     justify-content: center;
     background-color: #fff;
-    border-radius: 2rem;
+    border-radius: 1.5rem;
+    opacity: 0;
     width: 90%;
     max-width: 30rem;
     height: 90%;
-    min-height: 22rem;
-    max-height: 22rem;
-    box-shadow: 0 1rem 2rem rgba(0,0,0,0.1);
+    min-height: 23rem;
+    max-height: 23rem;
+    box-shadow: 0 1.5rem 5rem rgba(0,0,0,0.15);
     text-align: center;
     overflow: hidden;
     will-change: transform;
     transition: background-color 1s ease, box-shadow 1s ease;
+
+    &.appear {
+      animation: springZoomOut 1s linear;
+      animation-fill-mode: both;
+    }
 
     @include dark-mode() {
       background-color: #222;
@@ -249,36 +279,59 @@ export default {
       box-shadow: none;
     }
 
+    .top-area {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: calc(100% - 3rem);
+      left: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      display: none;
+
+      button {
+        height: 1.5rem;
+        font-family: $font-text;
+        font-size: 0.8rem;
+        background-color: #f4f4f4;
+        padding: 0 0.6rem;
+        border-radius: 50px;
+      }
+    }
+
     .content-area {
       position: absolute;
       top: 0;
       right: 0;
       left: 0;
-      height: calc(100% - 3rem);
+      bottom: 3rem;
       display: flex;
       align-items: center;
       justify-content: center;
 
       .main {
+        margin-top: 1.5rem;
+
         .logo-container {
-          width: 5rem;
-          height: 5rem;
+          width: 3.5rem;
+          height: 3.5rem;
           margin: auto;
           display: flex;
           align-items: center;
           justify-content: center;
-          border: 1px solid #f0f0f0;
+          // border: 1px solid #f0f0f0;
           border-radius: 1.2rem;
           transition: background-color 500ms ease, border 500ms ease;
 
           svg {
             width: auto;
-            height: 3rem;
+            height: 100%;
             transform: translateX(4%);
           }
 
           @include dark-mode() {
-            border-color: #5f5f5f;
+            // border-color: #5f5f5f;
           }
         }
 
@@ -300,7 +353,7 @@ export default {
         }
 
         .go-btn {
-          margin: 1.5rem auto 0;
+          margin: 2rem auto 0;
           transition: background-color $transition-time $cb, box-shadow $transition-time $cb;
           display: flex;
 
@@ -367,10 +420,10 @@ export default {
       align-items: center;
       justify-content: center;
       position: absolute;
+      top: calc(100% - 3rem);
       right: 0;
       bottom: 0;
       left: 0;
-      height: 3rem;
 
       .config-btn {
         height: 1.5rem;
