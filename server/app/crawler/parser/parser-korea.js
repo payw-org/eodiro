@@ -1,4 +1,5 @@
 var app_path = "/home/bitnami/app/dev-hcj";
+var data_vender = "korea";
 
 var data_scrap = require(app_path + "/server/resources/scrap/scrap_고려대 서울캠_0.json");
 /**
@@ -45,11 +46,22 @@ function parseDayToDay(src){
 }
 
 function parseIntToTime(num){
-    if(num<10)
-        num = "0" + num + "00";
+    let min;
+    num = num*1.5;
+
+    if(num%1 == 0)
+        min = "00";
     else
-        num = num + "00";
-    return num;
+        min = "30";
+
+    if(num<10)
+        num = "0" + num-num%1;
+    else
+        num = num-num%1;
+
+
+
+    return num + min;
 }
 
 function testData(data_scrap){
@@ -76,7 +88,7 @@ function parseToLocations(src){
     let gwan,ho,base;
 
     let hoRegEx = /(?:[A-z]|)\d\d\d(?:[A-z]|)/g;
-    let gwanRegEx = /[가-힣]+(?:관|어|합|과)(?:\(.+\)|)(?!\))|L-P/g;
+    let gwanRegEx = /[가-힣]+(?:관|어|합|과)(?!\))|L-P/g;
     let baseRegEx = /지하/g;
 
     // convert 지하 to B
@@ -258,6 +270,6 @@ for(let i=0; i<data_scrap.length; i++){
     }
 }
 
-createFile(data_parse,"/parse/parse-korea.json");
-createFile(data_parse_error,"/parse-debug/parse-korea-error.json");
-createFile(buildings,"/parse-debug/buildings.json");
+createFile(data_parse,"/parse/parse-" + data_vender + ".json");
+createFile(data_parse_error,"/parse-debug/parse-" + data_vender + "-error.json");
+createFile(buildings,"/parse-debug/buildings-" + data_vender + ".json");
