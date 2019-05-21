@@ -2,7 +2,7 @@
   <transition name="slide">
     <aside id="notification" v-if="!isCompleted">
       <div class="banner" @click="complete">
-        <h1 class="content">🎉 중앙대학교 안성 캠퍼스가 추가되었습니다!<br>친구들에게 알려주세요!</h1>
+        <h1 class="content">+ 🔧 고려대학교 안암캠퍼스와 중앙대학교 안성캠퍼스의 강의 시간표를 수정했습니다.<br>+ 🎉 연세대학교 신촌캠퍼스가 추가되었습니다!</h1>
       </div>
     </aside>
   </transition>
@@ -16,7 +16,7 @@ export default Vue.extend({
     return {
       isCompleted: false,
       storageName: ['completeNoti', 'completeNoti-alt'],
-      switch: 1 // 0 <-> 1
+      switch: 0 // 0 <-> 1
     }
   },
   methods: {
@@ -69,16 +69,18 @@ export default Vue.extend({
     border-radius: 0.5rem;
     background-color: $base-black;
     box-shadow: $eodiro-shadow;
+    border-left: 0.5rem solid $light-blue;
 
     @include dark-mode() {
       background-color: $base-white;
+      border-left: 0.5rem solid $light-yellow;
     }
 
     .content {
-      text-align: center;
+      text-align: left;
       font-size: 1rem;
       font-weight: 500;
-      line-height: 1.3;
+      line-height: 1.5;
       color: $base-white;
       padding: 1rem;
 
