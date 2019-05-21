@@ -53,3 +53,11 @@ lerp(a, b, p)
       p = spring-gentle(t)
       transform: translateY(lerp(50%, 0%, p))
       opacity: lerp(0, 1, p)
+
+@keyframes springSlideDown
+  for i in (0..100)
+    {i + '%'}
+      t = i / 100
+      p = spring-gentle(t)
+      transform: translateY(lerp(0%, 100%, p))
+      opacity: lerp(0, 1, p)
