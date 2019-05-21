@@ -1,7 +1,11 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 import App from './App'
+import Preparing from 'Components/Preparing'
 import router from './router'
+import 'SCSS/globalstyle'
+import 'SCSS/spring.styl'
+import 'SCSS/gradients-simple.scss'
 
 Vue.use(VueI18n)
 
@@ -31,12 +35,26 @@ router.beforeEach((to, from, next) => {
   next()
 })
 
-window.onload = function () {
-  new Vue({
-    i18n,
-    el: "#app",
-    router: router,
-    template: '<App />',
-    components: { App }
-  })
+let isPreparing = false
+
+if (isPreparing) {
+  window.onload = function () {
+    new Vue({
+      i18n,
+      el: "#app",
+      router: router,
+      template: '<Preparing />',
+      components: { Preparing }
+    })
+  }
+} else {
+  window.onload = function () {
+    new Vue({
+      i18n,
+      el: "#app",
+      router: router,
+      template: '<App />',
+      components: { App }
+    })
+  }
 }

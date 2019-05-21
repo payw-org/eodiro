@@ -10,11 +10,13 @@ export default {
     return {
       key: 0,
       tileStates: undefined,
-      interval: 0
+      visibleTilesNum: 0,
+      interval: 0,
+      resizeEvent: null
     }
   },
   methods: {
-    activeTile() {
+    createTiles() {
       let ts = []
       let tileNum = 550
       for (let i = 0; i < tileNum; i++) {
@@ -25,21 +27,48 @@ export default {
       }
       this.tileStates = ts
       
+      // Use nextTick to run animation after
+      // the elements are rendered with the data input
+      this.$nextTick(() => {
+        this.activateAnimation()
+      })
+    },
+    activateAnimation() {
       let i, c
+      let tileNum = this.calculateVisibleTilesNumber()
       this.interval = setInterval(() => {
-        for (let a = 0; a < 30; a++) {
+        for (let a = 0; a < Math.ceil(tileNum/20); a++) {
           i = Math.floor(Math.random() * tileNum);
           c = Math.floor(Math.random() * 9)
           this.tileStates[i]['className'] = 'color-' + c;
         }
-      }, 30)
+      }, 100)
+    },
+    calculateVisibleTilesNumber() {
+      let tiles = this.$el.querySelectorAll('.tile')
+      let i = 0
+      for (; i < tiles.length; i++) {
+        let rect = tiles[i].getBoundingClientRect()
+        if (
+          (rect.top < 0 && rect.bottom < 0) ||
+          (rect.top > window.innerHeight && rect.bottom > window.innerHeight)
+        ) {
+          break;
+        }
+      }
+      return i
     }
   },
   mounted() {
-    this.activeTile()
+    this.createTiles()
+    window.addEventListener('resize', this.resizeEvent = () => {
+      window.clearInterval(this.interval)
+      this.activateAnimation()
+    })
   },
   beforeDestroy() {
     clearInterval(this.interval)
+    window.removeEventListener('resize', this.resizeEvent)
   }
 }
 </script>
@@ -68,7 +97,7 @@ export default {
 
   .tile {
     border-radius: 1rem;
-    transition: background-color 1s ease;
+    transition: background-color 500ms linear;
 
     @include smaller-than(700px) {
       border-radius: 0.8rem;

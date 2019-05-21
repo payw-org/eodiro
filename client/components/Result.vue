@@ -88,39 +88,41 @@
     </div>
 
     <div class="timetable-container" :class="{show: timeTableShow}">
-      <div class="background" @click="closeTimeTable()"></div>
+      <div class="background" @click="closeTimeTable"></div>
       <div class="timetable">
-        <button class="close"></button>
-        <h1 class="title">{{ selectedRoom.number + ' ' + $t('timetable') }}</h1>
-        <div class="day-select-wrapper">
-          <div class="day-select">
-            <button class="day mon" :class="{selected: timetableDay === 1}" @click="setTimeTableAtDay(1)">Mon</button>
-            <button class="day tue" :class="{selected: timetableDay === 2}" @click="setTimeTableAtDay(2)">Tue</button>
-            <button class="day wed" :class="{selected: timetableDay === 3}" @click="setTimeTableAtDay(3)">Wed</button>
-            <button class="day thu" :class="{selected: timetableDay === 4}" @click="setTimeTableAtDay(4)">Thu</button>
-            <button class="day fri" :class="{selected: timetableDay === 5}" @click="setTimeTableAtDay(5)">Fri</button>
-            <button class="day sat" :class="{selected: timetableDay === 6}" @click="setTimeTableAtDay(6)">Sat</button>
-            <!-- <button class="day sun" :class="{selected: timetableDay === 0}" @click="setTimeTableAtDay(0)">Sun</button> -->
-          </div>
-        </div>
-        <div class="lecture-container">
-          <div v-if="selectedLectures.length > 0">
-            <div
-              v-for="(l, i) in selectedLectures"
-              :key="l.name + i"
-              class="lecture"
-              :class="{current: isCurrentLecture(l.time.start, l.time.end, l.time.day)}"
-            >
-              <div class="time">
-                <div>{{ l.time.start.slice(0, 2) + ':' + l.time.start.slice(2, 4) }}</div>
-                <div>|</div>
-                <div>{{ l.time.end.slice(0, 2) + ':' + l.time.end.slice(2, 4) }}</div>
-              </div>
-              <div class="instructor">{{ l.instructor }}</div>
-              <div class="name">{{ l.name }}</div>
+        <button class="close" @click="closeTimeTable"></button>
+        <div class="content">
+          <h1 class="title">{{ selectedRoom.number + ' ' + $t('timetable') }}</h1>
+          <div class="day-select-wrapper">
+            <div class="day-select">
+              <button class="day mon" :class="{selected: timetableDay === 1}" @click="setTimeTableAtDay(1)">Mon</button>
+              <button class="day tue" :class="{selected: timetableDay === 2}" @click="setTimeTableAtDay(2)">Tue</button>
+              <button class="day wed" :class="{selected: timetableDay === 3}" @click="setTimeTableAtDay(3)">Wed</button>
+              <button class="day thu" :class="{selected: timetableDay === 4}" @click="setTimeTableAtDay(4)">Thu</button>
+              <button class="day fri" :class="{selected: timetableDay === 5}" @click="setTimeTableAtDay(5)">Fri</button>
+              <button class="day sat" :class="{selected: timetableDay === 6}" @click="setTimeTableAtDay(6)">Sat</button>
+              <!-- <button class="day sun" :class="{selected: timetableDay === 0}" @click="setTimeTableAtDay(0)">Sun</button> -->
             </div>
           </div>
-          <div v-else class="no-timetable-msg">{{ $t('no_timetable') }}</div>
+          <div class="lecture-container">
+            <div v-if="selectedLectures.length > 0">
+              <div
+                v-for="(l, i) in selectedLectures"
+                :key="l.name + i"
+                class="lecture"
+                :class="{current: isCurrentLecture(l.time.start, l.time.end, l.time.day)}"
+              >
+                <div class="time">
+                  <div>{{ l.time.start.slice(0, 2) + ':' + l.time.start.slice(2, 4) }}</div>
+                  <div>|</div>
+                  <div>{{ l.time.end.slice(0, 2) + ':' + l.time.end.slice(2, 4) }}</div>
+                </div>
+                <div class="instructor">{{ l.instructor }}</div>
+                <div class="name">{{ l.name }}</div>
+              </div>
+            </div>
+            <div v-else class="no-timetable-msg">{{ $t('no_timetable') }}</div>
+          </div>
         </div>
       </div>
     </div>
@@ -138,6 +140,7 @@ import axios from 'axios'
 import DTS from 'Modules/DayToString'
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
 import ApiUrl from 'Modules/ApiUrl'
+import { spring, styler } from 'popmotion'
 
 export default {
   name: 'result',
@@ -237,6 +240,10 @@ export default {
             c.hour = parseInt(counterResult.expireTime / 60)
             c.min = counterResult.expireTime - c.hour * 60
           }
+
+          this.$nextTick(() => {
+            this.buildIn()
+          })
       
           // sort the result classrooms
           // default is sort by the classroom number
@@ -266,10 +273,7 @@ export default {
   created() {
     this.fetchTimeTable()
   },
-  updated() {
-    this.buildIn()
-  },
-  mounted() {
+  mounted() {    
     this.simplebarTimeTableElm = new SimpleBar(this.$el.querySelector('.timetable'), {})
     ;['touchstart', 'mouseover'].forEach(eventName => {
       this.simplebarTimeTableElm.getScrollElement().addEventListener(eventName, e => {
@@ -338,7 +342,7 @@ export default {
 
   .timetable-container {
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
     position: fixed;
     top: 0;
@@ -348,18 +352,19 @@ export default {
     z-index: 10000;
     pointer-events: none;
     visibility: hidden;
-    opacity: 0;
-    transform: scale(1.05);
-    transition: opacity 300ms ease, visibility 300ms ease, transform 300ms ease;
+    transition: opacity 400ms ease, visibility 400ms ease;
 
     &.show {
       pointer-events: all;
       visibility: visible;
       opacity: 1;
-      transform: scale(1);
+
+      .background {
+        opacity: 1;
+      }
 
       .timetable {
-
+        transform: translateY(0);
       }
     }
 
@@ -372,16 +377,19 @@ export default {
       z-index: -1;
       background-color: rgba(0,0,0,0.6);
       backdrop-filter: blur(20px);
+      opacity: 0;
+      transition: opacity 400ms ease;
     }
 
     .timetable {
-      padding: 0 1.5rem;
       width: calc(100% - 2rem);
-      height: calc(100% - 2rem);
-      max-width: 25rem;
-      max-height: 35rem;
+      height: calc(100% - 4rem);
+      max-width: 30rem;
+      max-height: 40rem;
       background-color: $base-white;
-      border-radius: 1rem;
+      border-radius: 1rem 1rem 0 0;
+      transform: translateY(100%);
+      transition: transform 400ms ease;
       overflow-x: hidden;
       overflow-y: auto;
 
@@ -391,126 +399,143 @@ export default {
       }
 
       .close {
+        display: block;
+        width: 100%;
         position: sticky;
         top: 0;
-        display: none;
-      }
-
-      .title {
-        font-size: 2rem;
-        font-weight: 700;
-        margin-top: 2rem;
-        line-height: 1;
-      }
-
-      .day-select-wrapper {
-        position: sticky;
-        top: 0;
+        height: 3rem;
+        background-image: url('/assets/images/eodiro/down_arrow.svg');
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 2rem;
         background-color: $base-white;
-        padding: 0.5rem 0;
-        margin-top: 1rem;
-        height: 3.2rem;
 
         @include dark-mode() {
-          background-color: #333;
+          background-color: $base-black;
         }
+      }
 
-        .day-select {
-          display: block;
-          font-size: 0;
-          white-space: nowrap;
-          overflow-x: auto;
-          overflow-y: hidden;
-          height: 100%;
+      .content {
+        margin-top: 1rem;
+        padding: 0 1.5rem;
+
+        .title {
+          font-size: 2rem;
+          font-weight: 700;
+          line-height: 1;
+        }
         
-          .day {
-            display: inline-block;
-            width: unquote(100/6 + '%');
-            min-width: 40px;
-            border: none;
-            border-radius: 0.3rem;
-            font-size: 0.9rem;
+        .day-select-wrapper {
+          position: sticky;
+          top: calc(3rem - 1px);
+          background-color: $base-white;
+          padding: 0 0 0.5rem;
+          margin-top: 1rem;
+          height: 3rem;
+        
+          @include dark-mode() {
+            background-color: #333;
+          }
+        
+          .day-select {
+            display: block;
+            font-size: 0;
+            white-space: nowrap;
+            overflow-x: auto;
+            overflow-y: hidden;
             height: 100%;
-            cursor: pointer;
-            font-weight: 500;
-            background-color: $base-white;
-            color: $base-black;
-
-            @include dark-mode() {
-              color: $base-white;
-              background-color: #333;
-            }
-        
-            &.selected {
-              background-color: $light-blue;
-              color: $base-white;
+          
+            .day {
+              display: inline-block;
+              width: unquote(100/6 + '%');
+              min-width: 40px;
+              border: none;
+              border-radius: 0.5rem;
+              font-size: 0.9rem;
+              height: 100%;
+              cursor: pointer;
+              font-weight: 500;
+              background-color: $base-white;
+              color: $base-black;
         
               @include dark-mode() {
-                background-color: $light-yellow;
-                color: $base-black;
+                color: $base-white;
+                background-color: #333;
+              }
+          
+              &.selected {
+                background-color: $light-blue;
+                color: $base-white;
+          
+                @include dark-mode() {
+                  background-color: $light-yellow;
+                  color: $base-black;
+                }
               }
             }
           }
         }
-      }
-
-      .lecture-container {
-        margin-top: 1rem;
-
-        .lecture {
-          display: flex;
-          align-items: center;
-          background-color: $base-white-blue;
-          border-radius: 0.4rem;
-          overflow: hidden;
-          margin-bottom: 1rem;
-          font-size: 1rem;
-          text-align: center;
-
-          @include dark-mode() {
-            background-color: #222;
-          }
-
-          &.current {
-            box-shadow: 0 0 0 0.2rem $light-blue;
-
-            @include dark-mode() {
-              box-shadow: 0 0 0 0.2rem $light-yellow;
-            }
-          }
-
-          .time, .instructor, .name {
-            padding: 1rem;
-            min-width: 0;
+        
+        .lecture-container {
+          margin-top: 1rem;
+        
+          .lecture {
+            display: flex;
+            align-items: center;
+            background-color: $base-white-blue;
+            border-radius: 0.4rem;
+            overflow: hidden;
+            margin-bottom: 1rem;
+            font-size: 1rem;
             text-align: center;
-          }
-
-          .time {
-            &, & * {
-              font-weight: 700;
-            }
-            flex: 1;
-            line-height: 1.5;
-            color: darken($light-blue, 10%);
-            color: $light-blue;
-
+        
             @include dark-mode() {
-              color: lighten($light-yellow, 10%);
+              background-color: #222;
+            }
+        
+            &.current {
+              box-shadow: 0 0 0 0.2rem $light-blue;
+        
+              @include dark-mode() {
+                box-shadow: 0 0 0 0.2rem $light-yellow;
+              }
+            }
+        
+            .time, .instructor, .name {
+              padding: 1rem;
+              min-width: 0;
+              text-align: center;
+            }
+        
+            .time {
+              &, & * {
+                font-weight: 700;
+              }
+              white-space: nowrap;
+              flex: 1;
+              line-height: 1.5;
+              color: darken($light-blue, 10%);
+              color: $light-blue;
+        
+              @include dark-mode() {
+                color: lighten($light-yellow, 10%);
+              }
+            }
+            .instructor {
+              flex: 1;
+            }
+            .name {
+              padding: 1rem;
+              flex: 2;
             }
           }
-          .instructor {
-            flex: 1;
+        
+          .no-timetable-msg {
+            font-size: 1rem;
+            font-weight: 400;
+            text-align: center;
+            padding-top: calc(50% - 1rem);
           }
-          .name {
-            flex: 2;
-          }
-        }
-
-        .no-timetable-msg {
-          font-size: 1rem;
-          font-weight: 400;
-          text-align: center;
-          padding-top: calc(50% - 1rem);
         }
       }
     }

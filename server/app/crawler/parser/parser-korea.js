@@ -1,4 +1,5 @@
 var app_path = "/home/bitnami/app/dev-hcj";
+var data_vender = "korea";
 
 var data_scrap = require(app_path + "/server/resources/scrap/scrap_고려대 서울캠_0.json");
 /**
@@ -45,11 +46,36 @@ function parseDayToDay(src){
 }
 
 function parseIntToTime(num){
-    if(num<10)
-        num = "0" + num + "00";
-    else
-        num = num + "00";
-    return num;
+    if(num == 0)
+        return "0800";
+    if(num == 1)
+        return "0900";
+    if(num == 2)
+        return "1030";
+    if(num == 3)
+        return "1200";
+    if(num == 4)
+        return "1300";
+    if(num == 5)
+        return "1400";
+    if(num == 6)
+        return "1530";
+    if(num == 7)
+        return "1700";
+    if(num == 8)
+        return "1800";
+    if(num == 9)
+        return "1900";
+    if(num == 10)
+        return "2000";
+    if(num == 11)
+        return "2100";
+    if(num == 12)
+        return "2200";
+    if(num == 13)
+        return "2300";
+        
+    return "Error";
 }
 
 function testData(data_scrap){
@@ -76,7 +102,7 @@ function parseToLocations(src){
     let gwan,ho,base;
 
     let hoRegEx = /(?:[A-z]|)\d\d\d(?:[A-z]|)/g;
-    let gwanRegEx = /[가-힣]+(?:관|어|합|과)(?:\(.+\)|)(?!\))|L-P/g;
+    let gwanRegEx = /생명과학관\(동관\)|생명과학관\(서관\)|[가-힣]+(?:관|어|합|과)(?!\))|L-P/g;
     let baseRegEx = /지하/g;
 
     // convert 지하 to B
@@ -116,6 +142,9 @@ function parseToLocations(src){
         // match gwan with ho
         if(gwan.length == ho.length && ho.length != 0 && gwan.length != 0){
             for(let i=0; i<ho.length; i++){
+                if(gwan[i] == "신공학과")
+                    gwan[i] = "신공학관";
+
                 location = new Object;
                 location.building = gwan[i];
                 location.room = ho[i];
@@ -169,15 +198,15 @@ function parseToTimes(src){
         for(let i=0; i<number.length; i++){
             time = new Object;
             if(number[i].match(/\d\d?/g).length == 2){   // (\d-\d)
-                start = parseInt(number[i].match(startRegEx),10)+8;
+                start = parseInt(number[i].match(startRegEx),10);
                 start = parseIntToTime(start);
-                end = parseInt(number[i].match(endRegEx),10)+9;
+                end = parseInt(number[i].match(endRegEx),10)+1;
                 end = parseIntToTime(end);
             }
             if(number[i].match(/\d\d?/g).length == 1){   // (\d)
-                start = parseInt(number[i].match(endRegEx),10)+8;
+                start = parseInt(number[i].match(endRegEx),10);
                 start = parseIntToTime(start);
-                end = parseInt(number[i].match(endRegEx),10)+9;
+                end = parseInt(number[i].match(endRegEx),10)+1;
                 end = parseIntToTime(end);
             }
             time.day = parseDayToDay(day[i]);
@@ -258,6 +287,6 @@ for(let i=0; i<data_scrap.length; i++){
     }
 }
 
-createFile(data_parse,"/parse/parse-korea.json");
-createFile(data_parse_error,"/parse-debug/parse-korea-error.json");
-createFile(buildings,"/parse-debug/buildings.json");
+createFile(data_parse,"/parse/parse-" + data_vender + ".json");
+createFile(data_parse_error,"/parse-debug/parse-" + data_vender + "-error.json");
+createFile(buildings,"/parse-debug/buildings-" + data_vender + ".json");
