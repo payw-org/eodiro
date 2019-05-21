@@ -111,7 +111,7 @@ export default class DBInitializer {
       for (let j = 0; j < cls.locations.length; j++) {
         let location = cls.locations[j];
     
-        let floor_num = location['room'].match(/^(?:[Bb]|)\d+(?=\d\d)/)[0];
+        let floor_num = location['room'].match(/(?:[Bb]|)\d+(?=\d\d)/)[0];
 
         const building = await Building.findOne({
           number: location['building']
