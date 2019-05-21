@@ -45,9 +45,9 @@ export default class DBInitializer {
     ]);
 
     await Promise.all([
-      this.build('cau'),
-      this.build('cau2'),
-      this.build('korea')
+      this.build(classes_cau.vendor),
+      this.build(classes_cau2.vendor),
+      this.build(classes_korea.vendor)
     ]);
 
     return Promise.resolve();
