@@ -17,7 +17,7 @@ export default class Stagger {
           setTimeout(() => {
             that.showElement(elms, i + 1)
             this.removeEventListener('animationstart', f)
-          }, 40)
+          }, 25)
         }
       })
       elms[i].classList.add('stagger-appear')
@@ -60,42 +60,6 @@ export default class Stagger {
     }
 
     this.showElement(elms, i)
-
-    // @deprecated
-    // using forEach
-
-    // window.setTimeout(() => {
-    //   elms.forEach((elm, i) => {
-    //     window.setTimeout(this.showElement(elm), i * 50)
-    //   })
-    // }, 0)
-
-    // @deprecated
-    // using setTimeout
-    // for (let j = 0; i < elms.length; i++, j++) {
-    //   if (elms[i].classList.contains('stagger-appear') || elms[i].classList.contains('stagger-appear-fix')) {
-    //     break
-    //   }
-    //   let callback = this.showElement(elms[i])
-    //   setTimeout(callback, j * 55);
-    // }
-
-    // @deprecated
-    // using setInterval
-
-    // let interval = window.setInterval(() => {
-    //   if (!elms[i]) {
-    //     window.clearInterval(interval)
-    //     return
-    //   } else {
-    //     if (elms[i].classList.contains('stagger-appear') || elms[i].classList.contains('stagger-appear-fix')) {
-    //       window.clearInterval(interval)
-    //       return
-    //     } else {
-    //       elms[i++].classList.add('stagger-appear')
-    //     }
-    //   }
-    // }, 50)
   }
 
   /**
