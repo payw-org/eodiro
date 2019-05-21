@@ -80,7 +80,7 @@ function parseToLocations(src){
     let gwan,ho,base;
 
     let hoRegEx = /(?:[A-z]|)\d\d\d(?:[A-z]|)/g;
-    let gwanRegEx = /[A-z]?[가-힣]+/g;
+    let gwanRegEx = /I자[AB]|I종|I진[ABCD]|I지[ABC]|과S|공[ABCD]|백[SN]|[가-힣]+/g;
 
 
     if(src == undefined){
@@ -91,23 +91,26 @@ function parseToLocations(src){
         return result;
     }
 
-    // get ho array
-    ho = src.match(hoRegEx);
-    
-    // remove ho from src
-    src = src.replace(hoRegEx,"");
-
     // get gwan array
     gwan = src.match(gwanRegEx);
 
     // remove gwan from src
     src = src.replace(gwanRegEx,"");
 
+    // get ho array
+    ho = src.match(hoRegEx);
+    
+    // remove ho from src
+    src = src.replace(hoRegEx,"");
+
     if(gwan != null && ho != null){
 
         // match gwan with ho
         if(gwan.length == ho.length && ho.length != 0 && gwan.length != 0){
             for(let i=0; i<ho.length; i++){
+                if(gwan[i] == "원")
+                    gwan[i] = "신";
+
                 location = new Object;
                 location.building = gwan[i];
                 location.room = ho[i];
@@ -142,7 +145,7 @@ function parseToTimes(src){
 
     let numberRegEx = /[월화수목금토일]\d\d?(?:,\d\d?|)*/g;
     let dayRegEx = /[월화수목금토일]/g;
-    let startRegEx = /[월화수목금토일]\d\d?/;
+    let startRegEx = /^\d\d?/;
     let endRegEx = /\d\d?$/;
 
     if(src == undefined){
@@ -164,6 +167,7 @@ function parseToTimes(src){
             time = new Object;
 
             day = number[i].match(dayRegEx);
+            number[i] = number[i].replace(dayRegEx,"");
             start = parseInt(number[i].match(startRegEx),10)+8;
             start = parseIntToTime(start);
             end = parseInt(number[i].match(endRegEx),10)+9;
@@ -236,13 +240,10 @@ for(let i=0; i<data_scrap.length; i++){
     }
 
     // the number of time is more than location
-    if(classInfo_error == null && classInfo.times.length > classInfo.locations.length){
-        if(classInfo.times.length - classInfo.locations.length == 1){
-            classInfo.locations.push(classInfo.locations[0]);
-        }
-        else{
-            classInfo_error = new Object;
-            classInfo_error.srcOrigin = data_scrap_unit['강의시간'] + data_scrap_unit['강의실'];
+     if(classInfo_error == null && classInfo.times.length > classInfo.locations.length){
+        let diff = classInfo.times.length-classInfo.locations.length;
+        for(let i=0; i<diff; i++){
+            classInfo.locations.push(classInfo.locations[classInfo.locations.length-1]);
         }
 
     }
