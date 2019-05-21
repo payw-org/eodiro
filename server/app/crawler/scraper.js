@@ -8,7 +8,20 @@ phantom.injectJs(app_path+'/node_modules/casperjs/bin/bootstrap.js');
 function createFile(src){
     src = JSON.stringify(src);
     var fs = require('fs');
-    fs.write(app_path+"/server/resource/scrap/result.json", src, 'w');
+    fs.write(app_path+"/server/resources/scrap/scrap_" + campus_name + "_" + campus_label + ".json", src, 'w');
+}
+
+function waitForClick(casper, selector){
+    casper.then(function(){
+        casper.waitForSelector(selector,
+            function(success){
+                casper.click(selector,5,5);
+            },
+            function(fail){
+                console.log(">Error - " + selector + " is not exist.");
+            },
+            5000);
+    });
 }
  
 var casper = require('casper').create({
@@ -21,8 +34,11 @@ var casper = require('casper').create({
 var url = "http://everytime.kr/timetable";
 var id = system.args[1];
 var password = system.args[2];
+var campus_label = system.args[3]; // 0,1,2
+var campus_name;
 
 casper.start(url);
+
 
 // Form.Submit
 casper.then(function(){
@@ -33,19 +49,32 @@ casper.then(function(){
 });
 
 // Click to open subject list
+waitForClick(casper, '.search');
+
+// campus_name
 casper.then(function(){
-    casper.waitForSelector(
-        '.search',
-        function(success){
-            casper.click('.search');
-        },
-        function(fail){
-            console.log("-Error - \'.search\' is not exist.");
-        },
-        10000);
+    campus_name = casper.evaluate(function(){
+        return document.querySelector('.subname').innerText;
+    });
 });
 
-// 클릭 후에 실행
+casper.then(function(){
+    casper.wait(3000);
+})
+
+// change campus
+if(campus_label != 0){
+    // click campus
+    waitForClick(casper, 'a[data-id=campus]');
+
+    // click second label
+    waitForClick(casper, '#subjectCampusFilter div label:nth-child(2)');
+
+    // click submit
+    waitForClick(casper, '#subjectCampusFilter input[type=submit]');
+}
+
+// wait first class list
 casper.then(function(){
     this.waitForSelector('.list table tbody tr',
         function pass(){
@@ -55,18 +84,17 @@ casper.then(function(){
         function fail(){
             console.log("-class room is not exist.");
         },
-        100000
+        50000
     );
 });
 
 var data_scrap = new Array;
-casper.then(function(){
-    var lastTime=0;
-    var numOfData_temp;
-    var numOfData = 0;
-    var currentTime;
-
-    casper.waitFor(function(){
+var lastTime=0;
+var numOfData_temp;
+var numOfData = 0;
+var currentTime;
+casper.waitFor(
+    function(){
         // get the number of subjects
         numOfData_temp = casper.evaluate(function(){
             return document.querySelectorAll('.list table tbody tr').length;
@@ -86,7 +114,8 @@ casper.then(function(){
             console.log("Data scraped : " + numOfData_temp);
             return true;
         }
-    },function(){
+    },
+    function(){
         var data_head = new Array;
         var data_body;
         var lenOfHead;
@@ -117,18 +146,15 @@ casper.then(function(){
             }
             data_scrap.push(data_body);
         }
-
-    },function(){
+    },
+    function(){
         console.log("-Searching class room is timeout");
-    },1000*60*10);// 10 minute
+    },1000*60*10    // 10 minute
+);
 
-});
-
+// save
 casper.then(function(){
-
     createFile(data_scrap);
     console.log('-The number of class room is ' + data_scrap.length);
-
-});
-
+})
 casper.run();
