@@ -364,7 +364,8 @@ export default {
       }
 
       .timetable {
-        transform: translateY(0);
+        transform: translateY(0%);
+        visibility: visible;
       }
     }
 
@@ -388,8 +389,9 @@ export default {
       max-height: 40rem;
       background-color: $base-white;
       border-radius: 1rem 1rem 0 0;
-      transform: translateY(100%);
-      transition: transform 400ms ease;
+      transform: translateY(calc(100% + 3rem));
+      visibility: hidden;
+      transition: transform 400ms ease, visibility 400ms ease;
       overflow-x: hidden;
       overflow-y: auto;
 
