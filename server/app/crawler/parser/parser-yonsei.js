@@ -196,6 +196,7 @@ function parseToTimes(src){
 // return ;
 
 let data_parse = new Array;
+let data_parse_2 = new Array;
 let data_parse_error = new Array;
 
 let classInfo;
@@ -249,7 +250,11 @@ for(let i=0; i<data_scrap.length; i++){
     }
 
     if(classInfo_error == null){
-        data_parse.push(classInfo);
+        if(/^I/.test(classInfo.locations[0].building) == true)
+            data_parse_2.push(classInfo);
+        else
+            data_parse.push(classInfo);
+
         if(buildings.includes(classInfo.locations[0].building) == false)
             buildings.push(classInfo.locations[0].building);   
     }
@@ -259,5 +264,6 @@ for(let i=0; i<data_scrap.length; i++){
 }
 
 createFile(data_parse,"/parse/parse-" + data_vender + ".json");
+createFile(data_parse_2,"/parse/parse-" + data_vender + "-2" + ".json");
 createFile(data_parse_error,"/parse-debug/parse-" + data_vender + "-error.json");
 createFile(buildings,"/parse-debug/buildings-" + data_vender + ".json");

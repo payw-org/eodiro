@@ -97,6 +97,8 @@ function parseToLocations(src){
         // match gwan with ho
         if(ho.length == gwan.length && ho.length != 0 && gwan.length != 0){
             for(let i=0; i<ho.length; i++){
+                if(gwan[i] == "805")
+                    gwan[i] = "805-806";
                 location = new Object;
                 location.building = gwan[i];
                 location.room = ho[i];
@@ -107,6 +109,9 @@ function parseToLocations(src){
             if(ho.length - gwan.length == 1 && gwan.length == 1){
                 gwan.push(gwan[0]);
                 for(let i=0; i<ho.length; i++){
+                    if(gwan[i] == "805")
+                        gwan[i] = "805-806";
+                        
                     location = new Object;
                     location.building = gwan[i];
                     location.room = ho[i];
