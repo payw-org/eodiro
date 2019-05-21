@@ -11,6 +11,7 @@ import classes_cau from 'Resources/classes/cau.json';
 import classes_cau2 from 'Resources/classes/cau2.json';
 import classes_korea from 'Resources/classes/korea.json';
 import classes_yonsei from 'Resources/classes/yonsei.json';
+import classes_yonsei2 from 'Resources/classes/yonsei2.json';
 
 export default class DBInitializer {
   async initialize(option = 'normal') {
@@ -43,14 +44,16 @@ export default class DBInitializer {
       this.insertClasses(classes_cau),
       this.insertClasses(classes_cau2),
       this.insertClasses(classes_korea),
-      this.insertClasses(classes_yonsei)
+      this.insertClasses(classes_yonsei),
+      this.insertClasses(classes_yonsei2)
     ]);
 
     await Promise.all([
       this.build(classes_cau.vendor),
       this.build(classes_cau2.vendor),
       this.build(classes_korea.vendor),
-      this.build(classes_yonsei.vendor)
+      this.build(classes_yonsei.vendor),
+      this.build(classes_yonsei2.vendor)
     ]);
 
     return Promise.resolve();
