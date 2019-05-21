@@ -46,22 +46,36 @@ function parseDayToDay(src){
 }
 
 function parseIntToTime(num){
-    let min;
-    num = num*1.5;
-
-    if(num%1 == 0)
-        min = "00";
-    else
-        min = "30";
-
-    if(num<10)
-        num = "0" + num-num%1;
-    else
-        num = num-num%1;
-
-
-
-    return num + min;
+    if(num == 0)
+        return "0800";
+    if(num == 1)
+        return "0900";
+    if(num == 2)
+        return "1030";
+    if(num == 3)
+        return "1200";
+    if(num == 4)
+        return "1300";
+    if(num == 5)
+        return "1400";
+    if(num == 6)
+        return "1530";
+    if(num == 7)
+        return "1700";
+    if(num == 8)
+        return "1800";
+    if(num == 9)
+        return "1900";
+    if(num == 10)
+        return "2000";
+    if(num == 11)
+        return "2100";
+    if(num == 12)
+        return "2200";
+    if(num == 13)
+        return "2300";
+        
+    return "Error";
 }
 
 function testData(data_scrap){
@@ -184,15 +198,15 @@ function parseToTimes(src){
         for(let i=0; i<number.length; i++){
             time = new Object;
             if(number[i].match(/\d\d?/g).length == 2){   // (\d-\d)
-                start = parseInt(number[i].match(startRegEx),10)+8;
+                start = parseInt(number[i].match(startRegEx),10);
                 start = parseIntToTime(start);
-                end = parseInt(number[i].match(endRegEx),10)+9;
+                end = parseInt(number[i].match(endRegEx),10)+1;
                 end = parseIntToTime(end);
             }
             if(number[i].match(/\d\d?/g).length == 1){   // (\d)
-                start = parseInt(number[i].match(endRegEx),10)+8;
+                start = parseInt(number[i].match(endRegEx),10);
                 start = parseIntToTime(start);
-                end = parseInt(number[i].match(endRegEx),10)+9;
+                end = parseInt(number[i].match(endRegEx),10)+1;
                 end = parseIntToTime(end);
             }
             time.day = parseDayToDay(day[i]);
