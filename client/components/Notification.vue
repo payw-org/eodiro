@@ -2,7 +2,11 @@
   <transition name="slide">
     <aside id="notification" v-if="!isCompleted">
       <div class="banner" @click="complete">
-        <h1 class="content">+ 🔧 고려대학교 안암캠퍼스와 중앙대학교 안성캠퍼스의 강의 시간표를 수정했습니다.<br>+ 🎉 연세대학교 신촌캠퍼스가 추가되었습니다!</h1>
+        <div class="content">
+          <p>🔧 고려대학교 안암캠퍼스와 중앙대학교 안성캠퍼스의 강의 시간표를 수정했습니다.</p>
+          <p>🎉 연세대학교 신촌캠퍼스가 추가되었습니다. 친구들에게 알려주세요!</p>
+          <p>🏃 앱이 좀 더 빨라졌습니다.</p>
+        </div>
       </div>
     </aside>
   </transition>
@@ -63,9 +67,9 @@ export default Vue.extend({
 
   .banner {
     cursor: pointer;
-    max-width: calc(100% - 2rem);
+    max-width: calc(100% - 3rem);
     position: relative;
-    margin-bottom: 3rem;
+    margin-bottom: 5rem;
     border-radius: 0.5rem;
     background-color: $base-black;
     box-shadow: $eodiro-shadow;
@@ -80,12 +84,31 @@ export default Vue.extend({
       text-align: left;
       font-size: 1rem;
       font-weight: 500;
-      line-height: 1.5;
       color: $base-white;
-      padding: 1rem;
+      padding: 1.5rem;
 
       @include dark-mode() {
         color: $base-black;
+      }
+
+      p {
+        position: relative;
+        margin-bottom: 0.5rem;
+        padding-left: 1.2rem;
+        line-height: 1.4;
+
+        &::before {
+          content: '+';
+          position: absolute;
+          line-height: 1.2;
+          top: 0;
+          left: 0;
+          font-weight: 700;
+        }
+
+        &:last-child {
+          margin-bottom: 0;
+        }
       }
     }
   }
