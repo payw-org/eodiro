@@ -88,7 +88,7 @@ function parseToLocations(src){
     let gwan,ho,base;
 
     let hoRegEx = /(?:[A-z]|)\d\d\d(?:[A-z]|)/g;
-    let gwanRegEx = /[가-힣]+(?:관|어|합|과)(?!\))|L-P/g;
+    let gwanRegEx = /생명과학관\(동관\)|생명과학관\(서관\)|[가-힣]+(?:관|어|합|과)(?!\))|L-P/g;
     let baseRegEx = /지하/g;
 
     // convert 지하 to B
@@ -128,6 +128,9 @@ function parseToLocations(src){
         // match gwan with ho
         if(gwan.length == ho.length && ho.length != 0 && gwan.length != 0){
             for(let i=0; i<ho.length; i++){
+                if(gwan[i] == "신공학과")
+                    gwan[i] = "신공학관";
+
                 location = new Object;
                 location.building = gwan[i];
                 location.room = ho[i];

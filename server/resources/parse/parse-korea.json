@@ -4586,7 +4586,7 @@
         "instructor": "오형석",
         "locations": [
             {
-                "building": "신공학과",
+                "building": "신공학관",
                 "room": "224"
             }
         ],
@@ -4604,7 +4604,7 @@
         "instructor": "최회련",
         "locations": [
             {
-                "building": "신공학과",
+                "building": "신공학관",
                 "room": "224"
             }
         ],
@@ -4847,7 +4847,7 @@
         "instructor": "조성원",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "102"
             }
         ],
@@ -4865,11 +4865,11 @@
         "instructor": "강필성",
         "locations": [
             {
-                "building": "신공학과",
+                "building": "신공학관",
                 "room": "224"
             },
             {
-                "building": "신공학과",
+                "building": "신공학관",
                 "room": "224"
             }
         ],
@@ -6269,11 +6269,11 @@
         "instructor": "이형민",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "102"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "102"
             }
         ],
@@ -8600,7 +8600,7 @@
         "instructor": "Daniel Oh",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "301"
             }
         ],
@@ -19535,11 +19535,11 @@
         "instructor": "안준용",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "401"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "401"
             }
         ],
@@ -20660,7 +20660,7 @@
         "instructor": "최만규",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "416"
             }
         ],
@@ -21074,7 +21074,7 @@
         "instructor": "김정민",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "416"
             }
         ],
@@ -25214,11 +25214,11 @@
         "instructor": "김대성",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "102"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "102"
             }
         ],
@@ -25241,7 +25241,7 @@
         "instructor": "홍기창",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "231"
             }
         ],
@@ -25259,11 +25259,11 @@
         "instructor": "이호정",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "335"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "335"
             }
         ],
@@ -25286,11 +25286,11 @@
         "instructor": "지영민",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             }
         ],
@@ -25313,11 +25313,11 @@
         "instructor": "최용석",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             }
         ],
@@ -25367,7 +25367,7 @@
         "instructor": "권진선",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             }
         ],
@@ -25385,11 +25385,11 @@
         "instructor": "김종훈",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "231"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "231"
             }
         ],
@@ -25412,11 +25412,11 @@
         "instructor": "유승권",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "335"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "335"
             }
         ],
@@ -25439,11 +25439,11 @@
         "instructor": "황광연",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "335"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "335"
             }
         ],
@@ -25466,11 +25466,11 @@
         "instructor": "전태훈",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "335"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "335"
             }
         ],
@@ -25493,7 +25493,7 @@
         "instructor": "김진수",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "121"
             }
         ],
@@ -25511,11 +25511,11 @@
         "instructor": "박천호",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "201"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "201"
             }
         ],
@@ -25538,7 +25538,7 @@
         "instructor": "박지현",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "121"
             }
         ],
@@ -25556,11 +25556,11 @@
         "instructor": "김종윤",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "121"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "121"
             }
         ],
@@ -25583,11 +25583,11 @@
         "instructor": "이일석",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "121"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "121"
             }
         ],
@@ -25610,11 +25610,11 @@
         "instructor": "송문정",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "201"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "201"
             }
         ],
@@ -25637,7 +25637,7 @@
         "instructor": "황광연",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "416"
             }
         ],
@@ -25655,7 +25655,7 @@
         "instructor": "박성효",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "121"
             }
         ],
@@ -25673,11 +25673,11 @@
         "instructor": "한성옥",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "201"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "201"
             }
         ],
@@ -25700,11 +25700,11 @@
         "instructor": "고용",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "401"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "401"
             }
         ],
@@ -25727,11 +25727,11 @@
         "instructor": "송문정",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "201"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "201"
             }
         ],
@@ -25754,11 +25754,11 @@
         "instructor": "송권화",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "401"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "401"
             }
         ],
@@ -25889,11 +25889,11 @@
         "instructor": "김범석",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             }
         ],
@@ -25916,11 +25916,11 @@
         "instructor": "최인걸",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "201"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "201"
             }
         ],
@@ -25997,11 +25997,11 @@
         "instructor": "이호정",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "335"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "335"
             }
         ],
@@ -26024,11 +26024,11 @@
         "instructor": "이영식",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "301"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "301"
             }
         ],
@@ -26132,11 +26132,11 @@
         "instructor": "김욱",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "401"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "401"
             }
         ],
@@ -26159,11 +26159,11 @@
         "instructor": "김지형",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "108"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "108"
             }
         ],
@@ -26240,11 +26240,11 @@
         "instructor": "이병천",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "107"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "107"
             }
         ],
@@ -26267,11 +26267,11 @@
         "instructor": "정철희",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "301"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "301"
             }
         ],
@@ -26294,11 +26294,11 @@
         "instructor": "이철구",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "437"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "437"
             }
         ],
@@ -26582,7 +26582,7 @@
         "instructor": "홍정호",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             }
         ],
@@ -26798,11 +26798,11 @@
         "instructor": "손요환",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             }
         ],
@@ -26825,11 +26825,11 @@
         "instructor": "김민경",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "121"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "121"
             }
         ],
@@ -26852,7 +26852,7 @@
         "instructor": "박지현",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "301"
             }
         ],
@@ -26870,11 +26870,11 @@
         "instructor": "박우준",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "105"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "105"
             }
         ],
@@ -26897,11 +26897,11 @@
         "instructor": "김태욱",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "201"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "301"
             }
         ],
@@ -26924,15 +26924,15 @@
         "instructor": "현승훈",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "104"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "314"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "104"
             }
         ],
@@ -26960,11 +26960,11 @@
         "instructor": "배연재,강지현",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "437"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "437"
             }
         ],
@@ -26987,7 +26987,7 @@
         "instructor": "서동조",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "109"
             }
         ],
@@ -27005,7 +27005,7 @@
         "instructor": "전성우",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "301"
             }
         ],
@@ -27023,11 +27023,11 @@
         "instructor": "김정규",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "437"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "437"
             }
         ],
@@ -27050,11 +27050,11 @@
         "instructor": "최윤이",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "231"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "231"
             }
         ],
@@ -27077,11 +27077,11 @@
         "instructor": "이한별",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "534"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "534"
             }
         ],
@@ -27104,7 +27104,7 @@
         "instructor": "전진형",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "534"
             }
         ],
@@ -27122,7 +27122,7 @@
         "instructor": "이진욱",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "109"
             }
         ],
@@ -27140,11 +27140,11 @@
         "instructor": "조기종",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "231"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "104"
             }
         ],
@@ -27167,11 +27167,11 @@
         "instructor": "정진호",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "231"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "231"
             }
         ],
@@ -27194,11 +27194,11 @@
         "instructor": "김규혁",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "121"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "121"
             }
         ],
@@ -27221,7 +27221,7 @@
         "instructor": "김민석",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "335"
             }
         ],
@@ -27239,7 +27239,7 @@
         "instructor": "백주영",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "437"
             }
         ],
@@ -27257,7 +27257,7 @@
         "instructor": "김민경",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "231"
             }
         ],
@@ -27275,11 +27275,11 @@
         "instructor": "한재준",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "121"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "121"
             }
         ],
@@ -27302,11 +27302,11 @@
         "instructor": "방지현",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "201"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "201"
             }
         ],
@@ -27329,11 +27329,11 @@
         "instructor": "김경헌",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "108"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "108"
             }
         ],
@@ -27356,11 +27356,11 @@
         "instructor": "정수연",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "108"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "108"
             }
         ],
@@ -27383,11 +27383,11 @@
         "instructor": "임승택",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "107"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "107"
             }
         ],
@@ -27410,7 +27410,7 @@
         "instructor": "이민석",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "108"
             }
         ],
@@ -27428,11 +27428,11 @@
         "instructor": "이성준",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "108"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "108"
             }
         ],
@@ -27455,11 +27455,11 @@
         "instructor": "김세헌",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "437"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "437"
             }
         ],
@@ -27482,11 +27482,11 @@
         "instructor": "박현진",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "437"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "437"
             }
         ],
@@ -27509,7 +27509,7 @@
         "instructor": "조태진",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "314"
             }
         ],
@@ -27527,7 +27527,7 @@
         "instructor": "임승택",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "314"
             }
         ],
@@ -27545,7 +27545,7 @@
         "instructor": "김혜원",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "314"
             }
         ],
@@ -27563,7 +27563,7 @@
         "instructor": "조승용",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "107"
             }
         ],
@@ -27581,7 +27581,7 @@
         "instructor": "임승택,박현진,김세헌,이민석,김경헌,이성준,한재준",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "437"
             }
         ],
@@ -27599,11 +27599,11 @@
         "instructor": "박호정",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             }
         ],
@@ -27626,11 +27626,11 @@
         "instructor": "서동희",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             }
         ],
@@ -27653,11 +27653,11 @@
         "instructor": "서병선",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "102"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "102"
             }
         ],
@@ -27680,11 +27680,11 @@
         "instructor": "안병일",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "416"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "416"
             }
         ],
@@ -27707,11 +27707,11 @@
         "instructor": "안병일",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             }
         ],
@@ -27734,11 +27734,11 @@
         "instructor": "한두봉",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             }
         ],
@@ -27761,11 +27761,11 @@
         "instructor": "박호정",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             }
         ],
@@ -27788,11 +27788,11 @@
         "instructor": "임송수",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "102"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "102"
             }
         ],
@@ -27815,11 +27815,11 @@
         "instructor": "김동현",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "102"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "102"
             }
         ],
@@ -27842,11 +27842,11 @@
         "instructor": "양승룡",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "102"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "102"
             }
         ],
@@ -28697,11 +28697,11 @@
         "instructor": "홍성복,권보현",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "102"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "102"
             }
         ],
@@ -33539,7 +33539,7 @@
         "instructor": "박대하",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "104"
             }
         ],
@@ -33935,7 +33935,7 @@
         "instructor": "전태훈",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "416"
             }
         ],
@@ -41045,11 +41045,11 @@
         "instructor": "김희진",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "401"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "401"
             }
         ],
@@ -41180,11 +41180,11 @@
         "instructor": "하영우",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "108"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "108"
             }
         ],
@@ -45698,11 +45698,11 @@
         "instructor": "김성준",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "107"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "107"
             }
         ],
@@ -54590,11 +54590,11 @@
         "instructor": "김범석,송문정,김지현",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "201"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "201"
             }
         ],
@@ -54644,11 +54644,11 @@
         "instructor": "배연재,이남택",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "201"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "201"
             }
         ],
@@ -54698,11 +54698,11 @@
         "instructor": "최의주,홍정호,한경덕",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "201"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "201"
             }
         ],
@@ -54752,11 +54752,11 @@
         "instructor": "김재홍,김지현",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "107"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "107"
             }
         ],
@@ -55535,11 +55535,11 @@
         "instructor": "최인걸",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "201"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "201"
             }
         ],
@@ -55562,11 +55562,11 @@
         "instructor": "이병천",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "107"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "107"
             }
         ],
@@ -55616,11 +55616,11 @@
         "instructor": "정남현",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "401"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "401"
             }
         ],
@@ -55643,11 +55643,11 @@
         "instructor": "김정규",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "121"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "121"
             }
         ],
@@ -55670,11 +55670,11 @@
         "instructor": "정진호",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "301"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "301"
             }
         ],
@@ -55697,11 +55697,11 @@
         "instructor": "현승훈",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "108"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "108"
             }
         ],
@@ -55751,7 +55751,7 @@
         "instructor": "권보경",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "121"
             }
         ],
@@ -55769,11 +55769,11 @@
         "instructor": "홍기창",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "401"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "401"
             }
         ],
@@ -55796,11 +55796,11 @@
         "instructor": "천용식",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "121"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "121"
             }
         ],
@@ -55823,7 +55823,7 @@
         "instructor": "김정규",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "115"
             }
         ],
@@ -55841,7 +55841,7 @@
         "instructor": "최인걸",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "115"
             }
         ],
@@ -55859,7 +55859,7 @@
         "instructor": "정진호",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "115"
             }
         ],
@@ -55877,7 +55877,7 @@
         "instructor": "최인걸",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "115"
             }
         ],
@@ -55895,7 +55895,7 @@
         "instructor": "이병천",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "110"
             }
         ],
@@ -55913,7 +55913,7 @@
         "instructor": "이병천",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "110"
             }
         ],
@@ -55931,7 +55931,7 @@
         "instructor": "옥용식",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "110"
             }
         ],
@@ -55949,7 +55949,7 @@
         "instructor": "정남현",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "115"
             }
         ],
@@ -55967,7 +55967,7 @@
         "instructor": "김정규",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "110"
             }
         ],
@@ -55985,7 +55985,7 @@
         "instructor": "김정규",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "110"
             }
         ],
@@ -56003,7 +56003,7 @@
         "instructor": "옥용식",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "110"
             }
         ],
@@ -56021,7 +56021,7 @@
         "instructor": "이병천",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "110"
             }
         ],
@@ -56039,7 +56039,7 @@
         "instructor": "현승훈",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "110"
             }
         ],
@@ -56057,7 +56057,7 @@
         "instructor": "김태욱",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "110"
             }
         ],
@@ -56075,7 +56075,7 @@
         "instructor": "정남현",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "115"
             }
         ],
@@ -56093,7 +56093,7 @@
         "instructor": "현승훈",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "110"
             }
         ],
@@ -56111,7 +56111,7 @@
         "instructor": "정진호",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "115"
             }
         ],
@@ -56129,7 +56129,7 @@
         "instructor": "김태욱",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "115"
             }
         ],
@@ -56147,7 +56147,7 @@
         "instructor": "현승훈",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "115"
             }
         ],
@@ -56165,7 +56165,7 @@
         "instructor": "정진호",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "115"
             }
         ],
@@ -56183,11 +56183,11 @@
         "instructor": "양승룡",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             }
         ],
@@ -56210,11 +56210,11 @@
         "instructor": "임송수",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             }
         ],
@@ -56237,11 +56237,11 @@
         "instructor": "서동희",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "101"
             }
         ],
@@ -57614,11 +57614,11 @@
         "instructor": "오형석",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "121"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "121"
             }
         ],
@@ -57641,11 +57641,11 @@
         "instructor": "고원률",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "107"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "107"
             }
         ],
@@ -57668,11 +57668,11 @@
         "instructor": "강창헌",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "121"
             },
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "121"
             }
         ],
@@ -59000,7 +59000,7 @@
         "instructor": "김경란",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(서관)",
                 "room": "301"
             }
         ],
@@ -64877,7 +64877,7 @@
         "instructor": "김옥현",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "105"
             }
         ],
@@ -64949,7 +64949,7 @@
         "instructor": "김원용",
         "locations": [
             {
-                "building": "생명과학관",
+                "building": "생명과학관(동관)",
                 "room": "102"
             }
         ],
