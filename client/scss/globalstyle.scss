@@ -113,6 +113,10 @@ button {
   background: none;
   font-family: $font-text;
   font-size: 1rem;
+
+  &:active {
+    color: inherit;
+  }
 }
 
 img {
