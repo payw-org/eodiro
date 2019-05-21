@@ -26,6 +26,7 @@
         <input v-model="search" @click="clickInput(false)" @keydown="clickInput(true)" class="input" type="text" :placeholder="$t('search_placeholder')" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false">
       </div>
       <div class="university-list">
+        <Loading v-if="universities.length === 0" />
         <div
           v-for="(u, i) in filteredList"
           :key="i"
@@ -39,12 +40,14 @@
 
 <script>
 import Content from 'Components/Content.vue'
+import Loading from 'Components/Loading'
 import ApiUrl from 'Modules/ApiUrl'
 import axios from 'axios'
 
 export default {
   name: 'university',
   extends: Content,
+  components: {Loading},
   data() {
     return {
       search: '',
@@ -94,7 +97,8 @@ export default {
     }
   },
   created() {
-    axios.get(`${ApiUrl.get()}/university`)
+    let url = `${ApiUrl.get()}/university`
+    axios.get(url)
       .then(response => {
         let data = response.data
         if (data.error) return
@@ -143,6 +147,7 @@ export default {
     }
 
     .university-list {
+      position: relative;
       width: calc(100% - 2rem);
       max-width: 25rem;
       margin: auto;

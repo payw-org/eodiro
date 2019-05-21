@@ -210,7 +210,7 @@ export default {
       axios.get(ApiUrl.get() + location.pathname)
         .then(r => {
           if (r.data.err) {
-            this.$router.push('/404')
+            location.replace('/404')
             return
           }
 
