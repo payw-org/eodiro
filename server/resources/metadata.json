@@ -76,7 +76,7 @@
       {
         "number": "203",
         "name": {
-          "ko": "서라벌호",
+          "ko": "서라벌홀",
           "en": "College of Humanities"
         }
       },
@@ -443,6 +443,13 @@
     "vendor": "yonsei",
     "buildings": [
       {
+        "number": "I종",
+        "name": {
+          "ko": "송도-종합관",
+          "en": ""
+        }
+      },
+      {
         "number": "백S",
         "name": {
           "ko": "백양관-남측동",
@@ -534,6 +541,48 @@
         }
       },
       {
+        "number": "I진A",
+        "name": {
+          "ko": "송도-진리관A",
+          "en": ""
+        }
+      },
+      {
+        "number": "I진B",
+        "name": {
+          "ko": "송도-진리관B",
+          "en": ""
+        }
+      },
+      {
+        "number": "I진C",
+        "name": {
+          "ko": "송도-진리관C",
+          "en": ""
+        }
+      },
+      {
+        "number": "I진D",
+        "name": {
+          "ko": "송도-진리관D",
+          "en": ""
+        }
+      },
+      {
+        "number": "I자A",
+        "name": {
+          "ko": "송도-자유관A",
+          "en": ""
+        }
+      },
+      {
+        "number": "I자B",
+        "name": {
+          "ko": "송도-자유관B",
+          "en": ""
+        }
+      },
+      {
         "number": "외",
         "name": {
           "ko": "외솔관",
@@ -604,6 +653,27 @@
         }
       },
       {
+        "number": "I지A",
+        "name": {
+          "ko": "송도-지혜관A",
+          "en": ""
+        }
+      },
+      {
+        "number": "I지B",
+        "name": {
+          "ko": "송도-지혜관B",
+          "en": ""
+        }
+      },
+      {
+        "number": "I지C",
+        "name": {
+          "ko": "송도-지혜관C",
+          "en": ""
+        }
+      },
+      {
         "number": "첨",
         "name": {
           "ko": "첨단과학기술연구관",
@@ -635,89 +705,6 @@
         "number": "백N",
         "name": {
           "ko": "백양관-북측동",
-          "en": ""
-        }
-      }
-    ]
-  },
-  {
-    "name": {
-      "ko": "연세대학교",
-      "en": "Yonsei University"
-    },
-    "campus": {
-      "ko": "송도",
-      "en": "Songdo"
-    },
-    "vendor": "yonsei2",
-    "buildings": [
-      {
-        "number": "I종",
-        "name": {
-          "ko": "송도-종합관",
-          "en": ""
-        }
-      },
-      {
-        "number": "I진A",
-        "name": {
-          "ko": "송도-진리관A",
-          "en": ""
-        }
-      },
-      {
-        "number": "I진B",
-        "name": {
-          "ko": "송도-진리관B",
-          "en": ""
-        }
-      },
-      {
-        "number": "I진C",
-        "name": {
-          "ko": "송도-진리관C",
-          "en": ""
-        }
-      },
-      {
-        "number": "I진D",
-        "name": {
-          "ko": "송도-진리관D",
-          "en": ""
-        }
-      },
-      {
-        "number": "I자A",
-        "name": {
-          "ko": "송도-자유관A",
-          "en": ""
-        }
-      },
-      {
-        "number": "I자B",
-        "name": {
-          "ko": "송도-자유관B",
-          "en": ""
-        }
-      },
-      {
-        "number": "I지A",
-        "name": {
-          "ko": "송도-지혜관A",
-          "en": ""
-        }
-      },
-      {
-        "number": "I지B",
-        "name": {
-          "ko": "송도-지혜관B",
-          "en": ""
-        }
-      },
-      {
-        "number": "I지C",
-        "name": {
-          "ko": "송도-지혜관C",
           "en": ""
         }
       }
