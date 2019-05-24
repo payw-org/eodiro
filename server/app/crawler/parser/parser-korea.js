@@ -287,6 +287,7 @@ for(let i=0; i<data_scrap.length; i++){
     }
 }
 
+data_parse.vender = data_vender;
 createFile(data_parse,"/parse/parse-" + data_vender + ".json");
 createFile(data_parse_error,"/parse-debug/parse-" + data_vender + "-error.json");
 createFile(buildings,"/parse-debug/buildings-" + data_vender + ".json");
