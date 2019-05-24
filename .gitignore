@@ -8,3 +8,5 @@ server/configs/private.js
 public_html/assets/build
 server/lib/build
 server/lib/log
+server/resources/scrap
+server/resources/parse-debug
