@@ -4,7 +4,7 @@
       <div class="banner" @click="complete">
         <div class="content">
           <p>🔧 고려대학교 안암캠퍼스와 중앙대학교 안성캠퍼스의 강의 시간표를 수정했습니다.</p>
-          <p>🎉 연세대학교 신촌캠퍼스가 추가되었습니다. 친구들에게 알려주세요!</p>
+          <p>🎉 연세대학교 신촌캠퍼스와 송도캠퍼스가 추가되었습니다. 친구들에게 알려주세요!</p>
           <p>🏃 앱이 좀 더 빨라졌습니다.</p>
         </div>
       </div>
@@ -69,7 +69,7 @@ export default Vue.extend({
     cursor: pointer;
     max-width: calc(100% - 3rem);
     position: relative;
-    margin-bottom: 5rem;
+    margin-bottom: 2rem;
     border-radius: 0.5rem;
     background-color: $base-black;
     box-shadow: $eodiro-shadow;

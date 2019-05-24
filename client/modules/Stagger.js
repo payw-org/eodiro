@@ -4,24 +4,25 @@ export default class Stagger {
   /**
    * Returns a callback function to be used in setTimeout
    * @param {Array<HTMLElement>} elms
-   * @param {number} i
+   * @param {number} i start index
+   * @param {number} j end index
    */
-  static showElement(elms, i) {
-    if (!elms[i]) {
+  static showElement(elms, i, j) {
+    if (!elms[i] || i > j) {
       return
-    } else {
-      let that = this
-      let f
-      elms[i].addEventListener('animationstart', f = function (e) {
-        if (e.animationName === 'springFadeUp') {
-          setTimeout(() => {
-            that.showElement(elms, i + 1)
-            this.removeEventListener('animationstart', f)
-          }, 25)
-        }
-      })
-      elms[i].classList.add('stagger-appear')
     }
+
+    let that = this
+    let f
+    elms[i].addEventListener('animationstart', f = function (e) {
+      if (e.animationName === 'springFadeUp') {
+        setTimeout(() => {
+          that.showElement(elms, i + 1, j)
+          this.removeEventListener('animationstart', f)
+        }, 20)
+      }
+    })
+    elms[i].classList.add('stagger-appear')
   }
 
   /**
@@ -59,7 +60,27 @@ export default class Stagger {
       }
     }
 
-    this.showElement(elms, i)
+    let j = elms.length - 1
+    for (; j >= 0; j--) {
+      let boundaryTarget = elms[j]
+      if (hasParent) {
+        boundaryTarget = elms[j].parentElement
+      }
+      let rect = boundaryTarget.getBoundingClientRect()
+      let top = rect.top
+      let bottom = rect.bottom
+    
+      if (
+        (top < 0 && bottom < 0) ||
+        (top > window.innerHeight && bottom > window.innerHeight)
+      ) {
+        elms[j].classList.add('stagger-appear-fix')
+      } else {
+        break
+      }
+    }
+
+    this.showElement(elms, i, j)
   }
 
   /**
