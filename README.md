@@ -46,6 +46,13 @@ $ npm start
 Basically we don't approve any kind of contributions that are directly related to the source codes. However, we're welcoming the timetable data contribution. Contact support@eodiro.com if you want to contribute other universities' timetable which are not supported by eodiro yet.
 
 
+### Special Thanks
+
+These people helped us scale out the app.
+
+배찬빈(Korea University), 배명한(Yonsei University)
+
+
 ## License
 
 MIT License
