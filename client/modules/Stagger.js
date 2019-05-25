@@ -34,10 +34,7 @@ export default class Stagger {
       return
     }
 
-    if (elms[0].classList.contains('stagger-appear') || elms[0].classList.contains('stagger-appear-fix')) {
-      return
-    }
-
+    // forward
     // add fixed class name ('stagger-appear-fix' -> opacity: 0)
     // to the elements which are not in the viewport
     let i = 0
@@ -60,6 +57,7 @@ export default class Stagger {
       }
     }
 
+    // backward
     let j = elms.length - 1
     for (; j >= 0; j--) {
       let boundaryTarget = elms[j]
@@ -80,6 +78,7 @@ export default class Stagger {
       }
     }
 
+    // start animation on elements that are in the viewport
     this.showElement(elms, i, j)
   }
 
