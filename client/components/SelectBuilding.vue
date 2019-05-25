@@ -95,8 +95,6 @@ export default {
     this.fetchBuildings()
   },
   activated() {
-    this.buildOut()
-    this.buildIn()
     this.fetchEmpty()
   }
 }

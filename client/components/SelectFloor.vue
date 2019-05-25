@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     buildIn() {
-      Stagger.show(this.$el.querySelectorAll('.floor-wrapper'))
+      Stagger.show(this.$el.querySelectorAll('.floor-wrapper'), false)
     },
     buildOut() {
       Stagger.hide(this.$el.querySelectorAll('.floor-wrapper'))
@@ -85,8 +85,6 @@ export default {
     this.fetchFloors()
   },
   activated() {
-    this.buildOut()
-    this.buildIn()
     this.fetchEmpty()
   },
   mounted() {
