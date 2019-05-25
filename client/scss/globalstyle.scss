@@ -154,7 +154,7 @@ img {
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 150ms ease !important;
+  transition: opacity 300ms ease !important;
   opacity: 1 !important;
 }
 .fade-enter, .fade-leave-to {
@@ -162,7 +162,7 @@ img {
 }
 
 .fade-slow-enter-active, .fade-slow-leave-active {
-  transition: opacity 0.3s ease !important;
+  transition: opacity 500ms ease !important;
   opacity: 1 !important;
 }
 .fade-slow-enter, .fade-slow-leave-to {
@@ -276,7 +276,7 @@ img {
 // stagger appear animation
 .stagger-appear {
   animation: $spring-time springFadeUp linear;
-  animation-fill-mode: both;
+  animation-fill-mode: forwards;
 }
 
 .stagger-appear-fix {
