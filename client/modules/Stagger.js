@@ -1,3 +1,8 @@
+/* Stagger.js
+ * (c) 2019 Jang Haemin
+ * @license MIT
+ */
+
 export default class Stagger {
   constructor() {}
 

@@ -1,3 +1,8 @@
+/* ApiUrl.js
+ * (c) 2019 Jang Haemin
+ * @license MIT
+ */
+
 export default class ApiUrl {
   constructor() {}
 
