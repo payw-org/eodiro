@@ -13,15 +13,27 @@ export default class Stagger {
     }
 
     let that = this
-    let f
-    elms[i].addEventListener('animationstart', f = function (e) {
+    let c
+    // after animation starts,
+    // animate next element
+    elms[i].addEventListener('animationstart', c = function (e) {
       if (e.animationName === 'springFadeUp') {
         setTimeout(() => {
           that.showElement(elms, i + 1, j)
-          this.removeEventListener('animationstart', f)
+
+          // remove listener
+          this.removeEventListener('animationstart', c)
         }, 20)
+
+        // when the animation ends(for 1sec)
+        // fix the element's visibility
+        setTimeout(() => {
+          this.classList.replace('stagger-appear', 'stagger-appear-fix')
+        }, 1000)
       }
     })
+
+    // add a classname that will trigger the animation
     elms[i].classList.add('stagger-appear')
   }
 
