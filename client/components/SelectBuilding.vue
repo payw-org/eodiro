@@ -126,7 +126,6 @@ export default {
     overflow: hidden;
     opacity: 0;
     will-change: transform, opacity;
-    box-shadow: $eodiro-shadow;
     text-align: right;
 
     @include dark-mode() {
