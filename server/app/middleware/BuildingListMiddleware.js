@@ -86,7 +86,8 @@ export default class BuildingListMiddleware {
         building_list.push({
           number: building['number'],
           name: building['name'][language],
-          empty_classroom: 0
+          empty_classroom: 0,
+          total_classroom: promise_lists[promise_lists.length - 1].length
         });
       }
     });

@@ -101,7 +101,8 @@ export default class FloorListMiddleware {
 
       floor_list.push({
         number: floor.number,
-        empty_classroom: 0
+        empty_classroom: 0,
+        total_classroom: promise_lists[index].length
       });
     });
 
