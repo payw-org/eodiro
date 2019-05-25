@@ -7,7 +7,7 @@
         class="floor-wrapper"
         :class="[{appear: floor.appear}]"
       >
-        <router-link class="link" :to="`/${$route.params.universityVendor}/${$route.params.buildingID}/${floor.number}`">
+        <router-link class="link" :to="`/${$route.params.univVendor}/${$route.params.buildingID}/${floor.number}`">
           <div class="floor" :class="['gradient--' + (i%15 + 1)]">
             <button class="empty-count-badge" :class="{loaded: isEmptyLoaded}">
               <span class="label" :class="{opaque: !isEmptyLoaded}">{{ floor.empty_classroom }}</span>

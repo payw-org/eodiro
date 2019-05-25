@@ -91,10 +91,10 @@ export default {
         this.backLink = '/'
       } else if (route.name === 'floor') {
         this.navTitle = this.$t('navTitle_floor')
-        this.backLink = '/' + rp.universityVendor
+        this.backLink = '/' + rp.univVendor
       } else if (route.name === 'result') {
         this.navTitle = this.$t('navTitle_result')
-        this.backLink = '/' + rp.universityVendor + '/' + rp.buildingID
+        this.backLink = '/' + rp.univVendor + '/' + rp.buildingID
       } else if (route.name === 'university') {
         this.navTitle = this.$t('navTitle_university')
         this.backLink = '/'
