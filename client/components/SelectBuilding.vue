@@ -4,13 +4,20 @@
       <div
         class="building-wrapper"
         v-for="(building, i) in buildings"
-        :key="building.number + building.name"
+        :key="i"
       >
+        <!-- building block -->
         <div
           class="building"
           :class="['gradient--' + (i % 15 + 1)]"
         >
-          <router-link :to="`/${$route.params.universityVendor}/${building.number}`">
+          <!-- favorite button -->
+          <button
+            class="favorite"
+            :class="{marked: building.isFavorite}"
+            @click="toggleFavorite(i)"
+          ></button>
+          <router-link :to="`/${$route.params.univVendor}/${building.number}`">
             <div class="building-info">
               <div class="building-name">
                 <div class="wrapper">
@@ -37,6 +44,7 @@ import Content from 'Components/Content'
 import Loading from 'Components/Loading'
 import Stagger from 'Modules/Stagger'
 import ApiUrl from 'Modules/ApiUrl'
+import EodiroStorage from 'Modules/EodiroStorage'
 import axios from 'axios'
 
 export default {
@@ -46,7 +54,33 @@ export default {
   data() {
     return {
       buildings: [],
-      isEmptyLoaded: false
+      isEmptyLoaded: false,
+      univVendor: this.$route.params.univVendor
+    }
+  },
+  computed: {
+    computedBuildings() {
+      let storage = new EodiroStorage(this.univVendor)
+      let favoriteList = storage.getFavoriteBuildings()
+      let newBuildings = this.buildings.map(b => {
+        b.isFavorite = false
+        if (favoriteList.indexOf(b.number) !== -1) {
+          b.isFavorite = true
+        }
+        return b
+      })
+
+      newBuildings.sort((a, b) => {
+        if (a.isFavorite === b.isFavorite) {
+          return 0
+        } else if (a.isFavorite) {
+          return -1
+        } else {
+          return 1
+        }
+      })
+
+      return newBuildings
     }
   },
   methods: {
@@ -68,6 +102,9 @@ export default {
           }
 
           this.buildings = data.buildings
+          this.mapFavorite()
+          this.sort()
+
           this.fetchEmpty()
 
           this.$nextTick(() => {
@@ -86,8 +123,39 @@ export default {
           if (response.data.error) return
 
           this.buildings = response.data.buildings
+          this.mapFavorite()
+          this.sort()
+
           this.isEmptyLoaded = true
         })
+    },
+    toggleFavorite(index) {
+      let buildingID = this.buildings[index].number
+      let storage = new EodiroStorage(this.univVendor)
+      this.buildings[index].isFavorite = storage.toggleFavoriteBuilding(buildingID)
+      this.sort()
+    },
+    mapFavorite() {
+      let storage = new EodiroStorage(this.univVendor)
+      let favoriteList = storage.getFavoriteBuildings()
+      this.buildings = this.buildings.map(b => {
+        b.isFavorite = false
+        if (favoriteList.indexOf(b.number) !== -1) {
+          b.isFavorite = true
+        }
+        return b
+      })
+    },
+    sort() {
+      this.buildings.sort((a, b) => {
+        if (a.isFavorite === b.isFavorite) {
+          return a.number.localeCompare(b.number)
+        } else if (a.isFavorite) {
+          return -1
+        } else {
+          return 1
+        }
+      })
     }
   },
   created() {
@@ -136,6 +204,21 @@ export default {
       }
     }
 
+    .favorite {
+      position: absolute;
+      left: 1rem;
+      top: 1rem;
+      opacity: 0.2;
+      $size: 2rem;
+      width: $size;
+      height: $size;
+      @include bgImg('/assets/images/eodiro/star_gray.svg', 'center', '1.5rem');
+
+      &.marked {
+        opacity: 0.6;
+      }
+    }
+
     .building-image {
       position: absolute;
       top: 0;
@@ -171,6 +254,7 @@ export default {
         }
       
         .name--number {
+          padding-left: 2rem;
           font-size: 3rem;
           font-weight: 700;
           font-family: $font-display;
