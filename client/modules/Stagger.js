@@ -29,13 +29,12 @@ export default class Stagger {
           // remove listener
           this.removeEventListener('animationstart', c)
         }, 20)
-
-        // when the animation ends(for 1sec)
-        // fix the element's visibility
-        setTimeout(() => {
-          this.classList.replace('stagger-appear', 'stagger-appear-fix')
-        }, 1000)
       }
+    })
+    let c2
+    elms[i].addEventListener('animationend', c2 = function (e) {
+      this.classList.replace('stagger-appear', 'stagger-appear-fix')
+      this.removeEventListener('animationstart', c2)
     })
 
     // add a classname that will trigger the animation
