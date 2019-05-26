@@ -9,7 +9,8 @@
     "done": "완료",
     "light_mode": "라이트 모드",
     "dark_mode": "다크 모드",
-    "adaptive": "적응형"
+    "adaptive": "적응형",
+    "contact": "문의하기"
   },
   "en": {
     "title": "eodiro",
@@ -20,18 +21,20 @@
     "done": "Done",
     "light_mode": "Light Mode",
     "dark_mode": "Dark Mode",
-    "adaptive": "Adaptive"
+    "adaptive": "Adaptive",
+    "contact": "Contact"
   },
   "zh": {
     "title": "eodiro",
-    "description": "找一個空蕩蕩的教室",
-    "start": "選擇大學",
-    "colorMode": "設置配色方案",
-    "changeCollege": "改變大學",
+    "description": "找到空的教室",
+    "start": "选择大学",
+    "colorMode": "设置配色方案",
+    "changeCollege": "改变大学",
     "done": "DONE",
     "light_mode": "光模式",
     "dark_mode": "黑暗模式",
-    "adaptive": "自適應"
+    "adaptive": "自适应",
+    "contact": "联系"
   },
   "fr": {
     "title": "eodiro",
@@ -42,22 +45,20 @@
     "done": "Terminé",
     "light_mode": "Mode Lumière",
     "dark_mode": "Mode Sombre",
-    "adaptive": "Adaptatif"
+    "adaptive": "Adaptatif",
+    "contact": "Contact"
   }
 }
 </i18n>
 
 <template>
   <div id="home">
-    <p class="about-developers">{{ thisYear }} © eodiro |&nbsp;<a href="mailto:support@eodiro.com" class="contact">문의하기</a></p>
+    <p class="about-developers">{{ thisYear }} © eodiro |&nbsp;<a href="mailto:support@eodiro.com" class="contact">{{ $t('contact') }}</a></p>
     <!-- <transition
       appear
       name="zoom"
     > -->
       <div class="start-box">
-        <div class="top-area">
-          <button>문의하기</button>
-        </div>
         <div class="content-area">
           <div class="main" v-show="!isSettingsActive" key="1">
             <div class="logo-container">
@@ -277,27 +278,6 @@ export default {
       filter: blur(30px);
       opacity: 0;
       box-shadow: none;
-    }
-
-    .top-area {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: calc(100% - 3rem);
-      left: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      display: none;
-
-      button {
-        height: 1.5rem;
-        font-family: $font-text;
-        font-size: 0.8rem;
-        background-color: #f4f4f4;
-        padding: 0 0.6rem;
-        border-radius: 50px;
-      }
     }
 
     .content-area {

@@ -1,3 +1,20 @@
+<i18n>
+{
+  "ko": {
+    "noti": "전체 강의실 개수를 표시합니다.\n건물 즐겨찾기 기능이 추가됐습니다.\n뒤로 갈 때 애니메이션을 비활성화했습니다."
+  },
+  "en": {
+    "noti": "Added total classrooms number.\nNew feature: Favorite Buildings\nRemoved the animation when you go back."
+  },
+  "zh": {
+    "noti": "增加了教室总数。\n新功能：最喜欢的建筑物\n你回去的时候删掉了动画。"
+  },
+  "fr": {
+    "noti": "Ajout du nombre total de salles de classe.\nNouvelle fonctionnalité: Bâtiments préférés\nSuppression de l'animation à votre retour."
+  }
+}
+</i18n>
+
 <template>
   <transition name="slide">
     <aside id="notification" v-if="!isCompleted">
