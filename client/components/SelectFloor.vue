@@ -10,7 +10,7 @@
         <router-link class="link" :to="`/${$route.params.univVendor}/${$route.params.buildingID}/${floor.number}`">
           <div class="floor" :class="['gradient--' + (i%15 + 1)]">
             <button class="empty-count-badge" :class="{loaded: isEmptyLoaded}">
-              <span class="label" :class="{opaque: !isEmptyLoaded}">{{ floor.empty_classroom }}</span>
+              <span class="label" :class="{opaque: !isEmptyLoaded}">{{ floor.empty_classroom }} <span class="total">/ {{ floor.total_classroom }}</span></span>
             </button>
             <h1 class="num">{{ floor.number }}F</h1>
           </div>

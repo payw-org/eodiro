@@ -27,7 +27,7 @@
               </div>
               <div class="brief-summary">
                 <button class="empty-count-badge" :class="{loaded: isEmptyLoaded}">
-                  <span class="label" :class="{opaque: !isEmptyLoaded}">{{ building.empty_classroom }}</span>
+                  <span class="label" :class="{opaque: !isEmptyLoaded}">{{ building.empty_classroom }} <span class="total">/ {{ building.total_classroom }}</span></span>
                 </button>
               </div>
             </div>
