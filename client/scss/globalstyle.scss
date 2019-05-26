@@ -154,7 +154,7 @@ img {
 }
 
 .fade-enter-active, .fade-leave-active {
-  transition: opacity 150ms ease !important;
+  transition: opacity 300ms ease !important;
   opacity: 1 !important;
 }
 .fade-enter, .fade-leave-to {
@@ -162,7 +162,7 @@ img {
 }
 
 .fade-slow-enter-active, .fade-slow-leave-active {
-  transition: opacity 0.3s ease !important;
+  transition: opacity 500ms ease !important;
   opacity: 1 !important;
 }
 .fade-slow-enter, .fade-slow-leave-to {
@@ -198,11 +198,16 @@ img {
   color: #fff;
   background-color: rgba(#000, 0.2);
   border-radius: 50px;
-  padding: 0 0.5rem;
+  padding: 0 1rem;
   overflow: hidden;
 
   &, & * {
     font-weight: 500;
+  }
+
+  .total {
+    font-weight: 700;
+    opacity: 0.7;
   }
 
   @keyframes badge-load {
@@ -276,7 +281,7 @@ img {
 // stagger appear animation
 .stagger-appear {
   animation: $spring-time springFadeUp linear;
-  animation-fill-mode: both;
+  animation-fill-mode: forwards;
 }
 
 .stagger-appear-fix {

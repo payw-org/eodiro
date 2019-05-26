@@ -54,7 +54,20 @@ module.exports = {
         resourceQuery: /blockType=i18n/,
         type: 'javascript/auto',
         loader: '@kazupon/vue-i18n-loader'
-      },
+			},
+			{
+				test: [/\.tsx?$/],
+				exclude: /(node_modules|bower_components)/,
+				use: [
+					{
+						loader: 'babel-loader',
+						options: {
+							presets: ['@babel/preset-env']
+						}
+					},
+					'ts-loader'
+				]
+			},
 			{
 				test: [/\.js$/],
 				exclude: /(node_modules|bower_components)/,

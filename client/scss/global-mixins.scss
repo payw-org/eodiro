@@ -55,3 +55,10 @@
 @function dark-mode-border-shadow($bg-color) {
 	@return 0 0 0 1px lighten($bg-color, 20%), 0 0 0 2px black;
 }
+
+@mixin bgImg($url, $position, $size) {
+	background-image: url($url);
+	background-repeat: no-repeat;
+	background-position: unquote($position);
+	background-size: unquote($size);
+}

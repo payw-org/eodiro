@@ -73,7 +73,7 @@ export default new VueRouter({
       ]
     },
     {
-      path: '/:universityVendor',
+      path: '/:univVendor',
       component: EodiroApp,
       children: [
         {
