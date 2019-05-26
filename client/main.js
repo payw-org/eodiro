@@ -17,11 +17,11 @@ userLang = userLang.slice(0, 2)
 
 const i18n = new VueI18n({
   locale: userLang,
-  fallbackLocale: 'ko'
+  fallbackLocale: 'en'
 })
 
 router.beforeEach((to, from, next) => {
-  let fallbackLocale = 'ko'
+  let fallbackLocale = 'en'
   if (!to.meta || !to.meta.title) {
     console.warn('Router doesn\'t have a title')
   } else {
