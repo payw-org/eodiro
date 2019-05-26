@@ -7,10 +7,10 @@
         class="floor-wrapper"
         :class="[{appear: floor.appear}]"
       >
-        <router-link class="link" :to="`/${$route.params.universityVendor}/${$route.params.buildingID}/${floor.number}`">
+        <router-link class="link" :to="`/${$route.params.univVendor}/${$route.params.buildingID}/${floor.number}`">
           <div class="floor" :class="['gradient--' + (i%15 + 1)]">
             <button class="empty-count-badge" :class="{loaded: isEmptyLoaded}">
-              <span class="label" :class="{opaque: !isEmptyLoaded}">{{ floor.empty_classroom }}</span>
+              <span class="label" :class="{opaque: !isEmptyLoaded}">{{ floor.empty_classroom }} <span class="total">/ {{ floor.total_classroom }}</span></span>
             </button>
             <h1 class="num">{{ floor.number }}F</h1>
           </div>
@@ -41,7 +41,7 @@ export default {
   },
   methods: {
     buildIn() {
-      Stagger.show(this.$el.querySelectorAll('.floor-wrapper'))
+      Stagger.show(this.$el.querySelectorAll('.floor-wrapper'), false)
     },
     buildOut() {
       Stagger.hide(this.$el.querySelectorAll('.floor-wrapper'))
@@ -85,8 +85,6 @@ export default {
     this.fetchFloors()
   },
   activated() {
-    this.buildOut()
-    this.buildIn()
     this.fetchEmpty()
   },
   mounted() {
