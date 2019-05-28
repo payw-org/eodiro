@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+
 // const Home = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/Home')
 // const EodiroApp = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/EodiroApp')
 // const SelectBuilding = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/SelectBuilding')
@@ -9,14 +10,23 @@ import VueRouter from 'vue-router'
 // const University = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/University')
 // const Deck = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/Deck')
 
-import Home from 'Components/Home'
-import EodiroApp from 'Components/EodiroApp'
-import SelectBuilding from 'Components/SelectBuilding'
-import SelectFloor from 'Components/SelectFloor'
-import Result from 'Components/Result'
-import NotFound from 'Components/NotFound'
-import University from 'Components/University'
-import Deck from 'Components/Deck'
+const Home = () => import('Components/Home')
+const EodiroApp = () => import('Components/EodiroApp')
+const SelectBuilding = () => import('Components/SelectBuilding')
+const SelectFloor = () => import('Components/SelectFloor')
+const Result = () => import('Components/Result')
+const NotFound = () => import('Components/NotFound')
+const University = () => import('Components/University')
+const Deck = () => import('Components/Deck')
+
+// import Home from 'Components/Home'
+// import EodiroApp from 'Components/EodiroApp'
+// import SelectBuilding from 'Components/SelectBuilding'
+// import SelectFloor from 'Components/SelectFloor'
+// import Result from 'Components/Result'
+// import NotFound from 'Components/NotFound'
+// import University from 'Components/University'
+// import Deck from 'Components/Deck'
 
 Vue.use(VueRouter)
 
