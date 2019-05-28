@@ -1,13 +1,22 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-const Home = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/Home')
-const EodiroApp = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/EodiroApp')
-const SelectBuilding = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/SelectBuilding')
-const SelectFloor = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/SelectFloor')
-const Result = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/Result')
-const NotFound = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/NotFound')
-const University = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/University')
-const Deck = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/Deck')
+// const Home = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/Home')
+// const EodiroApp = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/EodiroApp')
+// const SelectBuilding = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/SelectBuilding')
+// const SelectFloor = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/SelectFloor')
+// const Result = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/Result')
+// const NotFound = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/NotFound')
+// const University = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/University')
+// const Deck = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/Deck')
+
+import Home from 'Components/Home'
+import EodiroApp from 'Components/EodiroApp'
+import SelectBuilding from 'Components/SelectBuilding'
+import SelectFloor from 'Components/SelectFloor'
+import Result from 'Components/Result'
+import NotFound from 'Components/NotFound'
+import University from 'Components/University'
+import Deck from 'Components/Deck'
 
 Vue.use(VueRouter)
 
