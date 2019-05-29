@@ -6,6 +6,7 @@ const CleanTerminalPlugin = require('clean-terminal-webpack-plugin')
 
 module.exports = {
 	entry: {
+		'styles': ['./client/scss/index.js'],
 		'eodiro.app': ['./client/main.js']
 	},
 	mode: 'development',
@@ -136,7 +137,7 @@ module.exports = {
 			filename: '../../home.html',
 			template: './public_html/home-template.html',
 			hash: true,
-			chunks: ['eodiro.app']
+			chunks: 'all'
 		}),
 		new VueLoaderPlugin(),
 		new CleanTerminalPlugin({

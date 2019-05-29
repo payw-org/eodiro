@@ -4,9 +4,6 @@ import VueI18n from 'vue-i18n'
 import App from './App'
 import Preparing from 'Components/Preparing'
 import router from './router'
-import 'SCSS/globalstyle'
-import 'SCSS/spring.styl'
-import 'SCSS/gradients-simple.scss'
 
 Vue.use(Vuex)
 Vue.use(VueI18n)
