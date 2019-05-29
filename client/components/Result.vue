@@ -433,6 +433,8 @@ export default {
           background-color: $base-white;
           padding: 0 0 0.5rem;
           margin-top: 1rem;
+          margin-left: -0.2rem;
+          margin-right: -0.2rem;
           height: 3rem;
         
           @include dark-mode() {
