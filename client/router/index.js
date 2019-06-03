@@ -10,14 +10,14 @@ import VueRouter from 'vue-router'
 // const University = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/University')
 // const Deck = () => import(/* webpackChunkName: "eodiro-components" */ 'Components/Deck')
 
-const Home = () => import('Components/Home')
-const EodiroApp = () => import('Components/EodiroApp')
-const SelectBuilding = () => import('Components/SelectBuilding')
-const SelectFloor = () => import('Components/SelectFloor')
-const Result = () => import('Components/Result')
-const NotFound = () => import('Components/NotFound')
-const University = () => import('Components/University')
-const Deck = () => import('Components/Deck')
+const Home = () => import(/* webpackPreload: true */ 'Components/Home')
+const EodiroApp = () => import(/* webpackPreload: true */ 'Components/EodiroApp')
+const SelectBuilding = () => import(/* webpackPreload: true */ 'Components/SelectBuilding')
+const SelectFloor = () => import(/* webpackPreload: true */ 'Components/SelectFloor')
+const Result = () => import(/* webpackPreload: true */ 'Components/Result')
+const NotFound = () => import(/* webpackPreload: true */ 'Components/NotFound')
+const University = () => import(/* webpackPreload: true */ 'Components/University')
+const Deck = () => import(/* webpackPreload: true */ 'Components/Deck')
 
 // import Home from 'Components/Home'
 // import EodiroApp from 'Components/EodiroApp'
