@@ -1,3 +1,8 @@
+/* Stagger.js
+ * (c) 2019 Jang Haemin
+ * @license MIT
+ */
+
 export default class Stagger {
   constructor() {}
 
@@ -13,15 +18,26 @@ export default class Stagger {
     }
 
     let that = this
-    let f
-    elms[i].addEventListener('animationstart', f = function (e) {
+    let c
+    // after animation starts,
+    // animate next element
+    elms[i].addEventListener('animationstart', c = function (e) {
       if (e.animationName === 'springFadeUp') {
         setTimeout(() => {
           that.showElement(elms, i + 1, j)
-          this.removeEventListener('animationstart', f)
+
+          // remove listener
+          this.removeEventListener('animationstart', c)
         }, 20)
       }
     })
+    let c2
+    elms[i].addEventListener('animationend', c2 = function (e) {
+      this.classList.replace('stagger-appear', 'stagger-appear-fix')
+      this.removeEventListener('animationstart', c2)
+    })
+
+    // add a classname that will trigger the animation
     elms[i].classList.add('stagger-appear')
   }
 
@@ -34,10 +50,7 @@ export default class Stagger {
       return
     }
 
-    if (elms[0].classList.contains('stagger-appear') || elms[0].classList.contains('stagger-appear-fix')) {
-      return
-    }
-
+    // forward
     // add fixed class name ('stagger-appear-fix' -> opacity: 0)
     // to the elements which are not in the viewport
     let i = 0
@@ -60,6 +73,7 @@ export default class Stagger {
       }
     }
 
+    // backward
     let j = elms.length - 1
     for (; j >= 0; j--) {
       let boundaryTarget = elms[j]
@@ -80,6 +94,7 @@ export default class Stagger {
       }
     }
 
+    // start animation on elements that are in the viewport
     this.showElement(elms, i, j)
   }
 

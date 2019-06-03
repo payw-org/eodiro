@@ -1,16 +1,17 @@
 <template>
   <div class="content-item select-floor" @scroll="$emit('update-nav-view')">
     <div class="floor-container">
+      <div class="floor-wrapper building-id">{{ $route.params.buildingID }}</div>
       <div
         v-for="(floor, i) in floors"
         :key="floor.number"
         class="floor-wrapper"
         :class="[{appear: floor.appear}]"
       >
-        <router-link class="link" :to="`/${$route.params.universityVendor}/${$route.params.buildingID}/${floor.number}`">
+        <router-link class="link" :to="`/${$route.params.univVendor}/${$route.params.buildingID}/${floor.number}`">
           <div class="floor" :class="['gradient--' + (i%15 + 1)]">
             <button class="empty-count-badge" :class="{loaded: isEmptyLoaded}">
-              <span class="label" :class="{opaque: !isEmptyLoaded}">{{ floor.empty_classroom }}</span>
+              <span class="label" :class="{opaque: !isEmptyLoaded}">{{ floor.empty_classroom }} <span class="total">/ {{ floor.total_classroom }}</span></span>
             </button>
             <h1 class="num">{{ floor.number }}F</h1>
           </div>
@@ -41,7 +42,7 @@ export default {
   },
   methods: {
     buildIn() {
-      Stagger.show(this.$el.querySelectorAll('.floor-wrapper'))
+      Stagger.show(this.$el.querySelectorAll('.floor-wrapper'), false)
     },
     buildOut() {
       Stagger.hide(this.$el.querySelectorAll('.floor-wrapper'))
@@ -85,8 +86,6 @@ export default {
     this.fetchFloors()
   },
   activated() {
-    this.buildOut()
-    this.buildIn()
     this.fetchEmpty()
   },
   mounted() {
@@ -98,6 +97,7 @@ export default {
 <style lang="scss">
 @import 'SCSS/global-variables.scss';
 @import 'SCSS/global-mixins.scss';
+@import 'SCSS/gradients-simple.scss';
 
 .floor-container {
   position: relative;
@@ -114,6 +114,18 @@ export default {
 
     @include on-mobile() {
       margin-bottom: 1rem;
+    }
+
+    &.building-id {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: 500;
+      padding: 1rem;
+      color: $base-white;
+      @include bgGradient($base-black);
+      border-radius: 1rem;
     }
 
     &.building-display {

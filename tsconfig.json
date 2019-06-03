@@ -1,0 +1,24 @@
+{
+	"compilerOptions": {
+		"lib": ["dom", "es5", "es2015"],
+		"noImplicitAny": true,
+		"noImplicitReturns": true,
+		"module": "es2015",
+		"target": "es5",
+		"sourceMap": true,
+		"types": [
+			"node"
+		],
+		"moduleResolution": "node",
+		"allowSyntheticDefaultImports": true,
+		"baseUrl": "./",
+		"paths": {
+			"Components/*": ["client/components/*"],
+			"Modules/*": ["client/modules/*"]
+		}
+	},
+	"exclude": [
+		"node_modules",
+		"vendor"
+	]
+}

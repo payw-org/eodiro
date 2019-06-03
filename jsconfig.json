@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./",
     "paths": {
       "Components/*": ["client/components/*"],
 			"Modules/*": ["client/modules/*"]
