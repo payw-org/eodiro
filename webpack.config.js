@@ -12,6 +12,7 @@ module.exports = {
 	mode: 'development',
 	devtool: 'inline-source-map',
 	output: {
+		publicPath: '/assets/build/',
 		path: __dirname + '/public_html/assets/build/',
 		filename: '[name].built.js'
 	},
@@ -36,7 +37,7 @@ module.exports = {
 		}
 	},
 	resolve: {
-		extensions: ['.js', '.ts', '.scss', '.css', '.vue'],
+		extensions: ['.js', '.ts', '.scss', '.css', '.vue', '.styl'],
 		alias: {
 			vue$: 'vue/dist/vue.esm.js',
 			SCSS: __dirname + '/client/scss/',
@@ -62,7 +63,8 @@ module.exports = {
 					{
 						loader: 'babel-loader',
 						options: {
-							presets: ['@babel/preset-env']
+							presets: ['@babel/preset-env'],
+							plugins: ['syntax-dynamic-import']
 						}
 					},
 					'ts-loader'
@@ -75,10 +77,8 @@ module.exports = {
 					{
 						loader: 'babel-loader',
 						options: {
-							presets: [
-								'@babel/preset-env'
-							],
-							plugins: ['@babel/plugin-syntax-dynamic-import']
+							presets: ['@babel/preset-env'],
+							plugins: ['syntax-dynamic-import']
 						}
 					}
 				]
