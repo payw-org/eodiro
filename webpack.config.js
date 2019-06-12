@@ -3,6 +3,7 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const WebpackMessages = require('webpack-messages')
 const CleanTerminalPlugin = require('clean-terminal-webpack-plugin')
+const webpack = require('webpack')
 
 module.exports = {
 	entry: {
@@ -135,7 +136,7 @@ module.exports = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			filename: '../../home.html',
-			template: './public_html/home-template.html',
+			template: './public_html/home-template.ejs',
 			hash: true,
 			chunks: 'all'
 		}),

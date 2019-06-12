@@ -11,5 +11,10 @@ module.exports = merge(config, {
 			new TerserJSPlugin({}),
 			new OptimizeCSSAssetsPlugin({})
 		],
-  }
+	},
+	plugins: [
+		new webpack.DefinePlugin({
+			'process.env.GA_TRACKING_ID': JSON.stringify('UA-140443623-1')
+		}),
+	]
 })
