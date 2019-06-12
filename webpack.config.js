@@ -3,7 +3,6 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const WebpackMessages = require('webpack-messages')
 const CleanTerminalPlugin = require('clean-terminal-webpack-plugin')
-const webpack = require('webpack')
 
 module.exports = {
 	entry: {
