@@ -123,6 +123,28 @@
 import HomeBGTile from 'Components/HomeBGTile'
 
 export default {
+  metaInfo() {
+    return {
+      title: this.$t('title'),
+      meta: [
+        {
+          vmid: 'og:title',
+          property: 'og:title',
+          content: this.$t('title')
+        },
+        {
+          vmid: 'description',
+          name: 'description',
+          content: this.$t('description')
+        },
+        {
+          vmid: 'og:description',
+          property: 'og:description',
+          content: this.$t('description')
+        }
+      ]
+    }
+  },
   name: 'home',
   components: { HomeBGTile },
   data() {

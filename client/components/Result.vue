@@ -376,7 +376,7 @@ export default {
       width: 100%;
       height: 100%;
       z-index: -1;
-      background-color: rgba(0,0,0,0.6);
+      background-color: rgba(0,0,0,0.7);
       backdrop-filter: blur(20px);
       opacity: 0;
       transition: opacity 400ms ease;
@@ -433,6 +433,8 @@ export default {
           background-color: $base-white;
           padding: 0 0 0.5rem;
           margin-top: 1rem;
+          margin-left: -0.2rem;
+          margin-right: -0.2rem;
           height: 3rem;
         
           @include dark-mode() {
