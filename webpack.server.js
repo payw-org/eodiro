@@ -24,8 +24,7 @@ module.exports = {
       Controller: __dirname + '/server/app/controller/',
       DB: __dirname + '/server/app/db/',
       Middleware: __dirname + '/server/app/middleware/',
-      Provider: __dirname + '/server/app/provider/',
-      Lander: __dirname + '/server/app/lander'
+      Provider: __dirname + '/server/app/provider/'
     }
   },
   module: {
