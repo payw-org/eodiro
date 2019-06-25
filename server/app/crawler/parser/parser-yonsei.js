@@ -1,5 +1,6 @@
 var app_path = "/home/bitnami/app/dev-hcj";
 var data_vender = "yonsei";
+var data_vender_2 = "yonsei2";
 
 var data_scrap = require(app_path + "/server/resources/scrap/scrap-yonsei.json");
 /**
@@ -263,6 +264,8 @@ for(let i=0; i<data_scrap.length; i++){
     }
 }
 
+data_parse.vender = data_vender;
+data_parse_2.vender = data_vender_2;
 createFile(data_parse,"/parse/parse-" + data_vender + ".json");
 createFile(data_parse_2,"/parse/parse-" + data_vender + "-2" + ".json");
 createFile(data_parse_error,"/parse-debug/parse-" + data_vender + "-error.json");

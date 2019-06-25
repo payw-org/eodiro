@@ -1,16 +1,16 @@
 <i18n>
 {
   "ko": {
-    "noti": "전체 강의실 개수를 표시합니다.\n건물 즐겨찾기 기능이 추가됐습니다.\n뒤로 갈 때 애니메이션을 비활성화했습니다."
+    "noti": "어디로가 더 빨라졌습니다!\n이제 층 선택 화면에서 건물명을 볼 수 있습니다."
   },
   "en": {
-    "noti": "Added total classrooms number.\nNew feature: Favorite Buildings\nRemoved the animation when you go back."
+    "noti": "We improved the performance!\nNow you can see the building name on floor page."
   },
   "zh": {
-    "noti": "增加了教室总数。\n新功能：最喜欢的建筑物\n你回去的时候删掉了动画。"
+    "noti": "我们提高了性能！\n现在，您可以在楼层页面上看到建筑物名称。"
   },
   "fr": {
-    "noti": "Ajout du nombre total de salles de classe.\nNouvelle fonctionnalité: Bâtiments préférés\nSuppression de l'animation à votre retour."
+    "noti": "Nous avons amélioré les performances!\nVous pouvez maintenant voir le nom du bâtiment sur la page étage."
   }
 }
 </i18n>
@@ -35,8 +35,8 @@ export default {
       isCompleted: false,
       msgItems: [
         {
-          begin: '2019-05-26 09:00',
-          end: '2019-12-31 23:59',
+          begin: '2019-06-12 23:00',
+          end: '2019-06-20 23:59',
           content: this.$t('noti')
         },
         {

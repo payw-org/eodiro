@@ -1,6 +1,7 @@
 <template>
   <div class="content-item select-floor" @scroll="$emit('update-nav-view')">
     <div class="floor-container">
+      <div class="floor-wrapper building-id">{{ $route.params.buildingID }}</div>
       <div
         v-for="(floor, i) in floors"
         :key="floor.number"
@@ -96,6 +97,7 @@ export default {
 <style lang="scss">
 @import 'SCSS/global-variables.scss';
 @import 'SCSS/global-mixins.scss';
+@import 'SCSS/gradients-simple.scss';
 
 .floor-container {
   position: relative;
@@ -112,6 +114,18 @@ export default {
 
     @include on-mobile() {
       margin-bottom: 1rem;
+    }
+
+    &.building-id {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: 500;
+      padding: 1rem;
+      color: $base-white;
+      @include bgGradient($base-black);
+      border-radius: 1rem;
     }
 
     &.building-display {
