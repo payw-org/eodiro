@@ -1,12 +1,12 @@
 import express from 'express'
 import cors from 'cors'
-import vhost from 'vhost'
 import cookieParser from 'cookie-parser'
 import expressSession from 'express-session'
 import server_config from 'Configs/server'
 import DBServiceProvider from 'Provider/DBServiceProvider'
 import APIServiceProvider from 'Provider/APIServiceProvider'
 import WebServiceProvider from 'Provider/WebServiceProvider'
+const vhost = require('vhost')
 
 const db_provider = new DBServiceProvider()
 const api_provider = new APIServiceProvider()

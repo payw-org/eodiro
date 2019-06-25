@@ -6,7 +6,7 @@ pm2.json
 server/configs/private.ts
 
 public_html/assets/build
-server/lib/build
-server/lib/log
+server/build
+server/logs
 server/resources/scrap
 server/resources/parse-debug
