@@ -1,15 +1,15 @@
-const nodeExternals = require('webpack-node-externals');
+const nodeExternals = require('webpack-node-externals')
 
 module.exports = {
-  target: "node",
+  target: 'node',
   externals: [nodeExternals()],
   entry: {
-    'eodiro.server': ['babel-polyfill', './server/server.js']
+    'eodiro.server': ['babel-polyfill', './server/main.js']
   },
   mode: 'development',
   devtool: 'inline-source-map',
   output: {
-    path: __dirname + '/server/lib/build/',
+    path: __dirname + '/server/build/',
     filename: '[name].built.js'
   },
   resolve: {
@@ -24,8 +24,7 @@ module.exports = {
       Controller: __dirname + '/server/app/controller/',
       DB: __dirname + '/server/app/db/',
       Middleware: __dirname + '/server/app/middleware/',
-      Provider: __dirname + '/server/app/provider/',
-      Lander: __dirname + '/server/app/lander'
+      Provider: __dirname + '/server/app/provider/'
     }
   },
   module: {
@@ -37,9 +36,7 @@ module.exports = {
           {
             loader: 'babel-loader',
             options: {
-              presets: [
-                '@babel/preset-env'
-              ]
+              presets: ['@babel/preset-env']
             }
           }
         ]
