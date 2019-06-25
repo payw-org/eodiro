@@ -6,11 +6,13 @@
  */
 
 import mongoose, { Document } from 'mongoose'
+import { BuildingDoc } from './building'
+import { ClassroomDoc } from './classroom'
 
 export interface FloorDoc extends Document {
-  building?: string
+  building?: string | BuildingDoc
   number: string
-  classrooms: Array<string>
+  classrooms: Array<string | ClassroomDoc>
 }
 
 const floorSchema = new mongoose.Schema({

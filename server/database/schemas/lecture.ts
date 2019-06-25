@@ -6,10 +6,12 @@
  */
 
 import mongoose from 'mongoose'
+import { ClassDoc } from './class'
+import { ClassroomDoc } from './classroom'
 
 export interface LectureDoc extends Document {
-  classroom?: string
-  class: string
+  classroom?: string | ClassroomDoc
+  class: string | ClassDoc
   order: number
 }
 

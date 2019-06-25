@@ -7,13 +7,15 @@
 
 import mongoose, { Document } from 'mongoose'
 import globalNameSchema, { GlobalNameDoc } from './global_name'
+import { BuildingDoc } from './building'
+import { ClassDoc } from './class'
 
 export interface UniversityDoc extends Document {
   name: GlobalNameDoc
   campus?: GlobalNameDoc
   vendor: string
-  buildings: Array<string>
-  classes: Array<string>
+  buildings: Array<string | BuildingDoc>
+  classes: Array<string | ClassDoc>
 }
 
 const universitySchema = new mongoose.Schema({
