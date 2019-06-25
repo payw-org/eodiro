@@ -1,6 +1,6 @@
 import express from 'express'
 import app_root from 'app-root-path'
-import { router } from 'Routes/web'
+import router from 'Routes/web/index'
 
 export default class WebServiceProvider {
   constructor() {
