@@ -4,7 +4,7 @@ module.exports = {
   target: 'node',
   externals: [nodeExternals()],
   entry: {
-    'eodiro.server': ['babel-polyfill', './server/main.js']
+    'eodiro.server': ['babel-polyfill', './server/main.ts']
   },
   mode: 'development',
   devtool: 'inline-source-map',
@@ -13,9 +13,8 @@ module.exports = {
     filename: '[name].built.js'
   },
   resolve: {
-    extensions: ['.js', 'json'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
     alias: {
-      Server: __dirname + '/server/',
       Configs: __dirname + '/server/configs/',
       Database: __dirname + '/server/database/',
       Resources: __dirname + '/server/resources/',
@@ -30,7 +29,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: [/\.js$/],
+        test: [/\.jsx?$/],
         exclude: /(node_modules|bower_components)/,
         use: [
           {
@@ -39,6 +38,19 @@ module.exports = {
               presets: ['@babel/preset-env']
             }
           }
+        ]
+      },
+      {
+        test: [/\.tsx?$/],
+        exclude: /(node_modules|bower_components)/,
+        use: [
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env']
+            }
+          },
+          'ts-loader'
         ]
       }
     ]
