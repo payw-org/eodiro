@@ -4,7 +4,6 @@ import vhost from 'vhost'
 import cookieParser from 'cookie-parser'
 import expressSession from 'express-session'
 import server_config from 'Configs/server'
-import { server_private } from 'Configs/private'
 import DBServiceProvider from 'Provider/DBServiceProvider'
 import APIServiceProvider from 'Provider/APIServiceProvider'
 import WebServiceProvider from 'Provider/WebServiceProvider'
@@ -30,4 +29,4 @@ app.use(
 app.use(vhost('api.' + server_config.base_uri, api_service))
 app.use(web_service)
 
-app.listen(server_private['node_port'])
+app.listen(server_config.port)

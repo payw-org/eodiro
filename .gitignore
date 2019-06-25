@@ -3,7 +3,7 @@
 node_modules
 package-lock.json
 pm2.json
-server/configs/private.js
+server/configs/private.ts
 
 public_html/assets/build
 server/lib/build
