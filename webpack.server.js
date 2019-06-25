@@ -9,7 +9,7 @@ module.exports = {
   mode: 'development',
   devtool: 'inline-source-map',
   output: {
-    path: __dirname + '/server/lib/build/',
+    path: __dirname + '/server/build/',
     filename: '[name].built.js'
   },
   resolve: {
