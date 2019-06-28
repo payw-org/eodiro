@@ -1,13 +1,15 @@
-import express from 'express'
+import express, { Express } from 'express'
 import app_root from 'app-root-path'
 import router from 'Routes/web/index'
 
 export default class WebServiceProvider {
-  constructor() {
+  private app: Express
+
+  public constructor() {
     this.app = express()
   }
 
-  boot() {
+  public boot(): Express {
     this.app.use(express.static(app_root.path + '/public_html'))
     this.app.use(router)
 
