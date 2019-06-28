@@ -8,6 +8,7 @@
 import mongoose, { Document } from 'mongoose'
 
 export interface GlobalNameDoc extends Document {
+  [index: string]: string | any
   ko: string
   en?: string
   zh?: string
