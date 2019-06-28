@@ -19,7 +19,7 @@ export default class BuildingListMiddleware {
   public async getList(
     vendor: string,
     language: string = 'ko'
-  ): Promise<Array<BldgInfo>> {
+  ): Promise<BldgInfo[]> {
     const university = <UniversityDoc>await University.findOne(
       { vendor: vendor },
       { _id: 0, buildings: 1 },

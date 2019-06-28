@@ -13,8 +13,8 @@ export interface ClassDoc extends Document {
   class_id: string
   name: string
   instructor: string
-  locations: Array<LocationDoc>
-  times: Array<TimeDoc>
+  locations: LocationDoc[]
+  times: TimeDoc[]
 }
 
 const classSchema = new mongoose.Schema({

@@ -17,7 +17,7 @@ import { UniversityDoc } from 'Database/schemas/university'
 
 interface ClassesMetaJSON {
   vendor: string
-  classes: Array<ClassDoc>
+  classes: ClassDoc[]
 }
 
 interface BldgMetaJSON {
@@ -30,7 +30,7 @@ interface UnivMetaJSON {
   name: GlobalNameDoc
   campus: GlobalNameDoc
   vendor: string
-  buildings: Array<BldgMetaJSON>
+  buildings: BldgMetaJSON[]
 }
 
 export default class DBInitializer {
@@ -58,7 +58,7 @@ export default class DBInitializer {
       Lecture.deleteMany({})
     ])
 
-    await this.insertMetadata(<Array<UnivMetaJSON>>all_metadata)
+    await this.insertMetadata(<UnivMetaJSON[]>all_metadata)
 
     await Promise.all([
       this.insertClasses(<ClassesMetaJSON>classes_cau),
@@ -79,7 +79,7 @@ export default class DBInitializer {
     return Promise.resolve()
   }
 
-  public async insertMetadata(metadata: Array<UnivMetaJSON>): Promise<void> {
+  public async insertMetadata(metadata: UnivMetaJSON[]): Promise<void> {
     for (let i = 0; i < metadata.length; i++) {
       const university = await University.create({
         name: metadata[i].name,
@@ -126,7 +126,7 @@ export default class DBInitializer {
       select: 'locations'
     })
 
-    const classes = <Array<ClassDoc>>university.classes
+    const classes = <ClassDoc[]>university.classes
 
     for (let i = 0; i < classes.length; i++) {
       let cls = classes[i]

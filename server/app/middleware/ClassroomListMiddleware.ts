@@ -16,7 +16,7 @@ interface LectureInfo {
 
 interface ClassroomInfo {
   number: string
-  lectures: Array<LectureInfo>
+  lectures: LectureInfo[]
 }
 
 export default class ClassroomListMiddleware {
