@@ -48,8 +48,8 @@ export default class BuildingListMiddleware {
     university.buildings.forEach((building: BuildingDoc) => {
       if (building.floors.length != 0) {
         building_list.push({
-          number: building['number'],
-          name: building['name'][language]
+          number: building.number,
+          name: building.name[language]
         })
       }
     })
@@ -92,23 +92,23 @@ export default class BuildingListMiddleware {
     const building_list: BldgEmptyInfo[] = []
     const promise_list: Promise<boolean>[][] = []
 
-    university.buildings.forEach((building: BuildingDoc, index) => {
+    university.buildings.forEach((building: BuildingDoc) => {
       if (building.floors.length != 0) {
-        promise_list[index] = []
+        promise_list.push([])
 
         building.floors.forEach((floor: FloorDoc) => {
           floor.classrooms.forEach((classroom_id: string) => {
-            promise_list[index].push(
+            promise_list[promise_list.length - 1].push(
               empty_controller.isClassroomEmpty(classroom_id)
             )
           })
         })
 
         building_list.push({
-          number: building['number'],
-          name: building['name'][language],
+          number: building.number,
+          name: building.name[language],
           empty_classroom: 0,
-          total_classroom: promise_list[index].length
+          total_classroom: promise_list[promise_list.length - 1].length
         })
       }
     })
@@ -116,7 +116,7 @@ export default class BuildingListMiddleware {
     const async_promise_list: Promise<boolean[]>[] = []
 
     for (let i = 0; i < promise_list.length; i++) {
-      async_promise_list.push(Promise.all(promise_list[i]))
+      async_promise_list[i] = Promise.all(promise_list[i])
     }
 
     let empty_lists = await Promise.all(async_promise_list)
