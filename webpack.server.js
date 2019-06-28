@@ -29,7 +29,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: [/\.jsx?$/],
+        test: [/\.js$/],
         exclude: /(node_modules|bower_components)/,
         use: [
           {
@@ -50,7 +50,12 @@ module.exports = {
               presets: ['@babel/preset-env']
             }
           },
-          'ts-loader'
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true
+            }
+          }
         ]
       }
     ]
