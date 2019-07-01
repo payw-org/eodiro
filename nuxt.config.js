@@ -52,8 +52,8 @@ export default {
 
   // include global css/scss files
   css: [
-    '~/assets/css/fonts.css',
-    { src: '~/assets/scss/globalstyle.scss', lang: 'scss' }
+    '~/assets/styles/css/fonts.css',
+    { src: '~/assets/styles/scss/globalstyle.scss', lang: 'scss' }
   ],
 
   // transition between routes
