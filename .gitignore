@@ -11,3 +11,6 @@ server/build
 server/logs
 server/resources/scrap
 server/resources/parse-debug
+
+.nuxt
+dist
