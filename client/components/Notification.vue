@@ -113,8 +113,8 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import 'SCSS/global-variables';
-@import 'SCSS/global-mixins';
+@import '~/assets/styles/scss/global-variables';
+@import '~/assets/styles/scss/global-mixins';
 
 .slide-enter-active, .slide-leave-active {
   transition: transform 500ms ease;

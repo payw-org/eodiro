@@ -1,3 +1,3 @@
-import 'SCSS/globalstyle'
-import 'SCSS/spring.styl'
-import 'SCSS/gradients-simple.scss'
+import '~/assets/styles/scss/globalstyle'
+import '~/assets/styles/scss/spring.styl'
+import '~/assets/styles/scss/gradients-simple.scss'

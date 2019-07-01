@@ -40,11 +40,11 @@
 </template>
 
 <script>
-import Content from 'Components/Content'
-import Loading from 'Components/Loading'
-import Stagger from 'Modules/Stagger'
-import ApiUrl from 'Modules/ApiUrl'
-import EodiroStorage from 'Modules/EodiroStorage'
+import Content from '~/components/Content'
+import Loading from '~/components/Loading'
+import Stagger from '~/plugins/Stagger'
+import ApiUrl from '~/plugins/ApiUrl'
+import EodiroStorage from '~/plugins/EodiroStorage'
 import axios from 'axios'
 
 export default {
@@ -169,8 +169,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import 'SCSS/global-variables.scss';
-@import 'SCSS/global-mixins.scss';
+@import '~/assets/styles/scss/global-variables.scss';
+@import '~/assets/styles/scss/global-mixins.scss';
 
 .building-container {
   position: relative;

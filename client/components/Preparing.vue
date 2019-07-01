@@ -5,7 +5,7 @@
 </template>
 
 <style lang="scss" scoped>
-@import 'SCSS/global-variables.scss';
+@import '~/assets/styles/scss/global-variables.scss';
 
 #preparing {
   position: fixed;

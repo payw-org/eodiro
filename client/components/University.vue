@@ -39,9 +39,9 @@
 </template>
 
 <script>
-import Content from 'Components/Content.vue'
-import Loading from 'Components/Loading'
-import ApiUrl from 'Modules/ApiUrl'
+import Content from '~/components/Content.vue'
+import Loading from '~/components/Loading'
+import ApiUrl from '~/plugins/ApiUrl'
 import axios from 'axios'
 
 export default {
@@ -109,8 +109,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import 'SCSS/global-variables.scss';
-@import 'SCSS/global-mixins.scss';
+@import '~/assets/styles/scss/global-variables.scss';
+@import '~/assets/styles/scss/global-mixins.scss';
 
 .university-search {
   // padding-bottom: 0 !important;

@@ -130,16 +130,16 @@
 </template>
 
 <script>
-import Content from 'Components/Content'
-import Loading from 'Components/Loading'
+import Content from '~/components/Content'
+import Loading from '~/components/Loading'
 import SimpleBar from 'simplebar'
-import 'SCSS/simplebar-custom.scss'
-import Stagger from 'Modules/Stagger'
-import ExpireCounter from 'Modules/ExpireCounter'
+import '~/assets/styles/scss/simplebar-custom.scss'
+import Stagger from '~/plugins/Stagger'
+import ExpireCounter from '~/plugins/ExpireCounter'
 import axios from 'axios'
-import DTS from 'Modules/DayToString'
+import DTS from '~/plugins/DayToString'
 import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
-import ApiUrl from 'Modules/ApiUrl'
+import ApiUrl from '~/plugins/ApiUrl'
 import { spring, styler } from 'popmotion'
 
 export default {
@@ -285,8 +285,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import 'SCSS/global-variables.scss';
-@import 'SCSS/global-mixins.scss';
+@import '~/assets/styles/scss/global-variables.scss';
+@import '~/assets/styles/scss/global-mixins.scss';
 
 .result {
   .empty-classrooms-container {
