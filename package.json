@@ -14,7 +14,11 @@
     "build-all:watch": "concurrently --kill-others \"npm run build:watch\" \"npm run build-s:watch\"",
     "start": "pm2 start ./pm2.json",
     "stop": "pm2 stop ./pm2.json",
-    "restart": "pm2 restart ./pm2.json"
+    "restart": "pm2 restart ./pm2.json",
+    "nuxt:dev": "nuxt --port 3500",
+    "nuxt:build": "nuxt build",
+    "nuxt:start": "nuxt start",
+    "nuxt:generate": "nuxt generate"
   },
   "repository": {
     "type": "git",
