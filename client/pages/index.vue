@@ -115,12 +115,12 @@
         </div>
       </div>
     <!-- </transition> -->
-    <HomeBGTile/>
+    <!-- <HomeBGTile/> -->
   </div>
 </template>
 
 <script>
-import HomeBGTile from '~/components/HomeBGTile'
+import HomeBGTile from '~/components/HomeBGTile.vue'
 
 export default {
   metaInfo() {
@@ -160,14 +160,16 @@ export default {
       return new Date().getFullYear()
     },
     startMsg() {
-      if (window.localStorage.getItem('defaultUniversity')) {
-        const defaultUniversity = JSON.parse(window.localStorage.getItem('defaultUniversity'))
-        this.isDefaultUniversityExist = true
-        this.startLink = defaultUniversity.vendor
-        return defaultUniversity.name
-      } else {
-        this.startLink = 'university'
-        return this.$t('start')
+      if (process.client) {
+        if (window.localStorage.getItem('defaultUniversity')) {
+          const defaultUniversity = JSON.parse(window.localStorage.getItem('defaultUniversity'))
+          this.isDefaultUniversityExist = true
+          this.startLink = defaultUniversity.vendor
+          return defaultUniversity.name
+        } else {
+          this.startLink = 'university'
+          return this.$t('start')
+        }
       }
     }
   },
