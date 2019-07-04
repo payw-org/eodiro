@@ -72,7 +72,7 @@ export default {
           iso: 'ko-KR'
         }
       ],
-      defaultLocale: 'en',
+      defaultLocale: 'kr',
       vueI18nLoader: true
     }]
   ],
