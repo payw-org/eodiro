@@ -123,7 +123,7 @@
 import HomeBGTile from '~/components/HomeBGTile.vue'
 
 export default {
-  metaInfo() {
+  head () {
     return {
       title: this.$t('title'),
       meta: [
