@@ -23,8 +23,8 @@
   <div id="not-found">
     <div class="wrapper">
       <div class="app-icon">
-        <img class="app-icon mode--light" src="/assets/images/eodiro/app-icon_sq.svg" alt="eodiro-logo" />
-        <img class="app-icon mode--dark" src="/assets/images/eodiro/app-icon_sq_dark.svg" alt="eodiro-logo" />
+        <img class="app-icon mode--light" src="~/assets/images/eodiro/app-icon_sq.svg" alt="eodiro-logo" />
+        <img class="app-icon mode--dark" src="~/assets/images/eodiro/app-icon_sq_dark.svg" alt="eodiro-logo" />
       </div>
       <h1 class="manifesto">{{ $t('first_line') }}<br />{{ $t('second_line') }}</h1>
       <button class="eodiro-btn go-back" @click="goBack">Go Back</button>
