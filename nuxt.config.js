@@ -53,7 +53,28 @@ export default {
   // include global css/scss files
   css: [
     '~/assets/styles/css/fonts.css',
-    { src: '~/assets/styles/scss/globalstyle.scss', lang: 'scss' }
+    { src: '~/assets/styles/scss/globalstyle.scss', lang: 'scss' },
+    { src: '~/assets/styles/stylus/spring.styl', lang: 'styl'}
+  ],
+
+  // modules
+  modules: [
+    ['nuxt-i18n', {
+      locales: [
+        {
+          name: 'English',
+          code: 'en',
+          iso: 'en-US'
+        },
+        {
+          name: 'Korean',
+          code: 'kr',
+          iso: 'ko-KR'
+        }
+      ],
+      defaultLocale: 'en',
+      vueI18nLoader: true
+    }]
   ],
 
   // transition between routes
