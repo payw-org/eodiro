@@ -19,8 +19,8 @@ export default {
 
 
 <style lang="scss" scoped>
-@import '~/assets/styles/scss/global-variables';
-@import '~/assets/styles/scss/global-mixins';
+@import '~/assets/styles/scss/global-variables.scss';
+@import '~/assets/styles/scss/global-mixins.scss';
 
 @keyframes spin {
 	0% {
