@@ -109,7 +109,7 @@
           </div>
           <h1 class="logo-text">{{ $t('title') }}</h1>
           <p class="description base-gray">{{ $t('description') }}</p>
-          <nuxt-link :to="localePath('university')">
+          <nuxt-link :to="localePath('vacant')">
             <button class="go-btn eodiro-btn">
               {{ startMsg }}
               <span class="arrow">→</span>
@@ -137,12 +137,12 @@
           <span v-if="!isSettingsActive">{{ $t('colorMode') }}</span>
           <span v-else>{{ $t('done') }}</span>
         </button>
-        <nuxt-link :to="localePath('university')">
+        <!-- <nuxt-link :to="localePath('university')">
           <button
             class="config-btn"
             v-if="isDefaultUniversityExist && !isSettingsActive"
           >{{ $t('changeCollege') }}</button>
-        </nuxt-link>
+        </nuxt-link> -->
       </div>
     </div>
     <!-- </transition> -->
