@@ -1,5 +1,5 @@
-@import '~/assets/styles/scss/global-variables';
-@import '~/assets/styles/scss/global-mixins';
+@import '~/assets/styles/scss/global-variables.scss';
+@import '~/assets/styles/scss/global-mixins.scss';
 
 @function lightenFancy($color) {
   @return adjust-hue(saturate(lighten($color, 15%), 0%), 0%);
