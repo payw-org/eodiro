@@ -2,6 +2,10 @@
 // we can set these on each page vue components
 const title = '어디로'
 const description = ''
+const modifyHtml = (html) => {
+  // remove data-n-head="true"
+  return html.replace(/data-n-head="true"/g, '')
+}
 
 export default {
   // custom global id of html dom
@@ -47,6 +51,15 @@ export default {
     linkExactActiveClass: 'exact-active-link'
   },
 
+  // hooks: {
+  //   'generate:page': (page) => {
+  //     page.html = modifyHtml(page.html)
+  //   },
+  //   'render:route': (url, page, { req, res }) => {
+  //     page.html = modifyHtml(page.html)
+  //   }
+  // },
+
   // not using nuxt's loading feature
   loading: false,
 
@@ -54,6 +67,7 @@ export default {
   css: [
     '~/assets/styles/css/fonts.css',
     { src: '~/assets/styles/scss/globalstyle.scss', lang: 'scss' },
+    { src: '~/assets/styles/scss/gradients-simple.scss', lang: 'scss'},
     { src: '~/assets/styles/stylus/spring.styl', lang: 'styl'}
   ],
 
