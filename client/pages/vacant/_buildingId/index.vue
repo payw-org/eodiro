@@ -90,14 +90,12 @@ export default {
       })
     }
   },
-  created() {
-    this.fetchFloors()
-  },
   activated() {
     this.fetchEmpty()
   },
   mounted() {
-    this.buildingName = this.$route.params.buildingID
+    this.buildingName = this.$route.params.buildingId
+    this.fetchFloors()
   }
 }
 </script>

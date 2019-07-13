@@ -166,7 +166,7 @@ export default {
     this.fetchBuildings()
   },
   activated() {
-    // this.fetchEmpty()
+    this.fetchEmpty()
   }
 }
 </script>

@@ -300,10 +300,8 @@ export default {
       }
     }
   },
-  created() {
-    this.fetchTimeTable()
-  },
   mounted() {
+    this.fetchTimeTable()
     this.simplebarTimeTableElm = new SimpleBar(
       this.$el.querySelector('.timetable'),
       {}
