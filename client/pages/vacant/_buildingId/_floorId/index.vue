@@ -17,24 +17,6 @@
     "remain": "Left",
     "timetable": "Timetable",
     "no_timetable": "No Timetable"
-  },
-  "zh": {
-    "nextClass": "下一課",
-    "noNextClassMsg": "다음 수업이 없습니다.",
-    "hour": "小時",
-    "min": "分鐘",
-    "remain": "留",
-    "timetable": "時間表",
-    "no_timetable": "강의 시간표가 없습니다"
-  },
-  "fr": {
-    "nextClass": "Prochain Cours",
-    "noNextClassMsg": "다음 수업이 없습니다.",
-    "hour": "h",
-    "min": "m",
-    "remain": "Reste",
-    "timetable": "Calendrier",
-    "no_timetable": "강의 시간표가 없습니다"
   }
 }
 </i18n>
