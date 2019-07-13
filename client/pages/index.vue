@@ -3,7 +3,7 @@
   "kr": {
     "title": "어디로",
     "description": "대학교 빈 강의실 찾기 서비스",
-    "start": "대학교 선택",
+    "start": "시작하기",
     "colorMode": "색상 모드 설정",
     "changeCollege": "학교 변경",
     "done": "완료",
@@ -15,37 +15,13 @@
   "en": {
     "title": "eodiro",
     "description": "Find Empty Classrooms",
-    "start": "Select University",
+    "start": "GO",
     "colorMode": "Set Color Scheme",
     "changeCollege": "Change College",
     "done": "Done",
     "light_mode": "Light Mode",
     "dark_mode": "Dark Mode",
     "adaptive": "Adaptive",
-    "contact": "Contact"
-  },
-  "zh": {
-    "title": "eodiro",
-    "description": "找到空的教室",
-    "start": "选择大学",
-    "colorMode": "设置配色方案",
-    "changeCollege": "改变大学",
-    "done": "DONE",
-    "light_mode": "光模式",
-    "dark_mode": "黑暗模式",
-    "adaptive": "自适应",
-    "contact": "联系"
-  },
-  "fr": {
-    "title": "eodiro",
-    "description": "Trouver Une Classe Vide",
-    "start": "Choisir L'Université",
-    "colorMode": "Définir Les Couleurs",
-    "changeCollege": "Changer DE Collège",
-    "done": "Terminé",
-    "light_mode": "Mode Lumière",
-    "dark_mode": "Mode Sombre",
-    "adaptive": "Adaptatif",
     "contact": "Contact"
   }
 }
