@@ -1,6 +1,6 @@
 <i18n>
 {
-  "ko": {
+  "kr": {
     "nextClass": "다음 수업",
     "noNextClassMsg": "다음 수업이 없습니다.",
     "hour": "시간",
@@ -441,7 +441,7 @@ export default {
         position: sticky;
         top: 0;
         height: 3rem;
-        background-image: url('/assets/images/eodiro/down_arrow.svg');
+        background-image: url('~assets/images/eodiro/down_arrow.svg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: 2rem;
