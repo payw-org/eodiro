@@ -93,18 +93,12 @@
           </nuxt-link>
         </div>
         <div class="color-scheme-config" v-show="isSettingsActive" key="2">
-          <button
-            class="mode-btn light"
-            @click="$emit('changeColorScheme', 'light')"
-          >{{ $t('light_mode') }}</button>
-          <button
-            class="mode-btn dark"
-            @click="$emit('changeColorScheme', 'dark')"
-          >{{ $t('dark_mode') }}</button>
+          <button class="mode-btn light" @click="updateColorScheme('light')">{{ $t('light_mode') }}</button>
+          <button class="mode-btn dark" @click="updateColorScheme('dark')">{{ $t('dark_mode') }}</button>
           <button
             class="mode-btn auto"
             v-if="autoDarkModeSupport"
-            @click="$emit('changeColorScheme', 'auto')"
+            @click="updateColorScheme('auto')"
           >{{ $t('adaptive') }} (macOS Mojave)</button>
         </div>
       </div>
@@ -118,15 +112,16 @@
             class="config-btn"
             v-if="isDefaultUniversityExist && !isSettingsActive"
           >{{ $t('changeCollege') }}</button>
-        </nuxt-link> -->
+        </nuxt-link>-->
       </div>
     </div>
     <!-- </transition> -->
-    <!-- <HomeBGTile/> -->
+    <!-- <HomeBGTile /> -->
   </div>
 </template>
 
 <script>
+import ColorScheme from '~/plugins/ColorScheme.ts'
 import HomeBGTile from '~/components/HomeBGTile.vue'
 
 export default {
@@ -162,6 +157,11 @@ export default {
       startLink: ''
     }
   },
+  methods: {
+    updateColorScheme(mode) {
+      ColorScheme.updateColorScheme(mode)
+    }
+  },
   computed: {
     thisYear() {
       return new Date().getFullYear()
@@ -190,9 +190,12 @@ export default {
       this.autoDarkModeSupport = true
     }
 
+    // animate start box
     setTimeout(() => {
       this.$el.querySelector('.start-box').classList.add('appear')
     }, 200)
+
+    ColorScheme.setColorScheme()
   }
 }
 </script>
