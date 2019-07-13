@@ -89,12 +89,16 @@ export default {
 
     // compare the last completed time and
     // the latest notification's begin time/end time
-    let beginUnix = moment(this.getLastestNoti().begin).unix()*1000
-    let endUnix = moment(this.getLastestNoti().end).unix()*1000
+    let beginUnix = moment(this.getLastestNoti().begin).unix() * 1000
+    let endUnix = moment(this.getLastestNoti().end).unix() * 1000
     let now = Date.now()
 
     if (noti.completedAt) {
-      if (now > beginUnix && now < endUnix && Number(noti.completedAt) < beginUnix) {
+      if (
+        now > beginUnix &&
+        now < endUnix &&
+        Number(noti.completedAt) < beginUnix
+      ) {
         // notification should appear
         this.isCompleted = false
       } else {
@@ -116,11 +120,13 @@ export default {
 @import '~/assets/styles/scss/global-variables';
 @import '~/assets/styles/scss/global-mixins';
 
-.slide-enter-active, .slide-leave-active {
+.slide-enter-active,
+.slide-leave-active {
   transition: transform 500ms ease;
   transform: translateY(0);
 }
-.slide-enter, .slide-leave-to {
+.slide-enter,
+.slide-leave-to {
   transform: translateY(calc(100% + 2rem));
 }
 
@@ -154,13 +160,13 @@ export default {
       transform: translateX(calc(50% - 0.5rem));
       width: 2rem;
       height: 2rem;
-      @include bgImg('/assets/images/eodiro/x_white.svg', 'center', '1rem');
+      @include bgImg('~assets/images/eodiro/x_white.svg', 'center', '1rem');
       background-color: #5c5c5c;
       border-radius: 50px;
-      box-shadow: 0 0.1rem 0.5rem rgba(0,0,0,0.3);
+      box-shadow: 0 0.1rem 0.5rem rgba(0, 0, 0, 0.3);
 
       @include dark-mode() {
-        @include bgImg('/assets/images/eodiro/x.svg', 'center', '1rem');
+        @include bgImg('~assets/images/eodiro/x.svg', 'center', '1rem');
         background-color: #fff;
       }
     }
