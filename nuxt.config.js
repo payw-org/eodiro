@@ -63,7 +63,7 @@ export default {
 
   // include global css/scss files
   css: [
-    '~/assets/styles/css/fonts.css',
+    '~/assets/styles/css/fonts_new.css',
     { src: '~/assets/styles/scss/globalstyle.scss', lang: 'scss' },
     { src: '~/assets/styles/scss/gradients-simple.scss', lang: 'scss' },
     { src: '~/assets/styles/stylus/spring.styl', lang: 'styl' }
