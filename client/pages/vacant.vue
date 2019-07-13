@@ -3,6 +3,8 @@
     <AppNav :is-hidden="isNavHidden" />
     <div class="ea-content">
       <nuxt-child
+        keep-alive
+        :keep-alive-props="{ include: cachedComponents }"
         @toggleScrollEvent="toggleScrollEvent"
         :is-right-direction="isRightDirection"
         :cached-components="cachedComponents"
@@ -13,6 +15,7 @@
 
 <script>
 import AppNav from '~/components/AppNav.vue'
+import RouteLocation from '~/plugins/RouteLocation.ts'
 
 export default {
   components: { AppNav },
@@ -32,7 +35,7 @@ export default {
       this.isNavHidden = false
 
       // if go left direction, remove last cached components
-      if (!this.isRightDirection) {
+      if (!RouteLocation.isRightDirection(to.name, from.name)) {
         this.cachedComponents.splice(this.cachedComponents.length - 1, 1)
       }
     }

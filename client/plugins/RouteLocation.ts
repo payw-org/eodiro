@@ -6,21 +6,26 @@
 export default class Location {
   constructor() {}
 
-  static isRightDirection(to, from) {
+  static isRightDirection(to: string, from: string) {
+    to = to.replace(/___[a-z][a-z]/g, '')
+    from = from.replace(/___[a-z][a-z]/g, '')
+
+    console.log(from, to)
+
     const routesList = [
-      'home',
-      'university',
-      'building',
-      'floor',
-      'result'
+      'vacant',
+      'vacant-buildingId',
+      'vacant-buildingId-floorId'
     ]
 
     const fromIndex = routesList.indexOf(from)
     const toIndex = routesList.indexOf(to)
 
     if (fromIndex < toIndex) {
+      console.log('is right')
       return true
     } else {
+      console.log('is left')
       return false
     }
   }
