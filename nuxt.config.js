@@ -2,7 +2,7 @@
 // we can set these on each page vue components
 const title = '어디로'
 const description = ''
-const modifyHtml = (html) => {
+const modifyHtml = html => {
   // remove data-n-head="true"
   return html.replace(/data-n-head="true"/g, '')
 }
@@ -37,9 +37,7 @@ export default {
         content: 'https://eodiro.com/assets/images/open-graph/open_graph.png'
       }
     ],
-    link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
-    ]
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
 
   // source directory ('/client')
@@ -67,28 +65,35 @@ export default {
   css: [
     '~/assets/styles/css/fonts.css',
     { src: '~/assets/styles/scss/globalstyle.scss', lang: 'scss' },
-    { src: '~/assets/styles/scss/gradients-simple.scss', lang: 'scss'},
-    { src: '~/assets/styles/stylus/spring.styl', lang: 'styl'}
+    { src: '~/assets/styles/scss/gradients-simple.scss', lang: 'scss' },
+    { src: '~/assets/styles/stylus/spring.styl', lang: 'styl' }
   ],
 
   // modules
   modules: [
-    ['nuxt-i18n', {
-      locales: [
-        {
-          name: 'English',
-          code: 'en',
-          iso: 'en-US'
-        },
-        {
-          name: 'Korean',
-          code: 'kr',
-          iso: 'ko-KR'
+    [
+      'nuxt-i18n',
+      {
+        locales: [
+          {
+            name: 'English',
+            code: 'en',
+            iso: 'en-US'
+          },
+          {
+            name: 'Korean',
+            code: 'kr',
+            iso: 'ko-KR'
+          }
+        ],
+        defaultLocale: 'kr',
+        vueI18nLoader: true,
+        detectBrowserLanguage: {
+          useCookie: true,
+          alwaysRedirect: false
         }
-      ],
-      defaultLocale: 'kr',
-      vueI18nLoader: true
-    }]
+      }
+    ]
   ],
 
   // transition between routes
