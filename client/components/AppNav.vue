@@ -85,19 +85,18 @@ export default {
       this.goBackActive = false
       window.clearTimeout(this.goBackTimeout)
 
-      let rp = route.params
       if (route.name.includes('vacant___')) {
+        // selecting building page
         this.navTitle = this.$t('navTitle_building')
-        this.backLink = '/'
+        this.backLink = this.localePath('index')
       } else if (route.name.includes('vacant-buildingId___')) {
+        // selecting floor page
         this.navTitle = this.$t('navTitle_floor')
-        this.backLink = '/' + rp.univVendor
+        this.backLink = this.localePath('vacant')
       } else if (route.name.includes('vacant-buildingId-floorId___')) {
+        // result page
         this.navTitle = this.$t('navTitle_result')
-        this.backLink = '/' + rp.univVendor + '/' + rp.buildingID
-      } else if (route.name === 'university') {
-        this.navTitle = this.$t('navTitle_university')
-        this.backLink = '/'
+        this.backLink = this.localePath('vacant-buildingId')
       }
 
       // Animate nav width
