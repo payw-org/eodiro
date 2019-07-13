@@ -25,7 +25,9 @@
                 <button class="empty-count-badge" :class="{loaded: isEmptyLoaded}">
                   <span class="label" :class="{opaque: !isEmptyLoaded}">
                     {{ building.empty_classroom }}
-                    <span class="total">/ {{ building.total_classroom }}</span>
+                    <span
+                      class="total"
+                    >/ {{ building.total_classroom }}</span>
                   </span>
                 </button>
               </div>
@@ -213,7 +215,7 @@ export default {
       $size: 2rem;
       width: $size;
       height: $size;
-      @include bgImg('/assets/images/eodiro/star_gray.svg', 'center', '1.5rem');
+      @include bgImg('~assets/images/eodiro/star_gray.svg', 'center', '1.5rem');
 
       &.marked {
         opacity: 0.6;

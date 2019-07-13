@@ -43,11 +43,7 @@
   <div class="content-item result">
     <div class="empty-classrooms-container">
       <Loading v-if="classrooms.length === 0" />
-      <div
-        class="ec-item-wrapper"
-        v-for="room in classrooms"
-        :key="room.number"
-      >
+      <div class="ec-item-wrapper" v-for="room in classrooms" :key="room.number">
         <div
           class="ec-item"
           :class="[
@@ -62,7 +58,10 @@
           <h1 class="room-number">{{ room.number }}</h1>
           <p class="info">
             <span v-if="room.nextClass && room.expireTimeLevel >= 0">
-              <div>{{ $t('nextClass') }}: <b>{{ room.nextClass }}</b></div>
+              <div>
+                {{ $t('nextClass') }}:
+                <b>{{ room.nextClass }}</b>
+              </div>
               <div>
                 <span class="time">
                   <span class="hour" v-if="room.hour">
@@ -78,9 +77,7 @@
             <span v-else-if="room.expireTimeLevel === -1">
               <div>현재 수업중입니다</div>
             </span>
-            <span v-else>
-              {{ $t('noNextClassMsg') }}
-            </span>
+            <span v-else>{{ $t('noNextClassMsg') }}</span>
           </p>
         </div>
       </div>
@@ -95,12 +92,36 @@
           <h1 class="title">{{ selectedRoom.number + ' ' + $t('timetable') }}</h1>
           <div class="day-select-wrapper">
             <div class="day-select">
-              <button class="day mon" :class="{selected: timetableDay === 1}" @click="setTimeTableAtDay(1)">Mon</button>
-              <button class="day tue" :class="{selected: timetableDay === 2}" @click="setTimeTableAtDay(2)">Tue</button>
-              <button class="day wed" :class="{selected: timetableDay === 3}" @click="setTimeTableAtDay(3)">Wed</button>
-              <button class="day thu" :class="{selected: timetableDay === 4}" @click="setTimeTableAtDay(4)">Thu</button>
-              <button class="day fri" :class="{selected: timetableDay === 5}" @click="setTimeTableAtDay(5)">Fri</button>
-              <button class="day sat" :class="{selected: timetableDay === 6}" @click="setTimeTableAtDay(6)">Sat</button>
+              <button
+                class="day mon"
+                :class="{selected: timetableDay === 1}"
+                @click="setTimeTableAtDay(1)"
+              >Mon</button>
+              <button
+                class="day tue"
+                :class="{selected: timetableDay === 2}"
+                @click="setTimeTableAtDay(2)"
+              >Tue</button>
+              <button
+                class="day wed"
+                :class="{selected: timetableDay === 3}"
+                @click="setTimeTableAtDay(3)"
+              >Wed</button>
+              <button
+                class="day thu"
+                :class="{selected: timetableDay === 4}"
+                @click="setTimeTableAtDay(4)"
+              >Thu</button>
+              <button
+                class="day fri"
+                :class="{selected: timetableDay === 5}"
+                @click="setTimeTableAtDay(5)"
+              >Fri</button>
+              <button
+                class="day sat"
+                :class="{selected: timetableDay === 6}"
+                @click="setTimeTableAtDay(6)"
+              >Sat</button>
               <!-- <button class="day sun" :class="{selected: timetableDay === 0}" @click="setTimeTableAtDay(0)">Sun</button> -->
             </div>
           </div>
@@ -138,14 +159,18 @@ import Stagger from '~/plugins/Stagger'
 import ExpireCounter from '~/plugins/ExpireCounter'
 import axios from 'axios'
 import DTS from '~/plugins/DayToString'
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
+import {
+  disableBodyScroll,
+  enableBodyScroll,
+  clearAllBodyScrollLocks
+} from 'body-scroll-lock'
 import ApiUrl from '~/plugins/ApiUrl'
 import { spring, styler } from 'popmotion'
 
 export default {
   name: 'result',
   extends: Content,
-  components: {Loading},
+  components: { Loading },
   data() {
     return {
       classrooms: [],
@@ -181,12 +206,12 @@ export default {
 
       // set table data
       this.setTimeTableAtDay(this.timetableDay)
-  
+
       // recalculate and reset simplebar
       setTimeout(() => {
-        this.simplebarTimeTableElm.getScrollElement().scrollTo(0,0)
+        this.simplebarTimeTableElm.getScrollElement().scrollTo(0, 0)
       }, 0)
-  
+
       const interval = window.setInterval(() => {
         this.simplebarTimeTableElm.recalculate()
       }, 100)
@@ -210,60 +235,63 @@ export default {
       Stagger.hide(this.$el.querySelectorAll('.ec-item'))
     },
     fetchTimeTable() {
-      axios.get(ApiUrl.get() + location.pathname)
-        .then(r => {
-          if (r.data.err) {
-            location.replace('/404')
-            return
+      axios.get(ApiUrl.get() + location.pathname).then(r => {
+        if (r.data.err) {
+          location.replace('/404')
+          return
+        }
+
+        this.classrooms = r.data.classrooms
+
+        let counter = new ExpireCounter(this.classrooms)
+        let date = new Date()
+
+        for (let i = 0; i < this.classrooms.length; i++) {
+          let c = this.classrooms[i]
+          let counterResult = counter.run(c.number, date)
+
+          c.remainingTime = counterResult.expireTime
+          counterResult.expireTime = Math.round(counterResult.expireTime)
+          c.expireTimeLevel = counterResult.expireTimeLevel
+
+          // max expireTimeLevel should be 10
+          // since we use 11 colors (red ~ purple)
+          if (c.expireTimeLevel > 10) {
+            c.expireTimeLevel = 10
           }
 
-          this.classrooms = r.data.classrooms
-      
-          let counter = new ExpireCounter(this.classrooms)
-          let date = new Date()
-      
-          for (let i = 0; i < this.classrooms.length; i++) {
-            let c = this.classrooms[i]
-            let counterResult = counter.run(c.number, date)
+          c.nextClass = counterResult.nextClassName
+          c.hour = parseInt(counterResult.expireTime / 60)
+          c.min = counterResult.expireTime - c.hour * 60
+        }
 
-            c.remainingTime = counterResult.expireTime
-            counterResult.expireTime = Math.round(counterResult.expireTime)
-            c.expireTimeLevel = counterResult.expireTimeLevel
-
-            // max expireTimeLevel should be 10
-            // since we use 11 colors (red ~ purple)
-            if (c.expireTimeLevel > 10) {
-              c.expireTimeLevel = 10
-            }
-
-            c.nextClass = counterResult.nextClassName
-            c.hour = parseInt(counterResult.expireTime / 60)
-            c.min = counterResult.expireTime - c.hour * 60
-          }
-
-          this.$nextTick(() => {
-            this.buildIn()
-          })
-      
-          // sort the result classrooms
-          // default is sort by the classroom number
-          // this.classrooms.sort(function (a, b) {
-          //   if (!a.remainingTime) {
-          //     return -1
-          //   } else if (!b.remainingTime) {
-          //     return 1
-          //   } else {
-          //     return b.remainingTime - a.remainingTime
-          //   }
-          // })
+        this.$nextTick(() => {
+          this.buildIn()
         })
+
+        // sort the result classrooms
+        // default is sort by the classroom number
+        // this.classrooms.sort(function (a, b) {
+        //   if (!a.remainingTime) {
+        //     return -1
+        //   } else if (!b.remainingTime) {
+        //     return 1
+        //   } else {
+        //     return b.remainingTime - a.remainingTime
+        //   }
+        // })
+      })
     },
     isCurrentLecture(start, end, day) {
       let date = new Date()
-      let hours = (date.getHours()<10?'0':'') + date.getHours()
-      let mins = (date.getMinutes()<10?'0':'') + date.getMinutes()
+      let hours = (date.getHours() < 10 ? '0' : '') + date.getHours()
+      let mins = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes()
       let time = Number(hours + mins)
-      if (Number(start) < Number(time) && Number(time) < Number(end) && DTS.dts(date.getDay()) === day) {
+      if (
+        Number(start) < Number(time) &&
+        Number(time) < Number(end) &&
+        DTS.dts(date.getDay()) === day
+      ) {
         return true
       } else {
         return false
@@ -273,12 +301,17 @@ export default {
   created() {
     this.fetchTimeTable()
   },
-  mounted() {    
-    this.simplebarTimeTableElm = new SimpleBar(this.$el.querySelector('.timetable'), {})
+  mounted() {
+    this.simplebarTimeTableElm = new SimpleBar(
+      this.$el.querySelector('.timetable'),
+      {}
+    )
     ;['touchstart', 'mouseover'].forEach(eventName => {
-      this.simplebarTimeTableElm.getScrollElement().addEventListener(eventName, e => {
-        this.simplebarTimeTableElm.recalculate()
-      })
+      this.simplebarTimeTableElm
+        .getScrollElement()
+        .addEventListener(eventName, e => {
+          this.simplebarTimeTableElm.recalculate()
+        })
     })
   }
 }
@@ -311,15 +344,15 @@ export default {
         box-shadow: $eodiro-shadow;
         border-radius: 1rem;
         color: $base-white;
-      
+
         @include dark-mode() {
           box-shadow: $eodiro-shadow, $dark-mode-border-shadow;
-      
+
           @include smaller-than($mobile-width-threshold) {
             box-shadow: $dark-mode-border-shadow;
           }
         }
-      
+
         .room-number {
           font-family: $font-display;
           font-size: 2.5rem;
@@ -327,7 +360,7 @@ export default {
           text-align: right;
           line-height: 1;
         }
-      
+
         .info {
           font-size: 1rem;
           margin-top: 2rem;
@@ -376,7 +409,7 @@ export default {
       width: 100%;
       height: 100%;
       z-index: -1;
-      background-color: rgba(0,0,0,0.7);
+      background-color: rgba(0, 0, 0, 0.7);
       backdrop-filter: blur(20px);
       opacity: 0;
       transition: opacity 400ms ease;
@@ -406,7 +439,7 @@ export default {
         position: sticky;
         top: 0;
         height: 3rem;
-        background-image: url('/assets/images/eodiro/down_arrow.svg');
+        background-image: url('~assets/images/eodiro/down_arrow.svg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: 2rem;
@@ -426,7 +459,7 @@ export default {
           font-weight: 700;
           line-height: 1;
         }
-        
+
         .day-select-wrapper {
           position: sticky;
           top: calc(3rem - 1px);
@@ -436,11 +469,11 @@ export default {
           margin-left: -0.2rem;
           margin-right: -0.2rem;
           height: 3rem;
-        
+
           @include dark-mode() {
             background-color: #333;
           }
-        
+
           .day-select {
             display: block;
             font-size: 0;
@@ -448,7 +481,7 @@ export default {
             overflow-x: auto;
             overflow-y: hidden;
             height: 100%;
-          
+
             .day {
               display: inline-block;
               width: unquote(100/6 + '%');
@@ -461,16 +494,16 @@ export default {
               font-weight: 500;
               background-color: $base-white;
               color: $base-black;
-        
+
               @include dark-mode() {
                 color: $base-white;
                 background-color: #333;
               }
-          
+
               &.selected {
                 background-color: $light-blue;
                 color: $base-white;
-          
+
                 @include dark-mode() {
                   background-color: $light-yellow;
                   color: $base-black;
@@ -479,10 +512,10 @@ export default {
             }
           }
         }
-        
+
         .lecture-container {
           margin-top: 1rem;
-        
+
           .lecture {
             display: flex;
             align-items: center;
@@ -492,27 +525,30 @@ export default {
             margin-bottom: 1rem;
             font-size: 1rem;
             text-align: center;
-        
+
             @include dark-mode() {
               background-color: #222;
             }
-        
+
             &.current {
               box-shadow: 0 0 0 0.2rem $light-blue;
-        
+
               @include dark-mode() {
                 box-shadow: 0 0 0 0.2rem $light-yellow;
               }
             }
-        
-            .time, .instructor, .name {
+
+            .time,
+            .instructor,
+            .name {
               padding: 1rem;
               min-width: 0;
               text-align: center;
             }
-        
+
             .time {
-              &, & * {
+              &,
+              & * {
                 font-weight: 700;
               }
               white-space: nowrap;
@@ -520,7 +556,7 @@ export default {
               line-height: 1.5;
               color: darken($light-blue, 10%);
               color: $light-blue;
-        
+
               @include dark-mode() {
                 color: lighten($light-yellow, 10%);
               }
@@ -533,7 +569,7 @@ export default {
               flex: 2;
             }
           }
-        
+
           .no-timetable-msg {
             font-size: 1rem;
             font-weight: 400;

@@ -1,16 +1,9 @@
 <template>
   <div class="content-item select-building">
     <div class="building-container">
-      <div
-        class="building-wrapper"
-        v-for="(building, i) in buildings"
-        :key="i"
-      >
+      <div class="building-wrapper" v-for="(building, i) in buildings" :key="i">
         <!-- building block -->
-        <div
-          class="building"
-          :class="['gradient--' + (i % 15 + 1)]"
-        >
+        <div class="building" :class="['gradient--' + (i % 15 + 1)]">
           <!-- favorite button -->
           <button
             class="favorite"
@@ -22,12 +15,18 @@
               <div class="building-name">
                 <div class="wrapper">
                   <span class="name--number">{{ building.number }}</span>
-                  <span class="name--text" v-if="building.number !== building.name">{{ building.name }}</span>
+                  <span
+                    class="name--text"
+                    v-if="building.number !== building.name"
+                  >{{ building.name }}</span>
                 </div>
               </div>
               <div class="brief-summary">
                 <button class="empty-count-badge" :class="{loaded: isEmptyLoaded}">
-                  <span class="label" :class="{opaque: !isEmptyLoaded}">{{ building.empty_classroom }} <span class="total">/ {{ building.total_classroom }}</span></span>
+                  <span class="label" :class="{opaque: !isEmptyLoaded}">
+                    {{ building.empty_classroom }}
+                    <span class="total">/ {{ building.total_classroom }}</span>
+                  </span>
                 </button>
               </div>
             </div>
@@ -50,7 +49,7 @@ import axios from 'axios'
 export default {
   name: 'building',
   extends: Content,
-  components: {Loading},
+  components: { Loading },
   data() {
     return {
       buildings: [],
@@ -92,7 +91,8 @@ export default {
     },
     fetchBuildings() {
       let url = ApiUrl.get() + location.pathname
-      axios.get(url)
+      axios
+        .get(url)
         .then(response => {
           let data = response.data
           if (data.err) {
@@ -111,28 +111,31 @@ export default {
             this.buildIn()
           })
         })
-        .catch(function (error) {
-          alert('어디로 서버 오류로 건물을 가져올 수 없습니다. 잠시 후 이용바랍니다.')
+        .catch(function(error) {
+          alert(
+            '어디로 서버 오류로 건물을 가져올 수 없습니다. 잠시 후 이용바랍니다.'
+          )
         })
     },
     fetchEmpty() {
       this.isEmptyLoaded = false
 
-      axios.get(ApiUrl.get() + location.pathname +'/empty')
-        .then(response => {
-          if (response.data.error) return
+      axios.get(ApiUrl.get() + location.pathname + '/empty').then(response => {
+        if (response.data.error) return
 
-          this.buildings = response.data.buildings
-          this.mapFavorite()
-          this.sort()
+        this.buildings = response.data.buildings
+        this.mapFavorite()
+        this.sort()
 
-          this.isEmptyLoaded = true
-        })
+        this.isEmptyLoaded = true
+      })
     },
     toggleFavorite(index) {
       let buildingID = this.buildings[index].number
       let storage = new EodiroStorage(this.univVendor)
-      this.buildings[index].isFavorite = storage.toggleFavoriteBuilding(buildingID)
+      this.buildings[index].isFavorite = storage.toggleFavoriteBuilding(
+        buildingID
+      )
       this.sort()
     },
     mapFavorite() {
@@ -212,7 +215,7 @@ export default {
       $size: 2rem;
       width: $size;
       height: $size;
-      @include bgImg('/assets/images/eodiro/star_gray.svg', 'center', '1.5rem');
+      @include bgImg('~assets/images/eodiro/star_gray.svg', 'center', '1.5rem');
 
       &.marked {
         opacity: 0.6;
@@ -248,11 +251,12 @@ export default {
         color: $base-white;
         font-weight: 700;
         transition: background-color 300ms ease;
-      
-        .name--number, .name--text {
+
+        .name--number,
+        .name--text {
           display: block;
         }
-      
+
         .name--number {
           padding-left: 2rem;
           font-size: 3rem;
@@ -261,7 +265,7 @@ export default {
           line-height: 1;
           word-break: break-word;
         }
-      
+
         .name--text {
           font-size: 1.3rem;
           font-weight: 500;
@@ -270,7 +274,7 @@ export default {
           opacity: 0.8;
         }
       }
-      
+
       .brief-summary {
         margin-top: 1rem;
         text-align: right;
