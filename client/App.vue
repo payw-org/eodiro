@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import Notification from 'Components/Notification'
-import RouteLocation from 'Modules/RouteLocation'
+import Notification from '~/components/Notification'
+import RouteLocation from '~/plugins/RouteLocation'
 
 export default {
   name: 'App',

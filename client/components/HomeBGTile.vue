@@ -74,8 +74,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../scss/global-variables.scss';
-@import '../scss/global-mixins.scss';
+@import '~/assets/styles/scss/global-variables.scss';
+@import '~/assets/styles/scss/global-mixins.scss';
 
 #home-bg-tile {
   position: fixed;

@@ -1,0 +1,308 @@
+@import './global-variables.scss';
+@import './global-mixins.scss';
+
+html {
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  font-size: 85%;
+  background-color: $base-white;
+  // transition: background-color 1000ms ease;
+
+  &.dark-mode {
+    background-color: $base-black;
+    .mode--light {
+      display: none !important;
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    &.auto-color-scheme {
+      background-color: $base-black;
+      .mode--light {
+        display: none !important;
+      }
+    }
+  }
+
+  &.light-mode {
+    background-color: $base-white;
+    .mode--dark {
+      display: none !important;
+    }
+  }
+  @media (prefers-color-scheme: light) {
+    &.auto-color-scheme {
+      background-color: $base-white;
+      .mode--dark {
+        display: none !important;
+      }
+    }
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  html {
+    font-size: 110%;
+  }
+}
+@media only screen and (min-width: 1400px) {
+  html {
+    font-size: 120%;
+  }
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  -moz-osx-font-smoothing: grayscale;
+  -o-font-smoothing: antialiased;
+  font-family: $font-text;
+  margin: 0;
+  padding: 0;
+  word-wrap: break-word;
+  word-break: keep-all;
+  background-color: $base-white;
+  font-size: 17px;
+  color: $base-black;
+  user-select: none;
+  transition: background-color 500ms ease;
+
+  @include dark-mode() {
+    background-color: $base-black;
+    color: $base-white;
+  }
+}
+
+#__eodiro {
+  min-height: calc(100vh + 1px);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-display;
+  font-weight: 700;
+}
+
+p,
+a,
+textarea,
+span,
+div,
+input {
+  font-family: $font-text;
+  font-weight: 400;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  -webkit-touch-callout: none !important;
+
+  &.inner-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: $font-text;
+  font-size: 1rem;
+
+  &:active {
+    color: inherit;
+  }
+}
+
+img {
+  user-select: none;
+  pointer-events: none;
+}
+
+.eodiro-app {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+
+  &:first-child {
+    z-index: 1;
+  }
+
+  $transition-time: 500ms;
+
+  &.trans-enter {
+    opacity: 0;
+  }
+  &.trans-enter.trans-enter-active {
+    opacity: 1;
+    transition: opacity $transition-time ease;
+  }
+  &.trans-exit {
+    opacity: 1;
+    filter: blur(0);
+  }
+  &.trans-exit.trans-exit-active {
+    opacity: 0;
+    transition: opacity $transition-time ease;
+  }
+}
+
+// global page transition
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 300ms ease !important;
+  opacity: 1 !important;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0 !important;
+}
+
+.fade-slow-enter-active,
+.fade-slow-leave-active {
+  transition: opacity 500ms ease !important;
+  opacity: 1 !important;
+}
+.fade-slow-enter,
+.fade-slow-leave-to {
+  opacity: 0 !important;
+}
+
+// global styles
+.eodiro-btn {
+  cursor: pointer;
+  background-color: $light-blue;
+  border-radius: 50px;
+  padding: 0.6rem 1.2rem;
+  font-family: $font-text;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff !important;
+  box-shadow: 0 0.5rem 1.5rem rgba($light-blue, 0.3);
+  transition: $smooth-transition;
+
+  @include dark-mode() {
+    background-color: $light-yellow;
+    box-shadow: 0 0.5rem 1.5rem rgba(#000, 0.3);
+  }
+}
+
+.empty-count-badge {
+  position: relative;
+  display: block;
+  min-width: 2.5rem;
+  min-height: 2.5rem;
+  font-family: $font-text;
+  font-size: 1rem;
+  color: #fff;
+  background-color: rgba(#000, 0.2);
+  border-radius: 50px;
+  padding: 0 1rem;
+  overflow: hidden;
+
+  &,
+  & * {
+    font-weight: 500;
+  }
+
+  .total {
+    font-weight: 700;
+    opacity: 0.7;
+  }
+
+  @keyframes badge-load {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+    }
+    20% {
+      opacity: 1;
+    }
+    40% {
+      opacity: 1;
+    }
+    100% {
+      transform: scale(1);
+      opacity: 0;
+    }
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+    background-color: rgba(#fff, 0.2);
+    animation: 1000ms badge-load ease;
+    animation-fill-mode: both;
+    animation-iteration-count: infinite;
+    transition: opacity 500ms ease;
+  }
+
+  &.loaded {
+    &::before {
+      display: none;
+      animation: none;
+    }
+  }
+
+  .label {
+    transition: opacity 400ms ease;
+
+    &.opaque {
+      opacity: 0;
+    }
+  }
+}
+
+.grid-dummy {
+  height: 0;
+  width: 100%;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  box-shadow: none;
+  pointer-events: none;
+}
+
+// colors
+.base-gray {
+  color: $base-gray;
+
+  @include dark-mode() {
+    color: $base-gray--dark;
+  }
+}
+
+// stagger appear animation
+.stagger-appear {
+  animation: $spring-time springFadeUp linear;
+  animation-fill-mode: forwards;
+}
+
+.stagger-appear-fix {
+  opacity: 1 !important;
+}

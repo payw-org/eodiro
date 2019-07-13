@@ -1,24 +1,22 @@
 {
-	"compilerOptions": {
-		"lib": ["dom", "es5", "es2015"],
-		"noImplicitAny": true,
-		"noImplicitReturns": true,
-		"module": "es2015",
-		"target": "es5",
-		"sourceMap": true,
-		"types": [
-			"node"
-		],
-		"moduleResolution": "node",
-		"allowSyntheticDefaultImports": true,
-		"baseUrl": "./",
-		"paths": {
-			"Components/*": ["client/components/*"],
-			"Modules/*": ["client/modules/*"]
-		}
-	},
-	"exclude": [
-		"node_modules",
-		"vendor"
-	]
+  "compilerOptions": {
+    "noEmit": true,
+    "outDir": "./",
+    "allowJs": true,
+    "target": "es5",
+    "module": "es2015",
+    "lib": ["dom", "es5", "es2015"],
+    "sourceMap": true,
+    "noImplicitAny": true,
+    "noImplicitReturns": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "baseUrl": "./",
+    "paths": {
+      "~/*": ["client/*"]
+    },
+    "types": ["node"],
+    "allowSyntheticDefaultImports": true
+  },
+  "exclude": ["node_modules", "dist"]
 }

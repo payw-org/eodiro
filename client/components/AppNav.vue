@@ -1,6 +1,6 @@
 <i18n>
 {
-  "ko": {
+  "kr": {
     "navTitle_goBack": "뒤로가기",
     "navTitle_university": "학교를 선택하세요",
     "navTitle_building": "건물을 선택하세요",
@@ -35,18 +35,18 @@
   <nav id="app-navigation">
     <div class="an-container">
       <div class="dummy"></div>
-        <div class="single-button-wrapper" :class="{ hidden: isHidden }">
-          <div class="single-button" :class="{'go-back-active': goBackActive}">
-            <router-link class="link" :to="backLink"></router-link>
-            <div class="left-tip"></div>
-            <div class="title-box"></div>
-            <div class="right-tip"></div>
-            <div class="shadow"></div>
-            <transition name="fade" mode="out-in">
-              <h1 class="title-text" :key="navTitle">{{ navTitle }}</h1>
-            </transition>
-          </div>
+      <div class="single-button-wrapper" :class="{ hidden: isHidden }">
+        <div class="single-button" :class="{'go-back-active': goBackActive}">
+          <router-link class="link" :to="backLink"></router-link>
+          <div class="left-tip"></div>
+          <div class="title-box"></div>
+          <div class="right-tip"></div>
+          <div class="shadow"></div>
+          <transition name="fade" mode="out-in">
+            <h1 class="title-text" :key="navTitle">{{ navTitle }}</h1>
+          </transition>
         </div>
+      </div>
       <div class="dummy"></div>
     </div>
   </nav>
@@ -85,19 +85,18 @@ export default {
       this.goBackActive = false
       window.clearTimeout(this.goBackTimeout)
 
-      let rp = route.params
-      if (route.name === 'building') {
+      if (route.name.includes('vacant___')) {
+        // selecting building page
         this.navTitle = this.$t('navTitle_building')
-        this.backLink = '/'
-      } else if (route.name === 'floor') {
+        this.backLink = this.localePath('index')
+      } else if (route.name.includes('vacant-buildingId___')) {
+        // selecting floor page
         this.navTitle = this.$t('navTitle_floor')
-        this.backLink = '/' + rp.univVendor
-      } else if (route.name === 'result') {
+        this.backLink = this.localePath('vacant')
+      } else if (route.name.includes('vacant-buildingId-floorId___')) {
+        // result page
         this.navTitle = this.$t('navTitle_result')
-        this.backLink = '/' + rp.univVendor + '/' + rp.buildingID
-      } else if (route.name === 'university') {
-        this.navTitle = this.$t('navTitle_university')
-        this.backLink = '/'
+        this.backLink = this.localePath('vacant-buildingId')
       }
 
       // Animate nav width
@@ -119,7 +118,7 @@ export default {
       titleTextClone.style.pointerEvents = 'none'
       titleTextClone.innerHTML = newTitle
       titleText.parentElement.appendChild(titleTextClone)
-      
+
       let titleBox = this.$el.querySelector('.title-box')
       let leftTip = this.$el.querySelector('.left-tip')
       let rightTip = this.$el.querySelector('.right-tip')
@@ -137,7 +136,7 @@ export default {
         titleBox.style.transform = 'scaleX(' + scaleX + ')'
         leftTip.style.transform = 'translateX(' + translateX + 'px)'
         rightTip.style.transform = 'translateX(' + -translateX + 'px)'
-        link.style.width = 'calc(' + titleTextWidth + 'px' + ' \+ 3rem)'
+        link.style.width = 'calc(' + titleTextWidth + 'px' + ' + 3rem)'
         shadow.style.width = titleTextWidth + 'px'
 
         titleTextClone.parentElement.removeChild(titleTextClone)
@@ -152,8 +151,8 @@ export default {
 
 
 <style lang="scss">
-@import 'SCSS/global-variables.scss';
-@import 'SCSS/global-mixins.scss';
+@import '~/assets/styles/scss/global-variables.scss';
+@import '~/assets/styles/scss/global-mixins.scss';
 
 #app-navigation {
   $top-gap: 4rem;
@@ -212,11 +211,13 @@ export default {
           height: 100%;
           transform: translateX(-50%) translateY(-50%);
           z-index: 3;
-          transition: width 700ms $eodiro-cb, border-radius 700ms $eodiro-cb, box-shadow 700ms $eodiro-cb;
+          transition: width 700ms $eodiro-cb, border-radius 700ms $eodiro-cb,
+            box-shadow 700ms $eodiro-cb;
           border-radius: 50px;
           background-color: transparent;
         }
-        .left-tip, .right-tip {
+        .left-tip,
+        .right-tip {
           position: absolute;
           top: 0;
           background-color: $light-blue;
@@ -228,12 +229,14 @@ export default {
         .left-tip {
           right: 100%;
           border-radius: 50px 0 0 50px;
-          transition: transform 700ms $eodiro-cb, background-color 700ms $eodiro-cb;
+          transition: transform 700ms $eodiro-cb,
+            background-color 700ms $eodiro-cb;
         }
         .right-tip {
           left: 100%;
           border-radius: 0 50px 50px 0;
-          transition: transform 700ms $eodiro-cb, background-color 700ms $eodiro-cb, border-radius 700ms ease;
+          transition: transform 700ms $eodiro-cb,
+            background-color 700ms $eodiro-cb, border-radius 700ms ease;
         }
         .title-box {
           position: relative;
@@ -241,7 +244,8 @@ export default {
           height: $height;
           width: 2rem;
           will-change: transform;
-          transition: transform 700ms $eodiro-cb, background-color 700ms $eodiro-cb;
+          transition: transform 700ms $eodiro-cb,
+            background-color 700ms $eodiro-cb;
           background-color: $light-blue;
         }
         .shadow {
@@ -271,7 +275,8 @@ export default {
           color: #fff;
           z-index: 2;
 
-          &.fade-enter-active, &.fade-leave-active {
+          &.fade-enter-active,
+          &.fade-leave-active {
             transition: opacity 0.2s ease, transform 0.2s ease !important;
             opacity: 1 !important;
             transform: translateX(-50%) translateY(-50%);
@@ -293,7 +298,8 @@ export default {
           .title-box {
             height: $height;
           }
-          .left-tip, .right-tip {
+          .left-tip,
+          .right-tip {
             height: $height;
             width: $height / 2 + 5;
           }
@@ -310,23 +316,29 @@ export default {
             background-color: rgba($light-green, 0.3);
             box-shadow: 0 0.5rem 2rem 1rem rgba($light-green, 0.3);
           }
-          .title-box, .left-tip, .right-tip {
+          .title-box,
+          .left-tip,
+          .right-tip {
             background-color: $light-green;
           }
         }
-        
+
         @include dark-mode() {
-          .title-box, .left-tip, .right-tip {
+          .title-box,
+          .left-tip,
+          .right-tip {
             background-color: $light-yellow;
           }
-        
+
           .shadow {
             background-color: rgba(#000, 0.3);
             box-shadow: 0 0.5rem 2rem 1rem rgba(#000, 0.3);
           }
-        
+
           &.go-back-active {
-            .title-box, .left-tip, .right-tip {
+            .title-box,
+            .left-tip,
+            .right-tip {
               background-color: $light-red;
             }
           }
