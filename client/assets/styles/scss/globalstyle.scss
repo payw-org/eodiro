@@ -73,6 +73,10 @@ body {
   }
 }
 
+#__eodiro {
+  min-height: calc(100vh + 1px);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -81,12 +85,22 @@ body {
   -webkit-tap-highlight-color: transparent;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   font-family: $font-display;
   font-weight: 700;
 }
 
-p, a, textarea, span, div, input {
+p,
+a,
+textarea,
+span,
+div,
+input {
   font-family: $font-text;
   font-weight: 400;
 }
@@ -153,19 +167,23 @@ img {
 }
 
 // global page transition
-.fade-enter-active, .fade-leave-active {
+.fade-enter-active,
+.fade-leave-active {
   transition: opacity 300ms ease !important;
   opacity: 1 !important;
 }
-.fade-enter, .fade-leave-to {
+.fade-enter,
+.fade-leave-to {
   opacity: 0 !important;
 }
 
-.fade-slow-enter-active, .fade-slow-leave-active {
+.fade-slow-enter-active,
+.fade-slow-leave-active {
   transition: opacity 500ms ease !important;
   opacity: 1 !important;
 }
-.fade-slow-enter, .fade-slow-leave-to {
+.fade-slow-enter,
+.fade-slow-leave-to {
   opacity: 0 !important;
 }
 
@@ -201,7 +219,8 @@ img {
   padding: 0 1rem;
   overflow: hidden;
 
-  &, & * {
+  &,
+  & * {
     font-weight: 500;
   }
 
