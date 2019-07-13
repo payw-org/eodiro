@@ -3,7 +3,7 @@ import Vuex from 'vuex'
 import Meta from 'vue-meta'
 import VueI18n from 'vue-i18n'
 import App from './App'
-import Preparing from 'Components/Preparing'
+import Preparing from '~/components/Preparing'
 import router from './router'
 
 Vue.use(Vuex)

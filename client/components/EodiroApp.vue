@@ -82,8 +82,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import 'SCSS/global-variables.scss';
-@import 'SCSS/global-mixins.scss';
+@import '~/assets/styles/scss/global-variables.scss';
+@import '~/assets/styles/scss/global-mixins.scss';
 
 #eodiro-app {
   .ea-content {  

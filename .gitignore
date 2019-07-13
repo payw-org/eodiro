@@ -2,12 +2,6 @@
 .DS_Store
 node_modules
 package-lock.json
-pm2.json
-server/configs/private.ts
 
-public_html/assets/build
-public_html/home.html
-server/build
-server/logs
-server/resources/scrap
-server/resources/parse-debug
+.nuxt
+dist

@@ -1,9 +1,11 @@
 {
   "compilerOptions": {
+    "noEmit": true,
+    "outDir": "./",
+    "allowJs": true,
     "target": "es5",
     "module": "es2015",
     "lib": ["dom", "es5", "es2015"],
-    "allowJs": true,
     "sourceMap": true,
     "noImplicitAny": true,
     "noImplicitReturns": true,
@@ -11,20 +13,10 @@
     "resolveJsonModule": true,
     "baseUrl": "./",
     "paths": {
-      "Components/*": ["client/components/*"],
-      "Modules/*": ["client/modules/*"],
-
-      "Configs/*": ["server/configs/*"],
-      "Database/*": ["server/database/*"],
-      "Resources/*": ["server/resources/*"],
-      "Routes/*": ["server/routes/*"],
-      "Controller/*": ["server/app/controller/*"],
-      "DB/*": ["server/app/db/*"],
-      "Middleware/*": ["server/app/middleware/*"],
-      "Provider/*": ["server/app/provider/*"]
+      "~/*": ["client/*"]
     },
     "types": ["node"],
     "allowSyntheticDefaultImports": true
   },
-  "exclude": ["node_modules", "vendor"]
+  "exclude": ["node_modules", "dist"]
 }
