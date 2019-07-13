@@ -1,10 +1,8 @@
 <template>
   <div id="eodiro-app">
-    <AppNav :is-hidden="isNavHidden"/>
+    <AppNav :is-hidden="isNavHidden" />
     <div class="ea-content">
       <nuxt-child
-        keep-alive
-        :keep-alive-props="{ include: cachedComponents }"
         @toggleScrollEvent="toggleScrollEvent"
         :is-right-direction="isRightDirection"
         :cached-components="cachedComponents"
@@ -25,7 +23,7 @@ export default {
       backLink: '/',
       isNavHidden: true,
       lastScrollTop: 0,
-      // threshold: window.scrollY,
+      threshold: null,
       cachedComponents: []
     }
   },
@@ -68,10 +66,14 @@ export default {
     }
   },
   mounted() {
-    // setTimeout(() => {
-    //   this.isNavHidden = false
-    // }, 200)
-    // window.addEventListener('scroll', this.updateNavView)
+    setTimeout(() => {
+      this.isNavHidden = false
+    }, 200)
+
+    // set initial scroll threshold on mounted
+    // and add a scroll event listener
+    this.threshold = window.scrollY
+    window.addEventListener('scroll', this.updateNavView)
   }
 }
 </script>
