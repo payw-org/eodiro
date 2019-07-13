@@ -104,8 +104,8 @@ export default {
           }
 
           this.buildings = data.buildings
-          // this.mapFavorite()
-          // this.sort()
+          this.mapFavorite()
+          this.sort()
 
           this.fetchEmpty()
 
@@ -124,8 +124,8 @@ export default {
         if (response.data.error) return
 
         this.buildings = response.data.buildings
-        // this.mapFavorite()
-        // this.sort()
+        this.mapFavorite()
+        this.sort()
 
         this.isEmptyLoaded = true
       })
