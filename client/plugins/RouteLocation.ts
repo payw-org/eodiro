@@ -10,8 +10,6 @@ export default class Location {
     to = to.replace(/___[a-z][a-z]/g, '')
     from = from.replace(/___[a-z][a-z]/g, '')
 
-    console.log(from, to)
-
     const routesList = [
       'vacant',
       'vacant-buildingId',
@@ -22,10 +20,8 @@ export default class Location {
     const toIndex = routesList.indexOf(to)
 
     if (fromIndex < toIndex) {
-      console.log('is right')
       return true
     } else {
-      console.log('is left')
       return false
     }
   }
