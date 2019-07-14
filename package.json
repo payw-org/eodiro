@@ -9,7 +9,7 @@
     "build:prod:watch": "node_modules/.bin/webpack -w --config webpack.prod.js",
     "nuxt:dev": "nuxt --port 3500",
     "nuxt:build": "nuxt build",
-    "nuxt:start": "nuxt start",
+    "start": "nuxt start",
     "nuxt:generate": "nuxt generate"
   },
   "repository": {
