@@ -15,10 +15,7 @@ export default {
 
   // head tags options
   head: {
-    htmlAttrs: {
-      lang: 'ko',
-      class: 'light-mode'
-    },
+    htmlAttrs: {},
     title: title,
     meta: [
       { charset: 'utf-8' },
@@ -69,6 +66,9 @@ export default {
     { src: '~/assets/styles/stylus/spring.styl', lang: 'styl' }
   ],
 
+  // plugins
+  plugins: [{ src: '~/plugins/init.js' }],
+
   // modules
   modules: [
     [
@@ -95,6 +95,12 @@ export default {
       }
     ]
   ],
+
+  // GA
+  googleAnalytics: {
+    id: 'UA-140443623-1',
+    dev: false
+  },
 
   // transition between routes
   pageTransition: {
