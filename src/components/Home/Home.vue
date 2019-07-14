@@ -85,7 +85,7 @@
           </div>
           <h1 class="logo-text">{{ $t('title') }}</h1>
           <p class="description base-gray">{{ $t('description') }}</p>
-          <nuxt-link :to="localePath('vacant')">
+          <nuxt-link :to="localePath('vacant').replace(/\/$/, '')">
             <button class="go-btn eodiro-btn">
               {{ startMsg }}
               <span class="arrow">→</span>
