@@ -37,8 +37,8 @@ export default {
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },
 
-  // source directory ('/client')
-  srcDir: 'client',
+  // source directory ('/src')
+  srcDir: 'src',
 
   // custom link class names
   router: {
