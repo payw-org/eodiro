@@ -110,7 +110,7 @@
       </div>
     </div>
     <!-- </transition> -->
-    <!-- <HomeBGTile /> -->
+    <HomeBGTile />
   </div>
 </template>
 
