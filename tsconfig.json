@@ -13,7 +13,7 @@
     "resolveJsonModule": true,
     "baseUrl": "./",
     "paths": {
-      "~/*": ["client/*"]
+      "~/*": ["src/*"]
     },
     "types": ["node"],
     "allowSyntheticDefaultImports": true
