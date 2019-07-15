@@ -89,8 +89,7 @@ export default {
         defaultLocale: 'kr',
         vueI18nLoader: true,
         detectBrowserLanguage: {
-          useCookie: true,
-          alwaysRedirect: false
+          useCookie: true
         }
       }
     ]
