@@ -110,13 +110,13 @@
       </div>
     </div>
     <!-- </transition> -->
-    <HomeBGTile />
+    <home-bg-tile />
   </div>
 </template>
 
 <script>
 import ColorScheme from '~/plugins/ColorScheme.ts'
-import HomeBGTile from '~/components/HomeBGTile.vue'
+import HomeBgTile from '~/components/Home/HomeBgTile.vue'
 
 export default {
   head() {
@@ -142,7 +142,7 @@ export default {
     }
   },
   name: 'home',
-  components: { HomeBGTile },
+  components: { HomeBgTile },
   data() {
     return {
       autoDarkModeSupport: false,
