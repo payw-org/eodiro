@@ -3,14 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
-    "build": "node_modules/.bin/webpack --config webpack.config.js",
-    "build:watch": "node_modules/.bin/webpack -w --config webpack.config.js",
-    "build:prod": "node_modules/.bin/webpack --config webpack.prod.js",
-    "build:prod:watch": "node_modules/.bin/webpack -w --config webpack.prod.js",
-    "nuxt:dev": "nuxt --port 3500",
-    "nuxt:build": "nuxt build",
+    "dev": "nuxt --port 3500",
+    "build": "nuxt build",
     "start": "nuxt start",
-    "nuxt:generate": "nuxt generate"
+    "generate": "nuxt generate"
   },
   "repository": {
     "type": "git",
