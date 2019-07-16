@@ -1,6 +1,7 @@
 <template>
-  <Home />
-  <!-- <NewHome /> -->
+  <div>
+    <new-home />
+  </div>
 </template>
 
 <script>
