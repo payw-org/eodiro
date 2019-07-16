@@ -18,7 +18,6 @@
 @import '~/assets/styles/scss/global-variables.scss';
 
 .menu-item {
-  $mi: &;
   display: flex;
   border-radius: 8px;
   transition: background-color 100ms ease;
@@ -71,16 +70,12 @@
         background-position: center;
         background-repeat: no-repeat;
         background-size: 90%;
-
-        #{$mi}.meal & {
-          background-image: url('~assets/images/eodiro/fork_knife_white.svg');
-        }
       }
     }
   }
 
   .title {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 600;
     flex: 1;
     margin: 2rem 0;
