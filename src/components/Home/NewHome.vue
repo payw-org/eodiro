@@ -1,3 +1,20 @@
+<i18n>
+{
+  "kr": {
+    "menu_vacant": "빈 강의실 조회 및 대여",
+    "menu_meal": "학식 메뉴 보기",
+    "menu_class": "강의 검색",
+    "menu_preferences": "설정"
+  },
+  "en": {
+    "menu_vacant": "Find/lend a Vacant Classroom",
+    "menu_meal": "Restaurant Menu",
+    "menu_class": "Search Classes",
+    "menu_preferences": "Preferences"
+  }
+}
+</i18n>
+
 <template>
   <div id="home">
     <div class="banner">
@@ -15,17 +32,17 @@
       <div class="menu-item-container">
         <nuxt-link :to="localePath('vacant')">
           <menu-item class="vacant">
-            <template v-slot:title>빈 강의실 조회 및 대여</template>
+            <template v-slot:title>{{ $t('menu_vacant') }}</template>
           </menu-item>
         </nuxt-link>
         <menu-item class="meal">
-          <template v-slot:title>학식 메뉴 보기</template>
+          <template v-slot:title>{{ $t('menu_meal') }}</template>
         </menu-item>
         <menu-item class="class">
-          <template v-slot:title>강의 검색</template>
+          <template v-slot:title>{{ $t('menu_class') }}</template>
         </menu-item>
         <menu-item class="preferences">
-          <template v-slot:title>설정</template>
+          <template v-slot:title>{{ $t('menu_preferences') }}</template>
         </menu-item>
       </div>
     </div>
@@ -52,6 +69,7 @@ export default {
   justify-content: center;
 
   .logo {
+    display: block;
     width: 3rem;
     height: 3rem;
   }
