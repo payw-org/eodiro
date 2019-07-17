@@ -62,7 +62,7 @@ export default {
 
 .banner {
   width: 100%;
-  background-image: linear-gradient(to bottom, $edr-step--3, $edr-step--4);
+  background-image: linear-gradient(to bottom, $c-step--3, $c-step--4);
   height: 12rem;
   display: flex;
   align-items: center;
