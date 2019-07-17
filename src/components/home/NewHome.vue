@@ -77,9 +77,13 @@ export default {
 
 .menu {
   .menu-item-container {
+    max-width: 50rem;
     padding: 1rem 0 0 0;
     width: calc(100% - 2rem);
     margin: auto;
+    display: grid;
+    grid-column-gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
   }
 }
 </style>
