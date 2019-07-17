@@ -50,10 +50,12 @@
 </template>
 
 <script>
-import MenuItem from '~/components/home/MenuItem.vue'
+import MenuItem from '~/components/home/MenuItem'
+import Modal from '~/plugins/eodiro-modal'
 
 export default {
-  components: { MenuItem }
+  components: { MenuItem },
+  mounted() {}
 }
 </script>
 
