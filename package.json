@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eodiro/eodiro.git"
+    "url": "git+https://github.com/paywteam/eodiro.git"
   },
   "author": "eodiro",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/eodiro/eodiro/issues"
+    "url": "https://github.com/paywteam/eodiro/issues"
   },
-  "homepage": "https://github.com/eodiro/eodiro#readme",
+  "homepage": "https://github.com/paywteam/eodiro#readme",
   "dependencies": {
     "@kazupon/vue-i18n-loader": "^0.3.0",
     "@nuxtjs/google-analytics": "^2.2.0",
