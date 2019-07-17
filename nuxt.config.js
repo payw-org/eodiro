@@ -109,6 +109,23 @@ export default {
 
   // custom build path name
   build: {
-    publicPath: '/dist/'
+    publicPath: '/dist/',
+    extend(config) {
+      config.resolve.extensions.concat([
+        '.js',
+        '.ts',
+        '.css',
+        '.scss',
+        '.html',
+        '.vue'
+      ])
+
+      config.module.rules.push({
+        test: /\.(html)$/,
+        use: {
+          loader: 'html-loader'
+        }
+      })
+    }
   }
 }
