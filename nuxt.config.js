@@ -34,7 +34,10 @@ export default {
         content: 'https://eodiro.com/assets/images/open-graph/open_graph.png'
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' }
+    ]
   },
 
   // source directory ('/src')
