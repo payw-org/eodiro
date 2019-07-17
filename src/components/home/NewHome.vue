@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import MenuItem from '~/components/Home/MenuItem.vue'
+import MenuItem from '~/components/home/MenuItem.vue'
 
 export default {
   components: { MenuItem }
