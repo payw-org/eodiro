@@ -1,8 +1,3 @@
 <template>
-  <nuxt></nuxt>
+  <nuxt id="app"></nuxt>
 </template>
-
-<script>
-export default {
-}
-</script>
