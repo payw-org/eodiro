@@ -66,7 +66,8 @@ export default {
     '~/assets/styles/css/fonts_new.css',
     { src: '~/assets/styles/scss/globalstyle.scss', lang: 'scss' },
     { src: '~/assets/styles/scss/gradients-simple.scss', lang: 'scss' },
-    { src: '~/assets/styles/stylus/spring.styl', lang: 'styl' }
+    { src: '~/assets/styles/stylus/spring.styl', lang: 'styl' },
+    { src: '~/plugins/eodiro-modal/style.scss', lang: 'scss' }
   ],
 
   // plugins
@@ -111,15 +112,6 @@ export default {
   build: {
     publicPath: '/dist/',
     extend(config) {
-      config.resolve.extensions.concat([
-        '.js',
-        '.ts',
-        '.css',
-        '.scss',
-        '.html',
-        '.vue'
-      ])
-
       config.module.rules.push({
         test: /\.(html)$/,
         use: {
