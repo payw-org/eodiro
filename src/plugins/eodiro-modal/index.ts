@@ -7,10 +7,9 @@ export default class EodiroModal {
     this.modalElm = <HTMLElement>document.querySelector('.eodiro-modal')
 
     if (!this.modalElm) {
-      this.modalElm = new DOMParser().parseFromString(
-        template,
-        'text/xml'
-      ).documentElement
+      let temp = document.createElement('div')
+      temp.innerHTML = template
+      this.modalElm = <HTMLElement>temp.firstElementChild
 
       document.body.append(this.modalElm)
     }
