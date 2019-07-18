@@ -1,13 +1,13 @@
 <template>
   <div
     class="menu-item"
-    :class="{active: clicked}"
-    @mousedown="clicked = true"
-    @mouseup="clicked = false"
-    @mouseleave="clicked = false"
-    @touchstart="clicked = true"
-    @touchend="clicked = false"
-    @touchmove="clicked = false"
+    :class="{active: pressed}"
+    @mousedown="press"
+    @mouseup="clearPress"
+    @mouseleave="clearPress"
+    @touchstart="press"
+    @touchend="clearPress"
+    @touchmove="clearPress"
   >
     <div class="content">
       <div class="menu-icon-area">
@@ -29,7 +29,15 @@
 export default {
   data() {
     return {
-      clicked: false
+      pressed: false
+    }
+  },
+  methods: {
+    press() {
+      this.pressed = true
+    },
+    clearPress() {
+      this.pressed = false
     }
   }
 }
@@ -40,24 +48,26 @@ export default {
 @import '~/assets/styles/scss/global-variables.scss';
 
 .menu-item {
+  $cushion-time: 1000ms;
   display: flex;
-  border-radius: 8px;
-  transition: background-color 1000ms ease, box-shadow 1000ms ease;
+  border-radius: 0.5rem;
+  transition: background-color $cushion-time ease, box-shadow $cushion-time ease;
 
   .content {
     display: flex;
-    transition: transform 1000ms ease;
+    width: 100%;
+    transition: transform $cushion-time ease;
   }
 
   &.active {
     background-color: $gray;
     background-color: $light-gray;
     box-shadow: inset 0 0 0.3rem rgba(0, 0, 0, 0.2);
-    transition: background-color 100ms ease, box-shadow 100ms ease;
+    transition: background-color 0ms ease, box-shadow 0ms ease;
 
     .content {
-      transform: scale(0.95);
-      transition: transform 100ms ease;
+      transform: scale(0.97);
+      transition: transform 0ms ease;
     }
   }
 
@@ -85,6 +95,12 @@ export default {
     }
   }
 
+  &.review {
+    .menu-icon {
+      background-image: url('~assets/images/eodiro/review_white.svg');
+    }
+  }
+
   .menu-icon-area {
     width: 4rem;
     display: flex;
@@ -96,7 +112,7 @@ export default {
       width: 2rem;
       height: 2rem;
       background-image: linear-gradient(to bottom, $c-step--3, $c-step--4);
-      border-radius: 5px;
+      border-radius: 0.4rem;
 
       .menu-icon {
         display: block;
@@ -118,7 +134,7 @@ export default {
   }
 
   .arrow-wrapper {
-    width: 2.5rem;
+    width: 2.6rem;
     display: flex;
     align-items: center;
     justify-content: center;

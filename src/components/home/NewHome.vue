@@ -1,16 +1,18 @@
 <i18n>
 {
   "kr": {
-    "menu_vacant": "빈 강의실 조회 및 대여",
-    "menu_meal": "학식 메뉴 보기",
+    "menu_vacant": "빈 강의실 조회",
+    "menu_meal": "학식 메뉴",
     "menu_class": "강의 검색",
-    "menu_preferences": "설정"
+    "menu_preferences": "설정",
+    "menu_review": "리뷰 작성"
   },
   "en": {
-    "menu_vacant": "Find/lend a Vacant Classroom",
+    "menu_vacant": "Find Vacant Classrooms",
     "menu_meal": "Restaurant Menu",
     "menu_class": "Search Classes",
-    "menu_preferences": "Preferences"
+    "menu_preferences": "Preferences",
+    "menu_review": "Write a review"
   }
 }
 </i18n>
@@ -44,6 +46,9 @@
         <menu-item class="preferences">
           <template v-slot:title>{{ $t('menu_preferences') }}</template>
         </menu-item>
+        <menu-item class="review">
+          <template v-slot:title>{{ $t('menu_review') }}</template>
+        </menu-item>
       </div>
     </div>
   </div>
@@ -65,7 +70,7 @@ export default {
 .banner {
   width: 100%;
   background-image: linear-gradient(to bottom, $c-step--3, $c-step--4);
-  height: 12rem;
+  height: 35vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -79,13 +84,13 @@ export default {
 
 .menu {
   .menu-item-container {
-    max-width: 50rem;
-    padding: 1rem 0 0 0;
+    max-width: 40rem;
+    padding: 1rem 0;
     width: calc(100% - 2rem);
     margin: auto;
     display: grid;
     grid-column-gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   }
 }
 </style>
