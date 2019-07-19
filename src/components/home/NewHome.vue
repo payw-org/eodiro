@@ -19,7 +19,7 @@
 
 <template>
   <div id="home">
-    <div class="banner">
+    <div class="banner" @click="testAlert">
       <div class="tiles"></div>
       <div class="logo-wrapper">
         <img
@@ -32,23 +32,33 @@
 
     <div class="menu">
       <div class="menu-item-container">
-        <nuxt-link :to="localePath('vacant')">
-          <menu-item class="vacant">
-            <template v-slot:title>{{ $t('menu_vacant') }}</template>
+        <div class="menu-item-wrapper">
+          <nuxt-link :to="localePath('vacant')">
+            <menu-item class="vacant">
+              <template v-slot:title>{{ $t('menu_vacant') }}</template>
+            </menu-item>
+          </nuxt-link>
+        </div>
+        <div class="menu-item-wrapper">
+          <menu-item class="meal">
+            <template v-slot:title>{{ $t('menu_meal') }}</template>
           </menu-item>
-        </nuxt-link>
-        <menu-item class="meal">
-          <template v-slot:title>{{ $t('menu_meal') }}</template>
-        </menu-item>
-        <menu-item class="class">
-          <template v-slot:title>{{ $t('menu_class') }}</template>
-        </menu-item>
-        <menu-item class="preferences">
-          <template v-slot:title>{{ $t('menu_preferences') }}</template>
-        </menu-item>
-        <menu-item class="review">
-          <template v-slot:title>{{ $t('menu_review') }}</template>
-        </menu-item>
+        </div>
+        <div class="menu-item-wrapper">
+          <menu-item class="class">
+            <template v-slot:title>{{ $t('menu_class') }}</template>
+          </menu-item>
+        </div>
+        <div class="menu-item-wrapper">
+          <menu-item class="preferences">
+            <template v-slot:title>{{ $t('menu_preferences') }}</template>
+          </menu-item>
+        </div>
+        <div class="menu-item-wrapper">
+          <menu-item class="review">
+            <template v-slot:title>{{ $t('menu_review') }}</template>
+          </menu-item>
+        </div>
       </div>
     </div>
   </div>
@@ -56,15 +66,24 @@
 
 <script>
 import MenuItem from '~/components/home/MenuItem'
-import Modal from '~/plugins/eodiro-modal'
+import EodiroModal from '~/plugins/eodiro-modal'
 
 export default {
   components: { MenuItem },
-  mounted() {}
+  methods: {
+    testConfirm() {
+      const modal = new EodiroModal()
+      modal.confirm('Confirm message')
+    },
+    testAlert() {
+      const modal = new EodiroModal()
+      modal.alert('Alert')
+    }
+  }
 }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '~/assets/styles/scss/global-variables.scss';
 
 .banner {
@@ -89,7 +108,6 @@ export default {
     width: calc(100% - 2rem);
     margin: auto;
     display: grid;
-    grid-column-gap: 1rem;
     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   }
 }

@@ -1,14 +1,5 @@
 <template>
-  <div
-    class="menu-item"
-    :class="{active: pressed}"
-    @mousedown="press"
-    @mouseup="clearPress"
-    @mouseleave="clearPress"
-    @touchstart="press"
-    @touchend="clearPress"
-    @touchmove="clearPress"
-  >
+  <cushion class="menu-item">
     <div class="content">
       <div class="menu-icon-area">
         <div class="menu-icon-wrapper">
@@ -22,11 +13,14 @@
         <span class="arrow"></span>
       </div>
     </div>
-  </div>
+  </cushion>
 </template>
 
 <script>
+import Cushion from '~/components/Cushion'
+
 export default {
+  components: { Cushion },
   data() {
     return {
       pressed: false
@@ -44,31 +38,12 @@ export default {
 </script>
 
 
-<style lang="scss" scoped>
+<style lang="scss">
 @import '~/assets/styles/scss/global-variables.scss';
 
 .menu-item {
-  $cushion-time: 1000ms;
-  display: flex;
-  border-radius: 0.5rem;
-  transition: background-color $cushion-time ease, box-shadow $cushion-time ease;
-
   .content {
     display: flex;
-    width: 100%;
-    transition: transform $cushion-time ease;
-  }
-
-  &.active {
-    background-color: $gray;
-    background-color: $light-gray;
-    box-shadow: inset 0 0 0.3rem rgba(0, 0, 0, 0.2);
-    transition: background-color 0ms ease, box-shadow 0ms ease;
-
-    .content {
-      transform: scale(0.97);
-      transition: transform 0ms ease;
-    }
   }
 
   &.vacant {
