@@ -1,6 +1,6 @@
 <template>
   <div>
-    <nuxt id="app"></nuxt>
+    <nuxt></nuxt>
     <eodiro-modal></eodiro-modal>
   </div>
 </template>

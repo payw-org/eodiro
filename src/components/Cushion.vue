@@ -39,6 +39,7 @@ $cushion-time: 500ms;
 
 .cushion {
   // border: 1px solid $gray;
+  box-shadow: inset 0 0 0 1px $gray;
   border-radius: 0.7rem;
   transition: background-color $cushion-time ease, box-shadow $cushion-time ease,
     border $cushion-time ease;
@@ -53,11 +54,11 @@ $cushion-time: 500ms;
   &.active {
     background-color: $light-gray;
     // border: 1px solid transparent;
-    box-shadow: inset 0 0 0.25rem rgba(0, 0, 0, 0.2);
+    box-shadow: inset 0 0 0.3rem rgba(0, 0, 0, 0.2);
     transition: background-color 0ms ease, box-shadow 0ms ease;
 
     & > * {
-      transform: scale(0.98);
+      transform: scale(0.97);
       transition: transform 0ms ease;
     }
   }

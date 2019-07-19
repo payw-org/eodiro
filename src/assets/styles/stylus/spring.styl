@@ -30,21 +30,37 @@ lerp(a, b, p)
       transform: translateY(lerp(7rem, 0rem, p))
       opacity: lerp(0, 1, p)
 
-@keyframes springZoomOut
+@keyframes springZoomIn
   for i in (0..100)
     {i + '%'}
       t = i / 100
-      p = spring-gentle(t)
+      p = spring-wobbly(t)
       transform: scale(lerp(0.5, 1, p))
       opacity: lerp(0, 1, p)
 
-@keyframes springZoomIn
+@keyframes springZoomInOut
+  for i in (0..100)
+    {i + '%'}
+      t = i / 100
+      p = spring-wobbly(t)
+      transform: scale(lerp(1, 0.7, p))
+      opacity: lerp(1, 0, p)
+
+@keyframes springZoomOut
   for i in (0..100)
     {i + '%'}
       t = i / 100
       p = spring-nicely(t)
       transform: scale(lerp(1.5, 1, p))
       opacity: lerp(0, 1, p)
+
+@keyframes springZoomOutIn
+  for i in (0..100)
+    {i + '%'}
+      t = i / 100
+      p = spring-nicely(t)
+      transform: scale(lerp(1, 1.5, p))
+      opacity: lerp(1, 0, p)
 
 @keyframes springSlideUp
   for i in (0..100)

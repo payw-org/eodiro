@@ -17,7 +17,7 @@
 </template>
 
 <script>
-import Cushion from '~/components/Cushion'
+import Cushion from '~/components/Cushion.vue'
 
 export default {
   components: { Cushion },
@@ -42,37 +42,64 @@ export default {
 @import '~/assets/styles/scss/global-variables.scss';
 
 .menu-item {
+  width: 100%;
+  height: 5.5rem;
+
   .content {
     display: flex;
   }
 
   &.vacant {
+    .menu-icon-wrapper {
+      background-image: linear-gradient(to bottom, $c-step--3, $c-step--4);
+    }
     .menu-icon {
       background-image: url('~assets/images/eodiro/door_white.svg');
     }
   }
 
   &.meal {
+    .menu-icon-wrapper {
+      background-image: linear-gradient(to bottom, #0094ff, #0038ff);
+    }
     .menu-icon {
       background-image: url('~assets/images/eodiro/fork_knife_white.svg');
     }
   }
 
   &.class {
+    .menu-icon-wrapper {
+      background-image: linear-gradient(to bottom, #23fa00, #00ce46);
+    }
     .menu-icon {
       background-image: url('~assets/images/eodiro/magnifier_white.svg');
     }
   }
 
   &.preferences {
+    .menu-icon-wrapper {
+      background-image: linear-gradient(to bottom, #939393, #636363);
+    }
     .menu-icon {
       background-image: url('~assets/images/eodiro/gear_white.svg');
     }
   }
 
   &.review {
+    .menu-icon-wrapper {
+      background-image: linear-gradient(to bottom, #ffc700, #ff8a00);
+    }
     .menu-icon {
       background-image: url('~assets/images/eodiro/review_white.svg');
+    }
+  }
+
+  &.donation {
+    .menu-icon-wrapper {
+      background-image: linear-gradient(to bottom, #c41bff, #9300ed);
+    }
+    .menu-icon {
+      background-image: url('~assets/images/eodiro/coffee_white.svg');
     }
   }
 
@@ -86,7 +113,6 @@ export default {
       display: block;
       width: 2rem;
       height: 2rem;
-      background-image: linear-gradient(to bottom, $c-step--3, $c-step--4);
       border-radius: 0.4rem;
 
       .menu-icon {
@@ -95,17 +121,19 @@ export default {
         height: 2rem;
         background-position: center;
         background-repeat: no-repeat;
-        background-size: 90%;
+        background-size: 1.8rem;
       }
     }
   }
 
-  .title {
+  .title,
+  .title span {
     font-size: 1.3rem;
-    font-weight: 600;
+    font-weight: 500;
     flex: 1;
-    margin: 2rem 0;
-    color: $c-step--4;
+    align-self: center;
+    // margin: 2rem 0;
+    color: $base-black;
   }
 
   .arrow-wrapper {
@@ -118,7 +146,7 @@ export default {
       display: block;
       width: 0.6rem;
       height: 2rem;
-      background-image: url('~assets/images/eodiro/arrow_right_step4.svg');
+      background-image: url('~assets/images/eodiro/arrow_right_gray.svg');
       background-position: center;
       background-repeat: no-repeat;
       background-size: contain;
