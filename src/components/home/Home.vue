@@ -85,7 +85,7 @@
           </div>
           <h1 class="logo-text">{{ $t('title') }}</h1>
           <p class="description base-gray">{{ $t('description') }}</p>
-          <nuxt-link :to="localePath('vacant')">
+          <nuxt-link :to="localePath('vacant').replace(/\/$/, '')">
             <button class="go-btn eodiro-btn">
               {{ startMsg }}
               <span class="arrow">→</span>
@@ -110,13 +110,13 @@
       </div>
     </div>
     <!-- </transition> -->
-    <HomeBGTile />
+    <home-bg-tile />
   </div>
 </template>
 
 <script>
 import ColorScheme from '~/plugins/ColorScheme.ts'
-import HomeBGTile from '~/components/HomeBGTile.vue'
+import HomeBgTile from '~/components/Home/HomeBgTile.vue'
 
 export default {
   head() {
@@ -142,7 +142,7 @@ export default {
     }
   },
   name: 'home',
-  components: { HomeBGTile },
+  components: { HomeBgTile },
   data() {
     return {
       autoDarkModeSupport: false,
@@ -194,7 +194,7 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import '~/assets/styles/scss/global-variables.scss';
 @import '~/assets/styles/scss/global-mixins.scss';
 

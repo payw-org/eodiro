@@ -1,13 +1,18 @@
 <template>
-  <Home />
-  <!-- <NewHome /> -->
+  <div>
+    <new-home />
+  </div>
 </template>
 
 <script>
-import Home from '~/components/Home/Home.vue'
-import NewHome from '~/components/Home/NewHome.vue'
+import Home from '~/components/home/Home'
+import NewHome from '~/components/home/NewHome'
+import Modal from '~/plugins/eodiro-modal'
 
 export default {
-  components: { Home, NewHome }
+  components: { Home, NewHome },
+  mounted() {
+    const modal = new Modal()
+  }
 }
 </script>

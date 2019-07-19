@@ -34,7 +34,10 @@ export default {
         content: 'https://eodiro.com/assets/images/open-graph/open_graph.png'
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' }
+    ]
   },
 
   // source directory ('/src')
@@ -87,11 +90,7 @@ export default {
           }
         ],
         defaultLocale: 'kr',
-        vueI18nLoader: true,
-        detectBrowserLanguage: {
-          useCookie: true,
-          alwaysRedirect: false
-        }
+        vueI18nLoader: true
       }
     ]
   ],
@@ -110,6 +109,14 @@ export default {
 
   // custom build path name
   build: {
-    publicPath: '/dist/'
+    publicPath: '/dist/',
+    extend(config) {
+      config.module.rules.push({
+        test: /\.(html)$/,
+        use: {
+          loader: 'html-loader'
+        }
+      })
+    }
   }
 }

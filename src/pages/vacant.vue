@@ -14,8 +14,8 @@
 </template>
 
 <script>
-import AppNav from '~/components/AppNav.vue'
-import RouteLocation from '~/plugins/RouteLocation.ts'
+import AppNav from '~/components/AppNav'
+import RouteLocation from '~/plugins/RouteLocation'
 
 export default {
   components: { AppNav },

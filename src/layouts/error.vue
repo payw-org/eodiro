@@ -7,14 +7,6 @@
   "en": {
     "first_line": "Oh my god...",
     "second_line": "This page does not exist."
-  },
-  "zh": {
-    "first_line": "我的天啊...",
-    "second_line": "此頁面不存在."
-  },
-  "fr": {
-    "first_line": "Mon dieu...",
-    "second_line": "Cette page n'existe pas."
   }
 }
 </i18n>
@@ -23,10 +15,22 @@
   <div id="not-found">
     <div class="wrapper">
       <div class="app-icon">
-        <img class="app-icon mode--light" src="~/assets/images/eodiro/app-icon_sq.svg" alt="eodiro-logo" />
-        <img class="app-icon mode--dark" src="~/assets/images/eodiro/app-icon_sq_dark.svg" alt="eodiro-logo" />
+        <img
+          class="app-icon mode--light"
+          src="~/assets/images/eodiro/app-icon_sq.svg"
+          alt="eodiro-logo"
+        />
+        <img
+          class="app-icon mode--dark"
+          src="~/assets/images/eodiro/app-icon_sq_dark.svg"
+          alt="eodiro-logo"
+        />
       </div>
-      <h1 class="manifesto">{{ $t('first_line') }}<br />{{ $t('second_line') }}</h1>
+      <h1 class="manifesto">
+        {{ $t('first_line') }}
+        <br />
+        {{ $t('second_line') }}
+      </h1>
       <button class="eodiro-btn go-back" @click="goBack">Go Back</button>
     </div>
   </div>
@@ -75,14 +79,14 @@ export default {
         width: 5rem;
         height: 5rem;
         border-radius: 50px;
-        box-shadow: 0.4rem 0.4rem 2rem rgba(0,0,0,0.15);
+        box-shadow: 0.4rem 0.4rem 2rem rgba(0, 0, 0, 0.15);
 
         @include dark-mode() {
-          box-shadow: 0.4rem 0.4rem 2rem rgba(0,0,0,0.4);
+          box-shadow: 0.4rem 0.4rem 2rem rgba(0, 0, 0, 0.4);
         }
       }
     }
-    
+
     .manifesto {
       margin-top: 1rem;
       font-family: $font-display;
