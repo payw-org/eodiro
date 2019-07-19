@@ -66,8 +66,7 @@ export default {
     '~/assets/styles/css/fonts_new.css',
     { src: '~/assets/styles/scss/globalstyle.scss', lang: 'scss' },
     { src: '~/assets/styles/scss/gradients-simple.scss', lang: 'scss' },
-    { src: '~/assets/styles/stylus/spring.styl', lang: 'styl' },
-    { src: '~/plugins/eodiro-modal/style.scss', lang: 'scss' }
+    { src: '~/assets/styles/stylus/spring.styl', lang: 'styl' }
   ],
 
   // plugins
