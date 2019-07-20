@@ -13,8 +13,8 @@
     "menu_meal": "Restaurant Menu",
     "menu_class": "Search Classes",
     "menu_preferences": "Preferences",
-    "menu_review": "Write a review",
-    "menu_donation": "Donation"
+    "menu_review": "Write a Review",
+    "menu_donation": "Buy Us a Coffee"
   }
 }
 </i18n>
@@ -41,28 +41,25 @@
             </menu-item>
           </div>
         </nuxt-link>
+
         <div class="menu-item-wrapper">
           <menu-item class="meal">
             <template v-slot:title>{{ $t('menu_meal') }}</template>
           </menu-item>
         </div>
+
         <div class="menu-item-wrapper">
           <menu-item class="class">
             <template v-slot:title>{{ $t('menu_class') }}</template>
           </menu-item>
         </div>
-        <nuxt-link :to="localePath('preferences').replace(/\/$/, '')">
-          <div class="menu-item-wrapper">
-            <menu-item class="preferences">
-              <template v-slot:title>{{ $t('menu_preferences') }}</template>
-            </menu-item>
-          </div>
-        </nuxt-link>
+
         <div class="menu-item-wrapper">
           <menu-item class="review">
             <template v-slot:title>{{ $t('menu_review') }}</template>
           </menu-item>
         </div>
+
         <div class="menu-item-wrapper">
           <menu-item class="donation">
             <template v-slot:title>
@@ -70,6 +67,14 @@
             </template>
           </menu-item>
         </div>
+
+        <nuxt-link :to="localePath('preferences').replace(/\/$/, '')">
+          <div class="menu-item-wrapper">
+            <menu-item class="preferences">
+              <template v-slot:title>{{ $t('menu_preferences') }}</template>
+            </menu-item>
+          </div>
+        </nuxt-link>
       </div>
     </div>
   </div>
@@ -122,7 +127,7 @@ export default {
     width: calc(100% - 2rem);
     margin: auto;
     display: grid;
-    grid-gap: 1rem;
+    grid-gap: 0.5rem 1rem;
     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
 
     .menu-item-wrapper {
