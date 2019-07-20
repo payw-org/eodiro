@@ -126,9 +126,18 @@ button {
   background: none;
   font-family: $font-text;
   font-size: 1rem;
+  color: $base-black;
 
   &:active {
-    color: inherit;
+    color: $base-black;
+  }
+
+  @include dark-mode {
+    color: $base-white;
+
+    &:active {
+      color: $base-white;
+    }
   }
 }
 
