@@ -34,32 +34,41 @@ export default {
 
 <style lang="scss">
 @import '~/assets/styles/scss/global-variables.scss';
+@import '~/assets/styles/scss/global-mixins.scss';
 
-$cushion-time: 500ms;
+$cushion-push-time: 0ms;
+$cushion-revival-time: 1200ms;
 
 .cushion {
+  display: inline-block;
   // border: 1px solid $gray;
-  box-shadow: inset 0 0 0 1px $gray;
+  // box-shadow: inset 0 0 0 1px $gray;
   border-radius: 0.7rem;
-  transition: background-color $cushion-time ease, box-shadow $cushion-time ease,
-    border $cushion-time ease;
+  transition: background-color $cushion-revival-time ease,
+    box-shadow $cushion-revival-time ease, border $cushion-revival-time ease;
 
   & > * {
     display: block;
     width: 100%;
     height: 100%;
-    transition: transform $cushion-time ease;
+    transition: transform $cushion-revival-time ease;
   }
 
   &.active {
-    background-color: $light-gray;
+    background-color: #fcfcfc;
     // border: 1px solid transparent;
     box-shadow: inset 0 0 0.3rem rgba(0, 0, 0, 0.2);
-    transition: background-color 0ms ease, box-shadow 0ms ease;
+    transition: background-color $cushion-push-time ease,
+      box-shadow $cushion-push-time ease;
+
+    @include dark-mode {
+      background-color: #252525;
+      box-shadow: inset 0 0 0.3rem rgba(0, 0, 0, 0.9);
+    }
 
     & > * {
       transform: scale(0.97);
-      transition: transform 0ms ease;
+      transition: transform $cushion-push-time ease;
     }
   }
 }
