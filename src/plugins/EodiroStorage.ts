@@ -12,12 +12,12 @@ export default class EodiroStorage {
 
   getUnivData() {
     // validate the data
-    let univData = JSON.parse(localStorage.getItem(this.univVendor))
+    let univData = localStorage.getItem(this.univVendor)
     if (!univData) {
-      univData = {}
+      univData = '{}'
     }
 
-    return univData
+    return JSON.parse(univData)
   }
 
   setUnivData(newUnivData: Object) {
