@@ -76,7 +76,7 @@ export default {
   components: { Cushion },
   methods: {
     switchLang(lang) {
-      Cookies.set('i18n_redirected', lang)
+      Cookies.set('i18n_redirected', lang, { expires: 99999 })
       location.reload()
     },
     switchColorScheme(mode) {
@@ -102,14 +102,24 @@ export default {
   width: calc(100% - 2rem);
   max-width: 30rem;
   margin: auto;
-  padding-top: 5rem;
+  padding: 5rem 0;
+
+  @keyframes rotatingGear {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
 
   .page-icon {
     padding-top: 5rem;
     width: 5rem;
     height: 5rem;
-    @include bgImg('~assets/images/eodiro/gear_colored.svg');
+    @include bgImg('~assets/images/eodiro/gear_gray.svg');
     margin: auto;
+    animation: rotatingGear 5s linear 0s infinite normal forwards;
   }
 
   section.pref-section {
@@ -126,7 +136,15 @@ export default {
 
       .opt {
         flex: 1;
-        padding: 1rem;
+        margin-right: 1rem;
+
+        &:last-child {
+          margin-right: 0;
+        }
+
+        button {
+          padding: 1rem;
+        }
       }
     }
   }
