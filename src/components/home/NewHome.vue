@@ -6,7 +6,7 @@
     "menu_class": "강의 검색",
     "menu_preferences": "설정",
     "menu_review": "리뷰 남기기",
-    "menu_donation": "개발자에게 커피 <span style=\"white-space: nowrap;\">한 잔</span>"
+    "menu_donation": "후원하기"
   },
   "en": {
     "menu_vacant": "Find Vacant Classrooms",
@@ -14,7 +14,7 @@
     "menu_class": "Search Classes",
     "menu_preferences": "Preferences",
     "menu_review": "Write a Review",
-    "menu_donation": "Buy Us a Coffee"
+    "menu_donation": "Donate"
   }
 }
 </i18n>
@@ -123,11 +123,11 @@ export default {
 .menu {
   .menu-item-container {
     max-width: 55rem;
-    padding: 1rem 0;
+    padding: 2rem 0;
     width: calc(100% - 2rem);
     margin: auto;
     display: grid;
-    grid-gap: 0.5rem 1rem;
+    grid-gap: 1rem 1rem;
     grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
 
     .menu-item-wrapper {
