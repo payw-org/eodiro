@@ -9,6 +9,13 @@
 import EodiroModal from '~/plugins/eodiro-modal/EodiroModal'
 
 export default {
+  head() {
+    return {
+      htmlAttrs: {
+        class: this.$store.state.colorSchemeClassName
+      }
+    }
+  },
   components: { EodiroModal }
 }
 </script>

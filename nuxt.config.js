@@ -15,7 +15,6 @@ export default {
 
   // head tags options
   head: {
-    htmlAttrs: {},
     title: title,
     meta: [
       { charset: 'utf-8' },

@@ -60,7 +60,6 @@
 
 <script>
 import Cookies from 'js-cookie'
-import ColorScheme from '~/plugins/ColorScheme'
 import Cushion from '~/components/Cushion.vue'
 
 export default {
@@ -81,7 +80,7 @@ export default {
       location.reload()
     },
     switchColorScheme(mode) {
-      ColorScheme.updateColorScheme(mode)
+      this.$store.commit('setColorScheme', mode)
     }
   },
   mounted() {

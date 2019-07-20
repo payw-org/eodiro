@@ -38,6 +38,13 @@
 
 <script>
 export default {
+  head() {
+    return {
+      htmlAttrs: {
+        class: this.$store.state.colorSchemeClassName
+      }
+    }
+  },
   methods: {
     goBack() {
       // this.$router.push('/')

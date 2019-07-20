@@ -1,4 +1,3 @@
-import ColorScheme from '~/plugins/ColorScheme.ts'
 import Cookie from 'cookie'
 
 export default context => {
