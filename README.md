@@ -27,14 +27,14 @@ Although the eodiro is a well-made ready-to-use service, we provide a guidance f
    - Development
 
    ```zsh
-   % npm run nuxt:dev
+   % npm run dev
    ```
 
    - Build and run server
 
    ```zsh
-   % npm run nuxt:build
-   % npm run nuxt:start
+   % npm run build
+   % npm run start
    ```
 
 ## Contributing
