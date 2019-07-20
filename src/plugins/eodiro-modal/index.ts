@@ -1,9 +1,24 @@
 export default class EodiroModal {
   modalElm: HTMLElement
+  static timeout: number
 
   constructor() {
     // initialize modal DOM and current mode
-    this.modalElm = <HTMLElement>document.querySelector('.eodiro-modal')
+    this.modalElm = <HTMLElement>document.querySelector('#eodiro-modal')
+
+    if (!this.modalElm) {
+      console.error('Could not found EodiroModal element')
+      return
+    }
+
+    if (this.modalElm.classList.contains('active')) {
+      console.warn('modal is already active')
+    } else {
+      window.clearTimeout(EodiroModal.timeout)
+      this.modalElm.classList.remove('active')
+      this.modalElm.classList.remove('alert')
+      this.modalElm.classList.remove('confirm')
+    }
   }
 
   alert(msg: string) {
@@ -54,10 +69,10 @@ export default class EodiroModal {
     // remove active class first
     this.modalElm.classList.remove('active')
 
-    setTimeout(() => {
+    EodiroModal.timeout = window.setTimeout(() => {
       // remove specific mode class after transition
       this.modalElm.classList.remove('alert')
       this.modalElm.classList.remove('confirm')
-    }, 200)
+    }, 700)
   }
 }

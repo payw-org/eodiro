@@ -14,7 +14,7 @@
 </i18n>
 
 <template>
-  <div class="eodiro-modal">
+  <div id="eodiro-modal">
     <div class="content">
       <div class="message"></div>
       <div class="actions">
@@ -44,8 +44,12 @@ export default {
 
 <style lang="scss">
 @import '~/assets/styles/scss/global-variables.scss';
+@import '~/assets/styles/scss/global-mixins.scss';
 
-.eodiro-modal {
+$build-out-time: 700ms;
+$build-in-time: 700ms;
+
+#eodiro-modal {
   position: fixed;
   top: 0;
   right: 0;
@@ -57,7 +61,7 @@ export default {
   justify-content: center;
   pointer-events: none;
   visibility: hidden;
-  transition: visibility 200ms ease;
+  transition: visibility $build-out-time ease;
 
   &.confirm {
     .act.close {
@@ -74,26 +78,32 @@ export default {
 
   .content {
     width: calc(100% - 2rem);
-    max-width: 25rem;
+    max-width: 20rem;
     height: auto;
-    padding: 1rem;
-    background-color: #fff;
-    border-radius: 0.7rem;
+    padding: 1rem 1.5rem;
+    background-color: $base-white;
+    border-radius: 1rem;
     text-align: center;
     font-size: 1rem;
     z-index: 1;
     opacity: 0;
     transform: scale(0.9);
-    transition: opacity 200ms ease, transform 200ms ease;
+    // transition: opacity 200ms ease, transform 200ms ease;
     position: relative;
     top: -1rem;
+    animation: springZoomInOut $build-out-time linear;
+    animation-fill-mode: both;
+
+    @include dark-mode {
+      background-color: $base-black;
+    }
 
     .message {
-      margin-top: 1.5rem;
+      margin-top: 1rem;
     }
 
     .actions {
-      margin-top: 2rem;
+      margin-top: 1.5rem;
       text-align: center;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
@@ -115,9 +125,14 @@ export default {
     right: 0;
     bottom: 0;
     left: 0;
-    background-color: #000;
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(30px);
     opacity: 0;
     transition: opacity 200ms ease;
+
+    @include dark-mode {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
   }
 
   &.active {
@@ -125,12 +140,14 @@ export default {
     pointer-events: all;
 
     .content {
-      opacity: 1;
-      transform: scale(1);
+      // opacity: 1;
+      // transform: scale(1);
+      animation: springZoomIn $build-in-time linear;
+      animation-fill-mode: both;
     }
 
     .wall {
-      opacity: 0.5;
+      opacity: 1;
     }
   }
 }

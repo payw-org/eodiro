@@ -11,6 +11,7 @@ html {
 
   &.dark-mode {
     background-color: $base-black;
+
     .mode--light {
       display: none !important;
     }
@@ -47,7 +48,7 @@ html {
 }
 @media only screen and (min-width: 1400px) {
   html {
-    font-size: 120%;
+    font-size: 130%;
   }
 }
 
@@ -82,6 +83,7 @@ body {
   padding: 0;
   box-sizing: border-box;
   outline: none;
+  cursor: default;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -120,14 +122,22 @@ a {
 }
 
 button {
-  cursor: pointer;
   border: none;
   background: none;
   font-family: $font-text;
   font-size: 1rem;
+  color: $base-black;
 
   &:active {
-    color: inherit;
+    color: $base-black;
+  }
+
+  @include dark-mode {
+    color: $base-white;
+
+    &:active {
+      color: $base-white;
+    }
   }
 }
 
@@ -168,7 +178,7 @@ img {
 // global page transition
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 300ms ease !important;
+  transition: opacity 250ms ease !important;
   opacity: 1 !important;
 }
 .fade-enter,

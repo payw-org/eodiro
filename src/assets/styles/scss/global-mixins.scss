@@ -1,64 +1,64 @@
 @import '~/assets/styles/scss/global-variables.scss';
 
 @mixin smaller-than($width) {
-	@media only screen and (max-width: $width) {
-		@content;
-	}
+  @media only screen and (max-width: $width) {
+    @content;
+  }
 }
 
 @mixin larger-than($width) {
-	@media only screen and (min-width: $width) {
-		@content;
-	}
+  @media only screen and (min-width: $width) {
+    @content;
+  }
 }
 
 @mixin on-mobile() {
-	@include smaller-than($mobile-width-threshold) {
-		@content
-	}
+  @include smaller-than($mobile-width-threshold) {
+    @content;
+  }
 }
 
 @mixin dark-mode() {
-	.dark-mode & {
-		@content;
-	}
-	@media (prefers-color-scheme: dark) {
-		.auto-color-scheme & {
-			@content;
-		}
-	}
+  .dark-mode & {
+    @content;
+  }
+  @media (prefers-color-scheme: dark) {
+    .auto-color-scheme & {
+      @content;
+    }
+  }
 }
 
 @mixin light-mode() {
-	.light-mode & {
-		@content;
-	}
-	@media (prefers-color-scheme: light) {
-		.auto-color-scheme & {
-			@content;
-		}
-	}
+  .light-mode & {
+    @content;
+  }
+  @media (prefers-color-scheme: light) {
+    .auto-color-scheme & {
+      @content;
+    }
+  }
 }
 
 @mixin color-all($color) {
-	color: $color;
+  color: $color;
 
-	&:active{
-		color: $color;
-	}
+  &:active {
+    color: $color;
+  }
 
-	&:hover {
-		color: $color;
-	}
+  &:hover {
+    color: $color;
+  }
 }
 
 @function dark-mode-border-shadow($bg-color) {
-	@return 0 0 0 1px lighten($bg-color, 20%), 0 0 0 2px black;
+  @return 0 0 0 1px lighten($bg-color, 20%), 0 0 0 2px black;
 }
 
-@mixin bgImg($url, $position, $size) {
-	background-image: url($url);
-	background-repeat: no-repeat;
-	background-position: unquote($position);
-	background-size: unquote($size);
+@mixin bgImg($url, $position: center, $size: 100%) {
+  background-image: url($url);
+  background-repeat: no-repeat;
+  background-position: unquote($position);
+  background-size: unquote($size);
 }

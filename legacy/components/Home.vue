@@ -116,7 +116,7 @@
 
 <script>
 import ColorScheme from '~/plugins/ColorScheme.ts'
-import HomeBgTile from '~/components/Home/HomeBgTile.vue'
+import HomeBgTile from '~/components/home/HomeBgTile.vue'
 
 export default {
   head() {

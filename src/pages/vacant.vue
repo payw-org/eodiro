@@ -1,5 +1,5 @@
 <template>
-  <div id="eodiro-app">
+  <div id="eodiro-vacant">
     <AppNav :is-hidden="isNavHidden" />
     <div class="ea-content">
       <nuxt-child
@@ -85,7 +85,7 @@ export default {
 @import '~/assets/styles/scss/global-variables.scss';
 @import '~/assets/styles/scss/global-mixins.scss';
 
-#eodiro-app {
+#eodiro-vacant {
   .ea-content {
     .content-item {
       padding-top: 11.3rem;

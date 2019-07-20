@@ -15,7 +15,6 @@ export default {
 
   // head tags options
   head: {
-    htmlAttrs: {},
     title: title,
     meta: [
       { charset: 'utf-8' },
@@ -70,7 +69,7 @@ export default {
   ],
 
   // plugins
-  plugins: [{ src: '~/plugins/init.js' }],
+  plugins: [{ src: '~/plugins/init.ts' }],
 
   // modules
   modules: [
