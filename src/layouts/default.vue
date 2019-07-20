@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="wrapper">
     <nuxt></nuxt>
     <eodiro-modal></eodiro-modal>
   </div>
@@ -12,4 +12,3 @@ export default {
   components: { EodiroModal }
 }
 </script>
-
