@@ -37,15 +37,20 @@ export default {
 @import '~/assets/styles/scss/global-mixins.scss';
 
 $cushion-push-time: 0ms;
-$cushion-revival-time: 1200ms;
+$cushion-revival-time: 700ms;
 
 .cushion {
   display: inline-block;
-  // border: 1px solid $gray;
-  // box-shadow: inset 0 0 0 1px $gray;
+  border: 1px solid rgba(0, 0, 0, 0.07);
+  // box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.07);
   border-radius: 0.7rem;
   transition: background-color $cushion-revival-time ease,
     box-shadow $cushion-revival-time ease, border $cushion-revival-time ease;
+
+  @include dark-mode {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    // box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+  }
 
   & > * {
     display: block;
@@ -55,15 +60,15 @@ $cushion-revival-time: 1200ms;
   }
 
   &.active {
-    background-color: #fcfcfc;
-    // border: 1px solid transparent;
+    background-color: rgba(0, 0, 0, 0.01);
+    border: 1px solid rgba(0, 0, 0, 0);
     box-shadow: inset 0 0 0.3rem rgba(0, 0, 0, 0.2);
     transition: background-color $cushion-push-time ease,
       box-shadow $cushion-push-time ease;
 
     @include dark-mode {
-      background-color: #252525;
-      box-shadow: inset 0 0 0.3rem rgba(0, 0, 0, 0.9);
+      background-color: rgba(255, 255, 255, 0.07);
+      box-shadow: inset 0 0 0.3rem #000;
     }
 
     & > * {
