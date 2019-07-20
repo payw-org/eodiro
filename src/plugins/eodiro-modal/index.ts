@@ -4,7 +4,12 @@ export default class EodiroModal {
 
   constructor() {
     // initialize modal DOM and current mode
-    this.modalElm = <HTMLElement>document.querySelector('.eodiro-modal')
+    this.modalElm = <HTMLElement>document.querySelector('#eodiro-modal')
+
+    if (!this.modalElm) {
+      console.error('Could not found EodiroModal element')
+      return
+    }
 
     if (this.modalElm.classList.contains('active')) {
       console.warn('modal is already active')

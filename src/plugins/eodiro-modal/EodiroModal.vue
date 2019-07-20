@@ -14,7 +14,7 @@
 </i18n>
 
 <template>
-  <div class="eodiro-modal">
+  <div id="eodiro-modal">
     <div class="content">
       <div class="message"></div>
       <div class="actions">
@@ -44,11 +44,12 @@ export default {
 
 <style lang="scss">
 @import '~/assets/styles/scss/global-variables.scss';
+@import '~/assets/styles/scss/global-mixins.scss';
 
 $build-out-time: 700ms;
 $build-in-time: 700ms;
 
-.eodiro-modal {
+#eodiro-modal {
   position: fixed;
   top: 0;
   right: 0;
@@ -80,7 +81,7 @@ $build-in-time: 700ms;
     max-width: 20rem;
     height: auto;
     padding: 1rem 1.5rem;
-    background-color: #fff;
+    background-color: $base-white;
     border-radius: 1rem;
     text-align: center;
     font-size: 1rem;
@@ -92,6 +93,10 @@ $build-in-time: 700ms;
     top: -1rem;
     animation: springZoomInOut $build-out-time linear;
     animation-fill-mode: both;
+
+    @include dark-mode {
+      background-color: $base-black;
+    }
 
     .message {
       margin-top: 1rem;
@@ -124,6 +129,10 @@ $build-in-time: 700ms;
     backdrop-filter: blur(30px);
     opacity: 0;
     transition: opacity 200ms ease;
+
+    @include dark-mode {
+      background-color: rgba(0, 0, 0, 0.8);
+    }
   }
 
   &.active {
