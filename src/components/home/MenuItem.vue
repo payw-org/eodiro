@@ -40,6 +40,7 @@ export default {
 
 <style lang="scss">
 @import '~/assets/styles/scss/global-variables.scss';
+@import '~/assets/styles/scss/global-mixins.scss';
 
 .menu-item {
   width: 100%;
@@ -69,7 +70,7 @@ export default {
 
   &.class {
     .menu-icon-wrapper {
-      background-image: linear-gradient(to bottom, #23fa00, #00ce46);
+      background-image: linear-gradient(to bottom, #22f200, #14c34f);
     }
     .menu-icon {
       background-image: url('~assets/images/eodiro/magnifier_white.svg');
@@ -128,12 +129,16 @@ export default {
 
   .title,
   .title span {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     font-weight: 500;
     flex: 1;
     align-self: center;
     // margin: 2rem 0;
     color: $base-black;
+
+    @include dark-mode {
+      color: $base-white;
+    }
   }
 
   .arrow-wrapper {
@@ -150,6 +155,10 @@ export default {
       background-position: center;
       background-repeat: no-repeat;
       background-size: contain;
+
+      @include dark-mode {
+        background-image: url('~assets/images/eodiro/arrow_right_dark.svg');
+      }
     }
   }
 }
