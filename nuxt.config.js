@@ -70,7 +70,7 @@ export default {
   ],
 
   // plugins
-  plugins: [{ src: '~/plugins/init.js' }],
+  plugins: [{ src: '~/plugins/init.ts' }],
 
   // modules
   modules: [
