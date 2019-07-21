@@ -129,6 +129,19 @@ export default {
     }
   }
 
+  &.inquiry {
+    .menu-icon-wrapper {
+      background-image: linear-gradient(to bottom, #ff56ee, #e400db);
+    }
+    .menu-icon {
+      background-image: url('~assets/images/eodiro/q_mark_white.svg');
+
+      @include dark-mode {
+        background-image: url('~assets/images/eodiro/q_mark_black.svg');
+      }
+    }
+  }
+
   .menu-icon-area {
     width: 4rem;
     display: flex;
