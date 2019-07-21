@@ -63,13 +63,15 @@ export default {
   // include global css/scss files
   css: [
     '~/assets/styles/css/fonts_new.css',
+    '~/assets/styles/scss/cushion-ui.scss',
+    '~/plugins/eodiro-modal/style.scss',
     { src: '~/assets/styles/scss/globalstyle.scss', lang: 'scss' },
     { src: '~/assets/styles/scss/gradients-simple.scss', lang: 'scss' },
     { src: '~/assets/styles/stylus/spring.styl', lang: 'styl' }
   ],
 
   // plugins
-  plugins: [{ src: '~/plugins/init.ts' }],
+  plugins: ['~/plugins/init.ts'],
 
   // modules
   modules: [
@@ -89,7 +91,11 @@ export default {
           }
         ],
         defaultLocale: 'kr',
-        vueI18nLoader: true
+        vueI18nLoader: true,
+        detectBrowserLanguage: {
+          useCookie: true,
+          cookieKey: 'i18n_lang'
+        }
       }
     ]
   ],
