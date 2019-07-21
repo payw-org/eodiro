@@ -66,7 +66,7 @@ body {
   font-size: 16px;
   color: $base-black;
   user-select: none;
-  transition: background-color 500ms ease;
+  transition: background-color 300ms ease;
 
   @include dark-mode() {
     background-color: $base-black;
@@ -178,7 +178,7 @@ img {
 // global page transition
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 250ms ease !important;
+  transition: opacity 300ms ease !important;
   opacity: 1 !important;
 }
 .fade-enter,
