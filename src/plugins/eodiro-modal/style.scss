@@ -1,55 +1,10 @@
-<i18n>
-{
-  "kr": {
-    "confirm": "확인",
-    "cancel": "취소",
-    "close": "닫기"
-  },
-  "en": {
-    "confirm": "Confirm",
-    "cancel": "Cancel",
-    "close": "Close"
-  }
-}
-</i18n>
-
-<template>
-  <div id="eodiro-modal">
-    <div class="content">
-      <div class="message"></div>
-      <div class="actions">
-        <cushion class="act okay">
-          <button>{{ $t('confirm') }}</button>
-        </cushion>
-        <cushion class="act cancel">
-          <button>{{ $t('cancel') }}</button>
-        </cushion>
-        <cushion class="act close">
-          <button>{{ $t('close') }}</button>
-        </cushion>
-      </div>
-    </div>
-    <div class="wall"></div>
-  </div>
-</template>
-
-<script>
-import Cushion from '~/components/Cushion'
-
-export default {
-  components: { Cushion }
-}
-</script>
-
-
-<style lang="scss">
 @import '~/assets/styles/scss/global-variables.scss';
 @import '~/assets/styles/scss/global-mixins.scss';
 
 $build-out-time: 700ms;
 $build-in-time: 700ms;
 
-#eodiro-modal {
+.eodiro-modal {
   position: fixed;
   top: 0;
   right: 0;
@@ -70,7 +25,7 @@ $build-in-time: 700ms;
   }
 
   &.alert {
-    .act.okay,
+    .act.confirm,
     .act.cancel {
       display: none;
     }
@@ -95,7 +50,7 @@ $build-in-time: 700ms;
     animation-fill-mode: both;
 
     @include dark-mode {
-      background-color: $base-black;
+      background-color: #111;
     }
 
     .message {
@@ -106,6 +61,7 @@ $build-in-time: 700ms;
       margin-top: 1.5rem;
       text-align: center;
       display: grid;
+      grid-gap: 1rem;
       grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
 
       .act {
@@ -114,6 +70,10 @@ $build-in-time: 700ms;
         button {
           color: $c-step--4;
           font-size: 1rem;
+        }
+
+        &.confirm button {
+          font-weight: 600;
         }
       }
     }
@@ -128,11 +88,7 @@ $build-in-time: 700ms;
     background-color: rgba(0, 0, 0, 0.7);
     backdrop-filter: blur(30px);
     opacity: 0;
-    transition: opacity 200ms ease;
-
-    @include dark-mode {
-      background-color: rgba(0, 0, 0, 0.8);
-    }
+    transition: opacity 300ms ease;
   }
 
   &.active {
@@ -151,5 +107,3 @@ $build-in-time: 700ms;
     }
   }
 }
-</style>
-

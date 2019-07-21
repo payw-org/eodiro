@@ -21,13 +21,18 @@
 
 <template>
   <div id="home">
-    <div class="banner" @click="testAlert">
+    <div class="banner">
       <div class="tiles"></div>
       <div class="logo-wrapper">
         <img
           src="~/assets/images/eodiro/eodiro_logo_arrow_white.svg"
           alt="eodiro logo"
-          class="logo"
+          class="logo mode--light"
+        />
+        <img
+          src="~/assets/images/eodiro/eodiro_logo_arrow_black.svg"
+          alt="eodiro logo"
+          class="logo mode--dark"
         />
       </div>
     </div>
@@ -42,25 +47,25 @@
           </div>
         </nuxt-link>
 
-        <div class="menu-item-wrapper">
+        <div class="menu-item-wrapper" @click="testAlert('회원가입하시겠씁니까와 사와디캅? 아리가또 고마이마시다이소 이랏샤이마세')">
           <menu-item class="meal">
             <template v-slot:title>{{ $t('menu_meal') }}</template>
           </menu-item>
         </div>
 
-        <div class="menu-item-wrapper">
+        <div class="menu-item-wrapper" @click="testConfirm('확인을 누르면 5000비트코인을 바로 계좌에 쏴드립니다.')">
           <menu-item class="class">
             <template v-slot:title>{{ $t('menu_class') }}</template>
           </menu-item>
         </div>
 
-        <div class="menu-item-wrapper">
+        <div class="menu-item-wrapper" @click="testConfirm('리뷰를 작성하시겠습니까?')">
           <menu-item class="review">
             <template v-slot:title>{{ $t('menu_review') }}</template>
           </menu-item>
         </div>
 
-        <div class="menu-item-wrapper">
+        <div class="menu-item-wrapper" @click="testAlert('요즘 커피는 한 잔에 10,000원이죠')">
           <menu-item class="donation">
             <template v-slot:title>
               <span v-html="$t('menu_donation')"></span>
@@ -87,15 +92,11 @@ import EodiroModal from '~/plugins/eodiro-modal'
 export default {
   components: { MenuItem },
   methods: {
-    testConfirm() {
-      const modal = new EodiroModal()
-      modal.confirm('Confirm message')
+    testConfirm(msg) {
+      new EodiroModal().confirm(msg)
     },
-    testAlert() {
-      const modal = new EodiroModal()
-      modal.alert(
-        '회원가입하시겠씁니까와 사와디캅? 아리가또 고마이마시다이소 이랏샤이마세'
-      )
+    testAlert(msg) {
+      new EodiroModal().alert(msg)
     }
   }
 }
@@ -115,8 +116,8 @@ export default {
 
   .logo {
     display: block;
-    width: 3rem;
-    height: 3rem;
+    width: 3.5rem;
+    height: 3.5rem;
   }
 }
 

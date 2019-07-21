@@ -10,7 +10,7 @@ export default context => {
     // browser redirection
     const cookies =
       req.headers && req.headers.cookie ? Cookie.parse(req.headers.cookie) : {}
-    const redirectLang = cookies['i18n_redirected']
+    const redirectLang = cookies['i18n_lang']
     if (!redirectLang) {
       return
     }
