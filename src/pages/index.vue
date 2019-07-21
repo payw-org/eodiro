@@ -1,11 +1,11 @@
 <template>
-  <new-home />
+  <home-main />
 </template>
 
 <script>
-import NewHome from '~/components/home/NewHome'
+import HomeMain from '~/components/home/HomeMain.vue'
 
 export default {
-  components: { NewHome }
+  components: { HomeMain }
 }
 </script>

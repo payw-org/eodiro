@@ -41,43 +41,43 @@
       <div class="menu-item-container">
         <nuxt-link :to="localePath('vacant').replace(/\/$/, '')">
           <div class="menu-item-wrapper">
-            <menu-item class="vacant">
+            <home-menu-item class="vacant">
               <template v-slot:title>{{ $t('menu_vacant') }}</template>
-            </menu-item>
+            </home-menu-item>
           </div>
         </nuxt-link>
 
         <div class="menu-item-wrapper" @click="testAlert('회원가입하시겠씁니까와 사와디캅? 아리가또 고마이마시다이소 이랏샤이마세')">
-          <menu-item class="meal">
+          <home-menu-item class="meal">
             <template v-slot:title>{{ $t('menu_meal') }}</template>
-          </menu-item>
+          </home-menu-item>
         </div>
 
         <div class="menu-item-wrapper" @click="testConfirm('확인을 누르면 5000비트코인을 바로 계좌에 쏴드립니다.')">
-          <menu-item class="class">
+          <home-menu-item class="class">
             <template v-slot:title>{{ $t('menu_class') }}</template>
-          </menu-item>
+          </home-menu-item>
         </div>
 
         <div class="menu-item-wrapper" @click="testConfirm('리뷰를 작성하시겠습니까?')">
-          <menu-item class="review">
+          <home-menu-item class="review">
             <template v-slot:title>{{ $t('menu_review') }}</template>
-          </menu-item>
+          </home-menu-item>
         </div>
 
         <div class="menu-item-wrapper" @click="testAlert('요즘 커피는 한 잔에 10,000원이죠')">
-          <menu-item class="donation">
+          <home-menu-item class="donation">
             <template v-slot:title>
               <span v-html="$t('menu_donation')"></span>
             </template>
-          </menu-item>
+          </home-menu-item>
         </div>
 
         <nuxt-link :to="localePath('preferences').replace(/\/$/, '')">
           <div class="menu-item-wrapper">
-            <menu-item class="preferences">
+            <home-menu-item class="preferences">
               <template v-slot:title>{{ $t('menu_preferences') }}</template>
-            </menu-item>
+            </home-menu-item>
           </div>
         </nuxt-link>
       </div>
@@ -86,11 +86,11 @@
 </template>
 
 <script>
-import MenuItem from '~/components/home/MenuItem.vue'
+import HomeMenuItem from '~/components/home/HomeMenuItem.vue'
 import EodiroModal from '~/plugins/eodiro-modal'
 
 export default {
-  components: { MenuItem },
+  components: { HomeMenuItem },
   methods: {
     testConfirm(msg) {
       new EodiroModal().confirm(msg)
