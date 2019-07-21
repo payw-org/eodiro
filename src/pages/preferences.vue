@@ -76,7 +76,7 @@ export default {
   components: { Cushion },
   methods: {
     switchLang(lang) {
-      Cookies.set('i18n_redirected', lang, { expires: 99999 })
+      Cookies.set('i18n_lang', lang, { expires: 99999 })
       location.reload()
     },
     switchColorScheme(mode) {
@@ -131,7 +131,7 @@ export default {
     }
 
     .options {
-      margin-top: 1.5rem;
+      margin-top: 2rem;
       display: flex;
 
       .opt {
