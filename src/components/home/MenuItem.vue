@@ -41,6 +41,7 @@ export default {
 <style lang="scss">
 @import '~/assets/styles/scss/global-variables.scss';
 @import '~/assets/styles/scss/global-mixins.scss';
+@import '~/assets/styles/scss/global-functions.scss';
 
 .menu-item {
   width: 100%;
@@ -56,6 +57,10 @@ export default {
     }
     .menu-icon {
       background-image: url('~assets/images/eodiro/door_white.svg');
+
+      @include dark-mode {
+        background-image: url('~assets/images/eodiro/door_black.svg');
+      }
     }
   }
 
@@ -65,6 +70,10 @@ export default {
     }
     .menu-icon {
       background-image: url('~assets/images/eodiro/fork_knife_white.svg');
+
+      @include dark-mode {
+        background-image: url('~assets/images/eodiro/fork_knife_black.svg');
+      }
     }
   }
 
@@ -74,6 +83,10 @@ export default {
     }
     .menu-icon {
       background-image: url('~assets/images/eodiro/magnifier_white.svg');
+
+      @include dark-mode {
+        background-image: url('~assets/images/eodiro/magnifier_black.svg');
+      }
     }
   }
 
@@ -83,6 +96,10 @@ export default {
     }
     .menu-icon {
       background-image: url('~assets/images/eodiro/gear_white.svg');
+
+      @include dark-mode {
+        background-image: url('~assets/images/eodiro/gear_black.svg');
+      }
     }
   }
 
@@ -92,6 +109,10 @@ export default {
     }
     .menu-icon {
       background-image: url('~assets/images/eodiro/review_white.svg');
+
+      @include dark-mode {
+        background-image: url('~assets/images/eodiro/review_black.svg');
+      }
     }
   }
 
@@ -100,7 +121,11 @@ export default {
       background-image: linear-gradient(to bottom, #c41bff, #9300ed);
     }
     .menu-icon {
-      background-image: url('~assets/images/eodiro/coffee_white.svg');
+      background-image: url('~assets/images/eodiro/heart_white.svg');
+
+      @include dark-mode {
+        background-image: url('~assets/images/eodiro/heart_black.svg');
+      }
     }
   }
 
@@ -111,18 +136,47 @@ export default {
     justify-content: center;
 
     .menu-icon-wrapper {
-      display: block;
-      width: 2rem;
-      height: 2rem;
-      border-radius: 0.4rem;
+      $wrapper-size: 29px;
+      $icon-size: 25px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: $wrapper-size;
+      height: $wrapper-size;
+      border-radius: 0.5rem;
 
       .menu-icon {
         display: block;
-        width: 2rem;
-        height: 2rem;
+        width: $icon-size;
+        height: $icon-size;
         background-position: center;
         background-repeat: no-repeat;
-        background-size: 1.8rem;
+        background-size: 100%;
+      }
+
+      @include larger-than($res-step--1) {
+        & {
+          width: res-scale--1($wrapper-size);
+          height: res-scale--1($wrapper-size);
+
+          .menu-icon {
+            width: res-scale--1($icon-size);
+            height: res-scale--1($icon-size);
+          }
+        }
+      }
+
+      @include larger-than($res-step--2) {
+        & {
+          width: res-scale--2($wrapper-size);
+          height: res-scale--2($wrapper-size);
+
+          .menu-icon {
+            width: res-scale--2($icon-size);
+            height: res-scale--2($icon-size);
+          }
+        }
       }
     }
   }
