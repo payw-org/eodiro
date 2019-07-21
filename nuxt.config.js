@@ -4,7 +4,7 @@ const title = '어디로'
 const description = ''
 const modifyHtml = html => {
   // remove data-n-head="true"
-  return html.replace(/data-n-head="true"/g, '')
+  return html.replace(/data-n-head(=".*?")?(?!-)/g, '')
 }
 
 export default {
@@ -19,15 +19,6 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: description },
-      {
-        property: 'og:title',
-        content: title
-      },
-      {
-        property: 'og:description',
-        content: description
-      },
       {
         property: 'og:image',
         content: 'https://eodiro.com/assets/images/open-graph/open_graph.png'
@@ -48,14 +39,14 @@ export default {
     linkExactActiveClass: 'exact-active-link'
   },
 
-  // hooks: {
-  //   'generate:page': (page) => {
-  //     page.html = modifyHtml(page.html)
-  //   },
-  //   'render:route': (url, page, { req, res }) => {
-  //     page.html = modifyHtml(page.html)
-  //   }
-  // },
+  hooks: {
+    'generate:page': page => {
+      page.html = modifyHtml(page.html)
+    },
+    'render:route': (url, page, { req, res }) => {
+      page.html = modifyHtml(page.html)
+    }
+  },
 
   // not using nuxt's loading feature
   loading: false,
