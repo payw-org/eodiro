@@ -1,78 +1,112 @@
+import JSCookie from 'js-cookie'
+import modalTemplate from './template.html'
+import Mustache from 'mustache'
+
+const conf = {
+  langCookieName: 'i18n_lang'
+}
+
+const messages = {
+  kr: {
+    confirm: '확인',
+    cancel: '취소',
+    close: '닫기'
+  },
+  en: {
+    confirm: 'Confirm',
+    cancel: 'Cancel',
+    close: 'Close'
+  }
+}
+
 export default class EodiroModal {
+  lang: string = 'kr'
   modalElm: HTMLElement
-  static timeout: number
+  confirmBtn: HTMLElement
+  cancelBtn: HTMLElement
+  closeBtn: HTMLElement
 
-  constructor() {
-    // initialize modal DOM and current mode
-    this.modalElm = <HTMLElement>document.querySelector('#eodiro-modal')
-
-    if (!this.modalElm) {
-      console.error('Could not found EodiroModal element')
-      return
-    }
-
-    if (this.modalElm.classList.contains('active')) {
-      console.warn('modal is already active')
+  constructor(lang?: string) {
+    // init language
+    if (lang) {
+      this.lang = lang
     } else {
-      window.clearTimeout(EodiroModal.timeout)
-      this.modalElm.classList.remove('active')
-      this.modalElm.classList.remove('alert')
-      this.modalElm.classList.remove('confirm')
+      this.lang = JSCookie.get(conf.langCookieName)
     }
+
+    // create a DOM
+    const wrapper = document.createElement('div')
+    wrapper.innerHTML = Mustache.render(modalTemplate, messages[this.lang])
+    this.modalElm = <HTMLElement>wrapper.firstElementChild
+    document.body.appendChild(this.modalElm)
+    this.modalElm.getBoundingClientRect().width
+
+    // add eventlisteners
+    let cushions = this.modalElm.getElementsByClassName('cushion')
+
+    for (let cush of Array.from(cushions)) {
+      ;['mousedown', 'touchstart'].forEach(eName => {
+        cush.addEventListener(eName, e => {
+          cush.classList.add('active')
+        })
+      })
+      ;['mouseup', 'touchend', 'mouseleave', 'touchmove'].forEach(eName => {
+        cush.addEventListener(eName, e => {
+          cush.classList.remove('active')
+        })
+      })
+    }
+
+    this.confirmBtn = <HTMLElement>(
+      this.modalElm.querySelector('.actions .confirm')
+    )
+    this.cancelBtn = <HTMLElement>(
+      this.modalElm.querySelector('.actions .cancel')
+    )
+    this.closeBtn = <HTMLElement>this.modalElm.querySelector('.actions .close')
   }
 
   alert(msg: string) {
     this.setMsg(msg)
     this.open('alert')
 
-    const closeBtn = <HTMLElement>this.modalElm.querySelector('.act.close')
-
-    closeBtn.onclick = e => {
+    this.closeBtn.onclick = e => {
       this.close()
     }
   }
 
-  async confirm(msg: string) {
+  confirm(msg: string) {
     this.setMsg(msg)
     this.open('confirm')
 
-    return new Promise((res, rej) => {
-      const okayBtn = <HTMLElement>this.modalElm.querySelector('.act.okay')
-
-      okayBtn.onclick = e => {
+    return new Promise(resolve => {
+      this.confirmBtn.onclick = e => {
         this.close()
-        res(true)
+        resolve(true)
       }
 
-      const cancelBtn = <HTMLLIElement>(
-        this.modalElm.querySelector('.act.cancel')
-      )
-
-      cancelBtn.onclick = e => {
+      this.cancelBtn.onclick = e => {
         this.close()
-        res(false)
+        resolve(false)
       }
     })
   }
 
-  private setMsg(msg: string) {
+  setMsg(msg: string) {
     this.modalElm.getElementsByClassName('message')[0].innerHTML = msg
   }
 
-  private open(mode: 'alert' | 'confirm') {
+  open(mode: 'alert' | 'confirm') {
     this.modalElm.classList.add('active')
     this.modalElm.classList.add(mode)
   }
 
-  // close
-  private close() {
+  close() {
     // remove active class first
     this.modalElm.classList.remove('active')
 
-    EodiroModal.timeout = window.setTimeout(() => {
-      // remove specific mode class after transition
-      this.modalElm.classList.remove('alert')
-      this.modalElm.classList.remove('confirm')
+    setTimeout(() => {
+      ;(<HTMLElement>this.modalElm.parentElement).removeChild(this.modalElm)
     }, 700)
   }
 }
