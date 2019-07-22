@@ -48,6 +48,7 @@ export const actions = {
 
     commit('setColorScheme', mode)
 
+    // set routeMap
     state.routeMap = {
       vacant: [
         'index',
