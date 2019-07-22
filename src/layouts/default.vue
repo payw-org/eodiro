@@ -13,7 +13,7 @@
 
 <template>
   <div class="wrapper">
-    <nuxt></nuxt>
+    <nuxt keep-alive></nuxt>
   </div>
 </template>
 
