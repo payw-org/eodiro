@@ -62,11 +62,13 @@
 </template>
 
 <script>
+import EodiroBase from '~/components/EodiroBase.vue'
 import Cookies from 'js-cookie'
 import Cushion from '~/components/Cushion.vue'
 import Banner from '~/components/Banner.vue'
 
 export default {
+  extends: EodiroBase,
   head() {
     return {
       title: this.$t('title')
