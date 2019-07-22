@@ -32,4 +32,13 @@ export default context => {
       }
     }
   }
+
+  if (process.client) {
+    // prevent contextmenu popup
+    window.oncontextmenu = function(e) {
+      e.preventDefault()
+      e.stopPropagation()
+      return false
+    }
+  }
 }
