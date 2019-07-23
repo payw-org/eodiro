@@ -1,7 +1,9 @@
 <template>
   <div class="banner-wrapper" :class="{sticky: isSticky, 'passed-middle': isPassedMiddle}">
     <div class="banner">
-      <div class="tiles"></div>
+      <div class="tiles-wrapper">
+        <tiles />
+      </div>
       <div class="logo-wrapper">
         <div class="logo mode--light"></div>
         <div class="logo mode--dark"></div>
@@ -21,7 +23,10 @@
 </template>
 
 <script>
+import Tiles from '~/components/Tiles.vue'
+
 export default {
+  components: { Tiles },
   data() {
     return {
       isSticky: false,
