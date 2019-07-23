@@ -56,7 +56,7 @@
   @return 0 0 0 1px lighten($bg-color, 20%), 0 0 0 2px black;
 }
 
-@mixin bgImg($url, $position: center, $size: 100%) {
+@mixin bgImg($url, $position: center, $size: '100%') {
   background-image: url($url);
   background-repeat: no-repeat;
   background-position: unquote($position);

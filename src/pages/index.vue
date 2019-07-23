@@ -1,11 +1,13 @@
 <template>
-  <new-home />
+  <home-main />
 </template>
 
 <script>
-import NewHome from '~/components/home/NewHome'
+import EodiroBase from '~/components/EodiroBase.vue'
+import HomeMain from '~/components/home/HomeMain.vue'
 
 export default {
-  components: { NewHome }
+  extends: EodiroBase,
+  components: { HomeMain }
 }
 </script>

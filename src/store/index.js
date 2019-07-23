@@ -19,8 +19,10 @@ function getColorClassName(colorMode) {
   return colorSchemeClassName
 }
 
+// states
 export const state = () => {
-  colorSchemeClassName: 'light-mode' // default: 'light-mode'
+  colorSchemeClassName: 'light-mode'
+  routeMap: null
 }
 
 export const mutations = {
@@ -39,11 +41,36 @@ export const actions = {
   /**
    * Runs on server at first
    */
-  nuxtServerInit({ commit }, { req }) {
+  nuxtServerInit({ commit, state }, { req }) {
     const cookies =
       req.headers && req.headers.cookie ? Cookie.parse(req.headers.cookie) : {}
     const mode = cookies['color_scheme']
 
     commit('setColorScheme', mode)
+
+    // set routeMap
+    state.routeMap = {
+      vacant: [
+        'index',
+        'vacant',
+        'vacant-buildingId',
+        'vacant-buildingId-floorId'
+      ],
+      preferences: ['index', 'preferences']
+    }
+  }
+}
+
+export const getters = {
+  getPreviousRoute: state => (routeName, currentRoute) => {
+    currentRoute = currentRoute.replace(/___[a-z][a-z]/g, '')
+
+    if (routeName === 'index') {
+      return null
+    } else {
+      return state.routeMap[routeName][
+        state.routeMap[routeName].indexOf(currentRoute) - 1
+      ]
+    }
   }
 }
