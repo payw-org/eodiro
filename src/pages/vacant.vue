@@ -14,10 +14,12 @@
 </template>
 
 <script>
+import EodiroBase from '~/components/EodiroBase.vue'
 import AppNav from '~/components/AppNav'
 import RouteLocation from '~/plugins/RouteLocation'
 
 export default {
+  extends: EodiroBase,
   components: { AppNav },
   props: ['isRightDirection'],
   data() {

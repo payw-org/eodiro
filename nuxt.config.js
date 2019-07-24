@@ -108,6 +108,8 @@ export default {
     publicPath: '/dist/',
     extend(config) {
       config.module.rules.push({
+        // use html-loader for
+        // loading templates inside js/ts
         test: /\.(html)$/,
         use: {
           loader: 'html-loader'

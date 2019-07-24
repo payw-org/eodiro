@@ -12,8 +12,8 @@
 </i18n>
 
 <template>
-  <div class="wrapper">
-    <nuxt keep-alive></nuxt>
+  <div id="app">
+    <nuxt></nuxt>
   </div>
 </template>
 

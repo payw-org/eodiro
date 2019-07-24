@@ -175,25 +175,21 @@ img {
   }
 }
 
-// global page transition
-.fade-enter-active,
+// fade page transition
+$transition-time: 200ms;
+.fade-enter-active {
+  transition: opacity $transition-time ease;
+  opacity: 1;
+}
+.fade-enter {
+  opacity: 0;
+}
 .fade-leave-active {
-  transition: opacity 300ms ease !important;
-  opacity: 1 !important;
+  transition: opacity $transition-time ease;
+  opacity: 1;
 }
-.fade-enter,
 .fade-leave-to {
-  opacity: 0 !important;
-}
-
-.fade-slow-enter-active,
-.fade-slow-leave-active {
-  transition: opacity 500ms ease !important;
-  opacity: 1 !important;
-}
-.fade-slow-enter,
-.fade-slow-leave-to {
-  opacity: 0 !important;
+  opacity: 0;
 }
 
 // global styles
