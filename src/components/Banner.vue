@@ -1,13 +1,11 @@
 <template>
   <div class="banner-wrapper" :class="{sticky: isSticky, 'passed-middle': isPassedMiddle}">
     <div class="banner">
-      <div class="tiles-wrapper">
-        <tiles />
-      </div>
       <div class="logo-wrapper">
         <div class="logo mode--light"></div>
         <div class="logo mode--dark"></div>
       </div>
+      <tiles />
     </div>
     <nav class="navigation">
       <div class="prev-wrapper">
@@ -120,6 +118,7 @@ export default {
     .logo-wrapper {
       opacity: 1;
       transition: opacity 1000ms ease;
+      z-index: 19999;
 
       .logo {
         display: block;
