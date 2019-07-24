@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import EodiroBase from '~/components/EodiroBase.vue'
 import Content from '~/components/Content'
 import Loading from '~/components/Loading'
 import Stagger from '~/plugins/Stagger'
@@ -50,7 +51,7 @@ import axios from 'axios'
 
 export default {
   name: 'building',
-  extends: Content,
+  extends: EodiroBase,
   components: { Loading },
   data() {
     return {
