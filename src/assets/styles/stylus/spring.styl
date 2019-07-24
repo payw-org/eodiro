@@ -34,7 +34,7 @@ lerp(a, b, p)
   for i in (0..100)
     {i + '%'}
       t = i / 100
-      p = spring-wobbly(t)
+      p = spring-nicely(t)
       transform: scale(lerp(0.5, 1, p))
       opacity: lerp(0, 1, p)
 
@@ -42,8 +42,8 @@ lerp(a, b, p)
   for i in (0..100)
     {i + '%'}
       t = i / 100
-      p = spring-wobbly(t)
-      transform: scale(lerp(1, 0.7, p))
+      p = spring-nicely(t)
+      transform: scale(lerp(1, 0.9, p))
       opacity: lerp(1, 0, p)
 
 @keyframes springZoomOut
