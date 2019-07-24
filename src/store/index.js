@@ -20,20 +20,29 @@ function getColorClassName(colorMode) {
 }
 
 // states
-export const state = () => {
-  colorSchemeClassName: 'light-mode'
-  routeMap: null
-}
+export const state = () => ({
+  colorSchemeClassName: 'light-mode',
+  routeMap: null,
+  historyStack: []
+})
 
 export const mutations = {
   /**
-   *
    * @param {'light'|'dark'|'auto'} mode
    */
   setColorScheme(state, mode) {
     JSCookie.set('color_scheme', mode, { expires: 99999 })
     let colorSchemeClassName = getColorClassName(mode)
     state.colorSchemeClassName = colorSchemeClassName
+  },
+  /**
+   * @param {string} pageName
+   */
+  pushHistory(state, pageName) {
+    state.historyStack.push(pageName)
+    if (state.historyStack.length > 500) {
+      historyStack.shift()
+    }
   }
 }
 
@@ -62,6 +71,7 @@ export const actions = {
 }
 
 export const getters = {
+  // get previous route from routeMap
   getPreviousRoute: state => (routeName, currentRoute) => {
     currentRoute = currentRoute.replace(/___[a-z][a-z]/g, '')
 
@@ -72,5 +82,10 @@ export const getters = {
         state.routeMap[routeName].indexOf(currentRoute) - 1
       ]
     }
+  },
+  // get previous path name from historyStack
+  getPreviousPathName(state) {
+    let path = state.historyStack[state.historyStack.length - 2]
+    return path
   }
 }
