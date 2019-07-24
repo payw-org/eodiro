@@ -3,8 +3,7 @@
     <div class="banner">
       <div class="tiles"></div>
       <div class="logo-wrapper">
-        <div class="logo mode--light"></div>
-        <div class="logo mode--dark"></div>
+        <div class="logo"></div>
       </div>
     </div>
     <nav class="navigation">
@@ -13,7 +12,11 @@
         <button class="prev"></button>
         <!-- </nuxt-link> -->
       </div>
-      <button class="dummy"></button>
+      <div class="dummy" v-if="!prevPath"></div>
+      <nuxt-link :to="localePath('index')">
+        <div class="eodiro-home"></div>
+      </nuxt-link>
+      <div class="dummy"></div>
     </nav>
     <div class="sentinel--middle"></div>
     <div class="sentinel--bottom"></div>
@@ -120,7 +123,12 @@ export default {
   &.passed-middle {
     .banner .logo-wrapper {
       opacity: 0;
-      transition: opacity 500ms ease;
+      transition: opacity 300ms ease;
+    }
+
+    .navigation .eodiro-home {
+      opacity: 1;
+      pointer-events: all;
     }
   }
 
@@ -141,7 +149,7 @@ export default {
 
     .logo-wrapper {
       opacity: 1;
-      transition: opacity 1000ms ease;
+      transition: opacity 300ms ease;
 
       .logo {
         display: block;
@@ -152,30 +160,28 @@ export default {
           animation: rotatingGear 5s linear 0s infinite normal forwards;
         }
 
-        &.mode--light {
-          @include bgImg(
-            '~assets/images/eodiro/eodiro_logo_arrow_white.svg',
-            center,
-            '70%'
-          );
+        @include bgImg(
+          '~assets/images/eodiro/eodiro_logo_arrow_white.svg',
+          center,
+          '70%'
+        );
 
-          @at-root #preferences & {
-            @include bgImg(
-              '~assets/images/eodiro/gear_white.svg',
-              center,
-              '100%'
-            );
-          }
-        }
-
-        &.mode--dark {
+        @include dark-mode {
           @include bgImg(
             '~assets/images/eodiro/eodiro_logo_arrow_black.svg',
             center,
             '70%'
           );
+        }
 
-          @at-root #preferences & {
+        @at-root #preferences & {
+          @include bgImg(
+            '~assets/images/eodiro/gear_white.svg',
+            center,
+            '100%'
+          );
+
+          @include dark-mode {
             @include bgImg(
               '~assets/images/eodiro/gear_black.svg',
               center,
@@ -218,6 +224,32 @@ export default {
           );
         }
       }
+    }
+
+    .eodiro-home {
+      transition: opacity 300ms ease;
+      opacity: 0;
+      pointer-events: none;
+      width: $nav-height;
+      height: $nav-height;
+
+      @include bgImg(
+        '~assets/images/eodiro/eodiro_logo_arrow_white.svg',
+        center,
+        '50%'
+      );
+
+      @include dark-mode {
+        @include bgImg(
+          '~assets/images/eodiro/eodiro_logo_arrow_black.svg',
+          center,
+          '50%'
+        );
+      }
+    }
+
+    .dummy {
+      width: 4rem;
     }
   }
 
