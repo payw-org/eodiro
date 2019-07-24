@@ -4,16 +4,17 @@
     "outDir": "./",
     "allowJs": true,
     "target": "es5",
+    "strict": true,
     "module": "es2015",
+    "moduleResolution": "node",
     "lib": ["dom", "es5", "es2015"],
     "sourceMap": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
     "noImplicitReturns": true,
-    "moduleResolution": "node",
     "resolveJsonModule": true,
     "baseUrl": "./",
     "paths": {
-      "~/*": ["client/*"]
+      "~/*": ["src/*"]
     },
     "types": ["node"],
     "allowSyntheticDefaultImports": true

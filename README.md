@@ -1,57 +1,41 @@
-![Getting started](https://user-images.githubusercontent.com/19797697/58303582-c2e51f80-7e2b-11e9-92a8-d30c8e814b42.png)
-
+![banner](https://user-images.githubusercontent.com/19797697/61780775-14b32180-ae3e-11e9-85fe-99fbd7e9629a.png)
 
 # eodiro
 
-eodiro is a web service that helps university students to find empty classrooms and see timetable easily with beautifully designed UI and carefully designed UX.
-
+**eodiro** is an utility service for Chungang University students.
 
 ## How to Use
 
-eodiro is designed to be used without any guide by extremely limiting the number of user actions. All you have to do is just visit the website https://www.eodiro.com and enjoy the app.
-
+https://eodiro.com
 
 ## Build Instructions
 
-Although the eodiro is a well-made ready-to-use service, we provide a guidance for developers who want to build the software on their own and test it themselves.
-
-0. You must install Node.js and NPM before following the steps below.
+0. You must install Node.js and npm before following the steps below.
 
 1. Download or clone the repository.
 
-2. Go to the project's root directory and install npm packages.
+1. Go to the project's root directory and install npm packages.
 
-```bash
-$ npm install
+```zsh
+% npm install
 ```
 
-3. Build server and client source codes.
+3. Happy developing
 
-```bash
-$ npm run build-all
-
-# or you can build the server and the client separately
-$ npm run build-s build
+```zsh
+# Development
+% npm run dev
 ```
 
-4. Run server
-
-```bash
-$ npm start
+```zsh
+# Build and start the server
+% npm run build
+% npm run start
 ```
-
 
 ## Contributing
 
-Basically we don't approve any kind of contributions that are directly related to the source codes. However, we're welcoming the timetable data contribution. Contact support@eodiro.com if you want to contribute other universities' timetable which are not supported by eodiro yet.
-
-
-### Special Thanks
-
-These people helped us scale out the app.
-
-배찬빈(Korea University), 배명한(Yonsei University)
-
+You can leave an issue/pull request here or send us an email at support@eodiro.com.
 
 ## License
 

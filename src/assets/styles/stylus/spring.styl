@@ -1,0 +1,79 @@
+// Solve at WolframAlpha
+// f(0) = 0; f'(0) = 0; f''(t) = -180(f(t) - 1) - 12f'(t)
+
+// stifness: 180, damping: 12
+spring-wobbly(t)
+  return -0.5 * (2.71828 ** (-6 * t)) * (-2 * (2.71828 ** (6 * t)) + sin(12 * t) + 2 * cos(12 * t))
+
+// stifness: 120, damping: 14
+spring-gentle(t)
+  return -0.830747 * (2.71828 ** (-7 * t)) * sin(8.42615 * t) - (2.71828 ** (-7 * t)) * cos(8.42615 * t) + 1
+
+// stifness: 150, damping: 13
+spring-nicely(t)
+  return -0.626188 * (2.71828 ** (-6.5 * t)) * sin(10.3803 * t) - (2.71828 ** (-6.5 * t)) * cos(10.3803 * t) + 1
+
+lerp(a, b, p)
+  return a + p * (b - a)
+
+// animation: $spring-time springFadeUp linear;
+// animation-fill-mode: both;
+
+.spring-fade-up
+  opacity: 0
+
+@keyframes springFadeUp
+  for i in (0..100)
+    {i + '%'}
+      t = i / 100
+      p = spring-gentle(t)
+      transform: translateY(lerp(7rem, 0rem, p))
+      opacity: lerp(0, 1, p)
+
+@keyframes springZoomIn
+  for i in (0..100)
+    {i + '%'}
+      t = i / 100
+      p = spring-nicely(t)
+      transform: scale(lerp(0.5, 1, p))
+      opacity: lerp(0, 1, p)
+
+@keyframes springZoomInOut
+  for i in (0..100)
+    {i + '%'}
+      t = i / 100
+      p = spring-nicely(t)
+      transform: scale(lerp(1, 0.9, p))
+      opacity: lerp(1, 0, p)
+
+@keyframes springZoomOut
+  for i in (0..100)
+    {i + '%'}
+      t = i / 100
+      p = spring-nicely(t)
+      transform: scale(lerp(1.5, 1, p))
+      opacity: lerp(0, 1, p)
+
+@keyframes springZoomOutIn
+  for i in (0..100)
+    {i + '%'}
+      t = i / 100
+      p = spring-nicely(t)
+      transform: scale(lerp(1, 1.5, p))
+      opacity: lerp(1, 0, p)
+
+@keyframes springSlideUp
+  for i in (0..100)
+    {i + '%'}
+      t = i / 100
+      p = spring-gentle(t)
+      transform: translateY(lerp(50%, 0%, p))
+      opacity: lerp(0, 1, p)
+
+@keyframes springSlideDown
+  for i in (0..100)
+    {i + '%'}
+      t = i / 100
+      p = spring-gentle(t)
+      transform: translateY(lerp(0%, 100%, p))
+      opacity: lerp(0, 1, p)

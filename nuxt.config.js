@@ -4,7 +4,7 @@ const title = '어디로'
 const description = ''
 const modifyHtml = html => {
   // remove data-n-head="true"
-  return html.replace(/data-n-head="true"/g, '')
+  return html.replace(/data-n-head(=".*?")?(?!-)/g, '')
 }
 
 export default {
@@ -15,33 +15,23 @@ export default {
 
   // head tags options
   head: {
-    htmlAttrs: {
-      lang: 'ko',
-      class: 'light-mode'
-    },
     title: title,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: description },
-      {
-        property: 'og:title',
-        content: title
-      },
-      {
-        property: 'og:description',
-        content: description
-      },
       {
         property: 'og:image',
         content: 'https://eodiro.com/assets/images/open-graph/open_graph.png'
       }
     ],
-    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
+    link: [
+      { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' }
+    ]
   },
 
-  // source directory ('/client')
-  srcDir: 'client',
+  // source directory ('/src')
+  srcDir: 'src',
 
   // custom link class names
   router: {
@@ -49,14 +39,14 @@ export default {
     linkExactActiveClass: 'exact-active-link'
   },
 
-  // hooks: {
-  //   'generate:page': (page) => {
-  //     page.html = modifyHtml(page.html)
-  //   },
-  //   'render:route': (url, page, { req, res }) => {
-  //     page.html = modifyHtml(page.html)
-  //   }
-  // },
+  hooks: {
+    'generate:page': page => {
+      page.html = modifyHtml(page.html)
+    },
+    'render:route': (url, page, { req, res }) => {
+      page.html = modifyHtml(page.html)
+    }
+  },
 
   // not using nuxt's loading feature
   loading: false,
@@ -64,10 +54,15 @@ export default {
   // include global css/scss files
   css: [
     '~/assets/styles/css/fonts_new.css',
+    '~/assets/styles/scss/cushion-ui.scss',
+    '~/plugins/eodiro-modal/style.scss',
     { src: '~/assets/styles/scss/globalstyle.scss', lang: 'scss' },
     { src: '~/assets/styles/scss/gradients-simple.scss', lang: 'scss' },
     { src: '~/assets/styles/stylus/spring.styl', lang: 'styl' }
   ],
+
+  // plugins
+  plugins: ['~/plugins/init.ts'],
 
   // modules
   modules: [
@@ -90,11 +85,17 @@ export default {
         vueI18nLoader: true,
         detectBrowserLanguage: {
           useCookie: true,
-          alwaysRedirect: false
+          cookieKey: 'i18n_lang'
         }
       }
     ]
   ],
+
+  // GA
+  googleAnalytics: {
+    id: 'UA-140443623-1',
+    dev: false
+  },
 
   // transition between routes
   pageTransition: {
@@ -104,6 +105,16 @@ export default {
 
   // custom build path name
   build: {
-    publicPath: '/dist/'
+    publicPath: '/dist/',
+    extend(config) {
+      config.module.rules.push({
+        // use html-loader for
+        // loading templates inside js/ts
+        test: /\.(html)$/,
+        use: {
+          loader: 'html-loader'
+        }
+      })
+    }
   }
 }
