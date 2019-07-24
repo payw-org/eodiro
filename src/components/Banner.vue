@@ -8,10 +8,10 @@
       </div>
     </div>
     <nav class="navigation">
-      <div class="prev-wrapper">
-        <nuxt-link :to="localePath(this.prevPath)" v-if="this.prevPath">
-          <button class="prev"></button>
-        </nuxt-link>
+      <div class="prev-wrapper" @click="goBack" v-if="prevPath">
+        <!-- <nuxt-link :to="getPrevPathName"> -->
+        <button class="prev"></button>
+        <!-- </nuxt-link> -->
       </div>
       <button class="dummy"></button>
     </nav>
@@ -26,7 +26,34 @@ export default {
     return {
       isSticky: false,
       isPassedMiddle: false,
-      prevPath: ''
+      prevPath: '',
+      show: false
+    }
+  },
+  methods: {
+    goBack() {
+      // previous pathname
+      // from custom historyStack in store
+      // -> this is history based
+      let storePrevPathName = this.$store.getters.getPreviousPathName
+
+      // get previous pathname
+      // using custom routeMap in store
+      // -> this is real go back path
+      let nuxtPrevPathName = this.localePath(
+        this.$store.getters.getPreviousRoute(this.routeName, this.$route.name)
+      )
+
+      if (storePrevPathName === nuxtPrevPathName) {
+        // if history is same as real back path
+        history.back()
+      } else {
+        // if history is different from real back path,
+        // force push that
+        this.$router.push({ path: nuxtPrevPathName })
+      }
+
+      return ''
     }
   },
   props: ['routeName'],
