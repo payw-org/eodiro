@@ -54,7 +54,7 @@ export default {
         width_tile =
           (width_container_tiles + 1.5 * rem) / tileNum_width - 1.5 * rem
         // calc tileNum_height
-        tileNum_height = Math.ceil(
+        tileNum_height = Math.floor(
           ((height_container_tiles * 40) / 100 + 1.5 * rem) /
             (width_tile + 1.5 * rem)
         )
@@ -96,9 +96,34 @@ export default {
         this.activateAnimation()
       })
     },
+    updateTilesNumber() {
+      let current_tileNum = this.calculateVisibleTilesNumber()
+      let previous_tileNum
+
+      if (this.tileStates != null) {
+        previous_tileNum = this.tileStates.length
+      } else {
+        previous_tileNum = 0
+      }
+
+      let diff = current_tileNum - previous_tileNum
+
+      if (diff > 0) {
+        for (let i = 0; i < diff; i++) {
+          this.tileStates.push({
+            key: previous_tileNum + i,
+            className: 'color-1'
+          })
+        }
+      } else if (diff < 0) {
+        for (let i = 0; i > diff; i--) {
+          this.tileStates.pop()
+        }
+      }
+    },
     activateAnimation() {
       let i, c
-      let tileNum = this.calculateVisibleTilesNumber()
+      let tileNum = this.getTileNum()
       this.interval = setInterval(() => {
         for (let a = 0; a < Math.ceil(tileNum / 20); a++) {
           i = Math.floor(Math.random() * tileNum)
@@ -106,6 +131,10 @@ export default {
           this.tileStates[i]['className'] = 'color-' + c
         }
       }, 100)
+    },
+    getTileNum() {
+      if (this.tileStates != null) return this.tileStates.length
+      return 0
     }
   },
   mounted() {
@@ -114,6 +143,7 @@ export default {
       'resize',
       (this.resizeEvent = () => {
         window.clearInterval(this.interval)
+        this.updateTilesNumber()
         this.activateAnimation()
       })
     )
@@ -130,7 +160,7 @@ export default {
 #tiles-container {
   position: absolute;
   width: 110%;
-  height: 125%;
+  height: auto;
   overflow: hidden;
   display: grid;
   grid-gap: 1.5rem;
@@ -142,7 +172,9 @@ export default {
   }
   .tile {
     border-radius: 1.5rem;
-    transition: background-color 500ms linear;
+    background-color: #ffffff;
+    opacity: 0;
+    transition: opacity 500ms linear;
     @include smaller-than(700px) {
       border-radius: 0.8rem;
     }
@@ -152,42 +184,42 @@ export default {
       padding-top: 100%;
     }
     &.color-1 {
-      background-color: transparent;
+      opacity: 0;
     }
     &.color-2 {
-      background-color: transparent;
+      opacity: 0;
     }
     &.color-3 {
-      background-color: transparent;
+      opacity: 0;
     }
     &.color-4 {
-      background-color: #fcfcff;
+      opacity: 0.05;
       @include dark-mode() {
-        background-color: #363636;
+        opacity: 0.05;
       }
     }
     &.color-5 {
-      background-color: #fafafd;
+      opacity: 0.1;
       @include dark-mode() {
-        background-color: #383838;
+        opacity: 0.1;
       }
     }
     &.color-6 {
-      background-color: #f4f4f7;
+      opacity: 0.15;
       @include dark-mode() {
-        background-color: #414141;
+        opacity: 0.15;
       }
     }
     &.color-7 {
-      background-color: #f8f8fb;
+      opacity: 0.2;
       @include dark-mode() {
-        background-color: #4b4b4b;
+        opacity: 0.2;
       }
     }
     &.color-8 {
-      background-color: #e4e4e7;
+      opacity: 0.25;
       @include dark-mode() {
-        background-color: #686868;
+        opacity: 0.25;
       }
     }
   }
