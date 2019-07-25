@@ -1,9 +1,5 @@
 @import '~/assets/styles/scss/global-variables.scss';
 
-body {
-  overflow-y: hidden;
-  overflow-x: hidden;
-}
 @mixin smaller-than($width) {
   @media only screen and (max-width: $width) {
     @content;
