@@ -1,10 +1,10 @@
 <template>
   <div class="banner-wrapper" :class="{sticky: isSticky, 'passed-middle': isPassedMiddle}">
     <div class="banner">
-      <div class="tiles"></div>
       <div class="logo-wrapper">
         <div class="logo"></div>
       </div>
+      <tiles />
     </div>
     <nav class="navigation">
       <div class="prev-wrapper" @click="goBack" v-if="prevPath">
@@ -24,7 +24,10 @@
 </template>
 
 <script>
+import Tiles from '~/components/Tiles.vue'
+
 export default {
+  components: { Tiles },
   data() {
     return {
       isSticky: false,
@@ -149,7 +152,12 @@ export default {
 
     .logo-wrapper {
       opacity: 1;
+<<<<<<< HEAD
       transition: opacity 300ms ease;
+=======
+      transition: opacity 1000ms ease;
+      z-index: 19999;
+>>>>>>> BlinkBox
 
       .logo {
         display: block;
