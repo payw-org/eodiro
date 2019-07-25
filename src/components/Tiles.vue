@@ -21,8 +21,8 @@ export default {
   methods: {
     calculateVisibleTilesNumber() {
       let tiles = this.$el.querySelectorAll('.tile')
-      let width_max = window.innerWidth
-      let height_max = window.innerHeight
+      let width_device = window.innerWidth
+      let height_device = window.innerHeight
       let tileNum_height, tileNum_width
 
       let rem = parseInt(
@@ -31,29 +31,32 @@ export default {
       )
       let width_tile
 
-      if (width_max >= 1400) {
+      if (width_device >= 1400) {
         rem *= 1.3
-      } else if (width_max >= 700) {
+      } else if (width_device >= 700) {
         rem *= 1.1
       } else {
         rem *= 0.85
       }
 
-      width_max *= 1.1
-      height_max *= 1.25
-      if (width_max >= 700) {
+      let width_container_tiles = width_device * 1.1
+      let height_container_tiles = height_device * 1.25
+      if (width_device >= 700) {
         // minimize width_tile
         width_tile = 4 * rem
 
         // calc tileNum_width in minimized width_tile and round it
         tileNum_width = Math.floor(
-          (width_max + 1.5 * rem) / (width_tile + 1.5 * rem)
+          (width_container_tiles + 1.5 * rem) / (width_tile + 1.5 * rem)
         )
+        console.log('>' + width_device)
         // calc real width_tile
-        width_tile = (width_max + 1.5 * rem) / tileNum_width - 1.5 * rem
+        width_tile =
+          (width_container_tiles + 1.5 * rem) / tileNum_width - 1.5 * rem
         // calc tileNum_height
-        tileNum_height = Math.floor(
-          ((height_max * 35) / 100 + 1.5 * rem) / (width_tile + 1.5 * rem)
+        tileNum_height = Math.ceil(
+          ((height_container_tiles * 40) / 100 + 1.5 * rem) /
+            (width_tile + 1.5 * rem)
         )
       } else {
         // minimize width_tile
@@ -61,13 +64,14 @@ export default {
 
         // calc tileNum_width in minimized width_tile and round it
         tileNum_width = Math.floor(
-          (width_max + 1 * rem) / (width_tile + 1 * rem)
+          (width_container_tiles + 1 * rem) / (width_tile + 1 * rem)
         )
         // calc real width_tile
-        width_tile = (width_max + 1 * rem) / tileNum_width - 1 * rem
+        width_tile = (width_container_tiles + 1 * rem) / tileNum_width - 1 * rem
         // calc tileNum_height
         tileNum_height = Math.floor(
-          ((height_max * 35) / 100 + 1 * rem) / (width_tile + 1 * rem)
+          ((height_container_tiles * 40) / 100 + 1 * rem) /
+            (width_tile + 1 * rem)
         )
       }
       console.log(width_tile)
@@ -131,12 +135,13 @@ export default {
   display: grid;
   grid-gap: 1.5rem;
   grid-template-columns: repeat(auto-fit, minmax(4rem, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(4rem, 1fr));
   @include smaller-than(700px) {
     grid-gap: 1rem;
     grid-template-columns: repeat(auto-fit, minmax(3rem, 1fr));
   }
   .tile {
-    border-radius: 30%;
+    border-radius: 1.5rem;
     transition: background-color 500ms linear;
     @include smaller-than(700px) {
       border-radius: 0.8rem;

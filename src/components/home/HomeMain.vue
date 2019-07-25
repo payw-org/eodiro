@@ -112,7 +112,6 @@ export default {
 <style lang="scss">
 @import '~/assets/styles/scss/global-variables.scss';
 @import '~/assets/styles/scss/global-mixins.scss';
-
 #home {
   .page-content-wrapper {
     width: 100%;
