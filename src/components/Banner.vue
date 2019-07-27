@@ -12,13 +12,17 @@
   >
     <div class="banner">
       <div class="logo-wrapper">
-        <div class="logo app-icon app--home">
-          <span class="icon"></span>
-        </div>
-        <div class="logo app-icon app--vacant">
-          <span class="icon"></span>
-        </div>
-        <div class="logo app-icon app--preferences">
+        <div
+          v-for="appName in $store.state.appList"
+          :key="`banner-${appName}`"
+          class="logo app-icon"
+          :class="[
+            `app--${appName}`,
+            {
+              active: $store.state.currentAppName === appName
+            }
+          ]"
+        >
           <span class="icon"></span>
         </div>
       </div>
@@ -35,13 +39,17 @@
       <div class="dummy" v-if="!$store.state.prevPath"></div>
       <nuxt-link :to="localePath('index')">
         <div class="nav-icon-wrapper">
-          <div class="nav-icon app-icon app--home">
-            <span class="icon"></span>
-          </div>
-          <div class="nav-icon app-icon app--vacant">
-            <span class="icon"></span>
-          </div>
-          <div class="nav-icon app-icon app--preferences">
+          <div
+            v-for="appName in $store.state.appList"
+            :key="`nav-${appName}`"
+            class="nav-icon app-icon app--home"
+            :class="[
+              `app--${appName}`,
+              {
+                active: $store.state.currentAppName === appName
+              }
+            ]"
+          >
             <span class="icon"></span>
           </div>
         </div>
@@ -262,7 +270,8 @@ export default {
     height: 100%;
     opacity: 0;
     transform: translateY(10%);
-    transition: opacity 150ms ease, transform 300ms ease;
+    transform: scale(0.85);
+    transition: opacity 100ms ease, transform 300ms ease;
 
     .icon {
       display: block;
@@ -274,12 +283,13 @@ export default {
       animation: rotatingGear 5s linear 0s infinite normal forwards;
     }
 
-    &.app--home {
-      @at-root #app.home & {
-        opacity: 1;
-        transform: translateY(0%);
-      }
+    &.active {
+      opacity: 1;
+      transform: translateY(0%);
+      transform: scale(1);
+    }
 
+    &.app--home {
       .icon {
         @include bgImg(
           '~assets/images/eodiro/eodiro_logo_arrow_white.svg',
@@ -298,11 +308,6 @@ export default {
     }
 
     &.app--vacant {
-      @at-root #app.vacant & {
-        opacity: 1;
-        transform: translateY(0%);
-      }
-
       .icon {
         @include bgImg('~assets/images/eodiro/door_white.svg', center, '75%');
 
@@ -313,11 +318,6 @@ export default {
     }
 
     &.app--preferences {
-      @at-root #app.preferences & {
-        opacity: 1;
-        transform: translateY(0%);
-      }
-
       .icon {
         @include bgImg('~assets/images/eodiro/gear_white.svg', center, '75%');
 
