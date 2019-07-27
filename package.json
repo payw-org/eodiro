@@ -6,7 +6,6 @@
     "dev": "cross-env HOST=0.0.0.0 PORT=3500 nuxt",
     "build": "nuxt build",
     "start": "nuxt start",
-    "start:jhm-dev": "nuxt start --port 4000",
     "generate": "nuxt generate"
   },
   "repository": {
