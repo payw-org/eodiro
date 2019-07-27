@@ -33,6 +33,7 @@ import ApiUrl from '~/plugins/ApiUrl'
 import axios from 'axios'
 
 export default {
+  name: 'vacant-floor',
   extends: EodiroPageBase,
   meta: {
     depth: 2

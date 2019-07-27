@@ -150,6 +150,7 @@ import ApiUrl from '~/plugins/ApiUrl'
 import { spring, styler } from 'popmotion'
 
 export default {
+  name: 'vacant-result',
   extends: EodiroPageBase,
   meta: {
     depth: 3
