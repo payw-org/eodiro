@@ -12,7 +12,14 @@
 </i18n>
 
 <template>
+  <div id="app" :class="$store.state.currentAppName">
     <banner />
+    <nuxt
+      keep-alive
+      :keep-alive-props="{ include: $store.state.cachedComponents }"
+      class="master-content"
+      :class="{ 'banner-is-fixed': $store.state.banner.fixed }"
+    ></nuxt>
   </div>
 </template>
 
@@ -46,3 +53,15 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+@import '~/assets/styles/scss/global-variables.scss';
+
+#app {
+  .master-content {
+    &.banner-is-fixed {
+      padding-top: $banner-height;
+    }
+  }
+}
+</style>

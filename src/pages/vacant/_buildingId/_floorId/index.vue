@@ -151,6 +151,9 @@ import { spring, styler } from 'popmotion'
 
 export default {
   extends: EodiroPageBase,
+  meta: {
+    depth: 3
+  },
   components: { Loading },
   data() {
     return {

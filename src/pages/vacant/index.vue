@@ -50,6 +50,9 @@ import axios from 'axios'
 
 export default {
   extends: EodiroPageBase,
+  meta: {
+    depth: 1
+  },
   components: { Loading },
   data() {
     return {
@@ -162,7 +165,10 @@ export default {
   },
   mounted() {
     // Fetch data
-    this.fetchBuildings()
+    // this.fetchBuildings()
+    setTimeout(() => {
+      this.fetchBuildings()
+    }, 1000)
   },
   activated() {
     this.fetchEmpty()

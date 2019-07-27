@@ -65,6 +65,11 @@ import Cushion from '~/components/Cushion.vue'
 
 export default {
   extends: EodiroPageBase,
+  meta: {
+    depth: 1,
+    appName: 'preferences'
+  },
+  components: { Cushion },
   head() {
     return {
       title: this.$t('title')

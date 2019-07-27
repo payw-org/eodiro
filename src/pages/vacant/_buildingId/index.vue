@@ -34,6 +34,9 @@ import axios from 'axios'
 
 export default {
   extends: EodiroPageBase,
+  meta: {
+    depth: 2
+  },
   components: { Loading },
   data() {
     return {

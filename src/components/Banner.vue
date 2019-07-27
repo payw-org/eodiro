@@ -1,20 +1,49 @@
 <template>
-  <div class="banner-wrapper" :class="{sticky: isSticky, 'passed-middle': isPassedMiddle}">
+  <div
+    id="eodiro-banner"
+    :class="{
+      'passed-middle': isPassedMiddle,
+
+      'shifting': $store.state.banner.shiftAmount // only transition when shiftAmount available
+    }"
+    :style="[
+      $store.state.banner.fixed ? { top: `${$store.state.banner.top}px` } : {},
+      { transform: `translateY(${-$store.state.banner.shiftAmount}px)` }
+    ]"
+  >
     <div class="banner">
       <div class="tiles"></div>
       <div class="logo-wrapper">
-        <div class="logo"></div>
+        <div class="logo app-icon app--home">
+          <span class="icon"></span>
+        </div>
+        <div class="logo app-icon app--vacant">
+          <span class="icon"></span>
+        </div>
+        <div class="logo app-icon app--preferences">
+          <span class="icon"></span>
+        </div>
       </div>
     </div>
-    <nav class="navigation">
-      <div class="prev-wrapper" @click="goBack" v-if="prevPath">
-        <!-- <nuxt-link :to="getPrevPathName"> -->
-        <button class="prev"></button>
-        <!-- </nuxt-link> -->
+    <nav id="eodiro-navigation">
+      <div class="prev-wrapper" v-if="$store.state.prevPath">
+        <nuxt-link :to="$store.state.prevPath">
+          <button class="prev"></button>
+        </nuxt-link>
       </div>
-      <div class="dummy" v-if="!prevPath"></div>
+      <div class="dummy" v-if="!$store.state.prevPath"></div>
       <nuxt-link :to="localePath('index')">
-        <div class="eodiro-home"></div>
+        <div class="nav-icon-wrapper">
+          <div class="nav-icon app-icon app--home">
+            <span class="icon"></span>
+          </div>
+          <div class="nav-icon app-icon app--vacant">
+            <span class="icon"></span>
+          </div>
+          <div class="nav-icon app-icon app--preferences">
+            <span class="icon"></span>
+          </div>
+        </div>
       </nuxt-link>
       <div class="dummy"></div>
     </nav>
@@ -27,50 +56,71 @@
 export default {
   data() {
     return {
-      isSticky: false,
       isPassedMiddle: false,
-      prevPath: '',
-      show: false
+      hidden: false
     }
   },
   methods: {
-    goBack() {
-      // previous pathname
-      // from custom historyStack in store
-      // -> this is history based
-      let storePrevPathName = this.$store.getters.getPreviousPathName
+    // goBack() {
+    //   // previous pathname
+    //   // from custom historyStack in store
+    //   // -> this is history based
+    //   let storePrevPathName = this.$store.getters.getPreviousPathName
 
-      // get previous pathname
-      // using custom routeMap in store
-      // -> this is real go back path
-      let nuxtPrevPathName = this.localePath(
-        this.$store.getters.getPreviousRoute(this.routeName, this.$route.name)
-      )
+    //   // get previous pathname
+    //   // using custom routeMap in store
+    //   // -> this is real go back path
+    //   let nuxtPrevPathName = this.localePath(
+    //     this.$store.getters.getPreviousRoute(this.routeName, this.$route.name)
+    //   )
 
-      if (storePrevPathName === nuxtPrevPathName) {
-        // if history is same as real back path
-        history.back()
-      } else {
-        // if history is different from real back path,
-        // force push that
-        this.$router.push({ path: nuxtPrevPathName })
-      }
+    //   if (storePrevPathName === nuxtPrevPathName) {
+    //     // if history is same as real back path
+    //     history.back()
+    //   } else {
+    //     // if history is different from real back path,
+    //     // force push that
+    //     this.$router.push({ path: nuxtPrevPathName })
+    //   }
 
-      return ''
+    //   return ''
+    // },
+    init() {
+      // initialize the banner
+      this.setSize()
+      this.setTop()
+    },
+    setSize() {
+      // store banner's size information
+      this.$store.commit('banner/init', {
+        height: this.$el.getBoundingClientRect().height,
+        navHeight: this.$el
+          .querySelector('#eodiro-navigation')
+          .getBoundingClientRect().height
+      })
+    },
+    setTop() {
+      // store banner's top
+      this.$store.commit('banner/setTop', this.$el.getBoundingClientRect().top)
     }
   },
-  props: ['routeName'],
-  created() {
-    this.prevPath = this.$store.getters.getPreviousRoute(
-      this.routeName,
-      this.$route.name
-    )
-  },
   mounted() {
-    let sentinelMiddle = this.$el.querySelector('.sentinel--middle')
-    let sentinelBottom = this.$el.querySelector('.sentinel--bottom')
+    // init
+    this.init()
 
-    var observer = new IntersectionObserver(entries => {
+    // store size information when viewport changes
+    window.addEventListener('resize', e => {
+      this.setSize()
+    })
+
+    // store top when scroll
+    window.addEventListener('scroll', e => {
+      this.setTop()
+    })
+
+    // middle sentinel for navigation app icon transition effect
+    let sentinelMiddle = this.$el.querySelector('.sentinel--middle')
+    let observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
         if (entry.target.isSameNode(sentinelMiddle)) {
           if (entry.isIntersecting) {
@@ -78,18 +128,10 @@ export default {
           } else {
             this.isPassedMiddle = true
           }
-        } else if (entry.target.isSameNode(sentinelBottom)) {
-          if (entry.isIntersecting) {
-            this.isSticky = false
-          } else {
-            this.isSticky = true
-          }
         }
       })
     })
-
-    observer.observe(sentinelMiddle)
-    observer.observe(sentinelBottom)
+    observer.observe(sentinelMiddle) // observe middle sentinel
   }
 }
 </script>
@@ -107,9 +149,7 @@ export default {
   }
 }
 
-.banner-wrapper {
-  $banner-height: 40vh;
-  $nav-height: 3.5rem;
+#eodiro-banner {
   position: sticky;
   z-index: 9999;
   top: calc(-#{$banner-height} + #{$nav-height});
@@ -123,16 +163,23 @@ export default {
   &.passed-middle {
     .banner .logo-wrapper {
       opacity: 0;
-      transition: opacity 300ms ease;
+      transform: translateY(-30%);
     }
 
-    .navigation .eodiro-home {
+    #eodiro-navigation .nav-icon-wrapper {
       opacity: 1;
+      transform: translateY(0%);
       pointer-events: all;
     }
   }
 
-  &.sticky {
+  &.fixed {
+    position: fixed;
+  }
+
+  &.shifting {
+    transition: transform 200ms cubic-bezier(0.6, 0.15, 0.09, 1);
+    transition: transform 200ms ease;
   }
 
   .banner {
@@ -143,57 +190,20 @@ export default {
     align-items: center;
     justify-content: center;
 
-    @at-root #preferences & {
+    @at-root #app.preferences & {
       background-image: linear-gradient(to bottom, #939393, #636363);
     }
 
     .logo-wrapper {
+      position: relative;
+      width: 7rem;
+      height: 7rem;
       opacity: 1;
-      transition: opacity 300ms ease;
-
-      .logo {
-        display: block;
-        width: 5rem;
-        height: 5rem;
-
-        @at-root #preferences & {
-          animation: rotatingGear 5s linear 0s infinite normal forwards;
-        }
-
-        @include bgImg(
-          '~assets/images/eodiro/eodiro_logo_arrow_white.svg',
-          center,
-          '70%'
-        );
-
-        @include dark-mode {
-          @include bgImg(
-            '~assets/images/eodiro/eodiro_logo_arrow_black.svg',
-            center,
-            '70%'
-          );
-        }
-
-        @at-root #preferences & {
-          @include bgImg(
-            '~assets/images/eodiro/gear_white.svg',
-            center,
-            '100%'
-          );
-
-          @include dark-mode {
-            @include bgImg(
-              '~assets/images/eodiro/gear_black.svg',
-              center,
-              '100%'
-            );
-          }
-        }
-      }
+      transition: opacity 300ms ease, transform 300ms ease;
     }
   }
 
-  .navigation {
+  #eodiro-navigation {
     position: absolute;
     left: 0;
     right: 0;
@@ -226,30 +236,91 @@ export default {
       }
     }
 
-    .eodiro-home {
-      transition: opacity 300ms ease;
-      opacity: 0;
-      pointer-events: none;
+    .nav-icon-wrapper {
+      position: relative;
       width: $nav-height;
       height: $nav-height;
-
-      @include bgImg(
-        '~assets/images/eodiro/eodiro_logo_arrow_white.svg',
-        center,
-        '50%'
-      );
-
-      @include dark-mode {
-        @include bgImg(
-          '~assets/images/eodiro/eodiro_logo_arrow_black.svg',
-          center,
-          '50%'
-        );
-      }
+      opacity: 0;
+      transform: translateY(30%);
+      transition: opacity 300ms ease, transform 300ms ease;
+      pointer-events: none;
     }
 
     .dummy {
       width: 4rem;
+    }
+  }
+
+  .app-icon {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transform: translateY(10%);
+    transition: opacity 150ms ease, transform 300ms ease;
+
+    .icon {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    @at-root #app.preferences & .icon {
+      animation: rotatingGear 5s linear 0s infinite normal forwards;
+    }
+
+    &.app--home {
+      @at-root #app.home & {
+        opacity: 1;
+        transform: translateY(0%);
+      }
+
+      .icon {
+        @include bgImg(
+          '~assets/images/eodiro/eodiro_logo_arrow_white.svg',
+          center,
+          '50%'
+        );
+
+        @include dark-mode {
+          @include bgImg(
+            '~assets/images/eodiro/eodiro_logo_arrow_black.svg',
+            center,
+            '50%'
+          );
+        }
+      }
+    }
+
+    &.app--vacant {
+      @at-root #app.vacant & {
+        opacity: 1;
+        transform: translateY(0%);
+      }
+
+      .icon {
+        @include bgImg('~assets/images/eodiro/door_white.svg', center, '75%');
+
+        @include dark-mode {
+          @include bgImg('~assets/images/eodiro/door_black.svg', center, '75%');
+        }
+      }
+    }
+
+    &.app--preferences {
+      @at-root #app.preferences & {
+        opacity: 1;
+        transform: translateY(0%);
+      }
+
+      .icon {
+        @include bgImg('~assets/images/eodiro/gear_white.svg', center, '75%');
+
+        @include dark-mode {
+          @include bgImg('~assets/images/eodiro/gear_black.svg', center, '75%');
+        }
+      }
     }
   }
 

@@ -9,5 +9,10 @@ import HomeMain from '~/components/home/HomeMain.vue'
 export default {
   extends: EodiroPageBase,
   components: { HomeMain },
+  meta: {
+    depth: 0,
+    appName: 'home'
+  },
+  mounted() {}
 }
 </script>
