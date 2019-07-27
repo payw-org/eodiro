@@ -33,10 +33,38 @@ export default {
   // source directory ('/src')
   srcDir: 'src',
 
-  // custom link class names
   router: {
+    // custom link class names
     linkActiveClass: 'active-link',
-    linkExactActiveClass: 'exact-active-link'
+    linkExactActiveClass: 'exact-active-link',
+
+    // run middleware when route changes
+    middleware: 'route-change',
+
+    // customize scroll behaviour
+    // scroll to top when route forward
+    // scroll to stored position when route backward
+    // if there is no stored position, scroll to top
+    scrollBehavior: function(to, from, savedPosition) {
+      // tweak nuxt.js' default method
+      return new Promise(resolve => {
+        let lastScrollPosition = to.matched[to.matched.length - 1].components
+          .default.options.meta.lastScrollPosition
+          ? to.matched[to.matched.length - 1].components.default.options.meta
+              .lastScrollPosition
+          : 0
+
+        let position = {
+          x: 0,
+          y: lastScrollPosition
+        }
+
+        // wait for the out transition to complete
+        window.$nuxt.$once('triggerScroll', () => {
+          resolve(position)
+        })
+      })
+    }
   },
 
   hooks: {
