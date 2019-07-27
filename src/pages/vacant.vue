@@ -1,46 +1,15 @@
 <template>
   <div id="eodiro-vacant">
-    <AppNav :is-hidden="isNavHidden" />
     <div class="ea-content">
-      <nuxt-child
-        keep-alive
-        :keep-alive-props="{ include: cachedComponents }"
-        @toggleScrollEvent="toggleScrollEvent"
-        :is-right-direction="isRightDirection"
-        :cached-components="cachedComponents"
-      ></nuxt-child>
+      <nuxt-child keep-alive :keep-alive-props="{ include: $store.state.cachedComponents }"></nuxt-child>
     </div>
   </div>
 </template>
 
 <script>
-import EodiroBase from '~/components/EodiroBase.vue'
-import AppNav from '~/components/AppNav'
-import RouteLocation from '~/plugins/RouteLocation'
-
 export default {
-  extends: EodiroBase,
-  components: { AppNav },
-  props: ['isRightDirection'],
-  data() {
-    return {
-      navTitle: '',
-      backLink: '/',
-      isNavHidden: true,
-      lastScrollTop: 0,
-      threshold: null,
-      cachedComponents: []
-    }
-  },
-  watch: {
-    $route(to, from) {
-      this.isNavHidden = false
-
-      // if go left direction, remove last cached components
-      if (!RouteLocation.isRightDirection(to.name, from.name)) {
-        this.cachedComponents.splice(this.cachedComponents.length - 1, 1)
-      }
-    }
+  meta: {
+    appName: 'vacant'
   },
   methods: {
     // ignore scroll-based nav update and hide
@@ -90,13 +59,9 @@ export default {
 #eodiro-vacant {
   .ea-content {
     .content-item {
-      padding-top: 11.3rem;
+      padding-top: 2rem;
       padding-bottom: $stagger-gap;
       display: block;
-
-      @include smaller-than($mobile-width-threshold) {
-        padding-top: 8.5rem;
-      }
 
       &.fade-enter-active,
       &.fade-leave-active {

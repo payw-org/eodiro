@@ -25,7 +25,6 @@
 
 <template>
   <div id="home">
-    <banner :routeName="'index'" />
     <div class="page-content-wrapper">
       <div class="page-content">
         <div class="menu-item-container">
@@ -87,10 +86,9 @@
 <script>
 import HomeMenuItem from '~/components/home/HomeMenuItem.vue'
 import EodiroModal from '~/plugins/eodiro-modal'
-import Banner from '~/components/Banner.vue'
 
 export default {
-  components: { HomeMenuItem, Banner },
+  components: { HomeMenuItem },
   data() {
     return {
       isSticky: false,

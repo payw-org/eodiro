@@ -41,8 +41,7 @@
 </template>
 
 <script>
-import EodiroBase from '~/components/EodiroBase.vue'
-import Content from '~/components/Content'
+import EodiroPageBase from '~/components/EodiroPageBase.vue'
 import Loading from '~/components/Loading'
 import Stagger from '~/plugins/Stagger'
 import ApiUrl from '~/plugins/ApiUrl'
@@ -50,8 +49,10 @@ import EodiroStorage from '~/plugins/EodiroStorage'
 import axios from 'axios'
 
 export default {
-  name: 'building',
-  extends: EodiroBase,
+  extends: EodiroPageBase,
+  meta: {
+    depth: 1
+  },
   components: { Loading },
   data() {
     return {
@@ -164,7 +165,10 @@ export default {
   },
   mounted() {
     // Fetch data
-    this.fetchBuildings()
+    // this.fetchBuildings()
+    setTimeout(() => {
+      this.fetchBuildings()
+    }, 1000)
   },
   activated() {
     this.fetchEmpty()

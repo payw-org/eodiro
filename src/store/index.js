@@ -23,7 +23,11 @@ function getColorClassName(colorMode) {
 export const state = () => ({
   colorSchemeClassName: 'light-mode',
   routeMap: null,
-  historyStack: []
+  prevPath: '',
+  historyStack: [],
+  cachedComponents: [],
+  routeDirection: '', // forward|backward
+  currentAppName: ''
 })
 
 export const mutations = {
@@ -43,6 +47,24 @@ export const mutations = {
     if (state.historyStack.length > 500) {
       historyStack.shift()
     }
+  },
+  cacheComponent(state, routeName) {
+    state.cachedComponents.push(routeName)
+  },
+  popRoute(state, routeName) {
+    let index = state.cachedComponents.indexOf(routeName)
+    if (index !== -1) {
+      state.cachedComponents.splice(index, 1)
+    }
+  },
+  setRouteDirection(state, direction) {
+    state.routeDirection = direction
+  },
+  setFirstLoad(state, bool) {
+    state.isFisrtLoad = bool
+  },
+  setAppName(state, name) {
+    state.currentAppName = name
   }
 }
 
@@ -59,6 +81,7 @@ export const actions = {
 
     // set routeMap
     state.routeMap = {
+      home: ['index'],
       vacant: [
         'index',
         'vacant',
@@ -72,16 +95,20 @@ export const actions = {
 
 export const getters = {
   // get previous route from routeMap
-  getPreviousRoute: state => (routeName, currentRoute) => {
+  getPreviousRoute: state => currentRoute => {
     currentRoute = currentRoute.replace(/___[a-z][a-z]/g, '')
 
-    if (routeName === 'index') {
-      return null
-    } else {
-      return state.routeMap[routeName][
-        state.routeMap[routeName].indexOf(currentRoute) - 1
+    console.log(state.currentAppName, currentRoute)
+
+    console.log(
+      state.routeMap[state.currentAppName][
+        state.routeMap[state.currentAppName].indexOf(currentRoute) - 1
       ]
-    }
+    )
+
+    return state.routeMap[state.currentAppName][
+      state.routeMap[state.currentAppName].indexOf(currentRoute) - 1
+    ]
   },
   // get previous path name from historyStack
   getPreviousPathName(state) {
