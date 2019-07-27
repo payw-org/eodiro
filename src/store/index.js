@@ -27,7 +27,8 @@ export const state = () => ({
   historyStack: [],
   cachedComponents: [],
   routeDirection: '', // forward|backward
-  currentAppName: ''
+  currentAppName: '',
+  appList: ['home', 'vacant', 'preferences']
 })
 
 export const mutations = {
