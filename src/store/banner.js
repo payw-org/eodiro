@@ -1,11 +1,16 @@
 export const state = () => ({
   top: 0,
+  fixedTop: 0,
   shiftAmount: 0, // transform amount
+  sticky: false,
   fixed: false,
   mini: false,
   navMode: false,
   navHeight: null,
-  height: null
+  height: null,
+  isTransTriggered: false,
+  isFaxHidden: true,
+  isOrgHidden: false
 })
 
 export const mutations = {
@@ -26,10 +31,18 @@ export const mutations = {
   shift(state, amount) {
     state.shiftAmount = amount
   },
-  fix(state) {
-    state.fixed = true
+  sticky(state) {
+    state.sticky = true
   },
-  unfix(state) {
+  unsticky(state) {
+    state.sticky = false
+  },
+  fixFax(state) {
+    console.log('fixed')
+    state.fixed = true
+    state.fixedTop = state.top
+  },
+  unfixFax(state) {
     state.fixed = false
     state.shiftAmount = 0
   },
@@ -41,5 +54,25 @@ export const mutations = {
   },
   setNavMode(state, bool) {
     state.navMode = bool
+  },
+  showFax(state) {
+    // mount facsimile banner
+
+    state.isFaxHidden = false
+  },
+  hideFax(state) {
+    state.isFaxHidden = true
+  },
+  showOriginal(state) {
+    state.isOrgHidden = false
+  },
+  hideOriginal(state) {
+    state.isOrgHidden = true
+  },
+  triggerTransition(state) {
+    state.isTransTriggered = true
+  },
+  resetTrigger(state) {
+    state.isTransTriggered = false
   }
 }

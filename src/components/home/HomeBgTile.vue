@@ -52,7 +52,7 @@ export default {
         tileNum_width = Math.floor(
           (width_container_tiles + 1.5 * rem) / (width_tile + 1.5 * rem)
         )
-        console.log('>' + width_device)
+
         // calc real width_tile
         width_tile =
           (width_container_tiles + 1.5 * rem) / tileNum_width - 1.5 * rem

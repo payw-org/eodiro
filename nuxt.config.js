@@ -84,9 +84,10 @@ export default {
     '~/assets/styles/css/fonts_new.css',
     '~/assets/styles/scss/cushion-ui.scss',
     '~/plugins/eodiro-modal/style.scss',
-    { src: '~/assets/styles/scss/globalstyle.scss', lang: 'scss' },
-    { src: '~/assets/styles/scss/gradients-simple.scss', lang: 'scss' },
-    { src: '~/assets/styles/stylus/spring.styl', lang: 'styl' }
+    '~/assets/styles/scss/globalstyle.scss',
+    '~/assets/styles/scss/gradients-simple.scss',
+    '~/assets/styles/stylus/spring.styl',
+    '~/assets/styles/scss/eodiro-banner.scss'
   ],
 
   // plugins

@@ -13,21 +13,22 @@
 
 <template>
   <div id="app" :class="$store.state.currentAppName">
+    <banner-fax />
     <banner />
     <nuxt
       keep-alive
       :keep-alive-props="{ include: $store.state.cachedComponents }"
       class="master-content"
-      :class="{ 'banner-is-fixed': $store.state.banner.fixed }"
     ></nuxt>
   </div>
 </template>
 
 <script>
 import Banner from '~/components/Banner.vue'
+import BannerFax from '~/components/BannerFax.vue'
 
 export default {
-  components: { Banner },
+  components: { Banner, BannerFax },
   head() {
     return {
       title: this.$t('title'),
@@ -60,10 +61,6 @@ export default {
 #app {
   .master-content {
     padding-bottom: 4rem;
-
-    &.banner-is-fixed {
-      padding-top: $banner-height;
-    }
   }
 }
 </style>
