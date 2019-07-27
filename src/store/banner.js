@@ -3,6 +3,7 @@ export const state = () => ({
   shiftAmount: 0, // transform amount
   fixed: false,
   mini: false,
+  navMode: false,
   navHeight: null,
   height: null
 })
@@ -37,5 +38,8 @@ export const mutations = {
   },
   unminify(state) {
     state.mini = false
+  },
+  setNavMode(state, bool) {
+    state.navMode = bool
   }
 }

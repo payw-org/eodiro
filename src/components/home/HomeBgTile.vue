@@ -15,7 +15,8 @@ export default {
       tileStates: undefined,
       visibleTilesNum: 0,
       interval: 0,
-      resizeEvent: null
+      resizeEvent: null,
+      bannerWidth: null
     }
   },
   methods: {
@@ -45,7 +46,7 @@ export default {
       let height_container_tiles = height_device * 1.25
       if (width_device >= 700) {
         // minimize width_tile
-        width_tile = 4 * rem
+        width_tile = 3.5 * rem
 
         // calc tileNum_width in minimized width_tile and round it
         tileNum_width = Math.floor(
@@ -138,13 +139,33 @@ export default {
     }
   },
   mounted() {
+    this.bannerWidth = window.innerWidth
     this.createTiles()
+
     window.addEventListener(
       'resize',
       (this.resizeEvent = () => {
-        window.clearInterval(this.interval)
-        this.updateTilesNumber()
-        this.activateAnimation()
+        let bannerHeightChanged = false
+        let widthChanged = false
+
+        if (
+          this.$store.state.banner.height !==
+          document.querySelector('#eodiro-banner').getBoundingClientRect()
+            .height
+        ) {
+          bannerHeightChanged = true
+        }
+
+        if (this.bannerWidth !== window.innerWidth) {
+          this.bannerWidth = window.innerWidth
+          widthChanged = true
+        }
+
+        if (bannerHeightChanged || widthChanged) {
+          window.clearInterval(this.interval)
+          this.updateTilesNumber()
+          this.activateAnimation()
+        }
       })
     )
   },
@@ -164,20 +185,23 @@ export default {
   overflow: hidden;
   display: grid;
   grid-gap: 1.5rem;
-  grid-template-columns: repeat(auto-fit, minmax(4rem, 1fr));
-  grid-template-rows: repeat(auto-fit, minmax(4rem, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(3.5rem, 1fr));
+  grid-template-rows: repeat(auto-fit, minmax(3.5rem, 1fr));
   @include smaller-than(700px) {
     grid-gap: 1rem;
     grid-template-columns: repeat(auto-fit, minmax(3rem, 1fr));
+    grid-template-rows: repeat(auto-fit, minmax(3rem, 1fr));
   }
   .tile {
-    border-radius: 1.5rem;
-    background-color: #ffffff;
+    border-radius: 1rem;
+    background-color: #fff;
     opacity: 0;
     transition: opacity 500ms linear;
+
     @include smaller-than(700px) {
-      border-radius: 0.8rem;
+      border-radius: 0.85rem;
     }
+
     &::before {
       content: '';
       display: block;
@@ -193,34 +217,19 @@ export default {
       opacity: 0;
     }
     &.color-4 {
-      opacity: 0.05;
-      @include dark-mode() {
-        opacity: 0.05;
-      }
+      opacity: 0.01;
     }
     &.color-5 {
-      opacity: 0.1;
-      @include dark-mode() {
-        opacity: 0.1;
-      }
+      opacity: 0.03;
     }
     &.color-6 {
-      opacity: 0.15;
-      @include dark-mode() {
-        opacity: 0.15;
-      }
+      opacity: 0.07;
     }
     &.color-7 {
-      opacity: 0.2;
-      @include dark-mode() {
-        opacity: 0.2;
-      }
+      opacity: 0.13;
     }
     &.color-8 {
-      opacity: 0.25;
-      @include dark-mode() {
-        opacity: 0.25;
-      }
+      opacity: 0.21;
     }
   }
 }

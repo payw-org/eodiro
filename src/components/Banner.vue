@@ -2,8 +2,7 @@
   <div
     id="eodiro-banner"
     :class="{
-      'passed-middle': isPassedMiddle,
-
+      'nav-mode': $store.state.banner.navMode,
       'shifting': $store.state.banner.shiftAmount // only transition when shiftAmount available
     }"
     :style="[
@@ -23,7 +22,9 @@
           <span class="icon"></span>
         </div>
       </div>
-      <HomeBgTile />
+      <transition name="fade">
+        <HomeBgTile v-if="$store.state.currentAppName === 'home' && !$store.state.banner.navMode" />
+      </transition>
     </div>
     <nav id="eodiro-navigation">
       <div class="prev-wrapper" v-if="$store.state.prevPath">
@@ -59,7 +60,6 @@ export default {
   components: { HomeBgTile },
   data() {
     return {
-      isPassedMiddle: false,
       hidden: false
     }
   },
@@ -127,9 +127,9 @@ export default {
       entries.forEach(entry => {
         if (entry.target.isSameNode(sentinelMiddle)) {
           if (entry.isIntersecting) {
-            this.isPassedMiddle = false
+            this.$store.commit('banner/setNavMode', false)
           } else {
-            this.isPassedMiddle = true
+            this.$store.commit('banner/setNavMode', true)
           }
         }
       })
@@ -163,7 +163,7 @@ export default {
   justify-content: center;
   overflow: hidden;
 
-  &.passed-middle {
+  &.nav-mode {
     .banner .logo-wrapper {
       opacity: 0;
       transform: translateY(-30%);
@@ -199,6 +199,7 @@ export default {
 
     .logo-wrapper {
       position: relative;
+      z-index: 1;
       width: 7rem;
       height: 7rem;
       opacity: 1;
