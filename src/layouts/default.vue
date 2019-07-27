@@ -59,6 +59,8 @@ export default {
 
 #app {
   .master-content {
+    padding-bottom: 4rem;
+
     &.banner-is-fixed {
       padding-top: $banner-height;
     }
