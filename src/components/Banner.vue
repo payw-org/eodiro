@@ -12,7 +12,6 @@
     ]"
   >
     <div class="banner">
-      <div class="tiles"></div>
       <div class="logo-wrapper">
         <div class="logo app-icon app--home">
           <span class="icon"></span>
@@ -24,6 +23,7 @@
           <span class="icon"></span>
         </div>
       </div>
+      <HomeBgTile />
     </div>
     <nav id="eodiro-navigation">
       <div class="prev-wrapper" v-if="$store.state.prevPath">
@@ -53,7 +53,10 @@
 </template>
 
 <script>
+import HomeBgTile from '~/components/home/HomeBgTile.vue'
+
 export default {
+  components: { HomeBgTile },
   data() {
     return {
       isPassedMiddle: false,
