@@ -12,13 +12,15 @@
 </i18n>
 
 <template>
-  <div id="app">
-    <nuxt></nuxt>
+    <banner />
   </div>
 </template>
 
 <script>
+import Banner from '~/components/Banner.vue'
+
 export default {
+  components: { Banner },
   head() {
     return {
       title: this.$t('title'),

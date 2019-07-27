@@ -3,11 +3,11 @@
 </template>
 
 <script>
-import EodiroBase from '~/components/EodiroBase.vue'
+import EodiroPageBase from '~/components/EodiroPageBase.vue'
 import HomeMain from '~/components/home/HomeMain.vue'
 
 export default {
-  extends: EodiroBase,
-  components: { HomeMain }
+  extends: EodiroPageBase,
+  components: { HomeMain },
 }
 </script>

@@ -133,7 +133,7 @@
 </template>
 
 <script>
-import Content from '~/components/Content'
+import EodiroPageBase from '~/components/EodiroPageBase.vue'
 import Loading from '~/components/Loading'
 import SimpleBar from 'simplebar'
 import '~/assets/styles/scss/simplebar-custom.scss'
@@ -150,8 +150,7 @@ import ApiUrl from '~/plugins/ApiUrl'
 import { spring, styler } from 'popmotion'
 
 export default {
-  name: 'result',
-  extends: Content,
+  extends: EodiroPageBase,
   components: { Loading },
   data() {
     return {

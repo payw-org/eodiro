@@ -25,9 +25,6 @@
 
 <template>
   <div id="preferences">
-    <!-- <div class="page-icon"></div> -->
-    <banner :routeName="'preferences'" />
-
     <div class="page-content">
       <!-- language -->
       <section class="pref-section">
@@ -62,13 +59,12 @@
 </template>
 
 <script>
-import EodiroBase from '~/components/EodiroBase.vue'
+import EodiroPageBase from '~/components/EodiroPageBase.vue'
 import Cookies from 'js-cookie'
 import Cushion from '~/components/Cushion.vue'
-import Banner from '~/components/Banner.vue'
 
 export default {
-  extends: EodiroBase,
+  extends: EodiroPageBase,
   head() {
     return {
       title: this.$t('title')
@@ -79,7 +75,6 @@ export default {
       autoDarkModeSupport: false
     }
   },
-  components: { Cushion, Banner },
   methods: {
     switchLang(lang) {
       Cookies.set('i18n_lang', lang, { expires: 99999 })

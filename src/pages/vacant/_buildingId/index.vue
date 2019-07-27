@@ -26,15 +26,14 @@
 </template>
 
 <script>
-import Content from '~/components/Content'
+import EodiroPageBase from '~/components/EodiroPageBase.vue'
 import Loading from '~/components/Loading'
 import Stagger from '~/plugins/Stagger'
 import ApiUrl from '~/plugins/ApiUrl'
 import axios from 'axios'
 
 export default {
-  name: 'floor',
-  extends: Content,
+  extends: EodiroPageBase,
   components: { Loading },
   data() {
     return {
