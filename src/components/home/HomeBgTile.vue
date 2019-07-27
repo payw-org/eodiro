@@ -194,12 +194,16 @@ export default {
   }
   .tile {
     border-radius: 1rem;
-    background-color: #fff;
+    background-color: #fff0f3;
     opacity: 0;
     transition: opacity 500ms linear;
 
     @include smaller-than(700px) {
       border-radius: 0.85rem;
+    }
+
+    @include dark-mode {
+      background-color: #63000d;
     }
 
     &::before {
@@ -214,22 +218,22 @@ export default {
       opacity: 0;
     }
     &.color-3 {
-      opacity: 0;
-    }
-    &.color-4 {
       opacity: 0.01;
     }
+    &.color-4 {
+      opacity: 0.02;
+    }
     &.color-5 {
-      opacity: 0.03;
+      opacity: 0.04;
     }
     &.color-6 {
-      opacity: 0.07;
+      opacity: 0.08;
     }
     &.color-7 {
-      opacity: 0.13;
+      opacity: 0.16;
     }
     &.color-8 {
-      opacity: 0.21;
+      opacity: 0.32;
     }
   }
 }
