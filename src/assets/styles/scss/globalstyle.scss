@@ -176,9 +176,9 @@ img {
 }
 
 // fade page transition
-$transition-time: 200ms;
+$transition-time: 300ms;
 .fade-enter-active {
-  transition: opacity $transition-time ease;
+  transition: opacity $transition-time * 1.5 ease;
   opacity: 1;
 }
 .fade-enter {
