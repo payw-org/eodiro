@@ -64,6 +64,7 @@ import Cookies from 'js-cookie'
 import Cushion from '~/components/Cushion.vue'
 
 export default {
+  name: 'preferences',
   extends: EodiroPageBase,
   meta: {
     depth: 1,

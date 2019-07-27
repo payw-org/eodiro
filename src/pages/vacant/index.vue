@@ -49,6 +49,7 @@ import EodiroStorage from '~/plugins/EodiroStorage'
 import axios from 'axios'
 
 export default {
+  name: 'vacant-building',
   extends: EodiroPageBase,
   meta: {
     depth: 1

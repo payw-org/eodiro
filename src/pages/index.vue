@@ -7,6 +7,7 @@ import EodiroPageBase from '~/components/EodiroPageBase.vue'
 import HomeMain from '~/components/home/HomeMain.vue'
 
 export default {
+  name: 'home',
   extends: EodiroPageBase,
   components: { HomeMain },
   meta: {
