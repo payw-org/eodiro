@@ -1,5 +1,19 @@
 <template>
-  <div
+  <banner-common
+    id="eodiro-banner-facsimile"
+    :class="{
+      'nav-mode': $store.state.banner.navMode,
+      'fixed': $store.state.banner.fixed,
+      'sticky': $store.state.banner.sticky,
+      'shifting': $store.state.banner.shiftAmount !== undefined,
+      'hidden': $store.state.banner.isFaxHidden
+    }"
+    :style="[
+      $store.state.banner.fixed ? { top: `${top}px` } : {},
+      $store.state.banner.shiftAmount ? { transform: `translateY(${-$store.state.banner.shiftAmount}px)` } : {}
+    ]"
+  />
+  <!-- <div
     id="eodiro-banner-facsimile"
     class="eodiro-banner"
     :class="{
@@ -59,14 +73,15 @@
     </nav>
     <div class="sentinel--middle"></div>
     <div class="sentinel--bottom"></div>
-  </div>
+  </div>-->
 </template>
 
 <script>
+import BannerCommon from '~/components/BannerCommon.vue'
 import HomeBgTile from '~/components/home/HomeBgTile.vue'
 
 export default {
-  components: { HomeBgTile },
+  components: { BannerCommon, HomeBgTile },
   data() {
     return {
       top: 0
@@ -87,7 +102,6 @@ export default {
         let faxRect = this.$el.getBoundingClientRect()
 
         this.top = faxRect.top
-        console.log(this.top)
 
         if (this.top > 0) {
           return

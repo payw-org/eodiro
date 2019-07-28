@@ -1,5 +1,13 @@
 <template>
-  <div
+  <banner-common
+    id="eodiro-banner"
+    :class="{
+      'nav-mode': $store.state.banner.navMode,
+      'hidden': $store.state.banner.isOrgHidden
+    }"
+  />
+
+  <!-- <div
     id="eodiro-banner"
     class="eodiro-banner"
     :class="{
@@ -53,14 +61,15 @@
     </nav>
     <div class="sentinel--middle"></div>
     <div class="sentinel--bottom"></div>
-  </div>
+  </div>-->
 </template>
 
 <script>
+import BannerCommon from '~/components/BannerCommon.vue'
 import HomeBgTile from '~/components/home/HomeBgTile.vue'
 
 export default {
-  components: { HomeBgTile },
+  components: { BannerCommon, HomeBgTile },
   methods: {
     // goBack() {
     //   // previous pathname

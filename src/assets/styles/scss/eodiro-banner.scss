@@ -32,6 +32,9 @@
   }
 }
 
+#eodiro-banner {
+}
+
 .eodiro-banner {
   position: sticky;
   z-index: 9999;
@@ -43,6 +46,10 @@
   justify-content: center;
   overflow: hidden;
   opacity: 1;
+
+  &.mini {
+    height: 6rem;
+  }
 
   &.hidden {
     opacity: 0;

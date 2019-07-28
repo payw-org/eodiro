@@ -1,13 +1,13 @@
 export const state = () => ({
   top: 0,
   fixedTop: 0,
-  shiftAmount: 0, // transform amount
+  shiftAmount: undefined, // transform amount
   sticky: false,
   fixed: false,
   mini: false,
   navMode: false,
-  navHeight: null,
-  height: null,
+  navHeight: undefined,
+  height: undefined,
   isTransTriggered: false,
   isFaxHidden: true,
   isOrgHidden: false
@@ -38,13 +38,12 @@ export const mutations = {
     state.sticky = false
   },
   fixFax(state) {
-    console.log('fixed')
     state.fixed = true
     state.fixedTop = state.top
   },
   unfixFax(state) {
     state.fixed = false
-    state.shiftAmount = 0
+    state.shiftAmount = undefined
   },
   minify(state) {
     state.mini = true
@@ -57,7 +56,6 @@ export const mutations = {
   },
   showFax(state) {
     // mount facsimile banner
-
     state.isFaxHidden = false
   },
   hideFax(state) {

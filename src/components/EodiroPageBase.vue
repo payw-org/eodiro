@@ -10,13 +10,11 @@ export default {
   methods: {
     resetBannerFax() {
       // restore banner fax after page loads
-      window.$nuxt.$once('triggerScroll', () => {
-        this.$store.commit('banner/showOriginal')
-        setTimeout(() => {
-          this.$store.commit('banner/hideFax')
-          this.$store.commit('banner/unfixFax')
-        }, 10)
-      })
+      this.$store.commit('banner/showOriginal')
+      setTimeout(() => {
+        this.$store.commit('banner/hideFax')
+        this.$store.commit('banner/unfixFax')
+      }, 10)
     }
   },
   created() {
