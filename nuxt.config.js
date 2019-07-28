@@ -83,7 +83,7 @@ export default {
   css: [
     '~/assets/styles/css/fonts_new.css',
     '~/assets/styles/scss/cushion-ui.scss',
-    '~/plugins/eodiro-modal/style.scss',
+    '~/plugins/eodiro-dialog/style.scss',
     '~/assets/styles/scss/globalstyle.scss',
     '~/assets/styles/scss/gradients-simple.scss',
     '~/assets/styles/stylus/spring.styl',

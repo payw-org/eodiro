@@ -86,7 +86,7 @@
 <script>
 import EodiroPageBase from '~/components/EodiroPageBase.vue'
 import HomeMenuItem from '~/components/home/HomeMenuItem.vue'
-import EodiroModal from '~/plugins/eodiro-modal'
+import EodiroDialog from '~/plugins/eodiro-dialog'
 
 export default {
   name: 'home',
@@ -98,7 +98,7 @@ export default {
   },
   methods: {
     preparing() {
-      new EodiroModal().alert(this.$t('preparing'))
+      new EodiroDialog().alert(this.$t('preparing'))
     }
   }
 }
