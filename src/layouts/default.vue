@@ -13,8 +13,8 @@
 
 <template>
   <div id="app" :class="$store.state.currentAppName">
-    <banner-fax />
-    <banner />
+    <banner-fax v-if="$store.state.appName !== 'error'" />
+    <banner v-if="$store.state.appName !== 'error'" />
     <nuxt
       keep-alive
       :keep-alive-props="{ include: $store.state.cachedComponents }"
