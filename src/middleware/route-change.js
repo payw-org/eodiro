@@ -14,7 +14,7 @@ export default ({ app, from, route, store }) => {
     store.commit('setFirstLoad', false)
   }
 
-  // store last scroll position
+  // fetch last scroll position
   // if not set, set it 0
   store.commit(
     'setLastScrollPosition',
@@ -44,6 +44,11 @@ export default ({ app, from, route, store }) => {
 
       // set direction to backward
       store.commit('setRouteDirection', 'backward')
+
+      // cache back page if not cached
+      route.matched.forEach(matched => {
+        store.commit('cacheComponent', matched.components.default.options.name)
+      })
 
       // remove cached routes if go back
       from.matched.forEach(matched => {
