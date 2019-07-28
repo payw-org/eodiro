@@ -32,6 +32,7 @@ export const state = () => ({
   lastScrollPosition: 0,
   routeMap: routeMap,
   prevPath: '',
+  historyStack: [],
   cachedComponents: [],
   routeDirection: '', // forward|backward
   currentAppName: '',
@@ -46,6 +47,15 @@ export const mutations = {
     JSCookie.set('color_scheme', mode, { expires: 99999 })
     let colorSchemeClassName = getColorClassName(mode)
     state.colorSchemeClassName = colorSchemeClassName
+  },
+  /**
+   * @param {string} pageName
+   */
+  pushHistory(state, pageName) {
+    state.historyStack.push(pageName)
+    if (state.historyStack.length > 500) {
+      historyStack.shift()
+    }
   },
   cacheComponent(state, componentName) {
     let index = state.cachedComponents.indexOf(componentName)
@@ -106,5 +116,10 @@ export const getters = {
     return state.routeMap[state.currentAppName][
       state.routeMap[state.currentAppName].indexOf(currentRoute) - 1
     ]
+  },
+  // get previous path name from historyStack
+  getPreviousPathName(state) {
+    let path = state.historyStack[state.historyStack.length - 2]
+    return path
   }
 }
