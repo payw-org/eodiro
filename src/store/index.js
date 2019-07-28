@@ -82,7 +82,11 @@ export const mutations = {
     state.lastScrollPosition = value ? value : 0
   },
   setPreviousPath(state, currentRoute) {
-    currentRoute = currentRoute.replace(/___[a-z][a-z]/g, '')
+    if (!currentRoute) {
+      currentRoute = 'index'
+    } else {
+      currentRoute = currentRoute.replace(/___[a-z][a-z]/g, '')
+    }
 
     state.prevPath =
       state.routeMap[state.currentAppName][

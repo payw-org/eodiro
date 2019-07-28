@@ -25,8 +25,16 @@ export default ({ app, from, route, store }) => {
     )
 
     // get routes' depth to determine the navigating direction
-    let fromDepth = from.meta[from.meta.length - 1].depth
-    let toDepth = route.meta[route.meta.length - 1].depth
+    let fromDepth =
+      from.meta[from.meta.length - 1] &&
+      from.meta[from.meta.length - 1].hasOwnProperty('depth')
+        ? from.meta[from.meta.length - 1].depth
+        : 9999
+    let toDepth =
+      route.meta[route.meta.length - 1] &&
+      route.meta[route.meta.length - 1].hasOwnProperty('depth')
+        ? route.meta[route.meta.length - 1].depth
+        : -9999
 
     // determine the route direction
     if (fromDepth < toDepth) {
@@ -61,9 +69,14 @@ export default ({ app, from, route, store }) => {
   }
 
   // set current app name
-  let appName = route.meta[0].appName
+  let appName =
+    route.meta[0] && route.meta[0].appName ? route.meta[0].appName : 'error'
   store.commit('setAppName', appName)
 
   // set previous path
-  store.commit('setPreviousPath', route.name)
+  if (route.name) {
+    store.commit('setPreviousPath', route.name)
+  } else {
+    store.commit('setPreviousPath', 'index')
+  }
 }
