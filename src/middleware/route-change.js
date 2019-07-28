@@ -58,4 +58,7 @@ export default ({ app, from, route, store }) => {
   // set current app name
   let appName = route.meta[0].appName
   store.commit('setAppName', appName)
+
+  // set previous path
+  store.commit('setPreviousPath', route.name)
 }

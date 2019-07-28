@@ -1,6 +1,12 @@
 import Cookie from 'cookie'
 import JSCookie from 'js-cookie'
 
+const routeMap = {
+  home: ['index'],
+  vacant: ['index', 'vacant', 'vacant-buildingId', 'vacant-buildingId-floorId'],
+  preferences: ['index', 'preferences']
+}
+
 /**
  * Returns a class name matches to color scheme mode
  * @param {'light'|'dark'|'auto'} colorMode
@@ -24,7 +30,7 @@ export const state = () => ({
   isFirstLoad: true,
   colorSchemeClassName: 'light-mode',
   lastScrollPosition: 0,
-  routeMap: null,
+  routeMap: routeMap,
   prevPath: '',
   historyStack: [],
   cachedComponents: [],
@@ -51,14 +57,19 @@ export const mutations = {
       historyStack.shift()
     }
   },
-  cacheComponent(state, routeName) {
-    state.cachedComponents.push(routeName)
+  cacheComponent(state, componentName) {
+    let index = state.cachedComponents.indexOf(componentName)
+    if (index == -1) {
+      state.cachedComponents.push(componentName)
+    }
+    console.log(state.cachedComponents)
   },
-  popRoute(state, routeName) {
-    let index = state.cachedComponents.indexOf(routeName)
+  popRoute(state, componentName) {
+    let index = state.cachedComponents.indexOf(componentName)
     if (index !== -1) {
       state.cachedComponents.splice(index, 1)
     }
+    console.log(state.cachedComponents)
   },
   setRouteDirection(state, direction) {
     state.routeDirection = direction
@@ -71,6 +82,14 @@ export const mutations = {
   },
   setLastScrollPosition(state, value) {
     state.lastScrollPosition = value ? value : 0
+  },
+  setPreviousPath(state, currentRoute) {
+    currentRoute = currentRoute.replace(/___[a-z][a-z]/g, '')
+
+    state.prevPath =
+      state.routeMap[state.currentAppName][
+        state.routeMap[state.currentAppName].indexOf(currentRoute) - 1
+      ]
   }
 }
 
@@ -84,18 +103,6 @@ export const actions = {
     const mode = cookies['color_scheme']
 
     commit('setColorScheme', mode)
-
-    // set routeMap
-    state.routeMap = {
-      home: ['index'],
-      vacant: [
-        'index',
-        'vacant',
-        'vacant-buildingId',
-        'vacant-buildingId-floorId'
-      ],
-      preferences: ['index', 'preferences']
-    }
   }
 }
 

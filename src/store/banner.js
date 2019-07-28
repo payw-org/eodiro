@@ -1,12 +1,9 @@
 export const state = () => ({
-  top: 0,
-  fixedTop: 0,
   shiftAmount: undefined, // transform amount
   sticky: false,
   fixed: false,
   mini: false,
   navMode: false,
-  navHeight: undefined,
   height: undefined,
   isTransTriggered: false,
   isFaxHidden: true,
@@ -14,17 +11,6 @@ export const state = () => ({
 })
 
 export const mutations = {
-  init(state, obj) {
-    if ('navHeight' in obj) {
-      state.navHeight = obj.navHeight
-    }
-    if ('height' in obj) {
-      state.height = obj.height
-    }
-  },
-  setTop(state, value) {
-    state.top = value
-  },
   resetShift(state) {
     state.shiftAmount = 0
   },
@@ -39,7 +25,6 @@ export const mutations = {
   },
   fixFax(state) {
     state.fixed = true
-    state.fixedTop = state.top
   },
   unfixFax(state) {
     state.fixed = false

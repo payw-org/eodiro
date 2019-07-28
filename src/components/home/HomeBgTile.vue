@@ -16,7 +16,8 @@ export default {
       visibleTilesNum: 0,
       interval: 0,
       resizeEvent: null,
-      bannerWidth: null
+      bannerWidth: null,
+      bannerHeight: null
     }
   },
   methods: {
@@ -139,29 +140,34 @@ export default {
     }
   },
   mounted() {
-    this.bannerWidth = window.innerWidth
+    let bannerRect = document
+      .querySelector('#eodiro-banner')
+      .getBoundingClientRect()
+    this.bannerHeight = bannerRect.height
+    this.bannerWidth = bannerRect.width
+
     this.createTiles()
 
     window.addEventListener(
       'resize',
       (this.resizeEvent = () => {
         let bannerHeightChanged = false
-        let widthChanged = false
+        let bannerWidthChanged = false
+        bannerRect = document
+          .querySelector('#eodiro-banner')
+          .getBoundingClientRect()
 
-        if (
-          this.$store.state.banner.height !==
-          document.querySelector('#eodiro-banner').getBoundingClientRect()
-            .height
-        ) {
+        if (this.bannerHeight !== bannerRect.height) {
+          this.bannerHeight = bannerRect.height
           bannerHeightChanged = true
         }
 
-        if (this.bannerWidth !== window.innerWidth) {
-          this.bannerWidth = window.innerWidth
-          widthChanged = true
+        if (this.bannerWidth !== bannerRect.width) {
+          this.bannerWidth = bannerRect.width
+          bannerWidthChanged = true
         }
 
-        if (bannerHeightChanged || widthChanged) {
+        if (bannerHeightChanged || bannerWidthChanged) {
           window.clearInterval(this.interval)
           this.updateTilesNumber()
           this.activateAnimation()

@@ -1,15 +1,6 @@
 @import '~/assets/styles/scss/global-variables.scss';
 @import '~/assets/styles/scss/global-mixins.scss';
 
-@keyframes rotatingGear {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
 #eodiro-banner-facsimile {
   z-index: 8888;
   position: absolute;
@@ -30,6 +21,10 @@
   &.fixed {
     position: fixed;
   }
+
+  &.hidden {
+    opacity: 0;
+  }
 }
 
 #eodiro-banner {
@@ -48,7 +43,7 @@
   opacity: 1;
 
   &.mini {
-    height: 6rem;
+    height: $nav-height;
   }
 
   &.hidden {
@@ -60,24 +55,54 @@
       opacity: 0;
       transform: translateY(-30%);
     }
-
-    .eodiro-navigation .nav-icon-wrapper {
-      opacity: 1;
-      transform: translateY(0%);
-      pointer-events: all;
-    }
   }
 
   .banner {
-    background-image: linear-gradient(to bottom, $c-step--3, $c-step--4);
-    width: 100%;
-    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
 
-    @at-root #app.preferences & {
-      background-image: linear-gradient(to bottom, #939393, #636363);
+    .background {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-image: linear-gradient(to bottom, $c-step--3, $c-step--4);
+      width: 100%;
+      height: $banner-height;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      // &.bg-fade-enter-active {
+      //   transition: opacity 500ms ease;
+      //   opacity: 1;
+      //   z-index: 0;
+      // }
+      // &.bg-fade-enter {
+      //   opacity: 1;
+      // }
+      &.bg-fade-leave-active {
+        transition: opacity 600ms ease;
+        opacity: 1;
+        z-index: 1;
+      }
+      &.bg-fade-leave-to {
+        opacity: 0;
+      }
+
+      &.background--home {
+        background-image: linear-gradient(to bottom, $c-step--3, $c-step--4);
+      }
+      &.background--vacant {
+        background-image: linear-gradient(to bottom, $c-step--3, $c-step--4);
+      }
+      &.background--preferences {
+        background-image: linear-gradient(to bottom, #939393, #636363);
+      }
     }
 
     .logo-wrapper {
@@ -103,23 +128,41 @@
     .prev-wrapper {
       display: flex;
 
-      button.prev {
-        width: 4rem;
-        height: $nav-height;
-        transform: scaleX(-1);
-        @include bgImg(
-          '~assets/images/eodiro/arrow_right_white.svg',
-          center,
-          '20%'
-        );
+      .prev-link {
+        display: flex;
 
-        @include dark-mode {
+        button.prev {
+          width: 4rem;
+          height: $nav-height;
+          transform: scaleX(-1);
           @include bgImg(
-            '~assets/images/eodiro/arrow_right_black.svg',
+            '~assets/images/eodiro/arrow_right_white.svg',
             center,
             '20%'
           );
+
+          @include dark-mode {
+            @include bgImg(
+              '~assets/images/eodiro/arrow_right_black.svg',
+              center,
+              '20%'
+            );
+          }
         }
+      }
+    }
+
+    .nav-icon-link {
+      &.nav-icon-fade-enter-active,
+      &.nav-icon-fade-leave-active {
+        transition: opacity 300ms ease, transform 200ms ease;
+        opacity: 1;
+        transform: translateY(0%);
+      }
+      &.nav-icon-fade-enter,
+      &.nav-icon-fade-leave-to {
+        opacity: 0;
+        transform: translateY(30%);
       }
     }
 
@@ -127,10 +170,6 @@
       position: relative;
       width: $nav-height;
       height: $nav-height;
-      opacity: 0;
-      transform: translateY(30%);
-      transition: opacity 300ms ease, transform 300ms ease;
-      pointer-events: none;
     }
 
     .dummy {
@@ -139,13 +178,32 @@
   }
 
   .app-icon {
+    $icon-change-transition: opacity 100ms ease, transform 200ms ease;
+
+    &.icon-change-enter-active {
+      transition: $icon-change-transition;
+      transition-delay: 150ms;
+      opacity: 1;
+      transform: scale(1);
+    }
+    &.icon-change-enter {
+      opacity: 0;
+      transform: scale(0.8);
+    }
+    &.icon-change-leave-active {
+      transition: $icon-change-transition;
+      opacity: 1;
+      transform: scale(1);
+    }
+    &.icon-change-leave-to {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+
     display: flex;
     position: absolute;
     width: 100%;
     height: 100%;
-    opacity: 0;
-    transform: scale(0.6);
-    transition: opacity 100ms ease, transform 200ms ease;
 
     .icon {
       display: block;
@@ -153,14 +211,17 @@
       height: 100%;
     }
 
-    @at-root #app.preferences & .icon {
-      animation: rotatingGear 5s linear 0s infinite normal forwards;
+    @keyframes rotatingGear {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
     }
 
-    &.active {
-      opacity: 1;
-      transform: translateY(0%);
-      transform: scale(1);
+    @at-root #app.preferences & .icon.app--preferences {
+      animation: rotatingGear 5s linear 0s infinite normal forwards;
     }
 
     &.app--home {
@@ -206,7 +267,7 @@
     position: absolute;
     left: 0;
     right: 0;
-    bottom: calc(50% + #{$nav-height / 2});
+    bottom: calc(50% + 1rem);
     height: 1px;
     pointer-events: none;
     background: none;
