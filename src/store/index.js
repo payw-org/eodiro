@@ -62,14 +62,12 @@ export const mutations = {
     if (index == -1) {
       state.cachedComponents.push(componentName)
     }
-    console.log(state.cachedComponents)
   },
   popRoute(state, componentName) {
     let index = state.cachedComponents.indexOf(componentName)
     if (index !== -1) {
       state.cachedComponents.splice(index, 1)
     }
-    console.log(state.cachedComponents)
   },
   setRouteDirection(state, direction) {
     state.routeDirection = direction
@@ -110,14 +108,6 @@ export const getters = {
   // get previous route from routeMap
   getPreviousRoute: state => currentRoute => {
     currentRoute = currentRoute.replace(/___[a-z][a-z]/g, '')
-
-    console.log(state.currentAppName, currentRoute)
-
-    console.log(
-      state.routeMap[state.currentAppName][
-        state.routeMap[state.currentAppName].indexOf(currentRoute) - 1
-      ]
-    )
 
     return state.routeMap[state.currentAppName][
       state.routeMap[state.currentAppName].indexOf(currentRoute) - 1
