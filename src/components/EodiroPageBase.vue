@@ -8,14 +8,13 @@
 
 export default {
   methods: {
-    resetBannerShift() {
-      // after page loads,
-      // remove banner's shift amount
-      // to prevent sudden movement
-      // when user scrolls after load
-      window.$nuxt.$once('triggerScroll', () => {
-        this.$store.commit('banner/resetShift')
-      })
+    resetBannerFax() {
+      // restore banner fax after page loads
+      this.$store.commit('banner/showOriginal')
+      setTimeout(() => {
+        this.$store.commit('banner/hideFax')
+        this.$store.commit('banner/unfixFax')
+      }, 10)
     }
   },
   created() {
@@ -27,14 +26,14 @@ export default {
     }
   },
   mounted() {
-    this.resetBannerShift()
+    this.resetBannerFax()
   },
   beforeDestroy() {
     // reset scroll position
     this.$options.meta.lastScrollPosition = 0
   },
   activated() {
-    this.resetBannerShift()
+    this.resetBannerFax()
   },
   deactivated() {
     // store scroll position

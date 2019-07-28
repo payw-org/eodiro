@@ -1,37 +1,34 @@
 export const state = () => ({
-  top: 0,
-  shiftAmount: 0, // transform amount
+  shiftAmount: undefined, // transform amount
+  sticky: false,
   fixed: false,
   mini: false,
   navMode: false,
-  navHeight: null,
-  height: null
+  height: undefined,
+  isTransTriggered: false,
+  isFaxHidden: true,
+  isOrgHidden: false
 })
 
 export const mutations = {
-  init(state, obj) {
-    if ('navHeight' in obj) {
-      state.navHeight = obj.navHeight
-    }
-    if ('height' in obj) {
-      state.height = obj.height
-    }
-  },
-  setTop(state, value) {
-    state.top = value
-  },
   resetShift(state) {
     state.shiftAmount = 0
   },
   shift(state, amount) {
     state.shiftAmount = amount
   },
-  fix(state) {
+  sticky(state) {
+    state.sticky = true
+  },
+  unsticky(state) {
+    state.sticky = false
+  },
+  fixFax(state) {
     state.fixed = true
   },
-  unfix(state) {
+  unfixFax(state) {
     state.fixed = false
-    state.shiftAmount = 0
+    state.shiftAmount = undefined
   },
   minify(state) {
     state.mini = true
@@ -41,5 +38,24 @@ export const mutations = {
   },
   setNavMode(state, bool) {
     state.navMode = bool
+  },
+  showFax(state) {
+    // mount facsimile banner
+    state.isFaxHidden = false
+  },
+  hideFax(state) {
+    state.isFaxHidden = true
+  },
+  showOriginal(state) {
+    state.isOrgHidden = false
+  },
+  hideOriginal(state) {
+    state.isOrgHidden = true
+  },
+  triggerTransition(state) {
+    state.isTransTriggered = true
+  },
+  resetTrigger(state) {
+    state.isTransTriggered = false
   }
 }

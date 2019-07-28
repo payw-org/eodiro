@@ -3,20 +3,20 @@
   "kr": {
     "title": "설정",
     "color_scheme": {
-      "title": "색상 모드 설정",
-      "light": "라이트 모드",
-      "dark": "다크 모드",
-      "auto": "적응형 모드"
+      "title": "색상 모드",
+      "light": "라이트",
+      "dark": "다크",
+      "auto": "적응형"
     },
     "lang": "언어"
   },
   "en": {
     "title": "Preferences",
     "color_scheme": {
-      "title": "Set Color Scheme",
-      "light": "Light Mode",
-      "dark": "Dark Mode",
-      "auto": "Adaptive Mode"
+      "title": "Color Scheme",
+      "light": "Light",
+      "dark": "Dark",
+      "auto": "Adaptive"
     },
     "lang": "Language"
   }

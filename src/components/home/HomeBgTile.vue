@@ -16,7 +16,8 @@ export default {
       visibleTilesNum: 0,
       interval: 0,
       resizeEvent: null,
-      bannerWidth: null
+      bannerWidth: null,
+      bannerHeight: null
     }
   },
   methods: {
@@ -52,7 +53,7 @@ export default {
         tileNum_width = Math.floor(
           (width_container_tiles + 1.5 * rem) / (width_tile + 1.5 * rem)
         )
-        console.log('>' + width_device)
+
         // calc real width_tile
         width_tile =
           (width_container_tiles + 1.5 * rem) / tileNum_width - 1.5 * rem
@@ -139,29 +140,34 @@ export default {
     }
   },
   mounted() {
-    this.bannerWidth = window.innerWidth
+    let bannerRect = document
+      .querySelector('#eodiro-banner')
+      .getBoundingClientRect()
+    this.bannerHeight = bannerRect.height
+    this.bannerWidth = bannerRect.width
+
     this.createTiles()
 
     window.addEventListener(
       'resize',
       (this.resizeEvent = () => {
         let bannerHeightChanged = false
-        let widthChanged = false
+        let bannerWidthChanged = false
+        bannerRect = document
+          .querySelector('#eodiro-banner')
+          .getBoundingClientRect()
 
-        if (
-          this.$store.state.banner.height !==
-          document.querySelector('#eodiro-banner').getBoundingClientRect()
-            .height
-        ) {
+        if (this.bannerHeight !== bannerRect.height) {
+          this.bannerHeight = bannerRect.height
           bannerHeightChanged = true
         }
 
-        if (this.bannerWidth !== window.innerWidth) {
-          this.bannerWidth = window.innerWidth
-          widthChanged = true
+        if (this.bannerWidth !== bannerRect.width) {
+          this.bannerWidth = bannerRect.width
+          bannerWidthChanged = true
         }
 
-        if (bannerHeightChanged || widthChanged) {
+        if (bannerHeightChanged || bannerWidthChanged) {
           window.clearInterval(this.interval)
           this.updateTilesNumber()
           this.activateAnimation()
@@ -194,12 +200,16 @@ export default {
   }
   .tile {
     border-radius: 1rem;
-    background-color: #fff;
+    background-color: #fff0f3;
     opacity: 0;
     transition: opacity 500ms linear;
 
     @include smaller-than(700px) {
       border-radius: 0.85rem;
+    }
+
+    @include dark-mode {
+      background-color: #63000d;
     }
 
     &::before {
@@ -214,22 +224,22 @@ export default {
       opacity: 0;
     }
     &.color-3 {
-      opacity: 0;
-    }
-    &.color-4 {
       opacity: 0.01;
     }
+    &.color-4 {
+      opacity: 0.02;
+    }
     &.color-5 {
-      opacity: 0.03;
+      opacity: 0.04;
     }
     &.color-6 {
-      opacity: 0.07;
+      opacity: 0.08;
     }
     &.color-7 {
-      opacity: 0.13;
+      opacity: 0.16;
     }
     &.color-8 {
-      opacity: 0.21;
+      opacity: 0.32;
     }
   }
 }

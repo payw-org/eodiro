@@ -1,6 +1,12 @@
 import Cookie from 'cookie'
 import JSCookie from 'js-cookie'
 
+const routeMap = {
+  home: ['index'],
+  vacant: ['index', 'vacant', 'vacant-buildingId', 'vacant-buildingId-floorId'],
+  preferences: ['index', 'preferences']
+}
+
 /**
  * Returns a class name matches to color scheme mode
  * @param {'light'|'dark'|'auto'} colorMode
@@ -21,13 +27,16 @@ function getColorClassName(colorMode) {
 
 // states
 export const state = () => ({
+  isFirstLoad: true,
   colorSchemeClassName: 'light-mode',
-  routeMap: null,
+  lastScrollPosition: 0,
+  routeMap: routeMap,
   prevPath: '',
   historyStack: [],
   cachedComponents: [],
   routeDirection: '', // forward|backward
-  currentAppName: ''
+  currentAppName: '',
+  appList: ['home', 'vacant', 'preferences']
 })
 
 export const mutations = {
@@ -48,11 +57,14 @@ export const mutations = {
       historyStack.shift()
     }
   },
-  cacheComponent(state, routeName) {
-    state.cachedComponents.push(routeName)
+  cacheComponent(state, componentName) {
+    let index = state.cachedComponents.indexOf(componentName)
+    if (index == -1) {
+      state.cachedComponents.push(componentName)
+    }
   },
-  popRoute(state, routeName) {
-    let index = state.cachedComponents.indexOf(routeName)
+  popRoute(state, componentName) {
+    let index = state.cachedComponents.indexOf(componentName)
     if (index !== -1) {
       state.cachedComponents.splice(index, 1)
     }
@@ -61,10 +73,21 @@ export const mutations = {
     state.routeDirection = direction
   },
   setFirstLoad(state, bool) {
-    state.isFisrtLoad = bool
+    state.isFirstLoad = bool
   },
   setAppName(state, name) {
     state.currentAppName = name
+  },
+  setLastScrollPosition(state, value) {
+    state.lastScrollPosition = value ? value : 0
+  },
+  setPreviousPath(state, currentRoute) {
+    currentRoute = currentRoute.replace(/___[a-z][a-z]/g, '')
+
+    state.prevPath =
+      state.routeMap[state.currentAppName][
+        state.routeMap[state.currentAppName].indexOf(currentRoute) - 1
+      ]
   }
 }
 
@@ -78,18 +101,6 @@ export const actions = {
     const mode = cookies['color_scheme']
 
     commit('setColorScheme', mode)
-
-    // set routeMap
-    state.routeMap = {
-      home: ['index'],
-      vacant: [
-        'index',
-        'vacant',
-        'vacant-buildingId',
-        'vacant-buildingId-floorId'
-      ],
-      preferences: ['index', 'preferences']
-    }
   }
 }
 
@@ -97,14 +108,6 @@ export const getters = {
   // get previous route from routeMap
   getPreviousRoute: state => currentRoute => {
     currentRoute = currentRoute.replace(/___[a-z][a-z]/g, '')
-
-    console.log(state.currentAppName, currentRoute)
-
-    console.log(
-      state.routeMap[state.currentAppName][
-        state.routeMap[state.currentAppName].indexOf(currentRoute) - 1
-      ]
-    )
 
     return state.routeMap[state.currentAppName][
       state.routeMap[state.currentAppName].indexOf(currentRoute) - 1
