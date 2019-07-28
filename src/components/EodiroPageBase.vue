@@ -15,14 +15,7 @@ export default {
         this.$store.commit('banner/hideFax')
         this.$store.commit('banner/unfixFax')
       }, 10)
-    }
-  },
-  created() {
-    if (process.client) {
-      // push history to custom historyStack in store
-      // everytime load each page
-      // only push history on client side load
-      this.$store.commit('pushHistory', location.pathname)
+      })
     }
   },
   mounted() {
