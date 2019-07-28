@@ -38,12 +38,15 @@ export default {
   watch: {
     isTransTriggered(bool) {
       if (bool) {
+        // set the trigger flas to false for the next trigger
         this.$store.commit('banner/resetTrigger')
+
         let faxRect = this.$el.getBoundingClientRect()
 
         this.top = faxRect.top
 
         if (this.top > 0) {
+          // iOS inertia scroll
           return
         }
 
