@@ -3,7 +3,7 @@
   "kr": {
     "title": "설정",
     "color_scheme": {
-      "title": "색상 모드 설정",
+      "title": "색상 모드",
       "light": "라이트",
       "dark": "다크",
       "auto": "적응형"
@@ -13,7 +13,7 @@
   "en": {
     "title": "Preferences",
     "color_scheme": {
-      "title": "Set Color Scheme",
+      "title": "Color Scheme",
       "light": "Light",
       "dark": "Dark",
       "auto": "Adaptive"
