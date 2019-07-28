@@ -14,16 +14,16 @@ export default ({ app, from, route, store }) => {
     store.commit('setFirstLoad', false)
   }
 
-  // fetch last scroll position
-  // if not set, set it 0
-  store.commit(
-    'setLastScrollPosition',
-    route.matched[route.matched.length - 1].components.default.options.meta
-      .lastScrollPosition
-  )
-
   // when routing through the pages
   if (!store.state.isFirstLoad) {
+    // fetch last scroll position of a destination
+    // if not set, set it 0
+    store.commit(
+      'setLastScrollPosition',
+      route.matched[route.matched.length - 1].components.default.options.meta
+        .lastScrollPosition
+    )
+
     // get routes' depth to determine the navigating direction
     let fromDepth = from.meta[from.meta.length - 1].depth
     let toDepth = route.meta[route.meta.length - 1].depth
