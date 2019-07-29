@@ -35,7 +35,7 @@ export const state = () => ({
   historyStack: [],
   cachedComponents: [],
   routeDirection: '', // forward|backward
-  currentAppName: '',
+  currentAppName: 'home',
   appList: ['home', 'vacant', 'preferences']
 })
 
@@ -88,10 +88,15 @@ export const mutations = {
       currentRoute = currentRoute.replace(/___[a-z][a-z]/g, '')
     }
 
-    state.prevPath =
-      state.routeMap[state.currentAppName][
-        state.routeMap[state.currentAppName].indexOf(currentRoute) - 1
-      ]
+    try {
+      state.prevPath =
+        state.routeMap[state.currentAppName][
+          state.routeMap[state.currentAppName].indexOf(currentRoute) - 1
+        ]
+    } catch (error) {
+      console.error(error)
+      state.prevPath = 'index'
+    }
   }
 }
 

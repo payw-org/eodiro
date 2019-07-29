@@ -1,5 +1,5 @@
 export const state = () => ({
-  shiftAmount: undefined, // transform amount
+  shiftAmount: 0, // transform amount
   sticky: false,
   fixed: false,
   mini: false,
@@ -28,7 +28,7 @@ export const mutations = {
   },
   unfixFax(state) {
     state.fixed = false
-    state.shiftAmount = undefined
+    state.shiftAmount = 0
   },
   minify(state) {
     state.mini = true

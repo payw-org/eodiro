@@ -48,11 +48,18 @@ export default {
     scrollBehavior: function(to, from, savedPosition) {
       // tweak nuxt.js' default method
       return new Promise(resolve => {
-        let lastScrollPosition = to.matched[to.matched.length - 1].components
-          .default.options.meta.lastScrollPosition
-          ? to.matched[to.matched.length - 1].components.default.options.meta
-              .lastScrollPosition
-          : 0
+        let lastScrollPosition =
+          to.matched &&
+          to.matched[to.matched.length - 1] &&
+          to.matched[to.matched.length - 1].components &&
+          to.matched[to.matched.length - 1].components.default &&
+          to.matched[to.matched.length - 1].components.default.options &&
+          to.matched[to.matched.length - 1].components.default.options.meta &&
+          to.matched[to.matched.length - 1].components.default.options.meta
+            .lastScrollPosition
+            ? to.matched[to.matched.length - 1].components.default.options.meta
+                .lastScrollPosition
+            : 0
 
         let position = {
           x: 0,

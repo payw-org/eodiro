@@ -14,15 +14,27 @@ export default ({ app, from, route, store }) => {
     store.commit('setFirstLoad', false)
   }
 
-  // when routing through the pages
+  // set current app name
+  let appName =
+    route.meta[0] && route.meta[0].appName ? route.meta[0].appName : 'error'
+  store.commit('setAppName', appName)
+
+  //
+
+  // when routing through the pages: not first load
   if (!store.state.isFirstLoad) {
     // fetch last scroll position of a destination
     // if not set, set it 0
+    try {
     store.commit(
       'setLastScrollPosition',
       route.matched[route.matched.length - 1].components.default.options.meta
         .lastScrollPosition
     )
+    } catch (error) {
+      console.error(error)
+      store.commit('setLastScrollPosition', 0)
+    }
 
     // get routes' depth to determine the navigating direction
     let fromDepth =
@@ -64,19 +76,14 @@ export default ({ app, from, route, store }) => {
       })
     }
 
-    // trigger banner fax transition
-    store.commit('banner/triggerTransition')
-  }
-
-  // set current app name
-  let appName =
-    route.meta[0] && route.meta[0].appName ? route.meta[0].appName : 'error'
-  store.commit('setAppName', appName)
-
   // set previous path
   if (route.name) {
     store.commit('setPreviousPath', route.name)
   } else {
     store.commit('setPreviousPath', 'index')
+  }
+
+    // trigger banner fax transition
+    store.commit('banner/triggerTransition')
   }
 }
