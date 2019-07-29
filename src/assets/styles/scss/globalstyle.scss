@@ -176,16 +176,16 @@ img {
 }
 
 // fade page transition
-$transition-time: 250ms;
+$transition-time: 200ms;
 .fade-enter-active {
-  transition: opacity $transition-time ease;
+  transition: opacity 300ms ease;
   opacity: 1;
 }
 .fade-enter {
   opacity: 0;
 }
 .fade-leave-active {
-  transition: opacity $transition-time * 1.2 ease;
+  transition: opacity $transition-time ease;
   opacity: 1;
 }
 .fade-leave-to {

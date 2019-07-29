@@ -27,7 +27,6 @@ function getColorClassName(colorMode) {
 
 // states
 export const state = () => ({
-  isFirstLoad: true,
   colorSchemeClassName: 'light-mode',
   lastScrollPosition: 0,
   routeMap: routeMap,
@@ -71,9 +70,6 @@ export const mutations = {
   },
   setRouteDirection(state, direction) {
     state.routeDirection = direction
-  },
-  setFirstLoad(state, bool) {
-    state.isFirstLoad = bool
   },
   setAppName(state, name) {
     state.currentAppName = name

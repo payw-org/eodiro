@@ -7,52 +7,33 @@
 // when keep-alive
 
 export default {
-  data() {
-    return {
-      timeouts: []
-    }
-  },
   methods: {
-    resetBannerFax() {
-      while (this.timeouts.length) {
-        clearTimeout(this.timeouts.shift())
-      }
-
-      window.$nuxt.$once('triggerScroll', () => {
-        this.timeouts.push(
-          setTimeout(() => {
-            let bannerOrg = document.getElementById('eodiro-banner')
-            let bannerFax = document.getElementById('eodiro-banner-facsimile')
-            bannerOrg.style.opacity = '1'
-
-            this.timeouts.push(
-              setTimeout(() => {
-                bannerFax.style.opacity = '0'
-
-                this.timeouts.push(
-                  setTimeout(() => {
-                    bannerFax.style.transition = 'none'
-                    bannerFax.style.position = ''
-                    bannerFax.style.transform = 'translateY(0)'
-                    bannerFax.style.top = ''
-                  }, 20)
-                )
-              }, 20)
-            )
-          }, 50)
-        )
-      })
+    setBannerAppearance() {
+      // window.$nuxt.$once('triggerScroll', () => {
+      //   console.group('EodiroPageBase')
+      //   if (
+      //     this.$options.meta.bannerMode &&
+      //     this.$options.meta.bannerMode === 'mini'
+      //   ) {
+      //     console.log('isForcedMini: ', true)
+      //     this.$store.commit('banner/setMini')
+      //   } else {
+      //     console.log('isForcedMini: ', false)
+      //     this.$store.commit('banner/releaseMini')
+      //   }
+      //   console.groupEnd()
+      // })
     }
-  },
-  mounted() {
-    this.resetBannerFax()
   },
   beforeDestroy() {
     // reset scroll position
     this.$options.meta.lastScrollPosition = 0
   },
+  mounted() {
+    this.setBannerAppearance()
+  },
   activated() {
-    this.resetBannerFax()
+    this.setBannerAppearance()
   },
   deactivated() {
     // store scroll position

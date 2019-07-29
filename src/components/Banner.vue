@@ -1,66 +1,119 @@
 <template>
-  <banner-common
-    :kind="'original'"
-    id="eodiro-banner"
-    :class="{
-      'nav-mode': $store.state.banner.navMode,
-      'hidden': $store.state.banner.isOrgHidden
-    }"
-  />
+  <div id="eodiro-banner" :class="{ mini: isMini }">
+    <div class="banner">
+      <transition name="bg-fade" v-for="appName in $store.state.appList" :key="`bg-${appName}`">
+        <div
+          v-if="appName === $store.state.currentAppName"
+          class="background"
+          :class="`background--${appName}`"
+        ></div>
+      </transition>
+      <transition name="fade">
+        <HomeBgTile v-if="$store.state.currentAppName === 'home' && !isMini" />
+      </transition>
+      <div class="logo-wrapper">
+        <transition
+          name="icon-change"
+          v-for="appName in $store.state.appList"
+          :key="`banner-${appName}`"
+        >
+          <div
+            v-if="appName === $store.state.currentAppName"
+            class="logo app-icon"
+            :class="`app--${appName}`"
+          >
+            <span class="icon"></span>
+          </div>
+        </transition>
+      </div>
+    </div>
+
+    <nav class="eodiro-navigation">
+      <div class="prev-wrapper" v-if="$store.state.prevPath">
+        <nuxt-link class="prev-link" :to="localePath($store.state.prevPath)">
+          <button class="prev"></button>
+        </nuxt-link>
+      </div>
+      <div class="dummy" v-if="!$store.state.prevPath"></div>
+      <transition name="icon-change">
+        <nuxt-link class="nav-icon-link" :to="localePath('index')" v-if="isMini">
+          <div class="nav-icon-wrapper">
+            <transition name="fade" v-for="appName in $store.state.appList" :key="`nav-${appName}`">
+              <div
+                v-if="appName === $store.state.currentAppName"
+                class="nav-icon app-icon app--home"
+                :class="[
+                `app--${appName}`,
+              ]"
+              >
+                <span class="icon"></span>
+              </div>
+            </transition>
+          </div>
+        </nuxt-link>
+      </transition>
+      <div class="dummy"></div>
+    </nav>
+  </div>
 </template>
 
 <script>
-import BannerCommon from '~/components/BannerCommon.vue'
 import HomeBgTile from '~/components/home/HomeBgTile.vue'
 
 export default {
-  components: { BannerCommon, HomeBgTile },
-  methods: {
-    // goBack() {
-    //   // previous pathname
-    //   // from custom historyStack in store
-    //   // -> this is history based
-    //   let storePrevPathName = this.$store.getters.getPreviousPathName
-    //   // get previous pathname
-    //   // using custom routeMap in store
-    //   // -> this is real go back path
-    //   let nuxtPrevPathName = this.localePath(
-    //     this.$store.getters.getPreviousRoute(this.routeName, this.$route.name)
-    //   )
-    //   if (storePrevPathName === nuxtPrevPathName) {
-    //     // if history is same as real back path
-    //     history.back()
-    //   } else {
-    //     // if history is different from real back path,
-    //     // force push that
-    //     this.$router.push({ path: nuxtPrevPathName })
-    //   }
-    //   return ''
+  components: { HomeBgTile },
+  data() {
+    return {
+      isMini: false,
+      observer: undefined,
+      sentinel: undefined
+    }
+  },
+  watch: {
+    $route(to, from) {
+      this.observer.unobserve(this.sentinel)
+      window.$nuxt.$once('triggerScroll', () => {
+        this.observer.observe(this.sentinel)
+      })
+    }
+  },
+  computed: {
+    // isComputedMini() {
+    //   console.group('computed mini')
+    //   console.log('isMini: ', this.isMini)
+    //   console.log('isForcedMini: ', this.isForcedMini)
+    //   console.groupEnd()
+    //   return this.isMini || this.$store.state.banner.isForcedMini
+    // },
+    // isForcedMini() {
+    //   return this.$store.state.banner.isForcedMini
     // }
   },
   mounted() {
     // middle sentinel for navigation app icon transition effect
-    let sentinelMiddle = this.$el.querySelector('.sentinel--middle')
-    let sentinelBottom = this.$el.querySelector('.sentinel--bottom')
+    let sentinel = document.querySelector('#banner-observer-sentinel')
     let observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.target.isSameNode(sentinelMiddle)) {
-          if (entry.isIntersecting) {
-            this.$store.commit('banner/setNavMode', false)
+        if (entry.target.isSameNode(sentinel)) {
+          console.group('observer')
+          if (this.$store.state.banner.isForcedMini) {
+            console.log('isMini(from isForcedMini): ', true)
+            this.isMini = true
+          } else if (entry.isIntersecting) {
+            console.log('isMini: ', false)
+            this.isMini = false
           } else {
-            this.$store.commit('banner/setNavMode', true)
+            console.log('isMini: ', true)
+            this.isMini = true
           }
-        } else if (entry.target.isSameNode(sentinelBottom)) {
-          if (entry.isIntersecting) {
-            this.$store.commit('banner/unsticky')
-          } else {
-            this.$store.commit('banner/sticky')
-          }
+          console.groupEnd()
         }
       })
     })
-    observer.observe(sentinelMiddle) // observe middle sentinel
-    observer.observe(sentinelBottom) // observe bottom sentinel
+    observer.observe(sentinel)
+
+    this.observer = observer
+    this.sentinel = sentinel
   }
 }
 </script>

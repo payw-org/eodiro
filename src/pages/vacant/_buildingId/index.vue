@@ -36,7 +36,8 @@ export default {
   name: 'vacant-floor',
   extends: EodiroPageBase,
   meta: {
-    depth: 2
+    depth: 2,
+    bannerMode: 'mini'
   },
   components: { Loading },
   data() {
@@ -84,7 +85,7 @@ export default {
 
       axios.get(url).then(r => {
         if (r.data.err) {
-          this.$router.push('/404')
+          alert('데이터를 가져올 수 없습니다. 잠시 후 이용 바랍니다.')
           return
         }
 

@@ -1,29 +1,41 @@
 export default ({ app, from, route, store }) => {
-  // console.log(route)
+  // set current app name
+  let appName =
+    route && route.meta && route.meta[0] && route.meta[0].appName
+      ? route.meta[0].appName
+      : 'error'
+  store.commit('setAppName', appName)
+
   if (!from) {
-    // if there is no 'from' route
-    // it's first load
-
-    // set first load to true
-    store.commit('setFirstLoad', true)
-
     // cache first loaded components
     route.matched.forEach(matched => {
       store.commit('cacheComponent', matched.components.default.options.name)
     })
-  } else {
-    store.commit('setFirstLoad', false)
   }
 
-  // set current app name
-  let appName =
-    route.meta[0] && route.meta[0].appName ? route.meta[0].appName : 'error'
-  store.commit('setAppName', appName)
+  // set previous path
+  if (route.name) {
+    store.commit('setPreviousPath', route.name)
+  } else {
+    store.commit('setPreviousPath', 'index')
+  }
 
-  //
+  try {
+    console.group('route-change')
+    if (route.meta[route.meta.length - 1].bannerMode === 'mini') {
+      console.log('set mini')
+      store.commit('banner/setMini')
+    } else {
+      console.log('release mini')
+      store.commit('banner/releaseMini')
+    }
+    console.groupEnd()
+  } catch (error) {
+    console.log(error)
+  }
 
   // when routing through the pages: not first load
-  if (!store.state.isFirstLoad) {
+  if (from) {
     // fetch last scroll position of a destination
     // if not set, set it 0
     try {
@@ -38,16 +50,15 @@ export default ({ app, from, route, store }) => {
     }
 
     // get routes' depth to determine the navigating direction
-    let fromDepth =
-      from.meta[from.meta.length - 1] &&
-      from.meta[from.meta.length - 1].hasOwnProperty('depth')
-        ? from.meta[from.meta.length - 1].depth
-        : 9999
-    let toDepth =
-      route.meta[route.meta.length - 1] &&
-      route.meta[route.meta.length - 1].hasOwnProperty('depth')
-        ? route.meta[route.meta.length - 1].depth
-        : -9999
+    let fromDepth = 9999
+    let toDepth = -9999
+
+    try {
+      fromDepth = from.meta[from.meta.length - 1].depth
+      toDepth = route.meta[route.meta.length - 1].depth
+    } catch (error) {
+      console.log(error)
+    }
 
     // determine the route direction
     if (fromDepth < toDepth) {
@@ -76,15 +87,5 @@ export default ({ app, from, route, store }) => {
         store.commit('popRoute', matched.components.default.options.name)
       })
     }
-
-    // set previous path
-    if (route.name) {
-      store.commit('setPreviousPath', route.name)
-    } else {
-      store.commit('setPreviousPath', 'index')
-    }
-
-    // trigger banner fax transition
-    store.commit('banner/triggerTransition')
   }
 }
