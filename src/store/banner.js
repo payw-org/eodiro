@@ -1,4 +1,6 @@
 export const state = () => ({
+  bannerOrgElm: undefined,
+  bannerFaxElm: undefined,
   shiftAmount: 0, // transform amount
   sticky: false,
   fixed: false,
@@ -7,10 +9,34 @@ export const state = () => ({
   height: undefined,
   isTransTriggered: false,
   isFaxHidden: true,
-  isOrgHidden: false
+  isOrgHidden: false,
+  startTimeouts: [],
+  endTimeouts: []
 })
 
 export const mutations = {
+  pushStartTimeout(state, timeout) {
+    state.startTimeouts.push(timeout)
+  },
+  clearStartTimeoutss(state) {
+    while (state.startTimeouts.length) {
+      clearTimeout(state.startTimeouts.shift())
+    }
+  },
+  pushEndTimeout(state, timeout) {
+    state.endTimeouts.push(timeout)
+  },
+  clearEndTimeouts(state) {
+    while (state.endTimeouts.length) {
+      clearTimeout(state.endTimeouts.shift())
+    }
+  },
+  setBannerOrgElm(state, elm) {
+    state.bannerOrgElm = elm
+  },
+  setBannerFaxElm(state, elm) {
+    state.bannerFaxElm = elm
+  },
   resetShift(state) {
     state.shiftAmount = 0
   },

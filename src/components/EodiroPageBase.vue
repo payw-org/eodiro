@@ -7,22 +7,41 @@
 // when keep-alive
 
 export default {
-  methods: {
-    resetBannerFax() {
-      // restore banner fax after page loads
-      this.$store.commit('banner/showOriginal')
-      setTimeout(() => {
-        this.$store.commit('banner/hideFax')
-        this.$store.commit('banner/unfixFax')
-      }, 10)
+  data() {
+    return {
+      timeouts: []
     }
   },
-  created() {
-    if (process.client) {
-      // push history to custom historyStack in store
-      // everytime load each page
-      // only push history on client side load
-      this.$store.commit('pushHistory', location.pathname)
+  methods: {
+    resetBannerFax() {
+      while (this.timeouts.length) {
+        clearTimeout(this.timeouts.shift())
+      }
+
+      window.$nuxt.$once('triggerScroll', () => {
+        this.timeouts.push(
+          setTimeout(() => {
+            let bannerOrg = document.getElementById('eodiro-banner')
+            let bannerFax = document.getElementById('eodiro-banner-facsimile')
+            bannerOrg.style.opacity = '1'
+
+            this.timeouts.push(
+              setTimeout(() => {
+                bannerFax.style.opacity = '0'
+
+                this.timeouts.push(
+                  setTimeout(() => {
+                    bannerFax.style.transition = 'none'
+                    bannerFax.style.position = ''
+                    bannerFax.style.transform = 'translateY(0)'
+                    bannerFax.style.top = ''
+                  }, 20)
+                )
+              }, 20)
+            )
+          }, 50)
+        )
+      })
     }
   },
   mounted() {

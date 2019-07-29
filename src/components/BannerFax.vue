@@ -4,14 +4,14 @@
     id="eodiro-banner-facsimile"
     :class="{
       'nav-mode': $store.state.banner.navMode,
-      'fixed': $store.state.banner.fixed,
+      //'fixed': $store.state.banner.fixed,
       'sticky': $store.state.banner.sticky,
-      'shifting': $store.state.banner.shiftAmount !== undefined,
-      'hidden': $store.state.banner.isFaxHidden
+      //'shifting': $store.state.banner.shiftAmount !== undefined,
+      //'hidden': $store.state.banner.isFaxHidden
     }"
     :style="[
-      $store.state.banner.fixed ? { top: `${top}px` } : {},
-      { transform: `translateY(${-$store.state.banner.shiftAmount}px)` }
+      //$store.state.banner.fixed ? { top: `${top}px` } : {},
+      //{ transform: `translateY(${-$store.state.banner.shiftAmount}px)` }
     ]"
   />
 </template>
@@ -19,12 +19,15 @@
 <script>
 import BannerCommon from '~/components/BannerCommon.vue'
 import HomeBgTile from '~/components/home/HomeBgTile.vue'
+import { TweenMax, Power2 } from 'gsap'
 
 export default {
   components: { BannerCommon, HomeBgTile },
   data() {
     return {
-      top: 0
+      bannerOrg: undefined,
+      bannerFax: undefined,
+      timeouts: []
     }
   },
   computed: {
@@ -41,31 +44,34 @@ export default {
         // set the trigger flas to false for the next trigger
         this.$store.commit('banner/resetTrigger')
 
-        let faxRect = this.$el.getBoundingClientRect()
+        while (this.timeouts.length) {
+          clearTimeout(this.timeouts.shift())
+        }
 
-        this.top = faxRect.top
+        let faxRect = this.bannerFax.getBoundingClientRect()
 
-        if (this.top > 0) {
+        if (faxRect.top > 0) {
           // iOS inertia scroll
           return
         }
 
-        this.$store.commit('banner/fixFax')
-        this.$store.commit('banner/showFax')
+        this.bannerFax.style.top = `${faxRect.top}px`
+        this.bannerFax.style.transition = 'transform 200ms ease'
+        this.bannerFax.style.position = 'fixed'
+        this.bannerFax.style.opacity = '1'
+        this.bannerOrg.style.opacity = '0'
 
-        setTimeout(() => {
-          this.$store.commit('banner/hideOriginal')
-
+        let timeout1 = setTimeout(() => {
           let routeDirection = this.$store.state.routeDirection
           if (routeDirection === 'forward') {
-            if (this.top <= 0) {
-              this.$store.commit('banner/shift', this.top)
+            if (faxRect.top <= 0) {
+              this.bannerFax.style.transform = `translateY(${-faxRect.top}px)`
             }
           } else if (routeDirection === 'backward') {
-            if (this.top <= 0) {
+            if (faxRect.top <= 0) {
               let a = this.$store.state.lastScrollPosition
-              let b = Math.abs(this.top)
-              let c = this.$el
+              let b = Math.abs(faxRect.top)
+              let c = this.bannerOrg
                 .querySelector('.eodiro-navigation')
                 .getBoundingClientRect().height
               let d = faxRect.height
@@ -77,21 +83,28 @@ export default {
 
                   if (a > d - c) {
                     // shift max available
-                    this.$store.commit('banner/shift', e)
+                    this.bannerFax.style.transform = `translateY(${-e}px)`
                   } else {
                     // shift with distance
-                    this.$store.commit('banner/shift', a - b)
+                    this.bannerFax.style.transform = `translateY(${-(a - b)}px)`
                   }
                 } else {
                   // shift down
-                  this.$store.commit('banner/shift', a - b)
+                  this.bannerFax.style.transform = `translateY(${-(a - b)}px)`
                 }
               }
             }
           }
         }, 10)
+
+        this.timeouts.push(timeout1)
       }
     }
+  },
+  mounted() {
+    this.bannerOrg = document.getElementById('eodiro-banner')
+    this.bannerFax = document.getElementById('eodiro-banner-facsimile')
+    this.bannerFax.style.opacity = '0'
   }
 }
 </script>

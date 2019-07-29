@@ -1,4 +1,5 @@
 export default ({ app, from, route, store }) => {
+  // console.log(route)
   if (!from) {
     // if there is no 'from' route
     // it's first load
@@ -26,11 +27,11 @@ export default ({ app, from, route, store }) => {
     // fetch last scroll position of a destination
     // if not set, set it 0
     try {
-    store.commit(
-      'setLastScrollPosition',
-      route.matched[route.matched.length - 1].components.default.options.meta
-        .lastScrollPosition
-    )
+      store.commit(
+        'setLastScrollPosition',
+        route.matched[route.matched.length - 1].components.default.options.meta
+          .lastScrollPosition
+      )
     } catch (error) {
       console.error(error)
       store.commit('setLastScrollPosition', 0)
@@ -76,12 +77,12 @@ export default ({ app, from, route, store }) => {
       })
     }
 
-  // set previous path
-  if (route.name) {
-    store.commit('setPreviousPath', route.name)
-  } else {
-    store.commit('setPreviousPath', 'index')
-  }
+    // set previous path
+    if (route.name) {
+      store.commit('setPreviousPath', route.name)
+    } else {
+      store.commit('setPreviousPath', 'index')
+    }
 
     // trigger banner fax transition
     store.commit('banner/triggerTransition')
