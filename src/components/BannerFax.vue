@@ -11,7 +11,7 @@
     }"
     :style="[
       $store.state.banner.fixed ? { top: `${top}px` } : {},
-      $store.state.banner.shiftAmount ? { transform: `translateY(${-$store.state.banner.shiftAmount}px)` } : {}
+      { transform: `translateY(${-$store.state.banner.shiftAmount}px)` }
     ]"
   />
 </template>
