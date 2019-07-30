@@ -153,7 +153,8 @@ export default {
   name: 'vacant-result',
   extends: EodiroPageBase,
   meta: {
-    depth: 3
+    depth: 3,
+    bannerMode: 'mini'
   },
   components: { Loading },
   data() {
@@ -224,7 +225,7 @@ export default {
 
       axios.get(url).then(r => {
         if (r.data.err) {
-          location.replace('/404')
+          alert('데이터를 가져올 수 없습니다. 잠시 후 이용 바랍니다.')
           return
         }
 

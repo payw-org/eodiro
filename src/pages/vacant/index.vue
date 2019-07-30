@@ -189,7 +189,6 @@ export default {
   width: calc(100% - 6rem);
   max-width: 80rem;
   margin: auto;
-  padding-bottom: 3rem;
 
   @include smaller-than($mobile-width-threshold) {
     grid-gap: 1rem;

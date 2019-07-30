@@ -27,7 +27,6 @@ function getColorClassName(colorMode) {
 
 // states
 export const state = () => ({
-  isFirstLoad: true,
   colorSchemeClassName: 'light-mode',
   lastScrollPosition: 0,
   routeMap: routeMap,
@@ -35,7 +34,7 @@ export const state = () => ({
   historyStack: [],
   cachedComponents: [],
   routeDirection: '', // forward|backward
-  currentAppName: '',
+  currentAppName: 'home',
   appList: ['home', 'vacant', 'preferences']
 })
 
@@ -72,9 +71,6 @@ export const mutations = {
   setRouteDirection(state, direction) {
     state.routeDirection = direction
   },
-  setFirstLoad(state, bool) {
-    state.isFirstLoad = bool
-  },
   setAppName(state, name) {
     state.currentAppName = name
   },
@@ -82,12 +78,21 @@ export const mutations = {
     state.lastScrollPosition = value ? value : 0
   },
   setPreviousPath(state, currentRoute) {
-    currentRoute = currentRoute.replace(/___[a-z][a-z]/g, '')
+    if (!currentRoute) {
+      currentRoute = 'index'
+    } else {
+      currentRoute = currentRoute.replace(/___[a-z][a-z]/g, '')
+    }
 
-    state.prevPath =
-      state.routeMap[state.currentAppName][
-        state.routeMap[state.currentAppName].indexOf(currentRoute) - 1
-      ]
+    try {
+      state.prevPath =
+        state.routeMap[state.currentAppName][
+          state.routeMap[state.currentAppName].indexOf(currentRoute) - 1
+        ]
+    } catch (error) {
+      console.error(error)
+      state.prevPath = 'index'
+    }
   }
 }
 

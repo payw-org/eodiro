@@ -12,9 +12,15 @@
 </i18n>
 
 <template>
-  <div id="app" :class="$store.state.currentAppName">
-    <banner-fax />
-    <banner />
+  <div
+    id="app"
+    :class="[
+      $store.state.currentAppName,
+      { 'is-banner-forced-mini': isBannerForcedMini }
+    ]"
+  >
+    <div id="banner-observer-sentinel"></div>
+    <banner v-if="$store.state.appName !== 'error'" />
     <nuxt
       keep-alive
       :keep-alive-props="{ include: $store.state.cachedComponents }"
@@ -25,10 +31,33 @@
 
 <script>
 import Banner from '~/components/Banner.vue'
-import BannerFax from '~/components/BannerFax.vue'
 
 export default {
-  components: { Banner, BannerFax },
+  components: { Banner },
+  data() {
+    return {
+      isBannerForcedMini: false
+    }
+  },
+  watch: {
+    $route(to, from) {
+      this.determineBannerIsForcedMini()
+    }
+  },
+  methods: {
+    determineBannerIsForcedMini() {
+      // this method detects Banner's mini mode
+      // and add a class 'is-banner-forced-mini'
+      // to adjust padding-top of main content
+      window.$nuxt.$once('triggerScroll', () => {
+        if (this.$store.state.banner.isForcedMini) {
+          this.isBannerForcedMini = true
+        } else {
+          this.isBannerForcedMini = false
+        }
+      })
+    }
+  },
   head() {
     return {
       title: this.$t('title'),
@@ -51,6 +80,13 @@ export default {
         class: this.$store.state.colorSchemeClassName
       }
     }
+  },
+  created() {
+    if (this.$store.state.banner.isForcedMini) {
+      this.isBannerForcedMini = true
+    } else {
+      this.isBannerForcedMini = false
+    }
   }
 }
 </script>
@@ -60,7 +96,14 @@ export default {
 
 #app {
   .master-content {
+    padding-top: $banner-height;
     padding-bottom: 4rem;
+  }
+
+  &.is-banner-forced-mini {
+    .master-content {
+      padding-top: $nav-height;
+    }
   }
 }
 </style>

@@ -1,59 +1,25 @@
 @import '~/assets/styles/scss/global-variables.scss';
 @import '~/assets/styles/scss/global-mixins.scss';
 
-#eodiro-banner-facsimile {
-  z-index: 8888;
-  position: absolute;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-
-  &.sticky {
-    position: fixed;
-    top: calc(-#{$banner-height} + #{$nav-height});
-  }
-
-  &.shifting {
-    opacity: 1;
-    transition: transform 0.3s ease;
-  }
-
-  &.fixed {
-    position: fixed;
-  }
-
-  &.hidden {
-    opacity: 0;
-  }
-}
-
 #eodiro-banner {
-}
-
-.eodiro-banner {
-  position: sticky;
+  position: fixed;
   z-index: 9999;
-  top: calc(-#{$banner-height} + #{$nav-height});
+  top: 0;
   width: 100%;
   height: $banner-height;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  opacity: 1;
+  transition: transform 300ms ease;
 
   &.mini {
-    height: $nav-height;
-  }
+    // transform: translateY(calc(#{$nav-height * 2} - #{$banner-height}));
+    transform: translateY(calc(#{$nav-height} - #{$banner-height}));
 
-  &.hidden {
-    opacity: 0;
-  }
-
-  &.nav-mode {
-    .banner .logo-wrapper {
+    .logo-wrapper {
       opacity: 0;
-      transform: translateY(-30%);
+      // transform: translateY(-30%);
     }
   }
 
@@ -110,7 +76,6 @@
       z-index: 1;
       width: 7rem;
       height: 7rem;
-      opacity: 1;
       transition: opacity 300ms ease, transform 300ms ease;
     }
   }
@@ -133,6 +98,7 @@
 
         button.prev {
           width: 4rem;
+          width: 50px;
           height: $nav-height;
           transform: scaleX(-1);
           @include bgImg(
@@ -178,28 +144,6 @@
   }
 
   .app-icon {
-    $icon-change-transition: opacity 100ms ease, transform 200ms ease;
-
-    &.icon-change-enter-active {
-      transition: $icon-change-transition;
-      transition-delay: 150ms;
-      opacity: 1;
-      transform: scale(1);
-    }
-    &.icon-change-enter {
-      opacity: 0;
-      transform: scale(0.8);
-    }
-    &.icon-change-leave-active {
-      transition: $icon-change-transition;
-      opacity: 1;
-      transform: scale(1);
-    }
-    &.icon-change-leave-to {
-      opacity: 0;
-      transform: scale(0.9);
-    }
-
     display: flex;
     position: absolute;
     width: 100%;
@@ -262,26 +206,38 @@
       }
     }
   }
+}
 
-  .sentinel--middle {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: calc(50% + 1rem);
-    height: 1px;
-    pointer-events: none;
-    background: none;
-    visibility: hidden;
-  }
+#banner-observer-sentinel {
+  position: absolute;
+  top: calc(#{$banner-height} - #{$nav-height});
+  top: $banner-height / 2;
+  right: 0;
+  left: 0;
+  height: 1px;
+  pointer-events: none;
+  background: none;
+  visibility: hidden;
+}
 
-  .sentinel--bottom {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: calc(#{$nav-height} + 1px);
-    height: 1px;
-    pointer-events: none;
-    background: none;
-    visibility: hidden;
-  }
+$icon-change-transition: opacity 150ms ease, transform 300ms ease;
+
+.icon-change-enter-active {
+  transition: $icon-change-transition;
+  transition-delay: 200ms;
+  opacity: 1;
+  transform: scale(1);
+}
+.icon-change-enter {
+  opacity: 0;
+  transform: scale(0.8);
+}
+.icon-change-leave-active {
+  transition: $icon-change-transition;
+  opacity: 1;
+  transform: scale(1);
+}
+.icon-change-leave-to {
+  opacity: 0;
+  transform: scale(0.9);
 }
