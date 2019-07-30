@@ -3,10 +3,10 @@ export const state = () => ({
 })
 
 export const mutations = {
-  setMini(state) {
+  enableForcedMini(state) {
     state.isForcedMini = true
   },
-  releaseMini(state) {
+  disableForcedMini(state) {
     state.isForcedMini = false
   }
 }

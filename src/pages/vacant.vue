@@ -61,7 +61,6 @@ export default {
   .ea-content {
     .content-item {
       padding-top: 2rem;
-      padding-bottom: $stagger-gap;
       display: block;
 
       &.fade-enter-active,

@@ -46,6 +46,9 @@ export default {
   },
   methods: {
     determineBannerIsForcedMini() {
+      // this method detects Banner's mini mode
+      // and add a class 'is-banner-forced-mini'
+      // to adjust padding-top of main content
       window.$nuxt.$once('triggerScroll', () => {
         if (this.$store.state.banner.isForcedMini) {
           this.isBannerForcedMini = true

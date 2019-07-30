@@ -65,55 +65,48 @@ export default {
   data() {
     return {
       isMini: false,
-      observer: undefined,
-      sentinel: undefined
+      observer: null,
+      sentinel: null
     }
   },
   watch: {
     $route(to, from) {
+      // stop observing when the route is still changing
       this.observer.unobserve(this.sentinel)
+
+      // after page load and scroll to the proper position,
+      // observe again
       window.$nuxt.$once('triggerScroll', () => {
         this.observer.observe(this.sentinel)
       })
     }
   },
-  computed: {
-    // isComputedMini() {
-    //   console.group('computed mini')
-    //   console.log('isMini: ', this.isMini)
-    //   console.log('isForcedMini: ', this.isForcedMini)
-    //   console.groupEnd()
-    //   return this.isMini || this.$store.state.banner.isForcedMini
-    // },
-    // isForcedMini() {
-    //   return this.$store.state.banner.isForcedMini
-    // }
+  created() {
+    // for the first time,
+    // check if the page requires Banner mini mode
+    if (this.$store.state.banner.isForcedMini) {
+      this.isMini = true
+    }
   },
   mounted() {
     // middle sentinel for navigation app icon transition effect
-    let sentinel = document.querySelector('#banner-observer-sentinel')
-    let observer = new IntersectionObserver(entries => {
+    this.sentinel = document.querySelector('#banner-observer-sentinel')
+    this.observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.target.isSameNode(sentinel)) {
-          console.group('observer')
+        if (entry.target.isSameNode(this.sentinel)) {
           if (this.$store.state.banner.isForcedMini) {
-            console.log('isMini(from isForcedMini): ', true)
             this.isMini = true
           } else if (entry.isIntersecting) {
-            console.log('isMini: ', false)
             this.isMini = false
           } else {
-            console.log('isMini: ', true)
             this.isMini = true
           }
-          console.groupEnd()
         }
       })
     })
-    observer.observe(sentinel)
 
-    this.observer = observer
-    this.sentinel = sentinel
+    // start observing
+    this.observer.observe(this.sentinel)
   }
 }
 </script>

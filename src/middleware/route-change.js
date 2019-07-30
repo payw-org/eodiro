@@ -21,15 +21,11 @@ export default ({ app, from, route, store }) => {
   }
 
   try {
-    console.group('route-change')
     if (route.meta[route.meta.length - 1].bannerMode === 'mini') {
-      console.log('set mini')
-      store.commit('banner/setMini')
+      store.commit('banner/enableForcedMini')
     } else {
-      console.log('release mini')
-      store.commit('banner/releaseMini')
+      store.commit('banner/disableForcedMini')
     }
-    console.groupEnd()
   } catch (error) {
     console.log(error)
   }
