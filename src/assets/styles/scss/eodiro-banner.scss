@@ -211,6 +211,7 @@
 #banner-observer-sentinel {
   position: absolute;
   top: calc(#{$banner-height} - #{$nav-height});
+  top: $banner-height / 2;
   right: 0;
   left: 0;
   height: 1px;
