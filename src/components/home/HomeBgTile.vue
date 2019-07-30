@@ -23,6 +23,11 @@ export default {
   methods: {
     calculateVisibleTilesNumber() {
       // notice - there must be no scrollbar
+      const heightParentCompoent = 40/100
+      const remRatioMoreThan1400 = 1.3
+      const remRatioMoreThan700 = 1.1
+      const remRatioUnder700 = 0.85
+
       let width_device = window.innerWidth
       let height_device = window.innerHeight
       let tileNum_height, tileNum_width
@@ -34,13 +39,13 @@ export default {
       )
       let width_tile
 
-      // reactive
+      // dependency
       if (width_device >= 1400) {
-        rem *= 1.3
+        rem *= remRatioMoreThan1400
       } else if (width_device >= 700) {
-        rem *= 1.1
+        rem *= remRatioMoreThan700
       } else {
-        rem *= 0.85
+        rem *= remRatioUnder700
       }
 
       let width_container_tiles = width_device * 1.1
@@ -59,7 +64,7 @@ export default {
           (width_container_tiles + 1.5 * rem) / tileNum_width - 1.5 * rem
         // calc tileNum_height
         tileNum_height = Math.floor(
-          ((height_container_tiles * 40) / 100 + 1.5 * rem) /
+          ((height_container_tiles * heightParentCompoent) + 1.5 * rem) /
             (width_tile + 1.5 * rem)
         )
       } else {
@@ -74,7 +79,7 @@ export default {
         width_tile = (width_container_tiles + 1 * rem) / tileNum_width - 1 * rem
         // calc tileNum_height
         tileNum_height = Math.floor(
-          ((height_container_tiles * 40) / 100 + 1 * rem) /
+          ((height_container_tiles * heightParentCompoent) + 1 * rem) /
             (width_tile + 1 * rem)
         )
       }
