@@ -55,7 +55,6 @@ export default {
       Stagger.hide(this.$el.querySelectorAll('.floor-wrapper'))
     },
     fetchFloors() {
-      // setTimeout(() => {
       let url = `https://api.eodiro.com/cau/${this.$route.params.buildingId}`
 
       axios
@@ -76,7 +75,6 @@ export default {
         .catch(function(error) {
           alert('데이터를 가져올 수 없습니다. 잠시 후 이용 바랍니다.')
         })
-      // }, 4000);
     },
     fetchEmpty() {
       this.isEmptyLoaded = false

@@ -1,12 +1,5 @@
 @import '~/assets/styles/scss/global-variables.scss';
-::-webkit-scrollbar {
-  display: none; /* chrome */
-}
-html {
-  overflow: auto;
-  -ms-overflow-style: none; /* Edge */
-  scrollbar-width: none; /* Firefox */
-}
+
 @mixin smaller-than($width) {
   @media only screen and (max-width: $width) {
     @content;
