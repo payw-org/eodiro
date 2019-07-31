@@ -104,9 +104,7 @@ export default {
 <style lang="scss">
 @import '~/assets/styles/scss/global-mixins.scss';
 
-#preferences {
-  text-align: center;
-
+#app.preferences {
   @keyframes rotatingGear {
     0% {
       transform: rotate(0deg);
@@ -116,14 +114,13 @@ export default {
     }
   }
 
-  // .page-icon {
-  //   padding-top: 5rem;
-  //   width: 5rem;
-  //   height: 5rem;
-  //   @include bgImg('~assets/images/eodiro/gear_gray.svg');
-  //   margin: auto;
-  //   animation: rotatingGear 5s linear 0s infinite normal forwards;
-  // }
+  .app-icon .icon {
+    animation: rotatingGear 5s linear 0s infinite normal forwards;
+  }
+}
+
+#preferences {
+  text-align: center;
 
   .page-content {
     padding: 2rem 0;
