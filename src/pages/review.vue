@@ -11,8 +11,12 @@
 <template>
   <div id="review">
     <div class="page-content">
-      <div class="write">a</div>
-      <div class="send">a</div>
+      <div class="content-container">
+        <div class="write"></div>
+        <cushion class="send">
+          <button @click="None">send</button>
+        </cushion>
+      </div>
     </div>
   </div>
 </template>
@@ -65,26 +69,43 @@ export default {
 
 #review {
   text-align: center;
-
-  @keyframes rotatingGear {
-  }
+  position: absolute;
+  width: 100%;
+  height: 100%;
 
   .page-content {
-    padding: 2rem 0;
     width: calc(100% - 2rem);
+    height: 100%;
     max-width: 30rem;
     margin: auto;
 
-    display: flex;
+
+    .content-container{
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      height: 100%;
 
     .write {
-      flex: 5;
-      border: 1rem;
+      flex-grow: 1;
+      border: 2px solid #f0f0f0;
+      border-radius: 0.7rem;
+      margin: 1rem 0;
     }
+
     .send {
-      flex: 1;
-      border: 1rem;
+      height: 3rem;
+      width: 8rem;
+
+      border: 1px solid #f0f0f0;
+      border-radius: 0.7rem;
+      margin: auto;
     }
+    }
+
+
+    
+
   }
 }
 </style>
