@@ -166,10 +166,7 @@ export default {
   },
   mounted() {
     // Fetch data
-    // this.fetchBuildings()
-    setTimeout(() => {
-      this.fetchBuildings()
-    }, 1000)
+    this.fetchBuildings()
   },
   activated() {
     this.fetchEmpty()

@@ -1,9 +1,11 @@
 export default ({ app, from, route, store }) => {
   // set current app name
-  let appName =
-    route && route.meta && route.meta[0] && route.meta[0].appName
-      ? route.meta[0].appName
-      : 'error'
+  let appName = 'error'
+  try {
+    appName = route.meta[0].appName
+  } catch (error) {
+    console.error(error)
+  }
   store.commit('setAppName', appName)
 
   if (!from) {
@@ -34,21 +36,19 @@ export default ({ app, from, route, store }) => {
   if (from) {
     // fetch last scroll position of a destination
     // if not set, set it 0
+    let lastScrollPosition = 0
     try {
-      store.commit(
-        'setLastScrollPosition',
+      lastScrollPosition =
         route.matched[route.matched.length - 1].components.default.options.meta
           .lastScrollPosition
-      )
     } catch (error) {
       console.error(error)
-      store.commit('setLastScrollPosition', 0)
     }
+    store.commit('setLastScrollPosition', lastScrollPosition)
 
     // get routes' depth to determine the navigating direction
     let fromDepth = 9999
     let toDepth = -9999
-
     try {
       fromDepth = from.meta[from.meta.length - 1].depth
       toDepth = route.meta[route.meta.length - 1].depth

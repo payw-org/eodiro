@@ -1,12 +1,19 @@
 @import './global-variables.scss';
 @import './global-mixins.scss';
 
+::-webkit-scrollbar {
+  display: none; /* chrome */
+}
+
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   font-size: 85%;
   background-color: $base-white;
+  overflow: auto;
+  -ms-overflow-style: none; /* Edge */
+  scrollbar-width: none; /* Firefox */
   // transition: background-color 1000ms ease;
 
   &.dark-mode {
@@ -43,12 +50,12 @@ html {
 
 @media only screen and (min-width: 700px) {
   html {
-    font-size: 110%;
+    font-size: 100%;
   }
 }
 @media only screen and (min-width: 1400px) {
   html {
-    font-size: 130%;
+    font-size: 115%;
   }
 }
 
