@@ -69,6 +69,9 @@
       &.background--preferences {
         background-image: linear-gradient(to bottom, #939393, #636363);
       }
+      &.background--review {
+        background-image: linear-gradient(to bottom, #ffc700, #ff8a00);
+      }
     }
 
     .logo-wrapper {
@@ -202,6 +205,20 @@
 
         @include dark-mode {
           @include bgImg('~assets/images/eodiro/gear_black.svg', center, '75%');
+        }
+      }
+    }
+
+    &.app--review {
+      .icon {
+        @include bgImg('~assets/images/eodiro/review_white.svg', center, '75%');
+
+        @include dark-mode {
+          @include bgImg(
+            '~assets/images/eodiro/review_black.svg',
+            center,
+            '75%'
+          );
         }
       }
     }
