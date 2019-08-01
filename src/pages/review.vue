@@ -12,15 +12,14 @@
   <div id="review">
     <div class="page-content">
       <div class="content-container">
-        <div class="write"></div>
+        <div class="write" contenteditable="true" align="left"></div>
         <cushion class="send">
-          <button @click="None">send</button>
+          <button @click="sendEmail()">send</button>
         </cushion>
       </div>
     </div>
   </div>
 </template>
-
 <script>
 import EodiroPageBase from '~/components/EodiroPageBase.vue'
 import Cookies from 'js-cookie'
@@ -45,12 +44,8 @@ export default {
     }
   },
   methods: {
-    switchLang(lang) {
-      Cookies.set('i18n_lang', lang, { expires: 99999 })
-      location.reload()
-    },
-    switchColorScheme(mode) {
-      this.$store.commit('setColorScheme', mode)
+    sendEmail() {
+      alert('부에에에에ㅔ에')
     }
   },
   mounted() {
@@ -67,6 +62,10 @@ export default {
 <style lang="scss">
 @import '~/assets/styles/scss/global-mixins.scss';
 
+#123 {
+  -webkit-appearance: none;
+}
+
 #review {
   text-align: center;
   position: absolute;
@@ -79,33 +78,29 @@ export default {
     max-width: 30rem;
     margin: auto;
 
-
-    .content-container{
+    .content-container {
       display: flex;
       flex-direction: column;
       width: 100%;
       height: 100%;
 
-    .write {
-      flex-grow: 1;
-      border: 2px solid #f0f0f0;
-      border-radius: 0.7rem;
-      margin: 1rem 0;
+      .write {
+        flex-grow: 1;
+        padding: 0.5rem;
+        border: 2px solid #f0f0f0;
+        border-radius: 0.7rem;
+        margin: 1rem 0;
+      }
+
+      .send {
+        height: 3rem;
+        width: 8rem;
+
+        border: 1px solid #f0f0f0;
+        border-radius: 0.7rem;
+        margin: auto;
+      }
     }
-
-    .send {
-      height: 3rem;
-      width: 8rem;
-
-      border: 1px solid #f0f0f0;
-      border-radius: 0.7rem;
-      margin: auto;
-    }
-    }
-
-
-    
-
   }
 }
 </style>
