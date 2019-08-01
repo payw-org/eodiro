@@ -35,7 +35,7 @@ export const state = () => ({
   cachedComponents: [],
   routeDirection: '', // forward|backward
   currentAppName: 'home',
-  appList: ['home', 'vacant', 'preferences', 'review']
+  appList: ['home', 'vacant', 'preferences']
 })
 
 export const mutations = {

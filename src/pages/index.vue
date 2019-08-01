@@ -48,13 +48,12 @@
             </home-menu-item>
           </div>
 
-          <nuxt-link :to="localePath('review').replace(/\/$/, '')">
-            <div class="menu-item-wrapper">
-              <home-menu-item class="review">
-                <template v-slot:title>{{ $t('menu_review') }}</template>
-              </home-menu-item>
-            </div>
-          </nuxt-link>
+          <div class="menu-item-wrapper" @click="preparing">
+            <home-menu-item class="review">
+              <template v-slot:title>{{ $t('menu_review') }}</template>
+            </home-menu-item>
+          </div>
+
           <div class="menu-item-wrapper" @click="preparing">
             <home-menu-item class="donation">
               <template v-slot:title>
