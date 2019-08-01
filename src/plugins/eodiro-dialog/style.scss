@@ -1,5 +1,6 @@
 @import '~/assets/styles/scss/global-variables.scss';
 @import '~/assets/styles/scss/global-mixins.scss';
+@import '~/assets/styles/scss/eodiro-ui.scss';
 
 $build-out-time: 700ms;
 $build-in-time: 700ms;
@@ -35,7 +36,7 @@ $build-in-time: 700ms;
     width: calc(100% - 2rem);
     max-width: 20rem;
     height: auto;
-    padding: 1rem 1.5rem;
+    padding: 1rem;
     background-color: $base-white;
     border-radius: 1rem;
     text-align: center;
@@ -65,7 +66,9 @@ $build-in-time: 700ms;
       grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
 
       .act {
-        padding: 0.7rem 0;
+        @include background-colored;
+        border-radius: $radius;
+        padding: 0.8rem;
 
         button {
           color: $c-step--4;
