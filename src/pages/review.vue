@@ -80,6 +80,7 @@ export default {
         padding: 0.5rem;
         border: 2px solid #f0f0f0;
         border-radius: 0.7rem;
+        margin-bottom: 1rem;
       }
 
       .send {
