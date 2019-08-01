@@ -17,10 +17,7 @@
 </template>
 
 <script>
-import Cushion from '~/components/Cushion.vue'
-
 export default {
-  components: { Cushion },
   data() {
     return {
       pressed: false
