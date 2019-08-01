@@ -12,24 +12,24 @@
   }
 }
 
-@mixin on-mobile() {
-  @include smaller-than($mobile-width-threshold) {
+@mixin on-mobile {
+  @include smaller-than($res-step--1) {
     @content;
   }
 }
 
-@mixin dark-mode() {
-  .dark-mode & {
+@mixin dark-mode {
+  @at-root html.dark-mode & {
     @content;
   }
   @media (prefers-color-scheme: dark) {
-    .auto-color-scheme & {
+    @at-root html.auto-color-scheme & {
       @content;
     }
   }
 }
 
-@mixin light-mode() {
+@mixin light-mode {
   .light-mode & {
     @content;
   }
@@ -37,18 +37,6 @@
     .auto-color-scheme & {
       @content;
     }
-  }
-}
-
-@mixin color-all($color) {
-  color: $color;
-
-  &:active {
-    color: $color;
-  }
-
-  &:hover {
-    color: $color;
   }
 }
 
@@ -61,4 +49,12 @@
   background-repeat: no-repeat;
   background-position: unquote($position);
   background-size: unquote($size);
+}
+
+@mixin text-color {
+  color: $base-black;
+
+  @include dark-mode {
+    color: $base-white;
+  }
 }
