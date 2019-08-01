@@ -8,6 +8,7 @@
   }
 }
 </i18n>
+
 <template>
   <div id="review">
     <div class="page-content">
@@ -20,6 +21,7 @@
     </div>
   </div>
 </template>
+
 <script>
 import EodiroPageBase from '~/components/EodiroPageBase.vue'
 import Cookies from 'js-cookie'
@@ -39,32 +41,19 @@ export default {
     }
   },
   data() {
-    return {
-      autoDarkModeSupport: false
-    }
+    return {}
   },
   methods: {
     sendEmail() {
       alert('부에에에에ㅔ에')
     }
   },
-  mounted() {
-    // check if the browser supports 'prefers-color-scheme' media query
-    // if the autoDarkModeSupport is true,
-    // dark mode option will appear in the color scheme settings
-    if (window.matchMedia('(prefers-color-scheme: dark)').media != 'not all') {
-      this.autoDarkModeSupport = true
-    }
-  }
+  mounted() {}
 }
 </script>
 
 <style lang="scss">
 @import '~/assets/styles/scss/global-mixins.scss';
-
-#123 {
-  -webkit-appearance: none;
-}
 
 #review {
   text-align: center;
@@ -84,12 +73,13 @@ export default {
       width: 100%;
       height: 100%;
 
+      padding: 1rem 0;
+
       .write {
         flex-grow: 1;
         padding: 0.5rem;
         border: 2px solid #f0f0f0;
         border-radius: 0.7rem;
-        margin: 1rem 0;
       }
 
       .send {
