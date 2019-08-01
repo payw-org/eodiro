@@ -1,5 +1,5 @@
 <template>
-  <cushion class="menu-item">
+  <div class="menu-item">
     <div class="content">
       <div class="menu-icon-area">
         <div class="menu-icon-wrapper">
@@ -13,14 +13,11 @@
         <span class="arrow"></span>
       </div>
     </div>
-  </cushion>
+  </div>
 </template>
 
 <script>
-import Cushion from '~/components/Cushion.vue'
-
 export default {
-  components: { Cushion },
   data() {
     return {
       pressed: false
@@ -42,13 +39,19 @@ export default {
 @import '~/assets/styles/scss/global-variables.scss';
 @import '~/assets/styles/scss/global-mixins.scss';
 @import '~/assets/styles/scss/global-functions.scss';
+@import '~/assets/styles/scss/eodiro-ui.scss';
 
 .menu-item {
+  @include bordered;
+  display: flex;
   width: 100%;
   height: 5.5rem;
 
   .content {
     display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 0 1rem;
   }
 
   &.vacant {
@@ -143,7 +146,7 @@ export default {
   }
 
   .menu-icon-area {
-    width: 4rem;
+    // width: 4rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -194,14 +197,18 @@ export default {
     }
   }
 
-  .title,
-  .title span {
+  .title {
+    padding: 0 1rem;
     font-size: 1.2rem;
-    font-weight: 500;
+    font-weight: 400;
     flex: 1;
     align-self: center;
-    // margin: 2rem 0;
-    color: $base-black;
+
+    span {
+      font-size: 1.2rem;
+      font-weight: 400;
+      counter-reset: $base-black;
+    }
 
     @include dark-mode {
       color: $base-white;
@@ -209,7 +216,6 @@ export default {
   }
 
   .arrow-wrapper {
-    width: 2.6rem;
     display: flex;
     align-items: center;
     justify-content: center;
