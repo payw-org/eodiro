@@ -12,7 +12,7 @@
   <div id="review">
     <div class="page-content">
       <div class="content-container">
-        <div class="write" contenteditable="true" align="left"></div>
+        <textarea class="write"></textarea>
         <cushion class="send">
           <button @click="sendEmail()">send</button>
         </cushion>
