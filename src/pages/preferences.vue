@@ -30,12 +30,8 @@
       <section class="pref-section">
         <h2 class="name">{{ $t('lang') }}</h2>
         <div class="options">
-          <cushion class="opt">
-            <button @click="switchLang('kr')">한국어</button>
-          </cushion>
-          <cushion class="opt">
-            <button @click="switchLang('en')">English</button>
-          </cushion>
+          <eodiro-button class="opt" @click="switchLang('kr')">한국어</eodiro-button>
+          <eodiro-button class="opt" @click="switchLang('en')">English</eodiro-button>
         </div>
       </section>
 
@@ -43,15 +39,19 @@
       <section class="pref-section">
         <h2 class="name">{{ $t('color_scheme.title') }}</h2>
         <div class="options">
-          <cushion class="opt">
-            <button @click="switchColorScheme('light')">{{ $t('color_scheme.light') }}</button>
-          </cushion>
-          <cushion class="opt">
-            <button @click="switchColorScheme('dark')">{{ $t('color_scheme.dark') }}</button>
-          </cushion>
-          <cushion class="opt" v-if="autoDarkModeSupport">
-            <button @click="switchColorScheme('auto')">{{ $t('color_scheme.auto') }}</button>
-          </cushion>
+          <eodiro-button
+            class="opt"
+            @click="switchColorScheme('light')"
+          >{{ $t('color_scheme.light') }}</eodiro-button>
+          <eodiro-button
+            class="opt"
+            @click="switchColorScheme('dark')"
+          >{{ $t('color_scheme.dark') }}</eodiro-button>
+          <eodiro-button
+            class="opt"
+            v-if="autoDarkModeSupport"
+            @click="switchColorScheme('auto')"
+          >{{ $t('color_scheme.auto') }}</eodiro-button>
         </div>
       </section>
     </div>
@@ -59,9 +59,9 @@
 </template>
 
 <script>
+import { EodiroButton, EodiroInput, EodiroTextarea } from '~/components/ui'
 import EodiroPageBase from '~/components/EodiroPageBase.vue'
 import Cookies from 'js-cookie'
-import Cushion from '~/components/Cushion.vue'
 
 export default {
   name: 'preferences',
@@ -70,7 +70,7 @@ export default {
     depth: 1,
     appName: 'preferences'
   },
-  components: { Cushion },
+  components: { EodiroButton, EodiroInput, EodiroTextarea },
   head() {
     return {
       title: this.$t('title')
@@ -78,7 +78,9 @@ export default {
   },
   data() {
     return {
-      autoDarkModeSupport: false
+      autoDarkModeSupport: false,
+      inputText: 'hello world',
+      areaText: 'hello textarea'
     }
   },
   methods: {
@@ -103,6 +105,7 @@ export default {
 
 <style lang="scss">
 @import '~/assets/styles/scss/global-mixins.scss';
+@import '~/assets/styles/scss/eodiro-ui.scss';
 
 #app.preferences {
   @keyframes rotatingGear {
@@ -120,8 +123,6 @@ export default {
 }
 
 #preferences {
-  text-align: center;
-
   .page-content {
     padding: 2rem 0;
     width: calc(100% - 2rem);
@@ -138,6 +139,7 @@ export default {
       .name {
         font-weight: 700;
         font-size: 2rem;
+        text-align: center;
       }
 
       .options {
