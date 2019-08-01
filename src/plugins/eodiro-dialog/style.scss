@@ -38,7 +38,7 @@ $build-in-time: 700ms;
     height: auto;
     padding: 1rem;
     background-color: $base-white;
-    border-radius: 1rem;
+    border-radius: $radius;
     text-align: center;
     font-size: 1rem;
     z-index: 1;
