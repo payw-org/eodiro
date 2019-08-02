@@ -126,7 +126,7 @@ export default {
         width: calc(100% - 2rem);
         margin: auto;
         display: grid;
-        grid-gap: 1rem 1rem;
+        grid-gap: 1rem;
         grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
 
         .menu-item-wrapper {

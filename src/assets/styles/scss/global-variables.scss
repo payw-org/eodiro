@@ -76,6 +76,15 @@ $res-step--1: 700px;
 $res-step--2: 1400px;
 
 // EodiroBanner
+// if you modify these values
+// you should also modify HomeBgTile component
 $banner-height: 35vh;
 $nav-height: 3.5rem;
 $nav-height: 50px;
+
+// border radius
+$radius: 0.7rem;
+
+// translucent colors
+$t-white: rgba(255, 255, 255, 0.15);
+$t-black: rgba(0, 0, 0, 0.08);

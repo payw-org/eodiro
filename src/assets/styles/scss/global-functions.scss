@@ -1,5 +1,5 @@
 @function res-scale--1($val) {
-  $val: ceil($val / 85 * 110);
+  $val: ceil($val / 85 * 100);
   @if $val % 2 != 1 {
     $val: $val + 1;
   }
@@ -8,7 +8,7 @@
 }
 
 @function res-scale--2($val) {
-  $val: ceil($val / 85 * 130);
+  $val: ceil($val / 85 * 115);
   @if $val % 2 != 1 {
     $val: $val + 1;
   }
