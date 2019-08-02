@@ -155,19 +155,6 @@
       height: 100%;
     }
 
-    @keyframes rotatingGear {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
-    @at-root #app.preferences & .icon.app--preferences {
-      animation: rotatingGear 5s linear 0s infinite normal forwards;
-    }
-
     &.app--home {
       .icon {
         @include bgImg(
@@ -196,8 +183,19 @@
       }
     }
 
+    @keyframes rotatingGear {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
     &.app--preferences {
       .icon {
+        animation: rotatingGear 5s linear 0s infinite normal forwards;
+
         @include bgImg('~assets/images/eodiro/gear_white.svg', center, '75%');
 
         @include dark-mode {
