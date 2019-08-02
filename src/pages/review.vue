@@ -13,10 +13,11 @@
   <div id="review">
     <div class="page-content">
       <div class="content-container">
-        <textarea class="write"></textarea>
-        <cushion class="send">
-          <button @click="sendEmail()">send</button>
-        </cushion>
+        <eodiro-textarea class="write"></eodiro-textarea>
+        <eodiro-button @click="sendEmail" class="send-btn">
+          <span class="icon"></span>
+          <span class="text">Send</span>
+        </eodiro-button>
       </div>
     </div>
   </div>
@@ -24,8 +25,7 @@
 
 <script>
 import EodiroPageBase from '~/components/EodiroPageBase.vue'
-import Cookies from 'js-cookie'
-import Cushion from '~/components/Cushion.vue'
+import { EodiroButton, EodiroTextarea } from '~/components/ui'
 
 export default {
   name: 'review',
@@ -34,7 +34,7 @@ export default {
     depth: 1,
     appName: 'review'
   },
-  components: { Cushion },
+  components: { EodiroButton, EodiroTextarea },
   head() {
     return {
       title: this.$t('title')
@@ -77,19 +77,21 @@ export default {
 
       .write {
         flex-grow: 1;
-        padding: 0.5rem;
-        border: 2px solid #f0f0f0;
-        border-radius: 0.7rem;
+
         margin-bottom: 1rem;
       }
 
-      .send {
-        height: 3rem;
-        width: 8rem;
-
-        border: 1px solid #f0f0f0;
-        border-radius: 0.7rem;
-        margin: auto;
+      .send-btn {
+        .icon {
+          display: inline-block;
+          width: 2rem;
+          height: 1.9rem;
+          @include bgImg('~assets/images/eodiro/paper_plane_black.svg');
+          @include dark-mode {
+            @include bgImg('~assets/images/eodiro/paper_plane_white.svg');
+          }
+          margin-right: 0.5rem;
+        }
       }
     }
   }
