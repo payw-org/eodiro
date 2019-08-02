@@ -10,14 +10,14 @@ html {
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   font-size: 85%;
-  background-color: $base-white;
+  background-color: #fff;
   overflow: auto;
   -ms-overflow-style: none; /* Edge */
   scrollbar-width: none; /* Firefox */
   // transition: background-color 1000ms ease;
 
   &.dark-mode {
-    background-color: $base-black;
+    background-color: #000;
 
     .mode--light {
       display: none !important;
@@ -25,7 +25,7 @@ html {
   }
   @media (prefers-color-scheme: dark) {
     &.auto-color-scheme {
-      background-color: $base-black;
+      background-color: #000;
       .mode--light {
         display: none !important;
       }
@@ -33,14 +33,14 @@ html {
   }
 
   &.light-mode {
-    background-color: $base-white;
+    background-color: #fff;
     .mode--dark {
       display: none !important;
     }
   }
   @media (prefers-color-scheme: light) {
     &.auto-color-scheme {
-      background-color: $base-white;
+      background-color: #fff;
       .mode--dark {
         display: none !important;
       }
@@ -69,14 +69,14 @@ body {
   padding: 0;
   word-wrap: break-word;
   word-break: keep-all;
-  background-color: $base-white;
+  background-color: #fff;
   font-size: 16px;
   color: $base-black;
   user-select: none;
   transition: background-color 300ms ease;
 
   @include dark-mode() {
-    background-color: $base-black;
+    background-color: #000;
     color: $base-white;
   }
 }

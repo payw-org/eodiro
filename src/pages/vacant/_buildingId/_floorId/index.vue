@@ -23,7 +23,7 @@
 
 <template>
   <div class="content-item result">
-    <div class="empty-classrooms-container">
+    <!-- <div class="empty-classrooms-container">
       <Loading v-if="classrooms.length === 0" />
       <div class="ec-item-wrapper" v-for="room in classrooms" :key="room.number">
         <div
@@ -64,7 +64,20 @@
         </div>
       </div>
       <div class="ec-item-wrapper grid-dummy" v-for="i in 3" :key="'gridDummy' + i"></div>
-    </div>
+    </div>-->
+
+    <eodiro-block-container class="empty-classrooms-container">
+      <eodiro-block-item v-for="classroom in classrooms" :key="classroom.number" class="classroom">
+        <template v-slot:content>
+          <h1 class="room-number">{{ classroom.number }}</h1>
+          <p class="next-class">{{ $t('nextClass') }}</p>
+        </template>
+      </eodiro-block-item>
+
+      <div class="grid-dummy" v-for="i in 2" :key="'gridDummy' + i"></div>
+
+      <loading v-if="classrooms.length === 0" />
+    </eodiro-block-container>
 
     <div class="timetable-container" :class="{show: timeTableShow}">
       <div class="background" @click="closeTimeTable"></div>
@@ -148,6 +161,7 @@ import {
 } from 'body-scroll-lock'
 import ApiUrl from '~/plugins/ApiUrl'
 import { spring, styler } from 'popmotion'
+import { EodiroBlockContainer, EodiroBlockItem } from '~/components/ui'
 
 export default {
   name: 'vacant-result',
@@ -156,7 +170,7 @@ export default {
     depth: 3,
     bannerMode: 'mini'
   },
-  components: { Loading },
+  components: { Loading, EodiroBlockContainer, EodiroBlockItem },
   data() {
     return {
       classrooms: [],
@@ -309,52 +323,10 @@ export default {
 
 .result {
   .empty-classrooms-container {
-    position: relative;
-    display: grid;
-    grid-gap: 3rem 2.5rem;
-    grid-template-columns: repeat(auto-fit, minmax($grid-max-width, 1fr));
-    width: calc(100% - 6rem);
-    max-width: 80rem;
-    margin: auto;
-
-    @include smaller-than($mobile-width-threshold) {
-      grid-gap: 1rem;
-      width: calc(100% - 2rem);
-    }
-
-    .ec-item-wrapper {
-      .ec-item {
-        opacity: 0;
-        cursor: pointer;
-        padding: 1rem;
-        box-shadow: $eodiro-shadow;
-        border-radius: 1rem;
-        color: $base-white;
-
-        @include dark-mode() {
-          box-shadow: $eodiro-shadow, $dark-mode-border-shadow;
-
-          @include smaller-than($mobile-width-threshold) {
-            box-shadow: $dark-mode-border-shadow;
-          }
-        }
-
-        .room-number {
-          font-family: $font-display;
-          font-size: 2.5rem;
-          font-weight: 700;
-          text-align: right;
-          line-height: 1;
-        }
-
-        .info {
-          font-size: 1rem;
-          margin-top: 2rem;
-          line-height: 1.4;
-          // background-color: rgba(#000, 0.1);
-          border-radius: 0.5rem;
-          // padding: 1rem;
-        }
+    .classroom {
+      .room-number {
+        font-size: 2rem;
+        font-weight: 700;
       }
     }
   }

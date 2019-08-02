@@ -11,9 +11,20 @@
 }
 
 @mixin background-colored {
-  background-color: rgba(0, 0, 0, 0.05);
+  // background-color: rgba(0, 0, 0, 0.05);
+  background-color: $base-white-blue;
+  transition: background-color 500ms ease;
+
+  &:active {
+    background-color: darken($base-white-blue, 10%);
+    transition: background-color 0ms ease;
+  }
 
   @include dark-mode {
-    background-color: rgba(255, 255, 255, 0.14);
+    background-color: #1d1d1d;
+
+    &:active {
+      background-color: lighten(#1d1d1d, 10%);
+    }
   }
 }

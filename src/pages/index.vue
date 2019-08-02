@@ -137,16 +137,6 @@ export default {
     width: 100%;
 
     .page-content {
-      max-width: 55rem;
-      background-color: #fff;
-      padding-top: 2rem;
-      width: calc(100% - 2rem);
-      margin: auto;
-
-      @include dark-mode {
-        background-color: #000;
-      }
-
       .menu-item-container {
         .menu-item-wrapper {
           .content {

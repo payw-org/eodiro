@@ -62,6 +62,7 @@
 import { EodiroButton, EodiroInput, EodiroTextarea } from '~/components/ui'
 import EodiroPageBase from '~/components/EodiroPageBase.vue'
 import Cookies from 'js-cookie'
+import EodiroDialog from '~/plugins/eodiro-dialog'
 
 export default {
   name: 'preferences',
@@ -124,16 +125,21 @@ export default {
 
 #preferences {
   .page-content {
-    padding: 2rem 0;
-    width: calc(100% - 2rem);
     max-width: 30rem;
     margin: auto;
 
     section.pref-section {
-      margin-bottom: 5rem;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid $t-black;
+
+      @include dark-mode {
+        border-bottom: 1px solid $t-white;
+      }
 
       &:last-child {
         margin-bottom: 0;
+        border-bottom: none;
       }
 
       .name {

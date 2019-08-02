@@ -20,12 +20,19 @@
 @import '~/assets/styles/scss/eodiro-ui.scss';
 
 .eodiro-block-item {
-  @include bordered;
+  // @include bordered;
+  @include background-colored;
+  border-radius: $radius;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 1rem;
+  padding: 0 1.2rem;
   min-height: 5.5rem;
+
+  &,
+  & * {
+    cursor: pointer !important;
+  }
 
   .icon-wrapper {
     margin-right: 1rem;
@@ -50,7 +57,7 @@
     &,
     & * {
       font-weight: 400;
-      font-size: 1.2rem;
+      font-size: 1rem;
     }
   }
 

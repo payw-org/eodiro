@@ -14,14 +14,16 @@ export default {}
 @import '~/assets/styles/scss/eodiro-ui.scss';
 
 .eodiro-button {
+  cursor: pointer;
   @include background-colored;
   color: $base-black;
   width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem 1.5rem;
-  border-radius: $radius;
+  padding: 0 1.5rem !important;
+  height: 3rem !important;
+  border-radius: $radius !important;
 
   @include dark-mode {
     color: $base-white;

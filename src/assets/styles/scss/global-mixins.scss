@@ -19,11 +19,11 @@
 }
 
 @mixin dark-mode {
-  @at-root html.dark-mode & {
+  .dark-mode & {
     @content;
   }
   @media (prefers-color-scheme: dark) {
-    @at-root html.auto-color-scheme & {
+    .auto-color-scheme & {
       @content;
     }
   }
