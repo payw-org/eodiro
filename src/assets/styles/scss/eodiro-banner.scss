@@ -1,0 +1,276 @@
+@import '~/assets/styles/scss/global-variables.scss';
+@import '~/assets/styles/scss/global-mixins.scss';
+
+#eodiro-banner {
+  position: fixed;
+  z-index: 9999;
+  top: 0;
+  width: 100%;
+  height: $banner-height;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background-color: #fff;
+  transition: transform 400ms cubic-bezier(0.34, 0.23, 0, 1);
+
+  @include dark-mode {
+    background-color: #000;
+  }
+
+  &.mini {
+    // transform: translateY(calc(#{$nav-height * 2} - #{$banner-height}));
+    transform: translateY(calc(#{$nav-height} - #{$banner-height}));
+
+    .logo-wrapper {
+      opacity: 0;
+      // transform: translateY(-30%);
+    }
+  }
+
+  .banner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 0.2rem 1rem rgba(#000, 0.25);
+
+    @include larger-than($width-step--1) {
+      width: calc(100% - #{2 * $posh-gap});
+      height: calc(100% - #{$posh-gap});
+      max-width: $master-content-max-width;
+      border-radius: $radius;
+
+      .background {
+        border-radius: $radius !important;
+        overflow: hidden;
+      }
+    }
+
+    .background {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background-image: linear-gradient(to bottom, $c-step--3, $c-step--4);
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      // &.bg-fade-enter-active {
+      //   transition: opacity 500ms ease;
+      //   opacity: 1;
+      //   z-index: 0;
+      // }
+      // &.bg-fade-enter {
+      //   opacity: 1;
+      // }
+      &.bg-fade-leave-active {
+        transition: opacity 600ms ease;
+        opacity: 1;
+        z-index: 1;
+      }
+      &.bg-fade-leave-to {
+        opacity: 0;
+      }
+
+      &.background--home {
+        background-image: linear-gradient(to bottom, $c-step--3, $c-step--4);
+      }
+      &.background--vacant {
+        background-image: linear-gradient(to bottom, $c-step--3, $c-step--4);
+      }
+      &.background--preferences {
+        background-image: linear-gradient(to bottom, #939393, #636363);
+      }
+      &.background--review {
+        background-image: linear-gradient(to bottom, #ffc700, #ff8a00);
+      }
+    }
+
+    .logo-wrapper {
+      position: relative;
+      z-index: 1;
+      width: 7rem;
+      height: 7rem;
+      transition: opacity 300ms ease, transform 300ms ease;
+    }
+  }
+
+  .eodiro-navigation {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: $nav-height;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .prev-wrapper {
+      display: flex;
+
+      .prev-link {
+        display: flex;
+
+        button.prev {
+          width: 4rem;
+          width: 50px;
+          height: $nav-height;
+          transform: scaleX(-1);
+          @include bgImg(
+            '~assets/images/eodiro/arrow_right_white.svg',
+            center,
+            '20%'
+          );
+
+          @include dark-mode {
+            @include bgImg(
+              '~assets/images/eodiro/arrow_right_black.svg',
+              center,
+              '20%'
+            );
+          }
+        }
+      }
+    }
+
+    .nav-icon-link {
+      &.nav-icon-fade-enter-active,
+      &.nav-icon-fade-leave-active {
+        transition: opacity 300ms ease, transform 200ms ease;
+        opacity: 1;
+        transform: translateY(0%);
+      }
+      &.nav-icon-fade-enter,
+      &.nav-icon-fade-leave-to {
+        opacity: 0;
+        transform: translateY(30%);
+      }
+    }
+
+    .nav-icon-wrapper {
+      position: relative;
+      width: $nav-height;
+      height: $nav-height;
+    }
+
+    .dummy {
+      width: 4rem;
+    }
+  }
+
+  .app-icon {
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    .icon {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    &.app--home {
+      .icon {
+        @include bgImg(
+          '~assets/images/eodiro/eodiro_logo_arrow_white.svg',
+          center,
+          '50%'
+        );
+
+        @include dark-mode {
+          @include bgImg(
+            '~assets/images/eodiro/eodiro_logo_arrow_black.svg',
+            center,
+            '50%'
+          );
+        }
+      }
+    }
+
+    &.app--vacant {
+      .icon {
+        @include bgImg('~assets/images/eodiro/door_white.svg', center, '75%');
+
+        @include dark-mode {
+          @include bgImg('~assets/images/eodiro/door_black.svg', center, '75%');
+        }
+      }
+    }
+
+    @keyframes rotatingGear {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    &.app--preferences {
+      .icon {
+        animation: rotatingGear 5s linear 0s infinite normal forwards;
+
+        @include bgImg('~assets/images/eodiro/gear_white.svg', center, '75%');
+
+        @include dark-mode {
+          @include bgImg('~assets/images/eodiro/gear_black.svg', center, '75%');
+        }
+      }
+    }
+
+    &.app--review {
+      .icon {
+        @include bgImg('~assets/images/eodiro/review_white.svg', center, '75%');
+
+        @include dark-mode {
+          @include bgImg(
+            '~assets/images/eodiro/review_black.svg',
+            center,
+            '75%'
+          );
+        }
+      }
+    }
+  }
+}
+
+#banner-observer-sentinel {
+  position: absolute;
+  top: calc(#{$banner-height} - #{$nav-height});
+  top: $banner-height / 3;
+  right: 0;
+  left: 0;
+  height: 1px;
+  pointer-events: none;
+  background: none;
+  visibility: hidden;
+}
+
+$icon-change-transition: opacity 150ms ease, transform 300ms ease;
+
+.icon-change-enter-active {
+  transition: $icon-change-transition;
+  transition-delay: 200ms;
+  opacity: 1;
+  transform: scale(1);
+}
+.icon-change-enter {
+  opacity: 0;
+  transform: scale(0.8);
+}
+.icon-change-leave-active {
+  transition: $icon-change-transition;
+  opacity: 1;
+  transform: scale(1);
+}
+.icon-change-leave-to {
+  opacity: 0;
+  transform: scale(0.9);
+}

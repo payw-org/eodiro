@@ -3,6 +3,7 @@ import Cookie from 'cookie'
 export default context => {
   const { app, req, res, route, store, redirect } = context
 
+  // server init
   if (process.server) {
     if (!route.name) {
       return
@@ -33,6 +34,7 @@ export default context => {
     }
   }
 
+  // client init
   if (process.client) {
     // prevent contextmenu popup
     window.oncontextmenu = function(e) {
@@ -40,5 +42,16 @@ export default context => {
       e.stopPropagation()
       return false
     }
+
+    // prevent browser's default scroll restoration behaviour
+    history.scrollRestoration = 'manual'
+
+    window.addEventListener('keydown', e => {
+      if (e.shiftKey && e.key === 'L') {
+        store.commit('setColorScheme', 'light')
+      } else if (e.shiftKey && e.key === 'D') {
+        store.commit('setColorScheme', 'dark')
+      }
+    })
   }
 }

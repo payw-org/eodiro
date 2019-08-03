@@ -1,278 +1,120 @@
 <template>
-  <div class="banner-wrapper" :class="{sticky: isSticky, 'passed-middle': isPassedMiddle}">
+  <div id="eodiro-banner" :class="{ mini: isMini }">
     <div class="banner">
-      <div class="tiles"></div>
+      <transition name="bg-fade" v-for="appName in $store.state.appList" :key="`bg-${appName}`">
+        <div
+          v-if="appName === $store.state.currentAppName"
+          class="background"
+          :class="`background--${appName}`"
+        ></div>
+      </transition>
+      <transition name="fade">
+        <HomeBgTile v-if="$store.state.currentAppName === 'home' && !isMini" />
+      </transition>
       <div class="logo-wrapper">
-        <div class="logo"></div>
+        <transition
+          name="icon-change"
+          v-for="appName in $store.state.appList"
+          :key="`banner-${appName}`"
+        >
+          <div
+            v-if="appName === $store.state.currentAppName"
+            class="logo app-icon"
+            :class="`app--${appName}`"
+          >
+            <span class="icon"></span>
+          </div>
+        </transition>
       </div>
+
+      <nav class="eodiro-navigation">
+        <div class="prev-wrapper" v-if="$store.state.prevPath">
+          <nuxt-link class="prev-link" :to="localePath($store.state.prevPath)">
+            <button class="prev"></button>
+          </nuxt-link>
+        </div>
+        <div class="dummy" v-if="!$store.state.prevPath"></div>
+        <transition name="icon-change">
+          <nuxt-link class="nav-icon-link" :to="localePath('index')" v-if="isMini">
+            <div class="nav-icon-wrapper">
+              <transition
+                name="fade"
+                v-for="appName in $store.state.appList"
+                :key="`nav-${appName}`"
+              >
+                <div
+                  v-if="appName === $store.state.currentAppName"
+                  class="nav-icon app-icon app--home"
+                  :class="[
+                  `app--${appName}`,
+                ]"
+                >
+                  <span class="icon"></span>
+                </div>
+              </transition>
+            </div>
+          </nuxt-link>
+        </transition>
+        <div class="dummy"></div>
+      </nav>
     </div>
-    <nav class="navigation">
-      <div class="prev-wrapper" @click="goBack" v-if="prevPath">
-        <!-- <nuxt-link :to="getPrevPathName"> -->
-        <button class="prev"></button>
-        <!-- </nuxt-link> -->
-      </div>
-      <div class="dummy" v-if="!prevPath"></div>
-      <nuxt-link :to="localePath('index')">
-        <div class="eodiro-home"></div>
-      </nuxt-link>
-      <div class="dummy"></div>
-    </nav>
-    <div class="sentinel--middle"></div>
-    <div class="sentinel--bottom"></div>
   </div>
 </template>
 
 <script>
+import HomeBgTile from '~/components/home/HomeBgTile.vue'
+
 export default {
+  components: { HomeBgTile },
   data() {
     return {
-      isSticky: false,
-      isPassedMiddle: false,
-      prevPath: '',
-      show: false
+      isMini: false,
+      observer: null,
+      sentinel: null
     }
   },
-  methods: {
-    goBack() {
-      // previous pathname
-      // from custom historyStack in store
-      // -> this is history based
-      let storePrevPathName = this.$store.getters.getPreviousPathName
+  watch: {
+    $route(to, from) {
+      // stop observing when the route is still changing
+      this.observer.unobserve(this.sentinel)
 
-      // get previous pathname
-      // using custom routeMap in store
-      // -> this is real go back path
-      let nuxtPrevPathName = this.localePath(
-        this.$store.getters.getPreviousRoute(this.routeName, this.$route.name)
-      )
-
-      if (storePrevPathName === nuxtPrevPathName) {
-        // if history is same as real back path
-        history.back()
-      } else {
-        // if history is different from real back path,
-        // force push that
-        this.$router.push({ path: nuxtPrevPathName })
-      }
-
-      return ''
+      // after page load and scroll to the proper position,
+      // observe again
+      window.$nuxt.$once('triggerScroll', () => {
+        this.observer.observe(this.sentinel)
+      })
     }
   },
-  props: ['routeName'],
   created() {
-    this.prevPath = this.$store.getters.getPreviousRoute(
-      this.routeName,
-      this.$route.name
-    )
+    // for the first time,
+    // check if the page requires Banner mini mode
+    if (this.$store.state.banner.isForcedMini) {
+      this.isMini = true
+    }
   },
   mounted() {
-    let sentinelMiddle = this.$el.querySelector('.sentinel--middle')
-    let sentinelBottom = this.$el.querySelector('.sentinel--bottom')
-
-    var observer = new IntersectionObserver(entries => {
+    // middle sentinel for navigation app icon transition effect
+    this.sentinel = document.querySelector('#banner-observer-sentinel')
+    this.observer = new IntersectionObserver(entries => {
       entries.forEach(entry => {
-        if (entry.target.isSameNode(sentinelMiddle)) {
-          if (entry.isIntersecting) {
-            this.isPassedMiddle = false
+        if (entry.target.isSameNode(this.sentinel)) {
+          if (this.$store.state.banner.isForcedMini) {
+            this.isMini = true
+          } else if (entry.isIntersecting) {
+            this.isMini = false
           } else {
-            this.isPassedMiddle = true
-          }
-        } else if (entry.target.isSameNode(sentinelBottom)) {
-          if (entry.isIntersecting) {
-            this.isSticky = false
-          } else {
-            this.isSticky = true
+            this.isMini = true
           }
         }
       })
     })
 
-    observer.observe(sentinelMiddle)
-    observer.observe(sentinelBottom)
+    // start observing
+    this.observer.observe(this.sentinel)
   }
 }
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/global-variables.scss';
-@import '~/assets/styles/scss/global-mixins.scss';
-
-@keyframes rotatingGear {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-.banner-wrapper {
-  $banner-height: 40vh;
-  $nav-height: 3.5rem;
-  position: sticky;
-  z-index: 9999;
-  top: calc(-#{$banner-height} + #{$nav-height});
-  width: 100%;
-  height: $banner-height;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-
-  &.passed-middle {
-    .banner .logo-wrapper {
-      opacity: 0;
-      transition: opacity 300ms ease;
-    }
-
-    .navigation .eodiro-home {
-      opacity: 1;
-      pointer-events: all;
-    }
-  }
-
-  &.sticky {
-  }
-
-  .banner {
-    background-image: linear-gradient(to bottom, $c-step--3, $c-step--4);
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    @at-root #preferences & {
-      background-image: linear-gradient(to bottom, #939393, #636363);
-    }
-
-    .logo-wrapper {
-      opacity: 1;
-      transition: opacity 300ms ease;
-
-      .logo {
-        display: block;
-        width: 5rem;
-        height: 5rem;
-
-        @at-root #preferences & {
-          animation: rotatingGear 5s linear 0s infinite normal forwards;
-        }
-
-        @include bgImg(
-          '~assets/images/eodiro/eodiro_logo_arrow_white.svg',
-          center,
-          '70%'
-        );
-
-        @include dark-mode {
-          @include bgImg(
-            '~assets/images/eodiro/eodiro_logo_arrow_black.svg',
-            center,
-            '70%'
-          );
-        }
-
-        @at-root #preferences & {
-          @include bgImg(
-            '~assets/images/eodiro/gear_white.svg',
-            center,
-            '100%'
-          );
-
-          @include dark-mode {
-            @include bgImg(
-              '~assets/images/eodiro/gear_black.svg',
-              center,
-              '100%'
-            );
-          }
-        }
-      }
-    }
-  }
-
-  .navigation {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: $nav-height;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    .prev-wrapper {
-      display: flex;
-
-      button.prev {
-        width: 4rem;
-        height: $nav-height;
-        transform: scaleX(-1);
-        @include bgImg(
-          '~assets/images/eodiro/arrow_right_white.svg',
-          center,
-          '20%'
-        );
-
-        @include dark-mode {
-          @include bgImg(
-            '~assets/images/eodiro/arrow_right_black.svg',
-            center,
-            '20%'
-          );
-        }
-      }
-    }
-
-    .eodiro-home {
-      transition: opacity 300ms ease;
-      opacity: 0;
-      pointer-events: none;
-      width: $nav-height;
-      height: $nav-height;
-
-      @include bgImg(
-        '~assets/images/eodiro/eodiro_logo_arrow_white.svg',
-        center,
-        '50%'
-      );
-
-      @include dark-mode {
-        @include bgImg(
-          '~assets/images/eodiro/eodiro_logo_arrow_black.svg',
-          center,
-          '50%'
-        );
-      }
-    }
-
-    .dummy {
-      width: 4rem;
-    }
-  }
-
-  .sentinel--middle {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: calc(50% + #{$nav-height / 2});
-    height: 1px;
-    pointer-events: none;
-    background: none;
-    visibility: hidden;
-  }
-
-  .sentinel--bottom {
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: calc(#{$nav-height} + 1px);
-    height: 1px;
-    pointer-events: none;
-    background: none;
-    visibility: hidden;
-  }
-}
+@import '~/assets/styles/scss/eodiro-banner.scss';
 </style>

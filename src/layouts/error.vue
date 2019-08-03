@@ -2,11 +2,13 @@
 {
   "kr": {
     "first_line": "맙소사...",
-    "second_line": "존재하지 않는 페이지에요."
+    "second_line": "존재하지 않는 페이지에요.",
+    "go_home": "홈으로 가기"
   },
   "en": {
     "first_line": "Oh my god...",
-    "second_line": "This page does not exist."
+    "second_line": "This page does not exist.",
+    "go_home": "Go Home"
   }
 }
 </i18n>
@@ -31,13 +33,16 @@
         <br />
         {{ $t('second_line') }}
       </h1>
-      <button class="eodiro-btn go-back" @click="goBack">Go Back</button>
+      <button class="eodiro-btn go-back" @click="goBack">{{ $t('go_home') }}</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
+  meta: {
+    appName: 'error'
+  },
   head() {
     return {
       htmlAttrs: {

@@ -19,7 +19,7 @@ const messages = {
   }
 }
 
-export default class EodiroModal {
+export default class EodiroDialog {
   lang: string = 'kr'
   modalElm: HTMLElement
   confirmBtn: HTMLElement

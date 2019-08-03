@@ -1,10 +1,11 @@
 @import '~/assets/styles/scss/global-variables.scss';
 @import '~/assets/styles/scss/global-mixins.scss';
+@import '~/assets/styles/scss/eodiro-ui.scss';
 
 $build-out-time: 700ms;
 $build-in-time: 700ms;
 
-.eodiro-modal {
+.eodiro-dialog {
   position: fixed;
   top: 0;
   right: 0;
@@ -35,9 +36,9 @@ $build-in-time: 700ms;
     width: calc(100% - 2rem);
     max-width: 20rem;
     height: auto;
-    padding: 1rem 1.5rem;
-    background-color: $base-white;
-    border-radius: 1rem;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: $radius;
     text-align: center;
     font-size: 1rem;
     z-index: 1;
@@ -65,7 +66,13 @@ $build-in-time: 700ms;
       grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
 
       .act {
-        padding: 0.7rem 0;
+        &,
+        & * {
+          cursor: pointer;
+        }
+        @include background-colored;
+        border-radius: $radius;
+        padding: 0.8rem;
 
         button {
           color: $c-step--4;

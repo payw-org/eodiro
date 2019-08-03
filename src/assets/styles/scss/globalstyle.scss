@@ -1,24 +1,29 @@
 @import './global-variables.scss';
 @import './global-mixins.scss';
+@import './eodiro-ui.scss';
+
+::-webkit-scrollbar {
+  display: none; /* chrome */
+}
 
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   font-size: 85%;
-  background-color: $base-white;
-  // transition: background-color 1000ms ease;
+  overflow: auto;
+  -ms-overflow-style: none; /* Edge */
+  scrollbar-width: none; /* Firefox */
+  @include black-and-white;
 
   &.dark-mode {
-    background-color: $base-black;
-
     .mode--light {
       display: none !important;
     }
   }
   @media (prefers-color-scheme: dark) {
     &.auto-color-scheme {
-      background-color: $base-black;
+      background-color: #000;
       .mode--light {
         display: none !important;
       }
@@ -26,14 +31,14 @@ html {
   }
 
   &.light-mode {
-    background-color: $base-white;
+    background-color: #fff;
     .mode--dark {
       display: none !important;
     }
   }
   @media (prefers-color-scheme: light) {
     &.auto-color-scheme {
-      background-color: $base-white;
+      background-color: #fff;
       .mode--dark {
         display: none !important;
       }
@@ -43,12 +48,12 @@ html {
 
 @media only screen and (min-width: 700px) {
   html {
-    font-size: 110%;
+    font-size: 100%;
   }
 }
 @media only screen and (min-width: 1400px) {
   html {
-    font-size: 130%;
+    font-size: 115%;
   }
 }
 
@@ -62,20 +67,15 @@ body {
   padding: 0;
   word-wrap: break-word;
   word-break: keep-all;
-  background-color: $base-white;
   font-size: 16px;
   color: $base-black;
   user-select: none;
-  transition: background-color 300ms ease;
-
-  @include dark-mode() {
-    background-color: $base-black;
-    color: $base-white;
-  }
+  @include black-and-white;
+  @include text-color;
 }
 
 #__eodiro {
-  min-height: calc(100vh + 1px);
+  min-height: calc(100vh + 5px);
 }
 
 * {
@@ -83,7 +83,6 @@ body {
   padding: 0;
   box-sizing: border-box;
   outline: none;
-  cursor: default;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -127,18 +126,6 @@ button {
   font-family: $font-text;
   font-size: 1rem;
   color: $base-black;
-
-  &:active {
-    color: $base-black;
-  }
-
-  @include dark-mode {
-    color: $base-white;
-
-    &:active {
-      color: $base-white;
-    }
-  }
 }
 
 img {
@@ -178,14 +165,14 @@ img {
 // fade page transition
 $transition-time: 200ms;
 .fade-enter-active {
-  transition: opacity $transition-time ease;
+  transition: opacity 400ms ease;
   opacity: 1;
 }
 .fade-enter {
   opacity: 0;
 }
 .fade-leave-active {
-  transition: opacity $transition-time ease;
+  transition: opacity 200ms ease;
   opacity: 1;
 }
 .fade-leave-to {
@@ -213,16 +200,21 @@ $transition-time: 200ms;
 
 .empty-count-badge {
   position: relative;
-  display: block;
-  min-width: 2.5rem;
-  min-height: 2.5rem;
-  font-family: $font-text;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 1rem;
-  color: #fff;
-  background-color: rgba(#000, 0.2);
-  border-radius: 50px;
-  padding: 0 1rem;
+  color: $c-step--4;
+  background-color: $t-black;
+  border-radius: $radius;
+  padding: 0 0.5rem;
+  min-height: 2rem;
+  min-width: 2rem;
   overflow: hidden;
+
+  @include dark-mode {
+    background-color: $t-white;
+  }
 
   &,
   & * {
@@ -258,12 +250,16 @@ $transition-time: 200ms;
     top: 0;
     width: 100%;
     height: 100%;
-    border-radius: 50px;
-    background-color: rgba(#fff, 0.2);
+    border-radius: $radius;
+    background-color: $t-black;
     animation: 1000ms badge-load ease;
     animation-fill-mode: both;
     animation-iteration-count: infinite;
     transition: opacity 500ms ease;
+
+    @include dark-mode {
+      background-color: $t-white;
+    }
   }
 
   &.loaded {
@@ -274,7 +270,9 @@ $transition-time: 200ms;
   }
 
   .label {
+    font-weight: 500 !important;
     transition: opacity 400ms ease;
+    white-space: nowrap;
 
     &.opaque {
       opacity: 0;

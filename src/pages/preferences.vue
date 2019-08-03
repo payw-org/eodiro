@@ -3,20 +3,20 @@
   "kr": {
     "title": "설정",
     "color_scheme": {
-      "title": "색상 모드 설정",
-      "light": "라이트 모드",
-      "dark": "다크 모드",
-      "auto": "적응형 모드"
+      "title": "색상 모드",
+      "light": "라이트",
+      "dark": "다크",
+      "auto": "적응형"
     },
     "lang": "언어"
   },
   "en": {
     "title": "Preferences",
     "color_scheme": {
-      "title": "Set Color Scheme",
-      "light": "Light Mode",
-      "dark": "Dark Mode",
-      "auto": "Adaptive Mode"
+      "title": "Color Scheme",
+      "light": "Light",
+      "dark": "Dark",
+      "auto": "Adaptive"
     },
     "lang": "Language"
   }
@@ -25,20 +25,13 @@
 
 <template>
   <div id="preferences">
-    <!-- <div class="page-icon"></div> -->
-    <banner :routeName="'preferences'" />
-
     <div class="page-content">
       <!-- language -->
       <section class="pref-section">
         <h2 class="name">{{ $t('lang') }}</h2>
         <div class="options">
-          <cushion class="opt">
-            <button @click="switchLang('kr')">한국어</button>
-          </cushion>
-          <cushion class="opt">
-            <button @click="switchLang('en')">English</button>
-          </cushion>
+          <eodiro-button class="opt" @click="switchLang('kr')">한국어</eodiro-button>
+          <eodiro-button class="opt" @click="switchLang('en')">English</eodiro-button>
         </div>
       </section>
 
@@ -46,15 +39,19 @@
       <section class="pref-section">
         <h2 class="name">{{ $t('color_scheme.title') }}</h2>
         <div class="options">
-          <cushion class="opt">
-            <button @click="switchColorScheme('light')">{{ $t('color_scheme.light') }}</button>
-          </cushion>
-          <cushion class="opt">
-            <button @click="switchColorScheme('dark')">{{ $t('color_scheme.dark') }}</button>
-          </cushion>
-          <cushion class="opt" v-if="autoDarkModeSupport">
-            <button @click="switchColorScheme('auto')">{{ $t('color_scheme.auto') }}</button>
-          </cushion>
+          <eodiro-button
+            class="opt"
+            @click="switchColorScheme('light')"
+          >{{ $t('color_scheme.light') }}</eodiro-button>
+          <eodiro-button
+            class="opt"
+            @click="switchColorScheme('dark')"
+          >{{ $t('color_scheme.dark') }}</eodiro-button>
+          <eodiro-button
+            class="opt"
+            v-if="autoDarkModeSupport"
+            @click="switchColorScheme('auto')"
+          >{{ $t('color_scheme.auto') }}</eodiro-button>
         </div>
       </section>
     </div>
@@ -62,13 +59,19 @@
 </template>
 
 <script>
-import EodiroBase from '~/components/EodiroBase.vue'
+import { EodiroButton, EodiroInput, EodiroTextarea } from '~/components/ui'
+import EodiroPageBase from '~/components/EodiroPageBase.vue'
 import Cookies from 'js-cookie'
-import Cushion from '~/components/Cushion.vue'
-import Banner from '~/components/Banner.vue'
+import EodiroDialog from '~/plugins/eodiro-dialog'
 
 export default {
-  extends: EodiroBase,
+  name: 'preferences',
+  extends: EodiroPageBase,
+  meta: {
+    depth: 1,
+    appName: 'preferences'
+  },
+  components: { EodiroButton, EodiroInput, EodiroTextarea },
   head() {
     return {
       title: this.$t('title')
@@ -76,10 +79,11 @@ export default {
   },
   data() {
     return {
-      autoDarkModeSupport: false
+      autoDarkModeSupport: false,
+      inputText: 'hello world',
+      areaText: 'hello textarea'
     }
   },
-  components: { Cushion, Banner },
   methods: {
     switchLang(lang) {
       Cookies.set('i18n_lang', lang, { expires: 99999 })
@@ -102,10 +106,9 @@ export default {
 
 <style lang="scss">
 @import '~/assets/styles/scss/global-mixins.scss';
+@import '~/assets/styles/scss/eodiro-ui.scss';
 
-#preferences {
-  text-align: center;
-
+#app.preferences {
   @keyframes rotatingGear {
     0% {
       transform: rotate(0deg);
@@ -115,31 +118,31 @@ export default {
     }
   }
 
-  // .page-icon {
-  //   padding-top: 5rem;
-  //   width: 5rem;
-  //   height: 5rem;
-  //   @include bgImg('~assets/images/eodiro/gear_gray.svg');
-  //   margin: auto;
-  //   animation: rotatingGear 5s linear 0s infinite normal forwards;
-  // }
+  .app-icon .icon {
+    animation: rotatingGear 5s linear 0s infinite normal forwards;
+  }
+}
 
+#preferences {
   .page-content {
-    padding: 2rem 0;
-    width: calc(100% - 2rem);
     max-width: 30rem;
     margin: auto;
 
     section.pref-section {
-      margin-bottom: 5rem;
+      margin-bottom: 2rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid;
+      @include separator;
 
       &:last-child {
         margin-bottom: 0;
+        border-bottom: none;
       }
 
       .name {
         font-weight: 700;
         font-size: 2rem;
+        text-align: center;
       }
 
       .options {
@@ -148,14 +151,10 @@ export default {
 
         .opt {
           flex: 1;
-          margin-right: 1rem;
+          margin-right: $posh-gap;
 
           &:last-child {
             margin-right: 0;
-          }
-
-          button {
-            padding: 1rem;
           }
         }
       }
