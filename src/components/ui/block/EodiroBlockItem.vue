@@ -15,12 +15,17 @@
   </div>
 </template>
 
+<script>
+export default {
+}
+</script>
+
+
 <style lang="scss">
 @import '~/assets/styles/scss/global-mixins.scss';
 @import '~/assets/styles/scss/eodiro-ui.scss';
 
 .eodiro-block-item {
-  // @include bordered;
   @include background-colored;
   border-radius: $radius;
   display: flex;
