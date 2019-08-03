@@ -177,7 +177,7 @@ export default {
       .name-info {
         .building-number {
           font-weight: 700;
-          font-size: 3rem;
+          font-size: 2.5rem;
           line-height: 1;
         }
 
