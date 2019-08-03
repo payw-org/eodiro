@@ -23,9 +23,9 @@ export default {
   methods: {
     calculateVisibleTilesNumber() {
       // notice - there must be no scrollbar
-      const heightParentCompoent = 40/100
-      const remRatioMoreThan1400 = 1.3
-      const remRatioMoreThan700 = 1.1
+      const heightParentCompoent = 35/100
+      const remRatioMoreThan1400 = 1.15
+      const remRatioMoreThan700 = 1
       const remRatioUnder700 = 0.85
 
       let width_device = window.innerWidth
@@ -39,7 +39,7 @@ export default {
       )
       let width_tile
 
-      // dependency
+      // rem dependency
       if (width_device >= 1400) {
         rem *= remRatioMoreThan1400
       } else if (width_device >= 700) {
@@ -48,8 +48,9 @@ export default {
         rem *= remRatioUnder700
       }
 
-      let width_container_tiles = width_device * 1.1
-      let height_container_tiles = height_device * 1.25
+      let width_container_tiles = width_device*1.05
+      let height_container_tiles = height_device * heightParentCompoent
+      console.log(width_container_tiles)
       if (width_device >= 700) {
         // minimize width_tile
         width_tile = 3.5 * rem
@@ -64,9 +65,10 @@ export default {
           (width_container_tiles + 1.5 * rem) / tileNum_width - 1.5 * rem
         // calc tileNum_height
         tileNum_height = Math.floor(
-          ((height_container_tiles * heightParentCompoent) + 1.5 * rem) /
-            (width_tile + 1.5 * rem)
-        )
+          (height_container_tiles + 1.5 * rem) /
+            (width_tile + 1.5 * rem)  
+        )+1
+
       } else {
         // minimize width_tile
         width_tile = 3 * rem
@@ -79,9 +81,9 @@ export default {
         width_tile = (width_container_tiles + 1 * rem) / tileNum_width - 1 * rem
         // calc tileNum_height
         tileNum_height = Math.floor(
-          ((height_container_tiles * heightParentCompoent) + 1 * rem) /
+          (height_container_tiles + 1 * rem) /
             (width_tile + 1 * rem)
-        )
+        )+1
       }
       return tileNum_height * tileNum_width
     },
@@ -191,7 +193,7 @@ export default {
 @import '~/assets/styles/scss/global-mixins.scss';
 #tiles-container {
   position: absolute;
-  width: 110%;
+  width: 105%;
   height: auto;
   overflow: hidden;
   display: grid;
