@@ -26,14 +26,16 @@
       :keep-alive-props="{ include: $store.state.cachedComponents }"
       class="master-content"
     ></nuxt>
+    <go-back />
   </div>
 </template>
 
 <script>
 import Banner from '~/components/Banner.vue'
+import GoBack from '~/components/global/GoBack.vue'
 
 export default {
-  components: { Banner },
+  components: { Banner, GoBack },
   data() {
     return {
       isBannerForcedMini: false
