@@ -17,12 +17,11 @@ export default {}
   @include background-colored;
   color: $base-black;
   width: 100%;
-  height: 3rem;
+  height: $btn-height !important;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0 1.5rem !important;
-  height: $btn-height !important;
   border-radius: $radius !important;
 
   @include dark-mode {
