@@ -103,7 +103,7 @@ export default {
     padding-top: calc(#{$banner-height} + #{$master-content-top-gap});
     padding-bottom: 5rem;
     width: calc(100% - 2rem);
-    max-width: 65rem;
+    max-width: 80rem;
     margin: auto;
   }
 
