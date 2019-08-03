@@ -93,16 +93,23 @@ export default {
 
 <style lang="scss">
 @import '~/assets/styles/scss/global-variables.scss';
+@import '~/assets/styles/scss/global-mixins.scss';
 
 #app {
+  $master-content-top-gap: 2rem;
+  $master-content-bottom-gap: 5rem;
+
   .master-content {
-    padding-top: $banner-height;
-    padding-bottom: 4rem;
+    padding-top: calc(#{$banner-height} + #{$master-content-top-gap});
+    padding-bottom: 5rem;
+    width: calc(100% - 2rem);
+    max-width: 55rem;
+    margin: auto;
   }
 
   &.is-banner-forced-mini {
     .master-content {
-      padding-top: $nav-height;
+      padding-top: calc(#{$nav-height} + #{$master-content-top-gap});
     }
   }
 }

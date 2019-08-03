@@ -8,6 +8,7 @@
     "menu_review": "리뷰 남기기",
     "menu_donation": "후원하기",
     "menu_inquiry": "자주 묻는 질문",
+    "menu_club": "동아리",
     "preparing": "준비중입니다."
   },
   "en": {
@@ -18,6 +19,7 @@
     "menu_review": "Write a Review",
     "menu_donation": "Donate",
     "menu_inquiry": "Frequently Asked",
+    "menu_club": "Clubs",
     "preparing": "We're working on this feature."
   }
 }
@@ -27,58 +29,91 @@
   <div id="home">
     <div class="page-content-wrapper">
       <div class="page-content">
-        <div class="menu-item-container">
+        <eodiro-block-container class="menu-item-container">
+          <!-- vacant classrooms -->
           <nuxt-link :to="localePath('vacant').replace(/\/$/, '')">
-            <div class="menu-item-wrapper">
-              <home-menu-item class="vacant">
-                <template v-slot:title>{{ $t('menu_vacant') }}</template>
-              </home-menu-item>
-            </div>
+            <eodiro-block-item class="menu-item-wrapper">
+              <template v-slot:icon>
+                <span class="icon icon--vacant"></span>
+              </template>
+              <template v-slot:content>
+                <span class="content">{{ $t('menu_vacant') }}</span>
+              </template>
+            </eodiro-block-item>
           </nuxt-link>
 
-          <div class="menu-item-wrapper" @click="preparing">
-            <home-menu-item class="meal">
-              <template v-slot:title>{{ $t('menu_meal') }}</template>
-            </home-menu-item>
-          </div>
+          <!-- meal -->
+          <eodiro-block-item class="menu-item-wrapper">
+            <template v-slot:icon>
+              <span class="icon icon--meal"></span>
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('menu_meal') }}</span>
+            </template>
+          </eodiro-block-item>
 
-          <div class="menu-item-wrapper" @click="preparing">
-            <home-menu-item class="class">
-              <template v-slot:title>{{ $t('menu_class') }}</template>
-            </home-menu-item>
-          </div>
+          <!-- class -->
+          <eodiro-block-item class="menu-item-wrapper">
+            <template v-slot:icon>
+              <span class="icon icon--class"></span>
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('menu_class') }}</span>
+            </template>
+          </eodiro-block-item>
 
-          <nuxt-link :to="localePath('review').replace(/\/$/, '')">
-            <div class="menu-item-wrapper">
-              <home-menu-item class="review">
-                <template v-slot:title>{{ $t('menu_review') }}</template>
-              </home-menu-item>
-            </div>
-          </nuxt-link>
-          <div class="menu-item-wrapper" @click="preparing">
-            <home-menu-item class="donation">
-              <template v-slot:title>
-                <span v-html="$t('menu_donation')"></span>
-              </template>
-            </home-menu-item>
-          </div>
+          <!-- club -->
+          <eodiro-block-item class="menu-item-wrapper">
+            <template v-slot:icon>
+              <span class="icon icon--club"></span>
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('menu_club') }}</span>
+            </template>
+          </eodiro-block-item>
 
-          <div class="menu-item-wrapper" @click="preparing">
-            <home-menu-item class="inquiry">
-              <template v-slot:title>
-                <span v-html="$t('menu_inquiry')"></span>
-              </template>
-            </home-menu-item>
-          </div>
+          <!-- review -->
+          <eodiro-block-item class="menu-item-wrapper">
+            <template v-slot:icon>
+              <span class="icon icon--review"></span>
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('menu_review') }}</span>
+            </template>
+          </eodiro-block-item>
 
+          <!-- donation -->
+          <eodiro-block-item class="menu-item-wrapper">
+            <template v-slot:icon>
+              <span class="icon icon--donation"></span>
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('menu_donation') }}</span>
+            </template>
+          </eodiro-block-item>
+
+          <!-- inquiry -->
+          <eodiro-block-item class="menu-item-wrapper">
+            <template v-slot:icon>
+              <span class="icon icon--inquiry"></span>
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('menu_inquiry') }}</span>
+            </template>
+          </eodiro-block-item>
+
+          <!-- preferences -->
           <nuxt-link :to="localePath('preferences').replace(/\/$/, '')">
-            <div class="menu-item-wrapper">
-              <home-menu-item class="preferences">
-                <template v-slot:title>{{ $t('menu_preferences') }}</template>
-              </home-menu-item>
-            </div>
+            <eodiro-block-item class="menu-item-wrapper">
+              <template v-slot:icon>
+                <span class="icon icon--preferences"></span>
+              </template>
+              <template v-slot:content>
+                <span class="content">{{ $t('menu_preferences') }}</span>
+              </template>
+            </eodiro-block-item>
           </nuxt-link>
-        </div>
+        </eodiro-block-container>
       </div>
     </div>
   </div>
@@ -86,13 +121,13 @@
 
 <script>
 import EodiroPageBase from '~/components/EodiroPageBase.vue'
-import HomeMenuItem from '~/components/home/HomeMenuItem.vue'
 import EodiroDialog from '~/plugins/eodiro-dialog'
+import { EodiroBlockContainer, EodiroBlockItem } from '~/components/ui'
 
 export default {
   name: 'home',
   extends: EodiroPageBase,
-  components: { HomeMenuItem },
+  components: { EodiroBlockContainer, EodiroBlockItem },
   meta: {
     depth: 0,
     appName: 'home'
@@ -114,25 +149,76 @@ export default {
     width: 100%;
 
     .page-content {
-      background-color: #fff;
-
-      @include dark-mode {
-        background-color: #000;
+      .menu-item-container {
+        .menu-item-wrapper {
+          .content {
+            font-weight: 500;
+            font-size: 1.2rem;
+          }
+        }
       }
 
-      .menu-item-container {
-        max-width: 55rem;
-        padding-top: 2rem;
-        width: calc(100% - 2rem);
-        margin: auto;
-        display: grid;
-        grid-gap: 1rem;
-        grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+      .icon--vacant {
+        background-image: url('~assets/images/eodiro/home/home_menu_icon_vacant.svg');
 
-        .menu-item-wrapper {
-          display: flex;
-          align-items: center;
-          justify-content: center;
+        @include dark-mode {
+          background-image: url('~assets/images/eodiro/home/home_menu_icon_vacant_black.svg');
+        }
+      }
+
+      .icon--meal {
+        background-image: url('~assets/images/eodiro/home/home_menu_icon_food.svg');
+
+        @include dark-mode {
+          background-image: url('~assets/images/eodiro/home/home_menu_icon_food_black.svg');
+        }
+      }
+
+      .icon--class {
+        background-image: url('~assets/images/eodiro/home/home_menu_icon_class.svg');
+
+        @include dark-mode {
+          background-image: url('~assets/images/eodiro/home/home_menu_icon_class_black.svg');
+        }
+      }
+
+      .icon--review {
+        background-image: url('~assets/images/eodiro/home/home_menu_icon_review.svg');
+
+        @include dark-mode {
+          background-image: url('~assets/images/eodiro/home/home_menu_icon_review_black.svg');
+        }
+      }
+
+      .icon--donation {
+        background-image: url('~assets/images/eodiro/home/home_menu_icon_donate.svg');
+
+        @include dark-mode {
+          background-image: url('~assets/images/eodiro/home/home_menu_icon_donate_black.svg');
+        }
+      }
+
+      .icon--inquiry {
+        background-image: url('~assets/images/eodiro/home/home_menu_icon_inquiry.svg');
+
+        @include dark-mode {
+          background-image: url('~assets/images/eodiro/home/home_menu_icon_inquiry_black.svg');
+        }
+      }
+
+      .icon--preferences {
+        background-image: url('~assets/images/eodiro/home/home_menu_icon_preferences.svg');
+
+        @include dark-mode {
+          background-image: url('~assets/images/eodiro/home/home_menu_icon_preferences_black.svg');
+        }
+      }
+
+      .icon--club {
+        background-image: url('~assets/images/eodiro/home/home_menu_icon_club.svg');
+
+        @include dark-mode {
+          background-image: url('~assets/images/eodiro/home/home_menu_icon_club_black.svg');
         }
       }
     }

@@ -1,10 +1,10 @@
 // colors
-$base-white: #fff;
-$base-white-blue: #f5f5f7;
+$base-white: #f8f8f8;
+$base-white-blue: #f5f6f7;
 $base-white-soft: rgba(#fff, 0.85);
-$base-black: #000;
+$base-black: #222;
 $base-black-soft: rgba(#333, 0.85);
-$base-gray: #747474;
+$base-gray: #838383;
 $base-gray--dark: #cdcdcd;
 
 $light-blue: #009eff;
@@ -79,12 +79,11 @@ $res-step--2: 1400px;
 // if you modify these values
 // you should also modify HomeBgTile component
 $banner-height: 35vh;
-$nav-height: 3.5rem;
 $nav-height: 50px;
 
 // border radius
 $radius: 0.7rem;
 
 // translucent colors
-$t-white: rgba(255, 255, 255, 0.15);
-$t-black: rgba(0, 0, 0, 0.08);
+$t-white: rgba(255, 255, 255, 0.05);
+$t-black: rgba(0, 0, 0, 0.05);

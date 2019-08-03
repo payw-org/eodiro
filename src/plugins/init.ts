@@ -45,5 +45,13 @@ export default context => {
 
     // prevent browser's default scroll restoration behaviour
     history.scrollRestoration = 'manual'
+
+    window.addEventListener('keydown', e => {
+      if (e.shiftKey && e.key === 'L') {
+        store.commit('setColorScheme', 'light')
+      } else if (e.shiftKey && e.key === 'D') {
+        store.commit('setColorScheme', 'dark')
+      }
+    })
   }
 }

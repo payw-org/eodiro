@@ -11,9 +11,18 @@
 }
 
 @mixin background-colored {
-  background-color: rgba(0, 0, 0, 0.05);
+  background-color: $base-white-blue;
 
   @include dark-mode {
-    background-color: rgba(255, 255, 255, 0.14);
+    background-color: #1f1f1f;
+  }
+}
+
+@mixin separator {
+  border-color: rgba(#000, 0.1) !important;
+  border-width: 1px !important;
+
+  @include dark-mode {
+    border-color: rgba(#fff, 0.2) !important;
   }
 }

@@ -12,7 +12,9 @@ export default {
     }
   },
   mounted() {
-    this.start = true
+    setTimeout(() => {
+      this.start = true
+    }, 200)
   }
 }
 </script>
@@ -23,12 +25,12 @@ export default {
 @import '~/assets/styles/scss/global-mixins.scss';
 
 @keyframes spin {
-	0% {
-		transform: rotate(0);
-	}
-	100% {
-		transform: rotate(360deg);
-	}
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 .loading {
@@ -42,13 +44,12 @@ export default {
   .spinner {
     opacity: 0;
     transition: opacity 300ms ease;
-    transition-delay: 350ms;
     margin-top: 5rem;
     width: 20px;
-		height: 20px;
-		border: 3px solid #fff;
-		border-radius: 50px;
-		border-color: $base-gray $base-gray $base-gray transparent;
+    height: 20px;
+    border: 3px solid #fff;
+    border-radius: 50px;
+    border-color: $base-gray $base-gray $base-gray transparent;
     animation: spin 0.5s linear infinite;
 
     &.start {

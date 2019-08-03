@@ -1,27 +1,52 @@
+<i18n>
+{
+  "kr": {
+    "floor_unit": "층"
+  },
+  "en": {
+    "floor_unit": "th"
+  }
+}
+</i18n>
+
 <template>
-  <div class="content-item select-floor" @scroll="$emit('update-nav-view')">
-    <div class="floor-container">
-      <div class="floor-wrapper building-id">{{ $route.params.buildingId }}</div>
-      <div
-        v-for="(floor, i) in floors"
+  <div class="select-floor">
+    <div class="building-id">{{ $route.params.buildingId }}</div>
+
+    <eodiro-block-container class="floor-container">
+      <nuxt-link
+        class="floor-link"
+        v-for="floor in floors"
         :key="floor.number"
-        class="floor-wrapper"
-        :class="[{appear: floor.appear}]"
+        :to="localePath({
+          name: 'vacant-buildingId-floorId',
+          params: {
+            floorId: floor.number
+          }
+        })"
       >
-        <nuxt-link class="link" :to="`${floor.number}`" append>
-          <div class="floor" :class="['gradient--' + (i%15 + 1)]">
-            <button class="empty-count-badge" :class="{loaded: isEmptyLoaded}">
-              <span class="label" :class="{opaque: !isEmptyLoaded}">
-                {{ floor.empty_classroom }}
-                <span class="total">/ {{ floor.total_classroom }}</span>
-              </span>
-            </button>
-            <h1 class="num">{{ floor.number }}F</h1>
-          </div>
-        </nuxt-link>
-      </div>
-      <Loading v-if="floors.length === 0" />
-    </div>
+        <eodiro-block-item class="floor-item">
+          <template v-slot:content>
+            <div class="floor-info-container">
+              <h1 class="floor-info">
+                <span class="number">{{ floor.number }}</span>
+                <span class="unit">{{ $t('floor_unit') }}</span>
+              </h1>
+
+              <div class="empty-count-badge-wrapper">
+                <div class="empty-count-badge" :class="{loaded: isEmptyLoaded}">
+                  <span class="label" :class="{opaque: !isEmptyLoaded}">{{ floor.empty_classroom }}</span>
+                </div>
+              </div>
+            </div>
+          </template>
+        </eodiro-block-item>
+      </nuxt-link>
+
+      <div class="grid-dummy" v-for="i in 2" :key="'gridDummy' + i"></div>
+
+      <loading v-if="floors.length === 0" />
+    </eodiro-block-container>
   </div>
 </template>
 
@@ -31,6 +56,7 @@ import Loading from '~/components/Loading'
 import Stagger from '~/plugins/Stagger'
 import ApiUrl from '~/plugins/ApiUrl'
 import axios from 'axios'
+import { EodiroBlockContainer, EodiroBlockItem } from '~/components/ui'
 
 export default {
   name: 'vacant-floor',
@@ -39,7 +65,7 @@ export default {
     depth: 2,
     bannerMode: 'mini'
   },
-  components: { Loading },
+  components: { Loading, EodiroBlockContainer, EodiroBlockItem },
   data() {
     return {
       buildingName: '',
@@ -48,12 +74,6 @@ export default {
     }
   },
   methods: {
-    buildIn() {
-      Stagger.show(this.$el.querySelectorAll('.floor-wrapper'), false)
-    },
-    buildOut() {
-      Stagger.hide(this.$el.querySelectorAll('.floor-wrapper'))
-    },
     fetchFloors() {
       let url = `https://api.eodiro.com/cau/${this.$route.params.buildingId}`
 
@@ -67,10 +87,6 @@ export default {
 
           this.floors = r.data.floors
           this.fetchEmpty()
-
-          this.$nextTick(() => {
-            this.buildIn()
-          })
         })
         .catch(function(error) {
           alert('데이터를 가져올 수 없습니다. 잠시 후 이용 바랍니다.')
@@ -92,12 +108,12 @@ export default {
       })
     }
   },
-  activated() {
-    this.fetchEmpty()
-  },
   mounted() {
     this.buildingName = this.$route.params.buildingId
     this.fetchFloors()
+  },
+  activated() {
+    // this.fetchEmpty()
   }
 }
 </script>
@@ -105,81 +121,59 @@ export default {
 <style lang="scss">
 @import '~/assets/styles/scss/global-variables.scss';
 @import '~/assets/styles/scss/global-mixins.scss';
+@import '~/assets/styles/scss/eodiro-ui.scss';
 @import '~/assets/styles/scss/gradients-simple.scss';
 
-.floor-container {
+.select-floor {
   position: relative;
-  width: calc(100% - 2rem);
-  max-width: 30rem;
-  margin: auto;
 
-  .floor-wrapper {
+  .building-id {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 700;
+    color: $c-step--4;
+    line-height: 1;
+    padding-bottom: 2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid;
+    @include separator;
+  }
+
+  .floor-container {
     position: relative;
-    width: 100%;
-    opacity: 0;
-    margin-bottom: 1.5rem;
-    will-change: transform;
 
-    @include on-mobile() {
-      margin-bottom: 1rem;
-    }
+    .floor-item {
+      .floor-info-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
 
-    &.building-id {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2rem;
-      font-weight: 500;
-      padding: 1rem;
-      color: $base-white;
-      @include bgGradient($base-black);
-      border-radius: 1rem;
-    }
+        .floor-info {
+          .number {
+            font-weight: 700;
+            font-size: 3rem;
+            line-height: 1;
+            vertical-align: text-bottom;
+          }
 
-    &.building-display {
-      position: sticky;
-      top: 1rem;
-      z-index: 1;
-    }
-
-    .floor {
-      cursor: pointer;
-      color: $base-white;
-      border-radius: 1rem;
-      padding: 1.5rem;
-      display: flex;
-      align-items: center;
-      background-color: #fff;
-      box-shadow: $eodiro-shadow;
-      will-change: transform;
-
-      &.building-id {
-        padding: 1rem;
-        background-color: $base-white;
-        color: $base-black-soft;
-        cursor: default;
-
-        .manifesto {
-          font-size: 1.5rem;
-          flex: 1;
-          text-align: center;
+          .unit {
+            line-height: 1.4;
+            font-weight: 500;
+            font-size: 1.5rem;
+            color: $base-gray;
+            vertical-align: text-bottom;
+          }
         }
-      }
 
-      .num {
-        font-family: $font-display;
-        font-size: 2.5rem;
-        flex: 1;
-        text-align: right;
-      }
+        .empty-count-badge-wrapper {
+          padding-left: 0.5rem;
+          margin-left: 0.5rem;
+          border-left: 1px solid;
+          @include separator;
+          align-self: center;
 
-      @include dark-mode() {
-        background-color: #3e3e3e;
-        box-shadow: $eodiro-shadow, $dark-mode-border-shadow;
-
-        &.building-id {
-          background-color: $base-black;
-          color: $base-white-soft;
+          .empty-count-badge {
+          }
         }
       }
     }
