@@ -27,13 +27,23 @@
       >
         <eodiro-block-item class="floor-item">
           <template v-slot:content>
-            <h1 class="floor-info">
-              <span class="number">{{ floor.number }}</span>
-              <span class="unit">{{ $t('floor_unit') }}</span>
-            </h1>
+            <div class="floor-info-container">
+              <h1 class="floor-info">
+                <span class="number">{{ floor.number }}</span>
+                <span class="unit">{{ $t('floor_unit') }}</span>
+              </h1>
+
+              <div class="empty-count-badge-wrapper">
+                <div class="empty-count-badge" :class="{loaded: isEmptyLoaded}">
+                  <span class="label" :class="{opaque: !isEmptyLoaded}">{{ floor.empty_classroom }}</span>
+                </div>
+              </div>
+            </div>
           </template>
         </eodiro-block-item>
       </nuxt-link>
+
+      <div class="grid-dummy" v-for="i in 2" :key="'gridDummy' + i"></div>
 
       <loading v-if="floors.length === 0" />
     </eodiro-block-container>
@@ -111,7 +121,7 @@ export default {
 <style lang="scss">
 @import '~/assets/styles/scss/global-variables.scss';
 @import '~/assets/styles/scss/global-mixins.scss';
-@import '~/assets/styles/scss/gradients-simple.scss';
+@import '~/assets/styles/scss/eodiro-ui.scss';
 @import '~/assets/styles/scss/gradients-simple.scss';
 
 .select-floor {
@@ -125,31 +135,45 @@ export default {
     line-height: 1;
     padding-bottom: 2rem;
     margin-bottom: 2rem;
-    border-bottom: 1px solid $t-black;
-
-    @include dark-mode {
-      border-bottom: 1px solid $t-white;
-    }
+    border-bottom: 1px solid;
+    @include separator;
   }
 
   .floor-container {
     position: relative;
 
     .floor-item {
-      .floor-info {
-        .number {
-          font-weight: 700;
-          font-size: 3rem;
-          line-height: 1;
-          vertical-align: text-bottom;
+      .floor-info-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .floor-info {
+          .number {
+            font-weight: 700;
+            font-size: 3rem;
+            line-height: 1;
+            vertical-align: text-bottom;
+          }
+
+          .unit {
+            line-height: 1.4;
+            font-weight: 500;
+            font-size: 1.5rem;
+            color: $base-gray;
+            vertical-align: text-bottom;
+          }
         }
 
-        .unit {
-          line-height: 1.4;
-          font-weight: 500;
-          font-size: 1.5rem;
-          color: $base-gray;
-          vertical-align: text-bottom;
+        .empty-count-badge-wrapper {
+          padding-left: 0.5rem;
+          margin-left: 0.5rem;
+          border-left: 1px solid;
+          @include separator;
+          align-self: center;
+
+          .empty-count-badge {
+          }
         }
       }
     }

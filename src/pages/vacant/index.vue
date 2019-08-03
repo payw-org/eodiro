@@ -13,9 +13,21 @@
       >
         <eodiro-block-item class="building-item">
           <template v-slot:content>
-            <h1 class="building-number">{{ building.number }}</h1>
+            <div class="building-info-container">
+              <div class="name-info">
+                <h1 class="building-number">{{ building.number }}</h1>
+                <h2 class="building-name">{{ building.name }}</h2>
+              </div>
 
-            <h2 class="building-name">{{ building.name }}</h2>
+              <div class="brief-summary">
+                <div class="empty-count-badge" :class="{ loaded: isEmptyLoaded }">
+                  <span
+                    class="label"
+                    :class="{ opaque: !isEmptyLoaded }"
+                  >{{ building.empty_classroom }}</span>
+                </div>
+              </div>
+            </div>
           </template>
         </eodiro-block-item>
       </nuxt-link>
@@ -152,23 +164,41 @@ export default {
 <style lang="scss">
 @import '~/assets/styles/scss/global-variables.scss';
 @import '~/assets/styles/scss/global-mixins.scss';
+@import '~/assets/styles/scss/eodiro-ui.scss';
 
 .select-building {
   position: relative;
 
   .building-item {
-    .building-number {
-      font-weight: 700;
-      font-size: 3rem;
-      line-height: 1;
-    }
+    .building-info-container {
+      display: flex;
+      justify-content: space-between;
 
-    .building-name {
-      font-weight: 500;
-      font-size: 1rem;
-      margin-top: 0.5rem;
-      line-height: 1.2;
-      color: $base-gray;
+      .name-info {
+        .building-number {
+          font-weight: 700;
+          font-size: 3rem;
+          line-height: 1;
+        }
+
+        .building-name {
+          font-weight: 500;
+          font-size: 1rem;
+          margin-top: 0.5rem;
+          line-height: 1.2;
+          color: $base-gray;
+        }
+      }
+
+      .brief-summary {
+        margin-left: 0.5rem;
+        padding-left: 0.5rem;
+        border-left: 1px solid;
+        @include separator;
+        display: inline-block;
+        text-align: right;
+        align-self: center;
+      }
     }
   }
 }
