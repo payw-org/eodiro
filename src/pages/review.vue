@@ -1,10 +1,14 @@
 <i18n>
 {
   "kr": {
-    "title": "리뷰"
+    "title": "리뷰",
+    "send": "보내기",
+    "write_here": "이 곳에 내용을 입력하세요."
   },
   "en": {
-    "title": "Review"
+    "title": "Review",
+    "send": "Send",
+    "write_here": "Write anything here."
   }
 }
 </i18n>
@@ -13,10 +17,10 @@
   <div id="review">
     <div class="page-content">
       <div class="content-container">
-        <eodiro-textarea class="write"></eodiro-textarea>
+        <eodiro-textarea class="writing-area" :placeholder="$t('write_here')"></eodiro-textarea>
         <eodiro-button @click="sendEmail" class="send-btn">
           <span class="icon"></span>
-          <span class="text">Send</span>
+          <span class="text">{{ $t('send') }}</span>
         </eodiro-button>
       </div>
     </div>
@@ -26,6 +30,7 @@
 <script>
 import EodiroPageBase from '~/components/EodiroPageBase.vue'
 import { EodiroButton, EodiroTextarea } from '~/components/ui'
+import Dialog from '~/plugins/eodiro-dialog'
 
 export default {
   name: 'review',
@@ -45,7 +50,7 @@ export default {
   },
   methods: {
     sendEmail() {
-      alert('부에에에에ㅔ에')
+      new Dialog().alert('Sent!')
     }
   },
   mounted() {}
@@ -56,16 +61,13 @@ export default {
 @import '~/assets/styles/scss/global-mixins.scss';
 
 #review {
+  max-width: 30rem !important;
   text-align: center;
-  position: absolute;
   width: 100%;
   height: 100%;
 
   .page-content {
-    width: calc(100% - 2rem);
     height: 100%;
-    max-width: 30rem;
-    margin: auto;
 
     .content-container {
       display: flex;
@@ -73,12 +75,13 @@ export default {
       width: 100%;
       height: 100%;
 
-      padding: 1rem 0;
-
-      .write {
+      .writing-area {
+        height: calc(
+          100vh - 1px - #{$banner-height} - #{$posh-vertical-gap} - 3rem - 2rem -
+            5rem
+        );
         flex-grow: 1;
-
-        margin-bottom: 1rem;
+        margin-bottom: $posh-vertical-gap;
       }
 
       .send-btn {

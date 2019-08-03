@@ -22,14 +22,18 @@ export default {
 .eodiro-textarea {
   @include bordered;
   @include text-color;
+  cursor: text;
   background-color: transparent;
   font-size: 1rem;
+  line-height: 1.4;
   padding: 1rem;
   appearance: none;
-  // overflow: auto;
+  overflow: auto;
   -webkit-overflow-scrolling: touch;
   display: block;
   width: 100%;
+  resize: none;
+  min-height: 5rem;
 
   @include on-mobile {
     font-size: 16px;
