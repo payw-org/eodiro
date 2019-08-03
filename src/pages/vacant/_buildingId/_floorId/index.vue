@@ -23,22 +23,16 @@
 
 <template>
   <div class="content-item result">
-    <!-- <div class="empty-classrooms-container">
-      <Loading v-if="classrooms.length === 0" />
-      <div class="ec-item-wrapper" v-for="room in classrooms" :key="room.number">
-        <div
-          class="ec-item"
-          :class="[
-            'gradient--' + (room.expireTimeLevel + 1),
-            {
-              grayed: room.expireTimeLevel === -1,
-              'full-time': !room.nextClass
-            }
-          ]"
-          @click="openTimeTable(room, new Date().getDay())"
-        >
+    <eodiro-block-container class="empty-classrooms-container">
+      <eodiro-block-item
+        v-for="room in classrooms"
+        :key="room.number"
+        class="classroom"
+        @click="openTimeTable(room, new Date().getDay())"
+      >
+        <template v-slot:content>
           <h1 class="room-number">{{ room.number }}</h1>
-          <p class="info">
+          <div class="info">
             <span v-if="room.nextClass && room.expireTimeLevel >= 0">
               <div>
                 {{ $t('nextClass') }}:
@@ -59,18 +53,8 @@
             <span v-else-if="room.expireTimeLevel === -1">
               <div>현재 수업중입니다</div>
             </span>
-            <span v-else>{{ $t('noNextClassMsg') }}</span>
-          </p>
-        </div>
-      </div>
-      <div class="ec-item-wrapper grid-dummy" v-for="i in 3" :key="'gridDummy' + i"></div>
-    </div>-->
-
-    <eodiro-block-container class="empty-classrooms-container">
-      <eodiro-block-item v-for="classroom in classrooms" :key="classroom.number" class="classroom">
-        <template v-slot:content>
-          <h1 class="room-number">{{ classroom.number }}</h1>
-          <p class="next-class">{{ $t('nextClass') }}</p>
+            <span v-else class="no-next-class-label">{{ $t('noNextClassMsg') }}</span>
+          </div>
         </template>
       </eodiro-block-item>
 
@@ -320,13 +304,23 @@ export default {
 <style lang="scss">
 @import '~/assets/styles/scss/global-variables.scss';
 @import '~/assets/styles/scss/global-mixins.scss';
+@import '~/assets/styles/scss/eodiro-ui.scss';
 
 .result {
   .empty-classrooms-container {
     .classroom {
       .room-number {
-        font-size: 2rem;
+        font-size: 2.3rem;
         font-weight: 700;
+      }
+
+      .info {
+        color: $base-gray;
+        margin-top: 0.5rem;
+
+        .no-next-class-label {
+          color: $c-step--4;
+        }
       }
     }
   }
@@ -343,7 +337,7 @@ export default {
     z-index: 10000;
     pointer-events: none;
     visibility: hidden;
-    transition: opacity 400ms ease, visibility 400ms ease;
+    transition: opacity 200ms ease, visibility 200ms ease;
 
     &.show {
       pointer-events: all;
@@ -368,7 +362,7 @@ export default {
       height: 100%;
       z-index: -1;
       background-color: rgba(0, 0, 0, 0.7);
-      backdrop-filter: blur(20px);
+      // backdrop-filter: blur(20px);
       opacity: 0;
       transition: opacity 400ms ease;
     }
@@ -378,17 +372,21 @@ export default {
       height: calc(100% - 4rem);
       max-width: 30rem;
       max-height: 40rem;
-      background-color: $base-white;
+      background-color: #fff;
       border-radius: 1rem 1rem 0 0;
       transform: translateY(calc(100% + 3rem));
       visibility: hidden;
-      transition: transform 400ms ease, visibility 400ms ease;
+      transition: transform 300ms ease, visibility 300ms ease;
       overflow-x: hidden;
       overflow-y: auto;
 
-      @include dark-mode() {
-        background-color: #333;
-        box-shadow: dark-mode-border-shadow(#333);
+      @include smaller-than(500px) {
+        max-width: none;
+        width: 100%;
+      }
+
+      @include dark-mode {
+        background-color: #111;
       }
 
       .close {
@@ -401,10 +399,10 @@ export default {
         background-repeat: no-repeat;
         background-position: center;
         background-size: 2rem;
-        background-color: $base-white;
+        background-color: #fff;
 
-        @include dark-mode() {
-          background-color: $base-black;
+        @include dark-mode {
+          background-color: #111;
         }
       }
 
@@ -421,15 +419,13 @@ export default {
         .day-select-wrapper {
           position: sticky;
           top: calc(3rem - 1px);
-          background-color: $base-white;
+          background-color: #fff;
           padding: 0 0 0.5rem;
           margin-top: 1rem;
-          margin-left: -0.2rem;
-          margin-right: -0.2rem;
           height: 3rem;
 
           @include dark-mode() {
-            background-color: #333;
+            background-color: #111;
           }
 
           .day-select {
@@ -450,12 +446,12 @@ export default {
               height: 100%;
               cursor: pointer;
               font-weight: 500;
-              background-color: $base-white;
+              background-color: #fff;
               color: $base-black;
 
               @include dark-mode() {
                 color: $base-white;
-                background-color: #333;
+                background-color: #111;
               }
 
               &.selected {
@@ -475,9 +471,9 @@ export default {
           margin-top: 1rem;
 
           .lecture {
+            background-color: $base-white-blue;
             display: flex;
             align-items: center;
-            background-color: $base-white-blue;
             border-radius: 0.4rem;
             overflow: hidden;
             margin-bottom: 1rem;
@@ -485,7 +481,7 @@ export default {
             text-align: center;
 
             @include dark-mode() {
-              background-color: #222;
+              background-color: #000;
             }
 
             &.current {
