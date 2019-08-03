@@ -48,15 +48,6 @@ export const mutations = {
     let colorSchemeClassName = getColorClassName(mode)
     state.colorSchemeClassName = colorSchemeClassName
   },
-  /**
-   * @param {string} pageName
-   */
-  pushHistory(state, pageName) {
-    state.historyStack.push(pageName)
-    if (state.historyStack.length > 500) {
-      historyStack.shift()
-    }
-  },
   cacheComponent(state, componentName) {
     let index = state.cachedComponents.indexOf(componentName)
     if (index == -1) {
@@ -78,6 +69,7 @@ export const mutations = {
   setLastScrollPosition(state, value) {
     state.lastScrollPosition = value ? value : 0
   },
+  // set state's prevPath variable which is used inside banner navigation
   setPreviousPath(state, currentRoute) {
     if (!currentRoute) {
       currentRoute = 'index'
@@ -102,6 +94,7 @@ export const actions = {
    * Runs on server at first
    */
   nuxtServerInit({ commit, state }, { req }) {
+    // set color scheme using cookie
     const cookies =
       req.headers && req.headers.cookie ? Cookie.parse(req.headers.cookie) : {}
     const mode = cookies['color_scheme']
