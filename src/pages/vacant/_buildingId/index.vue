@@ -151,15 +151,15 @@ export default {
         .floor-info {
           .number {
             font-weight: 700;
-            font-size: 3rem;
+            font-size: 2.5rem;
             line-height: 1;
             vertical-align: text-bottom;
           }
 
           .unit {
-            line-height: 1.4;
+            line-height: 1.43;
             font-weight: 500;
-            font-size: 1.5rem;
+            font-size: 1.2rem;
             color: $base-gray;
             vertical-align: text-bottom;
           }

@@ -75,7 +75,7 @@ body {
 }
 
 #__eodiro {
-  min-height: calc(100vh + 1px);
+  min-height: calc(100vh + 5px);
 }
 
 * {
@@ -83,7 +83,6 @@ body {
   padding: 0;
   box-sizing: border-box;
   outline: none;
-  cursor: default;
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -166,14 +165,14 @@ img {
 // fade page transition
 $transition-time: 200ms;
 .fade-enter-active {
-  transition: opacity 300ms ease;
+  transition: opacity 400ms ease;
   opacity: 1;
 }
 .fade-enter {
   opacity: 0;
 }
 .fade-leave-active {
-  transition: opacity $transition-time ease;
+  transition: opacity 200ms ease;
   opacity: 1;
 }
 .fade-leave-to {
