@@ -14,7 +14,6 @@ export default {}
 @import '~/assets/styles/scss/eodiro-ui.scss';
 
 .eodiro-button {
-  cursor: pointer;
   @include background-colored;
   color: $base-black;
   width: 100%;
@@ -23,11 +22,16 @@ export default {}
   align-items: center;
   justify-content: center;
   padding: 0 1.5rem !important;
-  height: 3rem !important;
+  height: $btn-height !important;
   border-radius: $radius !important;
 
   @include dark-mode {
     color: $base-white;
+  }
+
+  &,
+  & * {
+    cursor: pointer;
   }
 }
 </style>

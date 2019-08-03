@@ -34,6 +34,8 @@ $gradient-collection: (
 $mobile-width-threshold: 700px;
 $stagger-gap: 6rem;
 $grid-max-width: 16rem;
+$posh-horizontal-gap: 1rem;
+$posh-vertical-gap: 1.2rem;
 
 // shadow
 $eodiro-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.1);
@@ -80,6 +82,9 @@ $res-step--2: 1400px;
 // you should also modify HomeBgTile component
 $banner-height: 35vh;
 $nav-height: 50px;
+
+// button
+$btn-height: 3.3rem;
 
 // border radius
 $radius: 0.7rem;

@@ -37,7 +37,7 @@ $build-in-time: 700ms;
     max-width: 20rem;
     height: auto;
     padding: 1rem;
-    background-color: $base-white;
+    background-color: #fff;
     border-radius: $radius;
     text-align: center;
     font-size: 1rem;
@@ -51,7 +51,7 @@ $build-in-time: 700ms;
     animation-fill-mode: both;
 
     @include dark-mode {
-      background-color: #111;
+      background-color: #000;
     }
 
     .message {
