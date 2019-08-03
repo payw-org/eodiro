@@ -4,7 +4,8 @@ import JSCookie from 'js-cookie'
 const routeMap = {
   home: ['index'],
   vacant: ['index', 'vacant', 'vacant-buildingId', 'vacant-buildingId-floorId'],
-  preferences: ['index', 'preferences']
+  preferences: ['index', 'preferences'],
+  review: ['index', 'review']
 }
 
 /**
@@ -35,7 +36,7 @@ export const state = () => ({
   cachedComponents: [],
   routeDirection: '', // forward|backward
   currentAppName: 'home',
-  appList: ['home', 'vacant', 'preferences', 'review']
+  appList: []
 })
 
 export const mutations = {
@@ -106,6 +107,11 @@ export const actions = {
     const mode = cookies['color_scheme']
 
     commit('setColorScheme', mode)
+
+    // set AppList using routeMap
+    Object.keys(state.routeMap).forEach(key => {
+      state.appList.push(key)
+    })
   }
 }
 
