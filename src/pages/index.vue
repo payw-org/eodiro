@@ -73,14 +73,16 @@
           </eodiro-block-item>
 
           <!-- review -->
-          <eodiro-block-item class="menu-item-wrapper">
-            <template v-slot:icon>
-              <span class="icon icon--review"></span>
-            </template>
-            <template v-slot:content>
-              <span class="content">{{ $t('menu_review') }}</span>
-            </template>
-          </eodiro-block-item>
+          <nuxt-link :to="localePath('review').replace(/\/$/, '')">
+            <eodiro-block-item class="menu-item-wrapper">
+              <template v-slot:icon>
+                <span class="icon icon--review"></span>
+              </template>
+              <template v-slot:content>
+                <span class="content">{{ $t('menu_review') }}</span>
+              </template>
+            </eodiro-block-item>
+          </nuxt-link>
 
           <!-- donation -->
           <eodiro-block-item class="menu-item-wrapper">
