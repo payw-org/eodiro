@@ -131,11 +131,8 @@ export default {
     section.pref-section {
       margin-bottom: 2rem;
       padding-bottom: 2rem;
-      border-bottom: 1px solid $t-black;
-
-      @include dark-mode {
-        border-bottom: 1px solid $t-white;
-      }
+      border-bottom: 1px solid;
+      @include separator;
 
       &:last-child {
         margin-bottom: 0;
