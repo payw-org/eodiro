@@ -8,6 +8,7 @@
     "menu_review": "리뷰 남기기",
     "menu_donation": "후원하기",
     "menu_inquiry": "자주 묻는 질문",
+    "menu_club": "동아리",
     "preparing": "준비중입니다."
   },
   "en": {
@@ -18,6 +19,7 @@
     "menu_review": "Write a Review",
     "menu_donation": "Donate",
     "menu_inquiry": "Frequently Asked",
+    "menu_club": "Clubs",
     "preparing": "We're working on this feature."
   }
 }
@@ -57,6 +59,16 @@
             </template>
             <template v-slot:content>
               <span class="content">{{ $t('menu_class') }}</span>
+            </template>
+          </eodiro-block-item>
+
+          <!-- club -->
+          <eodiro-block-item class="menu-item-wrapper">
+            <template v-slot:icon>
+              <span class="icon icon--club"></span>
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('menu_club') }}</span>
             </template>
           </eodiro-block-item>
 
@@ -199,6 +211,14 @@ export default {
 
         @include dark-mode {
           background-image: url('~assets/images/eodiro/home/home_menu_icon_preferences_black.svg');
+        }
+      }
+
+      .icon--club {
+        background-image: url('~assets/images/eodiro/home/home_menu_icon_club.svg');
+
+        @include dark-mode {
+          background-image: url('~assets/images/eodiro/home/home_menu_icon_club_black.svg');
         }
       }
     }
