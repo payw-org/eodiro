@@ -13,7 +13,7 @@
 }
 
 @mixin on-mobile {
-  @include smaller-than($res-step--1) {
+  @include smaller-than($width-step--1) {
     @content;
   }
 }
@@ -49,12 +49,4 @@
   background-repeat: no-repeat;
   background-position: unquote($position);
   background-size: unquote($size);
-}
-
-@mixin text-color {
-  color: $base-black;
-
-  @include dark-mode {
-    color: $base-white;
-  }
 }

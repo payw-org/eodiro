@@ -92,8 +92,7 @@ export default {
     '~/plugins/eodiro-dialog/style.scss',
     '~/assets/styles/scss/globalstyle.scss',
     '~/assets/styles/scss/gradients-simple.scss',
-    '~/assets/styles/stylus/spring.styl',
-    '~/assets/styles/scss/eodiro-banner.scss'
+    '~/assets/styles/stylus/spring.styl'
   ],
 
   // plugins

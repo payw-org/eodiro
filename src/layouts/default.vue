@@ -96,14 +96,11 @@ export default {
 @import '~/assets/styles/scss/global-mixins.scss';
 
 #app {
-  $master-content-top-gap: 2rem;
-  $master-content-bottom-gap: 5rem;
-
   .master-content {
     padding-top: calc(#{$banner-height} + #{$master-content-top-gap});
-    padding-bottom: 5rem;
-    width: calc(100% - 2rem);
-    max-width: 80rem;
+    padding-bottom: $master-content-bottom-gap;
+    width: calc(100% - #{2 * $posh-gap});
+    max-width: $master-content-max-width;
     margin: auto;
   }
 

@@ -77,11 +77,10 @@ export default {
 
       .writing-area {
         height: calc(
-          100vh - 1px - #{$banner-height} - #{$posh-vertical-gap} - 3rem - 2rem -
-            5rem
+          100vh - 1px - #{$banner-height} - #{$posh-gap} - 3rem - 2rem - 5rem
         );
         flex-grow: 1;
-        margin-bottom: $posh-vertical-gap;
+        margin-bottom: $posh-gap;
       }
 
       .send-btn {

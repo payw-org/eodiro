@@ -151,14 +151,10 @@ export default {
 
         .opt {
           flex: 1;
-          margin-right: 1rem;
+          margin-right: $posh-gap;
 
           &:last-child {
             margin-right: 0;
-          }
-
-          button {
-            padding: 1rem;
           }
         }
       }

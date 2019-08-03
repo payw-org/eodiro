@@ -66,6 +66,10 @@ $build-in-time: 700ms;
       grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
 
       .act {
+        &,
+        & * {
+          cursor: pointer;
+        }
         @include background-colored;
         border-radius: $radius;
         padding: 0.8rem;

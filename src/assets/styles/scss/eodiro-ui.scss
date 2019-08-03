@@ -10,6 +10,22 @@
   }
 }
 
+@mixin black-and-white {
+  background-color: #fff;
+
+  @include dark-mode {
+    background-color: #000;
+  }
+}
+
+@mixin text-color {
+  color: $base-black;
+
+  @include dark-mode {
+    color: $base-white;
+  }
+}
+
 @mixin background-colored {
   background-color: $base-white-blue;
 

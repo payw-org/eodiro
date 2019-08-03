@@ -23,7 +23,7 @@ export default {
   methods: {
     calculateVisibleTilesNumber() {
       // notice - there must be no scrollbar
-      const heightParentCompoent = 35 / 100
+      const heightParentComponent = 37 / 100
       const remRatioMoreThan1400 = 1.15
       const remRatioMoreThan700 = 1
       const remRatioUnder700 = 0.85
@@ -49,7 +49,7 @@ export default {
       }
 
       let width_container_tiles = width_device * 1.05
-      let height_container_tiles = height_device * heightParentCompoent
+      let height_container_tiles = height_device * heightParentComponent
 
       if (width_device >= 700) {
         // minimize width_tile

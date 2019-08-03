@@ -34,8 +34,7 @@ $gradient-collection: (
 $mobile-width-threshold: 700px;
 $stagger-gap: 6rem;
 $grid-max-width: 16rem;
-$posh-horizontal-gap: 1.5rem;
-$posh-vertical-gap: 1.2rem;
+$posh-gap: 1.5rem;
 
 // shadow
 $eodiro-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.1);
@@ -65,7 +64,9 @@ $font-display: 'Inter', 'Noto Sans KR', -apple-system, BlinkMacSystemFont,
 // spacing/gaps
 
 // sizes
-$content-max-width: 55rem;
+$master-content-max-width: 60rem;
+$master-content-top-gap: 2rem;
+$master-content-bottom-gap: 5rem;
 
 // eodiro colors
 $c-step--3: #ff7037;
@@ -74,14 +75,15 @@ $gray: #f0f0f0;
 $light-gray: #fdfdfd;
 
 // responsive thresholds
-$res-step--1: 700px;
-$res-step--2: 1400px;
+$width-step--1: 700px;
+$width-step--2: 1400px;
 
 // EodiroBanner
 // if you modify these values
 // you should also modify HomeBgTile component
-$banner-height: 35vh;
+$banner-height: 37vh;
 $nav-height: 50px;
+$nav-height: 3.5rem;
 
 // button
 $btn-height: 3rem;

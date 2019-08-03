@@ -1,5 +1,6 @@
 @import './global-variables.scss';
 @import './global-mixins.scss';
+@import './eodiro-ui.scss';
 
 ::-webkit-scrollbar {
   display: none; /* chrome */
@@ -10,15 +11,12 @@ html {
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   font-size: 85%;
-  background-color: #fff;
   overflow: auto;
   -ms-overflow-style: none; /* Edge */
   scrollbar-width: none; /* Firefox */
-  // transition: background-color 1000ms ease;
+  @include black-and-white;
 
   &.dark-mode {
-    background-color: #000;
-
     .mode--light {
       display: none !important;
     }
@@ -69,16 +67,11 @@ body {
   padding: 0;
   word-wrap: break-word;
   word-break: keep-all;
-  background-color: #fff;
   font-size: 16px;
   color: $base-black;
   user-select: none;
-  transition: background-color 200ms ease;
-
-  @include dark-mode() {
-    background-color: #000;
-    color: $base-white;
-  }
+  @include black-and-white;
+  @include text-color;
 }
 
 #__eodiro {

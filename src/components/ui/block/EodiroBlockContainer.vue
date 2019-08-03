@@ -10,7 +10,7 @@
 
 .eodiro-block-container {
   display: grid !important;
-  grid-gap: 1.2rem 1.5rem !important;
+  grid-gap: $posh-gap !important;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)) !important;
 }
 </style>

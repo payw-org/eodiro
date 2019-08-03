@@ -26,34 +26,38 @@
           </div>
         </transition>
       </div>
-    </div>
 
-    <nav class="eodiro-navigation">
-      <div class="prev-wrapper" v-if="$store.state.prevPath">
-        <nuxt-link class="prev-link" :to="localePath($store.state.prevPath)">
-          <button class="prev"></button>
-        </nuxt-link>
-      </div>
-      <div class="dummy" v-if="!$store.state.prevPath"></div>
-      <transition name="icon-change">
-        <nuxt-link class="nav-icon-link" :to="localePath('index')" v-if="isMini">
-          <div class="nav-icon-wrapper">
-            <transition name="fade" v-for="appName in $store.state.appList" :key="`nav-${appName}`">
-              <div
-                v-if="appName === $store.state.currentAppName"
-                class="nav-icon app-icon app--home"
-                :class="[
-                `app--${appName}`,
-              ]"
+      <nav class="eodiro-navigation">
+        <div class="prev-wrapper" v-if="$store.state.prevPath">
+          <nuxt-link class="prev-link" :to="localePath($store.state.prevPath)">
+            <button class="prev"></button>
+          </nuxt-link>
+        </div>
+        <div class="dummy" v-if="!$store.state.prevPath"></div>
+        <transition name="icon-change">
+          <nuxt-link class="nav-icon-link" :to="localePath('index')" v-if="isMini">
+            <div class="nav-icon-wrapper">
+              <transition
+                name="fade"
+                v-for="appName in $store.state.appList"
+                :key="`nav-${appName}`"
               >
-                <span class="icon"></span>
-              </div>
-            </transition>
-          </div>
-        </nuxt-link>
-      </transition>
-      <div class="dummy"></div>
-    </nav>
+                <div
+                  v-if="appName === $store.state.currentAppName"
+                  class="nav-icon app-icon app--home"
+                  :class="[
+                  `app--${appName}`,
+                ]"
+                >
+                  <span class="icon"></span>
+                </div>
+              </transition>
+            </div>
+          </nuxt-link>
+        </transition>
+        <div class="dummy"></div>
+      </nav>
+    </div>
   </div>
 </template>
 
@@ -110,3 +114,7 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+@import '~/assets/styles/scss/eodiro-banner.scss';
+</style>
