@@ -1,30 +1,3 @@
-<i18n>
-{
-  "kr": {
-    "menu_vacant": "빈 강의실 조회",
-    "menu_meal": "학식 메뉴",
-    "menu_class": "강의 검색",
-    "menu_preferences": "설정",
-    "menu_review": "리뷰 남기기",
-    "menu_donation": "후원하기",
-    "menu_inquiry": "자주 묻는 질문",
-    "menu_club": "동아리",
-    "preparing": "준비중입니다."
-  },
-  "en": {
-    "menu_vacant": "Find Vacant Classrooms",
-    "menu_meal": "Restaurant Menu",
-    "menu_class": "Search Classes",
-    "menu_preferences": "Preferences",
-    "menu_review": "Write a Review",
-    "menu_donation": "Donate",
-    "menu_inquiry": "Frequently Asked",
-    "menu_club": "Clubs",
-    "preparing": "We're working on this feature."
-  }
-}
-</i18n>
-
 <template>
   <div id="home">
     <div class="page-content-wrapper">
@@ -37,7 +10,7 @@
                 <span class="icon icon--vacant"></span>
               </template>
               <template v-slot:content>
-                <span class="content">{{ $t('menu_vacant') }}</span>
+                <span class="content">{{ $t('home.menuVacant') }}</span>
               </template>
             </eodiro-block-item>
           </nuxt-link>
@@ -48,7 +21,7 @@
               <span class="icon icon--meal"></span>
             </template>
             <template v-slot:content>
-              <span class="content">{{ $t('menu_meal') }}</span>
+              <span class="content">{{ $t('home.menuMeal') }}</span>
             </template>
           </eodiro-block-item>
 
@@ -58,19 +31,21 @@
               <span class="icon icon--class"></span>
             </template>
             <template v-slot:content>
-              <span class="content">{{ $t('menu_class') }}</span>
+              <span class="content">{{ $t('home.menuClass') }}</span>
             </template>
           </eodiro-block-item>
 
-          <!-- club -->
-          <eodiro-block-item class="menu-item-wrapper">
-            <template v-slot:icon>
-              <span class="icon icon--club"></span>
-            </template>
-            <template v-slot:content>
-              <span class="content">{{ $t('menu_club') }}</span>
-            </template>
-          </eodiro-block-item>
+          <!-- clubs -->
+          <nuxt-link :to="localePath('clubs').replace(/\/$/, '')">
+            <eodiro-block-item class="menu-item-wrapper">
+              <template v-slot:icon>
+                <span class="icon icon--clubs"></span>
+              </template>
+              <template v-slot:content>
+                <span class="content">{{ $t('home.menuClubs') }}</span>
+              </template>
+            </eodiro-block-item>
+          </nuxt-link>
 
           <!-- review -->
           <nuxt-link :to="localePath('review').replace(/\/$/, '')">
@@ -79,7 +54,7 @@
                 <span class="icon icon--review"></span>
               </template>
               <template v-slot:content>
-                <span class="content">{{ $t('menu_review') }}</span>
+                <span class="content">{{ $t('home.menuReview') }}</span>
               </template>
             </eodiro-block-item>
           </nuxt-link>
@@ -90,7 +65,7 @@
               <span class="icon icon--donation"></span>
             </template>
             <template v-slot:content>
-              <span class="content">{{ $t('menu_donation') }}</span>
+              <span class="content">{{ $t('home.menuDonation') }}</span>
             </template>
           </eodiro-block-item>
 
@@ -100,7 +75,7 @@
               <span class="icon icon--inquiry"></span>
             </template>
             <template v-slot:content>
-              <span class="content">{{ $t('menu_inquiry') }}</span>
+              <span class="content">{{ $t('home.menuInquiry') }}</span>
             </template>
           </eodiro-block-item>
 
@@ -111,7 +86,7 @@
                 <span class="icon icon--preferences"></span>
               </template>
               <template v-slot:content>
-                <span class="content">{{ $t('menu_preferences') }}</span>
+                <span class="content">{{ $t('home.menuPreferences') }}</span>
               </template>
             </eodiro-block-item>
           </nuxt-link>
@@ -216,7 +191,7 @@ export default {
         }
       }
 
-      .icon--club {
+      .icon--clubs {
         background-image: url('~assets/images/eodiro/home/home_menu_icon_club.svg');
 
         @include dark-mode {

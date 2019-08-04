@@ -91,6 +91,9 @@
       &.background--review {
         background-image: linear-gradient(to bottom, #ffc700, #ff8a00);
       }
+      &.background--clubs {
+        background-image: linear-gradient(to bottom, #00e3d6, #00b5dd);
+      }
     }
 
     .logo-wrapper {
@@ -205,16 +208,16 @@
       }
     }
 
-    @keyframes rotatingGear {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
     &.app--preferences {
+      @keyframes rotatingGear {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
       .icon {
         animation: rotatingGear 5s linear 0s infinite normal forwards;
 
@@ -233,6 +236,20 @@
         @include dark-mode {
           @include bgImg(
             '~assets/images/eodiro/review_black.svg',
+            center,
+            '75%'
+          );
+        }
+      }
+    }
+
+    &.app--clubs {
+      .icon {
+        @include bgImg('~assets/images/eodiro/clubs_white.svg', center, '75%');
+
+        @include dark-mode {
+          @include bgImg(
+            '~assets/images/eodiro/clubs_black.svg',
             center,
             '75%'
           );
