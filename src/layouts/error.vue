@@ -33,13 +33,18 @@
         <br />
         {{ $t('second_line') }}
       </h1>
-      <button class="eodiro-btn go-back" @click="goBack">{{ $t('go_home') }}</button>
+      <nuxt-link :to="localePath('index')">
+        <eodiro-button class="go-back">{{ $t('go_home') }}</eodiro-button>
+      </nuxt-link>
     </div>
   </div>
 </template>
 
 <script>
+import { EodiroButton } from '~/components/ui'
+
 export default {
+  components: { EodiroButton },
   meta: {
     appName: 'error'
   },
@@ -81,22 +86,6 @@ export default {
       display: block;
       width: 5rem;
       position: relative;
-
-      &::before {
-        content: '';
-        display: block;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 5rem;
-        height: 5rem;
-        border-radius: 50px;
-        box-shadow: 0.4rem 0.4rem 2rem rgba(0, 0, 0, 0.15);
-
-        @include dark-mode() {
-          box-shadow: 0.4rem 0.4rem 2rem rgba(0, 0, 0, 0.4);
-        }
-      }
     }
 
     .manifesto {
@@ -107,7 +96,8 @@ export default {
     }
 
     .go-back {
-      margin-top: 1rem;
+      margin-top: 2rem;
+      width: auto;
     }
   }
 }
