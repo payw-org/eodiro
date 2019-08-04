@@ -208,7 +208,7 @@ export default {
     border-radius: 1rem;
     background-color: #fff0f3;
     opacity: 0;
-    transition: opacity 500ms linear;
+    transition: opacity 500ms linear, background-color $color-scheme-transition-time ease;
 
     @include smaller-than(700px) {
       border-radius: 0.85rem;

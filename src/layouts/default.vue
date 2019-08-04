@@ -99,6 +99,7 @@ export default {
 
 #app {
   .master-content {
+    min-height: 100vh;
     padding-top: calc(#{$banner-height} + #{$master-content-top-gap});
     padding-bottom: $master-content-bottom-gap;
     width: calc(100% - #{2 * $posh-gap});

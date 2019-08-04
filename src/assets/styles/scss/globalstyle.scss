@@ -14,7 +14,6 @@ html {
   overflow: auto;
   -ms-overflow-style: none; /* Edge */
   scrollbar-width: none; /* Firefox */
-  @include black-and-white;
 
   &.dark-mode {
     .mode--light {
@@ -70,12 +69,8 @@ body {
   font-size: 16px;
   color: $base-black;
   user-select: none;
-  @include black-and-white;
+  @include white-and-black;
   @include text-color;
-}
-
-#__eodiro {
-  min-height: calc(100vh + 5px);
 }
 
 * {
@@ -163,7 +158,6 @@ img {
 }
 
 // fade page transition
-$transition-time: 200ms;
 .fade-enter-active {
   transition: opacity 400ms ease;
   opacity: 1;
@@ -172,7 +166,7 @@ $transition-time: 200ms;
   opacity: 0;
 }
 .fade-leave-active {
-  transition: opacity 200ms ease;
+  transition: opacity 100ms ease;
   opacity: 1;
 }
 .fade-leave-to {
