@@ -76,9 +76,7 @@ export default {
       height: 100%;
 
       .writing-area {
-        height: calc(
-          100vh - 1px - #{$banner-height} - #{$posh-gap} - 3rem - 2rem - 5rem
-        );
+        height: 20rem;
         flex-grow: 1;
         margin-bottom: $posh-gap;
       }
