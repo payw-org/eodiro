@@ -44,6 +44,7 @@ import ApiUrl from '~/plugins/ApiUrl'
 import EodiroStorage from '~/plugins/EodiroStorage'
 import axios from 'axios'
 import { EodiroBlockContainer, EodiroBlockItem } from '~/components/ui'
+import Dialog from '~/plugins/eodiro-dialog'
 
 export default {
   name: 'vacant-building',
@@ -86,6 +87,7 @@ export default {
   },
   methods: {
     fetchBuildings() {
+      const that = this
       let url = ApiUrl.get() + location.pathname
       url = 'https://api.eodiro.com/cau'
       axios
@@ -93,7 +95,7 @@ export default {
         .then(response => {
           let data = response.data
           if (data.err) {
-            alert('데이터를 가져올 수 없습니다. 잠시 후 이용 바랍니다.')
+            new Dialog().alert(that.$t('global.dataFetchError'))
             return
           }
 
@@ -104,7 +106,7 @@ export default {
           this.fetchEmpty()
         })
         .catch(function(error) {
-          alert('데이터를 가져올 수 없습니다. 잠시 후 이용 바랍니다.')
+          new Dialog().alert(that.$t('global.dataFetchError'))
         })
     },
     fetchEmpty() {
