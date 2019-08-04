@@ -5,7 +5,8 @@ const routeMap = {
   home: ['index'],
   vacant: ['index', 'vacant', 'vacant-buildingId', 'vacant-buildingId-floorId'],
   preferences: ['index', 'preferences'],
-  review: ['index', 'review']
+  review: ['index', 'review'],
+  clubs: ['index', 'clubs', 'clubs-topic']
 }
 
 /**
