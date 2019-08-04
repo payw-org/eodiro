@@ -6,12 +6,12 @@
       { 'is-banner-forced-mini': isBannerForcedMini }
     ]"
   >
-    <div id="banner-observer-sentinel"></div>
-    <banner v-if="$store.state.appName !== 'error'" />
+    <div id="banner-observer-sentinel" v-if="!isError"></div>
+    <banner v-if="!isError" />
     <nuxt
       keep-alive
       :keep-alive-props="{ include: $store.state.cachedComponents }"
-      class="master-content"
+      :class="{ 'master-content': !isError }"
     ></nuxt>
     <go-back />
   </div>
@@ -26,6 +26,11 @@ export default {
   data() {
     return {
       isBannerForcedMini: false
+    }
+  },
+  computed: {
+    isError() {
+      return this.$store.state.currentAppName === 'error'
     }
   },
   watch: {

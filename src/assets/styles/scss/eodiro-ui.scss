@@ -12,7 +12,7 @@
   border: 1px solid rgba(#000, 0.1) !important;
 
   @include dark-mode {
-    border: 1px solid rgba(#fff, 0.15) !important;
+    border: 1px solid rgba(#fff, 0.17) !important;
   }
 }
 
@@ -67,6 +67,6 @@
   border-width: 1px !important;
 
   @include dark-mode {
-    border-color: rgba(#fff, 0.15) !important;
+    border-color: rgba(#fff, 0.17) !important;
   }
 }

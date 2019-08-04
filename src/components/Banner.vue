@@ -8,7 +8,7 @@
           :class="`background--${appName}`"
         ></div>
       </transition>
-      <transition name="fade">
+      <transition name="global-soft-fade">
         <HomeBgTile v-if="$store.state.currentAppName === 'home' && !isMini" />
       </transition>
       <div class="logo-wrapper">

@@ -37,9 +37,5 @@ export default {
   @include on-mobile {
     font-size: 16px;
   }
-
-  &:focus {
-    border-color: $c-step--4 !important;
-  }
 }
 </style>

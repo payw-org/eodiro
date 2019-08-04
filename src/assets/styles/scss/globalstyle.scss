@@ -67,7 +67,6 @@ body {
   word-wrap: break-word;
   word-break: keep-all;
   font-size: 16px;
-  color: $base-black;
   user-select: none;
   @include white-and-black;
   @include text-color;
@@ -170,6 +169,22 @@ img {
   opacity: 1;
 }
 .fade-leave-to {
+  opacity: 0;
+}
+
+// fade page transition
+.global-soft-fade-enter-active {
+  transition: opacity 300ms ease;
+  opacity: 1;
+}
+.global-soft-fade-enter {
+  opacity: 0;
+}
+.global-soft-fade-leave-active {
+  transition: opacity 300ms ease;
+  opacity: 1;
+}
+.global-soft-fade-leave-to {
   opacity: 0;
 }
 
