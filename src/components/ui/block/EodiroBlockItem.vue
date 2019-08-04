@@ -16,8 +16,7 @@
 </template>
 
 <script>
-export default {
-}
+export default {}
 </script>
 
 
@@ -31,7 +30,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 0 1.2rem;
+  padding: 0 1rem 0 1.2rem;
   min-height: 5.5rem;
 
   &,

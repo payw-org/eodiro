@@ -1,6 +1,7 @@
 // colors
 $base-white: #f8f8f8;
-$base-white-blue: #f5f6f7;
+$base-white-blue: #f5f6f8;
+// $base-white-blue: #f6f8fa;
 $base-white-soft: rgba(#fff, 0.85);
 $base-black: #222;
 $base-black-soft: rgba(#333, 0.85);
@@ -94,3 +95,6 @@ $radius: 0.7rem;
 // translucent colors
 $t-white: rgba(255, 255, 255, 0.05);
 $t-black: rgba(0, 0, 0, 0.05);
+
+// light mode <-> dark mode transition time
+$color-scheme-transition-time: 300ms;

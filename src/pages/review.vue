@@ -2,7 +2,7 @@
 {
   "kr": {
     "title": "리뷰",
-    "send": "보내기",
+    "send": "전송",
     "write_here": "이 곳에 내용을 입력하세요."
   },
   "en": {
@@ -19,7 +19,7 @@
       <div class="content-container">
         <eodiro-textarea class="writing-area" :placeholder="$t('write_here')"></eodiro-textarea>
         <eodiro-button @click="sendEmail" class="send-btn">
-          <span class="icon"></span>
+          <!-- <span class="icon"></span> -->
           <span class="text">{{ $t('send') }}</span>
         </eodiro-button>
       </div>

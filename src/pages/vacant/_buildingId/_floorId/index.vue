@@ -319,7 +319,7 @@ export default {
         margin-top: 0.5rem;
 
         .no-next-class-label {
-          color: $c-step--4;
+          font-weight: 500;
         }
       }
     }
