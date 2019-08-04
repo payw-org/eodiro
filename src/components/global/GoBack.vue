@@ -1,14 +1,3 @@
-<i18n>
-{
-  "kr": {
-    "go_back": "뒤로가기"
-  },
-  "en": {
-    "go_back": "Go Back"
-  }
-}
-</i18n>
-
 <template>
   <transition name="fade">
     <nuxt-link
@@ -18,7 +7,7 @@
     >
       <button id="go-back" :class="{ hidden: isHidden }">
         <span class="icon"></span>
-        {{ $t('go_back') }}
+        {{ $t('global.goBack') }}
       </button>
     </nuxt-link>
   </transition>

@@ -1,26 +1,3 @@
-<i18n>
-{
-  "kr": {
-    "nextClass": "다음 수업",
-    "noNextClassMsg": "다음 수업이 없습니다.",
-    "hour": "시간",
-    "min": "분",
-    "remain": "남았어요",
-    "timetable": "강의 시간표",
-    "no_timetable": "강의 시간표가 없습니다"
-  },
-  "en": {
-    "nextClass": "Next Class",
-    "noNextClassMsg": "다음 수업이 없습니다.",
-    "hour": "h",
-    "min": "m",
-    "remain": "Left",
-    "timetable": "Timetable",
-    "no_timetable": "No Timetable"
-  }
-}
-</i18n>
-
 <template>
   <div class="content-item result">
     <eodiro-block-container class="empty-classrooms-container">
@@ -35,25 +12,25 @@
           <div class="info">
             <span v-if="room.nextClass && room.expireTimeLevel >= 0">
               <div>
-                {{ $t('nextClass') }}:
+                {{ $t('vacant.nextClass') }}:
                 <b>{{ room.nextClass }}</b>
               </div>
               <div>
                 <span class="time">
                   <span class="hour" v-if="room.hour">
-                    <b>{{ room.hour + $t('hour') }}</b>
+                    <b>{{ room.hour + $t('vacant.hour') }}</b>
                   </span>
                   <span class="min" v-if="room.min">
-                    <b>{{ room.min + $t('min') }}</b>
+                    <b>{{ room.min + $t('vacant.min') }}</b>
                   </span>
                 </span>
-                {{ $t('remain') }}
+                {{ $t('vacant.remain') }}
               </div>
             </span>
             <span v-else-if="room.expireTimeLevel === -1">
               <div>현재 수업중입니다</div>
             </span>
-            <span v-else class="no-next-class-label">{{ $t('noNextClassMsg') }}</span>
+            <span v-else class="no-next-class-label">{{ $t('vacant.noNextClassMsg') }}</span>
           </div>
         </template>
       </eodiro-block-item>
@@ -68,7 +45,7 @@
       <div class="timetable">
         <button class="close" @click="closeTimeTable"></button>
         <div class="content">
-          <h1 class="title">{{ selectedRoom.number + ' ' + $t('timetable') }}</h1>
+          <h1 class="title">{{ selectedRoom.number + ' ' + $t('vacant.timetable') }}</h1>
           <div class="day-select-wrapper">
             <div class="day-select">
               <button
@@ -121,7 +98,7 @@
                 <div class="name">{{ l.name }}</div>
               </div>
             </div>
-            <div v-else class="no-timetable-msg">{{ $t('no_timetable') }}</div>
+            <div v-else class="no-timetable-msg">{{ $t('vacant.noTimetable') }}</div>
           </div>
         </div>
       </div>
@@ -146,6 +123,7 @@ import {
 import ApiUrl from '~/plugins/ApiUrl'
 import { spring, styler } from 'popmotion'
 import { EodiroBlockContainer, EodiroBlockItem } from '~/components/ui'
+import Dialog from '~/plugins/eodiro-dialog'
 
 export default {
   name: 'vacant-result',
@@ -223,7 +201,9 @@ export default {
 
       axios.get(url).then(r => {
         if (r.data.err) {
-          alert('데이터를 가져올 수 없습니다. 잠시 후 이용 바랍니다.')
+          new Dialog().alert(
+            '데이터를 가져올 수 없습니다. 잠시 후 이용바랍니다.'
+          )
           return
         }
 
@@ -319,6 +299,7 @@ export default {
         margin-top: 0.5rem;
 
         .no-next-class-label {
+          font-size: 1rem;
           font-weight: 500;
         }
       }

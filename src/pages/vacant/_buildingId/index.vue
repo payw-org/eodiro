@@ -1,14 +1,3 @@
-<i18n>
-{
-  "kr": {
-    "floor_unit": "층"
-  },
-  "en": {
-    "floor_unit": "th"
-  }
-}
-</i18n>
-
 <template>
   <div class="select-floor">
     <div class="building-id">{{ $route.params.buildingId }}</div>
@@ -30,7 +19,7 @@
             <div class="floor-info-container">
               <h1 class="floor-info">
                 <span class="number">{{ floor.number }}</span>
-                <span class="unit">{{ $t('floor_unit') }}</span>
+                <span class="unit">{{ $t('vacant.floorUnit') }}</span>
               </h1>
 
               <div class="empty-count-badge-wrapper">

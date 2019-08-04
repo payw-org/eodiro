@@ -1,16 +1,3 @@
-<i18n>
-{
-  "kr": {
-    "title": "어디로",
-    "description": "중앙대학교 길잡이"
-  },
-  "en": {
-    "title": "eodiro",
-    "description": "CAU Guidance"
-  }
-}
-</i18n>
-
 <template>
   <div
     id="app"
@@ -62,20 +49,20 @@ export default {
   },
   head() {
     return {
-      title: this.$t('title'),
+      title: this.$t('global.head.title'),
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: this.$t('description')
+          content: this.$t('global.head.description')
         },
         {
           property: 'og:title',
-          content: this.$t('title')
+          content: this.$t('global.head.title')
         },
         {
           property: 'og:description',
-          content: this.$t('description')
+          content: this.$t('global.head.description')
         }
       ],
       htmlAttrs: {

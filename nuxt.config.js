@@ -107,16 +107,19 @@ export default {
           {
             name: 'English',
             code: 'en',
-            iso: 'en-US'
+            iso: 'en-US',
+            file: 'en-US.js'
           },
           {
             name: 'Korean',
             code: 'kr',
-            iso: 'ko-KR'
+            iso: 'ko-KR',
+            file: 'ko-KR.js'
           }
         ],
+        lazy: true,
+        langDir: 'lang/',
         defaultLocale: 'kr',
-        vueI18nLoader: true,
         detectBrowserLanguage: {
           useCookie: true,
           cookieKey: 'i18n_lang'
