@@ -1,34 +1,9 @@
-<i18n>
-{
-  "kr": {
-    "title": "설정",
-    "color_scheme": {
-      "title": "색상 모드",
-      "light": "라이트",
-      "dark": "다크",
-      "auto": "적응형"
-    },
-    "lang": "언어"
-  },
-  "en": {
-    "title": "Preferences",
-    "color_scheme": {
-      "title": "Color Scheme",
-      "light": "Light",
-      "dark": "Dark",
-      "auto": "Adaptive"
-    },
-    "lang": "Language"
-  }
-}
-</i18n>
-
 <template>
   <div id="preferences">
     <div class="page-content">
       <!-- language -->
       <section class="pref-section">
-        <h2 class="name">{{ $t('lang') }}</h2>
+        <h2 class="name">{{ $t('pref.lang') }}</h2>
         <div class="options">
           <eodiro-button class="opt" @click="switchLang('kr')">한국어</eodiro-button>
           <eodiro-button class="opt" @click="switchLang('en')">English</eodiro-button>
@@ -37,21 +12,21 @@
 
       <!-- color scheme -->
       <section class="pref-section">
-        <h2 class="name">{{ $t('color_scheme.title') }}</h2>
+        <h2 class="name">{{ $t('pref.colorScheme.title') }}</h2>
         <div class="options">
           <eodiro-button
             class="opt"
             @click="switchColorScheme('light')"
-          >{{ $t('color_scheme.light') }}</eodiro-button>
+          >{{ $t('pref.colorScheme.light') }}</eodiro-button>
           <eodiro-button
             class="opt"
             @click="switchColorScheme('dark')"
-          >{{ $t('color_scheme.dark') }}</eodiro-button>
+          >{{ $t('pref.colorScheme.dark') }}</eodiro-button>
           <eodiro-button
             class="opt"
             v-if="autoDarkModeSupport"
             @click="switchColorScheme('auto')"
-          >{{ $t('color_scheme.auto') }}</eodiro-button>
+          >{{ $t('pref.colorScheme.auto') }}</eodiro-button>
         </div>
       </section>
     </div>
@@ -74,7 +49,7 @@ export default {
   components: { EodiroButton, EodiroInput, EodiroTextarea },
   head() {
     return {
-      title: this.$t('title')
+      title: this.$t('pref.title')
     }
   },
   data() {

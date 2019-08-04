@@ -1,26 +1,11 @@
-<i18n>
-{
-  "kr": {
-    "title": "리뷰",
-    "send": "전송",
-    "write_here": "이 곳에 내용을 입력하세요."
-  },
-  "en": {
-    "title": "Review",
-    "send": "Send",
-    "write_here": "Write anything here."
-  }
-}
-</i18n>
-
 <template>
   <div id="review">
     <div class="page-content">
       <div class="content-container">
-        <eodiro-textarea class="writing-area" :placeholder="$t('write_here')"></eodiro-textarea>
+        <eodiro-textarea class="writing-area" :placeholder="$t('review.writeHere')"></eodiro-textarea>
         <eodiro-button @click="sendEmail" class="send-btn">
           <!-- <span class="icon"></span> -->
-          <span class="text">{{ $t('send') }}</span>
+          <span class="text">{{ $t('review.send') }}</span>
         </eodiro-button>
       </div>
     </div>
@@ -42,7 +27,7 @@ export default {
   components: { EodiroButton, EodiroTextarea },
   head() {
     return {
-      title: this.$t('title')
+      title: this.$t('review.title')
     }
   },
   data() {
@@ -50,7 +35,7 @@ export default {
   },
   methods: {
     sendEmail() {
-      new Dialog().alert('Sent!')
+      new Dialog().confirm('정말 보내시겠습니까?')
     }
   },
   mounted() {}
