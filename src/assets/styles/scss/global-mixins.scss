@@ -1,4 +1,4 @@
-@import '~/assets/styles/scss/global-variables.scss';
+@import '~/assets/styles/scss/variables/all.scss';
 
 @mixin smaller-than($width) {
   @media only screen and (max-width: $width) {
@@ -38,10 +38,6 @@
       @content;
     }
   }
-}
-
-@function dark-mode-border-shadow($bg-color) {
-  @return 0 0 0 1px lighten($bg-color, 20%), 0 0 0 2px black;
 }
 
 @mixin bgImg($url, $position: center, $size: 'contain') {

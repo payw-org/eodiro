@@ -88,10 +88,9 @@ export default {
 
   // include global css/scss files
   css: [
-    '~/assets/styles/css/fonts_new.css',
+    '~/assets/styles/css/fonts.css',
     '~/plugins/eodiro-dialog/style.scss',
     '~/assets/styles/scss/globalstyle.scss',
-    '~/assets/styles/scss/gradients-simple.scss',
     '~/assets/styles/stylus/spring.styl'
   ],
 

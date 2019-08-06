@@ -108,10 +108,9 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/global-variables.scss';
+@import '~/assets/styles/scss/variables/all.scss';
 @import '~/assets/styles/scss/global-mixins.scss';
 @import '~/assets/styles/scss/eodiro-ui.scss';
-@import '~/assets/styles/scss/gradients-simple.scss';
 
 .select-floor {
   position: relative;

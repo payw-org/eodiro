@@ -1,0 +1,32 @@
+// colors
+
+// background colors
+// #fff for over white, #000 over black
+$base-white-blue: #f5f6f8;
+
+// text colors
+$base-white: #f8f8f8;
+$base-black: #222;
+$base-gray: #949494;
+$base-gray--dark: #cdcdcd; // @deprecated
+$base-white-soft: rgba(#fff, 0.85); // @deprecated
+$base-black-soft: rgba(#333, 0.85); // @deprecated
+
+// eodiro colors
+// each step and its number is from
+// logo's gradient level
+$c-step--3: #ff7037;
+$c-step--4: #ff3852;
+$gray: #f0f0f0; // @deprecated
+$light-gray: #fdfdfd; // @deprecated
+
+// translucent colors
+$t-white: rgba(255, 255, 255, 0.05);
+$t-black: rgba(0, 0, 0, 0.05);
+
+// high contrast colors
+// @deprecated
+$light-blue: #009eff;
+$light-green: #06db58;
+$light-yellow: #ffb109;
+$light-red: #f32d3e;

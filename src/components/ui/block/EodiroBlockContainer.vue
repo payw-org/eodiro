@@ -5,7 +5,7 @@
 </template>
 
 <style lang="scss">
-@import '~/assets/styles/scss/global-variables.scss';
+@import '~/assets/styles/scss/variables/all.scss';
 @import '~/assets/styles/scss/global-mixins.scss';
 
 .eodiro-block-container {
