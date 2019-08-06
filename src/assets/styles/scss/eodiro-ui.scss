@@ -1,5 +1,5 @@
 @import '~/assets/styles/scss/variables/all.scss';
-@import '~/assets/styles/scss/global-mixins.scss';
+@import '~/assets/styles/scss/mixins/all.scss';
 
 @mixin ui-transition {
   transition: border $color-scheme-transition-time ease,

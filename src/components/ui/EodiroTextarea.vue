@@ -16,7 +16,7 @@ export default {
 
 
 <style lang="scss">
-@import '~/assets/styles/scss/global-mixins.scss';
+@import '~/assets/styles/scss/mixins/all.scss';
 @import '~/assets/styles/scss/eodiro-ui.scss';
 
 .eodiro-textarea {

@@ -22,7 +22,7 @@ export default {
 
 <style lang="scss" scoped>
 @import '~/assets/styles/scss/variables/all.scss';
-@import '~/assets/styles/scss/global-mixins.scss';
+@import '~/assets/styles/scss/mixins/all.scss';
 
 @keyframes spin {
   0% {

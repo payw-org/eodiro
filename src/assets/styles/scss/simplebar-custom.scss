@@ -1,4 +1,4 @@
-@import '~/assets/styles/scss/global-mixins.scss';
+@import '~/assets/styles/scss/mixins/all.scss';
 
 [data-simplebar] {
   position: relative;
@@ -61,7 +61,7 @@
 
 .simplebar-content:before,
 .simplebar-content:after {
-  content: " ";
+  content: ' ';
   display: table;
 }
 
@@ -116,7 +116,7 @@
 }
 
 [data-simplebar].simplebar-dragging .simplebar-track {
-pointer-events: all;
+  pointer-events: all;
 }
 
 .simplebar-scrollbar {
@@ -132,7 +132,7 @@ pointer-events: all;
 
 .simplebar-scrollbar:before {
   position: absolute;
-  content: "";
+  content: '';
   background: black;
   border-radius: 7px;
   left: 0;
@@ -196,7 +196,7 @@ pointer-events: all;
 }
 
 /* Rtl support */
-[data-simplebar-direction="rtl"] .simplebar-track.simplebar-vertical {
+[data-simplebar-direction='rtl'] .simplebar-track.simplebar-vertical {
   right: auto;
   left: 0;
 }

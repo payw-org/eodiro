@@ -189,7 +189,7 @@ export default {
 </script>
 <style lang="scss">
 @import '~/assets/styles/scss/variables/all.scss';
-@import '~/assets/styles/scss/global-mixins.scss';
+@import '~/assets/styles/scss/mixins/all.scss';
 #tiles-container {
   position: absolute;
   width: 105%;
