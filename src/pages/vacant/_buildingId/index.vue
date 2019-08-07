@@ -32,7 +32,7 @@
         </eodiro-block-item>
       </nuxt-link>
 
-      <div class="grid-dummy" v-for="i in 2" :key="'gridDummy' + i"></div>
+      <!-- <div class="grid-dummy" v-for="i in 2" :key="'gridDummy' + i"></div> -->
 
       <loading v-if="floors.length === 0" />
     </eodiro-block-container>
@@ -40,8 +40,8 @@
 </template>
 
 <script>
-import EodiroPageBase from '~/components/EodiroPageBase.vue'
-import Loading from '~/components/Loading'
+import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
+import Loading from '~/components/global/Loading.vue'
 import Stagger from '~/plugins/Stagger'
 import ApiUrl from '~/plugins/ApiUrl'
 import axios from 'axios'

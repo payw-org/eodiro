@@ -35,7 +35,7 @@
         </template>
       </eodiro-block-item>
 
-      <div class="grid-dummy" v-for="i in 2" :key="'gridDummy' + i"></div>
+      <!-- <div class="grid-dummy" v-for="i in 2" :key="'gridDummy' + i"></div> -->
 
       <loading v-if="classrooms.length === 0" />
     </eodiro-block-container>
@@ -107,8 +107,8 @@
 </template>
 
 <script>
-import EodiroPageBase from '~/components/EodiroPageBase.vue'
-import Loading from '~/components/Loading'
+import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
+import Loading from '~/components/global/Loading.vue'
 import SimpleBar from 'simplebar'
 import '~/assets/styles/scss/simplebar-custom.scss'
 import Stagger from '~/plugins/Stagger'

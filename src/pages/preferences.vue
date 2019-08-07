@@ -35,7 +35,7 @@
 
 <script>
 import { EodiroButton, EodiroInput, EodiroTextarea } from '~/components/ui'
-import EodiroPageBase from '~/components/EodiroPageBase.vue'
+import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
 import Cookies from 'js-cookie'
 import EodiroDialog from '~/plugins/eodiro-dialog'
 
@@ -111,6 +111,7 @@ export default {
 
       &:last-child {
         margin-bottom: 0;
+        padding-bottom: 0;
         border-bottom: none;
       }
 

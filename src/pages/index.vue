@@ -97,7 +97,7 @@
 </template>
 
 <script>
-import EodiroPageBase from '~/components/EodiroPageBase.vue'
+import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
 import EodiroDialog from '~/plugins/eodiro-dialog'
 import { EodiroBlockContainer, EodiroBlockItem } from '~/components/ui'
 

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import EodiroPageBase from '~/components/EodiroPageBase.vue'
+import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
 
 export default {
   name: 'clubs-topic',

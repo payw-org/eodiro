@@ -13,7 +13,7 @@
 </template>
 
 <script>
-import EodiroPageBase from '~/components/EodiroPageBase.vue'
+import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
 import { EodiroButton, EodiroTextarea } from '~/components/ui'
 import Dialog from '~/plugins/eodiro-dialog'
 

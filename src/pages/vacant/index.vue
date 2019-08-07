@@ -38,8 +38,8 @@
 </template>
 
 <script>
-import EodiroPageBase from '~/components/EodiroPageBase.vue'
-import Loading from '~/components/Loading'
+import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
+import Loading from '~/components/global/Loading.vue'
 import ApiUrl from '~/plugins/ApiUrl'
 import EodiroStorage from '~/plugins/EodiroStorage'
 import axios from 'axios'

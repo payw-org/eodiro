@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import EodiroPageBase from '~/components/EodiroPageBase.vue'
+import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
 import { EodiroBlockContainer, EodiroBlockItem } from '~/components/ui'
 
 export default {
