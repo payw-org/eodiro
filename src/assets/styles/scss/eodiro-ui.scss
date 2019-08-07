@@ -63,6 +63,7 @@
 
 @mixin separator {
   @include ui-transition;
+  border-radius: 0 !important;
   border-color: rgba(#000, 0.1) !important;
   border-width: 1px !important;
 

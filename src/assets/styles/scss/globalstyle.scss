@@ -61,7 +61,7 @@ body {
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
   -o-font-smoothing: antialiased;
-  font-family: $font-text;
+  font-family: $text-font;
   margin: 0;
   padding: 0;
   word-wrap: break-word;
@@ -89,14 +89,30 @@ h6 {
   font-weight: 700;
 }
 
+h1 {
+  @include heading1;
+}
+
+h2 {
+  @include heading2;
+}
+
+h3 {
+  @include heading3;
+}
+
 p,
 a,
 textarea,
 span,
 div,
 input {
-  font-family: $font-text;
+  font-family: $text-font;
   font-weight: 400;
+}
+
+p {
+  @include paragraph;
 }
 
 a {
@@ -117,7 +133,7 @@ a {
 button {
   border: none;
   background: none;
-  font-family: $font-text;
+  font-family: $text-font;
   font-size: 1rem;
   color: $base-black;
 }
@@ -194,7 +210,7 @@ img {
   background-color: $light-blue;
   border-radius: 50px;
   padding: 0.6rem 1.2rem;
-  font-family: $font-text;
+  font-family: $text-font;
   font-size: 1.2rem;
   font-weight: 700;
   color: #fff !important;

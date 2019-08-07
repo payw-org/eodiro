@@ -1,0 +1,17 @@
+@import '../mixins/typography.scss';
+
+.heading1 {
+  @include heading1;
+}
+
+.heading2 {
+  @include heading2;
+}
+
+.heading3 {
+  @include heading3;
+}
+
+.paragraph {
+  @include paragraph;
+}
