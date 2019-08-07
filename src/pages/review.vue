@@ -2,11 +2,11 @@
   <div id="review">
     <div class="page-content">
       <div class="content-container">
-        <eodiro-textarea class="writing-area" :placeholder="$t('review.writeHere')"></eodiro-textarea>
-        <eodiro-button @click="sendEmail" class="send-btn">
+        <multi-feed class="writing-area" :placeholder="$t('review.writeHere')"></multi-feed>
+        <stud @click="sendEmail" class="send-btn">
           <!-- <span class="icon"></span> -->
           <span class="text">{{ $t('review.send') }}</span>
-        </eodiro-button>
+        </stud>
       </div>
     </div>
   </div>
@@ -14,7 +14,7 @@
 
 <script>
 import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
-import { EodiroButton, EodiroTextarea } from '~/components/ui'
+import { Stud, MultiFeed } from '~/components/ui'
 import Dialog from '~/plugins/eodiro-dialog'
 
 export default {
@@ -24,7 +24,7 @@ export default {
     depth: 1,
     appName: 'review'
   },
-  components: { EodiroButton, EodiroTextarea },
+  components: { Stud, MultiFeed },
   head() {
     return {
       title: this.$t('review.title')

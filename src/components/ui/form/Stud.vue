@@ -1,5 +1,5 @@
 <template>
-  <button class="eodiro-button" @click="$emit('click')">
+  <button class="stud" @click="$emit('click')">
     <slot></slot>
   </button>
 </template>
@@ -13,7 +13,7 @@ export default {}
 @import '~/assets/styles/scss/mixins/all.scss';
 @import '~/assets/styles/scss/eodiro-ui.scss';
 
-.eodiro-button {
+.stud {
   @include background-colored;
   color: $base-black;
   width: 100%;

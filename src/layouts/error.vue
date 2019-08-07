@@ -34,17 +34,17 @@
         {{ $t('second_line') }}
       </h1>
       <nuxt-link :to="localePath('index')">
-        <eodiro-button class="go-back">{{ $t('go_home') }}</eodiro-button>
+        <stud class="go-back">{{ $t('go_home') }}</stud>
       </nuxt-link>
     </div>
   </div>
 </template>
 
 <script>
-import { EodiroButton } from '~/components/ui'
+import { Stud } from '~/components/ui'
 
 export default {
-  components: { EodiroButton },
+  components: { Stud },
   meta: {
     appName: 'error'
   },

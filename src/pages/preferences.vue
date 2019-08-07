@@ -5,8 +5,8 @@
       <section class="pref-section">
         <h2 class="name">{{ $t('pref.lang') }}</h2>
         <div class="options">
-          <eodiro-button class="opt" @click="switchLang('kr')">한국어</eodiro-button>
-          <eodiro-button class="opt" @click="switchLang('en')">English</eodiro-button>
+          <stud class="opt" @click="switchLang('kr')">한국어</stud>
+          <stud class="opt" @click="switchLang('en')">English</stud>
         </div>
       </section>
 
@@ -14,19 +14,13 @@
       <section class="pref-section">
         <h2 class="name">{{ $t('pref.colorScheme.title') }}</h2>
         <div class="options">
-          <eodiro-button
-            class="opt"
-            @click="switchColorScheme('light')"
-          >{{ $t('pref.colorScheme.light') }}</eodiro-button>
-          <eodiro-button
-            class="opt"
-            @click="switchColorScheme('dark')"
-          >{{ $t('pref.colorScheme.dark') }}</eodiro-button>
-          <eodiro-button
+          <stud class="opt" @click="switchColorScheme('light')">{{ $t('pref.colorScheme.light') }}</stud>
+          <stud class="opt" @click="switchColorScheme('dark')">{{ $t('pref.colorScheme.dark') }}</stud>
+          <stud
             class="opt"
             v-if="autoDarkModeSupport"
             @click="switchColorScheme('auto')"
-          >{{ $t('pref.colorScheme.auto') }}</eodiro-button>
+          >{{ $t('pref.colorScheme.auto') }}</stud>
         </div>
       </section>
     </div>
@@ -34,7 +28,7 @@
 </template>
 
 <script>
-import { EodiroButton, EodiroInput, EodiroTextarea } from '~/components/ui'
+import { Stud, Feed, MultiFeed } from '~/components/ui'
 import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
 import Cookies from 'js-cookie'
 import EodiroDialog from '~/plugins/eodiro-dialog'
@@ -46,7 +40,7 @@ export default {
     depth: 1,
     appName: 'preferences'
   },
-  components: { EodiroButton, EodiroInput, EodiroTextarea },
+  components: { Stud, Feed, MultiFeed },
   head() {
     return {
       title: this.$t('pref.title')

@@ -2,95 +2,95 @@
   <div id="home">
     <div class="page-content-wrapper">
       <div class="page-content">
-        <eodiro-block-container class="menu-item-container">
+        <block-container class="menu-item-container">
           <!-- vacant classrooms -->
           <nuxt-link :to="localePath('vacant').replace(/\/$/, '')">
-            <eodiro-block-item class="menu-item-wrapper">
+            <menu-block class="menu-item-wrapper">
               <template v-slot:icon>
                 <span class="icon icon--vacant"></span>
               </template>
               <template v-slot:content>
                 <span class="content">{{ $t('home.menuVacant') }}</span>
               </template>
-            </eodiro-block-item>
+            </menu-block>
           </nuxt-link>
 
           <!-- meal -->
-          <eodiro-block-item class="menu-item-wrapper">
+          <menu-block class="menu-item-wrapper">
             <template v-slot:icon>
               <span class="icon icon--meal"></span>
             </template>
             <template v-slot:content>
               <span class="content">{{ $t('home.menuMeal') }}</span>
             </template>
-          </eodiro-block-item>
+          </menu-block>
 
           <!-- class -->
-          <eodiro-block-item class="menu-item-wrapper">
+          <menu-block class="menu-item-wrapper">
             <template v-slot:icon>
               <span class="icon icon--class"></span>
             </template>
             <template v-slot:content>
               <span class="content">{{ $t('home.menuClass') }}</span>
             </template>
-          </eodiro-block-item>
+          </menu-block>
 
           <!-- clubs -->
           <nuxt-link :to="localePath('clubs').replace(/\/$/, '')">
-            <eodiro-block-item class="menu-item-wrapper">
+            <menu-block class="menu-item-wrapper">
               <template v-slot:icon>
                 <span class="icon icon--clubs"></span>
               </template>
               <template v-slot:content>
                 <span class="content">{{ $t('home.menuClubs') }}</span>
               </template>
-            </eodiro-block-item>
+            </menu-block>
           </nuxt-link>
 
           <!-- review -->
           <nuxt-link :to="localePath('review').replace(/\/$/, '')">
-            <eodiro-block-item class="menu-item-wrapper">
+            <menu-block class="menu-item-wrapper">
               <template v-slot:icon>
                 <span class="icon icon--review"></span>
               </template>
               <template v-slot:content>
                 <span class="content">{{ $t('home.menuReview') }}</span>
               </template>
-            </eodiro-block-item>
+            </menu-block>
           </nuxt-link>
 
           <!-- donation -->
-          <eodiro-block-item class="menu-item-wrapper">
+          <menu-block class="menu-item-wrapper">
             <template v-slot:icon>
               <span class="icon icon--donation"></span>
             </template>
             <template v-slot:content>
               <span class="content">{{ $t('home.menuDonation') }}</span>
             </template>
-          </eodiro-block-item>
+          </menu-block>
 
           <!-- inquiry -->
-          <eodiro-block-item class="menu-item-wrapper">
+          <menu-block class="menu-item-wrapper">
             <template v-slot:icon>
               <span class="icon icon--inquiry"></span>
             </template>
             <template v-slot:content>
               <span class="content">{{ $t('home.menuInquiry') }}</span>
             </template>
-          </eodiro-block-item>
+          </menu-block>
 
           <!-- preferences -->
           <nuxt-link :to="localePath('preferences').replace(/\/$/, '')">
-            <eodiro-block-item class="menu-item-wrapper">
+            <menu-block class="menu-item-wrapper">
               <template v-slot:icon>
                 <span class="icon icon--preferences"></span>
               </template>
               <template v-slot:content>
                 <span class="content">{{ $t('home.menuPreferences') }}</span>
               </template>
-            </eodiro-block-item>
+            </menu-block>
           </nuxt-link>
-        </eodiro-block-container>
+        </block-container>
       </div>
     </div>
   </div>
@@ -99,12 +99,12 @@
 <script>
 import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
 import EodiroDialog from '~/plugins/eodiro-dialog'
-import { EodiroBlockContainer, EodiroBlockItem } from '~/components/ui'
+import { BlockContainer, MenuBlock } from '~/components/ui'
 
 export default {
   name: 'home',
   extends: EodiroPageBase,
-  components: { EodiroBlockContainer, EodiroBlockItem },
+  components: { BlockContainer, MenuBlock },
   meta: {
     depth: 0,
     appName: 'home'

@@ -2,7 +2,7 @@
   <div class="select-floor">
     <div class="building-id">{{ $route.params.buildingId }}</div>
 
-    <eodiro-block-container class="floor-container">
+    <block-container class="floor-container">
       <nuxt-link
         class="floor-link"
         v-for="floor in floors"
@@ -14,7 +14,7 @@
           }
         })"
       >
-        <eodiro-block-item class="floor-item">
+        <menu-block class="floor-item">
           <template v-slot:content>
             <div class="floor-info-container">
               <h1 class="floor-info">
@@ -29,23 +29,23 @@
               </div>
             </div>
           </template>
-        </eodiro-block-item>
+        </menu-block>
       </nuxt-link>
 
       <!-- <div class="grid-dummy" v-for="i in 2" :key="'gridDummy' + i"></div> -->
 
       <loading v-if="floors.length === 0" />
-    </eodiro-block-container>
+    </block-container>
   </div>
 </template>
 
 <script>
 import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
-import Loading from '~/components/global/Loading.vue'
+import Loading from '~/components/ui/Loading.vue'
 import Stagger from '~/plugins/Stagger'
 import ApiUrl from '~/plugins/ApiUrl'
 import axios from 'axios'
-import { EodiroBlockContainer, EodiroBlockItem } from '~/components/ui'
+import { BlockContainer, MenuBlock } from '~/components/ui'
 
 export default {
   name: 'vacant-floor',
@@ -54,7 +54,7 @@ export default {
     depth: 2,
     bannerMode: 'mini'
   },
-  components: { Loading, EodiroBlockContainer, EodiroBlockItem },
+  components: { Loading, BlockContainer, MenuBlock },
   data() {
     return {
       buildingName: '',

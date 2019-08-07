@@ -1,5 +1,5 @@
 <template>
-  <div class="eodiro-block-item" @click="$emit('click')">
+  <div class="menu-block" @click="$emit('click')">
     <!-- only visible when icon slot is set -->
     <div class="icon-wrapper" v-if="$slots.icon">
       <slot name="icon"></slot>
@@ -24,7 +24,7 @@ export default {}
 @import '~/assets/styles/scss/mixins/all.scss';
 @import '~/assets/styles/scss/eodiro-ui.scss';
 
-.eodiro-block-item {
+.menu-block {
   @include background-colored;
   border-radius: $radius;
   display: flex;

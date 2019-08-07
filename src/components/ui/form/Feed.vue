@@ -1,6 +1,6 @@
 <template>
   <input
-    class="eodiro-input"
+    class="feed"
     type="text"
     autocomplete="off"
     spellcheck="false"
@@ -23,7 +23,7 @@ export default {
 @import '~/assets/styles/scss/mixins/all.scss';
 @import '~/assets/styles/scss/eodiro-ui.scss';
 
-.eodiro-input {
+.feed {
   @include bordered;
   @include text-color;
   background-color: transparent;

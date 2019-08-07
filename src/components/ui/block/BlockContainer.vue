@@ -1,5 +1,5 @@
 <template>
-  <div class="eodiro-block-container">
+  <div class="block-container">
     <slot></slot>
   </div>
 </template>
@@ -8,7 +8,7 @@
 @import '~/assets/styles/scss/variables/all.scss';
 @import '~/assets/styles/scss/mixins/all.scss';
 
-.eodiro-block-container {
+.block-container {
   display: grid !important;
   grid-gap: $posh-gap !important;
   grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)) !important;

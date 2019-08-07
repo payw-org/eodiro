@@ -1,6 +1,6 @@
 <template>
   <textarea
-    class="eodiro-textarea"
+    class="multi-feed"
     autocomplete="off"
     spellcheck="false"
     :value="value"
@@ -19,7 +19,7 @@ export default {
 @import '~/assets/styles/scss/mixins/all.scss';
 @import '~/assets/styles/scss/eodiro-ui.scss';
 
-.eodiro-textarea {
+.multi-feed {
   @include bordered;
   @include text-color;
   cursor: text;

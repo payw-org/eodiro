@@ -1,7 +1,7 @@
 <template>
   <div class="content-item result">
-    <eodiro-block-container class="empty-classrooms-container">
-      <eodiro-block-item
+    <block-container class="empty-classrooms-container">
+      <menu-block
         v-for="room in classrooms"
         :key="room.number"
         class="classroom"
@@ -33,12 +33,12 @@
             <span v-else class="no-next-class-label">{{ $t('vacant.noNextClassMsg') }}</span>
           </div>
         </template>
-      </eodiro-block-item>
+      </menu-block>
 
       <!-- <div class="grid-dummy" v-for="i in 2" :key="'gridDummy' + i"></div> -->
 
       <loading v-if="classrooms.length === 0" />
-    </eodiro-block-container>
+    </block-container>
 
     <div class="timetable-container" :class="{show: timeTableShow}">
       <div class="background" @click="closeTimeTable"></div>
@@ -108,7 +108,7 @@
 
 <script>
 import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
-import Loading from '~/components/global/Loading.vue'
+import Loading from '~/components/ui/Loading.vue'
 import SimpleBar from 'simplebar'
 import '~/assets/styles/scss/simplebar-custom.scss'
 import Stagger from '~/plugins/Stagger'
@@ -122,7 +122,7 @@ import {
 } from 'body-scroll-lock'
 import ApiUrl from '~/plugins/ApiUrl'
 import { spring, styler } from 'popmotion'
-import { EodiroBlockContainer, EodiroBlockItem } from '~/components/ui'
+import { BlockContainer, MenuBlock } from '~/components/ui'
 import Dialog from '~/plugins/eodiro-dialog'
 
 export default {
@@ -132,7 +132,7 @@ export default {
     depth: 3,
     bannerMode: 'mini'
   },
-  components: { Loading, EodiroBlockContainer, EodiroBlockItem },
+  components: { Loading, BlockContainer, MenuBlock },
   data() {
     return {
       classrooms: [],
