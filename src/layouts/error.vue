@@ -90,7 +90,7 @@ export default {
 
     .manifesto {
       margin-top: 1rem;
-      font-family: $font-display;
+      font-family: $text-font;
       font-size: 3rem;
       max-width: 90%;
     }

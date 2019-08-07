@@ -6,19 +6,19 @@
       { 'is-banner-forced-mini': isBannerForcedMini }
     ]"
   >
-    <div id="banner-observer-sentinel" v-if="!isError"></div>
-    <banner v-if="!isError" />
+    <div id="banner-observer-sentinel" v-if="!isValidPage"></div>
+    <banner v-if="!isValidPage" />
     <nuxt
       keep-alive
       :keep-alive-props="{ include: $store.state.cachedComponents }"
-      :class="{ 'master-content': !isError }"
+      :class="{ 'master-content': !isValidPage }"
     ></nuxt>
     <go-back />
   </div>
 </template>
 
 <script>
-import Banner from '~/components/Banner.vue'
+import Banner from '~/components/global/Banner.vue'
 import GoBack from '~/components/global/GoBack.vue'
 
 export default {
@@ -29,8 +29,10 @@ export default {
     }
   },
   computed: {
-    isError() {
-      return this.$store.state.currentAppName === 'error'
+    isValidPage() {
+      return !this.$store.state.appList.includes(
+        this.$store.state.currentAppName
+      )
     }
   },
   watch: {
@@ -92,9 +94,9 @@ export default {
 #app {
   .master-content {
     min-height: 100vh;
-    padding-top: calc(#{$banner-height} + #{$master-content-top-gap});
     padding-bottom: $master-content-bottom-gap;
     width: calc(100% - #{2 * $posh-gap});
+    padding-top: calc(#{$banner-height} + #{$master-content-top-gap});
     max-width: $master-content-max-width;
     margin: auto;
   }
