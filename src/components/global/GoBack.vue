@@ -48,6 +48,10 @@ export default {
       } else if (this.scrollY > 0) {
         // down
         that.isHidden = true
+
+        if (window.innerHeight + this.scrollY >= document.body.scrollHeight) {
+          that.isHidden = false
+        }
       }
       this.oldScroll = this.scrollY
     }
@@ -71,7 +75,7 @@ export default {
   align-items: center;
   justify-content: center;
   left: 50%;
-  bottom: 4rem;
+  bottom: 3.5rem;
   padding: 0 1rem;
   height: 2.7rem;
   opacity: 1;
