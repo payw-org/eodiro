@@ -26,12 +26,12 @@
       </div>
 
       <nav class="eodiro-navigation">
-        <div class="prev-wrapper" v-if="$store.state.prevPath">
+        <!-- <div class="prev-wrapper" v-if="$store.state.prevPath">
           <nuxt-link class="prev-link" :to="localePath($store.state.prevPath)">
             <button class="prev"></button>
           </nuxt-link>
-        </div>
-        <div class="dummy" v-if="!$store.state.prevPath"></div>
+        </div>-->
+        <div class="dummy"></div>
         <transition name="icon-change">
           <nuxt-link class="nav-icon-link" :to="localePath('index')" v-if="isMini">
             <div class="nav-icon-wrapper">
