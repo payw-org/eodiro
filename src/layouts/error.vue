@@ -33,13 +33,18 @@
         <br />
         {{ $t('second_line') }}
       </h1>
-      <button class="eodiro-btn go-back" @click="goBack">{{ $t('go_home') }}</button>
+      <nuxt-link :to="localePath('index')">
+        <stud class="go-back">{{ $t('go_home') }}</stud>
+      </nuxt-link>
     </div>
   </div>
 </template>
 
 <script>
+import { Stud } from '~/components/ui'
+
 export default {
+  components: { Stud },
   meta: {
     appName: 'error'
   },
@@ -60,8 +65,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/global-variables.scss';
-@import '~/assets/styles/scss/global-mixins.scss';
+@import '~/assets/styles/scss/main.scss';
 
 #not-found {
   position: fixed;
@@ -81,33 +85,18 @@ export default {
       display: block;
       width: 5rem;
       position: relative;
-
-      &::before {
-        content: '';
-        display: block;
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 5rem;
-        height: 5rem;
-        border-radius: 50px;
-        box-shadow: 0.4rem 0.4rem 2rem rgba(0, 0, 0, 0.15);
-
-        @include dark-mode() {
-          box-shadow: 0.4rem 0.4rem 2rem rgba(0, 0, 0, 0.4);
-        }
-      }
     }
 
     .manifesto {
       margin-top: 1rem;
-      font-family: $font-display;
+      font-family: $ui-font;
       font-size: 3rem;
       max-width: 90%;
     }
 
     .go-back {
-      margin-top: 1rem;
+      margin-top: 2rem;
+      width: auto;
     }
   }
 }

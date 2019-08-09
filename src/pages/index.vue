@@ -1,135 +1,110 @@
-<i18n>
-{
-  "kr": {
-    "menu_vacant": "빈 강의실 조회",
-    "menu_meal": "학식 메뉴",
-    "menu_class": "강의 검색",
-    "menu_preferences": "설정",
-    "menu_review": "리뷰 남기기",
-    "menu_donation": "후원하기",
-    "menu_inquiry": "자주 묻는 질문",
-    "menu_club": "동아리",
-    "preparing": "준비중입니다."
-  },
-  "en": {
-    "menu_vacant": "Find Vacant Classrooms",
-    "menu_meal": "Restaurant Menu",
-    "menu_class": "Search Classes",
-    "menu_preferences": "Preferences",
-    "menu_review": "Write a Review",
-    "menu_donation": "Donate",
-    "menu_inquiry": "Frequently Asked",
-    "menu_club": "Clubs",
-    "preparing": "We're working on this feature."
-  }
-}
-</i18n>
-
 <template>
   <div id="home">
     <div class="page-content-wrapper">
       <div class="page-content">
-        <eodiro-block-container class="menu-item-container">
+        <block-container class="menu-item-container">
           <!-- vacant classrooms -->
           <nuxt-link :to="localePath('vacant').replace(/\/$/, '')">
-            <eodiro-block-item class="menu-item-wrapper">
+            <menu-block class="menu-item-wrapper">
               <template v-slot:icon>
                 <span class="icon icon--vacant"></span>
               </template>
               <template v-slot:content>
-                <span class="content">{{ $t('menu_vacant') }}</span>
+                <span class="content">{{ $t('home.menuVacant') }}</span>
               </template>
-            </eodiro-block-item>
+            </menu-block>
           </nuxt-link>
 
           <!-- meal -->
-          <eodiro-block-item class="menu-item-wrapper">
+          <menu-block class="menu-item-wrapper">
             <template v-slot:icon>
               <span class="icon icon--meal"></span>
             </template>
             <template v-slot:content>
-              <span class="content">{{ $t('menu_meal') }}</span>
+              <span class="content">{{ $t('home.menuMeal') }}</span>
             </template>
-          </eodiro-block-item>
+          </menu-block>
 
           <!-- class -->
-          <eodiro-block-item class="menu-item-wrapper">
+          <menu-block class="menu-item-wrapper">
             <template v-slot:icon>
               <span class="icon icon--class"></span>
             </template>
             <template v-slot:content>
-              <span class="content">{{ $t('menu_class') }}</span>
+              <span class="content">{{ $t('home.menuClass') }}</span>
             </template>
-          </eodiro-block-item>
+          </menu-block>
 
-          <!-- club -->
-          <eodiro-block-item class="menu-item-wrapper">
-            <template v-slot:icon>
-              <span class="icon icon--club"></span>
-            </template>
-            <template v-slot:content>
-              <span class="content">{{ $t('menu_club') }}</span>
-            </template>
-          </eodiro-block-item>
+          <!-- clubs -->
+          <nuxt-link :to="localePath('clubs').replace(/\/$/, '')">
+            <menu-block class="menu-item-wrapper">
+              <template v-slot:icon>
+                <span class="icon icon--clubs"></span>
+              </template>
+              <template v-slot:content>
+                <span class="content">{{ $t('home.menuClubs') }}</span>
+              </template>
+            </menu-block>
+          </nuxt-link>
 
           <!-- review -->
           <nuxt-link :to="localePath('review').replace(/\/$/, '')">
-            <eodiro-block-item class="menu-item-wrapper">
+            <menu-block class="menu-item-wrapper">
               <template v-slot:icon>
                 <span class="icon icon--review"></span>
               </template>
               <template v-slot:content>
-                <span class="content">{{ $t('menu_review') }}</span>
+                <span class="content">{{ $t('home.menuReview') }}</span>
               </template>
-            </eodiro-block-item>
+            </menu-block>
           </nuxt-link>
 
           <!-- donation -->
-          <eodiro-block-item class="menu-item-wrapper">
+          <menu-block class="menu-item-wrapper">
             <template v-slot:icon>
               <span class="icon icon--donation"></span>
             </template>
             <template v-slot:content>
-              <span class="content">{{ $t('menu_donation') }}</span>
+              <span class="content">{{ $t('home.menuDonation') }}</span>
             </template>
-          </eodiro-block-item>
+          </menu-block>
 
           <!-- inquiry -->
-          <eodiro-block-item class="menu-item-wrapper">
+          <menu-block class="menu-item-wrapper">
             <template v-slot:icon>
               <span class="icon icon--inquiry"></span>
             </template>
             <template v-slot:content>
-              <span class="content">{{ $t('menu_inquiry') }}</span>
+              <span class="content">{{ $t('home.menuInquiry') }}</span>
             </template>
-          </eodiro-block-item>
+          </menu-block>
 
           <!-- preferences -->
           <nuxt-link :to="localePath('preferences').replace(/\/$/, '')">
-            <eodiro-block-item class="menu-item-wrapper">
+            <menu-block class="menu-item-wrapper">
               <template v-slot:icon>
                 <span class="icon icon--preferences"></span>
               </template>
               <template v-slot:content>
-                <span class="content">{{ $t('menu_preferences') }}</span>
+                <span class="content">{{ $t('home.menuPreferences') }}</span>
               </template>
-            </eodiro-block-item>
+            </menu-block>
           </nuxt-link>
-        </eodiro-block-container>
+        </block-container>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import EodiroPageBase from '~/components/EodiroPageBase.vue'
+import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
 import EodiroDialog from '~/plugins/eodiro-dialog'
-import { EodiroBlockContainer, EodiroBlockItem } from '~/components/ui'
+import { BlockContainer, MenuBlock } from '~/components/ui'
 
 export default {
   name: 'home',
   extends: EodiroPageBase,
-  components: { EodiroBlockContainer, EodiroBlockItem },
+  components: { BlockContainer, MenuBlock },
   meta: {
     depth: 0,
     appName: 'home'
@@ -143,8 +118,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/global-variables.scss';
-@import '~/assets/styles/scss/global-mixins.scss';
+@import '~/assets/styles/scss/main.scss';
 
 #home {
   .page-content-wrapper {
@@ -216,7 +190,7 @@ export default {
         }
       }
 
-      .icon--club {
+      .icon--clubs {
         background-image: url('~assets/images/eodiro/home/home_menu_icon_club.svg');
 
         @include dark-mode {

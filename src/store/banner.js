@@ -1,5 +1,6 @@
 export const state = () => ({
-  isForcedMini: false
+  isForcedMini: false,
+  mcBannerMiniFlag: false // adjust main-content padding-top
 })
 
 export const mutations = {
@@ -8,5 +9,8 @@ export const mutations = {
   },
   disableForcedMini(state) {
     state.isForcedMini = false
+  },
+  setMcBannerMiniFlag(state, bool) {
+    state.mcBannerMiniFlag = bool
   }
 }

@@ -1,35 +1,20 @@
-<i18n>
-{
-  "kr": {
-    "title": "리뷰",
-    "send": "보내기",
-    "write_here": "이 곳에 내용을 입력하세요."
-  },
-  "en": {
-    "title": "Review",
-    "send": "Send",
-    "write_here": "Write anything here."
-  }
-}
-</i18n>
-
 <template>
   <div id="review">
     <div class="page-content">
       <div class="content-container">
-        <eodiro-textarea class="writing-area" :placeholder="$t('write_here')"></eodiro-textarea>
-        <eodiro-button @click="sendEmail" class="send-btn">
-          <span class="icon"></span>
-          <span class="text">{{ $t('send') }}</span>
-        </eodiro-button>
+        <multi-feed class="writing-area" :placeholder="$t('review.writeHere')"></multi-feed>
+        <stud @click="sendEmail" class="send-btn">
+          <!-- <span class="icon"></span> -->
+          <span class="text">{{ $t('review.send') }}</span>
+        </stud>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import EodiroPageBase from '~/components/EodiroPageBase.vue'
-import { EodiroButton, EodiroTextarea } from '~/components/ui'
+import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
+import { Stud, MultiFeed } from '~/components/ui'
 import Dialog from '~/plugins/eodiro-dialog'
 
 export default {
@@ -39,10 +24,10 @@ export default {
     depth: 1,
     appName: 'review'
   },
-  components: { EodiroButton, EodiroTextarea },
+  components: { Stud, MultiFeed },
   head() {
     return {
-      title: this.$t('title')
+      title: this.$t('review.title')
     }
   },
   data() {
@@ -50,7 +35,7 @@ export default {
   },
   methods: {
     sendEmail() {
-      new Dialog().alert('Sent!')
+      new Dialog().confirm('정말 보내시겠습니까?')
     }
   },
   mounted() {}
@@ -58,7 +43,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/global-mixins.scss';
+@import '~/assets/styles/scss/main.scss';
 
 #review {
   max-width: 30rem !important;
@@ -76,9 +61,7 @@ export default {
       height: 100%;
 
       .writing-area {
-        height: calc(
-          100vh - 1px - #{$banner-height} - #{$posh-gap} - 3rem - 2rem - 5rem
-        );
+        height: 20rem;
         flex-grow: 1;
         margin-bottom: $posh-gap;
       }

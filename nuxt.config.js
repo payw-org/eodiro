@@ -88,10 +88,9 @@ export default {
 
   // include global css/scss files
   css: [
-    '~/assets/styles/css/fonts_new.css',
+    '~/assets/styles/css/fonts.css',
     '~/plugins/eodiro-dialog/style.scss',
-    '~/assets/styles/scss/globalstyle.scss',
-    '~/assets/styles/scss/gradients-simple.scss',
+    '~/assets/styles/scss/global/globalstyle.scss',
     '~/assets/styles/stylus/spring.styl'
   ],
 
@@ -107,16 +106,19 @@ export default {
           {
             name: 'English',
             code: 'en',
-            iso: 'en-US'
+            iso: 'en-US',
+            file: 'en-US.js'
           },
           {
             name: 'Korean',
             code: 'kr',
-            iso: 'ko-KR'
+            iso: 'ko-KR',
+            file: 'ko-KR.js'
           }
         ],
+        lazy: true,
+        langDir: 'lang/',
         defaultLocale: 'kr',
-        vueI18nLoader: true,
         detectBrowserLanguage: {
           useCookie: true,
           cookieKey: 'i18n_lang'

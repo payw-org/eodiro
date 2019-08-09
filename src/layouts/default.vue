@@ -1,37 +1,24 @@
-<i18n>
-{
-  "kr": {
-    "title": "어디로",
-    "description": "중앙대학교 길잡이"
-  },
-  "en": {
-    "title": "eodiro",
-    "description": "CAU Guidance"
-  }
-}
-</i18n>
-
 <template>
   <div
     id="app"
     :class="[
       $store.state.currentAppName,
-      { 'is-banner-forced-mini': isBannerForcedMini }
+      { 'is-banner-forced-mini': $store.state.banner.mcBannerMiniFlag }
     ]"
   >
-    <div id="banner-observer-sentinel"></div>
-    <banner v-if="$store.state.appName !== 'error'" />
+    <div id="banner-observer-sentinel" v-if="!isValidPage"></div>
+    <banner v-if="!isValidPage" />
     <nuxt
       keep-alive
       :keep-alive-props="{ include: $store.state.cachedComponents }"
-      class="master-content"
+      :class="{ 'master-content': !isValidPage }"
     ></nuxt>
     <go-back />
   </div>
 </template>
 
 <script>
-import Banner from '~/components/Banner.vue'
+import Banner from '~/components/global/Banner.vue'
 import GoBack from '~/components/global/GoBack.vue'
 
 export default {
@@ -41,9 +28,16 @@ export default {
       isBannerForcedMini: false
     }
   },
+  computed: {
+    isValidPage() {
+      return !this.$store.state.appList.includes(
+        this.$store.state.currentAppName
+      )
+    }
+  },
   watch: {
     $route(to, from) {
-      this.determineBannerIsForcedMini()
+      // this.determineBannerIsForcedMini()
     }
   },
   methods: {
@@ -62,20 +56,20 @@ export default {
   },
   head() {
     return {
-      title: this.$t('title'),
+      title: this.$t('global.head.title'),
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: this.$t('description')
+          content: this.$t('global.head.description')
         },
         {
           property: 'og:title',
-          content: this.$t('title')
+          content: this.$t('global.head.title')
         },
         {
           property: 'og:description',
-          content: this.$t('description')
+          content: this.$t('global.head.description')
         }
       ],
       htmlAttrs: {
@@ -94,14 +88,14 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/global-variables.scss';
-@import '~/assets/styles/scss/global-mixins.scss';
+@import '~/assets/styles/scss/main.scss';
 
 #app {
   .master-content {
-    padding-top: calc(#{$banner-height} + #{$master-content-top-gap});
+    min-height: 100vh;
     padding-bottom: $master-content-bottom-gap;
     width: calc(100% - #{2 * $posh-gap});
+    padding-top: calc(#{$banner-height} + #{$master-content-top-gap});
     max-width: $master-content-max-width;
     margin: auto;
   }

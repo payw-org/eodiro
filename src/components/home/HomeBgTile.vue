@@ -188,8 +188,8 @@ export default {
 }
 </script>
 <style lang="scss">
-@import '~/assets/styles/scss/global-variables.scss';
-@import '~/assets/styles/scss/global-mixins.scss';
+@import '~/assets/styles/scss/main.scss';
+
 #tiles-container {
   position: absolute;
   width: 105%;
@@ -208,7 +208,8 @@ export default {
     border-radius: 1rem;
     background-color: #fff0f3;
     opacity: 0;
-    transition: opacity 500ms linear;
+    transition: opacity 500ms linear,
+      background-color $color-scheme-transition-time ease;
 
     @include smaller-than(700px) {
       border-radius: 0.85rem;

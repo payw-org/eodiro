@@ -1,14 +1,3 @@
-<i18n>
-{
-  "kr": {
-    "go_back": "뒤로가기"
-  },
-  "en": {
-    "go_back": "Go Back"
-  }
-}
-</i18n>
-
 <template>
   <transition name="fade">
     <nuxt-link
@@ -18,7 +7,7 @@
     >
       <button id="go-back" :class="{ hidden: isHidden }">
         <span class="icon"></span>
-        {{ $t('go_back') }}
+        {{ $t('global.goBack') }}
       </button>
     </nuxt-link>
   </transition>
@@ -42,6 +31,8 @@ export default {
             window.addEventListener('scroll', this.scrollEventCallback)
           }, 50)
         })
+      } else if (this.$store.state.routeDirection === 'forward') {
+        this.isHidden = false
       }
     }
   },
@@ -57,6 +48,10 @@ export default {
       } else if (this.scrollY > 0) {
         // down
         that.isHidden = true
+
+        if (window.innerHeight + this.scrollY >= document.body.scrollHeight) {
+          that.isHidden = false
+        }
       }
       this.oldScroll = this.scrollY
     }
@@ -67,43 +62,46 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/global-variables.scss';
-@import '~/assets/styles/scss/global-mixins.scss';
-@import '~/assets/styles/scss/eodiro-ui.scss';
+@import '~/assets/styles/scss/main.scss';
 
 #go-back {
+  @include text-color;
+  background-color: #fff;
   cursor: pointer;
   position: fixed;
   display: flex;
   align-items: center;
   justify-content: center;
   left: 50%;
-  bottom: 4rem;
+  bottom: 3.5rem;
   padding: 0 1rem;
-  height: 3rem;
+  height: 2.7rem;
   opacity: 1;
   transform: translateX(-50%) scale(1);
-  background-color: #fff;
   border-radius: 50px;
-  box-shadow: 0 0.15rem 0.5rem rgba(#000, 0.2);
+  box-shadow: 0 0.12rem 0.4rem rgba(#000, 0.2);
   font-size: 1rem;
   font-weight: 500;
-  transition: transform 300ms ease, opacity 300ms ease;
+  transition: transform 300ms ease, opacity 300ms ease,
+    background-color $color-scheme-transition-time ease;
+
+  @include dark-mode {
+    background-color: #444;
+  }
 
   &.hidden {
-    // transform: translateX(-50%) translateY(6rem);
     transform: translateX(-50%) scale(0.9);
     opacity: 0;
   }
 
   .icon {
-    width: 0.6rem;
+    width: 0.5rem;
     height: 1rem;
     margin-right: 0.5rem;
     transform: scaleX(-1);
 
     @include bgImg(
-      '~assets/images/eodiro/arrow_right_step4.svg',
+      '~assets/images/eodiro/arrow_right_black.svg',
       center,
       contain
     );
@@ -115,11 +113,6 @@ export default {
         contain
       );
     }
-  }
-
-  @include dark-mode {
-    background-color: $c-step--4;
-    color: $base-white;
   }
 }
 </style>

@@ -1,66 +1,36 @@
-<i18n>
-{
-  "kr": {
-    "title": "설정",
-    "color_scheme": {
-      "title": "색상 모드",
-      "light": "라이트",
-      "dark": "다크",
-      "auto": "적응형"
-    },
-    "lang": "언어"
-  },
-  "en": {
-    "title": "Preferences",
-    "color_scheme": {
-      "title": "Color Scheme",
-      "light": "Light",
-      "dark": "Dark",
-      "auto": "Adaptive"
-    },
-    "lang": "Language"
-  }
-}
-</i18n>
-
 <template>
   <div id="preferences">
     <div class="page-content">
       <!-- language -->
       <section class="pref-section">
-        <h2 class="name">{{ $t('lang') }}</h2>
+        <h2 class="name">{{ $t('pref.lang') }}</h2>
         <div class="options">
-          <eodiro-button class="opt" @click="switchLang('kr')">한국어</eodiro-button>
-          <eodiro-button class="opt" @click="switchLang('en')">English</eodiro-button>
+          <stud class="opt" @click="switchLang('kr')">한국어</stud>
+          <stud class="opt" @click="switchLang('en')">English</stud>
         </div>
       </section>
 
       <!-- color scheme -->
       <section class="pref-section">
-        <h2 class="name">{{ $t('color_scheme.title') }}</h2>
+        <h2 class="name">{{ $t('pref.colorScheme.title') }}</h2>
         <div class="options">
-          <eodiro-button
-            class="opt"
-            @click="switchColorScheme('light')"
-          >{{ $t('color_scheme.light') }}</eodiro-button>
-          <eodiro-button
-            class="opt"
-            @click="switchColorScheme('dark')"
-          >{{ $t('color_scheme.dark') }}</eodiro-button>
-          <eodiro-button
+          <stud class="opt" @click="switchColorScheme('light')">{{ $t('pref.colorScheme.light') }}</stud>
+          <stud class="opt" @click="switchColorScheme('dark')">{{ $t('pref.colorScheme.dark') }}</stud>
+          <stud
             class="opt"
             v-if="autoDarkModeSupport"
             @click="switchColorScheme('auto')"
-          >{{ $t('color_scheme.auto') }}</eodiro-button>
+          >{{ $t('pref.colorScheme.auto') }}</stud>
         </div>
       </section>
     </div>
+    <folder-block></folder-block>
   </div>
 </template>
 
 <script>
-import { EodiroButton, EodiroInput, EodiroTextarea } from '~/components/ui'
-import EodiroPageBase from '~/components/EodiroPageBase.vue'
+import { Stud, Feed, MultiFeed, FolderBlock } from '~/components/ui'
+import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
 import Cookies from 'js-cookie'
 import EodiroDialog from '~/plugins/eodiro-dialog'
 
@@ -71,10 +41,10 @@ export default {
     depth: 1,
     appName: 'preferences'
   },
-  components: { EodiroButton, EodiroInput, EodiroTextarea },
+  components: { Stud, Feed, MultiFeed, FolderBlock },
   head() {
     return {
-      title: this.$t('title')
+      title: this.$t('pref.title')
     }
   },
   data() {
@@ -105,8 +75,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/global-mixins.scss';
-@import '~/assets/styles/scss/eodiro-ui.scss';
+@import '~/assets/styles/scss/main.scss';
 
 #app.preferences {
   @keyframes rotatingGear {
@@ -136,6 +105,7 @@ export default {
 
       &:last-child {
         margin-bottom: 0;
+        padding-bottom: 0;
         border-bottom: none;
       }
 

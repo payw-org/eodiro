@@ -1,14 +1,11 @@
-import EodiroButton from '~/components/ui/EodiroButton.vue'
-import EodiroInput from '~/components/ui/EodiroInput.vue'
-import EodiroTextarea from '~/components/ui/EodiroTextarea.vue'
+// form
+import Stud from '~/components/ui/form/Stud.vue'
+import Feed from '~/components/ui/form/Feed.vue'
+import MultiFeed from '~/components/ui/form/MultiFeed.vue'
 
-import EodiroBlockItem from '~/components/ui/block/EodiroBlockItem.vue'
-import EodiroBlockContainer from '~/components/ui/block/EodiroBlockContainer.vue'
+// block
+import BlockContainer from '~/components/ui/block/BlockContainer.vue'
+import MenuBlock from '~/components/ui/block/MenuBlock.vue'
+import FolderBlock from '~/components/ui/block/FolderBlock.vue'
 
-export {
-  EodiroButton,
-  EodiroInput,
-  EodiroTextarea,
-  EodiroBlockItem,
-  EodiroBlockContainer
-}
+export { Stud, Feed, MultiFeed, MenuBlock, FolderBlock, BlockContainer }

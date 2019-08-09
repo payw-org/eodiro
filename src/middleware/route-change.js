@@ -1,11 +1,20 @@
 export default ({ app, from, route, store }) => {
   // set current app name
-  let appName = 'error'
+  let appName
+
   try {
     appName = route.meta[0].appName
   } catch (error) {
-    console.error(error)
+    if (route.name) {
+      console.error(
+        'Could not find AppName. Maybe you did not set an AppName for this page.'
+      )
+    } else {
+      // error page
+      appName = 'error'
+    }
   }
+
   store.commit('setAppName', appName)
 
   if (!from) {
@@ -18,8 +27,6 @@ export default ({ app, from, route, store }) => {
   // set previous path
   if (route.name) {
     store.commit('setPreviousPath', route.name)
-  } else {
-    store.commit('setPreviousPath', 'index')
   }
 
   try {
@@ -42,7 +49,9 @@ export default ({ app, from, route, store }) => {
         route.matched[route.matched.length - 1].components.default.options.meta
           .lastScrollPosition
     } catch (error) {
-      console.error(error)
+      console.error(
+        'Could not find lastScrollPosition. You should extend EodiroPageBase for each page and add a meta data for each page as well.'
+      )
     }
     store.commit('setLastScrollPosition', lastScrollPosition)
 
@@ -52,8 +61,15 @@ export default ({ app, from, route, store }) => {
     try {
       fromDepth = from.meta[from.meta.length - 1].depth
       toDepth = route.meta[route.meta.length - 1].depth
+
+      if (fromDepth === undefined) {
+        console.error('Could not find page depth from the previous page.')
+      }
+      if (toDepth === undefined) {
+        console.error('Could not find page depth from this page.')
+      }
     } catch (error) {
-      console.log(error)
+      console.log('Could not get page depth.')
     }
 
     // determine the route direction
