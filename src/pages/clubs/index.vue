@@ -1,6 +1,6 @@
 <template>
   <div class="clubs-categories">
-    <block-container>
+    <Grid>
       <nuxt-link
         :to="localePath({
           name: 'clubs-topic',
@@ -15,13 +15,13 @@
           <template v-slot:content>{{ cat }}</template>
         </menu-block>
       </nuxt-link>
-    </block-container>
+    </Grid>
   </div>
 </template>
 
 <script>
 import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
-import { BlockContainer, MenuBlock } from '~/components/ui'
+import { Grid, MenuBlock } from '~/components/ui'
 
 export default {
   name: 'clubs-index',
@@ -29,7 +29,7 @@ export default {
   meta: {
     depth: 1
   },
-  components: { BlockContainer, MenuBlock },
+  components: { Grid, MenuBlock },
   data() {
     return {
       categories: [

@@ -2,7 +2,7 @@
   <div id="home">
     <div class="page-content-wrapper">
       <div class="page-content">
-        <block-container class="menu-item-container">
+        <Grid class="menu-item-container">
           <!-- vacant classrooms -->
           <nuxt-link :to="localePath('vacant').replace(/\/$/, '')">
             <menu-block class="menu-item-wrapper">
@@ -47,14 +47,14 @@
             </menu-block>
           </nuxt-link>
 
-          <!-- review -->
-          <nuxt-link :to="localePath('review').replace(/\/$/, '')">
+          <!-- inquiry -->
+          <nuxt-link :to="localePath('inquiry').replace(/\/$/, '')">
             <menu-block class="menu-item-wrapper">
               <template v-slot:icon>
-                <span class="icon icon--review"></span>
+                <span class="icon icon--inquiry"></span>
               </template>
               <template v-slot:content>
-                <span class="content">{{ $t('home.menuReview') }}</span>
+                <span class="content">{{ $t('home.menuInquiry') }}</span>
               </template>
             </menu-block>
           </nuxt-link>
@@ -69,16 +69,6 @@
             </template>
           </menu-block>
 
-          <!-- inquiry -->
-          <menu-block class="menu-item-wrapper">
-            <template v-slot:icon>
-              <span class="icon icon--inquiry"></span>
-            </template>
-            <template v-slot:content>
-              <span class="content">{{ $t('home.menuInquiry') }}</span>
-            </template>
-          </menu-block>
-
           <!-- preferences -->
           <nuxt-link :to="localePath('preferences').replace(/\/$/, '')">
             <menu-block class="menu-item-wrapper">
@@ -90,7 +80,7 @@
               </template>
             </menu-block>
           </nuxt-link>
-        </block-container>
+        </Grid>
       </div>
     </div>
   </div>
@@ -99,12 +89,12 @@
 <script>
 import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
 import EodiroDialog from '~/plugins/eodiro-dialog'
-import { BlockContainer, MenuBlock } from '~/components/ui'
+import { Grid, MenuBlock } from '~/components/ui'
 
 export default {
   name: 'home',
   extends: EodiroPageBase,
-  components: { BlockContainer, MenuBlock },
+  components: { Grid, MenuBlock },
   meta: {
     depth: 0,
     appName: 'home'
@@ -158,11 +148,11 @@ export default {
         }
       }
 
-      .icon--review {
+      .icon--inquiry {
         background-image: url('~assets/images/eodiro/home/home_menu_icon_review.svg');
 
         @include dark-mode {
-          background-image: url('~assets/images/eodiro/home/home_menu_icon_review_black.svg');
+          background-image: url('~assets/images/eodiro/home/home_menu_icon_inquiry_black.svg');
         }
       }
 
@@ -171,14 +161,6 @@ export default {
 
         @include dark-mode {
           background-image: url('~assets/images/eodiro/home/home_menu_icon_donate_black.svg');
-        }
-      }
-
-      .icon--inquiry {
-        background-image: url('~assets/images/eodiro/home/home_menu_icon_inquiry.svg');
-
-        @include dark-mode {
-          background-image: url('~assets/images/eodiro/home/home_menu_icon_inquiry_black.svg');
         }
       }
 

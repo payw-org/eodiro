@@ -198,7 +198,7 @@ export default {
       &.background--preferences {
         background-image: linear-gradient(to bottom, #939393, #636363);
       }
-      &.background--review {
+      &.background--inquiry {
         background-image: linear-gradient(to bottom, #ffc700, #ff8a00);
       }
       &.background--clubs {
@@ -339,13 +339,17 @@ export default {
       }
     }
 
-    &.app--review {
+    &.app--inquiry {
       .icon {
-        @include bgImg('~assets/images/eodiro/review_white.svg', center, '75%');
+        @include bgImg(
+          '~assets/images/eodiro/inquiry_white.svg',
+          center,
+          '75%'
+        );
 
         @include dark-mode {
           @include bgImg(
-            '~assets/images/eodiro/review_black.svg',
+            '~assets/images/eodiro/inquiry_black.svg',
             center,
             '75%'
           );

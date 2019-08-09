@@ -1,6 +1,6 @@
 <template>
   <div class="select-building">
-    <block-container>
+    <Grid>
       <nuxt-link
         v-for="building in buildings"
         :key="building.name + building.number"
@@ -33,7 +33,7 @@
       </nuxt-link>
 
       <loading v-if="buildings.length === 0" />
-    </block-container>
+    </Grid>
   </div>
 </template>
 
@@ -43,7 +43,7 @@ import Loading from '~/components/ui/Loading.vue'
 import ApiUrl from '~/plugins/ApiUrl'
 import EodiroStorage from '~/plugins/EodiroStorage'
 import axios from 'axios'
-import { BlockContainer, MenuBlock } from '~/components/ui'
+import { Grid, MenuBlock } from '~/components/ui'
 import Dialog from '~/plugins/eodiro-dialog'
 
 export default {
@@ -52,7 +52,7 @@ export default {
   meta: {
     depth: 1
   },
-  components: { Loading, BlockContainer, MenuBlock },
+  components: { Loading, Grid, MenuBlock },
   data() {
     return {
       buildings: [],

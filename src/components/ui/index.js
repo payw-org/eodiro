@@ -1,11 +1,11 @@
 // form
-import Stud from '~/components/ui/form/Stud.vue'
-import Feed from '~/components/ui/form/Feed.vue'
-import MultiFeed from '~/components/ui/form/MultiFeed.vue'
+import Button from '~/components/ui/form/Button.vue'
+import Input from '~/components/ui/form/Input.vue'
+import Textarea from '~/components/ui/form/Textarea.vue'
 
 // block
-import BlockContainer from '~/components/ui/block/BlockContainer.vue'
+import Grid from '~/components/ui/layouts/Grid.vue'
 import MenuBlock from '~/components/ui/block/MenuBlock.vue'
-import FolderBlock from '~/components/ui/block/FolderBlock.vue'
+import Accordion from '~/components/ui/block/Accordion.vue'
 
-export { Stud, Feed, MultiFeed, MenuBlock, FolderBlock, BlockContainer }
+export { Button, Input, Textarea, MenuBlock, Accordion, Grid }
