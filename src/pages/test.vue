@@ -1,14 +1,33 @@
 <template>
   <div>
-    <folder-block></folder-block>
+    <Grid>
+      <Button>hi</Button>
+      <Accordion>
+        <template v-slot:face>
+          <h3>Accordion</h3>
+          <p>This is accordion component.</p>
+          <p>This is accordion component.</p>
+          <p>This is accordion component.</p>
+        </template>
+
+        <template v-slot:content>
+          <p>Accordion content</p>
+        </template>
+      </Accordion>
+      <MenuBlock>
+        <template v-slot:content>
+          <p>Menu Block</p>
+        </template>
+      </MenuBlock>
+    </Grid>
   </div>
 </template>
 
 <script>
-import { Accordion } from '~/components/ui'
+import { Accordion, MenuBlock, Button, Grid } from '~/components/ui'
 
 export default {
-  components: { Accordion }
+  components: { Accordion, MenuBlock, Button, Grid }
 }
 </script>
 

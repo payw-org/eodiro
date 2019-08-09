@@ -62,10 +62,12 @@ $btn-height: 3rem;
 // border radius
 $border-radius: 0.7rem;
 
-// spacing
+// spacing/gaps/gutters
 $mobile-width-threshold: 700px; // @deprecated
 $stagger-gap: 6rem; // @deprecated
 $grid-max-width: 16rem; // @deprecated
+$slight-gap: 0.5rem;
+$gentle-gap: 1rem;
 $posh-gap: 1.35rem;
 
 // spring animation time
