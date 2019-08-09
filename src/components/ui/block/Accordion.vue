@@ -1,11 +1,12 @@
 <template>
-  <div class="folder-block" :style="{ height: totalHeight }">
-    <div class="face">
+  <div class="accordion" :style="{ height: totalHeight }">
+    <div class="acc-face-container">
       <slot name="face"></slot>
     </div>
-    <div class="content">
+    <div class="acc-content-container">
       <slot name="content"></slot>
     </div>
+    <div class="acc-arrow-wrapper"></div>
   </div>
 </template>
 
@@ -23,13 +24,17 @@ export default {
 <style lang="scss">
 @import '~/assets/styles/scss/main.scss';
 
-.folder-block {
-  .face {
+.accordion {
+  @include block-style;
+  position: relative;
+
+  .acc-face-container {
   }
 
-  .content {
+  .acc-content-container {
     position: absolute;
-    top: 0;
+    padding: $posh-gap;
+    top: 100%;
     left: 0;
     width: 100%;
     padding: $posh-gap;

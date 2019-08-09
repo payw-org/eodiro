@@ -34,17 +34,17 @@
         {{ $t('second_line') }}
       </h1>
       <nuxt-link :to="localePath('index')">
-        <stud class="go-back">{{ $t('go_home') }}</stud>
+        <Button class="go-back">{{ $t('go_home') }}</Button>
       </nuxt-link>
     </div>
   </div>
 </template>
 
 <script>
-import { Stud } from '~/components/ui'
+import { Button } from '~/components/ui'
 
 export default {
-  components: { Stud },
+  components: { Button },
   meta: {
     appName: 'error'
   },

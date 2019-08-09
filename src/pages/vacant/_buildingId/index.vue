@@ -2,7 +2,7 @@
   <div class="select-floor">
     <div class="building-id">{{ $route.params.buildingId }}</div>
 
-    <block-container class="floor-container">
+    <Grid class="floor-container">
       <nuxt-link
         class="floor-link"
         v-for="floor in floors"
@@ -33,7 +33,7 @@
       </nuxt-link>
 
       <loading v-if="floors.length === 0" />
-    </block-container>
+    </Grid>
   </div>
 </template>
 
@@ -43,7 +43,7 @@ import Loading from '~/components/ui/Loading.vue'
 import Stagger from '~/plugins/Stagger'
 import ApiUrl from '~/plugins/ApiUrl'
 import axios from 'axios'
-import { BlockContainer, MenuBlock } from '~/components/ui'
+import { Grid, MenuBlock } from '~/components/ui'
 
 export default {
   name: 'vacant-floor',
@@ -52,7 +52,7 @@ export default {
     depth: 2,
     bannerMode: 'mini'
   },
-  components: { Loading, BlockContainer, MenuBlock },
+  components: { Loading, Grid, MenuBlock },
   data() {
     return {
       buildingName: '',

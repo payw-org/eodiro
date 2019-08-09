@@ -5,7 +5,7 @@ const routeMap = {
   home: ['index'],
   vacant: ['index', 'vacant', 'vacant-buildingId', 'vacant-buildingId-floorId'],
   preferences: ['index', 'preferences'],
-  review: ['index', 'review'],
+  inquiry: ['index', 'inquiry'],
   clubs: ['index', 'clubs', 'clubs-topic']
 }
 
@@ -84,7 +84,9 @@ export const mutations = {
           state.routeMap[state.currentAppName].indexOf(currentRoute) - 1
         ]
     } catch (error) {
-      console.error(error)
+      console.error(
+        'Could not set previous path. This page may not included in the routeMap.'
+      )
       state.prevPath = 'index'
     }
   }
