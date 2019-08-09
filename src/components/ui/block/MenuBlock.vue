@@ -1,16 +1,16 @@
 <template>
   <div class="menu-block" @click="$emit('click')">
     <!-- only visible when icon slot is set -->
-    <div class="icon-wrapper" v-if="$slots.icon">
+    <div class="mb-icon-wrapper" v-if="$slots.icon">
       <slot name="icon"></slot>
     </div>
 
-    <div class="content-wrapper">
+    <div class="mb-content-container">
       <slot name="content"></slot>
     </div>
 
-    <div class="arrow-wrapper">
-      <span class="arrow"></span>
+    <div class="mb-arrow-wrapper">
+      <span class="mb-arrow"></span>
     </div>
   </div>
 </template>
@@ -24,16 +24,9 @@ export default {}
 @import '~/assets/styles/scss/main.scss';
 
 .menu-block {
-  @include elm-fill;
-  border-radius: $border-radius;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0 1rem 0 1.2rem;
-  min-height: 5.5rem;
-  cursor: pointer;
+  @include block-style;
 
-  .icon-wrapper {
+  .mb-icon-wrapper {
     margin-right: 1rem;
     display: flex;
     align-items: center;
@@ -49,18 +42,18 @@ export default {}
     }
   }
 
-  .content-wrapper {
+  .mb-content-container {
     flex: 1;
     padding: 1rem 0;
   }
 
-  .arrow-wrapper {
+  .mb-arrow-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
     margin-left: 1rem;
 
-    .arrow {
+    .mb-arrow {
       display: block;
       width: 0.6rem;
       height: 2rem;

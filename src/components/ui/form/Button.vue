@@ -1,5 +1,5 @@
 <template>
-  <button class="stud" @click="$emit('click')">
+  <button class="btn" @click="$emit('click')">
     <slot></slot>
   </button>
 </template>
@@ -11,7 +11,7 @@ export default {}
 <style lang="scss">
 @import '~/assets/styles/scss/main.scss';
 
-.stud {
+.btn {
   @include elm-fill;
   color: $base-black;
   width: 100%;

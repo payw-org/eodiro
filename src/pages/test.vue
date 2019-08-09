@@ -1,11 +1,17 @@
 <template>
   <div>
-    <h1>Heading 1</h1>
-    <h2>Heading 2</h2>
-    <h3>Heading 3</h3>
-    <p>Paragraph</p>
+    <folder-block></folder-block>
   </div>
 </template>
+
+<script>
+import { Accordion } from '~/components/ui'
+
+export default {
+  components: { Accordion }
+}
+</script>
+
 
 <style lang="scss">
 @import '~/assets/styles/scss/main.scss';

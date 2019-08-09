@@ -5,8 +5,8 @@
       <section class="pref-section">
         <h2 class="name">{{ $t('pref.lang') }}</h2>
         <div class="options">
-          <stud class="opt" @click="switchLang('kr')">한국어</stud>
-          <stud class="opt" @click="switchLang('en')">English</stud>
+          <Button class="opt" @click="switchLang('kr')">한국어</Button>
+          <Button class="opt" @click="switchLang('en')">English</Button>
         </div>
       </section>
 
@@ -14,22 +14,21 @@
       <section class="pref-section">
         <h2 class="name">{{ $t('pref.colorScheme.title') }}</h2>
         <div class="options">
-          <stud class="opt" @click="switchColorScheme('light')">{{ $t('pref.colorScheme.light') }}</stud>
-          <stud class="opt" @click="switchColorScheme('dark')">{{ $t('pref.colorScheme.dark') }}</stud>
-          <stud
+          <Button class="opt" @click="switchColorScheme('light')">{{ $t('pref.colorScheme.light') }}</Button>
+          <Button class="opt" @click="switchColorScheme('dark')">{{ $t('pref.colorScheme.dark') }}</Button>
+          <Button
             class="opt"
             v-if="autoDarkModeSupport"
             @click="switchColorScheme('auto')"
-          >{{ $t('pref.colorScheme.auto') }}</stud>
+          >{{ $t('pref.colorScheme.auto') }}</Button>
         </div>
       </section>
     </div>
-    <folder-block></folder-block>
   </div>
 </template>
 
 <script>
-import { Stud, Feed, MultiFeed, FolderBlock } from '~/components/ui'
+import { Button, Input, Textarea } from '~/components/ui'
 import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
 import Cookies from 'js-cookie'
 import EodiroDialog from '~/plugins/eodiro-dialog'
@@ -41,7 +40,7 @@ export default {
     depth: 1,
     appName: 'preferences'
   },
-  components: { Stud, Feed, MultiFeed, FolderBlock },
+  components: { Button, Input, Textarea },
   head() {
     return {
       title: this.$t('pref.title')

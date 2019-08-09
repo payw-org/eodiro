@@ -2,7 +2,7 @@
   <div id="home">
     <div class="page-content-wrapper">
       <div class="page-content">
-        <block-container class="menu-item-container">
+        <Grid class="menu-item-container">
           <!-- vacant classrooms -->
           <nuxt-link :to="localePath('vacant').replace(/\/$/, '')">
             <menu-block class="menu-item-wrapper">
@@ -80,7 +80,7 @@
               </template>
             </menu-block>
           </nuxt-link>
-        </block-container>
+        </Grid>
       </div>
     </div>
   </div>
@@ -89,12 +89,12 @@
 <script>
 import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
 import EodiroDialog from '~/plugins/eodiro-dialog'
-import { BlockContainer, MenuBlock } from '~/components/ui'
+import { Grid, MenuBlock } from '~/components/ui'
 
 export default {
   name: 'home',
   extends: EodiroPageBase,
-  components: { BlockContainer, MenuBlock },
+  components: { Grid, MenuBlock },
   meta: {
     depth: 0,
     appName: 'home'

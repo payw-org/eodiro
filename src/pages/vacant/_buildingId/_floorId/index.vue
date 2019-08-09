@@ -1,6 +1,6 @@
 <template>
   <div class="content-item result">
-    <block-container class="empty-classrooms-container">
+    <Grid class="empty-classrooms-container">
       <div class="grid-wrapper" v-for="room in classrooms" :key="room.number">
         <menu-block class="classroom" @click="openTimeTable(room, new Date().getDay())">
           <template v-slot:content>
@@ -31,7 +31,7 @@
       </div>
 
       <loading v-if="classrooms.length === 0" />
-    </block-container>
+    </Grid>
 
     <div class="timetable-container" :class="{show: timeTableShow}">
       <div class="background" @click="closeTimeTable"></div>
@@ -114,7 +114,7 @@ import {
 } from 'body-scroll-lock'
 import ApiUrl from '~/plugins/ApiUrl'
 import { spring, styler } from 'popmotion'
-import { BlockContainer, MenuBlock } from '~/components/ui'
+import { Grid, MenuBlock } from '~/components/ui'
 import Dialog from '~/plugins/eodiro-dialog'
 
 export default {
@@ -124,7 +124,7 @@ export default {
     depth: 3,
     bannerMode: 'mini'
   },
-  components: { Loading, BlockContainer, MenuBlock },
+  components: { Loading, Grid, MenuBlock },
   data() {
     return {
       classrooms: [],
