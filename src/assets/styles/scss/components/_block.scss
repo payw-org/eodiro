@@ -1,0 +1,13 @@
+@import '~/assets/styles/scss/utilities/_mixins.scss';
+@import '~/assets/styles/scss/utilities/_variables.scss';
+
+@mixin block-style {
+  @include elm-fill;
+  border-radius: $border-radius;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 1rem 0 1.2rem;
+  min-height: 5.5rem;
+  cursor: pointer;
+}
