@@ -1,0 +1,83 @@
+// background colors
+// #fff for over white, #000 over black
+$base-white-blue: #f5f6f8;
+
+// text colors
+$base-white: #f8f8f8;
+$base-black: #222;
+$base-gray: #949494;
+$base-gray--dark: #cdcdcd; // @deprecated
+$base-white-soft: rgba(#fff, 0.85); // @deprecated
+$base-black-soft: rgba(#333, 0.85); // @deprecated
+
+// eodiro colors
+// each step and its number is from
+// logo's gradient level
+$c-step--3: #ff7037;
+$c-step--4: #ff3852;
+$gray: #f0f0f0; // @deprecated
+$light-gray: #fdfdfd; // @deprecated
+
+// translucent colors
+$t-white: rgba(255, 255, 255, 0.05);
+$t-black: rgba(0, 0, 0, 0.05);
+
+// high contrast colors
+// @deprecated
+$light-blue: #009eff;
+$light-green: #06db58;
+$light-yellow: #ffb109;
+$light-red: #f32d3e;
+
+// shadow
+$eodiro-shadow: 0 0.4rem 1rem rgba(0, 0, 0, 0.1); // @deprecated
+$eodiro-shadow--dark: 0 0.4rem 1rem rgba(0, 0, 0, 0.4); // @deprecated
+$dark-mode-border-shadow: inset 0 0 0 1px rgba(#000, 1),
+  inset 0 0 0 2px rgba(#fff, 0.3); // @deprecated
+
+// cubic-bezier
+$eodiro-cb: cubic-bezier(0.18, 0.37, 0.11, 0.98); // @deprecated
+$stagger-cb: cubic-bezier(0.28, 0.49, 0.24, 1.08); // @deprecated
+
+// responsive width steps
+$width-step--1: 700px;
+$width-step--2: 1400px;
+
+// master content sizes
+// check default.vue
+$master-content-max-width: 60rem;
+$master-content-top-gap: 2rem;
+$master-content-bottom-gap: 8rem;
+
+// EodiroBanner.vue
+// if you modify these values
+// you should also modify HomeBgTile component
+$banner-height: 37vh;
+$nav-height: 50px;
+$nav-height: 3.5rem;
+
+// button
+$btn-height: 3rem;
+
+// border radius
+$border-radius: 0.7rem;
+
+// spacing
+$mobile-width-threshold: 700px; // @deprecated
+$stagger-gap: 6rem; // @deprecated
+$grid-max-width: 16rem; // @deprecated
+
+// don't use it directly
+$posh-gap: 1.35rem;
+
+// spring animation time
+$spring-time: 1000ms;
+
+// light mode <-> dark mode transition time
+$color-scheme-transition-time: 300ms;
+
+$smooth-transition: all 0.2s ease; // @deprecated
+
+// fonts
+$ui-font: 'Inter', 'Noto Sans KR', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+  Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;

@@ -1,14 +1,3 @@
-<i18n>
-{
-  "kr": {
-    "go_back": "뒤로가기"
-  },
-  "en": {
-    "go_back": "Go Back"
-  }
-}
-</i18n>
-
 <template>
   <transition name="fade">
     <nuxt-link
@@ -18,7 +7,7 @@
     >
       <button id="go-back" :class="{ hidden: isHidden }">
         <span class="icon"></span>
-        {{ $t('go_back') }}
+        {{ $t('global.goBack') }}
       </button>
     </nuxt-link>
   </transition>
@@ -59,6 +48,10 @@ export default {
       } else if (this.scrollY > 0) {
         // down
         that.isHidden = true
+
+        if (window.innerHeight + this.scrollY >= document.body.scrollHeight) {
+          that.isHidden = false
+        }
       }
       this.oldScroll = this.scrollY
     }
@@ -69,9 +62,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/global-variables.scss';
-@import '~/assets/styles/scss/global-mixins.scss';
-@import '~/assets/styles/scss/eodiro-ui.scss';
+@import '~/assets/styles/scss/main.scss';
 
 #go-back {
   @include text-color;
@@ -82,7 +73,7 @@ export default {
   align-items: center;
   justify-content: center;
   left: 50%;
-  bottom: 4rem;
+  bottom: 3.5rem;
   padding: 0 1rem;
   height: 2.7rem;
   opacity: 1;

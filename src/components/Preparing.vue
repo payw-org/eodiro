@@ -1,11 +1,14 @@
 <template>
   <div id="preparing">
-    <h1>업데이트중입니다.<br>잠시만 기다려주세요.</h1>
+    <h1>
+      업데이트중입니다.
+      <br />잠시만 기다려주세요.
+    </h1>
   </div>
 </template>
 
 <style lang="scss" scoped>
-@import '~/assets/styles/scss/global-variables.scss';
+@import '~/assets/styles/scss/main.scss';
 
 #preparing {
   position: fixed;

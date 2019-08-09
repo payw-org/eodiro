@@ -1,6 +1,6 @@
 <template>
   <div class="select-building">
-    <eodiro-block-container>
+    <block-container>
       <nuxt-link
         v-for="building in buildings"
         :key="building.name + building.number"
@@ -11,7 +11,7 @@
           }
         })"
       >
-        <eodiro-block-item class="building-item">
+        <menu-block class="building-item">
           <template v-slot:content>
             <div class="building-info-container">
               <div class="name-info">
@@ -29,21 +29,22 @@
               </div>
             </div>
           </template>
-        </eodiro-block-item>
+        </menu-block>
       </nuxt-link>
 
       <loading v-if="buildings.length === 0" />
-    </eodiro-block-container>
+    </block-container>
   </div>
 </template>
 
 <script>
-import EodiroPageBase from '~/components/EodiroPageBase.vue'
-import Loading from '~/components/Loading'
+import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
+import Loading from '~/components/ui/Loading.vue'
 import ApiUrl from '~/plugins/ApiUrl'
 import EodiroStorage from '~/plugins/EodiroStorage'
 import axios from 'axios'
-import { EodiroBlockContainer, EodiroBlockItem } from '~/components/ui'
+import { BlockContainer, MenuBlock } from '~/components/ui'
+import Dialog from '~/plugins/eodiro-dialog'
 
 export default {
   name: 'vacant-building',
@@ -51,7 +52,7 @@ export default {
   meta: {
     depth: 1
   },
-  components: { Loading, EodiroBlockContainer, EodiroBlockItem },
+  components: { Loading, BlockContainer, MenuBlock },
   data() {
     return {
       buildings: [],
@@ -86,6 +87,7 @@ export default {
   },
   methods: {
     fetchBuildings() {
+      const that = this
       let url = ApiUrl.get() + location.pathname
       url = 'https://api.eodiro.com/cau'
       axios
@@ -93,7 +95,7 @@ export default {
         .then(response => {
           let data = response.data
           if (data.err) {
-            alert('데이터를 가져올 수 없습니다. 잠시 후 이용 바랍니다.')
+            new Dialog().alert(that.$t('global.dataFetchError'))
             return
           }
 
@@ -104,7 +106,7 @@ export default {
           this.fetchEmpty()
         })
         .catch(function(error) {
-          alert('데이터를 가져올 수 없습니다. 잠시 후 이용 바랍니다.')
+          new Dialog().alert(that.$t('global.dataFetchError'))
         })
     },
     fetchEmpty() {
@@ -162,9 +164,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/global-variables.scss';
-@import '~/assets/styles/scss/global-mixins.scss';
-@import '~/assets/styles/scss/eodiro-ui.scss';
+@import '~/assets/styles/scss/main.scss';
 
 .select-building {
   position: relative;
