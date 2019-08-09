@@ -3,8 +3,7 @@ export default {
   menuMeal: 'Restaurant Menu',
   menuClass: 'Search Classes',
   menuPreferences: 'Preferences',
-  menuReview: 'Write a Review',
+  menuInquiry: 'Inquiry',
   menuDonation: 'Donate',
-  menuInquiry: 'Frequently Asked',
   menuClubs: 'Clubs'
 }
