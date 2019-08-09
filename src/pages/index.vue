@@ -149,7 +149,7 @@ export default {
       }
 
       .icon--inquiry {
-        background-image: url('~assets/images/eodiro/home/home_menu_icon_review.svg');
+        background-image: url('~assets/images/eodiro/home/home_menu_icon_inquiry.svg');
 
         @include dark-mode {
           background-image: url('~assets/images/eodiro/home/home_menu_icon_inquiry_black.svg');
