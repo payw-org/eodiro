@@ -32,8 +32,6 @@
         </menu-block>
       </nuxt-link>
 
-      <!-- <div class="grid-dummy" v-for="i in 2" :key="'gridDummy' + i"></div> -->
-
       <loading v-if="floors.length === 0" />
     </block-container>
   </div>
@@ -108,9 +106,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/variables/all.scss';
-@import '~/assets/styles/scss/mixins/all.scss';
-@import '~/assets/styles/scss/eodiro-ui.scss';
+@import '~/assets/styles/scss/main.scss';
 
 .select-floor {
   position: relative;
@@ -137,6 +133,8 @@ export default {
         justify-content: space-between;
 
         .floor-info {
+          display: flex;
+
           .number {
             font-weight: 700;
             font-size: 2.5rem;
@@ -145,11 +143,12 @@ export default {
           }
 
           .unit {
-            line-height: 1.43;
+            align-self: flex-end;
+            line-height: 1.5;
             font-weight: 500;
             font-size: 1.2rem;
             color: $base-gray;
-            vertical-align: text-bottom;
+            margin-left: 0.2rem;
           }
         }
 

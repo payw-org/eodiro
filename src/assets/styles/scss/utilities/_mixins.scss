@@ -1,0 +1,172 @@
+@import '~/assets/styles/scss/utilities/_variables.scss';
+
+// dark mode
+@mixin dark-mode {
+  .dark-mode & {
+    @content;
+  }
+  @media (prefers-color-scheme: dark) {
+    .auto-color-scheme & {
+      @content;
+    }
+  }
+}
+// light mode
+@mixin light-mode {
+  .light-mode & {
+    @content;
+  }
+  @media (prefers-color-scheme: light) {
+    .auto-color-scheme & {
+      @content;
+    }
+  }
+}
+
+// transitions
+@mixin ui-transition {
+  transition: border $color-scheme-transition-time ease,
+    background-color $color-scheme-transition-time ease;
+}
+
+// body background color
+@mixin bg {
+  @include ui-transition;
+  background-color: #fff;
+
+  @include dark-mode {
+    background-color: #000;
+  }
+}
+@mixin bg-inverted {
+  @include ui-transition;
+  background-color: #000;
+
+  @include dark-mode {
+    background-color: #fff;
+  }
+}
+
+// text color
+@mixin text-color {
+  @include ui-transition;
+  color: $base-black;
+
+  @include dark-mode {
+    color: $base-white;
+  }
+}
+@mixin text-color-inverted {
+  @include ui-transition;
+  color: $base-white;
+
+  @include dark-mode {
+    color: $base-black;
+  }
+}
+
+// element fill
+@mixin elm-fill {
+  @include ui-transition;
+  background-color: $base-white-blue;
+
+  @include dark-mode {
+    background-color: #1f1f1f;
+  }
+}
+@mixin elm-fill-inverted {
+  @include ui-transition;
+  background-color: #1f1f1f;
+
+  @include dark-mode {
+    background-color: $base-white-blue;
+  }
+}
+
+// screen
+@mixin smaller-than($width) {
+  @media only screen and (max-width: $width) {
+    @content;
+  }
+}
+@mixin larger-than($width) {
+  @media only screen and (min-width: $width) {
+    @content;
+  }
+}
+@mixin on-mobile {
+  @include smaller-than($width-step--1) {
+    @content;
+  }
+}
+
+// gap
+// @depreacted
+@mixin gap($custom-gap: null) {
+  @if $custom-gap {
+    $gap: $custom-gap !global;
+  } @else {
+    $gap: $posh-gap !global;
+  }
+
+  @content;
+
+  @include on-mobile {
+    @if $custom-gap {
+      $gap: $custom-gap / 1.25 !global;
+    } @else {
+      $gap: $posh-gap / 1.25 !global;
+    }
+
+    @content;
+  }
+}
+
+// typography
+// headings
+@mixin heading-common {
+  font-weight: 700;
+}
+@mixin heading1 {
+  @include heading-common;
+  font-size: 3rem;
+}
+@mixin heading2 {
+  @include heading-common;
+  font-size: 2.5rem;
+}
+@mixin heading3 {
+  @include heading-common;
+  font-size: 1.7rem;
+}
+@mixin paragraph {
+  font-size: 1rem;
+}
+
+// background image utils
+@mixin bgImg($url, $position: center, $size: 'contain') {
+  background-image: url($url);
+  background-repeat: no-repeat;
+  background-position: unquote($position);
+  background-size: unquote($size);
+}
+
+@mixin separator {
+  @include ui-transition;
+  border-color: rgba(#000, 0.1) !important;
+  border-width: 1px !important;
+
+  @include dark-mode {
+    border-color: rgba(#fff, 0.17) !important;
+  }
+}
+
+@mixin bordered {
+  @include ui-transition;
+  border-radius: $border-radius !important;
+  border: 1px solid rgba(#000, 0.1) !important;
+
+  @include dark-mode {
+    border: 1px solid rgba(#fff, 0.17) !important;
+  }
+}

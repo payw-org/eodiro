@@ -8,9 +8,7 @@
           :class="`background--${appName}`"
         ></div>
       </transition>
-      <transition name="global-soft-fade">
-        <HomeBgTile v-if="$store.state.currentAppName === 'home' && !isMini" />
-      </transition>
+      <HomeBgTile v-if="$store.state.currentAppName === 'home' && !isMini" />
       <div class="logo-wrapper">
         <transition
           name="icon-change"
@@ -116,8 +114,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/variables/all.scss';
-@import '~/assets/styles/scss/mixins/all.scss';
+@import '~/assets/styles/scss/main.scss';
 
 #eodiro-banner {
   position: fixed;
@@ -128,13 +125,8 @@ export default {
   display: flex;
   align-items: flex-end;
   justify-content: center;
-  background-color: #fff;
-  transition: transform 400ms cubic-bezier(0.34, 0.23, 0, 1),
-    background-color $color-scheme-transition-time ease;
-
-  @include dark-mode {
-    background-color: #000;
-  }
+  transform: translateY(0px);
+  transition: all 400ms cubic-bezier(0.34, 0.23, 0, 1);
 
   &.mini {
     // transform: translateY(calc(#{$nav-height * 2} - #{$banner-height}));
@@ -160,10 +152,10 @@ export default {
       width: calc(100% - #{2 * $posh-gap});
       height: calc(100% - #{$posh-gap});
       max-width: $master-content-max-width;
-      border-radius: $radius;
+      border-radius: $border-radius;
 
       .background {
-        border-radius: $radius !important;
+        border-radius: $border-radius !important;
         overflow: hidden;
       }
     }
@@ -240,8 +232,7 @@ export default {
         display: flex;
 
         button.prev {
-          width: 4rem;
-          width: 50px;
+          width: $nav-height;
           height: $nav-height;
           transform: scaleX(-1);
           @include bgImg(
@@ -266,7 +257,7 @@ export default {
       &.nav-icon-fade-leave-active {
         transition: opacity 300ms ease, transform 200ms ease;
         opacity: 1;
-        transform: translateY(0%);
+        transform: translateY(0px);
       }
       &.nav-icon-fade-enter,
       &.nav-icon-fade-leave-to {
@@ -282,7 +273,8 @@ export default {
     }
 
     .dummy {
-      width: 4rem;
+      width: $nav-height;
+      height: $nav-height;
     }
   }
 

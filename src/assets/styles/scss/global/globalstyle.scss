@@ -1,6 +1,6 @@
-@import '~/assets/styles/scss/variables/all.scss';
-@import '~/assets/styles/scss/mixins/all.scss';
-@import './eodiro-ui.scss';
+@import '~/assets/styles/scss/main.scss';
+@import '~/assets/styles/scss/global/typography.scss';
+@import '~/assets/styles/scss/global/simplebar-custom.scss';
 
 ::-webkit-scrollbar {
   display: none; /* chrome */
@@ -61,14 +61,14 @@ body {
   text-rendering: optimizeLegibility;
   -moz-osx-font-smoothing: grayscale;
   -o-font-smoothing: antialiased;
-  font-family: $text-font;
+  font-family: $ui-font;
   margin: 0;
   padding: 0;
   word-wrap: break-word;
   word-break: keep-all;
   font-size: 16px;
   user-select: none;
-  @include white-and-black;
+  @include bg;
   @include text-color;
 }
 
@@ -107,7 +107,7 @@ textarea,
 span,
 div,
 input {
-  font-family: $text-font;
+  font-family: $ui-font;
   font-weight: 400;
 }
 
@@ -116,7 +116,6 @@ p {
 }
 
 a {
-  cursor: default;
   text-decoration: none;
   color: inherit;
   -webkit-touch-callout: none !important;
@@ -131,9 +130,10 @@ a {
 }
 
 button {
+  cursor: pointer;
   border: none;
   background: none;
-  font-family: $text-font;
+  font-family: $ui-font;
   font-size: 1rem;
   color: $base-black;
 }
@@ -181,7 +181,7 @@ img {
   opacity: 0;
 }
 .fade-leave-active {
-  transition: opacity 100ms ease;
+  transition: opacity 150ms ease;
   opacity: 1;
 }
 .fade-leave-to {
@@ -210,7 +210,7 @@ img {
   background-color: $light-blue;
   border-radius: 50px;
   padding: 0.6rem 1.2rem;
-  font-family: $text-font;
+  font-family: $ui-font;
   font-size: 1.2rem;
   font-weight: 700;
   color: #fff !important;
@@ -231,7 +231,7 @@ img {
   font-size: 1rem;
   color: $c-step--4;
   background-color: $t-black;
-  border-radius: $radius;
+  border-radius: $border-radius;
   padding: 0 0.5rem;
   min-height: 2rem;
   min-width: 2rem;
@@ -275,7 +275,7 @@ img {
     top: 0;
     width: 100%;
     height: 100%;
-    border-radius: $radius;
+    border-radius: $border-radius;
     background-color: $t-black;
     animation: 1000ms badge-load ease;
     animation-fill-mode: both;
@@ -303,17 +303,6 @@ img {
       opacity: 0;
     }
   }
-}
-
-.grid-dummy {
-  height: 0;
-  width: 100%;
-  background: none;
-  border: none;
-  padding: 0;
-  margin: 0;
-  box-shadow: none;
-  pointer-events: none;
 }
 
 // colors

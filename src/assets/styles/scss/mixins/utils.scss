@@ -1,6 +1,0 @@
-@mixin bgImg($url, $position: center, $size: 'contain') {
-  background-image: url($url);
-  background-repeat: no-repeat;
-  background-position: unquote($position);
-  background-size: unquote($size);
-}

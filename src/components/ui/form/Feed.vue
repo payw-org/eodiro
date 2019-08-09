@@ -20,8 +20,7 @@ export default {
 
 
 <style lang="scss">
-@import '~/assets/styles/scss/mixins/all.scss';
-@import '~/assets/styles/scss/eodiro-ui.scss';
+@import '~/assets/styles/scss/main.scss';
 
 .feed {
   @include bordered;

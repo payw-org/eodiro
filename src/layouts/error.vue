@@ -65,8 +65,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/variables/all.scss';
-@import '~/assets/styles/scss/mixins/all.scss';
+@import '~/assets/styles/scss/main.scss';
 
 #not-found {
   position: fixed;
@@ -90,7 +89,7 @@ export default {
 
     .manifesto {
       margin-top: 1rem;
-      font-family: $text-font;
+      font-family: $ui-font;
       font-size: 3rem;
       max-width: 90%;
     }

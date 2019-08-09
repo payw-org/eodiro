@@ -5,12 +5,11 @@
 </template>
 
 <style lang="scss">
-@import '~/assets/styles/scss/variables/all.scss';
-@import '~/assets/styles/scss/mixins/all.scss';
+@import '~/assets/styles/scss/main.scss';
 
 .block-container {
   display: grid !important;
   grid-gap: $posh-gap !important;
-  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr)) !important;
+  grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)) !important;
 }
 </style>

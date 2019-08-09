@@ -117,8 +117,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '~/assets/styles/scss/variables/all.scss';
-@import '~/assets/styles/scss/mixins/all.scss';
+@import '~/assets/styles/scss/main.scss';
 
 .slide-enter-active,
 .slide-leave-active {

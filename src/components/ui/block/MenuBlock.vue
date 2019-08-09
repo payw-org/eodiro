@@ -21,22 +21,17 @@ export default {}
 
 
 <style lang="scss">
-@import '~/assets/styles/scss/mixins/all.scss';
-@import '~/assets/styles/scss/eodiro-ui.scss';
+@import '~/assets/styles/scss/main.scss';
 
 .menu-block {
-  @include background-colored;
-  border-radius: $radius;
+  @include elm-fill;
+  border-radius: $border-radius;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0 1rem 0 1.2rem;
   min-height: 5.5rem;
-
-  &,
-  & * {
-    cursor: pointer !important;
-  }
+  cursor: pointer;
 
   .icon-wrapper {
     margin-right: 1rem;
@@ -57,12 +52,6 @@ export default {}
   .content-wrapper {
     flex: 1;
     padding: 1rem 0;
-
-    &,
-    & * {
-      font-weight: 500;
-      font-size: 1.2rem;
-    }
   }
 
   .arrow-wrapper {

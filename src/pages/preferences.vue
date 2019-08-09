@@ -24,11 +24,12 @@
         </div>
       </section>
     </div>
+    <folder-block></folder-block>
   </div>
 </template>
 
 <script>
-import { Stud, Feed, MultiFeed } from '~/components/ui'
+import { Stud, Feed, MultiFeed, FolderBlock } from '~/components/ui'
 import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
 import Cookies from 'js-cookie'
 import EodiroDialog from '~/plugins/eodiro-dialog'
@@ -40,7 +41,7 @@ export default {
     depth: 1,
     appName: 'preferences'
   },
-  components: { Stud, Feed, MultiFeed },
+  components: { Stud, Feed, MultiFeed, FolderBlock },
   head() {
     return {
       title: this.$t('pref.title')
@@ -74,8 +75,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/mixins/all.scss';
-@import '~/assets/styles/scss/eodiro-ui.scss';
+@import '~/assets/styles/scss/main.scss';
 
 #app.preferences {
   @keyframes rotatingGear {

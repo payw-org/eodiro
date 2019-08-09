@@ -1,41 +1,34 @@
 <template>
   <div class="content-item result">
     <block-container class="empty-classrooms-container">
-      <menu-block
-        v-for="room in classrooms"
-        :key="room.number"
-        class="classroom"
-        @click="openTimeTable(room, new Date().getDay())"
-      >
-        <template v-slot:content>
-          <h1 class="room-number">{{ room.number }}</h1>
-          <div class="info">
-            <span v-if="room.nextClass && room.expireTimeLevel >= 0">
-              <div>
-                {{ $t('vacant.nextClass') }}:
-                <b>{{ room.nextClass }}</b>
-              </div>
-              <div>
-                <span class="time">
-                  <span class="hour" v-if="room.hour">
-                    <b>{{ room.hour + $t('vacant.hour') }}</b>
-                  </span>
-                  <span class="min" v-if="room.min">
-                    <b>{{ room.min + $t('vacant.min') }}</b>
-                  </span>
-                </span>
-                {{ $t('vacant.remain') }}
-              </div>
-            </span>
-            <span v-else-if="room.expireTimeLevel === -1">
-              <div>현재 수업중입니다</div>
-            </span>
-            <span v-else class="no-next-class-label">{{ $t('vacant.noNextClassMsg') }}</span>
-          </div>
-        </template>
-      </menu-block>
-
-      <!-- <div class="grid-dummy" v-for="i in 2" :key="'gridDummy' + i"></div> -->
+      <div class="grid-wrapper" v-for="room in classrooms" :key="room.number">
+        <menu-block class="classroom" @click="openTimeTable(room, new Date().getDay())">
+          <template v-slot:content>
+            <h1 class="room-number">{{ room.number }}</h1>
+            <div class="info">
+              <span v-if="room.nextClass && room.expireTimeLevel >= 0">
+                <p class="label">
+                  {{ $t('vacant.nextClass') }}:
+                  <b>{{ room.nextClass }}</b>
+                </p>
+                <div>
+                  <p class="time label">
+                    <span class="hour" v-if="room.hour">
+                      <b>{{ room.hour + $t('vacant.hour') }}</b>
+                    </span>
+                    <span class="min" v-if="room.min">
+                      <b>{{ room.min + $t('vacant.min') }}</b>
+                    </span>
+                    {{ $t('vacant.remain') }}
+                  </p>
+                </div>
+              </span>
+              <p class="label" v-else-if="room.expireTimeLevel === -1">현재 수업중입니다</p>
+              <p v-else class="no-next-class-label label">{{ $t('vacant.noNextClassMsg') }}</p>
+            </div>
+          </template>
+        </menu-block>
+      </div>
 
       <loading v-if="classrooms.length === 0" />
     </block-container>
@@ -110,7 +103,6 @@
 import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
 import Loading from '~/components/ui/Loading.vue'
 import SimpleBar from 'simplebar'
-import '~/assets/styles/scss/simplebar-custom.scss'
 import Stagger from '~/plugins/Stagger'
 import ExpireCounter from '~/plugins/ExpireCounter'
 import axios from 'axios'
@@ -282,9 +274,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/variables/all.scss';
-@import '~/assets/styles/scss/mixins/all.scss';
-@import '~/assets/styles/scss/eodiro-ui.scss';
+@import '~/assets/styles/scss/main.scss';
 
 .result {
   .empty-classrooms-container {
@@ -298,9 +288,8 @@ export default {
         color: $base-gray;
         margin-top: 0.5rem;
 
-        .no-next-class-label {
+        .label {
           font-size: 1rem;
-          font-weight: 500;
         }
       }
     }
@@ -482,10 +471,7 @@ export default {
             }
 
             .time {
-              &,
-              & * {
-                font-weight: 700;
-              }
+              font-weight: 700;
               white-space: nowrap;
               flex: 1;
               line-height: 1.5;

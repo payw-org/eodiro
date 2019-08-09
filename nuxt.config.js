@@ -90,7 +90,7 @@ export default {
   css: [
     '~/assets/styles/css/fonts.css',
     '~/plugins/eodiro-dialog/style.scss',
-    '~/assets/styles/scss/globalstyle.scss',
+    '~/assets/styles/scss/global/globalstyle.scss',
     '~/assets/styles/stylus/spring.styl'
   ],
 

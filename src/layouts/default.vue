@@ -3,7 +3,7 @@
     id="app"
     :class="[
       $store.state.currentAppName,
-      { 'is-banner-forced-mini': isBannerForcedMini }
+      { 'is-banner-forced-mini': $store.state.banner.mcBannerMiniFlag }
     ]"
   >
     <div id="banner-observer-sentinel" v-if="!isValidPage"></div>
@@ -37,7 +37,7 @@ export default {
   },
   watch: {
     $route(to, from) {
-      this.determineBannerIsForcedMini()
+      // this.determineBannerIsForcedMini()
     }
   },
   methods: {
@@ -88,8 +88,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/variables/all.scss';
-@import '~/assets/styles/scss/mixins/all.scss';
+@import '~/assets/styles/scss/main.scss';
 
 #app {
   .master-content {

@@ -1,6 +1,4 @@
-@import '~/assets/styles/scss/variables/all.scss';
-@import '~/assets/styles/scss/mixins/all.scss';
-@import '~/assets/styles/scss/eodiro-ui.scss';
+@import '~/assets/styles/scss/main.scss';
 
 $build-out-time: 700ms;
 $build-in-time: 700ms;
@@ -38,7 +36,7 @@ $build-in-time: 700ms;
     height: auto;
     padding: 1rem $posh-gap;
     background-color: #fff;
-    border-radius: $radius * 1.5;
+    border-radius: $border-radius * 1.5;
     text-align: center;
     font-size: 1rem;
     z-index: 1;
@@ -67,12 +65,9 @@ $build-in-time: 700ms;
       grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
 
       .act {
-        &,
-        & * {
-          cursor: pointer;
-        }
-        @include background-colored;
-        border-radius: $radius;
+        cursor: pointer;
+        @include elm-fill;
+        border-radius: $border-radius;
         padding: 0.8rem;
 
         button {
