@@ -5,7 +5,7 @@ import Textarea from '~/components/ui/form/Textarea.vue'
 
 // block
 import Grid from '~/components/ui/layouts/Grid.vue'
-import MenuBlock from '~/components/ui/block/MenuBlock.vue'
-import Accordion from '~/components/ui/block/Accordion.vue'
+import MenuBlock from '~/components/ui/blocks/MenuBlock.vue'
+import Accordion from '~/components/ui/blocks/Accordion.vue'
 
 export { Button, Input, Textarea, MenuBlock, Accordion, Grid }
