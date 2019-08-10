@@ -34,7 +34,7 @@ $build-in-time: 700ms;
     width: calc(100% - 2rem);
     max-width: 20rem;
     height: auto;
-    padding: 1rem $posh-gap;
+    padding: $gentle-gap;
     background-color: #fff;
     border-radius: $border-radius * 1.5;
     text-align: center;

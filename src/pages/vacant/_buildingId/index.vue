@@ -1,6 +1,6 @@
 <template>
   <div class="select-floor">
-    <div class="building-id">{{ $route.params.buildingId }}</div>
+    <h1 class="building-id">{{ $route.params.buildingId }}</h1>
 
     <Grid class="floor-container">
       <nuxt-link

@@ -26,32 +26,21 @@
       </div>
 
       <nav class="eodiro-navigation">
-        <!-- <div class="prev-wrapper" v-if="$store.state.prevPath">
-          <nuxt-link class="prev-link" :to="localePath($store.state.prevPath)">
-            <button class="prev"></button>
-          </nuxt-link>
-        </div>-->
         <div class="dummy"></div>
         <transition name="icon-change">
-          <nuxt-link class="nav-icon-link" :to="localePath('index')" v-if="isMini">
-            <div class="nav-icon-wrapper">
-              <transition
-                name="fade"
-                v-for="appName in $store.state.appList"
-                :key="`nav-${appName}`"
-              >
-                <div
-                  v-if="appName === $store.state.currentAppName"
-                  class="nav-icon app-icon app--home"
-                  :class="[
+          <div class="nav-icon-wrapper" v-if="isMini">
+            <transition name="fade" v-for="appName in $store.state.appList" :key="`nav-${appName}`">
+              <div
+                v-if="appName === $store.state.currentAppName"
+                class="nav-icon app-icon app--home"
+                :class="[
                   `app--${appName}`,
                 ]"
-                >
-                  <span class="icon"></span>
-                </div>
-              </transition>
-            </div>
-          </nuxt-link>
+              >
+                <span class="icon"></span>
+              </div>
+            </transition>
+          </div>
         </transition>
         <div class="dummy"></div>
       </nav>
@@ -359,11 +348,11 @@ export default {
 
     &.app--clubs {
       .icon {
-        @include bgImg('~assets/images/eodiro/clubs_white.svg', center, '75%');
+        @include bgImg('~assets/images/eodiro/three-white.svg', center, '75%');
 
         @include dark-mode {
           @include bgImg(
-            '~assets/images/eodiro/clubs_black.svg',
+            '~assets/images/eodiro/three-black.svg',
             center,
             '75%'
           );

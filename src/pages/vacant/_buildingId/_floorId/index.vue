@@ -290,6 +290,7 @@ export default {
 
         .label {
           font-size: 1rem;
+          font-weight: 500;
         }
       }
     }

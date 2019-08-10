@@ -83,6 +83,10 @@
         </Grid>
       </div>
     </div>
+
+    <footer class="footer">
+      <p class="manifesto">Copyright © 2019 PAYW</p>
+    </footer>
   </div>
 </template>
 
@@ -173,12 +177,22 @@ export default {
       }
 
       .icon--clubs {
-        background-image: url('~assets/images/eodiro/home/home_menu_icon_club.svg');
+        background-image: url('~assets/images/eodiro/home/home-menu-icon-club.svg');
 
         @include dark-mode {
-          background-image: url('~assets/images/eodiro/home/home_menu_icon_club_black.svg');
+          background-image: url('~assets/images/eodiro/home/home-menu-icon-club-black.svg');
         }
       }
+    }
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 5rem;
+
+    .manifesto {
+      color: $base-gray;
+      font-size: 0.9rem;
     }
   }
 }
