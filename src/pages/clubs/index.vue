@@ -1,6 +1,6 @@
 <template>
   <div class="clubs-topics">
-    <Grid>
+    <Grid proportion="small">
       <nuxt-link
         :to="localePath({
           name: 'clubs-topic',
