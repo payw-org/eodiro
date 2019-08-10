@@ -173,10 +173,12 @@ export default {
       }
 
       .icon--clubs {
-        background-image: url('~assets/images/eodiro/home/home_menu_icon_club.svg');
+        background-image: url('~assets/images/eodiro/home/home-menu-icon-club.svg');
 
         @include dark-mode {
-          background-image: url('~assets/images/eodiro/home/home_menu_icon_club_black.svg');
+          background-image: url('~assets/images/eodiro/home/home-menu-icon-club-black.svg');
+        }
+      }
         }
       }
     }

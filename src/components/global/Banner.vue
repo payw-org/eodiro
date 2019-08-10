@@ -30,17 +30,17 @@
         <transition name="icon-change">
           <div class="nav-icon-wrapper" v-if="isMini">
             <transition name="fade" v-for="appName in $store.state.appList" :key="`nav-${appName}`">
-                <div
-                  v-if="appName === $store.state.currentAppName"
-                  class="nav-icon app-icon app--home"
-                  :class="[
+              <div
+                v-if="appName === $store.state.currentAppName"
+                class="nav-icon app-icon app--home"
+                :class="[
                   `app--${appName}`,
                 ]"
-                >
-                  <span class="icon"></span>
-                </div>
-              </transition>
-            </div>
+              >
+                <span class="icon"></span>
+              </div>
+            </transition>
+          </div>
         </transition>
         <div class="dummy"></div>
       </nav>
@@ -348,11 +348,11 @@ export default {
 
     &.app--clubs {
       .icon {
-        @include bgImg('~assets/images/eodiro/clubs_white.svg', center, '75%');
+        @include bgImg('~assets/images/eodiro/three-white.svg', center, '75%');
 
         @include dark-mode {
           @include bgImg(
-            '~assets/images/eodiro/clubs_black.svg',
+            '~assets/images/eodiro/three-black.svg',
             center,
             '75%'
           );
