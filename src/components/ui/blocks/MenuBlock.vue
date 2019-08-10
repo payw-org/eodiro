@@ -27,13 +27,13 @@ export default {}
   @include block-style;
 
   .mb-icon-wrapper {
-    margin-right: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
 
     .icon {
       $icon-size: 2.3rem;
+      margin-right: $gentle-gap;
       width: $icon-size;
       height: $icon-size;
       background-position: center;
