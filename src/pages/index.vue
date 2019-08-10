@@ -83,6 +83,10 @@
         </Grid>
       </div>
     </div>
+
+    <footer class="footer">
+      <p class="manifesto">Copyright © 2019 PAYW</p>
+    </footer>
   </div>
 </template>
 
@@ -179,8 +183,16 @@ export default {
           background-image: url('~assets/images/eodiro/home/home-menu-icon-club-black.svg');
         }
       }
-        }
-      }
+    }
+  }
+
+  .footer {
+    text-align: center;
+    margin-top: 5rem;
+
+    .manifesto {
+      color: $base-gray;
+      font-size: 0.9rem;
     }
   }
 }
