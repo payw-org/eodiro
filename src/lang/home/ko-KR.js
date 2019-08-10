@@ -1,5 +1,5 @@
 export default {
-  menuVacant: '빈 강의실 조회',
+  menuVacant: '빈 강의실',
   menuMeal: '학식 메뉴',
   menuClass: '강의 검색',
   menuPreferences: '설정',
