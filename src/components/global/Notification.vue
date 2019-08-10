@@ -144,7 +144,6 @@ export default {
     margin-bottom: 2rem;
     border-radius: 0.5rem;
     background-color: $base-black;
-    box-shadow: $eodiro-shadow;
     border-left: 0.5rem solid $light-blue;
 
     @include dark-mode() {

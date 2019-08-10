@@ -67,16 +67,14 @@
 
 // element fill
 @mixin elm-fill {
-  @include ui-transition;
   background-color: $base-white-blue;
 
   @include dark-mode {
-    background-color: #1f1f1f;
+    background-color: $base-black-soft;
   }
 }
 @mixin elm-fill-inverted {
-  @include ui-transition;
-  background-color: #1f1f1f;
+  background-color: $base-black-soft;
 
   @include dark-mode {
     background-color: $base-white-blue;
