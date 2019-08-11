@@ -6,7 +6,15 @@
 
 <script>
 export default {
-  props: ['proportion']
+  props: {
+    proportion: {
+      type: String,
+      required: false,
+      validator: function(value) {
+        return ['small', 'medium', 'large'].indexOf(value) !== -1
+      }
+    }
+  }
 }
 </script>
 
