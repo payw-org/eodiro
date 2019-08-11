@@ -5,80 +5,80 @@
         <Grid class="menu-item-container">
           <!-- vacant classrooms -->
           <nuxt-link :to="localePath('vacant').replace(/\/$/, '')">
-            <menu-block class="menu-item-wrapper">
+            <ArrowBlock class="menu-item-wrapper">
               <template v-slot:icon>
                 <span class="icon icon--vacant"></span>
               </template>
               <template v-slot:content>
                 <span class="content">{{ $t('home.menuVacant') }}</span>
               </template>
-            </menu-block>
+            </ArrowBlock>
           </nuxt-link>
 
           <!-- meal -->
-          <menu-block class="menu-item-wrapper">
+          <ArrowBlock class="menu-item-wrapper">
             <template v-slot:icon>
               <span class="icon icon--meal"></span>
             </template>
             <template v-slot:content>
               <span class="content">{{ $t('home.menuMeal') }}</span>
             </template>
-          </menu-block>
+          </ArrowBlock>
 
           <!-- class -->
-          <menu-block class="menu-item-wrapper">
+          <ArrowBlock class="menu-item-wrapper">
             <template v-slot:icon>
               <span class="icon icon--class"></span>
             </template>
             <template v-slot:content>
               <span class="content">{{ $t('home.menuClass') }}</span>
             </template>
-          </menu-block>
+          </ArrowBlock>
 
           <!-- clubs -->
           <nuxt-link :to="localePath('clubs').replace(/\/$/, '')">
-            <menu-block class="menu-item-wrapper">
+            <ArrowBlock class="menu-item-wrapper">
               <template v-slot:icon>
                 <span class="icon icon--clubs"></span>
               </template>
               <template v-slot:content>
                 <span class="content">{{ $t('home.menuClubs') }}</span>
               </template>
-            </menu-block>
+            </ArrowBlock>
           </nuxt-link>
 
           <!-- inquiry -->
           <nuxt-link :to="localePath('inquiry').replace(/\/$/, '')">
-            <menu-block class="menu-item-wrapper">
+            <ArrowBlock class="menu-item-wrapper">
               <template v-slot:icon>
                 <span class="icon icon--inquiry"></span>
               </template>
               <template v-slot:content>
                 <span class="content">{{ $t('home.menuInquiry') }}</span>
               </template>
-            </menu-block>
+            </ArrowBlock>
           </nuxt-link>
 
           <!-- donation -->
-          <menu-block class="menu-item-wrapper">
+          <ArrowBlock class="menu-item-wrapper">
             <template v-slot:icon>
               <span class="icon icon--donation"></span>
             </template>
             <template v-slot:content>
               <span class="content">{{ $t('home.menuDonation') }}</span>
             </template>
-          </menu-block>
+          </ArrowBlock>
 
           <!-- preferences -->
           <nuxt-link :to="localePath('preferences').replace(/\/$/, '')">
-            <menu-block class="menu-item-wrapper">
+            <ArrowBlock class="menu-item-wrapper">
               <template v-slot:icon>
                 <span class="icon icon--preferences"></span>
               </template>
               <template v-slot:content>
                 <span class="content">{{ $t('home.menuPreferences') }}</span>
               </template>
-            </menu-block>
+            </ArrowBlock>
           </nuxt-link>
         </Grid>
       </div>
@@ -93,12 +93,12 @@
 <script>
 import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
 import EodiroDialog from '~/plugins/eodiro-dialog'
-import { Grid, MenuBlock } from '~/components/ui'
+import { Grid, ArrowBlock } from '~/components/ui'
 
 export default {
   name: 'home',
   extends: EodiroPageBase,
-  components: { Grid, MenuBlock },
+  components: { Grid, ArrowBlock },
   meta: {
     depth: 0,
     appName: 'home'

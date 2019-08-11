@@ -14,20 +14,20 @@
           <p>Accordion content</p>
         </template>
       </Accordion>
-      <MenuBlock>
+      <ArrowBlock>
         <template v-slot:content>
           <p>Menu Block</p>
         </template>
-      </MenuBlock>
+      </ArrowBlock>
     </Grid>
   </div>
 </template>
 
 <script>
-import { Accordion, MenuBlock, Button, Grid } from '~/components/ui'
+import { Accordion, ArrowBlock, Button, Grid } from '~/components/ui'
 
 export default {
-  components: { Accordion, MenuBlock, Button, Grid }
+  components: { Accordion, ArrowBlock, Button, Grid }
 }
 </script>
 
