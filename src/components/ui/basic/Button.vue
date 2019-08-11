@@ -1,11 +1,18 @@
 <template>
-  <button class="btn" @click="$emit('click')">
+  <button class="btn" :class="{ full: full }" @click="$emit('click')">
     <slot></slot>
   </button>
 </template>
 
 <script>
-export default {}
+export default {
+  props: {
+    full: {
+      type: Boolean,
+      required: false
+    }
+  }
+}
 </script>
 
 <style lang="scss">
@@ -14,7 +21,6 @@ export default {}
 .btn {
   @include elm-fill;
   color: $base-black;
-  width: 100%;
   height: $btn-height !important;
   display: flex;
   align-items: center;
@@ -25,6 +31,10 @@ export default {}
 
   @include dark-mode {
     color: $base-white;
+  }
+
+  &.full {
+    width: 100%;
   }
 }
 </style>

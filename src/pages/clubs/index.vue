@@ -1,6 +1,23 @@
 <template>
   <div class="clubs-topics">
-    <Grid>
+    <Grid proportion="small">
+      <nuxt-link
+        :to="localePath({
+          name: 'clubs-topic',
+          params: {
+            topic: 'all'
+          }
+        })"
+      >
+        <ArrowBlock class="ct-item">
+          <template v-slot:icon>
+            <span class="icon icon--all"></span>
+          </template>
+          <template v-slot:content>
+            <h1 class="topic-name">{{ $t('global.seeAll') }}</h1>
+          </template>
+        </ArrowBlock>
+      </nuxt-link>
       <nuxt-link
         :to="localePath({
           name: 'clubs-topic',
@@ -11,14 +28,14 @@
         v-for="topic in topics"
         :key="topic.name"
       >
-        <menu-block class="ct-item">
+        <ArrowBlock class="ct-item">
           <template v-slot:icon>
             <span class="icon" :class="`icon--${topic.url}`"></span>
           </template>
           <template v-slot:content>
             <h1 class="topic-name">{{ topic.name }}</h1>
           </template>
-        </menu-block>
+        </ArrowBlock>
       </nuxt-link>
     </Grid>
   </div>
@@ -26,7 +43,7 @@
 
 <script>
 import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
-import { Grid, MenuBlock } from '~/components/ui'
+import { Grid, ArrowBlock } from '~/components/ui'
 
 export default {
   name: 'clubs-index',
@@ -34,7 +51,7 @@ export default {
   meta: {
     depth: 1
   },
-  components: { Grid, MenuBlock },
+  components: { Grid, ArrowBlock },
   data() {
     return {
       topics: [
@@ -78,6 +95,14 @@ export default {
       $icon-size: 1.7rem;
       width: $icon-size;
       height: $icon-size;
+    }
+
+    .icon--all {
+      background-image: url('~assets/images/eodiro/list.svg');
+
+      @include dark-mode {
+        background-image: url('~assets/images/eodiro/list-white.svg');
+      }
     }
 
     .icon--art {

@@ -2,7 +2,7 @@
   <div class="content-item result">
     <Grid class="empty-classrooms-container">
       <div class="grid-wrapper" v-for="room in classrooms" :key="room.number">
-        <menu-block class="classroom" @click="openTimeTable(room, new Date().getDay())">
+        <ArrowBlock class="classroom" noArrow @click="openTimeTable(room, new Date().getDay())">
           <template v-slot:content>
             <h1 class="room-number">{{ room.number }}</h1>
             <div class="info">
@@ -27,7 +27,7 @@
               <p v-else class="no-next-class-label label">{{ $t('vacant.noNextClassMsg') }}</p>
             </div>
           </template>
-        </menu-block>
+        </ArrowBlock>
       </div>
 
       <loading v-if="classrooms.length === 0" />
@@ -114,7 +114,7 @@ import {
 } from 'body-scroll-lock'
 import ApiUrl from '~/plugins/ApiUrl'
 import { spring, styler } from 'popmotion'
-import { Grid, MenuBlock } from '~/components/ui'
+import { Grid, ArrowBlock } from '~/components/ui'
 import Dialog from '~/plugins/eodiro-dialog'
 
 export default {
@@ -124,7 +124,7 @@ export default {
     depth: 3,
     bannerMode: 'mini'
   },
-  components: { Loading, Grid, MenuBlock },
+  components: { Loading, Grid, ArrowBlock },
   data() {
     return {
       classrooms: [],

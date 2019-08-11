@@ -11,7 +11,7 @@
           }
         })"
       >
-        <menu-block class="building-item">
+        <ArrowBlock class="building-item">
           <template v-slot:content>
             <div class="building-info-container">
               <div class="name-info">
@@ -29,7 +29,7 @@
               </div>
             </div>
           </template>
-        </menu-block>
+        </ArrowBlock>
       </nuxt-link>
 
       <loading v-if="buildings.length === 0" />
@@ -43,7 +43,7 @@ import Loading from '~/components/ui/Loading.vue'
 import ApiUrl from '~/plugins/ApiUrl'
 import EodiroStorage from '~/plugins/EodiroStorage'
 import axios from 'axios'
-import { Grid, MenuBlock } from '~/components/ui'
+import { Grid, ArrowBlock } from '~/components/ui'
 import Dialog from '~/plugins/eodiro-dialog'
 
 export default {
@@ -52,7 +52,7 @@ export default {
   meta: {
     depth: 1
   },
-  components: { Loading, Grid, MenuBlock },
+  components: { Loading, Grid, ArrowBlock },
   data() {
     return {
       buildings: [],
