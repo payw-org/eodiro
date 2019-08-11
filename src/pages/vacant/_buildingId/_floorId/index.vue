@@ -2,7 +2,7 @@
   <div class="content-item result">
     <Grid class="empty-classrooms-container">
       <div class="grid-wrapper" v-for="room in classrooms" :key="room.number">
-        <menu-block class="classroom" @click="openTimeTable(room, new Date().getDay())">
+        <MenuBlock class="classroom" noArrow @click="openTimeTable(room, new Date().getDay())">
           <template v-slot:content>
             <h1 class="room-number">{{ room.number }}</h1>
             <div class="info">
@@ -27,7 +27,7 @@
               <p v-else class="no-next-class-label label">{{ $t('vacant.noNextClassMsg') }}</p>
             </div>
           </template>
-        </menu-block>
+        </MenuBlock>
       </div>
 
       <loading v-if="classrooms.length === 0" />

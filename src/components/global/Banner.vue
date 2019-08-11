@@ -198,8 +198,9 @@ export default {
     .logo-wrapper {
       position: relative;
       z-index: 1;
-      width: 7rem;
-      height: 7rem;
+      $logo-size: 7rem;
+      width: $logo-size;
+      height: $logo-size;
       transition: opacity 300ms ease, transform 300ms ease;
     }
   }

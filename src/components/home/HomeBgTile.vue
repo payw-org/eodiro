@@ -24,7 +24,7 @@ export default {
     calculateVisibleTilesNumber() {
       // notice - there must be no scrollbar
       const heightParentComponent = 37 / 100
-      const remRatioMoreThan1400 = 1.15
+      const remRatioMoreThan1400 = 1.1
       const remRatioMoreThan700 = 1
       const remRatioUnder700 = 0.85
 
