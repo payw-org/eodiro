@@ -67,19 +67,33 @@
 
 // element fill
 @mixin elm-fill {
-  @include ui-transition;
   background-color: $base-white-blue;
 
   @include dark-mode {
-    background-color: #1f1f1f;
+    background-color: $base-black-soft;
   }
 }
 @mixin elm-fill-inverted {
-  @include ui-transition;
-  background-color: #1f1f1f;
+  background-color: $base-black-soft;
 
   @include dark-mode {
     background-color: $base-white-blue;
+  }
+}
+
+// layered fill
+@mixin overlay {
+  background-color: $t-white;
+
+  @include dark-mode {
+    background-color: $t-black;
+  }
+}
+@mixin overlay-inverted {
+  background-color: $t-black;
+
+  @include dark-mode {
+    background-color: $t-white;
   }
 }
 
@@ -129,17 +143,17 @@
 }
 @mixin heading1 {
   @include heading-common;
-  font-size: 3rem;
+  font-size: 2.3rem;
   line-height: 1.1;
 }
 @mixin heading2 {
   @include heading-common;
-  font-size: 2.5rem;
+  font-size: 1.7rem;
   line-height: 1.2;
 }
 @mixin heading3 {
   @include heading-common;
-  font-size: 1.7rem;
+  font-size: 1.2rem;
   line-height: 1.3;
 }
 @mixin paragraph {

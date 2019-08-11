@@ -1,15 +1,17 @@
 <template>
   <transition name="fade">
-    <nuxt-link
-      class="prev-link"
-      v-if="$store.state.prevPath"
-      :to="localePath($store.state.prevPath)"
-    >
-      <button id="go-back" :class="{ hidden: isHidden }">
-        <span class="icon"></span>
-        {{ $t('global.goBack') }}
-      </button>
-    </nuxt-link>
+    <div id="go-back" :class="{ hidden: isHidden }" v-if="$store.state.prevPath">
+      <nuxt-link class="prev-link" :to="localePath($store.state.prevPath)">
+        <button class="prev-btn">
+          <span class="icon"></span>
+          {{ $t('global.goBack') }}
+        </button>
+      </nuxt-link>
+
+      <nuxt-link :to="localePath('index')">
+        <button class="go-home"></button>
+      </nuxt-link>
+    </div>
   </transition>
 </template>
 
@@ -64,8 +66,19 @@ export default {
 <style lang="scss">
 @import '~/assets/styles/scss/main.scss';
 
+$go-back-btn-height: 2.7rem;
+
 #go-back {
-  @include text-color;
+  &.fade-enter-active,
+  &.fade-leave-active {
+    transition: opacity 200ms ease;
+    opacity: 1;
+  }
+  &.fade-enter,
+  &.fade-leave-to {
+    opacity: 0;
+  }
+
   background-color: #fff;
   cursor: pointer;
   position: fixed;
@@ -74,14 +87,11 @@ export default {
   justify-content: center;
   left: 50%;
   bottom: 3.5rem;
-  padding: 0 1rem;
-  height: 2.7rem;
+  height: $go-back-btn-height;
   opacity: 1;
   transform: translateX(-50%) scale(1);
   border-radius: 50px;
-  box-shadow: 0 0.12rem 0.4rem rgba(#000, 0.2);
-  font-size: 1rem;
-  font-weight: 500;
+  box-shadow: 0 0.15rem 0.4rem rgba(#000, 0.2);
   transition: transform 300ms ease, opacity 300ms ease,
     background-color $color-scheme-transition-time ease;
 
@@ -94,24 +104,50 @@ export default {
     opacity: 0;
   }
 
-  .icon {
-    width: 0.5rem;
-    height: 1rem;
-    margin-right: 0.5rem;
-    transform: scaleX(-1);
+  .prev-btn {
+    padding: 0 $gentle-gap;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: $go-back-btn-height;
+    @include text-color;
+    font-size: 1rem;
+    font-weight: 500;
 
-    @include bgImg(
-      '~assets/images/eodiro/arrow_right_black.svg',
-      center,
-      contain
-    );
+    .icon {
+      width: 0.5rem;
+      height: 1rem;
+      margin-right: 0.5rem;
+      transform: scaleX(-1);
 
-    @include dark-mode {
       @include bgImg(
-        '~assets/images/eodiro/arrow_right_white.svg',
+        '~assets/images/eodiro/arrow_right_black.svg',
         center,
         contain
       );
+
+      @include dark-mode {
+        @include bgImg(
+          '~assets/images/eodiro/arrow_right_white.svg',
+          center,
+          contain
+        );
+      }
+    }
+  }
+
+  .go-home {
+    padding: 0 $gentle-gap;
+    // margin-right: $slight-gap;
+    display: flex;
+    height: $go-back-btn-height;
+    width: $go-back-btn-height * 1.3;
+    border-left: solid;
+    @include separator;
+    @include bgImg('~assets/images/eodiro/home_black.svg', '43% center', 45%);
+
+    @include dark-mode {
+      @include bgImg('~assets/images/eodiro/home_white.svg', '43% center', 45%);
     }
   }
 }

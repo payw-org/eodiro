@@ -5,5 +5,6 @@ export default {
   },
   dataFetchError:
     'Failed to load data. If this problem consistently happen, leave us an inquiry.',
-  goBack: 'Go Back'
+  goBack: 'Go Back',
+  seeAll: 'See All'
 }

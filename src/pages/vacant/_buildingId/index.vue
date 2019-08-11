@@ -1,6 +1,6 @@
 <template>
   <div class="select-floor">
-    <div class="building-id">{{ $route.params.buildingId }}</div>
+    <h1 class="building-id">{{ $route.params.buildingId }}</h1>
 
     <Grid class="floor-container">
       <nuxt-link
@@ -14,7 +14,7 @@
           }
         })"
       >
-        <menu-block class="floor-item">
+        <ArrowBlock class="floor-item">
           <template v-slot:content>
             <div class="floor-info-container">
               <h1 class="floor-info">
@@ -29,7 +29,7 @@
               </div>
             </div>
           </template>
-        </menu-block>
+        </ArrowBlock>
       </nuxt-link>
 
       <loading v-if="floors.length === 0" />
@@ -43,7 +43,7 @@ import Loading from '~/components/ui/Loading.vue'
 import Stagger from '~/plugins/Stagger'
 import ApiUrl from '~/plugins/ApiUrl'
 import axios from 'axios'
-import { Grid, MenuBlock } from '~/components/ui'
+import { Grid, ArrowBlock } from '~/components/ui'
 
 export default {
   name: 'vacant-floor',
@@ -52,7 +52,7 @@ export default {
     depth: 2,
     bannerMode: 'mini'
   },
-  components: { Loading, Grid, MenuBlock },
+  components: { Loading, Grid, ArrowBlock },
   data() {
     return {
       buildingName: '',

@@ -1,5 +1,5 @@
 export default {
-  menuVacant: 'Find Vacant Classrooms',
+  menuVacant: 'Vacant Classrooms',
   menuMeal: 'Restaurant Menu',
   menuClass: 'Search Classes',
   menuPreferences: 'Preferences',

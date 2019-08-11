@@ -52,7 +52,7 @@ html {
 }
 @media only screen and (min-width: 1400px) {
   html {
-    font-size: 115%;
+    font-size: 110%;
   }
 }
 
@@ -215,7 +215,6 @@ img {
   font-weight: 700;
   color: #fff !important;
   box-shadow: 0 0.5rem 1.5rem rgba($light-blue, 0.3);
-  transition: $smooth-transition;
 
   @include dark-mode() {
     background-color: $light-yellow;
@@ -302,15 +301,6 @@ img {
     &.opaque {
       opacity: 0;
     }
-  }
-}
-
-// colors
-.base-gray {
-  color: $base-gray;
-
-  @include dark-mode() {
-    color: $base-gray--dark;
   }
 }
 
