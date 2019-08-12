@@ -24,7 +24,6 @@
 </template>
 
 <script>
-import EodiroPageBase from '~/components/EodiroPageBase.vue'
 import { Textarea , Button  } from '~/components/ui'
 
 export default {
@@ -53,7 +52,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/global-mixins.scss';
+@import '~/assets/styles/scss/main.scss';
 
 #review {
   text-align: center;
