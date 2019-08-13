@@ -1,5 +1,5 @@
 export default {
-  title: 'Review',
+  title: 'Inquiry',
   send: 'Send',
   writeHere: 'Write anything here.'
 }
