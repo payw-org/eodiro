@@ -289,7 +289,7 @@ export default {
         margin-top: 0.5rem;
 
         .label {
-          font-size: 1rem;
+          font-size: 0.9rem;
           font-weight: 500;
         }
       }

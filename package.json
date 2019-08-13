@@ -1,6 +1,6 @@
 {
   "name": "eodiro",
-  "version": "2.0.0-alpha.6",
+  "version": "2.0.0-alpha.7",
   "description": "",
   "scripts": {
     "dev": "cross-env HOST=0.0.0.0 PORT=3500 nuxt",
@@ -81,5 +81,9 @@
     "webpack-cli": "^3.3.2",
     "webpack-merge": "^4.2.1",
     "webpack-messages": "^2.0.4"
-  }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
 }

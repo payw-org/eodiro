@@ -77,10 +77,11 @@ export default {
     }
 
     .club--explanation {
+      font-size: 0.9rem;
       margin-top: $slight-gap;
       $line-height: 1.4em;
       line-height: $line-height;
-      max-height: $line-height * 4;
+      max-height: $line-height * 2;
       overflow: hidden;
     }
   }

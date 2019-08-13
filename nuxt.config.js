@@ -142,6 +142,11 @@ export default {
   // custom build path name
   build: {
     publicPath: '/dist/',
+    postcss: {
+      plugins: {
+        autoprefixer: {}
+      }
+    },
     extend(config) {
       config.module.rules.push({
         // use html-loader for
