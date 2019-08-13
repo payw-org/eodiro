@@ -1,11 +1,11 @@
 <template>
-  <div id="review">
+  <div id="inquiry">
     <div class="page-content">
       <div class="content-container">
-        <Textarea class="writing-area" :placeholder="$t('review.writeHere')"></Textarea>
+        <Textarea class="writing-area" :placeholder="$t('inquiry.writeHere')"></Textarea>
         <Button @click="sendEmail" class="send-btn">
           <!-- <span class="icon"></span> -->
-          <span class="text">{{ $t('review.send') }}</span>
+          <span class="text">{{ $t('inquiry.send') }}</span>
         </Button>
       </div>
     </div>
@@ -27,7 +27,7 @@ export default {
   components: { Button, Textarea },
   head() {
     return {
-      title: this.$t('review.title')
+      title: this.$t('inquiry.title')
     }
   },
   data() {
@@ -45,7 +45,7 @@ export default {
 <style lang="scss">
 @import '~/assets/styles/scss/main.scss';
 
-#review {
+#inquiry {
   max-width: 30rem !important;
   text-align: center;
   width: 100%;
