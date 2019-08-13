@@ -144,10 +144,14 @@ $go-back-btn-height: 2.7rem;
     width: $go-back-btn-height * 1.3;
     border-left: solid;
     @include separator;
-    @include bgImg('~assets/images/eodiro/home_black.svg', '43% center', 45%);
+    @include bgImg('~assets/images/eodiro/home_black.svg', '43% center', '45%');
 
     @include dark-mode {
-      @include bgImg('~assets/images/eodiro/home_white.svg', '43% center', 45%);
+      @include bgImg(
+        '~assets/images/eodiro/home_white.svg',
+        '43% center',
+        '45%'
+      );
     }
   }
 }
