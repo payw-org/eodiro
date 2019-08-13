@@ -85,7 +85,7 @@
     </div>
 
     <footer class="footer">
-      <p class="manifesto">Copyright © 2019 PAYW</p>
+      <p class="manifesto">Copyright © 2019 PAYW™</p>
     </footer>
   </div>
 </template>
