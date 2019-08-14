@@ -27,7 +27,7 @@ export default {
   @include text-color;
   background-color: transparent;
   font-size: 1rem;
-  padding: 1rem;
+  padding: 0 1rem;
   appearance: none;
   overflow: auto;
   display: block;
