@@ -21,20 +21,22 @@
           class="app-icon mode--light"
           src="~/assets/images/eodiro/app-icon_sq.svg"
           alt="eodiro-logo"
-        />
+        >
         <img
           class="app-icon mode--dark"
           src="~/assets/images/eodiro/app-icon_sq_dark.svg"
           alt="eodiro-logo"
-        />
+        >
       </div>
       <h1 class="manifesto">
         {{ $t('first_line') }}
-        <br />
+        <br>
         {{ $t('second_line') }}
       </h1>
       <nuxt-link :to="localePath('index')">
-        <Button class="go-back">{{ $t('go_home') }}</Button>
+        <Button class="go-back">
+          {{ $t('go_home') }}
+        </Button>
       </nuxt-link>
     </div>
   </div>
@@ -48,7 +50,7 @@ export default {
   meta: {
     appName: 'error'
   },
-  head() {
+  head () {
     return {
       htmlAttrs: {
         class: this.$store.state.colorSchemeClassName
@@ -56,7 +58,7 @@ export default {
     }
   },
   methods: {
-    goBack() {
+    goBack () {
       // this.$router.push('/')
       history.back()
     }

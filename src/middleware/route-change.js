@@ -19,7 +19,7 @@ export default ({ app, from, route, store }) => {
 
   if (!from) {
     // cache first loaded components
-    route.matched.forEach(matched => {
+    route.matched.forEach((matched) => {
       store.commit('cacheComponent', matched.components.default.options.name)
     })
   }
@@ -80,7 +80,7 @@ export default ({ app, from, route, store }) => {
       store.commit('setRouteDirection', 'forward')
 
       // cache the components in current route
-      route.matched.forEach(matched => {
+      route.matched.forEach((matched) => {
         store.commit('cacheComponent', matched.components.default.options.name)
       })
     } else {
@@ -90,15 +90,15 @@ export default ({ app, from, route, store }) => {
       store.commit('setRouteDirection', 'backward')
 
       // cache back page if not cached
-      route.matched.forEach(matched => {
+      route.matched.forEach((matched) => {
         store.commit('cacheComponent', matched.components.default.options.name)
       })
 
       // remove cached routes if go back
       // remove only the components which are not
       // included in the destination route
-      from.matched.forEach(fromMatched => {
-        if (route.matched.indexOf(fromMatched) === -1) {
+      from.matched.forEach((fromMatched) => {
+        if (!route.matched.includes(fromMatched)) {
           store.commit('popRoute', fromMatched.components.default.options.name)
         }
       })

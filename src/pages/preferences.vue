@@ -3,24 +3,38 @@
     <div class="page-content">
       <!-- language -->
       <section class="pref-section">
-        <h2 class="name">{{ $t('pref.lang') }}</h2>
+        <h2 class="name">
+          {{ $t('pref.lang') }}
+        </h2>
         <div class="options">
-          <Button class="opt" @click="switchLang('kr')">한국어</Button>
-          <Button class="opt" @click="switchLang('en')">English</Button>
+          <Button class="opt" @click="switchLang('kr')">
+            한국어
+          </Button>
+          <Button class="opt" @click="switchLang('en')">
+            English
+          </Button>
         </div>
       </section>
 
       <!-- color scheme -->
       <section class="pref-section">
-        <h2 class="name">{{ $t('pref.colorScheme.title') }}</h2>
+        <h2 class="name">
+          {{ $t('pref.colorScheme.title') }}
+        </h2>
         <div class="options">
-          <Button class="opt" @click="switchColorScheme('light')">{{ $t('pref.colorScheme.light') }}</Button>
-          <Button class="opt" @click="switchColorScheme('dark')">{{ $t('pref.colorScheme.dark') }}</Button>
+          <Button class="opt" @click="switchColorScheme('light')">
+            {{ $t('pref.colorScheme.light') }}
+          </Button>
+          <Button class="opt" @click="switchColorScheme('dark')">
+            {{ $t('pref.colorScheme.dark') }}
+          </Button>
           <Button
-            class="opt"
             v-if="autoDarkModeSupport"
+            class="opt"
             @click="switchColorScheme('auto')"
-          >{{ $t('pref.colorScheme.auto') }}</Button>
+          >
+            {{ $t('pref.colorScheme.auto') }}
+          </Button>
         </div>
       </section>
     </div>
@@ -28,46 +42,43 @@
 </template>
 
 <script>
-import { Button, Input, Textarea } from '~/components/ui'
-import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
 import Cookies from 'js-cookie'
-import EodiroDialog from '~/plugins/eodiro-dialog'
+import { Button } from '~/components/ui'
+import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
 
 export default {
   name: 'preferences',
+  components: { Button },
   extends: EodiroPageBase,
   meta: {
     depth: 1,
     appName: 'preferences'
   },
-  components: { Button, Input, Textarea },
-  head() {
+  head () {
     return {
       title: this.$t('pref.title')
     }
   },
-  data() {
+  data () {
     return {
-      autoDarkModeSupport: false,
-      inputText: 'hello world',
-      areaText: 'hello textarea'
+      autoDarkModeSupport: false
     }
   },
-  methods: {
-    switchLang(lang) {
-      Cookies.set('i18n_lang', lang, { expires: 99999 })
-      location.reload()
-    },
-    switchColorScheme(mode) {
-      this.$store.commit('setColorScheme', mode)
-    }
-  },
-  mounted() {
+  mounted () {
     // check if the browser supports 'prefers-color-scheme' media query
     // if the autoDarkModeSupport is true,
     // dark mode option will appear in the color scheme settings
-    if (window.matchMedia('(prefers-color-scheme: dark)').media != 'not all') {
+    if (window.matchMedia('(prefers-color-scheme: dark)').media !== 'not all') {
       this.autoDarkModeSupport = true
+    }
+  },
+  methods: {
+    switchLang (lang) {
+      Cookies.set('i18n_lang', lang, { expires: 99999 })
+      location.reload()
+    },
+    switchColorScheme (mode) {
+      this.$store.commit('setColorScheme', mode)
     }
   }
 }

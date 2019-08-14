@@ -11,29 +11,33 @@
       >
         <ArrowBlock class="ct-item">
           <template v-slot:icon>
-            <span class="icon icon--all"></span>
+            <span class="icon icon--all" />
           </template>
           <template v-slot:content>
-            <h1 class="topic-name">{{ $t('global.seeAll') }}</h1>
+            <h1 class="topic-name">
+              {{ $t('global.seeAll') }}
+            </h1>
           </template>
         </ArrowBlock>
       </nuxt-link>
       <nuxt-link
+        v-for="topic in topics"
+        :key="topic.name"
         :to="localePath({
           name: 'clubs-topic',
           params: {
             topic: topic.url
           }
         })"
-        v-for="topic in topics"
-        :key="topic.name"
       >
         <ArrowBlock class="ct-item">
           <template v-slot:icon>
-            <span class="icon" :class="`icon--${topic.url}`"></span>
+            <span class="icon" :class="`icon--${topic.url}`" />
           </template>
           <template v-slot:content>
-            <h1 class="topic-name">{{ topic.name }}</h1>
+            <h1 class="topic-name">
+              {{ topic.name }}
+            </h1>
           </template>
         </ArrowBlock>
       </nuxt-link>
@@ -47,12 +51,12 @@ import { Grid, ArrowBlock } from '~/components/ui'
 
 export default {
   name: 'clubs-index',
+  components: { Grid, ArrowBlock },
   extends: EodiroPageBase,
   meta: {
     depth: 1
   },
-  components: { Grid, ArrowBlock },
-  data() {
+  data () {
     return {
       topics: [
         {

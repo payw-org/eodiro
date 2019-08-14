@@ -2,8 +2,8 @@
   <div id="inquiry">
     <div class="page-content">
       <div class="content-container">
-        <Textarea class="writing-area" :placeholder="$t('inquiry.writeHere')"></Textarea>
-        <Button @click="sendEmail" class="send-btn">
+        <Textarea class="writing-area" :placeholder="$t('inquiry.writeHere')" />
+        <Button class="send-btn" @click="sendEmail">
           <!-- <span class="icon"></span> -->
           <span class="text">{{ $t('inquiry.send') }}</span>
         </Button>
@@ -19,26 +19,26 @@ import Dialog from '~/plugins/eodiro-dialog'
 
 export default {
   name: 'inquiry',
+  components: { Button, Textarea },
   extends: EodiroPageBase,
   meta: {
     depth: 1,
     appName: 'inquiry'
   },
-  components: { Button, Textarea },
-  head() {
+  head () {
     return {
       title: this.$t('inquiry.title')
     }
   },
-  data() {
+  data () {
     return {}
   },
+  mounted () {},
   methods: {
-    sendEmail() {
+    sendEmail () {
       new Dialog().confirm('정말 보내시겠습니까?')
     }
-  },
-  mounted() {}
+  }
 }
 </script>
 

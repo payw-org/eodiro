@@ -4,10 +4,10 @@
       <ClubItem
         v-for="clubItem in clubsList"
         :key="clubItem.name"
-        clubImgSrc="https://via.placeholder.com/150"
-        :clubName="clubItem.name"
-        :clubExplanation="clubItem.explanation"
-      ></ClubItem>
+        club-img-src="https://via.placeholder.com/150"
+        :club-name="clubItem.name"
+        :club-explanation="clubItem.explanation"
+      />
     </Grid>
   </div>
 </template>
@@ -19,12 +19,12 @@ import ClubItem from '~/components/clubs/ClubItem'
 
 export default {
   name: 'clubs-topic',
+  components: { Grid, ClubItem },
   extends: EodiroPageBase,
   meta: {
     depth: 2
   },
-  components: { Grid, ClubItem },
-  data() {
+  data () {
     return {
       clubsList: [
         {

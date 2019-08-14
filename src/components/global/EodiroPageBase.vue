@@ -7,25 +7,25 @@
 // when keep-alive
 
 export default {
-  beforeMount() {
+  beforeMount () {
     if (this.$options.meta.bannerMode === 'mini') {
       this.$store.commit('banner/setMcBannerMiniFlag', true)
     } else {
       this.$store.commit('banner/setMcBannerMiniFlag', false)
     }
   },
-  beforeDestroy() {
+  beforeDestroy () {
     // reset scroll position
     this.$options.meta.lastScrollPosition = 0
   },
-  activated() {
+  activated () {
     if (this.$options.meta.bannerMode === 'mini') {
       this.$store.commit('banner/setMcBannerMiniFlag', true)
     } else {
       this.$store.commit('banner/setMcBannerMiniFlag', false)
     }
   },
-  deactivated() {
+  deactivated () {
     // store scroll position
     this.$options.meta.lastScrollPosition = window.scrollY
   }

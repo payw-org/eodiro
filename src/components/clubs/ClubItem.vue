@@ -2,12 +2,16 @@
   <div class="club-item">
     <div class="hero-wrapper">
       <div class="image-wrapper">
-        <img :src="clubImgSrc" class="club--image" />
+        <img :src="clubImgSrc" class="club--image">
       </div>
     </div>
     <div class="details-container">
-      <h1 class="club--name">{{ clubName }}</h1>
-      <p class="club--explanation">{{ clubExplanation }}</p>
+      <h1 class="club--name">
+        {{ clubName }}
+      </h1>
+      <p class="club--explanation">
+        {{ clubExplanation }}
+      </p>
     </div>
   </div>
 </template>
@@ -17,7 +21,8 @@ export default {
   props: {
     clubImgSrc: {
       type: String,
-      required: false
+      required: false,
+      default: ''
     },
     clubName: {
       type: String,
@@ -25,7 +30,8 @@ export default {
     },
     clubExplanation: {
       type: String,
-      required: false
+      required: false,
+      default: ''
     }
   }
 }
