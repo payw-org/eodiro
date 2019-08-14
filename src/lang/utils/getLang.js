@@ -4,6 +4,7 @@ export default function(langCode) {
     home: require(`../home/${langCode}`).default,
     vacant: require(`../vacant/${langCode}`).default,
     review: require(`../review/${langCode}`).default,
+    searchClass: require(`../search-class/${langCode}`).default,
     pref: require(`../preferences/${langCode}`).default
   }
 }
