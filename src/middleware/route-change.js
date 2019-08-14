@@ -95,8 +95,12 @@ export default ({ app, from, route, store }) => {
       })
 
       // remove cached routes if go back
-      from.matched.forEach(matched => {
-        store.commit('popRoute', matched.components.default.options.name)
+      // remove only the components which are not
+      // included in the destination route
+      from.matched.forEach(fromMatched => {
+        if (route.matched.indexOf(fromMatched) === -1) {
+          store.commit('popRoute', fromMatched.components.default.options.name)
+        }
       })
     }
   }
