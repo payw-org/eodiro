@@ -1,16 +1,16 @@
 <template>
   <div class="arrow-block" @click="$emit('click')">
     <!-- only visible when icon slot is set -->
-    <div class="arrb-icon-wrapper" v-if="$slots.icon">
-      <slot name="icon"></slot>
+    <div v-if="$slots.icon" class="arrb-icon-wrapper">
+      <slot name="icon" />
     </div>
 
     <div class="arrb-content-container">
-      <slot name="content"></slot>
+      <slot name="content" />
     </div>
 
-    <div class="arrb-arrow-wrapper" v-if="!noArrow">
-      <span class="arrb-arrow"></span>
+    <div v-if="!noArrow" class="arrb-arrow-wrapper">
+      <span class="arrb-arrow" />
     </div>
   </div>
 </template>
@@ -25,7 +25,6 @@ export default {
   }
 }
 </script>
-
 
 <style lang="scss">
 @import '~/assets/styles/scss/main.scss';

@@ -1,8 +1,6 @@
 // global title and description
 // we can set these on each page vue components
-const title = '어디로'
-const description = ''
-const modifyHtml = html => {
+const modifyHtml = (html) => {
   // remove data-n-head="true"
   return html.replace(/data-n-head(=".*?")?(?!-)/g, '')
 }
@@ -15,7 +13,6 @@ export default {
 
   // head tags options
   head: {
-    title: title,
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -45,10 +42,10 @@ export default {
     // scroll to top when route forward
     // scroll to stored position when route backward
     // if there is no stored position, scroll to top
-    scrollBehavior: function(to, from, savedPosition) {
+    scrollBehavior (to, from, savedPosition) {
       // tweak nuxt.js' default method
-      return new Promise(resolve => {
-        let lastScrollPosition =
+      return new Promise((resolve) => {
+        const lastScrollPosition =
           to.matched &&
           to.matched[to.matched.length - 1] &&
           to.matched[to.matched.length - 1].components &&
@@ -58,10 +55,10 @@ export default {
           to.matched[to.matched.length - 1].components.default.options.meta
             .lastScrollPosition
             ? to.matched[to.matched.length - 1].components.default.options.meta
-                .lastScrollPosition
+              .lastScrollPosition
             : 0
 
-        let position = {
+        const position = {
           x: 0,
           y: lastScrollPosition
         }
@@ -75,7 +72,7 @@ export default {
   },
 
   hooks: {
-    'generate:page': page => {
+    'generate:page': (page) => {
       page.html = modifyHtml(page.html)
     },
     'render:route': (url, page, { req, res }) => {
@@ -96,6 +93,11 @@ export default {
 
   // plugins
   plugins: ['~/plugins/init.ts'],
+
+  // devModules
+  devModules: [
+    '@nuxtjs/eslint-module'
+  ],
 
   // modules
   modules: [
@@ -147,7 +149,7 @@ export default {
         autoprefixer: {}
       }
     },
-    extend(config) {
+    extend (config) {
       config.module.rules.push({
         // use html-loader for
         // loading templates inside js/ts

@@ -1,12 +1,14 @@
 <template>
   <div class="select-floor">
-    <h1 class="building-id">{{ $route.params.buildingId }}</h1>
+    <h1 class="building-id">
+      {{ $route.params.buildingId }}
+    </h1>
 
     <Grid class="floor-container">
       <nuxt-link
-        class="floor-link"
         v-for="floor in floors"
         :key="floor.number"
+        class="floor-link"
         :to="localePath({
           name: 'vacant-buildingId-floorId',
           params: {
@@ -38,35 +40,40 @@
 </template>
 
 <script>
+import axios from 'axios'
 import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
 import Loading from '~/components/ui/Loading.vue'
-import Stagger from '~/plugins/Stagger'
-import ApiUrl from '~/plugins/ApiUrl'
-import axios from 'axios'
 import { Grid, ArrowBlock } from '~/components/ui'
 
 export default {
   name: 'vacant-floor',
+  components: { Loading, Grid, ArrowBlock },
   extends: EodiroPageBase,
   meta: {
     depth: 2,
     bannerMode: 'mini'
   },
-  components: { Loading, Grid, ArrowBlock },
-  data() {
+  data () {
     return {
       buildingName: '',
       floors: [],
       isEmptyLoaded: false
     }
   },
+  mounted () {
+    this.buildingName = this.$route.params.buildingId
+    this.fetchFloors()
+  },
+  activated () {
+    // this.fetchEmpty()
+  },
   methods: {
-    fetchFloors() {
-      let url = `https://api.eodiro.com/cau/${this.$route.params.buildingId}`
+    fetchFloors () {
+      const url = `https://api.eodiro.com/cau/${this.$route.params.buildingId}`
 
       axios
         .get(url)
-        .then(r => {
+        .then((r) => {
           if (r.data.err) {
             alert('데이터를 가져올 수 없습니다. 잠시 후 이용 바랍니다.')
             return
@@ -75,16 +82,17 @@ export default {
           this.floors = r.data.floors
           this.fetchEmpty()
         })
-        .catch(function(error) {
+        .catch(function (error) {
+          console.error(error)
           alert('데이터를 가져올 수 없습니다. 잠시 후 이용 바랍니다.')
         })
     },
-    fetchEmpty() {
+    fetchEmpty () {
       this.isEmptyLoaded = false
 
-      let url = `https://api.eodiro.com/cau/${this.$route.params.buildingId}/empty`
+      const url = `https://api.eodiro.com/cau/${this.$route.params.buildingId}/empty`
 
-      axios.get(url).then(r => {
+      axios.get(url).then((r) => {
         if (r.data.err) {
           alert('데이터를 가져올 수 없습니다. 잠시 후 이용 바랍니다.')
           return
@@ -94,13 +102,6 @@ export default {
         this.isEmptyLoaded = true
       })
     }
-  },
-  mounted() {
-    this.buildingName = this.$route.params.buildingId
-    this.fetchFloors()
-  },
-  activated() {
-    // this.fetchEmpty()
   }
 }
 </script>

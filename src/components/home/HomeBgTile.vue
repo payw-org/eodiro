@@ -2,14 +2,14 @@
   <div id="tiles-container">
     <div
       v-for="tileState in tileStates"
-      :class="'tile ' + tileState.className"
       :key="tileState.key"
-    ></div>
+      :class="'tile ' + tileState.className"
+    />
   </div>
 </template>
 <script>
 export default {
-  data() {
+  data () {
     return {
       key: 0,
       tileStates: undefined,
@@ -20,132 +20,7 @@ export default {
       bannerHeight: null
     }
   },
-  methods: {
-    calculateVisibleTilesNumber() {
-      // notice - there must be no scrollbar
-      const heightParentComponent = 37 / 100
-      const remRatioMoreThan1400 = 1.1
-      const remRatioMoreThan700 = 1
-      const remRatioUnder700 = 0.85
-
-      let width_device = window.innerWidth
-      let height_device = window.innerHeight
-      let tileNum_height, tileNum_width
-
-      // calc one rem
-      let rem = parseInt(
-        window.getComputedStyle(document.body).getPropertyValue('font-size'),
-        10
-      )
-      let width_tile
-
-      // rem dependency
-      if (width_device >= 1400) {
-        rem *= remRatioMoreThan1400
-      } else if (width_device >= 700) {
-        rem *= remRatioMoreThan700
-      } else {
-        rem *= remRatioUnder700
-      }
-
-      let width_container_tiles = width_device * 1.05
-      let height_container_tiles = height_device * heightParentComponent
-
-      if (width_device >= 700) {
-        // minimize width_tile
-        width_tile = 3.5 * rem
-
-        // calc tileNum_width in minimized width_tile and round it
-        tileNum_width = Math.floor(
-          (width_container_tiles + 1.5 * rem) / (width_tile + 1.5 * rem)
-        )
-
-        // calc real width_tile
-        width_tile =
-          (width_container_tiles + 1.5 * rem) / tileNum_width - 1.5 * rem
-        // calc tileNum_height
-        tileNum_height =
-          Math.floor(
-            (height_container_tiles + 1.5 * rem) / (width_tile + 1.5 * rem)
-          ) + 1
-      } else {
-        // minimize width_tile
-        width_tile = 3 * rem
-
-        // calc tileNum_width in minimized width_tile and round it
-        tileNum_width = Math.floor(
-          (width_container_tiles + 1 * rem) / (width_tile + 1 * rem)
-        )
-        // calc real width_tile
-        width_tile = (width_container_tiles + 1 * rem) / tileNum_width - 1 * rem
-        // calc tileNum_height
-        tileNum_height =
-          Math.floor(
-            (height_container_tiles + 1 * rem) / (width_tile + 1 * rem)
-          ) + 1
-      }
-      return tileNum_height * tileNum_width
-    },
-    createTiles() {
-      let ts = []
-      let tileNum = this.calculateVisibleTilesNumber()
-      for (let i = 0; i < tileNum; i++) {
-        ts.push({
-          key: i,
-          className: 'color-1'
-        })
-      }
-      this.tileStates = ts
-
-      // Use nextTick to run animation after
-      // the elements are rendered with the data input
-      this.$nextTick(() => {
-        this.activateAnimation()
-      })
-    },
-    updateTilesNumber() {
-      let current_tileNum = this.calculateVisibleTilesNumber()
-      let previous_tileNum
-
-      if (this.tileStates != null) {
-        previous_tileNum = this.tileStates.length
-      } else {
-        previous_tileNum = 0
-      }
-
-      let diff = current_tileNum - previous_tileNum
-
-      // update the num of tile only difference previous and current
-      if (diff > 0) {
-        for (let i = 0; i < diff; i++) {
-          this.tileStates.push({
-            key: previous_tileNum + i,
-            className: 'color-1'
-          })
-        }
-      } else if (diff < 0) {
-        for (let i = 0; i > diff; i--) {
-          this.tileStates.pop()
-        }
-      }
-    },
-    activateAnimation() {
-      let i, c
-      let tileNum = this.getTileNum()
-      this.interval = setInterval(() => {
-        for (let a = 0; a < Math.ceil(tileNum / 20); a++) {
-          i = Math.floor(Math.random() * tileNum)
-          c = Math.floor(Math.random() * 9)
-          this.tileStates[i]['className'] = 'color-' + c
-        }
-      }, 100)
-    },
-    getTileNum() {
-      if (this.tileStates != null) return this.tileStates.length
-      return 0
-    }
-  },
-  mounted() {
+  mounted () {
     let bannerRect = document
       .querySelector('#eodiro-banner')
       .getBoundingClientRect()
@@ -181,9 +56,134 @@ export default {
       })
     )
   },
-  beforeDestroy() {
+  beforeDestroy () {
     clearInterval(this.interval)
     window.removeEventListener('resize', this.resizeEvent)
+  },
+  methods: {
+    calculateVisibleTilesNumber () {
+      // notice - there must be no scrollbar
+      const heightParentComponent = 37 / 100
+      const remRatioMoreThan1400 = 1.1
+      const remRatioMoreThan700 = 1
+      const remRatioUnder700 = 0.85
+
+      const widthDevice = window.innerWidth
+      const heightDevice = window.innerHeight
+      let tileNumHeight, tileNumWidth
+
+      // calc one rem
+      let rem = parseInt(
+        window.getComputedStyle(document.body).getPropertyValue('font-size'),
+        10
+      )
+      let widthTile
+
+      // rem dependency
+      if (widthDevice >= 1400) {
+        rem *= remRatioMoreThan1400
+      } else if (widthDevice >= 700) {
+        rem *= remRatioMoreThan700
+      } else {
+        rem *= remRatioUnder700
+      }
+
+      const widthContainerTiles = widthDevice * 1.05
+      const heightContainerTiles = heightDevice * heightParentComponent
+
+      if (widthDevice >= 700) {
+        // minimize widthTile
+        widthTile = 3.5 * rem
+
+        // calc tileNumWidth in minimized widthTile and round it
+        tileNumWidth = Math.floor(
+          (widthContainerTiles + 1.5 * rem) / (widthTile + 1.5 * rem)
+        )
+
+        // calc real widthTile
+        widthTile =
+          (widthContainerTiles + 1.5 * rem) / tileNumWidth - 1.5 * rem
+        // calc tileNumHeight
+        tileNumHeight =
+          Math.floor(
+            (heightContainerTiles + 1.5 * rem) / (widthTile + 1.5 * rem)
+          ) + 1
+      } else {
+        // minimize widthTile
+        widthTile = 3 * rem
+
+        // calc tileNumWidth in minimized widthTile and round it
+        tileNumWidth = Math.floor(
+          (widthContainerTiles + 1 * rem) / (widthTile + 1 * rem)
+        )
+        // calc real widthTile
+        widthTile = (widthContainerTiles + 1 * rem) / tileNumWidth - 1 * rem
+        // calc tileNumHeight
+        tileNumHeight =
+          Math.floor(
+            (heightContainerTiles + 1 * rem) / (widthTile + 1 * rem)
+          ) + 1
+      }
+      return tileNumHeight * tileNumWidth
+    },
+    createTiles () {
+      const ts = []
+      const tileNum = this.calculateVisibleTilesNumber()
+      for (let i = 0; i < tileNum; i++) {
+        ts.push({
+          key: i,
+          className: 'color-1'
+        })
+      }
+      this.tileStates = ts
+
+      // Use nextTick to run animation after
+      // the elements are rendered with the data input
+      this.$nextTick(() => {
+        this.activateAnimation()
+      })
+    },
+    updateTilesNumber () {
+      const currentTileNum = this.calculateVisibleTilesNumber()
+      let previousTileNum
+
+      if (this.tileStates != null) {
+        previousTileNum = this.tileStates.length
+      } else {
+        previousTileNum = 0
+      }
+
+      const diff = currentTileNum - previousTileNum
+
+      // update the num of tile only difference previous and current
+      if (diff > 0) {
+        for (let i = 0; i < diff; i++) {
+          this.tileStates.push({
+            key: previousTileNum + i,
+            className: 'color-1'
+          })
+        }
+      } else if (diff < 0) {
+        for (let i = 0; i > diff; i--) {
+          this.tileStates.pop()
+        }
+      }
+    },
+    activateAnimation () {
+      let i, c
+      const tileNum = this.getTileNum()
+      this.interval = setInterval(() => {
+        for (let a = 0; a < Math.ceil(tileNum / 20); a++) {
+          i = Math.floor(Math.random() * tileNum)
+          c = Math.floor(Math.random() * 9)
+          this.tileStates[i].className = 'color-' + c
+        }
+      }, 100)
+    },
+    getTileNum () {
+      if (this.tileStates != null) { return this.tileStates.length }
+      return 0
+    }
   }
 }
 </script>

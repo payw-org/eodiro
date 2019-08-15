@@ -1,6 +1,6 @@
 <template>
-  <div class="grid-layout" :class="this.proportion">
-    <slot></slot>
+  <div class="grid-layout" :class="proportion">
+    <slot />
   </div>
 </template>
 
@@ -10,8 +10,9 @@ export default {
     proportion: {
       type: String,
       required: false,
-      validator: function(value) {
-        return ['small', 'medium', 'large'].indexOf(value) !== -1
+      default: 'medium',
+      validator (value) {
+        return ['small', 'medium', 'large'].includes(value)
       }
     }
   }

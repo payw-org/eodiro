@@ -7,7 +7,7 @@
           <nuxt-link :to="localePath('vacant').replace(/\/$/, '')">
             <ArrowBlock class="menu-item-wrapper">
               <template v-slot:icon>
-                <span class="icon icon--vacant"></span>
+                <span class="icon icon--vacant" />
               </template>
               <template v-slot:content>
                 <span class="content">{{ $t('home.menuVacant') }}</span>
@@ -18,7 +18,7 @@
           <!-- meal -->
           <ArrowBlock class="menu-item-wrapper">
             <template v-slot:icon>
-              <span class="icon icon--meal"></span>
+              <span class="icon icon--meal" />
             </template>
             <template v-slot:content>
               <span class="content">{{ $t('home.menuMeal') }}</span>
@@ -28,7 +28,7 @@
           <!-- class -->
           <ArrowBlock class="menu-item-wrapper">
             <template v-slot:icon>
-              <span class="icon icon--class"></span>
+              <span class="icon icon--class" />
             </template>
             <template v-slot:content>
               <span class="content">{{ $t('home.menuClass') }}</span>
@@ -39,7 +39,7 @@
           <nuxt-link :to="localePath('clubs').replace(/\/$/, '')">
             <ArrowBlock class="menu-item-wrapper">
               <template v-slot:icon>
-                <span class="icon icon--clubs"></span>
+                <span class="icon icon--clubs" />
               </template>
               <template v-slot:content>
                 <span class="content">{{ $t('home.menuClubs') }}</span>
@@ -51,7 +51,7 @@
           <nuxt-link :to="localePath('inquiry').replace(/\/$/, '')">
             <ArrowBlock class="menu-item-wrapper">
               <template v-slot:icon>
-                <span class="icon icon--inquiry"></span>
+                <span class="icon icon--inquiry" />
               </template>
               <template v-slot:content>
                 <span class="content">{{ $t('home.menuInquiry') }}</span>
@@ -62,7 +62,7 @@
           <!-- donation -->
           <ArrowBlock class="menu-item-wrapper">
             <template v-slot:icon>
-              <span class="icon icon--donation"></span>
+              <span class="icon icon--donation" />
             </template>
             <template v-slot:content>
               <span class="content">{{ $t('home.menuDonation') }}</span>
@@ -73,7 +73,7 @@
           <nuxt-link :to="localePath('preferences').replace(/\/$/, '')">
             <ArrowBlock class="menu-item-wrapper">
               <template v-slot:icon>
-                <span class="icon icon--preferences"></span>
+                <span class="icon icon--preferences" />
               </template>
               <template v-slot:content>
                 <span class="content">{{ $t('home.menuPreferences') }}</span>
@@ -85,7 +85,9 @@
     </div>
 
     <footer class="footer">
-      <p class="manifesto">Copyright © 2019 PAYW™</p>
+      <p class="manifesto">
+        Copyright © 2019 PAYW™
+      </p>
     </footer>
   </div>
 </template>
@@ -97,14 +99,14 @@ import { Grid, ArrowBlock } from '~/components/ui'
 
 export default {
   name: 'home',
-  extends: EodiroPageBase,
   components: { Grid, ArrowBlock },
+  extends: EodiroPageBase,
   meta: {
     depth: 0,
     appName: 'home'
   },
   methods: {
-    preparing() {
+    preparing () {
       new EodiroDialog().alert(this.$t('preparing'))
     }
   }

@@ -4,20 +4,18 @@
  */
 
 export default class Stagger {
-  constructor() {}
-
   /**
    * Returns a callback function to be used in setTimeout
    * @param {Array<HTMLElement>} elms
    * @param {number} i start index
    * @param {number} j end index
    */
-  static showElement(elms, i, j) {
+  static showElement (elms, i, j) {
     if (!elms[i] || i > j) {
       return
     }
 
-    let that = this
+    const that = this
     let c
     // after animation starts,
     // animate next element
@@ -43,9 +41,9 @@ export default class Stagger {
 
   /**
    * Show elements by adding classnames sequentially
-   * @param {Array<HTMLElement>} elms 
+   * @param {Array<HTMLElement>} elms
    */
-  static show(elms, hasParent = false) {
+  static show (elms, hasParent = false) {
     if (!elms || elms.length === 0) {
       return
     }
@@ -59,9 +57,9 @@ export default class Stagger {
       if (hasParent) {
         boundaryTarget = elms[i].parentElement
       }
-      let rect = boundaryTarget.getBoundingClientRect()
-      let top = rect.top
-      let bottom = rect.bottom
+      const rect = boundaryTarget.getBoundingClientRect()
+      const top = rect.top
+      const bottom = rect.bottom
 
       if (
         (top < 0 && bottom < 0) ||
@@ -80,10 +78,10 @@ export default class Stagger {
       if (hasParent) {
         boundaryTarget = elms[j].parentElement
       }
-      let rect = boundaryTarget.getBoundingClientRect()
-      let top = rect.top
-      let bottom = rect.bottom
-    
+      const rect = boundaryTarget.getBoundingClientRect()
+      const top = rect.top
+      const bottom = rect.bottom
+
       if (
         (top < 0 && bottom < 0) ||
         (top > window.innerHeight && bottom > window.innerHeight)
@@ -100,14 +98,14 @@ export default class Stagger {
 
   /**
    * Hide elements by removing classnames
-   * @param {Array<HTMLElement>} elms 
+   * @param {Array<HTMLElement>} elms
    */
-  static hide(elms) {
+  static hide (elms) {
     if (!elms || elms.length === 0) {
       return
     }
 
-    elms.forEach(elm => {
+    elms.forEach((elm) => {
       elm.classList.remove('stagger-appear')
       elm.classList.remove('stagger-appear-fix')
     })

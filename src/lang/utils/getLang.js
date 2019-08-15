@@ -1,4 +1,4 @@
-export default function(langCode) {
+export default function (langCode) {
   return {
     global: require(`../global/${langCode}`).default,
     home: require(`../home/${langCode}`).default,
