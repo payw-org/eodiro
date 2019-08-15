@@ -11,5 +11,6 @@
       "language": "javascript",
       "autoFix": true
     }
-  ]
+  ],
+  "eslint.packageManager": "yarn"
 }
