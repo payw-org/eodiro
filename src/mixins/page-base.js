@@ -1,12 +1,13 @@
-<script>
-// eodiro global base component
-// always extends this component on every page
-
-// it caches last scroll position
-// and reverts it when activated
-// when keep-alive
+/**
+ * Add this mixin from every page component.
+ */
 
 export default {
+  data () {
+    return {
+      lastScrollPosition: 0
+    }
+  },
   beforeMount () {
     // Check banner mode
     if (this.$options.meta && this.$options.meta.bannerMode === 'mini') {
@@ -25,16 +26,11 @@ export default {
       console.error("You didn't set depth for this page.")
     }
 
-    console.log('mounted')
-
-    window.scrollTo(0, 0)
-  },
-  beforeDestroy () {
-    // reset scroll position
-    this.$options.meta.lastScrollPosition = 0
+    if (!this.pop && !this.popParent) {
+      window.scrollTo(0, 0)
+    }
   },
   activated () {
-    console.log('activated')
     // Check banner mode
     if (this.$options.meta && this.$options.meta.bannerMode === 'mini') {
       this.$store.commit('banner/setMcBannerMiniFlag', true)
@@ -42,14 +38,13 @@ export default {
       this.$store.commit('banner/setMcBannerMiniFlag', false)
     }
 
-    window.scrollTo(0, this.$options.meta.lastScrollPosition)
+    window.scrollTo(0, this.lastScrollPosition)
   },
   deactivated () {
     // store scroll position
     if (!this.$options.meta) {
       this.$options.meta = {}
     }
-    this.$options.meta.lastScrollPosition = window.scrollY
+    this.lastScrollPosition = window.scrollY
   }
 }
-</script>

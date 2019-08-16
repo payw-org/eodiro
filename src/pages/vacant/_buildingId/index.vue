@@ -41,14 +41,14 @@
 
 <script>
 import axios from 'axios'
-import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
+import pageBase from '~/mixins/page-base'
 import Loading from '~/components/ui/Loading.vue'
 import { Grid, ArrowBlock } from '~/components/ui'
 
 export default {
   name: 'vacant-floor',
   components: { Loading, Grid, ArrowBlock },
-  extends: EodiroPageBase,
+  mixins: [pageBase],
   meta: {
     depth: 2,
     bannerMode: 'mini'

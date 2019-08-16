@@ -43,13 +43,13 @@
 
 <script>
 import Cookies from 'js-cookie'
+import pageBase from '~/mixins/page-base'
 import { Button } from '~/components/ui'
-import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
 
 export default {
   name: 'preferences',
   components: { Button },
-  extends: EodiroPageBase,
+  mixins: [pageBase],
   meta: {
     depth: 1,
     appName: 'preferences'
