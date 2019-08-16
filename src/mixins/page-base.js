@@ -3,6 +3,7 @@
  */
 
 export default {
+  transition: 'fade',
   data () {
     return {
       lastScrollPosition: 0

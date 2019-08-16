@@ -8,7 +8,9 @@
       />
     </Grid>
 
+    <transition name="fade">
     <NuxtChild v-if="$route.params.clubId !== undefined" />
+    </transition>
   </div>
 </template>
 
