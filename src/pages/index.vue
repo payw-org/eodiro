@@ -93,14 +93,14 @@
 </template>
 
 <script>
-import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
+import pageBase from '~/mixins/page-base'
 import EodiroDialog from '~/plugins/eodiro-dialog'
 import { Grid, ArrowBlock } from '~/components/ui'
 
 export default {
   name: 'home',
   components: { Grid, ArrowBlock },
-  extends: EodiroPageBase,
+  mixins: [pageBase],
   meta: {
     depth: 0,
     appName: 'home'

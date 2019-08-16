@@ -43,7 +43,7 @@
 
 <script>
 import axios from 'axios'
-import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
+import pageBase from '~/mixins/page-base'
 import Loading from '~/components/ui/Loading.vue'
 import ApiUrl from '~/plugins/ApiUrl'
 import EodiroStorage from '~/plugins/EodiroStorage'
@@ -53,7 +53,7 @@ import Dialog from '~/plugins/eodiro-dialog'
 export default {
   name: 'vacant-building',
   components: { Loading, Grid, ArrowBlock },
-  extends: EodiroPageBase,
+  mixins: [pageBase],
   meta: {
     depth: 1
   },
@@ -124,7 +124,9 @@ export default {
       this.isEmptyLoaded = false
       const url = 'https://api.eodiro.com/cau/empty'
       axios.get(url).then((response) => {
-        if (response.data.error) { return }
+        if (response.data.error) {
+          return
+        }
 
         this.buildings = response.data.buildings
         this.mapFavorite()

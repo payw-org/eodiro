@@ -3,7 +3,7 @@
     id="app"
     :class="[
       $store.state.currentAppName,
-      { 'is-banner-forced-mini': $store.state.banner.mcBannerMiniFlag }
+      { 'is-banner-forced-mini': $store.state.banner.mcBannerMiniFlag || isBannerForcedMini }
     ]"
   >
     <div v-if="!isValidPage" id="banner-observer-sentinel" />
@@ -36,8 +36,8 @@ export default {
     }
   },
   watch: {
-    $route (to, from) {
-      // this.determineBannerIsForcedMini()
+    '$store.state.banner.mcBannerMiniFlag' (value) {
+      this.isBannerForcedMini = value
     }
   },
   created () {
@@ -45,20 +45,6 @@ export default {
       this.isBannerForcedMini = true
     } else {
       this.isBannerForcedMini = false
-    }
-  },
-  methods: {
-    determineBannerIsForcedMini () {
-      // this method detects Banner's mini mode
-      // and add a class 'is-banner-forced-mini'
-      // to adjust padding-top of main content
-      window.$nuxt.$once('triggerScroll', () => {
-        if (this.$store.state.banner.isForcedMini) {
-          this.isBannerForcedMini = true
-        } else {
-          this.isBannerForcedMini = false
-        }
-      })
     }
   },
   head () {

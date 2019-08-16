@@ -13,14 +13,14 @@
 </template>
 
 <script>
-import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
+import pageBase from '~/mixins/page-base'
 import { Button, Textarea } from '~/components/ui'
 import Dialog from '~/plugins/eodiro-dialog'
 
 export default {
   name: 'inquiry',
   components: { Button, Textarea },
-  extends: EodiroPageBase,
+  mixins: [pageBase],
   meta: {
     depth: 1,
     appName: 'inquiry'

@@ -6,7 +6,7 @@ const routeMap = {
   vacant: ['index', 'vacant', 'vacant-buildingId', 'vacant-buildingId-floorId'],
   preferences: ['index', 'preferences'],
   inquiry: ['index', 'inquiry'],
-  clubs: ['index', 'clubs', 'clubs-topic']
+  clubs: ['index', 'clubs', 'clubs-topic', 'clubs-topic-clubId']
 }
 
 /**
@@ -79,14 +79,21 @@ export const mutations = {
     }
 
     try {
-      const index = state.routeMap[state.currentAppName].indexOf(currentRoute) - 1
-      state.prevPath =
-        state.routeMap[state.currentAppName][index]
+      const index =
+        state.routeMap[state.currentAppName].indexOf(currentRoute) - 1
+      state.prevPath = state.routeMap[state.currentAppName][index]
     } catch (error) {
       console.error(
         'Could not set previous path. This page may not included in the routeMap.'
       )
       state.prevPath = 'index'
+    }
+
+    // Wrong routeMap error handling
+    if (currentRoute !== 'index' && state.prevPath === undefined) {
+      console.error(
+        'Could not find previous path. You may not set routeMap properly.'
+      )
     }
   }
 }

@@ -128,11 +128,8 @@
 <script>
 import SimpleBar from 'simplebar'
 import axios from 'axios'
-import {
-  disableBodyScroll,
-  enableBodyScroll
-} from 'body-scroll-lock'
-import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
+import pageBase from '~/mixins/page-base'
 import Loading from '~/components/ui/Loading.vue'
 import Stagger from '~/plugins/Stagger'
 import ExpireCounter from '~/plugins/ExpireCounter'
@@ -144,7 +141,7 @@ import Dialog from '~/plugins/eodiro-dialog'
 export default {
   name: 'vacant-result',
   components: { Loading, Grid, ArrowBlock },
-  extends: EodiroPageBase,
+  mixins: [pageBase],
   meta: {
     depth: 3,
     bannerMode: 'mini'
