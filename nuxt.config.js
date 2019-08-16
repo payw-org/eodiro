@@ -138,12 +138,6 @@ export default {
     dev: false
   },
 
-  // transition between routes
-  pageTransition: {
-    name: 'fade',
-    mode: 'out-in'
-  },
-
   // custom build path name
   build: {
     publicPath: '/dist/',
