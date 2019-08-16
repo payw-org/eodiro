@@ -1,16 +1,25 @@
 <template>
   <div class="club-item">
+    <NuxtLink
+      class="absolute-link"
+      :to="localePath({
+        name: 'clubs-topic-clubId',
+        params: {
+          clubId: clubData.id
+        }
+      })"
+    />
     <div class="hero-wrapper">
       <div class="image-wrapper">
-        <img :src="clubImgSrc" class="club--image">
+        <img :src="`https://picsum.photos/${clubData.id}`" class="club--image">
       </div>
     </div>
     <div class="details-container">
       <h1 class="club--name">
-        {{ clubName }}
+        {{ clubData.name }}
       </h1>
       <p class="club--explanation">
-        {{ clubExplanation }}
+        {{ clubData.explanation }}
       </p>
     </div>
   </div>
@@ -19,19 +28,12 @@
 <script>
 export default {
   props: {
-    clubImgSrc: {
-      type: String,
-      required: false,
-      default: ''
-    },
-    clubName: {
-      type: String,
-      required: true
-    },
-    clubExplanation: {
-      type: String,
-      required: false,
-      default: ''
+    clubData: {
+      type: Object,
+      required: true,
+      default: () => {
+        return {}
+      }
     }
   }
 }
