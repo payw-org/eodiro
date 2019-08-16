@@ -3,7 +3,7 @@
     id="app"
     :class="[
       $store.state.currentAppName,
-      { 'is-banner-forced-mini': $store.state.banner.mcBannerMiniFlag || isBannerForcedMini }
+      { 'is-banner-forced-mini': $store.state.banner.mcBannerMiniFlag }
     ]"
   >
     <div v-if="!isValidPage" id="banner-observer-sentinel" />
@@ -23,11 +23,6 @@ import GoBack from '~/components/global/GoBack.vue'
 
 export default {
   components: { Banner, GoBack },
-  data () {
-    return {
-      isBannerForcedMini: false
-    }
-  },
   computed: {
     isValidPage () {
       return !this.$store.state.appList.includes(
@@ -35,16 +30,11 @@ export default {
       )
     }
   },
-  watch: {
-    '$store.state.banner.mcBannerMiniFlag' (value) {
-      this.isBannerForcedMini = value
-    }
-  },
   created () {
     if (this.$store.state.banner.isForcedMini) {
-      this.isBannerForcedMini = true
+      this.$store.commit('banner/setMcBannerMiniFlag', true)
     } else {
-      this.isBannerForcedMini = false
+      this.$store.commit('banner/setMcBannerMiniFlag', false)
     }
   },
   head () {

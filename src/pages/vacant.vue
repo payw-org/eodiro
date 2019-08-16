@@ -5,8 +5,11 @@
 </template>
 
 <script>
+import pageBase from '~/mixins/page-base'
+
 export default {
   name: 'vacant-parent',
+  mixins: [pageBase],
   meta: {
     appName: 'vacant'
   }
