@@ -89,7 +89,7 @@ export default ({ app, from, route, store }) => {
       // set direction to backward
       store.commit('setRouteDirection', 'backward')
 
-      // cache back page if not cached
+      // cache destination components if not cached
       route.matched.forEach((matched) => {
         store.commit('cacheComponent', matched.components.default.options.name)
       })
