@@ -4,13 +4,13 @@ export const state = () => ({
 })
 
 export const mutations = {
-  enableForcedMini(state) {
+  enableForcedMini (state) {
     state.isForcedMini = true
   },
-  disableForcedMini(state) {
+  disableForcedMini (state) {
     state.isForcedMini = false
   },
-  setMcBannerMiniFlag(state, bool) {
+  setMcBannerMiniFlag (state, bool) {
     state.mcBannerMiniFlag = bool
   }
 }

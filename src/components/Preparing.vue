@@ -2,7 +2,7 @@
   <div id="preparing">
     <h1>
       업데이트중입니다.
-      <br />잠시만 기다려주세요.
+      <br>잠시만 기다려주세요.
     </h1>
   </div>
 </template>

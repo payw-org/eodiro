@@ -1,15 +1,15 @@
 <template>
   <transition name="fade">
-    <div id="go-back" :class="{ hidden: isHidden }" v-if="$store.state.prevPath">
+    <div v-if="$store.state.prevPath" id="go-back" :class="{ hidden: isHidden }">
       <nuxt-link class="prev-link" :to="localePath($store.state.prevPath)">
         <button class="prev-btn">
-          <span class="icon"></span>
+          <span class="icon" />
           {{ $t('global.goBack') }}
         </button>
       </nuxt-link>
 
       <nuxt-link :to="localePath('index')">
-        <button class="go-home"></button>
+        <button class="go-home" />
       </nuxt-link>
     </div>
   </transition>
@@ -17,14 +17,14 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       isHidden: false,
       scrollEventCallback: null
     }
   },
   watch: {
-    $route() {
+    $route () {
       if (this.$store.state.routeDirection === 'backward') {
         window.removeEventListener('scroll', this.scrollEventCallback)
 
@@ -38,9 +38,9 @@ export default {
       }
     }
   },
-  mounted() {
+  mounted () {
     const that = this
-    this.scrollEventCallback = function(e) {
+    this.scrollEventCallback = function (e) {
       if (
         this.oldScroll > this.scrollY &&
         window.innerHeight + this.scrollY < document.body.scrollHeight
@@ -79,6 +79,7 @@ $go-back-btn-height: 2.7rem;
     opacity: 0;
   }
 
+  z-index: 9999;
   background-color: #fff;
   cursor: pointer;
   position: fixed;
@@ -144,10 +145,14 @@ $go-back-btn-height: 2.7rem;
     width: $go-back-btn-height * 1.3;
     border-left: solid;
     @include separator;
-    @include bgImg('~assets/images/eodiro/home_black.svg', '43% center', 45%);
+    @include bgImg('~assets/images/eodiro/home_black.svg', '43% center', '45%');
 
     @include dark-mode {
-      @include bgImg('~assets/images/eodiro/home_white.svg', '43% center', 45%);
+      @include bgImg(
+        '~assets/images/eodiro/home_white.svg',
+        '43% center',
+        '45%'
+      );
     }
   }
 }

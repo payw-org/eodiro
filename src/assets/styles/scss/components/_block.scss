@@ -3,6 +3,7 @@
 
 @mixin block-style {
   @include elm-fill;
+  position: relative;
   border-radius: $border-radius;
   display: flex;
   align-items: center;
