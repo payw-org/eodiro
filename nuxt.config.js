@@ -43,31 +43,36 @@ export default {
     // scroll to stored position when route backward
     // if there is no stored position, scroll to top
     scrollBehavior (to, from, savedPosition) {
+      // return { x: 0, y: 0 }
       // tweak nuxt.js' default method
-      return new Promise((resolve) => {
-        const lastScrollPosition =
-          to.matched &&
-          to.matched[to.matched.length - 1] &&
-          to.matched[to.matched.length - 1].components &&
-          to.matched[to.matched.length - 1].components.default &&
-          to.matched[to.matched.length - 1].components.default.options &&
-          to.matched[to.matched.length - 1].components.default.options.meta &&
-          to.matched[to.matched.length - 1].components.default.options.meta
-            .lastScrollPosition
-            ? to.matched[to.matched.length - 1].components.default.options.meta
-              .lastScrollPosition
-            : 0
-
-        const position = {
-          x: 0,
-          y: lastScrollPosition
-        }
-
-        // wait for the out transition to complete
-        window.$nuxt.$once('triggerScroll', () => {
-          resolve(position)
-        })
-      })
+      // return new Promise((resolve) => {
+      //   const lastScrollPosition =
+      //     // to.matched &&
+      //     // to.matched[to.matched.length - 1] &&
+      //     // to.matched[to.matched.length - 1].components &&
+      //     // to.matched[to.matched.length - 1].components.default &&
+      //     // to.matched[to.matched.length - 1].components.default.options &&
+      //     to.matched[to.matched.length - 1].components.default.options.meta &&
+      //     to.matched[to.matched.length - 1].components.default.options.meta
+      //       .lastScrollPosition
+      //       ? to.matched[to.matched.length - 1].components.default.options.meta
+      //         .lastScrollPosition
+      //       : 0
+      //   const position = {
+      //     x: 0,
+      //     y: lastScrollPosition
+      //   }
+      //   if (
+      //     to.matched[to.matched.length - 1].components.default.options.meta.pop
+      //   ) {
+      //     console.log('pop mode')
+      //     resolve(undefined)
+      //   }
+      //   // wait for the out transition to complete
+      //   window.$nuxt.$once('triggerScroll', () => {
+      //     resolve(position)
+      //   })
+      // })
     }
   },
 
@@ -95,9 +100,7 @@ export default {
   plugins: ['~/plugins/init.ts'],
 
   // devModules
-  devModules: [
-    '@nuxtjs/eslint-module'
-  ],
+  devModules: ['@nuxtjs/eslint-module'],
 
   // modules
   modules: [
