@@ -107,7 +107,7 @@ export default {
 
 #eodiro-banner {
   position: fixed;
-  z-index: 9999;
+  z-index: 6666;
   top: 0;
   width: 100%;
   height: $banner-height;
