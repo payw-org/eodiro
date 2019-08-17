@@ -5,5 +5,12 @@ export default {
     title: 'bbb'
   },
   initInputText: 'Please enter Class Information',
-  buttonInnerMsg: 'Search'
+  filterButtonMsg: 'Filter',
+  searchButtonMsg: 'Search',
+  filterTitleYear: 'Year',
+  filterTitleSemester: 'Semester',
+  filterTitleProcess: 'Process',
+  filterTitleCampus: 'Campus',
+  filterTitleCollege: 'College',
+  filterTitleMajor: 'Major'
 }

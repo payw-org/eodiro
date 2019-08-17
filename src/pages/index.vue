@@ -29,7 +29,7 @@
           <nuxt-link :to="localePath('search-class').replace(/\/$/, '')">
             <ArrowBlock class="menu-item-wrapper">
               <template v-slot:icon>
-                <span class="icon icon--search-class"></span>
+                <span class="icon icon--search-class" />
               </template>
               <template v-slot:content>
                 <span class="content">{{ $t('home.menuClass') }}</span>
