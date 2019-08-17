@@ -14,7 +14,7 @@ const routeMap = {
  * Returns a class name matches to color scheme mode
  * @param {'light'|'dark'|'auto'} colorMode
  */
-function getColorClassName(colorMode) {
+function getColorClassName (colorMode) {
   let colorSchemeClassName = 'light-mode'
 
   if (colorMode === 'light') {
@@ -45,34 +45,34 @@ export const mutations = {
   /**
    * @param {'light'|'dark'|'auto'} mode
    */
-  setColorScheme(state, mode) {
+  setColorScheme (state, mode) {
     JSCookie.set('color_scheme', mode, { expires: 99999 })
     const colorSchemeClassName = getColorClassName(mode)
     state.colorSchemeClassName = colorSchemeClassName
   },
-  cacheComponent(state, componentName) {
+  cacheComponent (state, componentName) {
     const index = state.cachedComponents.indexOf(componentName)
     if (index === -1) {
       state.cachedComponents.push(componentName)
     }
   },
-  popRoute(state, componentName) {
+  popRoute (state, componentName) {
     const index = state.cachedComponents.indexOf(componentName)
     if (index !== -1) {
       state.cachedComponents.splice(index, 1)
     }
   },
-  setRouteDirection(state, direction) {
+  setRouteDirection (state, direction) {
     state.routeDirection = direction
   },
-  setAppName(state, name) {
+  setAppName (state, name) {
     state.currentAppName = name
   },
-  setLastScrollPosition(state, value) {
+  setLastScrollPosition (state, value) {
     state.lastScrollPosition = value || 0
   },
   // set state's prevPath variable which is used inside banner navigation
-  setPreviousPath(state, currentRoute) {
+  setPreviousPath (state, currentRoute) {
     if (!currentRoute) {
       currentRoute = 'index'
     } else {
@@ -103,7 +103,7 @@ export const actions = {
   /**
    * Runs on server at first
    */
-  nuxtServerInit({ commit, state }, { req }) {
+  nuxtServerInit ({ commit, state }, { req }) {
     // set color scheme using cookie
     const cookies =
       req.headers && req.headers.cookie ? Cookie.parse(req.headers.cookie) : {}
@@ -128,7 +128,7 @@ export const getters = {
     return state.routeMap[state.currentAppName][index]
   },
   // get previous path name from historyStack
-  getPreviousPathName(state) {
+  getPreviousPathName (state) {
     const path = state.historyStack[state.historyStack.length - 2]
     return path
   }
