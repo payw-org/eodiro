@@ -15,3 +15,85 @@
 
   @return $val;
 }
+
+@function res-scale--1($val) {
+  $val: ceil($val / 85 * 100);
+  @if $val % 2 != 1 {
+    $val: $val + 1;
+  }
+  @return $val;
+}
+@function res-scale--2($val) {
+  $val: ceil($val / 85 * 115);
+  @if $val % 2 != 1 {
+    $val: $val + 1;
+  }
+  @return $val;
+}
+// UI 6
+@function calculate($min, $max, $level) {
+  $interval: ($max - $min) / 5;
+  $result: $min + $interval * ($level - 1);
+  @return $result;
+}
+@function validate($level) {
+  $level: floor($level);
+  @if $level < 1 {
+    @return 1;
+  } @else if $level > 6 {
+    @return 6;
+  } @else {
+    @return $level;
+  }
+}
+@function radius($level) {
+  $level: validate($level);
+  $min: 0.2rem;
+  $max: 1rem;
+  @return calculate($min, $max, $level);
+}
+@function space($level) {
+  $level: validate($level);
+  $min: 0.2rem;
+  $max: 1.5rem;
+  @return calculate($min, $max, $level);
+}
+@function body($level) {
+  $level: validate($level);
+  $min: 0.9rem;
+  $max: 1.2rem;
+  @return calculate($min, $max, $level);
+}
+@function head($level) {
+  $level: validate($level);
+  $min: 1.3rem;
+  $max: 2.5rem;
+  @return calculate($min, $max, $level);
+}
+@function weight($level) {
+  $level: validate($level);
+  @if $level == 1 {
+    @return 200;
+  }
+  @if $level == 2 {
+    @return 300;
+  }
+  @if $level == 3 {
+    @return 400;
+  }
+  @if $level == 4 {
+    @return 500;
+  }
+  @if $level == 5 {
+    @return 600;
+  }
+  @if $level == 6 {
+    @return 700;
+  }
+}
+@function line-height($level) {
+  $level: validate($level);
+  $min: 1.2em;
+  $max: 2em;
+  @return calculate($min, $max, $level);
+}
