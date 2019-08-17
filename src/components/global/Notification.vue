@@ -17,10 +17,10 @@
 
 <template>
   <transition name="slide">
-    <aside id="notification" v-if="!isCompleted">
+    <aside v-if="!isCompleted" id="notification">
       <div class="banner">
-        <button class="close" @click="complete"></button>
-        <div class="content" v-html="htmlMsg"></div>
+        <button class="close" @click="complete" />
+        <div class="content" v-html="htmlMsg" />
       </div>
     </aside>
   </transition>
@@ -30,7 +30,7 @@
 import moment from 'moment'
 
 export default {
-  data() {
+  data () {
     return {
       isCompleted: false,
       msgItems: [
@@ -52,28 +52,16 @@ export default {
     }
   },
   computed: {
-    htmlMsg() {
-      let msgArr = this.msgItems[0].content.trim().split('\n')
+    htmlMsg () {
+      const msgArr = this.msgItems[0].content.trim().split('\n')
       let html = ''
-      msgArr.forEach(msg => {
+      msgArr.forEach((msg) => {
         html += `<p ${this.$options._scopeId}>${msg}</p>`
       })
       return html
     }
   },
-  methods: {
-    complete() {
-      this.isCompleted = true
-      let noti = {
-        completedAt: Date.now()
-      }
-      localStorage.setItem('notification', JSON.stringify(noti))
-    },
-    getLastestNoti() {
-      return this.msgItems[0]
-    }
-  },
-  created() {
+  created () {
     // remove old keys
     localStorage.removeItem('completeNoti')
     localStorage.removeItem('completeNoti-alt')
@@ -89,9 +77,9 @@ export default {
 
     // compare the last completed time and
     // the latest notification's begin time/end time
-    let beginUnix = moment(this.getLastestNoti().begin).unix() * 1000
-    let endUnix = moment(this.getLastestNoti().end).unix() * 1000
-    let now = Date.now()
+    const beginUnix = moment(this.getLastestNoti().begin).unix() * 1000
+    const endUnix = moment(this.getLastestNoti().end).unix() * 1000
+    const now = Date.now()
 
     if (noti.completedAt) {
       if (
@@ -105,12 +93,22 @@ export default {
         // notification should not appear
         this.isCompleted = true
       }
+    } else if (now > beginUnix && now < endUnix) {
+      this.isCompleted = false
     } else {
-      if (now > beginUnix && now < endUnix) {
-        this.isCompleted = false
-      } else {
-        this.isCompleted = true
+      this.isCompleted = true
+    }
+  },
+  methods: {
+    complete () {
+      this.isCompleted = true
+      const noti = {
+        completedAt: Date.now()
       }
+      localStorage.setItem('notification', JSON.stringify(noti))
+    },
+    getLastestNoti () {
+      return this.msgItems[0]
     }
   }
 }

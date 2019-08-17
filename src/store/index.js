@@ -6,15 +6,15 @@ const routeMap = {
   vacant: ['index', 'vacant', 'vacant-buildingId', 'vacant-buildingId-floorId'],
   preferences: ['index', 'preferences'],
   inquiry: ['index', 'inquiry'],
-  clubs: ['index', 'clubs', 'clubs-topic'],
-  searchClass: ['index', 'search-class']
+  searchClass: ['index', 'search-class'],
+  clubs: ['index', 'clubs', 'clubs-topic', 'clubs-topic-clubId']
 }
 
 /**
  * Returns a class name matches to color scheme mode
  * @param {'light'|'dark'|'auto'} colorMode
  */
-function getColorClassName(colorMode) {
+function getColorClassName (colorMode) {
   let colorSchemeClassName = 'light-mode'
 
   if (colorMode === 'light') {
@@ -32,7 +32,7 @@ function getColorClassName(colorMode) {
 export const state = () => ({
   colorSchemeClassName: 'light-mode',
   lastScrollPosition: 0,
-  routeMap: routeMap,
+  routeMap,
   prevPath: '',
   historyStack: [],
   cachedComponents: [],
@@ -45,34 +45,34 @@ export const mutations = {
   /**
    * @param {'light'|'dark'|'auto'} mode
    */
-  setColorScheme(state, mode) {
+  setColorScheme (state, mode) {
     JSCookie.set('color_scheme', mode, { expires: 99999 })
-    let colorSchemeClassName = getColorClassName(mode)
+    const colorSchemeClassName = getColorClassName(mode)
     state.colorSchemeClassName = colorSchemeClassName
   },
-  cacheComponent(state, componentName) {
-    let index = state.cachedComponents.indexOf(componentName)
-    if (index == -1) {
+  cacheComponent (state, componentName) {
+    const index = state.cachedComponents.indexOf(componentName)
+    if (index === -1) {
       state.cachedComponents.push(componentName)
     }
   },
-  popRoute(state, componentName) {
-    let index = state.cachedComponents.indexOf(componentName)
+  popRoute (state, componentName) {
+    const index = state.cachedComponents.indexOf(componentName)
     if (index !== -1) {
       state.cachedComponents.splice(index, 1)
     }
   },
-  setRouteDirection(state, direction) {
+  setRouteDirection (state, direction) {
     state.routeDirection = direction
   },
-  setAppName(state, name) {
+  setAppName (state, name) {
     state.currentAppName = name
   },
-  setLastScrollPosition(state, value) {
-    state.lastScrollPosition = value ? value : 0
+  setLastScrollPosition (state, value) {
+    state.lastScrollPosition = value || 0
   },
   // set state's prevPath variable which is used inside banner navigation
-  setPreviousPath(state, currentRoute) {
+  setPreviousPath (state, currentRoute) {
     if (!currentRoute) {
       currentRoute = 'index'
     } else {
@@ -80,15 +80,21 @@ export const mutations = {
     }
 
     try {
-      state.prevPath =
-        state.routeMap[state.currentAppName][
-          state.routeMap[state.currentAppName].indexOf(currentRoute) - 1
-        ]
+      const index =
+        state.routeMap[state.currentAppName].indexOf(currentRoute) - 1
+      state.prevPath = state.routeMap[state.currentAppName][index]
     } catch (error) {
       console.error(
         'Could not set previous path. This page may not included in the routeMap.'
       )
       state.prevPath = 'index'
+    }
+
+    // Wrong routeMap error handling
+    if (currentRoute !== 'index' && state.prevPath === undefined) {
+      console.error(
+        'Could not find previous path. You may not set routeMap properly.'
+      )
     }
   }
 }
@@ -97,16 +103,16 @@ export const actions = {
   /**
    * Runs on server at first
    */
-  nuxtServerInit({ commit, state }, { req }) {
+  nuxtServerInit ({ commit, state }, { req }) {
     // set color scheme using cookie
     const cookies =
       req.headers && req.headers.cookie ? Cookie.parse(req.headers.cookie) : {}
-    const mode = cookies['color_scheme']
+    const mode = cookies.color_scheme
 
     commit('setColorScheme', mode)
 
     // set AppList using routeMap
-    Object.keys(state.routeMap).forEach(key => {
+    Object.keys(state.routeMap).forEach((key) => {
       state.appList.push(key)
     })
   }
@@ -114,16 +120,16 @@ export const actions = {
 
 export const getters = {
   // get previous route from routeMap
-  getPreviousRoute: state => currentRoute => {
+  getPreviousRoute: state => (currentRoute) => {
     currentRoute = currentRoute.replace(/___[a-z][a-z]/g, '')
 
-    return state.routeMap[state.currentAppName][
-      state.routeMap[state.currentAppName].indexOf(currentRoute) - 1
-    ]
+    const index = state.routeMap[state.currentAppName].indexOf(currentRoute) - 1
+
+    return state.routeMap[state.currentAppName][index]
   },
   // get previous path name from historyStack
-  getPreviousPathName(state) {
-    let path = state.historyStack[state.historyStack.length - 2]
+  getPreviousPathName (state) {
+    const path = state.historyStack[state.historyStack.length - 2]
     return path
   }
 }

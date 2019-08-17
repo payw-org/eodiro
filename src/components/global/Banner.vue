@@ -1,35 +1,35 @@
 <template>
   <div id="eodiro-banner" :class="{ mini: isMini }">
     <div class="banner">
-      <transition name="bg-fade" v-for="appName in $store.state.appList" :key="`bg-${appName}`">
+      <transition v-for="appName in $store.state.appList" :key="`bg-${appName}`" name="bg-fade">
         <div
           v-if="appName === $store.state.currentAppName"
           class="background"
           :class="`background--${appName}`"
-        ></div>
+        />
       </transition>
       <HomeBgTile v-if="$store.state.currentAppName === 'home' && !isMini" />
       <div class="logo-wrapper">
         <transition
-          name="icon-change"
           v-for="appName in $store.state.appList"
           :key="`banner-${appName}`"
+          name="icon-change"
         >
           <div
             v-if="appName === $store.state.currentAppName"
             class="logo app-icon"
             :class="`app--${appName}`"
           >
-            <span class="icon"></span>
+            <span class="icon" />
           </div>
         </transition>
       </div>
 
       <nav class="eodiro-navigation">
-        <div class="dummy"></div>
+        <div class="dummy" />
         <transition name="icon-change">
-          <div class="nav-icon-wrapper" v-if="isMini">
-            <transition name="fade" v-for="appName in $store.state.appList" :key="`nav-${appName}`">
+          <div v-if="isMini" class="nav-icon-wrapper">
+            <transition v-for="appName in $store.state.appList" :key="`nav-${appName}`" name="fade">
               <div
                 v-if="appName === $store.state.currentAppName"
                 class="nav-icon app-icon app--home"
@@ -37,12 +37,12 @@
                   `app--${appName}`,
                 ]"
               >
-                <span class="icon"></span>
+                <span class="icon" />
               </div>
             </transition>
           </div>
         </transition>
-        <div class="dummy"></div>
+        <div class="dummy" />
       </nav>
     </div>
   </div>
@@ -53,7 +53,7 @@ import HomeBgTile from '~/components/home/HomeBgTile.vue'
 
 export default {
   components: { HomeBgTile },
-  data() {
+  data () {
     return {
       isMini: false,
       observer: null,
@@ -61,7 +61,7 @@ export default {
     }
   },
   watch: {
-    $route(to, from) {
+    $route (to, from) {
       // stop observing when the route is still changing
       this.observer.unobserve(this.sentinel)
 
@@ -72,18 +72,18 @@ export default {
       })
     }
   },
-  created() {
+  created () {
     // for the first time,
     // check if the page requires Banner mini mode
     if (this.$store.state.banner.isForcedMini) {
       this.isMini = true
     }
   },
-  mounted() {
+  mounted () {
     // middle sentinel for navigation app icon transition effect
     this.sentinel = document.querySelector('#banner-observer-sentinel')
-    this.observer = new IntersectionObserver(entries => {
-      entries.forEach(entry => {
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
         if (entry.target.isSameNode(this.sentinel)) {
           if (this.$store.state.banner.isForcedMini) {
             this.isMini = true

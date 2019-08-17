@@ -6,13 +6,13 @@
       { 'is-banner-forced-mini': $store.state.banner.mcBannerMiniFlag }
     ]"
   >
-    <div id="banner-observer-sentinel" v-if="!isValidPage"></div>
+    <div v-if="!isValidPage" id="banner-observer-sentinel" />
     <banner v-if="!isValidPage" />
     <nuxt
       keep-alive
       :keep-alive-props="{ include: $store.state.cachedComponents }"
       :class="{ 'master-content': !isValidPage }"
-    ></nuxt>
+    />
     <go-back />
   </div>
 </template>
@@ -23,38 +23,21 @@ import GoBack from '~/components/global/GoBack.vue'
 
 export default {
   components: { Banner, GoBack },
-  data() {
-    return {
-      isBannerForcedMini: false
-    }
-  },
   computed: {
-    isValidPage() {
+    isValidPage () {
       return !this.$store.state.appList.includes(
         this.$store.state.currentAppName
       )
     }
   },
-  watch: {
-    $route(to, from) {
-      // this.determineBannerIsForcedMini()
+  created () {
+    if (this.$store.state.banner.isForcedMini) {
+      this.$store.commit('banner/setMcBannerMiniFlag', true)
+    } else {
+      this.$store.commit('banner/setMcBannerMiniFlag', false)
     }
   },
-  methods: {
-    determineBannerIsForcedMini() {
-      // this method detects Banner's mini mode
-      // and add a class 'is-banner-forced-mini'
-      // to adjust padding-top of main content
-      window.$nuxt.$once('triggerScroll', () => {
-        if (this.$store.state.banner.isForcedMini) {
-          this.isBannerForcedMini = true
-        } else {
-          this.isBannerForcedMini = false
-        }
-      })
-    }
-  },
-  head() {
+  head () {
     return {
       title: this.$t('global.head.title'),
       meta: [
@@ -75,13 +58,6 @@ export default {
       htmlAttrs: {
         class: this.$store.state.colorSchemeClassName
       }
-    }
-  },
-  created() {
-    if (this.$store.state.banner.isForcedMini) {
-      this.isBannerForcedMini = true
-    } else {
-      this.isBannerForcedMini = false
     }
   }
 }

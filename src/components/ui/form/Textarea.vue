@@ -5,15 +5,19 @@
     spellcheck="false"
     :value="value"
     @input="$emit('input', $event.target.value)"
-  ></textarea>
+  />
 </template>
 
 <script>
 export default {
-  props: ['value']
+  props: {
+    value: {
+      type: String,
+      default: ''
+    }
+  }
 }
 </script>
-
 
 <style lang="scss">
 @import '~/assets/styles/scss/main.scss';

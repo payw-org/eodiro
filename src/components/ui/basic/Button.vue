@@ -1,6 +1,6 @@
 <template>
   <button class="btn" :class="{ full: full }" @click="$emit('click')">
-    <slot></slot>
+    <slot />
   </button>
 </template>
 
