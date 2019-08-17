@@ -25,7 +25,6 @@
             </template>
           </ArrowBlock>
 
-<<<<<<< HEAD
           <!-- search-class -->
           <nuxt-link :to="localePath('search-class').replace(/\/$/, '')">
             <ArrowBlock class="menu-item-wrapper">
@@ -37,17 +36,6 @@
               </template>
             </ArrowBlock>
           </nuxt-link>
-=======
-          <!-- class -->
-          <ArrowBlock class="menu-item-wrapper">
-            <template v-slot:icon>
-              <span class="icon icon--class" />
-            </template>
-            <template v-slot:content>
-              <span class="content">{{ $t('home.menuClass') }}</span>
-            </template>
-          </ArrowBlock>
->>>>>>> dev
 
           <!-- clubs -->
           <nuxt-link :to="localePath('clubs').replace(/\/$/, '')">
