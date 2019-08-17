@@ -17,7 +17,9 @@ export default {
       this.$store.commit('banner/setMcBannerMiniFlag', false)
     }
 
-    window.scrollTo(0, this.lastScrollPosition)
+    setTimeout(() => {
+      window.scrollTo(0, this.lastScrollPosition)
+    }, 0)
   },
   deactivated () {
     // store scroll position
