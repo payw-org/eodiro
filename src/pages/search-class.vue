@@ -16,13 +16,13 @@ import { Input, Button } from '~/components/ui'
 
 export default {
   name: 'search-class',
+  components: { Input, Button },
   extends: EodiroPageBase,
   meta: {
     depth: 1,
     appName: 'searchClass'
   },
-  components: { Input, Button },
-  head() {
+  head () {
     return {
       title: this.$t('searchClass.title'),
       meta: [
@@ -44,7 +44,7 @@ export default {
       ]
     }
   },
-  data() {
+  data () {
     return {
       searchClassQuary: '',
       initInputText: this.$t('searchClass.initInputText'),
@@ -73,8 +73,8 @@ export default {
       }
     }
   },
-  methods: {},
-  mounted() {}
+  mounted () {},
+  methods: {}
 }
 </script>
 
