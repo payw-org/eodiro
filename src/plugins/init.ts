@@ -1,6 +1,12 @@
 import Cookie from 'cookie'
 
-export default context => {
+declare global {
+  interface Window {
+    topbar: any
+  }
+}
+
+export default (context) => {
   const { app, req, res, route, store, redirect } = context
 
   // server init
@@ -11,7 +17,7 @@ export default context => {
     // browser redirection
     const cookies =
       req.headers && req.headers.cookie ? Cookie.parse(req.headers.cookie) : {}
-    const redirectLang = cookies['i18n_lang']
+    const redirectLang = cookies.i18n_lang
     if (!redirectLang) {
       return
     }
@@ -37,7 +43,7 @@ export default context => {
   // client init
   if (process.client) {
     // prevent contextmenu popup
-    window.oncontextmenu = function(e) {
+    window.oncontextmenu = function (e) {
       e.preventDefault()
       e.stopPropagation()
       return false
@@ -46,12 +52,16 @@ export default context => {
     // prevent browser's default scroll restoration behaviour
     history.scrollRestoration = 'manual'
 
-    window.addEventListener('keydown', e => {
+    window.addEventListener('keydown', (e) => {
       if (e.shiftKey && e.key === 'L') {
         store.commit('setColorScheme', 'light')
       } else if (e.shiftKey && e.key === 'D') {
         store.commit('setColorScheme', 'dark')
       }
     })
+
+    // Assign topbar to window
+    const topbar = require('./topbar').default
+    window.topbar = topbar
   }
 }

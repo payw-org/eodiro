@@ -7,15 +7,15 @@
   >
     <div class="acc-face-container">
       <div class="acc-face-content">
-        <slot name="face"></slot>
+        <slot name="face" />
       </div>
       <div class="acc-arrow-wrapper">
-        <span class="acc-arrow"></span>
+        <span class="acc-arrow" />
       </div>
     </div>
     <div class="acc-content-container">
       <div class="wrapper">
-        <slot name="content"></slot>
+        <slot name="content" />
       </div>
     </div>
   </div>
@@ -23,20 +23,19 @@
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       totalHeight: 'auto',
       isCollapsed: true
     }
   },
   methods: {
-    toggleCollapse() {
+    toggleCollapse () {
       this.isCollapsed = !this.isCollapsed
     }
   }
 }
 </script>
-
 
 <style lang="scss">
 @import '~/assets/styles/scss/main.scss';

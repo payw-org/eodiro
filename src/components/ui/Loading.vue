@@ -1,24 +1,23 @@
 <template>
   <div class="loading">
-    <div class="spinner" :class="{start: start}"></div>
+    <div class="spinner" :class="{start: start}" />
   </div>
 </template>
 
 <script>
 export default {
-  data() {
+  data () {
     return {
       start: false
     }
   },
-  mounted() {
+  mounted () {
     setTimeout(() => {
       this.start = true
     }, 200)
   }
 }
 </script>
-
 
 <style lang="scss" scoped>
 @import '~/assets/styles/scss/main.scss';

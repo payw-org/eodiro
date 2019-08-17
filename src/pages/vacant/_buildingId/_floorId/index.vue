@@ -1,10 +1,12 @@
 <template>
   <div class="content-item result">
     <Grid class="empty-classrooms-container">
-      <div class="grid-wrapper" v-for="room in classrooms" :key="room.number">
-        <ArrowBlock class="classroom" noArrow @click="openTimeTable(room, new Date().getDay())">
+      <div v-for="room in classrooms" :key="room.number" class="grid-wrapper">
+        <ArrowBlock class="classroom" no-arrow @click="openTimeTable(room, new Date().getDay())">
           <template v-slot:content>
-            <h1 class="room-number">{{ room.number }}</h1>
+            <h1 class="room-number">
+              {{ room.number }}
+            </h1>
             <div class="info">
               <span v-if="room.nextClass && room.expireTimeLevel >= 0">
                 <p class="label">
@@ -13,18 +15,22 @@
                 </p>
                 <div>
                   <p class="time label">
-                    <span class="hour" v-if="room.hour">
+                    <span v-if="room.hour" class="hour">
                       <b>{{ room.hour + $t('vacant.hour') }}</b>
                     </span>
-                    <span class="min" v-if="room.min">
+                    <span v-if="room.min" class="min">
                       <b>{{ room.min + $t('vacant.min') }}</b>
                     </span>
                     {{ $t('vacant.remain') }}
                   </p>
                 </div>
               </span>
-              <p class="label" v-else-if="room.expireTimeLevel === -1">현재 수업중입니다</p>
-              <p v-else class="no-next-class-label label">{{ $t('vacant.noNextClassMsg') }}</p>
+              <p v-else-if="room.expireTimeLevel === -1" class="label">
+                현재 수업중입니다
+              </p>
+              <p v-else class="no-next-class-label label">
+                {{ $t('vacant.noNextClassMsg') }}
+              </p>
             </div>
           </template>
         </ArrowBlock>
@@ -34,43 +40,57 @@
     </Grid>
 
     <div class="timetable-container" :class="{show: timeTableShow}">
-      <div class="background" @click="closeTimeTable"></div>
+      <div class="background" @click="closeTimeTable" />
       <div class="timetable">
-        <button class="close" @click="closeTimeTable"></button>
+        <button class="close" @click="closeTimeTable" />
         <div class="content">
-          <h1 class="title">{{ selectedRoom.number + ' ' + $t('vacant.timetable') }}</h1>
+          <h1 class="title">
+            {{ selectedRoom.number + ' ' + $t('vacant.timetable') }}
+          </h1>
           <div class="day-select-wrapper">
             <div class="day-select">
               <button
                 class="day mon"
                 :class="{selected: timetableDay === 1}"
                 @click="setTimeTableAtDay(1)"
-              >Mon</button>
+              >
+                Mon
+              </button>
               <button
                 class="day tue"
                 :class="{selected: timetableDay === 2}"
                 @click="setTimeTableAtDay(2)"
-              >Tue</button>
+              >
+                Tue
+              </button>
               <button
                 class="day wed"
                 :class="{selected: timetableDay === 3}"
                 @click="setTimeTableAtDay(3)"
-              >Wed</button>
+              >
+                Wed
+              </button>
               <button
                 class="day thu"
                 :class="{selected: timetableDay === 4}"
                 @click="setTimeTableAtDay(4)"
-              >Thu</button>
+              >
+                Thu
+              </button>
               <button
                 class="day fri"
                 :class="{selected: timetableDay === 5}"
                 @click="setTimeTableAtDay(5)"
-              >Fri</button>
+              >
+                Fri
+              </button>
               <button
                 class="day sat"
                 :class="{selected: timetableDay === 6}"
                 @click="setTimeTableAtDay(6)"
-              >Sat</button>
+              >
+                Sat
+              </button>
               <!-- <button class="day sun" :class="{selected: timetableDay === 0}" @click="setTimeTableAtDay(0)">Sun</button> -->
             </div>
           </div>
@@ -87,11 +107,17 @@
                   <div>|</div>
                   <div>{{ l.time.end.slice(0, 2) + ':' + l.time.end.slice(2, 4) }}</div>
                 </div>
-                <div class="instructor">{{ l.instructor }}</div>
-                <div class="name">{{ l.name }}</div>
+                <div class="instructor">
+                  {{ l.instructor }}
+                </div>
+                <div class="name">
+                  {{ l.name }}
+                </div>
               </div>
             </div>
-            <div v-else class="no-timetable-msg">{{ $t('vacant.noTimetable') }}</div>
+            <div v-else class="no-timetable-msg">
+              {{ $t('vacant.noTimetable') }}
+            </div>
           </div>
         </div>
       </div>
@@ -100,32 +126,27 @@
 </template>
 
 <script>
-import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
-import Loading from '~/components/ui/Loading.vue'
 import SimpleBar from 'simplebar'
+import axios from 'axios'
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
+import pageBase from '~/mixins/page-base'
+import Loading from '~/components/ui/Loading.vue'
 import Stagger from '~/plugins/Stagger'
 import ExpireCounter from '~/plugins/ExpireCounter'
-import axios from 'axios'
 import DTS from '~/plugins/DayToString'
-import {
-  disableBodyScroll,
-  enableBodyScroll,
-  clearAllBodyScrollLocks
-} from 'body-scroll-lock'
-import ApiUrl from '~/plugins/ApiUrl'
-import { spring, styler } from 'popmotion'
+// import ApiUrl from '~/plugins/ApiUrl'
 import { Grid, ArrowBlock } from '~/components/ui'
 import Dialog from '~/plugins/eodiro-dialog'
 
 export default {
   name: 'vacant-result',
-  extends: EodiroPageBase,
+  components: { Loading, Grid, ArrowBlock },
+  mixins: [pageBase],
   meta: {
     depth: 3,
     bannerMode: 'mini'
   },
-  components: { Loading, Grid, ArrowBlock },
-  data() {
+  data () {
     return {
       classrooms: [],
       timeTableShow: false,
@@ -136,21 +157,35 @@ export default {
     }
   },
   computed: {
-    timeInterval(start, end) {
+    timeInterval (start, end) {
       return start + end
     }
   },
+  mounted () {
+    this.fetchTimeTable()
+    this.simplebarTimeTableElm = new SimpleBar(
+      this.$el.querySelector('.timetable'),
+      {}
+    )
+    ;['touchstart', 'mouseover'].forEach((eventName) => {
+      this.simplebarTimeTableElm
+        .getScrollElement()
+        .addEventListener(eventName, (e) => {
+          this.simplebarTimeTableElm.recalculate()
+        })
+    })
+  },
   methods: {
-    random() {
+    random () {
       return Math.floor(Math.random() * 4) + 1
     },
-    closeTimeTable() {
+    closeTimeTable () {
       this.timeTableShow = false
 
       // unlock body scroll
       enableBodyScroll(this.$el.querySelector('.simplebar-content-wrapper'))
     },
-    openTimeTable(room) {
+    openTimeTable (room) {
       // lock body scroll
       disableBodyScroll(this.$el.querySelector('.simplebar-content-wrapper'))
 
@@ -173,25 +208,25 @@ export default {
         window.clearInterval(interval)
       }, 300)
     },
-    setTimeTableAtDay(dayNum) {
+    setTimeTableAtDay (dayNum) {
       this.timetableDay = dayNum
-      let dayStr = DTS.dts(dayNum)
+      const dayStr = DTS.dts(dayNum)
 
-      let lectures = this.selectedRoom.lectures.filter(l => {
+      const lectures = this.selectedRoom.lectures.filter((l) => {
         return l.time.day === dayStr
       })
       this.selectedLectures = lectures
     },
-    buildIn() {
+    buildIn () {
       Stagger.show(this.$el.querySelectorAll('.ec-item'), true)
     },
-    buildOut() {
+    buildOut () {
       Stagger.hide(this.$el.querySelectorAll('.ec-item'))
     },
-    fetchTimeTable() {
-      let url = `https://api.eodiro.com/cau/${this.$route.params.buildingId}/${this.$route.params.floorId}`
+    fetchTimeTable () {
+      const url = `https://api.eodiro.com/cau/${this.$route.params.buildingId}/${this.$route.params.floorId}`
 
-      axios.get(url).then(r => {
+      axios.get(url).then((r) => {
         if (r.data.err) {
           new Dialog().alert(
             '데이터를 가져올 수 없습니다. 잠시 후 이용바랍니다.'
@@ -201,12 +236,12 @@ export default {
 
         this.classrooms = r.data.classrooms
 
-        let counter = new ExpireCounter(this.classrooms)
-        let date = new Date()
+        const counter = new ExpireCounter(this.classrooms)
+        const date = new Date()
 
         for (let i = 0; i < this.classrooms.length; i++) {
-          let c = this.classrooms[i]
-          let counterResult = counter.run(c.number, date)
+          const c = this.classrooms[i]
+          const counterResult = counter.run(c.number, date)
 
           c.remainingTime = counterResult.expireTime
           counterResult.expireTime = Math.round(counterResult.expireTime)
@@ -240,11 +275,11 @@ export default {
         // })
       })
     },
-    isCurrentLecture(start, end, day) {
-      let date = new Date()
-      let hours = (date.getHours() < 10 ? '0' : '') + date.getHours()
-      let mins = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes()
-      let time = Number(hours + mins)
+    isCurrentLecture (start, end, day) {
+      const date = new Date()
+      const hours = (date.getHours() < 10 ? '0' : '') + date.getHours()
+      const mins = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes()
+      const time = Number(hours + mins)
       if (
         Number(start) < Number(time) &&
         Number(time) < Number(end) &&
@@ -255,20 +290,6 @@ export default {
         return false
       }
     }
-  },
-  mounted() {
-    this.fetchTimeTable()
-    this.simplebarTimeTableElm = new SimpleBar(
-      this.$el.querySelector('.timetable'),
-      {}
-    )
-    ;['touchstart', 'mouseover'].forEach(eventName => {
-      this.simplebarTimeTableElm
-        .getScrollElement()
-        .addEventListener(eventName, e => {
-          this.simplebarTimeTableElm.recalculate()
-        })
-    })
   }
 }
 </script>
@@ -289,7 +310,7 @@ export default {
         margin-top: 0.5rem;
 
         .label {
-          font-size: 1rem;
+          font-size: 0.9rem;
           font-weight: 500;
         }
       }

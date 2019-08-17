@@ -15,8 +15,12 @@
           <template v-slot:content>
             <div class="building-info-container">
               <div class="name-info">
-                <h1 class="building-number">{{ building.number }}</h1>
-                <h2 class="building-name">{{ building.name }}</h2>
+                <h1 class="building-number">
+                  {{ building.number }}
+                </h1>
+                <h2 class="building-name">
+                  {{ building.name }}
+                </h2>
               </div>
 
               <div class="brief-summary">
@@ -38,22 +42,22 @@
 </template>
 
 <script>
-import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
+import axios from 'axios'
+import pageBase from '~/mixins/page-base'
 import Loading from '~/components/ui/Loading.vue'
 import ApiUrl from '~/plugins/ApiUrl'
 import EodiroStorage from '~/plugins/EodiroStorage'
-import axios from 'axios'
 import { Grid, ArrowBlock } from '~/components/ui'
 import Dialog from '~/plugins/eodiro-dialog'
 
 export default {
   name: 'vacant-building',
-  extends: EodiroPageBase,
+  components: { Loading, Grid, ArrowBlock },
+  mixins: [pageBase],
   meta: {
     depth: 1
   },
-  components: { Loading, Grid, ArrowBlock },
-  data() {
+  data () {
     return {
       buildings: [],
       isEmptyLoaded: false,
@@ -61,12 +65,12 @@ export default {
     }
   },
   computed: {
-    computedBuildings() {
-      let storage = new EodiroStorage(this.univVendor)
-      let favoriteList = storage.getFavoriteBuildings()
-      let newBuildings = this.buildings.map(b => {
+    computedBuildings () {
+      const storage = new EodiroStorage(this.univVendor)
+      const favoriteList = storage.getFavoriteBuildings()
+      const newBuildings = this.buildings.map((b) => {
         b.isFavorite = false
-        if (favoriteList.indexOf(b.number) !== -1) {
+        if (favoriteList.includes(b.number)) {
           b.isFavorite = true
         }
         return b
@@ -85,15 +89,22 @@ export default {
       return newBuildings
     }
   },
+  mounted () {
+    // Fetch data
+    this.fetchBuildings()
+  },
+  activated () {
+    // this.fetchEmpty()
+  },
   methods: {
-    fetchBuildings() {
+    fetchBuildings () {
       const that = this
       let url = ApiUrl.get() + location.pathname
       url = 'https://api.eodiro.com/cau'
       axios
         .get(url)
-        .then(response => {
-          let data = response.data
+        .then((response) => {
+          const data = response.data
           if (data.err) {
             new Dialog().alert(that.$t('global.dataFetchError'))
             return
@@ -105,15 +116,17 @@ export default {
 
           this.fetchEmpty()
         })
-        .catch(function(error) {
+        .catch(function () {
           new Dialog().alert(that.$t('global.dataFetchError'))
         })
     },
-    fetchEmpty() {
+    fetchEmpty () {
       this.isEmptyLoaded = false
-      let url = 'https://api.eodiro.com/cau/empty'
-      axios.get(url).then(response => {
-        if (response.data.error) return
+      const url = 'https://api.eodiro.com/cau/empty'
+      axios.get(url).then((response) => {
+        if (response.data.error) {
+          return
+        }
 
         this.buildings = response.data.buildings
         this.mapFavorite()
@@ -122,26 +135,26 @@ export default {
         this.isEmptyLoaded = true
       })
     },
-    toggleFavorite(index) {
-      let buildingID = this.buildings[index].number
-      let storage = new EodiroStorage(this.univVendor)
+    toggleFavorite (index) {
+      const buildingID = this.buildings[index].number
+      const storage = new EodiroStorage(this.univVendor)
       this.buildings[index].isFavorite = storage.toggleFavoriteBuilding(
         buildingID
       )
       this.sort()
     },
-    mapFavorite() {
-      let storage = new EodiroStorage(this.univVendor)
-      let favoriteList = storage.getFavoriteBuildings()
-      this.buildings = this.buildings.map(b => {
+    mapFavorite () {
+      const storage = new EodiroStorage(this.univVendor)
+      const favoriteList = storage.getFavoriteBuildings()
+      this.buildings = this.buildings.map((b) => {
         b.isFavorite = false
-        if (favoriteList.indexOf(b.number) !== -1) {
+        if (favoriteList.includes(b.number)) {
           b.isFavorite = true
         }
         return b
       })
     },
-    sort() {
+    sort () {
       this.buildings.sort((a, b) => {
         if (a.isFavorite === b.isFavorite) {
           return a.number.localeCompare(b.number)
@@ -152,13 +165,6 @@ export default {
         }
       })
     }
-  },
-  mounted() {
-    // Fetch data
-    this.fetchBuildings()
-  },
-  activated() {
-    // this.fetchEmpty()
   }
 }
 </script>

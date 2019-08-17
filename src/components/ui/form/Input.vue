@@ -9,15 +9,19 @@
     @keydown="$emit('keydown')"
     @keyup="$emit('keyup')"
     @keypress="$emit('keypress')"
-  />
+  >
 </template>
 
 <script>
 export default {
-  props: ['value']
+  props: {
+    value: {
+      type: String,
+      default: ''
+    }
+  }
 }
 </script>
-
 
 <style lang="scss">
 @import '~/assets/styles/scss/main.scss';

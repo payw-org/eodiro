@@ -120,12 +120,13 @@ a {
   color: inherit;
   -webkit-touch-callout: none !important;
 
-  &.inner-link {
+  &.absolute-link {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 3;
   }
 }
 
@@ -186,6 +187,16 @@ img {
 }
 .fade-leave-to {
   opacity: 0;
+}
+
+.test-enter-active,
+.test-leave-active {
+  transition: transform 100ms ease;
+  transform: translateY(0);
+}
+.test-enter,
+.test-leave-to {
+  transform: translateY(100%);
 }
 
 // fade page transition
