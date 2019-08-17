@@ -6,6 +6,7 @@ const routeMap = {
   vacant: ['index', 'vacant', 'vacant-buildingId', 'vacant-buildingId-floorId'],
   preferences: ['index', 'preferences'],
   inquiry: ['index', 'inquiry'],
+  searchClass: ['index', 'search-class'],
   clubs: ['index', 'clubs', 'clubs-topic', 'clubs-topic-clubId']
 }
 
