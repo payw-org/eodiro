@@ -27,12 +27,6 @@ export default {
     $route () {
       if (this.$store.state.routeDirection === 'backward') {
         window.removeEventListener('scroll', this.scrollEventCallback)
-
-        window.$nuxt.$once('triggerScroll', () => {
-          setTimeout(() => {
-            window.addEventListener('scroll', this.scrollEventCallback)
-          }, 50)
-        })
       } else if (this.$store.state.routeDirection === 'forward') {
         this.isHidden = false
       }
@@ -59,6 +53,14 @@ export default {
     }
 
     window.addEventListener('scroll', this.scrollEventCallback)
+
+    // when route changes(page move),
+    // add scroll event listener again
+    // to determine the visibility of goback element
+    document.addEventListener('scrollrestored', () => {
+      window.removeEventListener('scroll', this.scrollEventCallback)
+      window.addEventListener('scroll', this.scrollEventCallback)
+    })
   }
 }
 </script>

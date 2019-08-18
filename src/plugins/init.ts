@@ -42,13 +42,6 @@ export default (context) => {
 
   // client init
   if (process.client) {
-    // prevent contextmenu popup
-    window.oncontextmenu = function (e) {
-      e.preventDefault()
-      e.stopPropagation()
-      return false
-    }
-
     // prevent browser's default scroll restoration behaviour
     history.scrollRestoration = 'manual'
 

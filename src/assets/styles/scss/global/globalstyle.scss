@@ -1,6 +1,7 @@
 @import '~/assets/styles/scss/main.scss';
 @import '~/assets/styles/scss/global/typography.scss';
 @import '~/assets/styles/scss/global/simplebar-custom.scss';
+@import '~/assets/styles/scss/global/transition';
 
 ::-webkit-scrollbar {
   display: none; /* chrome */
@@ -47,12 +48,12 @@ html {
 
 @media only screen and (min-width: 700px) {
   html {
-    font-size: 100%;
+    font-size: 95%;
   }
 }
 @media only screen and (min-width: 1400px) {
   html {
-    font-size: 110%;
+    font-size: 105%;
   }
 }
 
@@ -136,7 +137,7 @@ button {
   background: none;
   font-family: $ui-font;
   font-size: 1rem;
-  color: $base-black;
+  color: $base-gray;
 }
 
 img {
@@ -171,48 +172,6 @@ img {
     opacity: 0;
     transition: opacity $transition-time ease;
   }
-}
-
-// fade page transition
-.fade-enter-active {
-  transition: opacity 400ms ease;
-  opacity: 1;
-}
-.fade-enter {
-  opacity: 0;
-}
-.fade-leave-active {
-  transition: opacity 150ms ease;
-  opacity: 1;
-}
-.fade-leave-to {
-  opacity: 0;
-}
-
-.test-enter-active,
-.test-leave-active {
-  transition: transform 100ms ease;
-  transform: translateY(0);
-}
-.test-enter,
-.test-leave-to {
-  transform: translateY(100%);
-}
-
-// fade page transition
-.global-soft-fade-enter-active {
-  transition: opacity 300ms ease;
-  opacity: 1;
-}
-.global-soft-fade-enter {
-  opacity: 0;
-}
-.global-soft-fade-leave-active {
-  transition: opacity 300ms ease;
-  opacity: 1;
-}
-.global-soft-fade-leave-to {
-  opacity: 0;
 }
 
 // global styles

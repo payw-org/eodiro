@@ -2,7 +2,8 @@ module.exports = {
   root: true,
   parserOptions: {
     parser: 'babel-eslint',
-    sourceType: 'module'
+    sourceType: 'module',
+    ecmaVersion: 2018
   },
   env: {
     es6: true,
@@ -11,6 +12,7 @@ module.exports = {
   },
   extends: [
     'eslint:recommended',
+    'standard',
     'plugin:vue/recommended',
     '@nuxtjs'
   ],
@@ -19,4 +21,4 @@ module.exports = {
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'vue/name-property-casing': ['error', 'kebab-case']
   }
-}
+};

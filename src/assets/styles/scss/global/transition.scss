@@ -1,0 +1,91 @@
+// fade page transition
+.fade-enter-active {
+  transition: opacity 200ms ease;
+  opacity: 1;
+}
+.fade-enter {
+  opacity: 0;
+}
+.fade-leave-active {
+  transition: opacity 200ms ease;
+  opacity: 1;
+}
+.fade-leave-to {
+  opacity: 0;
+}
+
+// test 1
+.test-enter-active,
+.test-leave-active {
+  transition: transform 3s ease;
+  transform: translateY(0);
+}
+// .test-leave-active {
+//   transition: none;
+// }
+.test-enter,
+.test-leave-to {
+  transform: translateY(100%);
+}
+
+// test 2
+.test2-enter-active {
+  transition: opacity 3s ease;
+  opacity: 1;
+}
+.test2-enter {
+  opacity: 0;
+}
+.test2-leave-active {
+  transition: opacity 3s ease;
+  opacity: 1;
+}
+.test2-leave-to {
+  opacity: 0;
+}
+
+// global soft fade page transition
+.global-soft-fade-enter-active {
+  transition: opacity 300ms ease;
+  opacity: 1;
+}
+.global-soft-fade-enter {
+  opacity: 0;
+}
+.global-soft-fade-leave-active {
+  transition: opacity 300ms ease;
+  opacity: 1;
+}
+.global-soft-fade-leave-to {
+  opacity: 0;
+}
+
+// clubs
+// clubs: topic index -> topic profile
+.clubs-to-profile-enter-active {
+  transition: visibility 300ms ease;
+  visibility: visible;
+}
+.clubs-to-profile-enter {
+  visibility: hidden;
+}
+
+// clubs: topic profile -> topic index
+.clubs-to-index-leave-active {
+  transition: visibility 500ms ease;
+  visibility: visible;
+}
+.clubs-to-index-leave-to {
+  visibility: hidden;
+}
+
+// template
+// .name-enter-active,
+// .name-leave-active {
+//   transition: opacity 200s ease;
+//   opacity: 1;
+// }
+// .name-enter,
+// .name-leave-to {
+//   opacity: 0;
+// }

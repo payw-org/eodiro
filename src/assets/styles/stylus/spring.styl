@@ -35,11 +35,19 @@ lerp(a, b, p)
       transform: scale(lerp(0.5, 1, p))
       opacity: lerp(0, 1, p)
 
+@keyframes springZoomInGentle
+  for i in (0..100)
+    {i + '%'}
+      t = i / 100
+      p = spring-gentle(t)
+      transform: scale(lerp(0.5, 1, p))
+      opacity: lerp(0, 1, p)
+
 @keyframes springZoomInOut
   for i in (0..100)
     {i + '%'}
       t = i / 100
-      p = spring-nicely(t)
+      p = spring-gentle(t)
       transform: scale(lerp(1, 0.9, p))
       opacity: lerp(1, 0, p)
 
