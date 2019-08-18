@@ -25,15 +25,17 @@
             </template>
           </ArrowBlock>
 
-          <!-- class -->
-          <ArrowBlock class="menu-item-wrapper">
-            <template v-slot:icon>
-              <span class="icon icon--class" />
-            </template>
-            <template v-slot:content>
-              <span class="content">{{ $t('home.menuClass') }}</span>
-            </template>
-          </ArrowBlock>
+          <!-- search-class -->
+          <nuxt-link :to="localePath('search-class').replace(/\/$/, '')">
+            <ArrowBlock class="menu-item-wrapper">
+              <template v-slot:icon>
+                <span class="icon icon--search-class" />
+              </template>
+              <template v-slot:content>
+                <span class="content">{{ $t('home.menuClass') }}</span>
+              </template>
+            </ArrowBlock>
+          </nuxt-link>
 
           <!-- clubs -->
           <nuxt-link :to="localePath('clubs').replace(/\/$/, '')">
@@ -146,11 +148,11 @@ export default {
         }
       }
 
-      .icon--class {
-        background-image: url('~assets/images/eodiro/home/home_menu_icon_class.svg');
+      .icon--search-class {
+        background-image: url('~assets/images/eodiro/home/home_menu_icon_search-class.svg');
 
         @include dark-mode {
-          background-image: url('~assets/images/eodiro/home/home_menu_icon_class_black.svg');
+          background-image: url('~assets/images/eodiro/home/home_menu_icon_search-class_black.svg');
         }
       }
 

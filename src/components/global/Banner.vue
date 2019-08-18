@@ -108,7 +108,7 @@ export default {
 
 #eodiro-banner {
   position: fixed;
-  z-index: 9999;
+  z-index: 6666;
   top: 0;
   width: 100%;
   height: $banner-height;
@@ -193,6 +193,9 @@ export default {
       }
       &.background--clubs {
         background-image: linear-gradient(to bottom, #00e3d6, #00b5dd);
+      }
+      &.background--searchClass {
+        background-image: linear-gradient(to bottom, #22f200, #14c34f);
       }
     }
 
@@ -355,6 +358,24 @@ export default {
         @include dark-mode {
           @include bgImg(
             '~assets/images/eodiro/three-black.svg',
+            center,
+            '75%'
+          );
+        }
+      }
+    }
+
+    &.app--searchClass {
+      .icon {
+        @include bgImg(
+          '~assets/images/eodiro/magnifier-white.svg',
+          center,
+          '75%'
+        );
+
+        @include dark-mode {
+          @include bgImg(
+            '~assets/images/eodiro/magnifier-black.svg',
             center,
             '75%'
           );
