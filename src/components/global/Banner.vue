@@ -62,14 +62,8 @@ export default {
   },
   watch: {
     $route (to, from) {
-      // stop observing when the route is still changing
+      // stop observing when the route is changing
       this.observer.unobserve(this.sentinel)
-
-      // after page load and scroll to the proper position,
-      // observe again
-      window.$nuxt.$once('triggerScroll', () => {
-        this.observer.observe(this.sentinel)
-      })
     }
   },
   created () {
@@ -98,6 +92,13 @@ export default {
 
     // start observing
     this.observer.observe(this.sentinel)
+
+    // when route changes(page move),
+    // after scroll position restoration
+    // reobserve the sentinel
+    document.addEventListener('scrollrestored', () => {
+      this.observer.observe(this.sentinel)
+    })
   }
 }
 </script>

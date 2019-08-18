@@ -18,7 +18,11 @@ export default {
     }
 
     setTimeout(() => {
+      // restore scroll position
       window.scrollTo(0, this.lastScrollPosition)
+
+      // dispatch event
+      document.dispatchEvent(new CustomEvent('scrollrestored'))
     }, 0)
   },
   deactivated () {
