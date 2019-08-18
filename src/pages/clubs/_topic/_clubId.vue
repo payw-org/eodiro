@@ -1,34 +1,87 @@
 <template>
-  <div id="clubs-profile">
+  <div id="clubs-profile" :class="{ active: active }">
+    <div class="background">
+      <NuxtLink :to="localePath($store.state.prevPath)" class="absolute-link bg-go-back" />
+    </div>
     <div class="cp-info">
-      {{ $route.params.clubId }}
-      <button>
+      <button class="close-btn">
         <NuxtLink :to="localePath($store.state.prevPath)" class="absolute-link" />
-        Close
       </button>
+      <div ref="scrollElm" class="cp-content" @scroll="onScroll">
+        <div class="cpc-wrapper">
+          <!-- club name -->
+          <h1 class="cp-name">
+            {{ $route.params.clubId }}
+          </h1>
+
+          <div style="height: 1px;" />
+
+          <!-- club poster(image) -->
+          <img :src="`https://picsum.photos/${Math.floor(Math.random() * 1000)}`" alt="" class="cp-hero">
+
+          <!-- club summary -->
+          <p class="cp-summary">
+            {{ summary }}
+          </p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
+import { LoremIpsum } from 'lorem-ipsum'
 import pageBase from '~/mixins/page-base'
 
 export default {
   name: 'clubs-profile',
+  transition: 'clubs-to-profile',
   mixins: [pageBase],
   data () {
     return {
-      pop: true
+      pop: true,
+      active: false,
+      summary: new LoremIpsum().generateSentences(
+        Math.floor(Math.random() * 100)
+      )
     }
   },
   meta: {
     depth: 3,
     bannerMode: 'mini'
+  },
+  mounted () {
+    setTimeout(() => {
+      this.active = true
+
+      // prevent body scrolling issue
+      this.$refs.scrollElm.scrollTo(0, 1)
+    }, 0)
+  },
+  methods: {
+    onScroll () {
+      // prevent body scrolling issue by
+      // simply just adding a subtle 1 pixel scroll position
+      const scrollElm = this.$refs.scrollElm
+      if (scrollElm && scrollElm.scrollTop === 0) {
+        scrollElm.scrollTo(0, 1)
+      } else if (
+        scrollElm &&
+        scrollElm.scrollHeight === scrollElm.scrollTop + scrollElm.clientHeight
+      ) {
+        scrollElm.scrollTo(
+          0,
+          scrollElm.scrollHeight - scrollElm.clientHeight - 1
+        )
+      }
+    }
   }
 }
 </script>
 
 <style lang="scss">
+@import '~/assets/styles/scss/main';
+
 #clubs-profile {
   position: fixed;
   top: 0;
@@ -38,15 +91,116 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(#000, 0.5);
   z-index: 10001;
 
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(#000, 0.6);
+    @include dark-mode {
+      background-color: rgba(#000, 0.8);
+    }
+    opacity: 0;
+    transition: opacity 300ms ease;
+    pointer-events: none;
+
+    .bg-go-back {
+      cursor: default;
+    }
+  }
+
   .cp-info {
-    width: calc(100% - 2rem);
-    max-width: 50rem;
-    background-color: #fff;
-    border-radius: 0.7rem;
-    padding: 1rem;
+    display: flex;
+    position: relative;
+    width: calc(100% - #{space(5) * 2});
+    height: calc(100% - #{space(5) * 2});
+    max-width: 30rem;
+    max-height: 60rem;
+    @include elm-fill;
+    border-radius: radius(4);
+    padding: 0 space(4);
+    z-index: 100;
+    opacity: 0;
+
+    .close-btn {
+      position: absolute;
+      z-index: 2;
+      left: 50%;
+      bottom: space(5);
+      transform: translateX(-50%);
+      // @include bg;
+      background-color: #fff;
+      $btn-width: 3rem;
+      width: $btn-width;
+      height: $btn-width;
+      border-radius: 50px;
+      box-shadow: 0 0.2rem 0.5rem rgba(#000, 0.17);
+      @include bgImg('~assets/images/eodiro/x.svg', 'center', '30%');
+      @include dark-mode {
+        background-color: #444;
+        @include bgImg('~assets/images/eodiro/x-white.svg', 'center', '30%');
+      }
+    }
+
+    .cp-content {
+      height: 100%;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch;
+
+      .cpc-wrapper {
+        padding-bottom: 5rem;
+
+        .cp-name {
+          text-align: center;
+          padding: space(4) 0 space(3);
+          margin-bottom: 1px;
+          font-size: head(3);
+          font-weight: weight(5);
+          position: sticky;
+          top: 0;
+          @include elm-fill;
+        }
+
+        .cp-hero {
+          display: block;
+          width: 100%;
+          border-radius: radius(3);
+          margin-bottom: space(2);
+        }
+
+        .cp-summary {
+          color: $base-gray;
+          line-height: lh(3);
+        }
+      }
+    }
+  }
+
+  &.active {
+    .background {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .cp-info {
+      animation: springZoomInGentle 500ms linear;
+      animation-fill-mode: both;
+    }
+  }
+
+  &.clubs-to-index-leave-to {
+    .background {
+      opacity: 0;
+      pointer-events: none !important;
+    }
+
+    .cp-info {
+      animation: springZoomInOut 500ms linear;
+      animation-fill-mode: both;
+    }
   }
 }
 </style>
