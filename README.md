@@ -10,27 +10,27 @@ https://eodiro.com
 
 ## Build Instructions
 
-0. You must install Node.js and npm before following the steps below.
+0. You must install Node.js and Yarn before following the steps below.
 
 1. Download or clone the repository.
 
-1. Go to the project's root directory and install npm packages.
+1. Go to the project's root directory and install dependencies.
 
 ```zsh
-% npm install
+% yarn
 ```
 
 3. Happy developing
 
 ```zsh
 # Development
-% npm run dev
+% yarn run dev
 ```
 
 ```zsh
 # Build and start the server
-% npm run build
-% npm run start
+% yarn run build
+% yarn run start
 ```
 
 ## Contributing
