@@ -14,8 +14,6 @@
             {{ $route.params.clubId }}
           </h1>
 
-          <div style="height: 1px;" />
-
           <!-- club poster(image) -->
           <img :src="`https://picsum.photos/${Math.floor(Math.random() * 1000)}`" alt="" class="cp-hero">
 
@@ -155,7 +153,7 @@ export default {
 
         .cp-name {
           text-align: center;
-          padding: space(4) 0 space(3);
+          padding: space(5) 0 space(4);
           margin-bottom: 1px;
           font-size: head(3);
           font-weight: weight(5);
@@ -168,12 +166,15 @@ export default {
           display: block;
           width: 100%;
           border-radius: radius(3);
-          margin-bottom: space(2);
         }
 
         .cp-summary {
           color: $base-gray;
           line-height: lh(3);
+          padding-top: space(3);
+          margin-top: space(3);
+          border-top: solid;
+          @include separator;
         }
       }
     }
