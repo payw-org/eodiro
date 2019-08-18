@@ -36,44 +36,7 @@ export default {
     linkExactActiveClass: 'exact-active-link',
 
     // run middleware when route changes
-    middleware: 'route-change',
-
-    // customize scroll behaviour
-    // scroll to top when route forward
-    // scroll to stored position when route backward
-    // if there is no stored position, scroll to top
-    scrollBehavior (to, from, savedPosition) {
-      // return { x: 0, y: 0 }
-      // tweak nuxt.js' default method
-      // return new Promise((resolve) => {
-      //   const lastScrollPosition =
-      //     // to.matched &&
-      //     // to.matched[to.matched.length - 1] &&
-      //     // to.matched[to.matched.length - 1].components &&
-      //     // to.matched[to.matched.length - 1].components.default &&
-      //     // to.matched[to.matched.length - 1].components.default.options &&
-      //     to.matched[to.matched.length - 1].components.default.options.meta &&
-      //     to.matched[to.matched.length - 1].components.default.options.meta
-      //       .lastScrollPosition
-      //       ? to.matched[to.matched.length - 1].components.default.options.meta
-      //         .lastScrollPosition
-      //       : 0
-      //   const position = {
-      //     x: 0,
-      //     y: lastScrollPosition
-      //   }
-      //   if (
-      //     to.matched[to.matched.length - 1].components.default.options.meta.pop
-      //   ) {
-      //     console.log('pop mode')
-      //     resolve(undefined)
-      //   }
-      //   // wait for the out transition to complete
-      //   window.$nuxt.$once('triggerScroll', () => {
-      //     resolve(position)
-      //   })
-      // })
-    }
+    middleware: 'route-change'
   },
 
   hooks: {
