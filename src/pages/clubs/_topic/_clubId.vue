@@ -14,8 +14,12 @@
             {{ $route.params.clubId }}
           </h1>
 
+          <div style="height: 1px;" />
+
           <!-- club poster(image) -->
-          <img :src="`https://picsum.photos/${Math.floor(Math.random() * 1000)}`" alt="" class="cp-hero">
+          <div class="cp-hero-wrapper">
+            <img :src="`https://picsum.photos/${Math.floor(Math.random() * 1000)}`" alt="" class="cp-hero">
+          </div>
 
           <!-- club summary -->
           <p class="cp-summary">
@@ -154,7 +158,6 @@ export default {
         .cp-name {
           text-align: center;
           padding: space(5) 0 space(4);
-          margin-bottom: 1px;
           font-size: head(3);
           font-weight: weight(5);
           position: sticky;
@@ -162,10 +165,15 @@ export default {
           @include elm-fill;
         }
 
-        .cp-hero {
-          display: block;
-          width: 100%;
+        .cp-hero-wrapper {
           border-radius: radius(3);
+          overflow: hidden;
+          margin-top: space(2);
+
+          .cp-hero {
+            display: block;
+            width: 100%;
+          }
         }
 
         .cp-summary {
