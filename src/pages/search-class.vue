@@ -30,13 +30,13 @@
 </template>
 
 <script>
-import EodiroPageBase from '~/components/global/EodiroPageBase.vue'
+import pageBase from '~/mixins/page-base'
 import { Input, Button } from '~/components/ui'
 
 export default {
   name: 'search-class',
   components: { Input, Button },
-  extends: EodiroPageBase,
+  mixins: [pageBase],
   meta: {
     depth: 1,
     appName: 'searchClass'
