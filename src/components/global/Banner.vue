@@ -1,24 +1,24 @@
 <template>
   <div id="eodiro-banner" :class="{ mini: isMini }">
     <div class="banner">
-      <transition v-for="appName in $store.state.appList" :key="`bg-${appName}`" name="bg-fade">
+      <transition v-for="hamletName in $store.state.hamletList" :key="`bg-${hamletName}`" name="bg-fade">
         <div
-          v-if="appName === $store.state.currentAppName"
+          v-if="hamletName === $store.state.currentHamletName"
           class="background"
-          :class="`background--${appName}`"
+          :class="`background--${hamletName}`"
         />
       </transition>
-      <HomeBgTile v-if="$store.state.currentAppName === 'home' && !isMini" />
+      <HomeBgTile v-if="$store.state.currentHamletName === 'home' && !isMini" />
       <div class="logo-wrapper">
         <transition
-          v-for="appName in $store.state.appList"
-          :key="`banner-${appName}`"
+          v-for="hamletName in $store.state.hamletList"
+          :key="`banner-${hamletName}`"
           name="icon-change"
         >
           <div
-            v-if="appName === $store.state.currentAppName"
-            class="logo app-icon"
-            :class="`app--${appName}`"
+            v-if="hamletName === $store.state.currentHamletName"
+            class="logo hamlet-icon"
+            :class="`hamlet--${hamletName}`"
           >
             <span class="icon" />
           </div>
@@ -29,12 +29,12 @@
         <div class="dummy" />
         <transition name="icon-change">
           <div v-if="isMini" class="nav-icon-wrapper">
-            <transition v-for="appName in $store.state.appList" :key="`nav-${appName}`" name="fade">
+            <transition v-for="hamletName in $store.state.hamletList" :key="`nav-${hamletName}`" name="fade">
               <div
-                v-if="appName === $store.state.currentAppName"
-                class="nav-icon app-icon app--home"
+                v-if="hamletName === $store.state.currentHamletName"
+                class="nav-icon hamlet-icon hamlet--home"
                 :class="[
-                  `app--${appName}`,
+                  `hamlet--${hamletName}`,
                 ]"
               >
                 <span class="icon" />
@@ -62,14 +62,8 @@ export default {
   },
   watch: {
     $route (to, from) {
-      // stop observing when the route is still changing
+      // stop observing when the route is changing
       this.observer.unobserve(this.sentinel)
-
-      // after page load and scroll to the proper position,
-      // observe again
-      window.$nuxt.$once('triggerScroll', () => {
-        this.observer.observe(this.sentinel)
-      })
     }
   },
   created () {
@@ -80,7 +74,7 @@ export default {
     }
   },
   mounted () {
-    // middle sentinel for navigation app icon transition effect
+    // middle sentinel for navigation hamlet icon transition effect
     this.sentinel = document.querySelector('#banner-observer-sentinel')
     this.observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -98,6 +92,13 @@ export default {
 
     // start observing
     this.observer.observe(this.sentinel)
+
+    // when route changes(page move),
+    // after scroll position restoration
+    // reobserve the sentinel
+    document.addEventListener('scrollrestored', () => {
+      this.observer.observe(this.sentinel)
+    })
   }
 }
 </script>
@@ -107,7 +108,7 @@ export default {
 
 #eodiro-banner {
   position: fixed;
-  z-index: 9999;
+  z-index: 6666;
   top: 0;
   width: 100%;
   height: $banner-height;
@@ -193,6 +194,9 @@ export default {
       &.background--clubs {
         background-image: linear-gradient(to bottom, #00e3d6, #00b5dd);
       }
+      &.background--searchClass {
+        background-image: linear-gradient(to bottom, #22f200, #14c34f);
+      }
     }
 
     .logo-wrapper {
@@ -225,15 +229,11 @@ export default {
           width: $nav-height;
           height: $nav-height;
           transform: scaleX(-1);
-          @include bgImg(
-            '~assets/images/eodiro/arrow_right_white.svg',
-            center,
-            '20%'
-          );
+          @include bgImg('~assets/images/arrow_right_white.svg', center, '20%');
 
           @include dark-mode {
             @include bgImg(
-              '~assets/images/eodiro/arrow_right_black.svg',
+              '~assets/images/arrow_right_black.svg',
               center,
               '20%'
             );
@@ -268,7 +268,7 @@ export default {
     }
   }
 
-  .app-icon {
+  .hamlet-icon {
     display: flex;
     position: absolute;
     width: 100%;
@@ -280,17 +280,17 @@ export default {
       height: 100%;
     }
 
-    &.app--home {
+    &.hamlet--home {
       .icon {
         @include bgImg(
-          '~assets/images/eodiro/eodiro_logo_arrow_white.svg',
+          '~assets/images/eodiro_logo_arrow_white.svg',
           center,
           '50%'
         );
 
         @include dark-mode {
           @include bgImg(
-            '~assets/images/eodiro/eodiro_logo_arrow_black.svg',
+            '~assets/images/eodiro_logo_arrow_black.svg',
             center,
             '50%'
           );
@@ -298,17 +298,17 @@ export default {
       }
     }
 
-    &.app--vacant {
+    &.hamlet--vacant {
       .icon {
-        @include bgImg('~assets/images/eodiro/door_white.svg', center, '75%');
+        @include bgImg('~assets/images/door_white.svg', center, '75%');
 
         @include dark-mode {
-          @include bgImg('~assets/images/eodiro/door_black.svg', center, '75%');
+          @include bgImg('~assets/images/door_black.svg', center, '75%');
         }
       }
     }
 
-    &.app--preferences {
+    &.hamlet--preferences {
       @keyframes rotatingGear {
         0% {
           transform: rotate(0deg);
@@ -321,42 +321,40 @@ export default {
       .icon {
         animation: rotatingGear 5s linear 0s infinite normal forwards;
 
-        @include bgImg('~assets/images/eodiro/gear_white.svg', center, '75%');
+        @include bgImg('~assets/images/gear_white.svg', center, '75%');
 
         @include dark-mode {
-          @include bgImg('~assets/images/eodiro/gear_black.svg', center, '75%');
+          @include bgImg('~assets/images/gear_black.svg', center, '75%');
         }
       }
     }
 
-    &.app--inquiry {
+    &.hamlet--inquiry {
       .icon {
-        @include bgImg(
-          '~assets/images/eodiro/inquiry_white.svg',
-          center,
-          '75%'
-        );
+        @include bgImg('~assets/images/inquiry_white.svg', center, '75%');
 
         @include dark-mode {
-          @include bgImg(
-            '~assets/images/eodiro/inquiry_black.svg',
-            center,
-            '75%'
-          );
+          @include bgImg('~assets/images/inquiry_black.svg', center, '75%');
         }
       }
     }
 
-    &.app--clubs {
+    &.hamlet--clubs {
       .icon {
-        @include bgImg('~assets/images/eodiro/three-white.svg', center, '75%');
+        @include bgImg('~assets/images/three-white.svg', center, '75%');
 
         @include dark-mode {
-          @include bgImg(
-            '~assets/images/eodiro/three-black.svg',
-            center,
-            '75%'
-          );
+          @include bgImg('~assets/images/three-black.svg', center, '75%');
+        }
+      }
+    }
+
+    &.hamlet--searchClass {
+      .icon {
+        @include bgImg('~assets/images/magnifier-white.svg', center, '75%');
+
+        @include dark-mode {
+          @include bgImg('~assets/images/magnifier-black.svg', center, '75%');
         }
       }
     }

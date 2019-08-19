@@ -156,13 +156,13 @@ export default {
       transform: translateX(calc(50% - 0.5rem));
       width: 2rem;
       height: 2rem;
-      @include bgImg('~assets/images/eodiro/x_white.svg', 'center', '1rem');
+      @include bgImg('~assets/images/x_white.svg', 'center', '1rem');
       background-color: #5c5c5c;
       border-radius: 50px;
       box-shadow: 0 0.1rem 0.5rem rgba(0, 0, 0, 0.3);
 
       @include dark-mode() {
-        @include bgImg('~assets/images/eodiro/x.svg', 'center', '1rem');
+        @include bgImg('~assets/images/x.svg', 'center', '1rem');
         background-color: #fff;
       }
     }

@@ -11,7 +11,7 @@ export default {
   name: 'vacant-parent',
   mixins: [pageBase],
   meta: {
-    appName: 'vacant'
+    hamletName: 'vacant'
   }
 }
 </script>

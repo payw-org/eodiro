@@ -27,12 +27,6 @@ export default {
     $route () {
       if (this.$store.state.routeDirection === 'backward') {
         window.removeEventListener('scroll', this.scrollEventCallback)
-
-        window.$nuxt.$once('triggerScroll', () => {
-          setTimeout(() => {
-            window.addEventListener('scroll', this.scrollEventCallback)
-          }, 50)
-        })
       } else if (this.$store.state.routeDirection === 'forward') {
         this.isHidden = false
       }
@@ -59,6 +53,14 @@ export default {
     }
 
     window.addEventListener('scroll', this.scrollEventCallback)
+
+    // when route changes(page move),
+    // add scroll event listener again
+    // to determine the visibility of goback element
+    document.addEventListener('scrollrestored', () => {
+      window.removeEventListener('scroll', this.scrollEventCallback)
+      window.addEventListener('scroll', this.scrollEventCallback)
+    })
   }
 }
 </script>
@@ -121,18 +123,10 @@ $go-back-btn-height: 2.7rem;
       margin-right: 0.5rem;
       transform: scaleX(-1);
 
-      @include bgImg(
-        '~assets/images/eodiro/arrow_right_black.svg',
-        center,
-        contain
-      );
+      @include bgImg('~assets/images/arrow_right_black.svg', center, contain);
 
       @include dark-mode {
-        @include bgImg(
-          '~assets/images/eodiro/arrow_right_white.svg',
-          center,
-          contain
-        );
+        @include bgImg('~assets/images/arrow_right_white.svg', center, contain);
       }
     }
   }
@@ -145,14 +139,10 @@ $go-back-btn-height: 2.7rem;
     width: $go-back-btn-height * 1.3;
     border-left: solid;
     @include separator;
-    @include bgImg('~assets/images/eodiro/home_black.svg', '43% center', '45%');
+    @include bgImg('~assets/images/home_black.svg', '43% center', '45%');
 
     @include dark-mode {
-      @include bgImg(
-        '~assets/images/eodiro/home_white.svg',
-        '43% center',
-        '45%'
-      );
+      @include bgImg('~assets/images/home_white.svg', '43% center', '45%');
     }
   }
 }

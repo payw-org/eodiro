@@ -5,7 +5,7 @@
       :to="localePath({
         name: 'clubs-topic-clubId',
         params: {
-          clubId: clubData.id
+          clubId: clubData.name
         }
       })"
     />
@@ -80,17 +80,18 @@ export default {
     padding: $gentle-gap 0;
 
     .club--name {
-      font-size: 1.2rem;
+      font-size: body(2);
       font-weight: 600;
     }
 
     .club--explanation {
-      font-size: 0.9rem;
-      margin-top: $slight-gap;
-      $line-height: 1.4em;
+      font-size: body(2);
+      margin-top: space(1);
+      $line-height: lh(1);
       line-height: $line-height;
-      max-height: $line-height * 2;
+      max-height: $line-height * 3 * 9.8/10;
       overflow: hidden;
+      color: $base-gray;
     }
   }
 }

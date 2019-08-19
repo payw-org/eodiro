@@ -23,7 +23,7 @@ export default {
   mixins: [pageBase],
   meta: {
     depth: 1,
-    appName: 'inquiry'
+    hamletName: 'inquiry'
   },
   head () {
     return {
@@ -71,9 +71,9 @@ export default {
           display: inline-block;
           width: 2rem;
           height: 1.9rem;
-          @include bgImg('~assets/images/eodiro/paper_plane_black.svg');
+          @include bgImg('~assets/images/paper_plane_black.svg');
           @include dark-mode {
-            @include bgImg('~assets/images/eodiro/paper_plane_white.svg');
+            @include bgImg('~assets/images/paper_plane_white.svg');
           }
           margin-right: 0.5rem;
         }

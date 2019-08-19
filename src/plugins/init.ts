@@ -7,7 +7,7 @@ declare global {
 }
 
 export default (context) => {
-  const { app, req, res, route, store, redirect } = context
+  const { req, route, store, redirect } = context
 
   // server init
   if (process.server) {
@@ -42,13 +42,6 @@ export default (context) => {
 
   // client init
   if (process.client) {
-    // prevent contextmenu popup
-    window.oncontextmenu = function (e) {
-      e.preventDefault()
-      e.stopPropagation()
-      return false
-    }
-
     // prevent browser's default scroll restoration behaviour
     history.scrollRestoration = 'manual'
 

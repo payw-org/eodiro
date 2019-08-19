@@ -6,6 +6,7 @@ const routeMap = {
   vacant: ['index', 'vacant', 'vacant-buildingId', 'vacant-buildingId-floorId'],
   preferences: ['index', 'preferences'],
   inquiry: ['index', 'inquiry'],
+  searchClass: ['index', 'search-class'],
   clubs: ['index', 'clubs', 'clubs-topic', 'clubs-topic-clubId']
 }
 
@@ -36,8 +37,8 @@ export const state = () => ({
   historyStack: [],
   cachedComponents: [],
   routeDirection: '', // forward|backward
-  currentAppName: 'home',
-  appList: []
+  currentHamletName: 'home',
+  hamletList: []
 })
 
 export const mutations = {
@@ -64,8 +65,8 @@ export const mutations = {
   setRouteDirection (state, direction) {
     state.routeDirection = direction
   },
-  setAppName (state, name) {
-    state.currentAppName = name
+  setHamletName (state, name) {
+    state.currentHamletName = name
   },
   setLastScrollPosition (state, value) {
     state.lastScrollPosition = value || 0
@@ -80,8 +81,8 @@ export const mutations = {
 
     try {
       const index =
-        state.routeMap[state.currentAppName].indexOf(currentRoute) - 1
-      state.prevPath = state.routeMap[state.currentAppName][index]
+        state.routeMap[state.currentHamletName].indexOf(currentRoute) - 1
+      state.prevPath = state.routeMap[state.currentHamletName][index]
     } catch (error) {
       console.error(
         'Could not set previous path. This page may not included in the routeMap.'
@@ -110,9 +111,9 @@ export const actions = {
 
     commit('setColorScheme', mode)
 
-    // set AppList using routeMap
+    // set hamletList using routeMap
     Object.keys(state.routeMap).forEach((key) => {
-      state.appList.push(key)
+      state.hamletList.push(key)
     })
   }
 }
@@ -122,9 +123,10 @@ export const getters = {
   getPreviousRoute: state => (currentRoute) => {
     currentRoute = currentRoute.replace(/___[a-z][a-z]/g, '')
 
-    const index = state.routeMap[state.currentAppName].indexOf(currentRoute) - 1
+    const index =
+      state.routeMap[state.currentHamletName].indexOf(currentRoute) - 1
 
-    return state.routeMap[state.currentAppName][index]
+    return state.routeMap[state.currentHamletName][index]
   },
   // get previous path name from historyStack
   getPreviousPathName (state) {

@@ -8,8 +8,8 @@
       />
     </Grid>
 
-    <transition name="fade">
-      <NuxtChild v-if="$route.params.clubId !== undefined" />
+    <transition name="test">
+      <NuxtChild />
     </transition>
   </div>
 </template>

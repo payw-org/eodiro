@@ -2,7 +2,7 @@
   <div
     id="app"
     :class="[
-      $store.state.currentAppName,
+      $store.state.currentHamletName,
       { 'is-banner-forced-mini': $store.state.banner.mcBannerMiniFlag }
     ]"
   >
@@ -25,8 +25,8 @@ export default {
   components: { Banner, GoBack },
   computed: {
     isValidPage () {
-      return !this.$store.state.appList.includes(
-        this.$store.state.currentAppName
+      return !this.$store.state.hamletList.includes(
+        this.$store.state.currentHamletName
       )
     }
   },

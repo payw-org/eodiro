@@ -25,15 +25,17 @@
             </template>
           </ArrowBlock>
 
-          <!-- class -->
-          <ArrowBlock class="menu-item-wrapper">
-            <template v-slot:icon>
-              <span class="icon icon--class" />
-            </template>
-            <template v-slot:content>
-              <span class="content">{{ $t('home.menuClass') }}</span>
-            </template>
-          </ArrowBlock>
+          <!-- search-class -->
+          <nuxt-link :to="localePath('search-class').replace(/\/$/, '')">
+            <ArrowBlock class="menu-item-wrapper">
+              <template v-slot:icon>
+                <span class="icon icon--search-class" />
+              </template>
+              <template v-slot:content>
+                <span class="content">{{ $t('home.menuClass') }}</span>
+              </template>
+            </ArrowBlock>
+          </nuxt-link>
 
           <!-- clubs -->
           <nuxt-link :to="localePath('clubs').replace(/\/$/, '')">
@@ -103,7 +105,7 @@ export default {
   mixins: [pageBase],
   meta: {
     depth: 0,
-    appName: 'home'
+    hamletName: 'home'
   },
   methods: {
     preparing () {
@@ -131,58 +133,58 @@ export default {
       }
 
       .icon--vacant {
-        background-image: url('~assets/images/eodiro/home/home_menu_icon_vacant.svg');
+        background-image: url('~assets/images/home/home_menu_icon_vacant.svg');
 
         @include dark-mode {
-          background-image: url('~assets/images/eodiro/home/home_menu_icon_vacant_black.svg');
+          background-image: url('~assets/images/home/home_menu_icon_vacant_black.svg');
         }
       }
 
       .icon--meal {
-        background-image: url('~assets/images/eodiro/home/home_menu_icon_food.svg');
+        background-image: url('~assets/images/home/home_menu_icon_food.svg');
 
         @include dark-mode {
-          background-image: url('~assets/images/eodiro/home/home_menu_icon_food_black.svg');
+          background-image: url('~assets/images/home/home_menu_icon_food_black.svg');
         }
       }
 
-      .icon--class {
-        background-image: url('~assets/images/eodiro/home/home_menu_icon_class.svg');
+      .icon--search-class {
+        background-image: url('~assets/images/home/home_menu_icon_search-class.svg');
 
         @include dark-mode {
-          background-image: url('~assets/images/eodiro/home/home_menu_icon_class_black.svg');
+          background-image: url('~assets/images/home/home_menu_icon_search-class_black.svg');
         }
       }
 
       .icon--inquiry {
-        background-image: url('~assets/images/eodiro/home/home_menu_icon_inquiry.svg');
+        background-image: url('~assets/images/home/home_menu_icon_inquiry.svg');
 
         @include dark-mode {
-          background-image: url('~assets/images/eodiro/home/home_menu_icon_inquiry_black.svg');
+          background-image: url('~assets/images/home/home_menu_icon_inquiry_black.svg');
         }
       }
 
       .icon--donation {
-        background-image: url('~assets/images/eodiro/home/home_menu_icon_donate.svg');
+        background-image: url('~assets/images/home/home_menu_icon_donate.svg');
 
         @include dark-mode {
-          background-image: url('~assets/images/eodiro/home/home_menu_icon_donate_black.svg');
+          background-image: url('~assets/images/home/home_menu_icon_donate_black.svg');
         }
       }
 
       .icon--preferences {
-        background-image: url('~assets/images/eodiro/home/home_menu_icon_preferences.svg');
+        background-image: url('~assets/images/home/home_menu_icon_preferences.svg');
 
         @include dark-mode {
-          background-image: url('~assets/images/eodiro/home/home_menu_icon_preferences_black.svg');
+          background-image: url('~assets/images/home/home_menu_icon_preferences_black.svg');
         }
       }
 
       .icon--clubs {
-        background-image: url('~assets/images/eodiro/home/home-menu-icon-club.svg');
+        background-image: url('~assets/images/home/home-menu-icon-club.svg');
 
         @include dark-mode {
-          background-image: url('~assets/images/eodiro/home/home-menu-icon-club-black.svg');
+          background-image: url('~assets/images/home/home-menu-icon-club-black.svg');
         }
       }
     }
