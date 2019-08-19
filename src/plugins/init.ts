@@ -7,7 +7,7 @@ declare global {
 }
 
 export default (context) => {
-  const { app, req, res, route, store, redirect } = context
+  const { req, route, store, redirect } = context
 
   // server init
   if (process.server) {

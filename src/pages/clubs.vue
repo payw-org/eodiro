@@ -11,7 +11,7 @@ export default {
   name: 'clubs-parent',
   mixins: [pageBase],
   meta: {
-    appName: 'clubs'
+    hamletName: 'clubs'
   }
 }
 </script>

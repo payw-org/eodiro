@@ -39,7 +39,7 @@ export default {
   mixins: [pageBase],
   meta: {
     depth: 1,
-    appName: 'searchClass'
+    hamletName: 'searchClass'
   },
   head () {
     return {
