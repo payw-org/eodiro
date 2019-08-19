@@ -387,7 +387,7 @@ export default {
         position: sticky;
         top: 0;
         height: 3rem;
-        background-image: url('~assets/images/eodiro/down_arrow.svg');
+        background-image: url('~assets/images/down_arrow.svg');
         background-repeat: no-repeat;
         background-position: center;
         background-size: 2rem;
