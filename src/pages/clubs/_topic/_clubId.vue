@@ -138,10 +138,10 @@ export default {
       height: $btn-width;
       border-radius: 50px;
       box-shadow: 0 0.2rem 0.5rem rgba(#000, 0.17);
-      @include bgImg('~assets/images/eodiro/x.svg', 'center', '30%');
+      @include bgImg('~assets/images/x.svg', 'center', '30%');
       @include dark-mode {
         background-color: #444;
-        @include bgImg('~assets/images/eodiro/x-white.svg', 'center', '30%');
+        @include bgImg('~assets/images/x-white.svg', 'center', '30%');
       }
     }
 

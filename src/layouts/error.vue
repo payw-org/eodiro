@@ -19,12 +19,12 @@
       <div class="app-icon">
         <img
           class="app-icon mode--light"
-          src="~/assets/images/eodiro/app-icon_sq.svg"
+          src="~/assets/images/app-icon_sq.svg"
           alt="eodiro-logo"
         >
         <img
           class="app-icon mode--dark"
-          src="~/assets/images/eodiro/app-icon_sq_dark.svg"
+          src="~/assets/images/app-icon_sq_dark.svg"
           alt="eodiro-logo"
         >
       </div>

@@ -146,14 +146,10 @@ export default {
         height: 3rem;
         width: 3rem;
 
-        @include bgImg(
-          '~assets/images/eodiro/magnifier-black.svg',
-          'center',
-          '80%'
-        );
+        @include bgImg('~assets/images/magnifier-black.svg', 'center', '80%');
 
         @include dark-mode {
-          @include bgImg('~assets/images/eodiro/magnifier-white.svg');
+          @include bgImg('~assets/images/magnifier-white.svg');
         }
       }
     }

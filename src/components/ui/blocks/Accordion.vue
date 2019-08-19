@@ -67,7 +67,7 @@ export default {
         display: block;
         width: 0.6rem;
         height: 2rem;
-        background-image: url('~assets/images/eodiro/arrow_right_gray.svg');
+        background-image: url('~assets/images/arrow_right_gray.svg');
         background-position: center;
         background-repeat: no-repeat;
         background-size: contain;
@@ -79,7 +79,7 @@ export default {
         }
 
         @include dark-mode {
-          background-image: url('~assets/images/eodiro/arrow_right_dark.svg');
+          background-image: url('~assets/images/arrow_right_dark.svg');
         }
       }
     }

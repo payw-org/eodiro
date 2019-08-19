@@ -102,58 +102,58 @@ export default {
     }
 
     .icon--all {
-      background-image: url('~assets/images/eodiro/list.svg');
+      background-image: url('~assets/images/list.svg');
 
       @include dark-mode {
-        background-image: url('~assets/images/eodiro/list-white.svg');
+        background-image: url('~assets/images/list-white.svg');
       }
     }
 
     .icon--art {
-      background-image: url('~assets/images/eodiro/clubs/palette-black.svg');
+      background-image: url('~assets/images/clubs/palette-black.svg');
 
       @include dark-mode {
-        background-image: url('~assets/images/eodiro/clubs/palette-white.svg');
+        background-image: url('~assets/images/clubs/palette-white.svg');
       }
     }
 
     .icon--scholarship {
-      background-image: url('~assets/images/eodiro/clubs/scholarship-black.svg');
+      background-image: url('~assets/images/clubs/scholarship-black.svg');
 
       @include dark-mode {
-        background-image: url('~assets/images/eodiro/clubs/scholarship-white.svg');
+        background-image: url('~assets/images/clubs/scholarship-white.svg');
       }
     }
 
     .icon--religion {
-      background-image: url('~assets/images/eodiro/clubs/religion-black.svg');
+      background-image: url('~assets/images/clubs/religion-black.svg');
 
       @include dark-mode {
-        background-image: url('~assets/images/eodiro/clubs/religion-white.svg');
+        background-image: url('~assets/images/clubs/religion-white.svg');
       }
     }
 
     .icon--service {
-      background-image: url('~assets/images/eodiro/clubs/sprout-black.svg');
+      background-image: url('~assets/images/clubs/sprout-black.svg');
 
       @include dark-mode {
-        background-image: url('~assets/images/eodiro/clubs/sprout-white.svg');
+        background-image: url('~assets/images/clubs/sprout-white.svg');
       }
     }
 
     .icon--sports {
-      background-image: url('~assets/images/eodiro/clubs/baseball-black.svg');
+      background-image: url('~assets/images/clubs/baseball-black.svg');
 
       @include dark-mode {
-        background-image: url('~assets/images/eodiro/clubs/baseball-white.svg');
+        background-image: url('~assets/images/clubs/baseball-white.svg');
       }
     }
 
     .icon--music {
-      background-image: url('~assets/images/eodiro/clubs/note-black.svg');
+      background-image: url('~assets/images/clubs/note-black.svg');
 
       @include dark-mode {
-        background-image: url('~assets/images/eodiro/clubs/note-white.svg');
+        background-image: url('~assets/images/clubs/note-white.svg');
       }
     }
 

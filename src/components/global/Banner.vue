@@ -229,15 +229,11 @@ export default {
           width: $nav-height;
           height: $nav-height;
           transform: scaleX(-1);
-          @include bgImg(
-            '~assets/images/eodiro/arrow_right_white.svg',
-            center,
-            '20%'
-          );
+          @include bgImg('~assets/images/arrow_right_white.svg', center, '20%');
 
           @include dark-mode {
             @include bgImg(
-              '~assets/images/eodiro/arrow_right_black.svg',
+              '~assets/images/arrow_right_black.svg',
               center,
               '20%'
             );
@@ -287,14 +283,14 @@ export default {
     &.app--home {
       .icon {
         @include bgImg(
-          '~assets/images/eodiro/eodiro_logo_arrow_white.svg',
+          '~assets/images/eodiro_logo_arrow_white.svg',
           center,
           '50%'
         );
 
         @include dark-mode {
           @include bgImg(
-            '~assets/images/eodiro/eodiro_logo_arrow_black.svg',
+            '~assets/images/eodiro_logo_arrow_black.svg',
             center,
             '50%'
           );
@@ -304,10 +300,10 @@ export default {
 
     &.app--vacant {
       .icon {
-        @include bgImg('~assets/images/eodiro/door_white.svg', center, '75%');
+        @include bgImg('~assets/images/door_white.svg', center, '75%');
 
         @include dark-mode {
-          @include bgImg('~assets/images/eodiro/door_black.svg', center, '75%');
+          @include bgImg('~assets/images/door_black.svg', center, '75%');
         }
       }
     }
@@ -325,60 +321,40 @@ export default {
       .icon {
         animation: rotatingGear 5s linear 0s infinite normal forwards;
 
-        @include bgImg('~assets/images/eodiro/gear_white.svg', center, '75%');
+        @include bgImg('~assets/images/gear_white.svg', center, '75%');
 
         @include dark-mode {
-          @include bgImg('~assets/images/eodiro/gear_black.svg', center, '75%');
+          @include bgImg('~assets/images/gear_black.svg', center, '75%');
         }
       }
     }
 
     &.app--inquiry {
       .icon {
-        @include bgImg(
-          '~assets/images/eodiro/inquiry_white.svg',
-          center,
-          '75%'
-        );
+        @include bgImg('~assets/images/inquiry_white.svg', center, '75%');
 
         @include dark-mode {
-          @include bgImg(
-            '~assets/images/eodiro/inquiry_black.svg',
-            center,
-            '75%'
-          );
+          @include bgImg('~assets/images/inquiry_black.svg', center, '75%');
         }
       }
     }
 
     &.app--clubs {
       .icon {
-        @include bgImg('~assets/images/eodiro/three-white.svg', center, '75%');
+        @include bgImg('~assets/images/three-white.svg', center, '75%');
 
         @include dark-mode {
-          @include bgImg(
-            '~assets/images/eodiro/three-black.svg',
-            center,
-            '75%'
-          );
+          @include bgImg('~assets/images/three-black.svg', center, '75%');
         }
       }
     }
 
     &.app--searchClass {
       .icon {
-        @include bgImg(
-          '~assets/images/eodiro/magnifier-white.svg',
-          center,
-          '75%'
-        );
+        @include bgImg('~assets/images/magnifier-white.svg', center, '75%');
 
         @include dark-mode {
-          @include bgImg(
-            '~assets/images/eodiro/magnifier-black.svg',
-            center,
-            '75%'
-          );
+          @include bgImg('~assets/images/magnifier-black.svg', center, '75%');
         }
       }
     }
