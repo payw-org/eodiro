@@ -1,24 +1,24 @@
 <template>
   <div id="eodiro-banner" :class="{ mini: isMini }">
     <div class="banner">
-      <transition v-for="appName in $store.state.appList" :key="`bg-${appName}`" name="bg-fade">
+      <transition v-for="hamletName in $store.state.hamletList" :key="`bg-${hamletName}`" name="bg-fade">
         <div
-          v-if="appName === $store.state.currentAppName"
+          v-if="hamletName === $store.state.currentHamletName"
           class="background"
-          :class="`background--${appName}`"
+          :class="`background--${hamletName}`"
         />
       </transition>
-      <HomeBgTile v-if="$store.state.currentAppName === 'home' && !isMini" />
+      <HomeBgTile v-if="$store.state.currentHamletName === 'home' && !isMini" />
       <div class="logo-wrapper">
         <transition
-          v-for="appName in $store.state.appList"
-          :key="`banner-${appName}`"
+          v-for="hamletName in $store.state.hamletList"
+          :key="`banner-${hamletName}`"
           name="icon-change"
         >
           <div
-            v-if="appName === $store.state.currentAppName"
-            class="logo app-icon"
-            :class="`app--${appName}`"
+            v-if="hamletName === $store.state.currentHamletName"
+            class="logo hamlet-icon"
+            :class="`hamlet--${hamletName}`"
           >
             <span class="icon" />
           </div>
@@ -29,12 +29,12 @@
         <div class="dummy" />
         <transition name="icon-change">
           <div v-if="isMini" class="nav-icon-wrapper">
-            <transition v-for="appName in $store.state.appList" :key="`nav-${appName}`" name="fade">
+            <transition v-for="hamletName in $store.state.hamletList" :key="`nav-${hamletName}`" name="fade">
               <div
-                v-if="appName === $store.state.currentAppName"
-                class="nav-icon app-icon app--home"
+                v-if="hamletName === $store.state.currentHamletName"
+                class="nav-icon hamlet-icon hamlet--home"
                 :class="[
-                  `app--${appName}`,
+                  `hamlet--${hamletName}`,
                 ]"
               >
                 <span class="icon" />
@@ -74,7 +74,7 @@ export default {
     }
   },
   mounted () {
-    // middle sentinel for navigation app icon transition effect
+    // middle sentinel for navigation hamlet icon transition effect
     this.sentinel = document.querySelector('#banner-observer-sentinel')
     this.observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -268,7 +268,7 @@ export default {
     }
   }
 
-  .app-icon {
+  .hamlet-icon {
     display: flex;
     position: absolute;
     width: 100%;
@@ -280,7 +280,7 @@ export default {
       height: 100%;
     }
 
-    &.app--home {
+    &.hamlet--home {
       .icon {
         @include bgImg(
           '~assets/images/eodiro_logo_arrow_white.svg',
@@ -298,7 +298,7 @@ export default {
       }
     }
 
-    &.app--vacant {
+    &.hamlet--vacant {
       .icon {
         @include bgImg('~assets/images/door_white.svg', center, '75%');
 
@@ -308,7 +308,7 @@ export default {
       }
     }
 
-    &.app--preferences {
+    &.hamlet--preferences {
       @keyframes rotatingGear {
         0% {
           transform: rotate(0deg);
@@ -329,7 +329,7 @@ export default {
       }
     }
 
-    &.app--inquiry {
+    &.hamlet--inquiry {
       .icon {
         @include bgImg('~assets/images/inquiry_white.svg', center, '75%');
 
@@ -339,7 +339,7 @@ export default {
       }
     }
 
-    &.app--clubs {
+    &.hamlet--clubs {
       .icon {
         @include bgImg('~assets/images/three-white.svg', center, '75%');
 
@@ -349,7 +349,7 @@ export default {
       }
     }
 
-    &.app--searchClass {
+    &.hamlet--searchClass {
       .icon {
         @include bgImg('~assets/images/magnifier-white.svg', center, '75%');
 

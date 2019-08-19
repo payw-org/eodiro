@@ -23,7 +23,7 @@ export default {
   mixins: [pageBase],
   meta: {
     depth: 1,
-    appName: 'inquiry'
+    hamletName: 'inquiry'
   },
   head () {
     return {

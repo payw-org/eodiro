@@ -16,15 +16,15 @@
 <template>
   <div id="not-found">
     <div class="wrapper">
-      <div class="app-icon">
+      <div class="hamlet-icon">
         <img
-          class="app-icon mode--light"
-          src="~/assets/images/app-icon_sq.svg"
+          class="hamlet-icon mode--light"
+          src="~/assets/images/eodiro-icon_sq.svg"
           alt="eodiro-logo"
         >
         <img
-          class="app-icon mode--dark"
-          src="~/assets/images/app-icon_sq_dark.svg"
+          class="hamlet-icon mode--dark"
+          src="~/assets/images/eodiro-icon_sq_dark.svg"
           alt="eodiro-logo"
         >
       </div>
@@ -48,7 +48,7 @@ import { Button } from '~/components/ui'
 export default {
   components: { Button },
   meta: {
-    appName: 'error'
+    hamletName: 'error'
   },
   head () {
     return {
@@ -83,7 +83,7 @@ export default {
     width: calc(100% - 3rem);
     max-width: 40rem;
 
-    .app-icon {
+    .hamlet-icon {
       display: block;
       width: 5rem;
       position: relative;

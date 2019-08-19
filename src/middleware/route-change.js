@@ -1,21 +1,21 @@
-export default ({ app, from, route, store }) => {
-  // set current app name
-  let appName
+export default ({ from, route, store }) => {
+  // set current hamlet name
+  let hamletName
 
   try {
-    appName = route.meta[0].appName
+    hamletName = route.meta[0].hamletName
   } catch (error) {
     if (route.name) {
       console.error(
-        'Could not find AppName. Maybe you did not set an AppName for this page.'
+        'Could not find HamletName. Maybe you did not set an HamletName for this page.'
       )
     } else {
       // error page
-      appName = 'error'
+      hamletName = 'error'
     }
   }
 
-  store.commit('setAppName', appName)
+  store.commit('setHamletName', hamletName)
 
   if (!from) {
     // cache first loaded components

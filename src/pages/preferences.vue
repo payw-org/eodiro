@@ -52,7 +52,7 @@ export default {
   mixins: [pageBase],
   meta: {
     depth: 1,
-    appName: 'preferences'
+    hamletName: 'preferences'
   },
   head () {
     return {
@@ -87,7 +87,7 @@ export default {
 <style lang="scss">
 @import '~/assets/styles/scss/main.scss';
 
-#app.preferences {
+#hamlet.preferences {
   @keyframes rotatingGear {
     0% {
       transform: rotate(0deg);
@@ -97,7 +97,7 @@ export default {
     }
   }
 
-  .app-icon .icon {
+  .hamlet-icon .icon {
     animation: rotatingGear 5s linear 0s infinite normal forwards;
   }
 }

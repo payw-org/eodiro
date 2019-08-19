@@ -105,7 +105,7 @@ export default {
   mixins: [pageBase],
   meta: {
     depth: 0,
-    appName: 'home'
+    hamletName: 'home'
   },
   methods: {
     preparing () {
