@@ -17,12 +17,17 @@
         <div v-if="!filterIsFold" class="filter-category-container">
           <div class="fc-category-main">
             <div v-for="item in mainCategory" :key="item.name" class="fc-item" @click="clickMainCategoryItem(item)">
-              {{ item.name }}
+              <span class="fc-item-details">
+                {{ item.details }}
+              </span>
+              <span class="fc-item-name">
+                {{ item.name }}
+              </span>
             </div>
           </div>
           <transition name="filter-fold">
-            <div v-if="!unfoldCategory.subCategory" class="fc-category-sub">
-              <div v-for="name in unfoldCategory" :key="name" class="fc-item">
+            <div v-if="categoryIsUnfold" class="fc-category-sub">
+              <div v-for="name in unfoldCategory" :key="name" class="fc-item" @click="clickSubCategoryItem(name)">
                 {{ name }}
               </div>
             </div>
@@ -102,6 +107,7 @@ export default {
         {
           name: this.$t('searchClass.filterTitleYear'),
           isFold: true,
+          details: '',
           subCategory: [
             '2019',
             '2018',
@@ -120,21 +126,25 @@ export default {
         {
           name: this.$t('searchClass.filterTitleSemester'),
           isFold: true,
+          details: '',
           subCategory: ['1학기', '여름방학', '2학기', '겨울방학']
         },
         {
           name: this.$t('searchClass.filterTitleProcess'),
           isFold: true,
+          details: '',
           subCategory: ['학부', '대학원']
         },
         {
           name: this.$t('searchClass.filterTitleCampus'),
           isFold: true,
+          details: '',
           subCategory: ['서울캠퍼스', '안성캠퍼스']
         },
         {
           name: this.$t('searchClass.filterTitleCollege'),
           isFold: true,
+          details: '',
           subCategory: [
             '교양',
             '연계전공',
@@ -173,6 +183,7 @@ export default {
         {
           name: this.$t('searchClass.filterTitleMajor'),
           isFold: true,
+          details: '',
           subCategory: ['aa', 'bb']
         }
       ],
@@ -239,19 +250,24 @@ export default {
     }
   },
   computed: {
-    unfoldCategory () {
-      const nothingSelected = {
-        name: '',
-        isFold: true,
-        subCategory: ['XX', 'YY']
+    categoryIsUnfold () {
+      for (let i = 0; i < this.mainCategory.length; i++) {
+        if (this.mainCategory[i].isFold === false) {
+          return true
+        }
       }
-
+      return false
+    },
+    unfoldCategory () {
+      const nothingUnfold = {
+        isFold: true
+      }
       for (let i = 0; i < this.mainCategory.length; i++) {
         if (this.mainCategory[i].isFold === false) {
           return this.mainCategory[i].subCategory
         }
       }
-      return nothingSelected
+      return nothingUnfold
     }
   },
   mounted () {},
@@ -264,6 +280,18 @@ export default {
           this.mainCategory[i] !== item
         ) {
           this.mainCategory[i].isFold = true
+        }
+      }
+    },
+    clickSubCategoryItem (name) {
+      for (let i = 0; i < this.mainCategory.length; i++) {
+        if (this.mainCategory[i].isFold === false) {
+          this.mainCategory[i].isFold = true
+          if (this.mainCategory[i].details === name) {
+            this.mainCategory[i].details = ''
+          } else {
+            this.mainCategory[i].details = name
+          }
         }
       }
     }
@@ -342,24 +370,35 @@ export default {
       display: block;
 
       height: 100%;
+      margin-left: 1.5rem;
       overflow: auto;
       // max-width: $master-content-max-width/3;
       // height: calc(100vh - #{$banner-height} - 2rem);
-    }
 
+      &:last-child {
+        margin-right: 1.5rem;
+      }
+    }
     .fc-item {
       width: 35vw;
-      height: 4rem;
+      min-height: 4rem;
       max-width: $master-content-max-width/3;
-      line-height: 4rem;
-      padding-right: space(3);
-      margin: 0 space(4);
+      padding: space(2) 0;
       text-align: right;
       border-top: solid;
       @include separator;
 
       &:first-child {
         border-top: none;
+      }
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      word-break: break-all;
+      .fc-item-details {
+      }
+      .fc-item-name {
+        padding: 0 space(3);
       }
     }
   }
