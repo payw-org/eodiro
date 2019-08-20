@@ -50,7 +50,7 @@ export default ({ from, route, store }) => {
           .lastScrollPosition
     } catch (error) {
       console.error(
-        'Could not find lastScrollPosition. You should extend EodiroPageBase for each page and add a meta data for each page as well.'
+        'Could not find lastScrollPosition. You should extend pageBase mixin on each page.'
       )
     }
     store.commit('setLastScrollPosition', lastScrollPosition)
