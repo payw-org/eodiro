@@ -7,7 +7,8 @@ const routeMap = {
   preferences: ['index', 'preferences'],
   inquiry: ['index', 'inquiry'],
   searchClass: ['index', 'search-class'],
-  clubs: ['index', 'clubs', 'clubs-topic', 'clubs-topic-clubId']
+  clubs: ['index', 'clubs', 'clubs-topic', 'clubs-topic-clubId'],
+  community: ['index', 'community']
 }
 
 /**

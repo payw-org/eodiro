@@ -197,6 +197,9 @@ export default {
       &.background--searchClass {
         background-image: linear-gradient(to bottom, #22f200, #14c34f);
       }
+      &.background--community {
+        background-image: linear-gradient(to bottom, #e1e3e7, #b7b9bf);
+      }
     }
 
     .logo-wrapper {
@@ -355,6 +358,16 @@ export default {
 
         @include dark-mode {
           @include bgImg('~assets/images/magnifier-black.svg', center, '75%');
+        }
+      }
+    }
+
+    &.hamlet--community {
+      .icon {
+        @include bgImg('~assets/images/community-white.svg', center, '75%');
+
+        @include dark-mode {
+          @include bgImg('~assets/images/community.svg', center, '75%');
         }
       }
     }
