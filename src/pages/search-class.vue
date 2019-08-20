@@ -29,17 +29,41 @@
           </transition>
         </div>
       </transition>
+      <!-- search result section -->
+      <div class="search-result-container">
+        <Accordion v-for="item in courseExample" :key="item.classId" class="search-result-item">
+          <template v-slot:face>
+            <div class="src-item-title">
+              {{ item.name }}
+            </div>
+            <div class="src-item-instructor">
+              {{ item.instructor }}
+            </div>
+            <div class="src-item-timeTable">
+              {{ item.timeTable }}
+            </div>
+            <div class="src-item-timeTable">
+              {{ item.timeTable }}
+            </div>
+          </template>
+          <template v-slot:content>
+            <div>
+              {{ item.note }}
+            </div>
+          </template>
+        </Accordion>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import pageBase from '~/mixins/page-base'
-import { Input, Button } from '~/components/ui'
+import { Input, Button, Accordion } from '~/components/ui'
 
 export default {
   name: 'search-class',
-  components: { Input, Button },
+  components: { Input, Button, Accordion },
   mixins: [pageBase],
   meta: {
     depth: 1,
@@ -152,28 +176,66 @@ export default {
           subCategory: ['aa', 'bb']
         }
       ],
-      courseExample: {
-        name: '운영체제 (영어A 강의)',
-        instructor: '김성조',
-        locations: [
-          {
-            gwan: '310',
-            ho: '727'
-          }
-        ],
-        times: [
-          {
-            day: 2,
-            start: '11:00',
-            end: '13:00'
-          },
-          {
-            day: 4,
-            start: '11:00',
-            end: '12:00'
-          }
-        ]
-      }
+      courseExample: [
+        {
+          classId: '49872-02',
+          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
+          instructor: '이창하',
+          college: '소프트웨어대학',
+          subject: '소프트웨어학부',
+          grade: '4',
+          course: '학사',
+          type: '전공',
+          unit: '3',
+          term: '3',
+          closed: '',
+          flexible: '',
+          note: '공학주제',
+          timeTable: '207관 102호 월 14:00~15:00 / 207관 102호 수 13:00~15:00'
+        },
+        {
+          classId: '49872-01',
+          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
+          instructor: '이창하',
+          timeTable: '207관 102호 월 14:00~15:00 / 207관 102호 수 13:00~15:00'
+        },
+        {
+          classId: '49872-03',
+          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
+          instructor: '이창하',
+          timeTable: '207관 102호 월 14:00~15:00 / 207관 102호 수 13:00~15:00'
+        },
+        {
+          classId: '49872-04',
+          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
+          instructor: '이창하',
+          timeTable: '207관 102호 월 14:00~15:00 / 207관 102호 수 13:00~15:00'
+        },
+        {
+          classId: '49872-05',
+          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
+          instructor: '이창하',
+          timeTable: '207관 102호 월 14:00~15:00 / 207관 102호 수 13:00~15:00'
+        },
+        {
+          classId: '49872-06',
+          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
+          instructor: '이창하',
+          timeTable: '207관 102호 월 14:00~15:00 / 207관 102호 수 13:00~15:00'
+        },
+        {
+          classId: '49872-07',
+          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
+          instructor: '이창하',
+          timeTable: '207관 102호 월 14:00~15:00 / 207관 102호 수 13:00~15:00'
+        },
+        {
+          classId: '49872-08',
+          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
+          instructor: '이창하',
+          timeTable: '207관 102호 월 14:00~15:00 / 207관 102호 수 13:00~15:00'
+        }
+      ]
     }
   },
   computed: {
@@ -269,6 +331,7 @@ export default {
       height: calc(100vh - #{$banner-height});
       margin: 0;
       border-radius: 0 !important;
+      font-size: body(2);
     }
     @include larger-than($width-step--2) {
     }
@@ -285,17 +348,38 @@ export default {
     }
 
     .fc-item {
-      width: 20vw;
+      width: 35vw;
       height: 4rem;
+      max-width: $master-content-max-width/3;
       line-height: 4rem;
-      // max-width: $master-content-max-width/3;
+      padding-right: space(3);
       margin: 0 space(4);
-      text-align: center;
+      text-align: right;
       border-top: solid;
       @include separator;
 
       &:first-child {
         border-top: none;
+      }
+    }
+  }
+
+  .search-result-container {
+    .search-result-item {
+      margin: 1rem 0;
+      > div:nth-child(1) {
+        padding: 0.5rem 0;
+      }
+      .src-item-title {
+        font-size: body(6);
+        font-weight: bold;
+      }
+      .src-item-instructor {
+        font-size: body(2);
+      }
+      .src-item-timeTable {
+        font-size: body(1);
+        color: $base-gray;
       }
     }
   }
