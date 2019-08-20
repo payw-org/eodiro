@@ -44,15 +44,18 @@
             <div class="src-item-instructor">
               {{ item.instructor }}
             </div>
-            <div class="src-item-timeTable">
-              {{ item.timeTable }}
+            <div v-for="timeBlock in item.timeTable" :key="item.extInfo + timeBlock" class="src-item-timeTable">
+              {{ timeBlock }}
             </div>
-            <div class="src-item-timeTable">
-              {{ item.timeTable }}
+            <div class="src-item-subInfo">
+              {{ item.subInfo }}
             </div>
           </template>
           <template v-slot:content>
-            <div>
+            <div class="src-item-extInfo">
+              {{ item.extInfo }}
+            </div>
+            <div class="src-item-note">
               {{ item.note }}
             </div>
           </template>
@@ -189,62 +192,125 @@ export default {
       ],
       courseExample: [
         {
-          classId: '49872-02',
           name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
           instructor: '이창하',
-          college: '소프트웨어대학',
-          subject: '소프트웨어학부',
-          grade: '4',
-          course: '학사',
-          type: '전공',
-          unit: '3',
-          term: '3',
-          closed: '',
-          flexible: '',
-          note: '공학주제',
-          timeTable: '207관 102호 월 14:00~15:00 / 207관 102호 수 13:00~15:00'
+          timeTable: [
+            '207관 102호  (월) 14:00~15:00',
+            '207관 102호  (수) 13:00~15:00'
+          ],
+          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
+          extInfo: '49872-01 학사',
+          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
         },
         {
-          classId: '49872-01',
           name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
           instructor: '이창하',
-          timeTable: '207관 102호 월 14:00~15:00 / 207관 102호 수 13:00~15:00'
+          timeTable: [
+            '207관 102호  (월) 14:00~15:00',
+            '207관 102호  (수) 13:00~15:00'
+          ],
+          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
+          extInfo: '49872-02 학사',
+          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
         },
         {
-          classId: '49872-03',
           name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
           instructor: '이창하',
-          timeTable: '207관 102호 월 14:00~15:00 / 207관 102호 수 13:00~15:00'
+          timeTable: [
+            '207관 102호  (월) 14:00~15:00',
+            '207관 102호  (수) 13:00~15:00'
+          ],
+          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
+          extInfo: '49872-03 학사',
+          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
         },
         {
-          classId: '49872-04',
           name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
           instructor: '이창하',
-          timeTable: '207관 102호 월 14:00~15:00 / 207관 102호 수 13:00~15:00'
+          timeTable: [
+            '207관 102호  (월) 14:00~15:00',
+            '207관 102호  (수) 13:00~15:00'
+          ],
+          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
+          extInfo: '49872-04 학사',
+          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
         },
         {
-          classId: '49872-05',
           name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
           instructor: '이창하',
-          timeTable: '207관 102호 월 14:00~15:00 / 207관 102호 수 13:00~15:00'
+          timeTable: [
+            '207관 102호  (월) 14:00~15:00',
+            '207관 102호  (수) 13:00~15:00'
+          ],
+          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
+          extInfo: '49872-05 학사',
+          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
         },
         {
-          classId: '49872-06',
           name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
           instructor: '이창하',
-          timeTable: '207관 102호 월 14:00~15:00 / 207관 102호 수 13:00~15:00'
+          timeTable: [
+            '207관 102호  (월) 14:00~15:00',
+            '207관 102호  (수) 13:00~15:00'
+          ],
+          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
+          extInfo: '49872-06 학사',
+          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
         },
         {
-          classId: '49872-07',
           name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
           instructor: '이창하',
-          timeTable: '207관 102호 월 14:00~15:00 / 207관 102호 수 13:00~15:00'
+          timeTable: [
+            '207관 102호  (월) 14:00~15:00',
+            '207관 102호  (수) 13:00~15:00'
+          ],
+          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
+          extInfo: '49872-07 학사',
+          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
         },
         {
-          classId: '49872-08',
           name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
           instructor: '이창하',
-          timeTable: '207관 102호 월 14:00~15:00 / 207관 102호 수 13:00~15:00'
+          timeTable: [
+            '207관 102호  (월) 14:00~15:00',
+            '207관 102호  (수) 13:00~15:00'
+          ],
+          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
+          extInfo: '49872-08 학사',
+          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
+        },
+        {
+          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
+          instructor: '이창하',
+          timeTable: [
+            '207관 102호  (월) 14:00~15:00',
+            '207관 102호  (수) 13:00~15:00'
+          ],
+          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
+          extInfo: '49872-09 학사',
+          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
+        },
+        {
+          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
+          instructor: '이창하',
+          timeTable: [
+            '207관 102호  (월) 14:00~15:00',
+            '207관 102호  (수) 13:00~15:00'
+          ],
+          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
+          extInfo: '49872-10 학사',
+          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
+        },
+        {
+          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
+          instructor: '이창하',
+          timeTable: [
+            '207관 102호  (월) 14:00~15:00',
+            '207관 102호  (수) 13:00~15:00'
+          ],
+          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
+          extInfo: '49872-11 학사',
+          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
         }
       ]
     }
@@ -353,6 +419,10 @@ export default {
     font-size: body(5);
     background-color: #fff;
     box-shadow: 0 0.2rem 0.7rem rgba(#000, 0.2);
+    @include dark-mode {
+      background-color: #000;
+      box-shadow: 0 0.2rem 0.7rem rgba(#fff, 0.2);
+    }
 
     @include smaller-than($width-step--1) {
       left: 0;
@@ -406,19 +476,25 @@ export default {
   .search-result-container {
     .search-result-item {
       margin: 1rem 0;
-      > div:nth-child(1) {
-        padding: 0.5rem 0;
-      }
       .src-item-title {
         font-size: body(6);
-        font-weight: bold;
+        font-weight: weight(5);
       }
       .src-item-instructor {
         font-size: body(2);
       }
       .src-item-timeTable {
         font-size: body(1);
+      }
+      .src-item-subInfo {
+        font-size: body(1);
         color: $base-gray;
+      }
+      .src-item-extInfo {
+        font-size: body(1);
+      }
+      .src-item-note {
+        font-size: body(1);
       }
     }
   }
