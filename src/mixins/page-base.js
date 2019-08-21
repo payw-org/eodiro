@@ -29,7 +29,6 @@ export default {
     }
   },
   activated () {
-    console.log('activated', this.$options.name)
     setTimeout(() => {
       // Restore scroll position
       window.scrollTo(0, this.lastScrollPosition)
@@ -41,8 +40,5 @@ export default {
   deactivated () {
     // Store current scroll position
     this.lastScrollPosition = window.scrollY
-  },
-  mounted () {
-    console.log('mounted', this.$options.name)
   }
 }

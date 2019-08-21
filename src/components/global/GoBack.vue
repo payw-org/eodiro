@@ -29,7 +29,9 @@ export default {
     }
   },
   mounted () {
-    const that = this
+    const that = this // alias
+
+    // Create scroll event callback function
     this.scrollEventCallback = function (e) {
       if (
         this.oldScroll > this.scrollY &&
@@ -48,20 +50,26 @@ export default {
       this.oldScroll = this.scrollY
     }
 
+    // Add scroll event listener for the first time
     window.addEventListener('scroll', this.scrollEventCallback)
 
-    // when route changes(page move),
+    // Remove scroll event when go back
+    document.addEventListener('beforepageleave', () => {
+      window.removeEventListener('scroll', this.scrollEventCallback)
+    })
+
+    // When route changes(page move),
     // add scroll event listener again
     // to determine the visibility of goback element
     document.addEventListener('scrollrestored', () => {
-      // window.removeEventListener('scroll', this.scrollEventCallback)
-      // window.addEventListener('scroll', this.scrollEventCallback)
+      window.removeEventListener('scroll', this.scrollEventCallback)
+      setTimeout(() => {
+        window.addEventListener('scroll', this.scrollEventCallback)
+      }, 10)
     })
 
-    document.addEventListener('beforepageleave', () => {
-      // window.removeEventListener('scroll', this.scrollEventCallback)
-    })
-
+    // When the route moves forward
+    // forcedly show go back button
     document.addEventListener('beforepageenter', () => {
       this.isHidden = false
     })

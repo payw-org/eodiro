@@ -79,7 +79,6 @@ export default {
     this.sentinel = document.querySelector('#banner-observer-sentinel')
     this.observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        console.log('observing')
         if (entry.target.isSameNode(this.sentinel)) {
           if (this.$route.meta.depth > 1) {
             this.isMini = true
