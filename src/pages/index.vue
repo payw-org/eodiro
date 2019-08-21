@@ -115,10 +115,6 @@ export default {
   name: 'home',
   components: { Grid, ArrowBlock },
   mixins: [pageBase],
-  meta: {
-    depth: 0,
-    hamletName: 'home'
-  },
   methods: {
     preparing () {
       new EodiroDialog().alert(this.$t('preparing'))

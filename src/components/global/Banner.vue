@@ -3,12 +3,12 @@
     <div class="banner">
       <transition v-for="hamletName in $store.state.hamletList" :key="`bg-${hamletName}`" name="bg-fade">
         <div
-          v-if="hamletName === $store.state.currentHamletName"
+          v-if="hamletName === $route.meta.hamletName"
           class="background"
           :class="`background--${hamletName}`"
         />
       </transition>
-      <HomeBgTile v-if="$store.state.currentHamletName === 'home' && !isMini" />
+      <HomeBgTile v-if="$route.meta.hamletName === 'home' && !isMini" />
       <div class="logo-wrapper">
         <transition
           v-for="hamletName in $store.state.hamletList"
@@ -16,7 +16,7 @@
           name="icon-change"
         >
           <div
-            v-if="hamletName === $store.state.currentHamletName"
+            v-if="hamletName === $route.meta.hamletName"
             class="logo hamlet-icon"
             :class="`hamlet--${hamletName}`"
           >
@@ -31,7 +31,7 @@
           <div v-if="isMini" class="nav-icon-wrapper">
             <transition v-for="hamletName in $store.state.hamletList" :key="`nav-${hamletName}`" name="fade">
               <div
-                v-if="hamletName === $store.state.currentHamletName"
+                v-if="hamletName === $route.meta.hamletName"
                 class="nav-icon hamlet-icon hamlet--home"
                 :class="[
                   `hamlet--${hamletName}`,
@@ -61,25 +61,27 @@ export default {
     }
   },
   watch: {
-    $route (to, from) {
-      // stop observing when the route is changing
-      this.observer.unobserve(this.sentinel)
+    isMini (bool) {
+      if (bool) {
+        document.dispatchEvent(new CustomEvent('bannerminified'))
+      } else {
+        document.dispatchEvent(new CustomEvent('bannerspreaded'))
+      }
     }
   },
   created () {
-    // for the first time,
-    // check if the page requires Banner mini mode
-    if (this.$store.state.banner.isForcedMini) {
+    if (this.$route.meta.depth > 1) {
       this.isMini = true
     }
   },
   mounted () {
-    // middle sentinel for navigation hamlet icon transition effect
+    // Sentinel for banner
     this.sentinel = document.querySelector('#banner-observer-sentinel')
     this.observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
+        console.log('observing')
         if (entry.target.isSameNode(this.sentinel)) {
-          if (this.$store.state.banner.isForcedMini) {
+          if (this.$route.meta.depth > 1) {
             this.isMini = true
           } else if (entry.isIntersecting) {
             this.isMini = false
@@ -90,14 +92,20 @@ export default {
       })
     })
 
-    // start observing
+    // Start observing
     this.observer.observe(this.sentinel)
 
-    // when route changes(page move),
+    // When route changes(page move),
     // after scroll position restoration
     // reobserve the sentinel
     document.addEventListener('scrollrestored', () => {
       this.observer.observe(this.sentinel)
+    })
+
+    // Before page leaves, unobserve sentinel
+    // to prevent unexpected error
+    document.addEventListener('beforepageleave', () => {
+      this.observer.unobserve(this.sentinel)
     })
   }
 }
@@ -189,16 +197,16 @@ export default {
         background-image: linear-gradient(to bottom, #939393, #636363);
       }
       &.background--inquiry {
-        background-image: linear-gradient(to bottom, #ffc700, #ff8a00);
+        background-image: linear-gradient(to bottom, #ffcf26, #ff9922);
       }
       &.background--clubs {
         background-image: linear-gradient(to bottom, #00e3d6, #00b5dd);
       }
       &.background--searchClass {
-        background-image: linear-gradient(to bottom, #22f200, #14c34f);
+        background-image: linear-gradient(to bottom, #56f23d, #00d749);
       }
       &.background--community {
-        background-image: linear-gradient(to bottom, #e1e3e7, #b7b9bf);
+        background-image: linear-gradient(to bottom, #ff79b9, #ff3e78);
       }
     }
 
@@ -377,7 +385,7 @@ export default {
 #banner-observer-sentinel {
   position: absolute;
   top: calc(#{$banner-height} - #{$nav-height});
-  top: $banner-height / 3;
+  top: $banner-height / 4;
   right: 0;
   left: 0;
   height: 1px;

@@ -23,10 +23,6 @@ export default {
   name: 'clubs-topic',
   components: { Grid, ClubItem },
   mixins: [pageBase],
-  meta: {
-    depth: 2,
-    bannerMode: 'mini'
-  },
   data () {
     return {
       popParent: true,

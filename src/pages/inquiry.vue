@@ -21,10 +21,6 @@ export default {
   name: 'inquiry',
   components: { Button, Textarea },
   mixins: [pageBase],
-  meta: {
-    depth: 1,
-    hamletName: 'inquiry'
-  },
   head () {
     return {
       title: this.$t('inquiry.title')

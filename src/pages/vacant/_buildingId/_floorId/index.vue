@@ -142,10 +142,6 @@ export default {
   name: 'vacant-result',
   components: { Loading, Grid, ArrowBlock },
   mixins: [pageBase],
-  meta: {
-    depth: 3,
-    bannerMode: 'mini'
-  },
   data () {
     return {
       classrooms: [],

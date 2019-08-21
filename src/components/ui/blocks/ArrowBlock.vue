@@ -1,5 +1,7 @@
 <template>
   <div class="arrow-block" @click="$emit('click')">
+    <NuxtLink v-if="link !== ''" :to="link" class="absolute-link" />
+
     <!-- only visible when icon slot is set -->
     <div v-if="$slots.icon" class="arrb-icon-wrapper">
       <slot name="icon" />
@@ -21,6 +23,11 @@ export default {
     noArrow: {
       type: Boolean,
       required: false
+    },
+    link: {
+      type: String,
+      required: false,
+      default: ''
     }
   }
 }

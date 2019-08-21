@@ -49,10 +49,6 @@ export default {
   name: 'vacant-floor',
   components: { Loading, Grid, ArrowBlock },
   mixins: [pageBase],
-  meta: {
-    depth: 2,
-    bannerMode: 'mini'
-  },
   data () {
     return {
       buildingName: '',

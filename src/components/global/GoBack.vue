@@ -1,7 +1,7 @@
 <template>
   <transition name="fade">
-    <div v-if="$store.state.prevPath" id="go-back" :class="{ hidden: isHidden }">
-      <nuxt-link class="prev-link" :to="localePath($store.state.prevPath)">
+    <div v-if="prevRouteName" id="go-back" :class="{ hidden: isHidden }">
+      <nuxt-link class="prev-link" :to="localePath(prevRouteName)">
         <button class="prev-btn">
           <span class="icon" />
           {{ $t('global.goBack') }}
@@ -23,13 +23,9 @@ export default {
       scrollEventCallback: null
     }
   },
-  watch: {
-    $route () {
-      if (this.$store.state.routeDirection === 'backward') {
-        window.removeEventListener('scroll', this.scrollEventCallback)
-      } else if (this.$store.state.routeDirection === 'forward') {
-        this.isHidden = false
-      }
+  computed: {
+    prevRouteName () {
+      return this.$route.meta.prevRouteName
     }
   },
   mounted () {
@@ -58,8 +54,16 @@ export default {
     // add scroll event listener again
     // to determine the visibility of goback element
     document.addEventListener('scrollrestored', () => {
-      window.removeEventListener('scroll', this.scrollEventCallback)
-      window.addEventListener('scroll', this.scrollEventCallback)
+      // window.removeEventListener('scroll', this.scrollEventCallback)
+      // window.addEventListener('scroll', this.scrollEventCallback)
+    })
+
+    document.addEventListener('beforepageleave', () => {
+      // window.removeEventListener('scroll', this.scrollEventCallback)
+    })
+
+    document.addEventListener('beforepageenter', () => {
+      this.isHidden = false
     })
   }
 }

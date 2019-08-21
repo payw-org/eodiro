@@ -50,10 +50,6 @@ export default {
   name: 'preferences',
   components: { Button },
   mixins: [pageBase],
-  meta: {
-    depth: 1,
-    hamletName: 'preferences'
-  },
   head () {
     return {
       title: this.$t('pref.title')

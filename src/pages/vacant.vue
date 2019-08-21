@@ -9,9 +9,6 @@ import pageBase from '~/mixins/page-base'
 
 export default {
   name: 'vacant-parent',
-  mixins: [pageBase],
-  meta: {
-    hamletName: 'vacant'
-  }
+  mixins: [pageBase]
 }
 </script>

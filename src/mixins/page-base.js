@@ -3,33 +3,46 @@
  */
 
 export default {
-  transition: 'fade',
+  transition: {
+    name: 'fade',
+    mode: 'out-in',
+    beforeEnter (el) {
+      // Dispatch event
+      document.dispatchEvent(new CustomEvent('beforepageenter'))
+    },
+    afterEnter (el) {
+      // Dispatch event
+      document.dispatchEvent(new CustomEvent('afterpageenter'))
+    },
+    beforeLeave (el) {
+      // Dispatch event
+      document.dispatchEvent(new CustomEvent('beforepageleave'))
+    },
+    afterLeave (el) {
+      // Dispatch event
+      document.dispatchEvent(new CustomEvent('afterpageleave'))
+    }
+  },
   data () {
     return {
       lastScrollPosition: 0
     }
   },
   activated () {
-    // Check banner mode
-    if (this.$store.state.banner.isForcedMini) {
-      this.$store.commit('banner/setMcBannerMiniFlag', true)
-    } else {
-      this.$store.commit('banner/setMcBannerMiniFlag', false)
-    }
-
+    console.log('activated', this.$options.name)
     setTimeout(() => {
-      // restore scroll position
+      // Restore scroll position
       window.scrollTo(0, this.lastScrollPosition)
 
-      // dispatch event
+      // Dispatch an event
       document.dispatchEvent(new CustomEvent('scrollrestored'))
     }, 0)
   },
   deactivated () {
-    // store scroll position
-    if (!this.$options.meta) {
-      this.$options.meta = {}
-    }
+    // Store current scroll position
     this.lastScrollPosition = window.scrollY
+  },
+  mounted () {
+    console.log('mounted', this.$options.name)
   }
 }

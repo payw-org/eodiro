@@ -41,10 +41,6 @@ export default {
   name: 'search-class',
   components: { Input, Button },
   mixins: [pageBase],
-  meta: {
-    depth: 1,
-    hamletName: 'searchClass'
-  },
   head () {
     return {
       title: this.$t('searchClass.title'),
