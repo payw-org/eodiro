@@ -13,9 +13,10 @@
 </template>
 
 <script>
+import axios from 'axios'
 import pageBase from '~/mixins/page-base'
 import { Button, Textarea } from '~/components/ui'
-import Dialog from '~/plugins/eodiro-dialog'
+// import Dialog from '~/plugins/eodiro-dialog'
 
 export default {
   name: 'inquiry',
@@ -36,7 +37,33 @@ export default {
   mounted () {},
   methods: {
     sendEmail () {
-      new Dialog().confirm('정말 보내시겠습니까?')
+      const campus = 'seoul'
+      const msgToSend = document.querySelector('.writing-area').value
+
+      if (msgToSend.length < 2) {
+        window.confirm('한글자는 보낼 수 없습니다.')
+        return
+      }
+      if (msgToSend.length > 500) {
+        window.confirm('500글자 내로 작성해주세요.')
+        return
+      }
+      axios({
+        url: `https://alpha.api.eodiro.com/v2/campuses/${campus}/inquiry`,
+        method: 'post',
+        data: {
+          text: msgToSend
+        }
+      })
+        .then(() => {
+          window.confirm('메시지를 보냈습니다.')
+        })
+        .catch((error) => {
+          window.confirm('에러 : ' + error.msg)
+        })
+        .finally(() => {
+          document.querySelector('.writing-area').value = ''
+        })
     }
   }
 }
