@@ -29,11 +29,11 @@ function sniffRoutes (routes) {
 
     setRouteDepth(route)
 
-    // Set previous route name
-    setPrevRouteName(route)
-
     // Set hamlet name
     setHamletName(route)
+
+    // Set previous route name
+    setPrevRouteName(route)
 
     if (route.children) {
       sniffRoutes(route.children)
@@ -62,13 +62,26 @@ function setRouteDepth (route) {
 function setPrevRouteName (route) {
   let prevRouteName
 
+  if (!route.name) {
+    return
+  }
+
   if (route.name === 'index') {
+    // Home
     prevRouteName = undefined
-  } else if (countChar(route.name, /-/g) === 0) {
+  } else if (route.name === route.meta.hamletName) {
+    // Hamlet entry
     prevRouteName = 'index'
   } else {
-    const routeTraces = route.name.split('-')
-    prevRouteName = routeTraces.slice(0, routeTraces.length - 1).join('-')
+    // 1. Remove hamlet name from route's name
+    // 2. Split route name with '-'
+    // 3. Join with `length - 1`
+    const routeNameWithoutHamlet = route.name.replace(route.meta.hamletName, '')
+    const routeTrace = routeNameWithoutHamlet.split('-')
+    routeTrace[0] = route.meta.hamletName
+    console.log(routeTrace)
+    const newTrace = routeTrace.slice(0, routeTrace.length - 1)
+    prevRouteName = newTrace.join('-')
   }
 
   route.meta.prevRouteName = prevRouteName
