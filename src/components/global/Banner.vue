@@ -201,7 +201,7 @@ export default {
       &.background--clubs {
         background-image: linear-gradient(to bottom, #00e3d6, #00b5dd);
       }
-      &.background--searchClass {
+      &.background--search-class {
         background-image: linear-gradient(to bottom, #56f23d, #00d749);
       }
       &.background--community {
@@ -359,7 +359,7 @@ export default {
       }
     }
 
-    &.hamlet--searchClass {
+    &.hamlet--search-class {
       .icon {
         @include bgImg('~assets/images/magnifier-white.svg', center, '75%');
 
