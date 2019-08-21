@@ -65,7 +65,7 @@ export default {
       window.removeEventListener('scroll', this.scrollEventCallback)
       setTimeout(() => {
         window.addEventListener('scroll', this.scrollEventCallback)
-      }, 10)
+      }, 100)
     })
 
     // When the route moves forward
