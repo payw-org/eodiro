@@ -1,5 +1,5 @@
 export default {
-  title: '강의실 찾기',
+  title: '강의 검색',
   head: {
     description: 'aaa',
     title: 'bbb'

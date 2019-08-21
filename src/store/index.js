@@ -1,15 +1,6 @@
 import Cookie from 'cookie'
 import JSCookie from 'js-cookie'
 
-const routeMap = {
-  home: ['index'],
-  vacant: ['index', 'vacant', 'vacant-buildingId', 'vacant-buildingId-floorId'],
-  preferences: ['index', 'preferences'],
-  inquiry: ['index', 'inquiry'],
-  searchClass: ['index', 'search-class'],
-  clubs: ['index', 'clubs', 'clubs-topic', 'clubs-topic-clubId']
-}
-
 /**
  * Returns a class name matches to color scheme mode
  * @param {'light'|'dark'|'auto'} colorMode
@@ -31,14 +22,20 @@ function getColorClassName (colorMode) {
 // states
 export const state = () => ({
   colorSchemeClassName: 'light-mode',
-  lastScrollPosition: 0,
-  routeMap,
-  prevPath: '',
   historyStack: [],
   cachedComponents: [],
   routeDirection: '', // forward|backward
-  currentHamletName: 'home',
-  hamletList: []
+  hamletList: [
+    'home',
+    'vacant',
+    'search-class',
+    'clubs',
+    'community',
+    'meal',
+    'inquiry',
+    'donation',
+    'preferences'
+  ]
 })
 
 export const mutations = {
@@ -50,13 +47,13 @@ export const mutations = {
     const colorSchemeClassName = getColorClassName(mode)
     state.colorSchemeClassName = colorSchemeClassName
   },
-  cacheComponent (state, componentName) {
+  CACHE_COMPONENT (state, componentName) {
     const index = state.cachedComponents.indexOf(componentName)
     if (index === -1) {
       state.cachedComponents.push(componentName)
     }
   },
-  popRoute (state, componentName) {
+  POP_COMPONENT (state, componentName) {
     const index = state.cachedComponents.indexOf(componentName)
     if (index !== -1) {
       state.cachedComponents.splice(index, 1)
@@ -64,38 +61,6 @@ export const mutations = {
   },
   setRouteDirection (state, direction) {
     state.routeDirection = direction
-  },
-  setHamletName (state, name) {
-    state.currentHamletName = name
-  },
-  setLastScrollPosition (state, value) {
-    state.lastScrollPosition = value || 0
-  },
-  // set state's prevPath variable which is used inside banner navigation
-  setPreviousPath (state, currentRoute) {
-    if (!currentRoute) {
-      currentRoute = 'index'
-    } else {
-      currentRoute = currentRoute.replace(/___[a-z][a-z]/g, '')
-    }
-
-    try {
-      const index =
-        state.routeMap[state.currentHamletName].indexOf(currentRoute) - 1
-      state.prevPath = state.routeMap[state.currentHamletName][index]
-    } catch (error) {
-      console.error(
-        'Could not set previous path. This page may not included in the routeMap.'
-      )
-      state.prevPath = 'index'
-    }
-
-    // Wrong routeMap error handling
-    if (currentRoute !== 'index' && state.prevPath === undefined) {
-      console.error(
-        'Could not find previous path. You may not set routeMap properly.'
-      )
-    }
   }
 }
 
@@ -110,27 +75,5 @@ export const actions = {
     const mode = cookies.color_scheme
 
     commit('setColorScheme', mode)
-
-    // set hamletList using routeMap
-    Object.keys(state.routeMap).forEach((key) => {
-      state.hamletList.push(key)
-    })
-  }
-}
-
-export const getters = {
-  // get previous route from routeMap
-  getPreviousRoute: state => (currentRoute) => {
-    currentRoute = currentRoute.replace(/___[a-z][a-z]/g, '')
-
-    const index =
-      state.routeMap[state.currentHamletName].indexOf(currentRoute) - 1
-
-    return state.routeMap[state.currentHamletName][index]
-  },
-  // get previous path name from historyStack
-  getPreviousPathName (state) {
-    const path = state.historyStack[state.historyStack.length - 2]
-    return path
   }
 }

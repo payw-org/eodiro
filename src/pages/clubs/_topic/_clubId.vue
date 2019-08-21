@@ -1,11 +1,11 @@
 <template>
   <div id="clubs-profile" :class="{ active: active }">
     <div class="background">
-      <NuxtLink :to="localePath($store.state.prevPath)" class="absolute-link bg-go-back" />
+      <NuxtLink :to="localePath($route.meta.prevRouteName)" class="absolute-link bg-go-back" />
     </div>
     <div class="cp-info">
       <button class="close-btn">
-        <NuxtLink :to="localePath($store.state.prevPath)" class="absolute-link" />
+        <NuxtLink :to="localePath($route.meta.prevRouteName)" class="absolute-link" />
       </button>
       <div ref="scrollElm" class="cp-content" @scroll="onScroll">
         <div class="cpc-wrapper">
@@ -47,10 +47,6 @@ export default {
         Math.floor(Math.random() * 100)
       )
     }
-  },
-  meta: {
-    depth: 3,
-    bannerMode: 'mini'
   },
   mounted () {
     setTimeout(() => {

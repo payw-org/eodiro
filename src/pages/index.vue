@@ -4,7 +4,7 @@
       <div class="page-content">
         <Grid class="menu-item-container">
           <!-- vacant classrooms -->
-          <nuxt-link :to="localePath('vacant').replace(/\/$/, '')">
+          <NuxtLink :to="localePath('vacant').replace(/\/$/, '')">
             <ArrowBlock class="menu-item-wrapper">
               <template v-slot:icon>
                 <span class="icon icon--vacant" />
@@ -13,7 +13,7 @@
                 <span class="content">{{ $t('home.menuVacant') }}</span>
               </template>
             </ArrowBlock>
-          </nuxt-link>
+          </NuxtLink>
 
           <!-- meal -->
           <ArrowBlock class="menu-item-wrapper">
@@ -26,7 +26,7 @@
           </ArrowBlock>
 
           <!-- search-class -->
-          <nuxt-link :to="localePath('search-class').replace(/\/$/, '')">
+          <NuxtLink :to="localePath('search-class').replace(/\/$/, '')">
             <ArrowBlock class="menu-item-wrapper">
               <template v-slot:icon>
                 <span class="icon icon--search-class" />
@@ -35,10 +35,10 @@
                 <span class="content">{{ $t('home.menuClass') }}</span>
               </template>
             </ArrowBlock>
-          </nuxt-link>
+          </NuxtLink>
 
           <!-- clubs -->
-          <nuxt-link :to="localePath('clubs').replace(/\/$/, '')">
+          <NuxtLink :to="localePath('clubs').replace(/\/$/, '')">
             <ArrowBlock class="menu-item-wrapper">
               <template v-slot:icon>
                 <span class="icon icon--clubs" />
@@ -47,10 +47,22 @@
                 <span class="content">{{ $t('home.menuClubs') }}</span>
               </template>
             </ArrowBlock>
-          </nuxt-link>
+          </NuxtLink>
+
+          <!-- community -->
+          <NuxtLink :to="localePath('community').replace(/\/$/, '')">
+            <ArrowBlock class="menu-item-wrapper">
+              <template v-slot:icon>
+                <span class="icon icon--community" />
+              </template>
+              <template v-slot:content>
+                <span class="content">{{ $t('home.menuCommunity') }}</span>
+              </template>
+            </ArrowBlock>
+          </NuxtLink>
 
           <!-- inquiry -->
-          <nuxt-link :to="localePath('inquiry').replace(/\/$/, '')">
+          <NuxtLink :to="localePath('inquiry').replace(/\/$/, '')">
             <ArrowBlock class="menu-item-wrapper">
               <template v-slot:icon>
                 <span class="icon icon--inquiry" />
@@ -59,7 +71,7 @@
                 <span class="content">{{ $t('home.menuInquiry') }}</span>
               </template>
             </ArrowBlock>
-          </nuxt-link>
+          </NuxtLink>
 
           <!-- donation -->
           <ArrowBlock class="menu-item-wrapper">
@@ -72,7 +84,7 @@
           </ArrowBlock>
 
           <!-- preferences -->
-          <nuxt-link :to="localePath('preferences').replace(/\/$/, '')">
+          <NuxtLink :to="localePath('preferences').replace(/\/$/, '')">
             <ArrowBlock class="menu-item-wrapper">
               <template v-slot:icon>
                 <span class="icon icon--preferences" />
@@ -81,7 +93,7 @@
                 <span class="content">{{ $t('home.menuPreferences') }}</span>
               </template>
             </ArrowBlock>
-          </nuxt-link>
+          </NuxtLink>
         </Grid>
       </div>
     </div>
@@ -103,10 +115,6 @@ export default {
   name: 'home',
   components: { Grid, ArrowBlock },
   mixins: [pageBase],
-  meta: {
-    depth: 0,
-    hamletName: 'home'
-  },
   methods: {
     preparing () {
       new EodiroDialog().alert(this.$t('preparing'))
@@ -185,6 +193,14 @@ export default {
 
         @include dark-mode {
           background-image: url('~assets/images/home/home-menu-icon-club-black.svg');
+        }
+      }
+
+      .icon--community {
+        background-image: url('~assets/images/home/home-menu-icon-community-white.svg');
+
+        @include dark-mode {
+          background-image: url('~assets/images/home/home-menu-icon-community-black.svg');
         }
       }
     }

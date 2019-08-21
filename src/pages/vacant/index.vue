@@ -54,9 +54,6 @@ export default {
   name: 'vacant-building',
   components: { Loading, Grid, ArrowBlock },
   mixins: [pageBase],
-  meta: {
-    depth: 1
-  },
   data () {
     return {
       buildings: [],

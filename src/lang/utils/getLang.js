@@ -5,6 +5,7 @@ export default function (langCode) {
     vacant: require(`../vacant/${langCode}`).default,
     searchClass: require(`../search-class/${langCode}`).default,
     inquiry: require(`../inquiry/${langCode}`).default,
-    pref: require(`../preferences/${langCode}`).default
+    pref: require(`../preferences/${langCode}`).default,
+    community: require(`../community/${langCode}`).default
   }
 }
