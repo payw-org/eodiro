@@ -339,7 +339,7 @@ export default {
   mounted () {
     setInterval(() => {
       this.handleScroll()
-    }, 1)
+    }, 0)
   },
   methods: {
     handleScroll () {
@@ -480,6 +480,7 @@ export default {
       max-width: $master-content-max-width/3;
       padding: space(2) 0;
       text-align: right;
+      cursor: pointer;
       border-top: solid;
       @include separator;
 
