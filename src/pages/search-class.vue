@@ -1,6 +1,6 @@
 <template>
   <div id="search-class">
-    <div class="page-content">
+    <div class="page-content" @scroll.native="handleScroll">
       <!-- form-section -->
       <div class="form-wrapper">
         <Button class="filter-button" @click="filterIsFold = !filterIsFold">
@@ -336,8 +336,30 @@ export default {
       return nothingUnfold
     }
   },
-  mounted () {},
+  mounted () {
+    setInterval(() => {
+      this.handleScroll()
+    }, 1)
+  },
   methods: {
+    handleScroll () {
+      const eodiroBannerHeight = document.querySelector('#eodiro-banner')
+        .offsetHeight
+      const heightDifference = parseInt(
+        window
+          .getComputedStyle(document.querySelector('#eodiro-banner'))
+          .transform.match(/\d+/g)[5],
+        10
+      )
+      const filterCategoryContainer = document.querySelector(
+        '.filter-category-container'
+      )
+      if (filterCategoryContainer == null) {
+        return
+      }
+      filterCategoryContainer.style.height = `calc(100vh - ${eodiroBannerHeight}px - 2rem + ${heightDifference}px)`
+      filterCategoryContainer.style.top = `calc(${eodiroBannerHeight}px - ${heightDifference}px)`
+    },
     clickMainCategoryItem (item) {
       item.isFold = !item.isFold
       for (let i = 0; i < this.mainCategory.length; i++) {
