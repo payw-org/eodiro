@@ -63,7 +63,7 @@ export default {
   plugins: ['~/plugins/init.ts'],
 
   // devModules
-  devModules: ['@nuxtjs/eslint-module'],
+  devModules: ['@nuxtjs/eslint-module', '~/modules/extend-route'],
 
   // modules
   modules: [
