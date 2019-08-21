@@ -359,6 +359,9 @@ export default {
       }
       filterCategoryContainer.style.height = `calc(100vh - ${eodiroBannerHeight}px - 2rem + ${heightDifference}px)`
       filterCategoryContainer.style.top = `calc(${eodiroBannerHeight}px - ${heightDifference}px)`
+      if (window.innerWidth < 700) {
+        filterCategoryContainer.style.height = `calc(100vh - ${eodiroBannerHeight}px - 2rem + ${heightDifference}px + 2rem)`
+      }
     },
     clickMainCategoryItem (item) {
       item.isFold = !item.isFold
