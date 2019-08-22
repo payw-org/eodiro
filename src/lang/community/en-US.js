@@ -1,4 +1,5 @@
 export default {
   title: 'Community',
-  comments: 'Comments'
+  comments: 'Comments',
+  noComments: 'No comments'
 }
