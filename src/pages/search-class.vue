@@ -68,6 +68,8 @@
 <script>
 import pageBase from '~/mixins/page-base'
 import { Input, Button, Accordion } from '~/components/ui'
+import classList from '~/assets/data/class-list'
+import filterCategoryItem from '~/assets/data/filter-category-item'
 
 export default {
   name: 'search-class',
@@ -107,208 +109,40 @@ export default {
           name: this.$t('searchClass.filterTitleYear'),
           isFold: true,
           details: '',
-          subCategory: [
-            '2019',
-            '2018',
-            '2017',
-            '2016',
-            '2015',
-            '2014',
-            '2013',
-            '2012',
-            '2011',
-            '2010',
-            '2009',
-            '2008'
-          ]
+          subCategory: filterCategoryItem.year
         },
         {
           name: this.$t('searchClass.filterTitleSemester'),
           isFold: true,
           details: '',
-          subCategory: ['1학기', '여름방학', '2학기', '겨울방학']
+          subCategory: filterCategoryItem.semester
         },
         {
           name: this.$t('searchClass.filterTitleProcess'),
           isFold: true,
           details: '',
-          subCategory: ['학부', '대학원']
+          subCategory: filterCategoryItem.process
         },
         {
           name: this.$t('searchClass.filterTitleCampus'),
           isFold: true,
           details: '',
-          subCategory: ['서울캠퍼스', '안성캠퍼스']
+          subCategory: filterCategoryItem.campus
         },
         {
           name: this.$t('searchClass.filterTitleCollege'),
           isFold: true,
           details: '',
-          subCategory: [
-            '교양',
-            '연계전공',
-            '융합전공',
-            '인문대학(2011)',
-            '사회과학대학(2011)',
-            '사범대학(2011)',
-            '자연과학대학(2011)',
-            '공과대학(2011)',
-            '창의ICT공과대학',
-            '소프트웨어대학',
-            '경영경제대학(2011)',
-            '약학대학(2011)',
-            '적십자간호대학(2011)',
-            '적십자간호대학',
-            '교양학부대학',
-            '다빈치교양대학',
-            '예술대학(2011)',
-            '의과대학(2011)',
-            '문과대학',
-            '자연과학대학',
-            '공과대학',
-            '사범대학',
-            '법과대학',
-            '정경대학',
-            '경영대학',
-            '약학대학',
-            '의과대학',
-            '미디어공연영상대학',
-            '자유전공학부',
-            '공공인재학부',
-            '글로벌지식학부',
-            '교양학부대학(2011)'
-          ]
+          subCategory: filterCategoryItem.college
         },
         {
           name: this.$t('searchClass.filterTitleMajor'),
           isFold: true,
           details: '',
-          subCategory: ['aa', 'bb']
+          subCategory: filterCategoryItem.major
         }
       ],
-      courseExample: [
-        {
-          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
-          instructor: '이창하',
-          timeTable: [
-            '207관 102호  (월) 14:00~15:00',
-            '207관 102호  (수) 13:00~15:00'
-          ],
-          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
-          extInfo: '49872-01 학사',
-          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
-        },
-        {
-          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
-          instructor: '이창하',
-          timeTable: [
-            '207관 102호  (월) 14:00~15:00',
-            '207관 102호  (수) 13:00~15:00'
-          ],
-          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
-          extInfo: '49872-02 학사',
-          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
-        },
-        {
-          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
-          instructor: '이창하',
-          timeTable: [
-            '207관 102호  (월) 14:00~15:00',
-            '207관 102호  (수) 13:00~15:00'
-          ],
-          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
-          extInfo: '49872-03 학사',
-          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
-        },
-        {
-          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
-          instructor: '이창하',
-          timeTable: [
-            '207관 102호  (월) 14:00~15:00',
-            '207관 102호  (수) 13:00~15:00'
-          ],
-          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
-          extInfo: '49872-04 학사',
-          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
-        },
-        {
-          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
-          instructor: '이창하',
-          timeTable: [
-            '207관 102호  (월) 14:00~15:00',
-            '207관 102호  (수) 13:00~15:00'
-          ],
-          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
-          extInfo: '49872-05 학사',
-          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
-        },
-        {
-          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
-          instructor: '이창하',
-          timeTable: [
-            '207관 102호  (월) 14:00~15:00',
-            '207관 102호  (수) 13:00~15:00'
-          ],
-          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
-          extInfo: '49872-06 학사',
-          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
-        },
-        {
-          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
-          instructor: '이창하',
-          timeTable: [
-            '207관 102호  (월) 14:00~15:00',
-            '207관 102호  (수) 13:00~15:00'
-          ],
-          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
-          extInfo: '49872-07 학사',
-          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
-        },
-        {
-          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
-          instructor: '이창하',
-          timeTable: [
-            '207관 102호  (월) 14:00~15:00',
-            '207관 102호  (수) 13:00~15:00'
-          ],
-          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
-          extInfo: '49872-08 학사',
-          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
-        },
-        {
-          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
-          instructor: '이창하',
-          timeTable: [
-            '207관 102호  (월) 14:00~15:00',
-            '207관 102호  (수) 13:00~15:00'
-          ],
-          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
-          extInfo: '49872-09 학사',
-          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
-        },
-        {
-          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
-          instructor: '이창하',
-          timeTable: [
-            '207관 102호  (월) 14:00~15:00',
-            '207관 102호  (수) 13:00~15:00'
-          ],
-          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
-          extInfo: '49872-10 학사',
-          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
-        },
-        {
-          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
-          instructor: '이창하',
-          timeTable: [
-            '207관 102호  (월) 14:00~15:00',
-            '207관 102호  (수) 13:00~15:00'
-          ],
-          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
-          extInfo: '49872-11 학사',
-          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
-        }
-      ]
+      courseExample: classList
     }
   },
   computed: {
@@ -487,8 +321,8 @@ export default {
       align-items: center;
       justify-content: flex-end;
       word-break: break-all;
-      .fc-item-details {
-      }
+      // .fc-item-details {
+      // }
       .fc-item-name {
         padding: 0 space(3);
       }
