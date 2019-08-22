@@ -33,14 +33,16 @@
 <script>
 import { LoremIpsum } from 'lorem-ipsum'
 import { Accordion, ArrowBlock, Button, Grid } from '~/components/ui'
-import Dialog from '~/plugins/eodiro-dialog'
-const lorem = new LoremIpsum()
+import EodiroDialog from '~/plugins/eodiro-dialog'
 
 export default {
   components: { Accordion, ArrowBlock, Button, Grid },
+  mounted () {
+    this.test()
+  },
   methods: {
     test () {
-      new Dialog().alert(lorem.generateSentences(2))
+      console.log(new EodiroDialog())
     }
   }
 }
