@@ -10,7 +10,7 @@ export default class Stagger {
    * @param {number} i start index
    * @param {number} j end index
    */
-  static showElement (elms, i, j) {
+  static showElement(elms, i, j) {
     if (!elms[i] || i > j) {
       return
     }
@@ -19,21 +19,27 @@ export default class Stagger {
     let c
     // after animation starts,
     // animate next element
-    elms[i].addEventListener('animationstart', c = function (e) {
-      if (e.animationName === 'springFadeUp') {
-        setTimeout(() => {
-          that.showElement(elms, i + 1, j)
+    elms[i].addEventListener(
+      'animationstart',
+      (c = function (e) {
+        if (e.animationName === 'springFadeUp') {
+          setTimeout(() => {
+            that.showElement(elms, i + 1, j)
 
-          // remove listener
-          this.removeEventListener('animationstart', c)
-        }, 20)
-      }
-    })
+            // remove listener
+            this.removeEventListener('animationstart', c)
+          }, 20)
+        }
+      })
+    )
     let c2
-    elms[i].addEventListener('animationend', c2 = function (e) {
-      this.classList.replace('stagger-appear', 'stagger-appear-fix')
-      this.removeEventListener('animationstart', c2)
-    })
+    elms[i].addEventListener(
+      'animationend',
+      (c2 = function (e) {
+        this.classList.replace('stagger-appear', 'stagger-appear-fix')
+        this.removeEventListener('animationstart', c2)
+      })
+    )
 
     // add a classname that will trigger the animation
     elms[i].classList.add('stagger-appear')
@@ -43,7 +49,7 @@ export default class Stagger {
    * Show elements by adding classnames sequentially
    * @param {Array<HTMLElement>} elms
    */
-  static show (elms, hasParent = false) {
+  static show(elms, hasParent = false) {
     if (!elms || elms.length === 0) {
       return
     }
@@ -100,7 +106,7 @@ export default class Stagger {
    * Hide elements by removing classnames
    * @param {Array<HTMLElement>} elms
    */
-  static hide (elms) {
+  static hide(elms) {
     if (!elms || elms.length === 0) {
       return
     }

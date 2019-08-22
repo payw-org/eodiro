@@ -23,14 +23,14 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       totalHeight: 'auto',
       isCollapsed: true
     }
   },
   methods: {
-    toggleCollapse () {
+    toggleCollapse() {
       this.isCollapsed = !this.isCollapsed
     }
   }

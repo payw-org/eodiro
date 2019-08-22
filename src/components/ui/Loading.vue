@@ -6,12 +6,12 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       start: false
     }
   },
-  mounted () {
+  mounted() {
     setTimeout(() => {
       this.start = true
     }, 200)

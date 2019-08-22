@@ -49,22 +49,22 @@ export default {
   name: 'vacant-floor',
   components: { Loading, Grid, ArrowBlock },
   mixins: [pageBase],
-  data () {
+  data() {
     return {
       buildingName: '',
       floors: [],
       isEmptyLoaded: false
     }
   },
-  mounted () {
+  mounted() {
     this.buildingName = this.$route.params.buildingId
     this.fetchFloors()
   },
-  activated () {
+  activated() {
     // this.fetchEmpty()
   },
   methods: {
-    fetchFloors () {
+    fetchFloors() {
       const url = `https://api.eodiro.com/cau/${this.$route.params.buildingId}`
 
       axios
@@ -83,10 +83,12 @@ export default {
           alert('데이터를 가져올 수 없습니다. 잠시 후 이용 바랍니다.')
         })
     },
-    fetchEmpty () {
+    fetchEmpty() {
       this.isEmptyLoaded = false
 
-      const url = `https://api.eodiro.com/cau/${this.$route.params.buildingId}/empty`
+      const url = `https://api.eodiro.com/cau/${
+        this.$route.params.buildingId
+      }/empty`
 
       axios.get(url).then((r) => {
         if (r.data.err) {

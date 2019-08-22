@@ -7,16 +7,29 @@
           {{ filterButtonMsg }}
         </Button>
         <div class="search-bar-wrapper">
-          <Input v-model="searchClassQuary" class="search-input" :placeholder="initInputText" />
+          <Input
+            v-model="searchClassQuary"
+            class="search-input"
+            :placeholder="initInputText"
+          />
           <button class="search-button" />
         </div>
       </div>
       <!-- filter section -->
-      <div v-if="!filterIsFold" class="background" @click="filterIsFold = !filterIsFold" />
+      <div
+        v-if="!filterIsFold"
+        class="background"
+        @click="filterIsFold = !filterIsFold"
+      />
       <transition name="filter-fold">
         <div v-if="!filterIsFold" class="filter-category-container">
           <div class="fc-category-main">
-            <div v-for="item in mainCategory" :key="item.name" class="fc-item" @click="clickMainCategoryItem(item)">
+            <div
+              v-for="item in mainCategory"
+              :key="item.name"
+              class="fc-item"
+              @click="clickMainCategoryItem(item)"
+            >
               <span class="fc-item-details">
                 {{ item.details }}
               </span>
@@ -27,7 +40,12 @@
           </div>
           <transition name="filter-fold">
             <div v-if="categoryIsUnfold" class="fc-category-sub">
-              <div v-for="name in unfoldCategory" :key="name" class="fc-item" @click="clickSubCategoryItem(name)">
+              <div
+                v-for="name in unfoldCategory"
+                :key="name"
+                class="fc-item"
+                @click="clickSubCategoryItem(name)"
+              >
                 {{ name }}
               </div>
             </div>
@@ -36,7 +54,11 @@
       </transition>
       <!-- search result section -->
       <div class="search-result-container">
-        <Accordion v-for="item in courseExample" :key="item.classId" class="search-result-item">
+        <Accordion
+          v-for="item in courseExample"
+          :key="item.classId"
+          class="search-result-item"
+        >
           <template v-slot:face>
             <div class="src-item-title">
               {{ item.name }}
@@ -44,7 +66,11 @@
             <div class="src-item-instructor">
               {{ item.instructor }}
             </div>
-            <div v-for="timeBlock in item.timeTable" :key="item.extInfo + timeBlock" class="src-item-timeTable">
+            <div
+              v-for="timeBlock in item.timeTable"
+              :key="item.extInfo + timeBlock"
+              class="src-item-timeTable"
+            >
               {{ timeBlock }}
             </div>
             <div class="src-item-subInfo">
@@ -73,7 +99,7 @@ export default {
   name: 'search-class',
   components: { Input, Button, Accordion },
   mixins: [pageBase],
-  head () {
+  head() {
     return {
       title: this.$t('searchClass.title'),
       meta: [
@@ -95,7 +121,7 @@ export default {
       ]
     }
   },
-  data () {
+  data() {
     return {
       searchClassQuary: '',
       initInputText: this.$t('searchClass.initInputText'),
@@ -312,7 +338,7 @@ export default {
     }
   },
   computed: {
-    categoryIsUnfold () {
+    categoryIsUnfold() {
       for (let i = 0; i < this.mainCategory.length; i++) {
         if (this.mainCategory[i].isFold === false) {
           return true
@@ -320,7 +346,7 @@ export default {
       }
       return false
     },
-    unfoldCategory () {
+    unfoldCategory() {
       const nothingUnfold = {
         isFold: true
       }
@@ -332,13 +358,13 @@ export default {
       return nothingUnfold
     }
   },
-  mounted () {
+  mounted() {
     setInterval(() => {
       this.handleScroll()
     }, 0)
   },
   methods: {
-    handleScroll () {
+    handleScroll() {
       const eodiroBannerHeight = document.querySelector('#eodiro-banner')
         .offsetHeight
       const heightDifference = parseInt(
@@ -359,7 +385,7 @@ export default {
         filterCategoryContainer.style.height = `calc(100vh - ${eodiroBannerHeight}px - 2rem + ${heightDifference}px + 2rem)`
       }
     },
-    clickMainCategoryItem (item) {
+    clickMainCategoryItem(item) {
       item.isFold = !item.isFold
       for (let i = 0; i < this.mainCategory.length; i++) {
         if (
@@ -370,7 +396,7 @@ export default {
         }
       }
     },
-    clickSubCategoryItem (name) {
+    clickSubCategoryItem(name) {
       for (let i = 0; i < this.mainCategory.length; i++) {
         if (this.mainCategory[i].isFold === false) {
           this.mainCategory[i].isFold = true
@@ -500,7 +526,7 @@ export default {
       margin: 1rem 0;
       .src-item-title {
         font-size: body(6);
-        font-weight: weight(5);
+        font-weight: fw(5);
       }
       .src-item-instructor {
         font-size: body(2);

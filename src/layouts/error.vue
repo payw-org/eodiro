@@ -6,16 +6,16 @@
           class="hamlet-icon mode--light"
           src="~/assets/images/eodiro-icon_sq.svg"
           alt="eodiro-logo"
-        >
+        />
         <img
           class="hamlet-icon mode--dark"
           src="~/assets/images/eodiro-icon_sq_dark.svg"
           alt="eodiro-logo"
-        >
+        />
       </div>
       <h1 class="manifesto">
         {{ $t('global.error.page.firstLine') }}
-        <br>
+        <br />
         {{ $t('global.error.page.secondLine') }}
       </h1>
       <nuxt-link :to="localePath('index')">
@@ -35,7 +35,7 @@ export default {
   meta: {
     hamletName: 'error'
   },
-  head () {
+  head() {
     return {
       htmlAttrs: {
         class: this.$store.state.colorSchemeClassName
@@ -43,7 +43,7 @@ export default {
     }
   },
   methods: {
-    goBack () {
+    goBack() {
       // this.$router.push('/')
       history.back()
     }

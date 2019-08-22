@@ -1,11 +1,17 @@
 <template>
   <div id="clubs-profile" :class="{ active: active }">
     <div class="background">
-      <NuxtLink :to="localePath($route.meta.prevRouteName)" class="absolute-link bg-go-back" />
+      <NuxtLink
+        :to="localePath($route.meta.prevRouteName)"
+        class="absolute-link bg-go-back"
+      />
     </div>
     <div class="cp-info">
       <button class="close-btn">
-        <NuxtLink :to="localePath($route.meta.prevRouteName)" class="absolute-link" />
+        <NuxtLink
+          :to="localePath($route.meta.prevRouteName)"
+          class="absolute-link"
+        />
       </button>
       <div ref="scrollElm" class="cp-content" @scroll="onScroll">
         <div class="cpc-wrapper">
@@ -18,7 +24,11 @@
 
           <!-- club poster(image) -->
           <div class="cp-hero-wrapper">
-            <img :src="`https://picsum.photos/${Math.floor(Math.random() * 1000)}`" alt="" class="cp-hero">
+            <img
+              :src="`https://picsum.photos/${Math.floor(Math.random() * 1000)}`"
+              alt=""
+              class="cp-hero"
+            />
           </div>
 
           <!-- club summary -->
@@ -39,7 +49,7 @@ export default {
   name: 'clubs-profile',
   transition: 'clubs-to-profile',
   mixins: [pageBase],
-  data () {
+  data() {
     return {
       pop: true,
       active: false,
@@ -48,7 +58,7 @@ export default {
       )
     }
   },
-  mounted () {
+  mounted() {
     setTimeout(() => {
       this.active = true
 
@@ -57,7 +67,7 @@ export default {
     }, 0)
   },
   methods: {
-    onScroll () {
+    onScroll() {
       // prevent body scrolling issue by
       // simply just adding a subtle 1 pixel scroll position
       const scrollElm = this.$refs.scrollElm
@@ -155,7 +165,7 @@ export default {
           text-align: center;
           padding: space(5) 0 space(4);
           font-size: head(3);
-          font-weight: weight(5);
+          font-weight: fw(5);
           position: sticky;
           top: 0;
           @include elm-fill;

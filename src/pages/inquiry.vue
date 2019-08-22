@@ -22,17 +22,17 @@ export default {
   name: 'inquiry',
   components: { Button, Textarea },
   mixins: [pageBase],
-  head () {
+  head() {
     return {
       title: this.$t('inquiry.title')
     }
   },
-  data () {
+  data() {
     return {}
   },
-  mounted () {},
+  mounted() {},
   methods: {
-    sendEmail () {
+    sendEmail() {
       const campus = 'seoul'
       const msgToSend = document.querySelector('.writing-area').value
 
