@@ -69,7 +69,7 @@
 import pageBase from '~/mixins/page-base'
 import { Input, Button, Accordion } from '~/components/ui'
 import classList from '~/assets/data/class-list'
-import filterCategoryItem from '~/assets/data/filter-category-item'
+import filterCategoryItemOrigin from '~/assets/data/filter-category-item.json'
 
 export default {
   name: 'search-class',
@@ -106,37 +106,37 @@ export default {
           name: this.$t('searchClass.filterTitleYear'),
           isFold: true,
           details: '',
-          subCategory: filterCategoryItem.year
+          value: 'year'
         },
         {
           name: this.$t('searchClass.filterTitleSemester'),
           isFold: true,
           details: '',
-          subCategory: filterCategoryItem.semester
-        },
-        {
-          name: this.$t('searchClass.filterTitleProcess'),
-          isFold: true,
-          details: '',
-          subCategory: filterCategoryItem.process
+          value: 'semester'
         },
         {
           name: this.$t('searchClass.filterTitleCampus'),
           isFold: true,
           details: '',
-          subCategory: filterCategoryItem.campus
+          value: 'campus'
+        },
+        {
+          name: this.$t('searchClass.filterTitleProcess'),
+          isFold: true,
+          details: '',
+          value: 'process'
         },
         {
           name: this.$t('searchClass.filterTitleCollege'),
           isFold: true,
           details: '',
-          subCategory: filterCategoryItem.college
+          value: 'college'
         },
         {
           name: this.$t('searchClass.filterTitleMajor'),
           isFold: true,
           details: '',
-          subCategory: filterCategoryItem.major
+          value: 'major'
         }
       ],
       courseExample: classList
@@ -157,10 +157,62 @@ export default {
       }
       for (let i = 0; i < this.mainCategory.length; i++) {
         if (this.mainCategory[i].isFold === false) {
-          return this.mainCategory[i].subCategory
+          return this.filterCategoryItem[this.mainCategory[i].value]
         }
       }
       return nothingUnfold
+    },
+    filterCategoryItem () {
+      const origin = filterCategoryItemOrigin
+      const refined = {}
+      refined.year = origin.year
+      refined.semester = origin.semester
+      refined.campus = []
+      refined.process = []
+      refined.college = []
+      refined.major = []
+      for (let i = 0; i < origin.campus.length; i++) {
+        if (!refined.campus.includes(origin.campus[i].value)) {
+          refined.campus.push(origin.campus[i].value)
+        }
+        for (let ii = 0; ii < origin.campus[i].process.length; ii++) {
+          if (!refined.process.includes(origin.campus[i].process[ii].value)) {
+            refined.process.push(origin.campus[i].process[ii].value)
+          }
+          for (
+            let iii = 0;
+            iii < origin.campus[i].process[ii].college.length;
+            iii++
+          ) {
+            if (
+              !refined.college.includes(
+                origin.campus[i].process[ii].college[iii].value
+              )
+            ) {
+              refined.college.push(
+                origin.campus[i].process[ii].college[iii].value
+              )
+            }
+            for (
+              let iiii = 0;
+              iiii < origin.campus[i].process[ii].college[iii].major.length;
+              iiii++
+            ) {
+              if (
+                !refined.major.includes(
+                  origin.campus[i].process[ii].college[iii].major[iiii].value
+                )
+              ) {
+                refined.major.push(
+                  origin.campus[i].process[ii].college[iii].major[iiii].value
+                )
+              }
+            }
+          }
+        }
+      }
+
+      return refined
     }
   },
   mounted () {
