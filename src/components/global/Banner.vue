@@ -198,6 +198,9 @@ export default {
       &.background--inquiry {
         background-image: linear-gradient(to bottom, #ffcf26, #ff9922);
       }
+      &.background--donation {
+        background-image: linear-gradient(to bottom, #e751ff, #b221f6);
+      }
       &.background--clubs {
         background-image: linear-gradient(to bottom, #00e3d6, #00b5dd);
       }
@@ -345,6 +348,16 @@ export default {
 
         @include dark-mode {
           @include bgImg('~assets/images/inquiry_black.svg', center, '75%');
+        }
+      }
+    }
+
+    &.hamlet--donation {
+      .icon {
+        @include bgImg('~assets/images/heart_white.svg', center, '75%');
+
+        @include dark-mode {
+          @include bgImg('~assets/images/heart_black.svg', center, '75%');
         }
       }
     }

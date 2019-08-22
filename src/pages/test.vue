@@ -20,17 +20,47 @@
         </template>
       </ArrowBlock>
     </Grid>
+    <Button @click="test">
+      Test Dialog
+    </Button>
+
+    <div class="parent">
+      <div class="child" />
+    </div>
   </div>
 </template>
 
 <script>
+import { LoremIpsum } from 'lorem-ipsum'
 import { Accordion, ArrowBlock, Button, Grid } from '~/components/ui'
+import EodiroDialog from '~/plugins/eodiro-dialog'
 
 export default {
-  components: { Accordion, ArrowBlock, Button, Grid }
+  components: { Accordion, ArrowBlock, Button, Grid },
+  mounted () {
+    this.test()
+  },
+  methods: {
+    test () {
+      console.log(new EodiroDialog())
+    }
+  }
 }
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/main.scss';
+@import '~/assets/styles/scss/main';
+
+.parent {
+  width: 100px;
+  height: 100px;
+  background: black;
+  padding: 10px;
+
+  .child {
+    width: 100%;
+    height: 100%;
+    background: red;
+  }
+}
 </style>

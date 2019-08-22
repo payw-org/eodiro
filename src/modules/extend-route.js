@@ -79,7 +79,6 @@ function setPrevRouteName (route) {
     const routeNameWithoutHamlet = route.name.replace(route.meta.hamletName, '')
     const routeTrace = routeNameWithoutHamlet.split('-')
     routeTrace[0] = route.meta.hamletName
-    console.log(routeTrace)
     const newTrace = routeTrace.slice(0, routeTrace.length - 1)
     prevRouteName = newTrace.join('-')
   }

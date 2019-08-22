@@ -74,14 +74,16 @@
           </NuxtLink>
 
           <!-- donation -->
-          <ArrowBlock class="menu-item-wrapper">
-            <template v-slot:icon>
-              <span class="icon icon--donation" />
-            </template>
-            <template v-slot:content>
-              <span class="content">{{ $t('home.menuDonation') }}</span>
-            </template>
-          </ArrowBlock>
+          <NuxtLink :to="localePath('donation').replace(/\/$/, '')">
+            <ArrowBlock class="menu-item-wrapper">
+              <template v-slot:icon>
+                <span class="icon icon--donation" />
+              </template>
+              <template v-slot:content>
+                <span class="content">{{ $t('home.menuDonation') }}</span>
+              </template>
+            </ArrowBlock>
+          </NuxtLink>
 
           <!-- preferences -->
           <NuxtLink :to="localePath('preferences').replace(/\/$/, '')">
