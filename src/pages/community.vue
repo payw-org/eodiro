@@ -1,6 +1,9 @@
 <template>
   <div id="eodiro-community">
-    <NuxtChild keep-alive :keep-alive-props="{ include: $store.state.cachedComponents }" />
+    <NuxtChild
+      keep-alive
+      :keep-alive-props="{ include: $store.state.cachedComponents }"
+    />
   </div>
 </template>
 
@@ -12,3 +15,9 @@ export default {
   mixins: [pageBase]
 }
 </script>
+
+<style lang="scss">
+#eodiro-community {
+  max-width: 40rem !important;
+}
+</style>

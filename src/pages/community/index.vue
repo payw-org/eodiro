@@ -1,5 +1,5 @@
 <template>
-  <div id="eodiro-community">
+  <div class="posts-list">
     <PostItem v-for="item in posts" :key="item.id" :post-data="item" />
   </div>
 </template>
@@ -12,24 +12,21 @@ export default {
   name: 'community-index',
   components: { PostItem },
   mixins: [pageBase],
-  head () {
+  head() {
     return {
       title: this.$t('community.title')
     }
   },
-  asyncData () {
+  asyncData() {
     return {
       posts: require('~/assets/data/community-posts').default.data
     }
   },
   methods: {
-    loadMore (fromId, number) {}
+    loadMore(fromId, number) {}
   }
 }
 </script>
 
 <style lang="scss">
-#eodiro-community {
-  max-width: 40rem !important;
-}
 </style>

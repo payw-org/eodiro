@@ -1,3 +1,4 @@
 export default {
-  title: 'Community'
+  title: 'Community',
+  comments: 'Comments'
 }
