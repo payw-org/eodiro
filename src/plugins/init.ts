@@ -22,7 +22,7 @@ export default (context) => {
       return
     }
     const routeName: string = route.name
-    if (routeName.match(/___en$/)) {
+    if (routeName.endsWith('___en')) {
       // English page
       if (redirectLang !== 'en') {
         let to = route.path.replace(/^\/en/, '').replace(/\/$/, '')
@@ -31,12 +31,9 @@ export default (context) => {
         }
         redirect(to)
       }
-    } else {
-      // Korean page
-      if (redirectLang === 'en') {
-        // console.log(`/en${route.path.replace(/\/$/, '')}`)
-        redirect(`/en${route.path.replace(/\/$/, '')}`)
-      }
+    } else if (redirectLang === 'en') {
+      // console.log(`/en${route.path.replace(/\/$/, '')}`)
+      redirect(`/en${route.path.replace(/\/$/, '')}`)
     }
   }
 
