@@ -32,7 +32,7 @@ export default {
       tepmDom.select()
       document.execCommand('copy')
       document.body.removeChild(tepmDom)
-      new Dialog().alert(this.$t('donation.pasted'))
+      new Dialog().alert(this.$t('donation.copied'))
     }
   }
 }

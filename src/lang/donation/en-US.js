@@ -1,4 +1,4 @@
 export default {
   title: 'Donate',
-  pasted: 'Account number has been pasted.'
+  copied: 'Account number has been pasted.'
 }
