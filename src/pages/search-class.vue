@@ -4,10 +4,10 @@
       <!-- form-section -->
       <div class="form-wrapper">
         <Button class="filter-button" @click="filterIsFold = !filterIsFold">
-          {{ filterButtonMsg }}
+          {{ $t('searchClass.filterButtonMsg') }}
         </Button>
         <div class="search-bar-wrapper">
-          <Input v-model="searchClassQuary" class="search-input" :placeholder="initInputText" />
+          <Input v-model="searchClassQuary" class="search-input" :placeholder="$t('searchClass.initInputText')" />
           <button class="search-button" />
         </div>
       </div>
@@ -26,7 +26,7 @@
             </div>
           </div>
           <transition name="filter-fold">
-            <div v-if="categoryIsUnfold" class="fc-category-sub">
+            <div v-if="mainCategoryIsUnfold" class="fc-category-sub">
               <div v-for="name in unfoldCategory" :key="name" class="fc-item" @click="clickSubCategoryItem(name)">
                 {{ name }}
               </div>
@@ -100,9 +100,6 @@ export default {
   data () {
     return {
       searchClassQuary: '',
-      initInputText: this.$t('searchClass.initInputText'),
-      filterButtonMsg: this.$t('searchClass.filterButtonMsg'),
-      searchButtonMsg: this.$t('searchClass.searchButtonMsg'),
       filterIsFold: true,
       mainCategory: [
         {
@@ -146,7 +143,7 @@ export default {
     }
   },
   computed: {
-    categoryIsUnfold () {
+    mainCategoryIsUnfold () {
       for (let i = 0; i < this.mainCategory.length; i++) {
         if (this.mainCategory[i].isFold === false) {
           return true
@@ -276,7 +273,7 @@ export default {
     box-shadow: 0 0.2rem 0.7rem rgba(#000, 0.2);
     @include dark-mode {
       background-color: #000;
-      box-shadow: 0 0.2rem 0.7rem rgba(#fff, 0.2);
+      box-shadow: 0 0.2rem 0.7rem rgba(#000, 0.2);
     }
 
     @include smaller-than($width-step--1) {
