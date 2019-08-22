@@ -93,7 +93,7 @@
 @function lh($level) {
   $level: validate($level);
   $min: 1em;
-  $max: 2em;
+  $max: 1.8em;
 
   @return calculate($min, $max, $level);
 }
