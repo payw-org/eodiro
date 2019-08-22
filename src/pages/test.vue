@@ -20,17 +20,45 @@
         </template>
       </ArrowBlock>
     </Grid>
+    <Button @click="test">
+      Test Dialog
+    </Button>
+
+    <div class="parent">
+      <div class="child" />
+    </div>
   </div>
 </template>
 
 <script>
+import { LoremIpsum } from 'lorem-ipsum'
 import { Accordion, ArrowBlock, Button, Grid } from '~/components/ui'
+import Dialog from '~/plugins/eodiro-dialog'
+const lorem = new LoremIpsum()
 
 export default {
-  components: { Accordion, ArrowBlock, Button, Grid }
+  components: { Accordion, ArrowBlock, Button, Grid },
+  methods: {
+    test () {
+      new Dialog().alert(lorem.generateSentences(2))
+    }
+  }
 }
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/main.scss';
+@import '~/assets/styles/scss/main';
+
+.parent {
+  width: 100px;
+  height: 100px;
+  background: black;
+  padding: 10px;
+
+  .child {
+    width: 100%;
+    height: 100%;
+    background: red;
+  }
+}
 </style>
