@@ -20,11 +20,11 @@ const messages = {
 }
 
 export default class EodiroDialog {
-  lang: string = 'kr'
-  dialogContainerElm: HTMLElement
-  confirmBtn: HTMLElement
-  cancelBtn: HTMLElement
-  closeBtn: HTMLElement
+  private lang: string = 'kr'
+  private dialogContainerElm: HTMLElement
+  private confirmBtn: HTMLElement
+  private cancelBtn: HTMLElement
+  private closeBtn: HTMLElement
 
   constructor (lang?: string) {
     // init language

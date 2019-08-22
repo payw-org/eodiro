@@ -62,7 +62,6 @@ $build-in-time: 700ms;
       margin: 0 space(3);
       text-align: center;
       display: grid;
-      grid-gap: $posh-gap;
       grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
 
       .act {
