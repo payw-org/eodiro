@@ -68,7 +68,7 @@
   @return calculate($min, $max, $level);
 }
 
-@function weight($level) {
+@function fw($level) {
   $level: validate($level);
   @if $level == 1 {
     @return 200;
@@ -92,7 +92,7 @@
 
 @function lh($level) {
   $level: validate($level);
-  $min: 1.1em;
+  $min: 1em;
   $max: 2em;
 
   @return calculate($min, $max, $level);
