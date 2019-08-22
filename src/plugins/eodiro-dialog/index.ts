@@ -30,8 +30,10 @@ export default class EodiroDialog {
     // init language
     if (lang) {
       this.lang = lang
-    } else {
+    } else if (JSCookie.get(conf.langCookieName)) {
       this.lang = JSCookie.get(conf.langCookieName)
+    } else {
+      this.lang = 'kr'
     }
 
     // create a DOM
