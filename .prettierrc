@@ -4,5 +4,6 @@
   "useTabs": false,
   "semi": false,
   "bracketSpacing": true,
-  "arrowParens": "always"
+  "arrowParens": "always",
+  "htmlWhitespaceSensitivity": "ignore"
 }
