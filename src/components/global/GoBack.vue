@@ -17,18 +17,18 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       isHidden: false,
       scrollEventCallback: null
     }
   },
   computed: {
-    prevRouteName () {
+    prevRouteName() {
       return this.$route.meta.prevRouteName
     }
   },
-  mounted () {
+  mounted() {
     const that = this // alias
 
     // Create scroll event callback function
@@ -37,13 +37,33 @@ export default {
         this.oldScroll > this.scrollY &&
         window.innerHeight + this.scrollY < document.body.scrollHeight
       ) {
-        // up
+        // Up
+
+        if (that.isHidden) {
+          // Dispatch scroll up custom event
+          document.dispatchEvent(new CustomEvent('gobackbtnappeared'))
+        }
+
+        // Show goback button
         that.isHidden = false
       } else if (this.scrollY > 0) {
-        // down
+        // Down
+
+        if (!that.isHidden) {
+          // Dispatch scroll down custom event
+          document.dispatchEvent(new CustomEvent('gobackbtnhidden'))
+        }
+
+        // Hide goback button
         that.isHidden = true
 
+        // When the scroll hits the bottom
         if (window.innerHeight + this.scrollY >= document.body.scrollHeight) {
+          if (that.isHidden) {
+            // Dispatch scroll up custom event
+            document.dispatchEvent(new CustomEvent('gobackbtnappeared'))
+          }
+
           that.isHidden = false
         }
       }

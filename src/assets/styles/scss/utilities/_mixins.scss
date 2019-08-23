@@ -1,4 +1,5 @@
-@import '~/assets/styles/scss/utilities/_variables.scss';
+@import '~assets/styles/scss/utilities/variables';
+@import '~assets/styles/scss/utilities/functions';
 
 // dark mode
 @mixin dark-mode {
@@ -138,27 +139,25 @@
 
 // typography
 // headings
-@mixin heading-common {
-  font-weight: 700;
-}
 @mixin heading1 {
-  @include heading-common;
   font-size: 2.3rem;
-  line-height: 1.1;
+  font-weight: fw(6);
+  line-height: lh(2);
 }
 @mixin heading2 {
-  @include heading-common;
   font-size: 1.7rem;
-  line-height: 1.2;
+  font-weight: fw(5);
+  line-height: lh(2);
 }
 @mixin heading3 {
-  @include heading-common;
   font-size: 1.2rem;
-  line-height: 1.3;
+  font-weight: fw(5);
+  line-height: lh(2);
 }
 @mixin paragraph {
   font-size: 1rem;
-  line-height: 1.4;
+  font-weight: fw(3);
+  line-height: lh(4);
 }
 
 // background image utils

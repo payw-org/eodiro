@@ -4,7 +4,11 @@
       <!-- form-section -->
       <div class="form-wrapper">
         <div class="search-bar-wrapper">
-          <Input v-model="searchClassQuary" class="search-input" :placeholder="$t('searchClass.initInputText')" />
+          <Input
+            v-model="searchClassQuary"
+            class="search-input"
+            :placeholder="initInputText"
+          />
           <button class="search-button" />
         </div>
         <Button class="filter-button" @click="filterIsFold = !filterIsFold">
@@ -12,7 +16,11 @@
         </Button>
       </div>
       <!-- filter section -->
-      <div v-if="!filterIsFold" class="background" @click="filterIsFold = !filterIsFold" />
+      <div
+        v-if="!filterIsFold"
+        class="background"
+        @click="filterIsFold = !filterIsFold"
+      />
       <transition name="filter-fold">
         <div v-if="!filterIsFold" class="filter-category-container">
           <transition name="filter-fold">
@@ -28,7 +36,12 @@
           </transition>
           <!-- main category -->
           <div class="fc-category-main">
-            <div v-for="item in mainCategory" :key="item.name" class="fc-item" @click="clickMainCategoryItem(item)">
+            <div
+              v-for="item in mainCategory"
+              :key="item.name"
+              class="fc-item"
+              @click="clickMainCategoryItem(item)"
+            >
               <span class="fc-item-details">
                 {{ selectedSubCategory[item.value] }}
               </span>
@@ -41,7 +54,11 @@
       </transition>
       <!-- search result section -->
       <div class="search-result-container">
-        <Accordion v-for="item in searchClassList" :key="item.classId" class="search-result-item">
+        <Accordion
+          v-for="item in courseExample"
+          :key="item.classId"
+          class="search-result-item"
+        >
           <template v-slot:face>
             <div class="src-item-title">
               {{ item.name }}
@@ -49,7 +66,11 @@
             <div class="src-item-instructor">
               {{ item.instructor }}
             </div>
-            <div v-for="timeBlock in item.timeTable" :key="item.extInfo + timeBlock" class="src-item-timeTable">
+            <div
+              v-for="timeBlock in item.timeTable"
+              :key="item.extInfo + timeBlock"
+              class="src-item-timeTable"
+            >
               {{ timeBlock }}
             </div>
             <div class="src-item-subInfo">
@@ -81,7 +102,7 @@ export default {
   name: 'search-class',
   components: { Input, Button, Accordion },
   mixins: [pageBase],
-  head () {
+  head() {
     return {
       title: this.$t('searchClass.title'),
       meta: [
@@ -103,7 +124,7 @@ export default {
       ]
     }
   },
-  data () {
+  data() {
     return {
       observer: null,
       sentinel: null,
@@ -167,7 +188,7 @@ export default {
       }
       return false
     },
-    unfoldCategory () {
+    unfoldCategory() {
       const nothingUnfold = {
         isFold: true
       }
@@ -273,7 +294,7 @@ export default {
       this.searchPage = 1
     }
   },
-  mounted () {
+  mounted() {
     setInterval(() => {
       this.handleScroll()
     }, 0)
@@ -292,7 +313,7 @@ export default {
     this.observer.observe(this.sentinel)
   },
   methods: {
-    handleScroll () {
+    handleScroll() {
       const eodiroBannerHeight = document.querySelector('#eodiro-banner')
         .offsetHeight
       const heightDifference = parseInt(
@@ -462,7 +483,7 @@ export default {
       margin: 1rem 0;
       .src-item-title {
         font-size: body(6);
-        font-weight: weight(5);
+        font-weight: fw(5);
       }
       .src-item-instructor {
         font-size: body(2);

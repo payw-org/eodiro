@@ -6,29 +6,29 @@ export default {
   transition: {
     name: 'fade',
     mode: 'out-in',
-    beforeEnter (el) {
+    beforeEnter(el) {
       // Dispatch event
       document.dispatchEvent(new CustomEvent('beforepageenter'))
     },
-    afterEnter (el) {
+    afterEnter(el) {
       // Dispatch event
       document.dispatchEvent(new CustomEvent('afterpageenter'))
     },
-    beforeLeave (el) {
+    beforeLeave(el) {
       // Dispatch event
       document.dispatchEvent(new CustomEvent('beforepageleave'))
     },
-    afterLeave (el) {
+    afterLeave(el) {
       // Dispatch event
       document.dispatchEvent(new CustomEvent('afterpageleave'))
     }
   },
-  data () {
+  data() {
     return {
       lastScrollPosition: 0
     }
   },
-  activated () {
+  activated() {
     setTimeout(() => {
       // Restore scroll position
       window.scrollTo(0, this.lastScrollPosition)
@@ -37,7 +37,7 @@ export default {
       document.dispatchEvent(new CustomEvent('scrollrestored'))
     }, 0)
   },
-  deactivated () {
+  deactivated() {
     // Store current scroll position
     this.lastScrollPosition = window.scrollY
   }

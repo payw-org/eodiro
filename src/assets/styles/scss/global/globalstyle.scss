@@ -20,11 +20,20 @@ html {
     .mode--light {
       display: none !important;
     }
+
+    [data-color-scheme='light'] {
+      display: none !important;
+    }
   }
   @media (prefers-color-scheme: dark) {
     &.auto-color-scheme {
       background-color: #000;
+
       .mode--light {
+        display: none !important;
+      }
+
+      [data-color-scheme='light'] {
         display: none !important;
       }
     }
@@ -32,14 +41,24 @@ html {
 
   &.light-mode {
     background-color: #fff;
+
     .mode--dark {
+      display: none !important;
+    }
+
+    [data-color-scheme='dark'] {
       display: none !important;
     }
   }
   @media (prefers-color-scheme: light) {
     &.auto-color-scheme {
       background-color: #fff;
+
       .mode--dark {
+        display: none !important;
+      }
+
+      [data-color-scheme='dark'] {
         display: none !important;
       }
     }

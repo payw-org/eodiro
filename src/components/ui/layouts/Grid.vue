@@ -11,7 +11,7 @@ export default {
       type: String,
       required: false,
       default: 'medium',
-      validator (value) {
+      validator(value) {
         return ['small', 'medium', 'large'].includes(value)
       }
     }
@@ -24,7 +24,7 @@ export default {
 
 .grid-layout {
   display: grid;
-  grid-gap: $posh-gap;
+  grid-gap: space(5);
   grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
 
   @include smaller-than(400px) {

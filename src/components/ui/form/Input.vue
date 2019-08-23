@@ -9,7 +9,7 @@
     @keydown="$emit('keydown')"
     @keyup="$emit('keyup')"
     @keypress="$emit('keypress')"
-  >
+  />
 </template>
 
 <script>

@@ -2,16 +2,21 @@
   <div class="club-item">
     <NuxtLink
       class="absolute-link"
-      :to="localePath({
-        name: 'clubs-topic-clubId',
-        params: {
-          clubId: clubData.name
-        }
-      })"
+      :to="
+        localePath({
+          name: 'clubs-topic-clubId',
+          params: {
+            clubId: clubData.name
+          }
+        })
+      "
     />
     <div class="hero-wrapper">
       <div class="image-wrapper">
-        <img :src="`https://picsum.photos/${clubData.id}`" class="club--image">
+        <img
+          :src="`https://picsum.photos/${clubData.id}`"
+          class="club--image"
+        />
       </div>
     </div>
     <div class="details-container">
