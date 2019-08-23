@@ -3,9 +3,6 @@
     <div class="page-content" @scroll.native="handleScroll">
       <!-- form-section -->
       <div class="form-wrapper">
-        <Button class="filter-button" @click="filterIsFold = !filterIsFold">
-          {{ filterButtonMsg }}
-        </Button>
         <div class="search-bar-wrapper">
           <Input
             v-model="searchClassQuary"
@@ -14,6 +11,9 @@
           />
           <button class="search-button" />
         </div>
+        <Button class="filter-button" @click="filterIsFold = !filterIsFold">
+          {{ $t('searchClass.filterButtonMsg') }}
+        </Button>
       </div>
       <!-- filter section -->
       <div
@@ -23,6 +23,18 @@
       />
       <transition name="filter-fold">
         <div v-if="!filterIsFold" class="filter-category-container">
+          <transition name="filter-fold">
+            <!-- sub category -->
+            <div v-if="mainCategoryIsUnfold" class="fc-category-sub">
+              <div class="fc-item" @click="clickSubCategoryItem('')">
+                전체
+              </div>
+              <div v-for="name in unfoldCategory" :key="name" class="fc-item" @click="clickSubCategoryItem(name)">
+                {{ name }}
+              </div>
+            </div>
+          </transition>
+          <!-- main category -->
           <div class="fc-category-main">
             <div
               v-for="item in mainCategory"
@@ -31,25 +43,13 @@
               @click="clickMainCategoryItem(item)"
             >
               <span class="fc-item-details">
-                {{ item.details }}
+                {{ selectedSubCategory[item.value] }}
               </span>
               <span class="fc-item-name">
                 {{ item.name }}
               </span>
             </div>
           </div>
-          <transition name="filter-fold">
-            <div v-if="categoryIsUnfold" class="fc-category-sub">
-              <div
-                v-for="name in unfoldCategory"
-                :key="name"
-                class="fc-item"
-                @click="clickSubCategoryItem(name)"
-              >
-                {{ name }}
-              </div>
-            </div>
-          </transition>
         </div>
       </transition>
       <!-- search result section -->
@@ -86,6 +86,7 @@
             </div>
           </template>
         </Accordion>
+        <div id="infinity-scroll-observer-sentinel" />
       </div>
     </div>
   </div>
@@ -94,6 +95,8 @@
 <script>
 import pageBase from '~/mixins/page-base'
 import { Input, Button, Accordion } from '~/components/ui'
+import classListOrigin from '~/assets/data/class-list'
+import filterCategoryItemOrigin from '~/assets/data/filter-category-item.json'
 
 export default {
   name: 'search-class',
@@ -123,222 +126,61 @@ export default {
   },
   data() {
     return {
+      observer: null,
+      sentinel: null,
       searchClassQuary: '',
-      initInputText: this.$t('searchClass.initInputText'),
-      filterButtonMsg: this.$t('searchClass.filterButtonMsg'),
-      searchButtonMsg: this.$t('searchClass.searchButtonMsg'),
       filterIsFold: true,
+      selectedSubCategory: {
+        year: '',
+        semester: '',
+        campus: '',
+        process: '',
+        college: '',
+        major: ''
+      },
       mainCategory: [
         {
           name: this.$t('searchClass.filterTitleYear'),
           isFold: true,
-          details: '',
-          subCategory: [
-            '2019',
-            '2018',
-            '2017',
-            '2016',
-            '2015',
-            '2014',
-            '2013',
-            '2012',
-            '2011',
-            '2010',
-            '2009',
-            '2008'
-          ]
+          value: 'year'
         },
         {
           name: this.$t('searchClass.filterTitleSemester'),
           isFold: true,
-          details: '',
-          subCategory: ['1학기', '여름방학', '2학기', '겨울방학']
-        },
-        {
-          name: this.$t('searchClass.filterTitleProcess'),
-          isFold: true,
-          details: '',
-          subCategory: ['학부', '대학원']
+          value: 'semester'
         },
         {
           name: this.$t('searchClass.filterTitleCampus'),
           isFold: true,
-          details: '',
-          subCategory: ['서울캠퍼스', '안성캠퍼스']
+          value: 'campus'
+        },
+        {
+          name: this.$t('searchClass.filterTitleProcess'),
+          isFold: true,
+          value: 'process'
         },
         {
           name: this.$t('searchClass.filterTitleCollege'),
           isFold: true,
-          details: '',
-          subCategory: [
-            '교양',
-            '연계전공',
-            '융합전공',
-            '인문대학(2011)',
-            '사회과학대학(2011)',
-            '사범대학(2011)',
-            '자연과학대학(2011)',
-            '공과대학(2011)',
-            '창의ICT공과대학',
-            '소프트웨어대학',
-            '경영경제대학(2011)',
-            '약학대학(2011)',
-            '적십자간호대학(2011)',
-            '적십자간호대학',
-            '교양학부대학',
-            '다빈치교양대학',
-            '예술대학(2011)',
-            '의과대학(2011)',
-            '문과대학',
-            '자연과학대학',
-            '공과대학',
-            '사범대학',
-            '법과대학',
-            '정경대학',
-            '경영대학',
-            '약학대학',
-            '의과대학',
-            '미디어공연영상대학',
-            '자유전공학부',
-            '공공인재학부',
-            '글로벌지식학부',
-            '교양학부대학(2011)'
-          ]
+          value: 'college'
         },
         {
           name: this.$t('searchClass.filterTitleMajor'),
           isFold: true,
-          details: '',
-          subCategory: ['aa', 'bb']
+          value: 'major'
         }
       ],
-      courseExample: [
-        {
-          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
-          instructor: '이창하',
-          timeTable: [
-            '207관 102호  (월) 14:00~15:00',
-            '207관 102호  (수) 13:00~15:00'
-          ],
-          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
-          extInfo: '49872-01 학사',
-          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
-        },
-        {
-          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
-          instructor: '이창하',
-          timeTable: [
-            '207관 102호  (월) 14:00~15:00',
-            '207관 102호  (수) 13:00~15:00'
-          ],
-          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
-          extInfo: '49872-02 학사',
-          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
-        },
-        {
-          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
-          instructor: '이창하',
-          timeTable: [
-            '207관 102호  (월) 14:00~15:00',
-            '207관 102호  (수) 13:00~15:00'
-          ],
-          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
-          extInfo: '49872-03 학사',
-          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
-        },
-        {
-          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
-          instructor: '이창하',
-          timeTable: [
-            '207관 102호  (월) 14:00~15:00',
-            '207관 102호  (수) 13:00~15:00'
-          ],
-          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
-          extInfo: '49872-04 학사',
-          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
-        },
-        {
-          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
-          instructor: '이창하',
-          timeTable: [
-            '207관 102호  (월) 14:00~15:00',
-            '207관 102호  (수) 13:00~15:00'
-          ],
-          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
-          extInfo: '49872-05 학사',
-          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
-        },
-        {
-          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
-          instructor: '이창하',
-          timeTable: [
-            '207관 102호  (월) 14:00~15:00',
-            '207관 102호  (수) 13:00~15:00'
-          ],
-          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
-          extInfo: '49872-06 학사',
-          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
-        },
-        {
-          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
-          instructor: '이창하',
-          timeTable: [
-            '207관 102호  (월) 14:00~15:00',
-            '207관 102호  (수) 13:00~15:00'
-          ],
-          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
-          extInfo: '49872-07 학사',
-          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
-        },
-        {
-          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
-          instructor: '이창하',
-          timeTable: [
-            '207관 102호  (월) 14:00~15:00',
-            '207관 102호  (수) 13:00~15:00'
-          ],
-          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
-          extInfo: '49872-08 학사',
-          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
-        },
-        {
-          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
-          instructor: '이창하',
-          timeTable: [
-            '207관 102호  (월) 14:00~15:00',
-            '207관 102호  (수) 13:00~15:00'
-          ],
-          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
-          extInfo: '49872-09 학사',
-          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
-        },
-        {
-          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
-          instructor: '이창하',
-          timeTable: [
-            '207관 102호  (월) 14:00~15:00',
-            '207관 102호  (수) 13:00~15:00'
-          ],
-          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
-          extInfo: '49872-10 학사',
-          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
-        },
-        {
-          name: '휴먼인터페이스 컴퓨터게임설계 (영어A강의)',
-          instructor: '이창하',
-          timeTable: [
-            '207관 102호  (월) 14:00~15:00',
-            '207관 102호  (수) 13:00~15:00'
-          ],
-          subInfo: '소프트웨어대학 소프트웨어학부 4학년 전공 3학점 3시간',
-          extInfo: '49872-11 학사',
-          note: '공학주제, 코드쉐어(전전), 융합(디징), 전공인정과목'
-        }
-      ]
+      searchPage: 1,
+      searchClassListAll: classListOrigin
     }
   },
   computed: {
-    categoryIsUnfold() {
+    searchClassList () {
+      const numOfItemInPage = 4
+      console.log('1')
+      return this.searchClassListAll.slice(0, numOfItemInPage * this.searchPage)
+    },
+    mainCategoryIsUnfold () {
       for (let i = 0; i < this.mainCategory.length; i++) {
         if (this.mainCategory[i].isFold === false) {
           return true
@@ -352,16 +194,123 @@ export default {
       }
       for (let i = 0; i < this.mainCategory.length; i++) {
         if (this.mainCategory[i].isFold === false) {
-          return this.mainCategory[i].subCategory
+          return this.filterCategoryItem[this.mainCategory[i].value]
         }
       }
       return nothingUnfold
+    },
+    filterCategoryItem () {
+      const origin = filterCategoryItemOrigin
+      const selected = this.selectedSubCategory
+      const refined = {}
+
+      // list all
+      refined.year = origin.year
+      refined.semester = origin.semester
+      refined.campus = []
+      refined.process = []
+      refined.college = []
+      refined.major = []
+      for (let i = 0; i < origin.campus.length; i++) {
+        if (!refined.campus.includes(origin.campus[i].value)) {
+          refined.campus.push(origin.campus[i].value)
+        }
+        for (let ii = 0; ii < origin.campus[i].process.length; ii++) {
+          if (
+            (selected.campus === '' ||
+              (selected.campus !== '' &&
+                selected.campus === origin.campus[i].value)) &&
+            !refined.process.includes(origin.campus[i].process[ii].value)
+          ) {
+            refined.process.push(origin.campus[i].process[ii].value)
+          }
+          for (
+            let iii = 0;
+            iii < origin.campus[i].process[ii].college.length;
+            iii++
+          ) {
+            if (
+              (selected.process === '' ||
+                (selected.process !== '' &&
+                  selected.process === origin.campus[i].process[ii].value)) &&
+              !refined.college.includes(
+                origin.campus[i].process[ii].college[iii].value
+              )
+            ) {
+              refined.college.push(
+                origin.campus[i].process[ii].college[iii].value
+              )
+            }
+            for (
+              let iiii = 0;
+              iiii < origin.campus[i].process[ii].college[iii].major.length;
+              iiii++
+            ) {
+              if (
+                (selected.college === '' ||
+                  (selected.college !== '' &&
+                    selected.college ===
+                      origin.campus[i].process[ii].college[iii].value)) &&
+                !refined.major.includes(
+                  origin.campus[i].process[ii].college[iii].major[iiii].value
+                )
+              ) {
+                refined.major.push(
+                  origin.campus[i].process[ii].college[iii].major[iiii].value
+                )
+              }
+            }
+          }
+        }
+      }
+
+      // sort
+      refined.college.sort()
+      refined.major.sort()
+
+      return refined
+    }
+  },
+  watch: {
+    selectedSubCategory (newSelectedSub) {
+      let list = JSON.parse(JSON.stringify(classListOrigin))
+      // filter
+      list = list.filter((item) => {
+        if (
+          item.subInfo.match(newSelectedSub.college) !== null &&
+          item.subInfo.match(newSelectedSub.major) !== null
+        ) {
+          return true
+        }
+      })
+
+      // sort
+      list.sort()
+
+      this.searchClassListAll = list
+      this.searchPage = 1
+    },
+    searchClassQuary (newSearch) {
+      this.searchPage = 1
     }
   },
   mounted() {
     setInterval(() => {
       this.handleScroll()
     }, 0)
+
+    // Sentinel for banner
+    this.sentinel = document.querySelector('#infinity-scroll-observer-sentinel')
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.target.isSameNode(this.sentinel)) {
+          this.searchPage += 1
+        }
+      })
+    })
+
+    // Start observing
+    this.observer.observe(this.sentinel)
   },
   methods: {
     handleScroll() {
@@ -385,28 +334,35 @@ export default {
         filterCategoryContainer.style.height = `calc(100vh - ${eodiroBannerHeight}px - 2rem + ${heightDifference}px + 2rem)`
       }
     },
-    clickMainCategoryItem(item) {
-      item.isFold = !item.isFold
-      for (let i = 0; i < this.mainCategory.length; i++) {
-        if (
-          this.mainCategory[i].isFold === false &&
-          this.mainCategory[i] !== item
-        ) {
-          this.mainCategory[i].isFold = true
+    clickMainCategoryItem (item) {
+      const main = JSON.parse(JSON.stringify(this.mainCategory))
+
+      for (let i = 0; i < main.length; i++) {
+        if (main[i].value === item.value) {
+          main[i].isFold = !main[i].isFold
+        } else if (main[i].isFold === false) {
+          main[i].isFold = true
         }
       }
+
+      this.mainCategory = main
     },
-    clickSubCategoryItem(name) {
-      for (let i = 0; i < this.mainCategory.length; i++) {
-        if (this.mainCategory[i].isFold === false) {
-          this.mainCategory[i].isFold = true
-          if (this.mainCategory[i].details === name) {
-            this.mainCategory[i].details = ''
+    clickSubCategoryItem (name) {
+      const main = JSON.parse(JSON.stringify(this.mainCategory))
+      const selectedSub = JSON.parse(JSON.stringify(this.selectedSubCategory))
+
+      for (let i = 0; i < main.length; i++) {
+        if (main[i].isFold === false) {
+          main[i].isFold = true
+          if (selectedSub[main[i].value] === name) {
+            selectedSub[main[i].value] = ''
           } else {
-            this.mainCategory[i].details = name
+            selectedSub[main[i].value] = name
           }
         }
       }
+      this.selectedSubCategory = selectedSub
+      this.mainCategory = main
     }
   }
 }
@@ -420,7 +376,7 @@ export default {
     display: flex;
 
     .filter-button {
-      margin-right: 1rem;
+      margin-left: 1rem;
       padding: 0 1.3rem !important;
     }
     .search-bar-wrapper {
@@ -436,10 +392,10 @@ export default {
         height: 3rem;
         width: 3rem;
 
-        @include bgImg('~assets/images/magnifier-black.svg', 'center', '80%');
+        @include bgImg('~assets/images/magnifier-black.svg', 'center', '70%');
 
         @include dark-mode {
-          @include bgImg('~assets/images/magnifier-white.svg');
+          @include bgImg('~assets/images/magnifier-white.svg', 'center', '70%');
         }
       }
     }
@@ -459,6 +415,7 @@ export default {
     z-index: 1592653;
     top: $banner-height;
     height: calc(100vh - #{$banner-height} - 2rem);
+    right: calc((100vw - #{$master-content-max-width}) / 2);
 
     border-radius: $border-radius;
     margin: space(4) 0;
@@ -468,11 +425,11 @@ export default {
     box-shadow: 0 0.2rem 0.7rem rgba(#000, 0.2);
     @include dark-mode {
       background-color: #000;
-      box-shadow: 0 0.2rem 0.7rem rgba(#fff, 0.2);
+      box-shadow: 0 0.2rem 0.7rem rgba(#000, 0.2);
     }
 
     @include smaller-than($width-step--1) {
-      left: 0;
+      right: 0;
       height: calc(100vh - #{$banner-height});
       margin: 0;
       border-radius: 0 !important;
@@ -513,8 +470,8 @@ export default {
       align-items: center;
       justify-content: flex-end;
       word-break: break-all;
-      .fc-item-details {
-      }
+      // .fc-item-details {
+      // }
       .fc-item-name {
         padding: 0 space(3);
       }
