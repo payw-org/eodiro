@@ -18,7 +18,7 @@
           <div class="fc-category-main">
             <div v-for="item in mainCategory" :key="item.name" class="fc-item" @click="clickMainCategoryItem(item)">
               <span class="fc-item-details">
-                {{ item.details }}
+                {{ selectedSubCategory[item.value] }}
               </span>
               <span class="fc-item-name">
                 {{ item.name }}
@@ -36,7 +36,7 @@
       </transition>
       <!-- search result section -->
       <div class="search-result-container">
-        <Accordion v-for="item in courseExample" :key="item.classId" class="search-result-item">
+        <Accordion v-for="item in searchClassList" :key="item.classId" class="search-result-item">
           <template v-slot:face>
             <div class="src-item-title">
               {{ item.name }}
@@ -68,8 +68,8 @@
 <script>
 import pageBase from '~/mixins/page-base'
 import { Input, Button, Accordion } from '~/components/ui'
-import classList from '~/assets/data/class-list'
-import filterCategoryItem from '~/assets/data/filter-category-item'
+import classListOrigin from '~/assets/data/class-list'
+import filterCategoryItemOrigin from '~/assets/data/filter-category-item.json'
 
 export default {
   name: 'search-class',
@@ -101,45 +101,47 @@ export default {
     return {
       searchClassQuary: '',
       filterIsFold: true,
+      selectedSubCategory: {
+        year: '',
+        semester: '',
+        campus: '',
+        process: '',
+        college: '',
+        major: ''
+      },
       mainCategory: [
         {
           name: this.$t('searchClass.filterTitleYear'),
           isFold: true,
-          details: '',
-          subCategory: filterCategoryItem.year
+          value: 'year'
         },
         {
           name: this.$t('searchClass.filterTitleSemester'),
           isFold: true,
-          details: '',
-          subCategory: filterCategoryItem.semester
-        },
-        {
-          name: this.$t('searchClass.filterTitleProcess'),
-          isFold: true,
-          details: '',
-          subCategory: filterCategoryItem.process
+          value: 'semester'
         },
         {
           name: this.$t('searchClass.filterTitleCampus'),
           isFold: true,
-          details: '',
-          subCategory: filterCategoryItem.campus
+          value: 'campus'
+        },
+        {
+          name: this.$t('searchClass.filterTitleProcess'),
+          isFold: true,
+          value: 'process'
         },
         {
           name: this.$t('searchClass.filterTitleCollege'),
           isFold: true,
-          details: '',
-          subCategory: filterCategoryItem.college
+          value: 'college'
         },
         {
           name: this.$t('searchClass.filterTitleMajor'),
           isFold: true,
-          details: '',
-          subCategory: filterCategoryItem.major
+          value: 'major'
         }
       ],
-      courseExample: classList
+      searchClassList: classListOrigin
     }
   },
   computed: {
@@ -157,10 +159,100 @@ export default {
       }
       for (let i = 0; i < this.mainCategory.length; i++) {
         if (this.mainCategory[i].isFold === false) {
-          return this.mainCategory[i].subCategory
+          return this.filterCategoryItem[this.mainCategory[i].value]
         }
       }
       return nothingUnfold
+    },
+    filterCategoryItem () {
+      const origin = filterCategoryItemOrigin
+      const selected = this.selectedSubCategory
+      const refined = {}
+
+      // list all
+      refined.year = origin.year
+      refined.semester = origin.semester
+      refined.campus = []
+      refined.process = []
+      refined.college = []
+      refined.major = []
+      for (let i = 0; i < origin.campus.length; i++) {
+        if (!refined.campus.includes(origin.campus[i].value)) {
+          refined.campus.push(origin.campus[i].value)
+        }
+        for (let ii = 0; ii < origin.campus[i].process.length; ii++) {
+          if (
+            (selected.campus === '' ||
+              (selected.campus !== '' &&
+                selected.campus === origin.campus[i].value)) &&
+            !refined.process.includes(origin.campus[i].process[ii].value)
+          ) {
+            refined.process.push(origin.campus[i].process[ii].value)
+          }
+          for (
+            let iii = 0;
+            iii < origin.campus[i].process[ii].college.length;
+            iii++
+          ) {
+            if (
+              (selected.process === '' ||
+                (selected.process !== '' &&
+                  selected.process === origin.campus[i].process[ii].value)) &&
+              !refined.college.includes(
+                origin.campus[i].process[ii].college[iii].value
+              )
+            ) {
+              refined.college.push(
+                origin.campus[i].process[ii].college[iii].value
+              )
+            }
+            for (
+              let iiii = 0;
+              iiii < origin.campus[i].process[ii].college[iii].major.length;
+              iiii++
+            ) {
+              if (
+                (selected.college === '' ||
+                  (selected.college !== '' &&
+                    selected.college ===
+                      origin.campus[i].process[ii].college[iii].value)) &&
+                !refined.major.includes(
+                  origin.campus[i].process[ii].college[iii].major[iiii].value
+                )
+              ) {
+                refined.major.push(
+                  origin.campus[i].process[ii].college[iii].major[iiii].value
+                )
+              }
+            }
+          }
+        }
+      }
+
+      // sort
+      refined.college.sort()
+      refined.major.sort()
+
+      return refined
+    }
+  },
+  watch: {
+    selectedSubCategory (newSelectedSub) {
+      let list = JSON.parse(JSON.stringify(classListOrigin))
+      // filter
+      list = list.filter((item) => {
+        if (
+          item.subInfo.match(newSelectedSub.college) !== null &&
+          item.subInfo.match(newSelectedSub.major) !== null
+        ) {
+          return true
+        }
+      })
+
+      // sort
+      list.sort()
+
+      this.searchClassList = list
     }
   },
   mounted () {
@@ -191,27 +283,34 @@ export default {
       }
     },
     clickMainCategoryItem (item) {
-      item.isFold = !item.isFold
-      for (let i = 0; i < this.mainCategory.length; i++) {
-        if (
-          this.mainCategory[i].isFold === false &&
-          this.mainCategory[i] !== item
-        ) {
-          this.mainCategory[i].isFold = true
+      const main = JSON.parse(JSON.stringify(this.mainCategory))
+
+      for (let i = 0; i < main.length; i++) {
+        if (main[i].value === item.value) {
+          main[i].isFold = !main[i].isFold
+        } else if (main[i].isFold === false) {
+          main[i].isFold = true
         }
       }
+
+      this.mainCategory = main
     },
     clickSubCategoryItem (name) {
-      for (let i = 0; i < this.mainCategory.length; i++) {
-        if (this.mainCategory[i].isFold === false) {
-          this.mainCategory[i].isFold = true
-          if (this.mainCategory[i].details === name) {
-            this.mainCategory[i].details = ''
+      const main = JSON.parse(JSON.stringify(this.mainCategory))
+      const selectedSub = JSON.parse(JSON.stringify(this.selectedSubCategory))
+
+      for (let i = 0; i < main.length; i++) {
+        if (main[i].isFold === false) {
+          main[i].isFold = true
+          if (selectedSub[main[i].value] === name) {
+            selectedSub[main[i].value] = ''
           } else {
-            this.mainCategory[i].details = name
+            selectedSub[main[i].value] = name
           }
         }
       }
+      this.selectedSubCategory = selectedSub
+      this.mainCategory = main
     }
   }
 }
