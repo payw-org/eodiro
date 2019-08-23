@@ -6,7 +6,7 @@ const lorem = new LoremIpsum()
 
 let data = []
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 30; i++) {
   let post = {
     id: i,
     title: lorem.generateSentences(1),

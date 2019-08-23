@@ -104,7 +104,9 @@ export default {
     // after scroll position restoration
     // reobserve the sentinel
     document.addEventListener('scrollrestored', () => {
-      this.observer.observe(this.sentinel)
+      setTimeout(() => {
+        this.observer.observe(this.sentinel)
+      }, 50)
     })
 
     // Before page leaves, unobserve sentinel
@@ -119,6 +121,10 @@ export default {
 <style lang="scss">
 @import '~/assets/styles/scss/main.scss';
 
+$banner-transition-time: 300ms;
+$banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
+$banner-bezier: ease;
+
 #eodiro-banner {
   position: fixed;
   z-index: 6666;
@@ -129,15 +135,19 @@ export default {
   align-items: flex-end;
   justify-content: center;
   transform: translateY(0px);
-  transition: all 400ms cubic-bezier(0.34, 0.23, 0, 1);
+  transition: all $banner-transition-time $banner-bezier;
 
   &.mini {
-    // transform: translateY(calc(#{$nav-height * 2} - #{$banner-height}));
     transform: translateY(calc(#{$nav-height} - #{$banner-height}));
 
     .logo-wrapper {
       opacity: 0;
-      // transform: translateY(-30%);
+    }
+
+    .banner {
+      height: $nav-height;
+      transition: height $banner-transition-time $banner-bezier;
+      transition-delay: 50ms;
     }
   }
 
@@ -150,15 +160,16 @@ export default {
     position: relative;
     overflow: hidden;
     box-shadow: 0 0.2rem 1rem rgba(#000, 0.25);
+    transition: height 0ms ease;
 
     @include larger-than($width-step--1) {
       width: calc(100% - #{2 * $posh-gap});
       height: calc(100% - #{$posh-gap});
       max-width: $master-content-max-width;
-      border-radius: $border-radius;
+      border-radius: radius(4);
 
       .background {
-        border-radius: $border-radius !important;
+        border-radius: radius(4) !important;
         overflow: hidden;
       }
     }
@@ -170,7 +181,7 @@ export default {
       left: 0;
       background-image: linear-gradient(to bottom, $c-step--3, $c-step--4);
       width: 100%;
-      height: 100%;
+      height: $banner-height;
       display: flex;
       align-items: center;
       justify-content: center;
