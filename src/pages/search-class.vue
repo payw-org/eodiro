@@ -179,14 +179,6 @@ export default {
     }
   },
   computed: {
-    searchClassList () {
-      const numOfItemInPage = 4
-      const list = this.searchClassListAll.slice(
-        0,
-        numOfItemInPage * this.searchPage
-      )
-      return list
-    },
     mainCategoryIsUnfold () {
       for (let i = 0; i < this.mainCategory.length; i++) {
         if (this.mainCategory[i].isFold === false) {
