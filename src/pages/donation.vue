@@ -25,14 +25,12 @@ export default {
   },
   mounted() {},
   methods: {
-    pasteAccount() {
-      const tepmDom = document.createElement('textarea')
-      document.body.appendChild(tepmDom)
-      tepmDom.value = '7979-13-55256 카카오뱅크'
-      tepmDom.select()
+      tempTextArea.className = 'temp-textarea'
+      this.$el.appendChild(tempTextArea)
+      tempTextArea.focus()
+      tempTextArea.setSelectionRange(0, 9999)
       document.execCommand('copy')
-      document.body.removeChild(tepmDom)
-      new Dialog().alert(this.$t('donation.pasted'))
+      tempTextArea.parentElement.removeChild(tempTextArea)
     }
   }
 }
@@ -67,6 +65,15 @@ export default {
         @include bgImg('~assets/images/kakaobank-account-white.svg', center);
       }
     }
+  }
+  .temp-textarea {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    font-size: 20px;
   }
 }
 </style>
