@@ -1,7 +1,11 @@
 <template>
   <div id="eodiro-banner" :class="{ mini: isMini }">
     <div class="banner">
-      <transition v-for="hamletName in $store.state.hamletList" :key="`bg-${hamletName}`" name="bg-fade">
+      <transition
+        v-for="hamletName in $store.state.hamletList"
+        :key="`bg-${hamletName}`"
+        name="bg-fade"
+      >
         <div
           v-if="hamletName === $route.meta.hamletName"
           class="background"
@@ -29,13 +33,15 @@
         <div class="dummy" />
         <transition name="icon-change">
           <div v-if="isMini" class="nav-icon-wrapper">
-            <transition v-for="hamletName in $store.state.hamletList" :key="`nav-${hamletName}`" name="fade">
+            <transition
+              v-for="hamletName in $store.state.hamletList"
+              :key="`nav-${hamletName}`"
+              name="fade"
+            >
               <div
                 v-if="hamletName === $route.meta.hamletName"
                 class="nav-icon hamlet-icon hamlet--home"
-                :class="[
-                  `hamlet--${hamletName}`,
-                ]"
+                :class="[`hamlet--${hamletName}`]"
               >
                 <span class="icon" />
               </div>
