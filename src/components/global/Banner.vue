@@ -147,7 +147,7 @@ $banner-bezier: ease;
     .banner {
       height: $nav-height;
       transition: height $banner-transition-time $banner-bezier;
-      transition-delay: 50ms;
+      transition-delay: 20ms;
     }
   }
 
@@ -159,17 +159,17 @@ $banner-bezier: ease;
     height: 100%;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 0.2rem 1rem rgba(#000, 0.25);
+    box-shadow: 0 0.3rem 1rem rgba(#000, 0.17);
     transition: height 0ms ease;
 
     @include larger-than($width-step--1) {
       width: calc(100% - #{2 * $posh-gap});
-      height: calc(100% - #{$posh-gap});
+      // height: calc(100% - #{$posh-gap});
       max-width: $master-content-max-width;
-      border-radius: radius(4);
+      border-radius: 0 0 radius(5) radius(5);
 
       .background {
-        border-radius: radius(4) !important;
+        border-radius: 0 0 radius(5) radius(5) !important;
         overflow: hidden;
       }
     }

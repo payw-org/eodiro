@@ -167,6 +167,7 @@ export default {
 
       .body {
         line-height: lh(2);
+        color: $base-gray;
       }
     }
 

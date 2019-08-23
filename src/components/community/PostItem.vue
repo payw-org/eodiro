@@ -47,18 +47,22 @@ export default {
 
       const secDiff = now.diff(atObj, 'second')
       if (secDiff < 10) {
-        postedAt = '방금'
+        postedAt = this.$t('global.time.now')
 
         return postedAt
       } else if (secDiff < 60) {
-        postedAt = `${secDiff}초 전`
+        postedAt = `
+        ${secDiff}${this.$t('global.time.second')} ${this.$t('global.time.ago')}
+        `
 
         return postedAt
       }
 
       const minDiff = now.diff(atObj, 'minute')
       if (minDiff > 0 && minDiff < 60) {
-        postedAt = `${minDiff}분 전`
+        postedAt = `
+        ${minDiff}${this.$t('global.time.minute')} ${this.$t('global.time.ago')}
+        `
 
         return postedAt
       }

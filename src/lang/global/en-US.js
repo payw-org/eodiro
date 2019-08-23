@@ -13,5 +13,12 @@ export default {
   dataFetchError:
     'Failed to load data. If this problem consistently happen, leave us an inquiry.',
   goBack: 'Go Back',
-  seeAll: 'See All'
+  seeAll: 'See All',
+  time: {
+    hour: 'hour',
+    minute: 'min',
+    second: 'sec',
+    now: 'now',
+    ago: 'ago'
+  }
 }

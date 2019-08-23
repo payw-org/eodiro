@@ -39,22 +39,31 @@ export default {
       ) {
         // Up
 
-        // Dispatch scroll up custom event
-        // document.dispatchEvent(new CustomEvent('scrollup'))
+        if (that.isHidden) {
+          // Dispatch scroll up custom event
+          document.dispatchEvent(new CustomEvent('gobackbtnappeared'))
+        }
 
         // Show goback button
         that.isHidden = false
       } else if (this.scrollY > 0) {
         // Down
 
-        // Dispatch scroll down custom event
-        // document.dispatchEvent(new CustomEvent('scrolldown'))
+        if (!that.isHidden) {
+          // Dispatch scroll down custom event
+          document.dispatchEvent(new CustomEvent('gobackbtnhidden'))
+        }
 
         // Hide goback button
         that.isHidden = true
 
         // When the scroll hits the bottom
         if (window.innerHeight + this.scrollY >= document.body.scrollHeight) {
+          if (that.isHidden) {
+            // Dispatch scroll up custom event
+            document.dispatchEvent(new CustomEvent('gobackbtnappeared'))
+          }
+
           that.isHidden = false
         }
       }
