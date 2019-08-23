@@ -28,7 +28,7 @@ export default {
   },
 
   // source directory ('/src')
-  srcDir: 'src',
+  srcDir: 'src/',
 
   router: {
     // custom link class names

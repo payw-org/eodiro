@@ -23,7 +23,7 @@ import GoBack from '~/components/global/GoBack'
 
 export default {
   components: { Banner, GoBack },
-  head () {
+  head() {
     return {
       title: this.$t('global.head.title'),
       meta: [
@@ -46,7 +46,7 @@ export default {
       }
     }
   },
-  data () {
+  data() {
     return {
       // If this is true
       // master content's padding-top will be narrower
@@ -54,12 +54,12 @@ export default {
     }
   },
   computed: {
-    isValidPage () {
+    isValidPage() {
       return !this.$store.state.hamletList.includes(this.$route.meta.hamletName)
     }
   },
   watch: {
-    $route (to, from) {
+    $route(to, from) {
       // When route changes
       // cache or remove components from keep-alive
       if (from.meta.depth < to.meta.depth) {
@@ -88,7 +88,7 @@ export default {
       }
     }
   },
-  created () {
+  created() {
     // Cache components on first load
     this.$route.matched.forEach((matched) => {
       const compName = matched.components.default.options.name
@@ -97,14 +97,14 @@ export default {
 
     this.identifyBannerForcedMini()
   },
-  mounted () {
+  mounted() {
     // Before page enters
     document.addEventListener('beforepageenter', () => {
       this.identifyBannerForcedMini()
     })
   },
   methods: {
-    identifyBannerForcedMini () {
+    identifyBannerForcedMini() {
       this.isBannerForcedMini = this.$route.meta.depth > 1
     }
   }

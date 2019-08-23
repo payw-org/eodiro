@@ -93,14 +93,14 @@ const createCanvas = function () {
   addEvent(window, 'resize', repaint)
 }
 const topbar = {
-  config (opts) {
+  config(opts) {
     for (const key in opts) {
       if (options.hasOwnProperty(key)) {
         options[key] = opts[key]
       }
     }
   },
-  show () {
+  show() {
     if (showing) {
       return
     }
@@ -115,13 +115,13 @@ const topbar = {
     canvas.style.display = 'block'
     topbar.progress(0)
     if (options.autoRun) {
-      (function loop () {
+      (function loop() {
         progressTimerId = window.requestAnimationFrame(loop)
         topbar.progress('+' + 0.05 * (1 - Math.sqrt(currentProgress)) ** 2)
       })()
     }
   },
-  progress (to) {
+  progress(to) {
     if (typeof to === 'undefined') {
       return currentProgress
     }
@@ -134,7 +134,7 @@ const topbar = {
     repaint()
     return currentProgress
   },
-  hide () {
+  hide() {
     if (!showing) {
       return
     }
@@ -143,7 +143,7 @@ const topbar = {
       window.cancelAnimationFrame(progressTimerId)
       progressTimerId = null
     }
-    (function loop () {
+    (function loop() {
       if (topbar.progress('+.1') >= 1) {
         canvas.style.opacity -= 0.05
         if (canvas.style.opacity <= 0.05) {

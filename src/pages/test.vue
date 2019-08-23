@@ -31,17 +31,17 @@
 </template>
 
 <script>
-import { LoremIpsum } from 'lorem-ipsum'
+// import { LoremIpsum } from 'lorem-ipsum'
 import { Accordion, ArrowBlock, Button, Grid } from '~/components/ui'
 import EodiroDialog from '~/plugins/eodiro-dialog'
 
 export default {
   components: { Accordion, ArrowBlock, Button, Grid },
-  mounted () {
+  mounted() {
     this.test()
   },
   methods: {
-    test () {
+    test() {
       console.log(new EodiroDialog())
     }
   }

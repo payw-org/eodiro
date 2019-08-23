@@ -15,17 +15,17 @@ export default {
   name: 'donation',
   // components: { Button, Textarea },
   mixins: [pageBase],
-  head () {
+  head() {
     return {
       title: this.$t('donation.title')
     }
   },
-  data () {
+  data() {
     return {}
   },
-  mounted () {},
+  mounted() {},
   methods: {
-    pasteAccount () {
+    pasteAccount() {
       const tepmDom = document.createElement('textarea')
       document.body.appendChild(tepmDom)
       tepmDom.value = '7979-13-55256 카카오뱅크'

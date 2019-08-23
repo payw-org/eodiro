@@ -54,7 +54,7 @@ export default {
   name: 'vacant-building',
   components: { Loading, Grid, ArrowBlock },
   mixins: [pageBase],
-  data () {
+  data() {
     return {
       buildings: [],
       isEmptyLoaded: false,
@@ -62,7 +62,7 @@ export default {
     }
   },
   computed: {
-    computedBuildings () {
+    computedBuildings() {
       const storage = new EodiroStorage(this.univVendor)
       const favoriteList = storage.getFavoriteBuildings()
       const newBuildings = this.buildings.map((b) => {
@@ -86,15 +86,15 @@ export default {
       return newBuildings
     }
   },
-  mounted () {
+  mounted() {
     // Fetch data
     this.fetchBuildings()
   },
-  activated () {
+  activated() {
     // this.fetchEmpty()
   },
   methods: {
-    fetchBuildings () {
+    fetchBuildings() {
       const that = this
       let url = ApiUrl.get() + location.pathname
       url = 'https://api.eodiro.com/cau'
@@ -117,7 +117,7 @@ export default {
           new Dialog().alert(that.$t('global.dataFetchError'))
         })
     },
-    fetchEmpty () {
+    fetchEmpty() {
       this.isEmptyLoaded = false
       const url = 'https://api.eodiro.com/cau/empty'
       axios.get(url).then((response) => {
@@ -132,7 +132,7 @@ export default {
         this.isEmptyLoaded = true
       })
     },
-    toggleFavorite (index) {
+    toggleFavorite(index) {
       const buildingID = this.buildings[index].number
       const storage = new EodiroStorage(this.univVendor)
       this.buildings[index].isFavorite = storage.toggleFavoriteBuilding(
@@ -140,7 +140,7 @@ export default {
       )
       this.sort()
     },
-    mapFavorite () {
+    mapFavorite() {
       const storage = new EodiroStorage(this.univVendor)
       const favoriteList = storage.getFavoriteBuildings()
       this.buildings = this.buildings.map((b) => {
@@ -151,7 +151,7 @@ export default {
         return b
       })
     },
-    sort () {
+    sort() {
       this.buildings.sort((a, b) => {
         if (a.isFavorite === b.isFavorite) {
           return a.number.localeCompare(b.number)

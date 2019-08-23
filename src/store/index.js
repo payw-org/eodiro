@@ -5,7 +5,7 @@ import JSCookie from 'js-cookie'
  * Returns a class name matches to color scheme mode
  * @param {'light'|'dark'|'auto'} colorMode
  */
-function getColorClassName (colorMode) {
+function getColorClassName(colorMode) {
   let colorSchemeClassName = 'light-mode'
 
   if (colorMode === 'light') {
@@ -42,24 +42,24 @@ export const mutations = {
   /**
    * @param {'light'|'dark'|'auto'} mode
    */
-  setColorScheme (state, mode) {
+  setColorScheme(state, mode) {
     JSCookie.set('color_scheme', mode, { expires: 99999 })
     const colorSchemeClassName = getColorClassName(mode)
     state.colorSchemeClassName = colorSchemeClassName
   },
-  CACHE_COMPONENT (state, componentName) {
+  CACHE_COMPONENT(state, componentName) {
     const index = state.cachedComponents.indexOf(componentName)
     if (index === -1) {
       state.cachedComponents.push(componentName)
     }
   },
-  POP_COMPONENT (state, componentName) {
+  POP_COMPONENT(state, componentName) {
     const index = state.cachedComponents.indexOf(componentName)
     if (index !== -1) {
       state.cachedComponents.splice(index, 1)
     }
   },
-  setRouteDirection (state, direction) {
+  setRouteDirection(state, direction) {
     state.routeDirection = direction
   }
 }
@@ -68,7 +68,7 @@ export const actions = {
   /**
    * Runs on server at first
    */
-  nuxtServerInit ({ commit, state }, { req }) {
+  nuxtServerInit({ commit, state }, { req }) {
     // set color scheme using cookie
     const cookies =
       req.headers && req.headers.cookie ? Cookie.parse(req.headers.cookie) : {}

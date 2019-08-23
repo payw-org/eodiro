@@ -17,18 +17,18 @@
 
 <script>
 export default {
-  data () {
+  data() {
     return {
       isHidden: false,
       scrollEventCallback: null
     }
   },
   computed: {
-    prevRouteName () {
+    prevRouteName() {
       return this.$route.meta.prevRouteName
     }
   },
-  mounted () {
+  mounted() {
     const that = this // alias
 
     // Create scroll event callback function

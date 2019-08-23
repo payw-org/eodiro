@@ -19,6 +19,26 @@ module.exports = {
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
-    'vue/name-property-casing': ['error', 'kebab-case']
+    'space-before-function-paren': [
+      'error',
+      {
+        anonymous: 'always',
+        named: 'never',
+        asyncArrow: 'always'
+      }
+    ],
+    'vue/name-property-casing': ['error', 'kebab-case'],
+    'vue/html-self-closing': [
+      'error',
+      {
+        html: {
+          void: 'always',
+          normal: 'always',
+          component: 'always'
+        },
+        svg: 'always',
+        math: 'always'
+      }
+    ]
   }
 }

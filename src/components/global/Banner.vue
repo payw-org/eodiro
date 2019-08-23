@@ -53,7 +53,7 @@ import HomeBgTile from '~/components/home/HomeBgTile.vue'
 
 export default {
   components: { HomeBgTile },
-  data () {
+  data() {
     return {
       isMini: false,
       observer: null,
@@ -61,7 +61,7 @@ export default {
     }
   },
   watch: {
-    isMini (bool) {
+    isMini(bool) {
       if (bool) {
         document.dispatchEvent(new CustomEvent('bannerminified'))
       } else {
@@ -69,12 +69,12 @@ export default {
       }
     }
   },
-  created () {
+  created() {
     if (this.$route.meta.depth > 1) {
       this.isMini = true
     }
   },
-  mounted () {
+  mounted() {
     // Sentinel for banner
     this.sentinel = document.querySelector('#banner-observer-sentinel')
     this.observer = new IntersectionObserver((entries) => {
