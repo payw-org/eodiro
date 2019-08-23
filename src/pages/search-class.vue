@@ -3,18 +3,30 @@
     <div class="page-content" @scroll.native="handleScroll">
       <!-- form-section -->
       <div class="form-wrapper">
-        <Button class="filter-button" @click="filterIsFold = !filterIsFold">
-          {{ $t('searchClass.filterButtonMsg') }}
-        </Button>
         <div class="search-bar-wrapper">
           <Input v-model="searchClassQuary" class="search-input" :placeholder="$t('searchClass.initInputText')" />
           <button class="search-button" />
         </div>
+        <Button class="filter-button" @click="filterIsFold = !filterIsFold">
+          {{ $t('searchClass.filterButtonMsg') }}
+        </Button>
       </div>
       <!-- filter section -->
       <div v-if="!filterIsFold" class="background" @click="filterIsFold = !filterIsFold" />
       <transition name="filter-fold">
         <div v-if="!filterIsFold" class="filter-category-container">
+          <transition name="filter-fold">
+            <!-- sub category -->
+            <div v-if="mainCategoryIsUnfold" class="fc-category-sub">
+              <div class="fc-item" @click="clickSubCategoryItem('')">
+                전체
+              </div>
+              <div v-for="name in unfoldCategory" :key="name" class="fc-item" @click="clickSubCategoryItem(name)">
+                {{ name }}
+              </div>
+            </div>
+          </transition>
+          <!-- main category -->
           <div class="fc-category-main">
             <div v-for="item in mainCategory" :key="item.name" class="fc-item" @click="clickMainCategoryItem(item)">
               <span class="fc-item-details">
@@ -25,13 +37,6 @@
               </span>
             </div>
           </div>
-          <transition name="filter-fold">
-            <div v-if="mainCategoryIsUnfold" class="fc-category-sub">
-              <div v-for="name in unfoldCategory" :key="name" class="fc-item" @click="clickSubCategoryItem(name)">
-                {{ name }}
-              </div>
-            </div>
-          </transition>
         </div>
       </transition>
       <!-- search result section -->
@@ -60,6 +65,7 @@
             </div>
           </template>
         </Accordion>
+        <div id="infinity-scroll-observer-sentinel" />
       </div>
     </div>
   </div>
@@ -99,6 +105,8 @@ export default {
   },
   data () {
     return {
+      observer: null,
+      sentinel: null,
       searchClassQuary: '',
       filterIsFold: true,
       selectedSubCategory: {
@@ -141,10 +149,16 @@ export default {
           value: 'major'
         }
       ],
-      searchClassList: classListOrigin
+      searchPage: 1,
+      searchClassListAll: classListOrigin
     }
   },
   computed: {
+    searchClassList () {
+      const numOfItemInPage = 4
+      console.log('1')
+      return this.searchClassListAll.slice(0, numOfItemInPage * this.searchPage)
+    },
     mainCategoryIsUnfold () {
       for (let i = 0; i < this.mainCategory.length; i++) {
         if (this.mainCategory[i].isFold === false) {
@@ -252,13 +266,30 @@ export default {
       // sort
       list.sort()
 
-      this.searchClassList = list
+      this.searchClassListAll = list
+      this.searchPage = 1
+    },
+    searchClassQuary (newSearch) {
+      this.searchPage = 1
     }
   },
   mounted () {
     setInterval(() => {
       this.handleScroll()
     }, 0)
+
+    // Sentinel for banner
+    this.sentinel = document.querySelector('#infinity-scroll-observer-sentinel')
+    this.observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.target.isSameNode(this.sentinel)) {
+          this.searchPage += 1
+        }
+      })
+    })
+
+    // Start observing
+    this.observer.observe(this.sentinel)
   },
   methods: {
     handleScroll () {
@@ -324,7 +355,7 @@ export default {
     display: flex;
 
     .filter-button {
-      margin-right: 1rem;
+      margin-left: 1rem;
       padding: 0 1.3rem !important;
     }
     .search-bar-wrapper {
@@ -340,10 +371,10 @@ export default {
         height: 3rem;
         width: 3rem;
 
-        @include bgImg('~assets/images/magnifier-black.svg', 'center', '80%');
+        @include bgImg('~assets/images/magnifier-black.svg', 'center', '70%');
 
         @include dark-mode {
-          @include bgImg('~assets/images/magnifier-white.svg');
+          @include bgImg('~assets/images/magnifier-white.svg', 'center', '70%');
         }
       }
     }
@@ -363,6 +394,7 @@ export default {
     z-index: 1592653;
     top: $banner-height;
     height: calc(100vh - #{$banner-height} - 2rem);
+    right: calc((100vw - #{$master-content-max-width}) / 2);
 
     border-radius: $border-radius;
     margin: space(4) 0;
@@ -376,7 +408,7 @@ export default {
     }
 
     @include smaller-than($width-step--1) {
-      left: 0;
+      right: 0;
       height: calc(100vh - #{$banner-height});
       margin: 0;
       border-radius: 0 !important;
