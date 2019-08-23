@@ -1,12 +1,14 @@
 <template>
   <ArrowBlock
     class="post-item"
-    :link="localePath({
-      name: 'community-postId',
-      params: {
-        postId: postData.id
-      }
-    })"
+    :link="
+      localePath({
+        name: 'community-postId',
+        params: {
+          postId: postData.id
+        }
+      })
+    "
   >
     <template v-slot:content>
       <div class="pi-content">
@@ -16,12 +18,16 @@
         <div class="pi-title">
           {{ postData.title }}
         </div>
+        <div class="pi-posted-at">
+          {{ postedAt }}
+        </div>
       </div>
     </template>
   </ArrowBlock>
 </template>
 
 <script>
+import dayjs from 'dayjs'
 import { ArrowBlock } from '~/components/ui'
 
 export default {
@@ -30,6 +36,41 @@ export default {
     postData: {
       type: Object,
       default: () => ({})
+    }
+  },
+  computed: {
+    postedAt() {
+      let postedAt = dayjs(this.postData.at).format('YYYY. MM. DD. HH:mm')
+
+      const now = dayjs()
+      const atObj = dayjs(this.postData.at)
+
+      const secDiff = now.diff(atObj, 'second')
+      if (secDiff < 10) {
+        postedAt = '방금'
+
+        return postedAt
+      } else if (secDiff < 60) {
+        postedAt = `${secDiff}초 전`
+
+        return postedAt
+      }
+
+      const minDiff = now.diff(atObj, 'minute')
+      if (minDiff > 0 && minDiff < 60) {
+        postedAt = `${minDiff}분 전`
+
+        return postedAt
+      }
+
+      const hourDiff = now.diff(atObj, 'hour')
+      if (hourDiff > 0 && hourDiff < 24) {
+        postedAt = `${hourDiff}시간 전`
+
+        return postedAt
+      }
+
+      return postedAt
     }
   }
 }
@@ -44,6 +85,26 @@ export default {
 
   .pi-content {
     display: block;
+
+    .pi-author {
+      display: inline-block;
+      font-weight: fw(5);
+      font-size: body(3);
+      margin-bottom: space(2);
+      @include overlay-inverted;
+      padding: space(1) space(2);
+      border-radius: radius(2);
+    }
+
+    .pi-title {
+      font-size: body(3);
+    }
+
+    .pi-posted-at {
+      font-size: body(1);
+      color: $base-gray;
+      margin-top: space(2);
+    }
   }
 }
 </style>
