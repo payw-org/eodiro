@@ -3,6 +3,9 @@
     <div class="post-wrapper">
       <div class="post">
         <span class="at">{{ postData.at }}</span>
+        <h2 class="author">
+          {{ postData.author }}
+        </h2>
         <h1 class="title">
           {{ postData.title }}
         </h1>
@@ -96,8 +99,18 @@ export default {
         color: $base-gray;
       }
 
-      .title {
+      .author {
+        display: inline-block;
+        font-size: body(3);
+        font-weight: fw(5);
         margin-top: space(3);
+        @include overlay-inverted;
+        padding: space(2) space(3);
+        border-radius: radius(2);
+      }
+
+      .title {
+        margin-top: space(2);
       }
 
       .body {
