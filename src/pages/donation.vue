@@ -65,7 +65,6 @@ export default {
       tempTextArea.setSelectionRange(0, 9999)
       document.execCommand('copy')
       tempTextArea.parentElement.removeChild(tempTextArea)
-
       new Dialog().alert(this.$t('donation.copied'))
     }
   }
