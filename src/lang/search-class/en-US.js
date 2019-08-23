@@ -6,7 +6,6 @@ export default {
   },
   initInputText: 'Please enter Class Information',
   filterButtonMsg: 'Filter',
-  searchButtonMsg: 'Search',
   filterTitleYear: 'Year',
   filterTitleSemester: 'Semester',
   filterTitleProcess: 'Process',

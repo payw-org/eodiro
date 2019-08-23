@@ -31,9 +31,7 @@
 </template>
 
 <script>
-// import { LoremIpsum } from 'lorem-ipsum'
 import { Accordion, ArrowBlock, Button, Grid } from '~/components/ui'
-import EodiroDialog from '~/plugins/eodiro-dialog'
 
 export default {
   components: { Accordion, ArrowBlock, Button, Grid },
@@ -41,9 +39,6 @@ export default {
     this.test()
   },
   methods: {
-    test() {
-      console.log(new EodiroDialog())
-    }
   }
 }
 </script>

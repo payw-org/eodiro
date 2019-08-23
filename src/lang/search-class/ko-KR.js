@@ -6,7 +6,6 @@ export default {
   },
   initInputText: '강의 정보를 입력해주세요',
   filterButtonMsg: '필터',
-  searchButtonMsg: '검색',
   filterTitleYear: '년도',
   filterTitleSemester: '학기',
   filterTitleProcess: '과정',
