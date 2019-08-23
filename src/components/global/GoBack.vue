@@ -37,12 +37,23 @@ export default {
         this.oldScroll > this.scrollY &&
         window.innerHeight + this.scrollY < document.body.scrollHeight
       ) {
-        // up
+        // Up
+
+        // Dispatch scroll up custom event
+        // document.dispatchEvent(new CustomEvent('scrollup'))
+
+        // Show goback button
         that.isHidden = false
       } else if (this.scrollY > 0) {
-        // down
+        // Down
+
+        // Dispatch scroll down custom event
+        // document.dispatchEvent(new CustomEvent('scrolldown'))
+
+        // Hide goback button
         that.isHidden = true
 
+        // When the scroll hits the bottom
         if (window.innerHeight + this.scrollY >= document.body.scrollHeight) {
           that.isHidden = false
         }

@@ -118,15 +118,15 @@ export default {
   .master-content {
     min-height: 100vh;
     padding-bottom: $master-content-bottom-gap;
-    width: calc(100% - #{2 * $posh-gap});
-    padding-top: calc(#{$banner-height} + #{$master-content-top-gap});
+    width: calc(100% - #{2 * space(5)});
+    padding-top: calc(#{$banner-height} + #{space(6)});
     max-width: $master-content-max-width;
     margin: auto;
   }
 
   &.is-banner-forced-mini {
     .master-content {
-      padding-top: calc(#{$nav-height} + #{$master-content-top-gap});
+      padding-top: calc(#{$nav-height} + #{space(6)});
     }
   }
 }

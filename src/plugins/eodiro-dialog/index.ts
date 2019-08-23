@@ -8,14 +8,14 @@ const conf = {
 
 const messages = {
   kr: {
-    confirm: '확인',
-    cancel: '취소',
-    close: '닫기'
+    confirmLabel: '확인',
+    cancelLabel: '취소',
+    closeLabel: '닫기'
   },
   en: {
-    confirm: 'Confirm',
-    cancel: 'Cancel',
-    close: 'Close'
+    confirmLabel: 'Confirm',
+    cancelLabel: 'Cancel',
+    closeLabel: 'Close'
   }
 }
 
