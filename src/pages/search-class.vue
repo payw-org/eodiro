@@ -175,12 +175,12 @@ export default {
     }
   },
   computed: {
-    searchClassList () {
+    searchClassList() {
       const numOfItemInPage = 4
       console.log('1')
       return this.searchClassListAll.slice(0, numOfItemInPage * this.searchPage)
     },
-    mainCategoryIsUnfold () {
+    mainCategoryIsUnfold() {
       for (let i = 0; i < this.mainCategory.length; i++) {
         if (this.mainCategory[i].isFold === false) {
           return true
@@ -199,7 +199,7 @@ export default {
       }
       return nothingUnfold
     },
-    filterCategoryItem () {
+    filterCategoryItem() {
       const origin = filterCategoryItemOrigin
       const selected = this.selectedSubCategory
       const refined = {}
@@ -272,7 +272,7 @@ export default {
     }
   },
   watch: {
-    selectedSubCategory (newSelectedSub) {
+    selectedSubCategory(newSelectedSub) {
       let list = JSON.parse(JSON.stringify(classListOrigin))
       // filter
       list = list.filter((item) => {
@@ -290,7 +290,7 @@ export default {
       this.searchClassListAll = list
       this.searchPage = 1
     },
-    searchClassQuary (newSearch) {
+    searchClassQuary(newSearch) {
       this.searchPage = 1
     }
   },
@@ -334,7 +334,7 @@ export default {
         filterCategoryContainer.style.height = `calc(100vh - ${eodiroBannerHeight}px - 2rem + ${heightDifference}px + 2rem)`
       }
     },
-    clickMainCategoryItem (item) {
+    clickMainCategoryItem(item) {
       const main = JSON.parse(JSON.stringify(this.mainCategory))
 
       for (let i = 0; i < main.length; i++) {
@@ -347,7 +347,7 @@ export default {
 
       this.mainCategory = main
     },
-    clickSubCategoryItem (name) {
+    clickSubCategoryItem(name) {
       const main = JSON.parse(JSON.stringify(this.mainCategory))
       const selectedSub = JSON.parse(JSON.stringify(this.selectedSubCategory))
 
