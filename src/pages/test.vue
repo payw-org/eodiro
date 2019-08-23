@@ -35,12 +35,10 @@ import { Accordion, ArrowBlock, Button, Grid } from '~/components/ui'
 
 export default {
   components: { Accordion, ArrowBlock, Button, Grid },
-  mounted () {
+  mounted() {
     this.test()
   },
   methods: {
-    test () {
-    }
   }
 }
 </script>

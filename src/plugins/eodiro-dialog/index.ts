@@ -26,7 +26,7 @@ export default class EodiroDialog {
   private cancelBtn: HTMLElement
   private closeBtn: HTMLElement
 
-  constructor (lang?: string) {
+  constructor(lang?: string) {
     // init language
     if (lang) {
       this.lang = lang
@@ -55,7 +55,7 @@ export default class EodiroDialog {
     )
   }
 
-  alert (msg: string) {
+  alert(msg: string) {
     this.setMsg(msg)
     this.open('alert')
 
@@ -64,7 +64,7 @@ export default class EodiroDialog {
     }
   }
 
-  confirm (msg: string) {
+  confirm(msg: string) {
     this.setMsg(msg)
     this.open('confirm')
 
@@ -81,11 +81,11 @@ export default class EodiroDialog {
     })
   }
 
-  setMsg (msg: string) {
+  setMsg(msg: string) {
     this.dialogContainerElm.getElementsByClassName('message')[0].innerHTML = msg
   }
 
-  open (mode: 'alert' | 'confirm') {
+  open(mode: 'alert' | 'confirm') {
     this.dialogContainerElm.classList.add('active')
     this.dialogContainerElm.classList.add(mode)
 
@@ -95,7 +95,7 @@ export default class EodiroDialog {
     }, 10)
   }
 
-  close () {
+  close() {
     // remove active class first
     this.dialogContainerElm.classList.remove('active')
 

@@ -1,4 +1,6 @@
 export default {
   title: 'Donate',
-  copied: 'Account number has been pasted.'
+  bankName: 'Kakao Bank',
+  pressToCopy: 'Copy to clipboard',
+  copied: 'Copied to clipboard.'
 }

@@ -11,7 +11,7 @@ export default {
       type: String,
       required: false,
       default: 'medium',
-      validator (value) {
+      validator(value) {
         return ['small', 'medium', 'large'].includes(value)
       }
     }

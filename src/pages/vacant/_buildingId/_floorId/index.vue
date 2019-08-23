@@ -142,7 +142,7 @@ export default {
   name: 'vacant-result',
   components: { Loading, Grid, ArrowBlock },
   mixins: [pageBase],
-  data () {
+  data() {
     return {
       classrooms: [],
       timeTableShow: false,
@@ -153,11 +153,11 @@ export default {
     }
   },
   computed: {
-    timeInterval (start, end) {
+    timeInterval(start, end) {
       return start + end
     }
   },
-  mounted () {
+  mounted() {
     this.fetchTimeTable()
     this.simplebarTimeTableElm = new SimpleBar(
       this.$el.querySelector('.timetable'),
@@ -172,16 +172,16 @@ export default {
     })
   },
   methods: {
-    random () {
+    random() {
       return Math.floor(Math.random() * 4) + 1
     },
-    closeTimeTable () {
+    closeTimeTable() {
       this.timeTableShow = false
 
       // unlock body scroll
       enableBodyScroll(this.$el.querySelector('.simplebar-content-wrapper'))
     },
-    openTimeTable (room) {
+    openTimeTable(room) {
       // lock body scroll
       disableBodyScroll(this.$el.querySelector('.simplebar-content-wrapper'))
 
@@ -204,7 +204,7 @@ export default {
         window.clearInterval(interval)
       }, 300)
     },
-    setTimeTableAtDay (dayNum) {
+    setTimeTableAtDay(dayNum) {
       this.timetableDay = dayNum
       const dayStr = DTS.dts(dayNum)
 
@@ -213,14 +213,16 @@ export default {
       })
       this.selectedLectures = lectures
     },
-    buildIn () {
+    buildIn() {
       Stagger.show(this.$el.querySelectorAll('.ec-item'), true)
     },
-    buildOut () {
+    buildOut() {
       Stagger.hide(this.$el.querySelectorAll('.ec-item'))
     },
-    fetchTimeTable () {
-      const url = `https://api.eodiro.com/cau/${this.$route.params.buildingId}/${this.$route.params.floorId}`
+    fetchTimeTable() {
+      const url = `https://api.eodiro.com/cau/${
+        this.$route.params.buildingId
+      }/${this.$route.params.floorId}`
 
       axios.get(url).then((r) => {
         if (r.data.err) {
@@ -271,7 +273,7 @@ export default {
         // })
       })
     },
-    isCurrentLecture (start, end, day) {
+    isCurrentLecture(start, end, day) {
       const date = new Date()
       const hours = (date.getHours() < 10 ? '0' : '') + date.getHours()
       const mins = (date.getMinutes() < 10 ? '0' : '') + date.getMinutes()

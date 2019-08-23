@@ -23,7 +23,7 @@ export default {
   name: 'clubs-topic',
   components: { Grid, ClubItem },
   mixins: [pageBase],
-  data () {
+  data() {
     return {
       popParent: true,
       clubsList: [

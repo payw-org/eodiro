@@ -118,7 +118,7 @@ export default {
   components: { Grid, ArrowBlock },
   mixins: [pageBase],
   methods: {
-    preparing () {
+    preparing() {
       new EodiroDialog().alert(this.$t('preparing'))
     }
   }
