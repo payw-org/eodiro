@@ -1,7 +1,7 @@
 <template>
   <div class="select-floor">
     <h1 class="building-id">
-      {{ $route.params.buildingId }}
+      {{ buildingId }}
     </h1>
 
     <Grid class="floor-container">
@@ -60,7 +60,7 @@ export default {
     return {
       buildingName: '',
       floors: [],
-      isEmptyLoaded: false
+      buildingId: this.$route.params.buildingId
     }
   },
   mounted() {
