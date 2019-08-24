@@ -47,6 +47,7 @@
 import { LoremIpsum } from 'lorem-ipsum'
 import dayjs from 'dayjs'
 import pageBase from '~/mixins/page-base'
+import { CEM } from '~/plugins/custom-event-manager'
 
 const lorem = new LoremIpsum()
 

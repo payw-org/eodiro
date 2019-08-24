@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { CEM } from '../../plugins/custom-event-manager'
+import { CEM } from '~/plugins/custom-event-manager'
 export default {
   data() {
     return {

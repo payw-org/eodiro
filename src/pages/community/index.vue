@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { CEM } from '~/plugins/custom-event-manager'
 import pageBase from '~/mixins/page-base'
 import PostItem from '~/components/community/PostItem'
 

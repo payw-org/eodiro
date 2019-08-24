@@ -1,5 +1,4 @@
 import Cookie from 'cookie'
-import { CEM } from './custom-event-manager'
 
 declare global {
   interface Window {
@@ -44,7 +43,7 @@ export default (context: any) => {
     require('~/polyfills')
 
     // Prevent browser's default scroll restoration behaviour
-    history.scrollRestoration = 'manual'
+    // history.scrollRestoration = 'manual'
 
     window.addEventListener('keydown', (e) => {
       if (e.shiftKey && e.key === 'L') {
