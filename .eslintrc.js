@@ -17,7 +17,7 @@ module.exports = {
     '@nuxtjs/eslint-config-typescript'
   ],
   rules: {
-    'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'no-console': 'warn',
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
     'space-before-function-paren': [
       'error',
