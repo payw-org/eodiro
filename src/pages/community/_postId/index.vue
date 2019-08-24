@@ -26,18 +26,24 @@
       <h2 class="comment-header">
         {{ $t('community.comments') }}
       </h2>
-      <div v-for="comment in comments" :key="comment.id" class="comment-item">
-        <p class="author">
-          {{ comment.author }}
-        </p>
-        <p class="body">
-          {{ comment.body }}
-        </p>
-      </div>
-      <div v-if="comments.length === 0" class="no-comments">
-        <p>
-          {{ $t('community.noComments') }}
-        </p>
+
+      <div class="comment-item-container">
+        <div v-for="comment in comments" :key="comment.id" class="comment-item">
+          <p class="author">
+            {{ comment.author }}
+          </p>
+          <p class="body">
+            {{ comment.body }}
+          </p>
+        </div>
+
+        <div v-if="comments.length === 0" class="no-comments">
+          <p>
+            {{ $t('community.noComments') }}
+          </p>
+        </div>
+
+        <NewComment @leaveNewComment="leaveNewComment" />
       </div>
     </div>
   </div>
@@ -47,12 +53,14 @@
 import { LoremIpsum } from 'lorem-ipsum'
 import dayjs from 'dayjs'
 import pageBase from '~/mixins/page-base'
-import { CEM } from '~/plugins/custom-event-manager'
+import NewComment from '~/components/community/NewComment'
+// import { CEM } from '~/plugins/custom-event-manager'
 
 const lorem = new LoremIpsum()
 
 export default {
   name: 'community-post-id',
+  components: { NewComment },
   mixins: [pageBase],
   asyncData({ route }) {
     return {
@@ -64,7 +72,7 @@ export default {
         author: lorem.generateWords(1),
         isLiked: false
       },
-      comments: Array.from({ length: Math.floor(Math.random() * 50) }, (i) => {
+      comments: Array.from({ length: Math.floor(Math.random() * 10) }, (i) => {
         return {
           id: i,
           author: lorem.generateWords(1),
@@ -73,9 +81,20 @@ export default {
       })
     }
   },
+  mounted() {
+    // document.addEventListener('scrollends', this.loadData)
+    // CEM.addEventListener('scrollends', this.$el, this.loadData)
+  },
   methods: {
     toggleLike() {
       this.postData.isLiked = !this.postData.isLiked
+    },
+    loadData() {
+      console.log('load more data', this.$options.name)
+    },
+    leaveNewComment(commentObj) {
+      console.log(commentObj)
+      this.comments.push(commentObj)
     }
   }
 }
