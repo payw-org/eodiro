@@ -27,15 +27,15 @@ export default {
     ]
   },
 
-  // source directory ('/src')
+  // Source directory
   srcDir: 'src/',
 
   router: {
-    // custom link class names
+    // Custom link class names
     linkActiveClass: 'active-link',
     linkExactActiveClass: 'exact-active-link'
 
-    // run middleware when route changes
+    // Run middleware when route changes
     // middleware: 'route-change'
   },
 
@@ -48,10 +48,9 @@ export default {
     // }
   },
 
-  // not using nuxt's loading feature
+  // Disable Nuxt.js's loading feature
   loading: false,
 
-  // include global css/scss files
   css: [
     '~/assets/styles/css/fonts.css',
     '~/plugins/eodiro-dialog/style.scss',
@@ -59,17 +58,15 @@ export default {
     '~/assets/styles/stylus/spring.styl'
   ],
 
-  // plugins
   plugins: ['~/plugins/init.ts'],
 
-  // devModules
   buildModules: [
     '@nuxtjs/eslint-module',
     '@nuxt/typescript-build',
     '~/modules/extend-route'
   ],
 
-  // modules
+  // Nuxt.js modules
   modules: [
     [
       'nuxt-i18n',

@@ -89,11 +89,8 @@ export default {
     toggleLike() {
       this.postData.isLiked = !this.postData.isLiked
     },
-    loadData() {
-      console.log('load more data', this.$options.name)
-    },
+    loadData() {},
     leaveNewComment(commentObj) {
-      console.log(commentObj)
       this.comments.push(commentObj)
     }
   }
