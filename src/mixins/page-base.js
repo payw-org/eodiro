@@ -37,7 +37,7 @@ const mixinOptions = {
   activated() {
     setTimeout(() => {
       // Restore scroll position
-      // window.scrollTo(0, this.lastScrollPosition)
+      window.scrollTo(0, this.lastScrollPosition)
       setTimeout(() => {
         // Dispatch an event
         CEM.dispatchEvent('scrollrestored')
