@@ -14,7 +14,7 @@ module.exports = {
     'eslint:recommended',
     'standard',
     'plugin:vue/recommended',
-    '@nuxtjs'
+    '@nuxtjs/eslint-config-typescript'
   ],
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'error' : 'off',

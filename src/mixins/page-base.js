@@ -12,31 +12,19 @@ const mixinOptions = {
     name: 'fade',
     mode: 'out-in',
     appear: true,
-    beforeEnter(el) {
+    beforeEnter() {
       // Dispatch event
       CEM.dispatchEvent('beforepageenter')
     },
-    // enter(el, done) {
-    //   CEM.dispatchEvent('pageenter')
-    //   setTimeout(() => {
-    //     done()
-    //   }, 400)
-    // },
-    afterEnter(el) {
+    afterEnter() {
       // Dispatch event
       CEM.dispatchEvent('afterpageenter')
     },
-    beforeLeave(el) {
+    beforeLeave() {
       // Dispatch event
       CEM.dispatchEvent('beforepageleave')
     },
-    // leave(el, done) {
-    //   CEM.dispatchEvent('pageleave')
-    //   setTimeout(() => {
-    //     done()
-    //   }, 200)
-    // },
-    afterLeave(el) {
+    afterLeave() {
       // Dispatch event
       CEM.dispatchEvent('afterpageleave')
     }
@@ -49,8 +37,7 @@ const mixinOptions = {
   activated() {
     setTimeout(() => {
       // Restore scroll position
-      window.scrollTo(0, this.lastScrollPosition)
-
+      // window.scrollTo(0, this.lastScrollPosition)
       setTimeout(() => {
         // Dispatch an event
         CEM.dispatchEvent('scrollrestored')

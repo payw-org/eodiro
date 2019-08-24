@@ -35,7 +35,7 @@ export default class Stagger {
     let c2
     elms[i].addEventListener(
       'animationend',
-      (c2 = function(e) {
+      (c2 = function() {
         this.classList.replace('stagger-appear', 'stagger-appear-fix')
         this.removeEventListener('animationstart', c2)
       })

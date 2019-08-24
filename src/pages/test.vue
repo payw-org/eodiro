@@ -20,7 +20,7 @@
         </template>
       </ArrowBlock>
     </Grid>
-    <Button @click="test">
+    <Button>
       Test Dialog
     </Button>
 
@@ -35,9 +35,7 @@ import { Accordion, ArrowBlock, Button, Grid } from '~/components/ui'
 
 export default {
   components: { Accordion, ArrowBlock, Button, Grid },
-  mounted() {
-    this.test()
-  },
+  mounted() {},
   methods: {}
 }
 </script>

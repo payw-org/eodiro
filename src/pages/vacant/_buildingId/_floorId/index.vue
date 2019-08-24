@@ -2,7 +2,11 @@
   <div class="content-item result">
     <Grid class="empty-classrooms-container">
       <div v-for="room in classrooms" :key="room.number" class="grid-wrapper">
-        <ArrowBlock class="classroom" no-arrow @click="openTimeTable(room, new Date().getDay())">
+        <ArrowBlock
+          class="classroom"
+          no-arrow
+          @click="openTimeTable(room, new Date().getDay())"
+        >
           <template v-slot:content>
             <h1 class="room-number">
               {{ room.number }}
@@ -39,7 +43,7 @@
       <loading v-if="classrooms.length === 0" />
     </Grid>
 
-    <div class="timetable-container" :class="{show: timeTableShow}">
+    <div class="timetable-container" :class="{ show: timeTableShow }">
       <div class="background" @click="closeTimeTable" />
       <div class="timetable">
         <button class="close" @click="closeTimeTable" />
@@ -51,42 +55,42 @@
             <div class="day-select">
               <button
                 class="day mon"
-                :class="{selected: timetableDay === 1}"
+                :class="{ selected: timetableDay === 1 }"
                 @click="setTimeTableAtDay(1)"
               >
                 Mon
               </button>
               <button
                 class="day tue"
-                :class="{selected: timetableDay === 2}"
+                :class="{ selected: timetableDay === 2 }"
                 @click="setTimeTableAtDay(2)"
               >
                 Tue
               </button>
               <button
                 class="day wed"
-                :class="{selected: timetableDay === 3}"
+                :class="{ selected: timetableDay === 3 }"
                 @click="setTimeTableAtDay(3)"
               >
                 Wed
               </button>
               <button
                 class="day thu"
-                :class="{selected: timetableDay === 4}"
+                :class="{ selected: timetableDay === 4 }"
                 @click="setTimeTableAtDay(4)"
               >
                 Thu
               </button>
               <button
                 class="day fri"
-                :class="{selected: timetableDay === 5}"
+                :class="{ selected: timetableDay === 5 }"
                 @click="setTimeTableAtDay(5)"
               >
                 Fri
               </button>
               <button
                 class="day sat"
-                :class="{selected: timetableDay === 6}"
+                :class="{ selected: timetableDay === 6 }"
                 @click="setTimeTableAtDay(6)"
               >
                 Sat
@@ -100,12 +104,24 @@
                 v-for="(l, i) in selectedLectures"
                 :key="l.name + i"
                 class="lecture"
-                :class="{current: isCurrentLecture(l.time.start, l.time.end, l.time.day)}"
+                :class="{
+                  current: isCurrentLecture(
+                    l.time.start,
+                    l.time.end,
+                    l.time.day
+                  )
+                }"
               >
                 <div class="time">
-                  <div>{{ l.time.start.slice(0, 2) + ':' + l.time.start.slice(2, 4) }}</div>
+                  <div>
+                    {{
+                      l.time.start.slice(0, 2) + ':' + l.time.start.slice(2, 4)
+                    }}
+                  </div>
                   <div>|</div>
-                  <div>{{ l.time.end.slice(0, 2) + ':' + l.time.end.slice(2, 4) }}</div>
+                  <div>
+                    {{ l.time.end.slice(0, 2) + ':' + l.time.end.slice(2, 4) }}
+                  </div>
                 </div>
                 <div class="instructor">
                   {{ l.instructor }}
@@ -166,7 +182,7 @@ export default {
     ;['touchstart', 'mouseover'].forEach((eventName) => {
       this.simplebarTimeTableElm
         .getScrollElement()
-        .addEventListener(eventName, (e) => {
+        .addEventListener(eventName, () => {
           this.simplebarTimeTableElm.recalculate()
         })
     })

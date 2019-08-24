@@ -33,7 +33,7 @@ export default {
     const that = this // alias
 
     // Create scroll event callback function
-    this.scrollEventCallback = function(e) {
+    this.scrollEventCallback = function() {
       if (
         this.oldScroll > this.scrollY &&
         window.innerHeight + this.scrollY < document.body.scrollHeight
@@ -122,7 +122,7 @@ $go-back-btn-height: 2.7rem;
   align-items: center;
   justify-content: center;
   left: 50%;
-  bottom: 3.5rem;
+  bottom: 3.1rem;
   height: $go-back-btn-height;
   opacity: 1;
   transform: translateX(-50%) scale(1);
