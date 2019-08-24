@@ -38,8 +38,7 @@ export default {
   mounted() {
     this.test()
   },
-  methods: {
-  }
+  methods: {}
 }
 </script>
 

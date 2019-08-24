@@ -1,4 +1,5 @@
 import Cookie from 'cookie'
+import { CEM } from './custom-event-manager'
 
 declare global {
   interface Window {
@@ -6,15 +7,15 @@ declare global {
   }
 }
 
-export default (context) => {
+export default (context: any) => {
   const { req, route, store, redirect } = context
 
-  // server init
+  // Server init
   if (process.server) {
     if (!route.name) {
       return
     }
-    // browser redirection
+    // Browser redirection
     const cookies =
       req.headers && req.headers.cookie ? Cookie.parse(req.headers.cookie) : {}
     const redirectLang = cookies.i18n_lang
@@ -37,9 +38,14 @@ export default (context) => {
     }
   }
 
-  // client init
+  // Client init
   if (process.client) {
-    // prevent browser's default scroll restoration behaviour
+    // Polyfills
+    require('~/polyfills')
+
+    CEM.initObserver()
+
+    // Prevent browser's default scroll restoration behaviour
     history.scrollRestoration = 'manual'
 
     window.addEventListener('keydown', (e) => {

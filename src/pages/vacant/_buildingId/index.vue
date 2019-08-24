@@ -9,12 +9,14 @@
         v-for="floor in floors"
         :key="floor.number"
         class="floor-link"
-        :to="localePath({
-          name: 'vacant-buildingId-floorId',
-          params: {
-            floorId: floor.number
-          }
-        })"
+        :to="
+          localePath({
+            name: 'vacant-buildingId-floorId',
+            params: {
+              floorId: floor.number
+            }
+          })
+        "
       >
         <ArrowBlock class="floor-item">
           <template v-slot:content>
@@ -25,8 +27,13 @@
               </h1>
 
               <div class="empty-count-badge-wrapper">
-                <div class="empty-count-badge" :class="{loaded: isEmptyLoaded}">
-                  <span class="label" :class="{opaque: !isEmptyLoaded}">{{ floor.empty_classroom }}</span>
+                <div
+                  class="empty-count-badge"
+                  :class="{ loaded: isEmptyLoaded }"
+                >
+                  <span class="label" :class="{ opaque: !isEmptyLoaded }">
+                    {{ floor.empty_classroom }}
+                  </span>
                 </div>
               </div>
             </div>
@@ -78,7 +85,7 @@ export default {
           this.floors = r.data.floors
           this.fetchEmpty()
         })
-        .catch(function (error) {
+        .catch(function(error) {
           console.error(error)
           alert('데이터를 가져올 수 없습니다. 잠시 후 이용 바랍니다.')
         })
