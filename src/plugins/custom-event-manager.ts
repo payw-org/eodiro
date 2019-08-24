@@ -49,7 +49,20 @@ export class CEM {
     target: HTMLElement | Element,
     listener: EventListenerOrEventListenerObject
   ) {
+    if (!(target instanceof HTMLElement) && !(target instanceof Element)) {
+      console.error('CEM - Second argument should be HTMLElement or Element')
+      return
+    }
+
     this.initEventKeyArray(eventName)
+
+    // Check if the same event listener has already been added
+    for (const chunk of this.storage[eventName]) {
+      if (chunk.target.isSameNode(target)) {
+        return
+      }
+    }
+
     document.addEventListener(eventName, listener)
     this.storage[eventName].push(<EventChunk>{
       target,
