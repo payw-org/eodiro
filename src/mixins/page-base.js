@@ -1,26 +1,44 @@
+import { CEM } from '~/plugins/custom-event-manager'
+
 /**
  * Add this mixin from every page component.
  */
 
-export default {
+/**
+ * @type {Vue.ComponentOptions}
+ */
+const mixinOptions = {
   transition: {
     name: 'fade',
     mode: 'out-in',
+    appear: true,
     beforeEnter(el) {
       // Dispatch event
-      document.dispatchEvent(new CustomEvent('beforepageenter'))
+      CEM.dispatchEvent('beforepageenter')
     },
+    // enter(el, done) {
+    //   CEM.dispatchEvent('pageenter')
+    //   setTimeout(() => {
+    //     done()
+    //   }, 400)
+    // },
     afterEnter(el) {
       // Dispatch event
-      document.dispatchEvent(new CustomEvent('afterpageenter'))
+      CEM.dispatchEvent('afterpageenter')
     },
     beforeLeave(el) {
       // Dispatch event
-      document.dispatchEvent(new CustomEvent('beforepageleave'))
+      CEM.dispatchEvent('beforepageleave')
     },
+    // leave(el, done) {
+    //   CEM.dispatchEvent('pageleave')
+    //   setTimeout(() => {
+    //     done()
+    //   }, 200)
+    // },
     afterLeave(el) {
       // Dispatch event
-      document.dispatchEvent(new CustomEvent('afterpageleave'))
+      CEM.dispatchEvent('afterpageleave')
     }
   },
   data() {
@@ -33,8 +51,10 @@ export default {
       // Restore scroll position
       window.scrollTo(0, this.lastScrollPosition)
 
-      // Dispatch an event
-      document.dispatchEvent(new CustomEvent('scrollrestored'))
+      setTimeout(() => {
+        // Dispatch an event
+        CEM.dispatchEvent('scrollrestored')
+      }, 20)
     }, 0)
   },
   deactivated() {
@@ -42,3 +62,5 @@ export default {
     this.lastScrollPosition = window.scrollY
   }
 }
+
+export default mixinOptions

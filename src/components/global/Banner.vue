@@ -55,6 +55,7 @@
 </template>
 
 <script>
+import { CEM } from '../../plugins/custom-event-manager'
 import HomeBgTile from '~/components/home/HomeBgTile.vue'
 
 export default {
@@ -69,9 +70,9 @@ export default {
   watch: {
     isMini(bool) {
       if (bool) {
-        document.dispatchEvent(new CustomEvent('bannerminified'))
+        CEM.dispatchEvent('bannerminified')
       } else {
-        document.dispatchEvent(new CustomEvent('bannerspreaded'))
+        CEM.dispatchEvent('bannerspreaded')
       }
     }
   },
@@ -121,9 +122,9 @@ export default {
 <style lang="scss">
 @import '~/assets/styles/scss/main.scss';
 
-$banner-transition-time: 300ms;
+$banner-transition-time: 500ms;
 $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
-$banner-bezier: ease;
+// $banner-bezier: ease;
 
 #eodiro-banner {
   position: fixed;
@@ -135,7 +136,7 @@ $banner-bezier: ease;
   align-items: flex-end;
   justify-content: center;
   transform: translateY(0px);
-  transition: all $banner-transition-time $banner-bezier;
+  transition: transform $banner-transition-time $banner-bezier;
 
   &.mini {
     transform: translateY(calc(#{$nav-height} - #{$banner-height}));
@@ -145,9 +146,14 @@ $banner-bezier: ease;
     }
 
     .banner {
+      // height: calc(#{$nav-height} + 1px);
       height: $nav-height;
       transition: height $banner-transition-time $banner-bezier;
-      transition-delay: 20ms;
+      transition-delay: 10ms;
+
+      @include larger-than($width-step--1) {
+        border-radius: 0 0 radius(5) radius(5);
+      }
     }
   }
 
@@ -163,13 +169,15 @@ $banner-bezier: ease;
     transition: height 0ms ease;
 
     @include larger-than($width-step--1) {
-      width: calc(100% - #{2 * $posh-gap});
-      // height: calc(100% - #{$posh-gap});
+      width: calc(100% - #{2 * space(4)});
+      height: calc(100% - #{space(4)});
       max-width: $master-content-max-width;
-      border-radius: 0 0 radius(5) radius(5);
+      border-radius: radius(5);
 
       .background {
         border-radius: 0 0 radius(5) radius(5) !important;
+        border-radius: radius(5) !important;
+        height: calc(#{$banner-height} - #{space(4)}) !important;
         overflow: hidden;
       }
     }
@@ -414,7 +422,7 @@ $banner-bezier: ease;
 #banner-observer-sentinel {
   position: absolute;
   top: calc(#{$banner-height} - #{$nav-height});
-  top: $banner-height / 4;
+  top: $banner-height / 3;
   right: 0;
   left: 0;
   height: 1px;
