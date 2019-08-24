@@ -24,16 +24,6 @@ export class CEM {
     childList: true,
     subtree: true
   }
-  private static isInitiated: Boolean = false
-
-  public static initObserver() {
-    console.log('CEM created')
-    if (this.isInitiated) {
-      return
-    }
-
-    this.isInitiated = true
-  }
 
   // If the array with a key of event name is not set, create one
   private static initEventKeyArray(eventName: string) {

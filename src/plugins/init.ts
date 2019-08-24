@@ -43,8 +43,6 @@ export default (context: any) => {
     // Polyfills
     require('~/polyfills')
 
-    CEM.initObserver()
-
     // Prevent browser's default scroll restoration behaviour
     history.scrollRestoration = 'manual'
 
