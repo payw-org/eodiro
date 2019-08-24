@@ -167,6 +167,7 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
     overflow: hidden;
     box-shadow: 0 0.3rem 1rem rgba(#000, 0.17);
     transition: height 0ms ease;
+    transform: translate3d(0, 0, 0);
 
     @include larger-than($width-step--1) {
       width: calc(100% - #{2 * space(4)});
