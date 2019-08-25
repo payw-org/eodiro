@@ -79,6 +79,22 @@
   visibility: hidden;
 }
 
+// Custom transition
+// .custom-enter-active {
+//   transition: visibility 500ms ease;
+//   visibility: visible;
+// }
+// .custom-enter {
+//   visibility: hidden;
+// }
+.custom-leave-active {
+  transition: opacity 400ms ease;
+  opacity: 1;
+}
+.custom-leave-to {
+  opacity: 0;
+}
+
 // template
 // .name-enter-active,
 // .name-leave-active {
