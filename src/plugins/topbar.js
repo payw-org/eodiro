@@ -49,16 +49,18 @@ const addEvent = function(elem, type, handler) {
 }
 const options = {
   autoRun: true,
-  barThickness: 2,
+  barThickness: 2.5,
   barColors: {
-    '0': 'rgba(0,0,0,0.9)',
+    // '0': '#31A8FF',
+    '0': '#000',
     // '.25': 'rgba(52,  152, 219, .9)',
     // '.50': 'rgba(241, 196, 15,  .9)',
     // '.75': 'rgba(230, 126, 34,  .9)',
-    '1.0': 'rgba(0,0,0,0.9)'
+    // '1.0': '#305DFF'
+    '1.0': '#000'
   },
-  shadowBlur: 10,
-  shadowColor: 'rgba(0,   0,   0,   .6)'
+  shadowBlur: 3,
+  shadowColor: 'rgba(0, 0, 0, 0.2)'
 }
 const repaint = function() {
   canvas.width = window.innerWidth

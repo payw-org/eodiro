@@ -4,16 +4,18 @@
       <div class="page-content">
         <Grid class="menu-item-container">
           <!-- vacant classrooms -->
-          <NuxtLink :to="localePath('vacant').replace(/\/$/, '')">
-            <ArrowBlock class="menu-item-wrapper">
-              <template v-slot:icon>
-                <span class="icon icon--vacant" />
-              </template>
-              <template v-slot:content>
-                <span class="content">{{ $t('home.menuVacant') }}</span>
-              </template>
-            </ArrowBlock>
-          </NuxtLink>
+          <ArrowBlock
+            class="menu-item-wrapper"
+            :link="localePath('vacant').replace(/\/$/, '')"
+            @click="showTopbar()"
+          >
+            <template v-slot:icon>
+              <span class="icon icon--vacant" />
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('home.menuVacant') }}</span>
+            </template>
+          </ArrowBlock>
 
           <!-- meal -->
           <ArrowBlock class="menu-item-wrapper">
@@ -26,76 +28,83 @@
           </ArrowBlock>
 
           <!-- search-class -->
-          <NuxtLink :to="localePath('search-class').replace(/\/$/, '')">
-            <ArrowBlock class="menu-item-wrapper">
-              <template v-slot:icon>
-                <span class="icon icon--search-class" />
-              </template>
-              <template v-slot:content>
-                <span class="content">{{ $t('home.menuClass') }}</span>
-              </template>
-            </ArrowBlock>
-          </NuxtLink>
+          <ArrowBlock
+            class="menu-item-wrapper"
+            :link="localePath('search-class').replace(/\/$/, '')"
+          >
+            <template v-slot:icon>
+              <span class="icon icon--search-class" />
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('home.menuClass') }}</span>
+            </template>
+          </ArrowBlock>
 
           <!-- clubs -->
-          <NuxtLink :to="localePath('clubs').replace(/\/$/, '')">
-            <ArrowBlock class="menu-item-wrapper">
-              <template v-slot:icon>
-                <span class="icon icon--clubs" />
-              </template>
-              <template v-slot:content>
-                <span class="content">{{ $t('home.menuClubs') }}</span>
-              </template>
-            </ArrowBlock>
-          </NuxtLink>
+          <ArrowBlock
+            class="menu-item-wrapper"
+            :link="localePath('clubs').replace(/\/$/, '')"
+          >
+            <template v-slot:icon>
+              <span class="icon icon--clubs" />
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('home.menuClubs') }}</span>
+            </template>
+          </ArrowBlock>
 
           <!-- community -->
-          <NuxtLink :to="localePath('community').replace(/\/$/, '')">
-            <ArrowBlock class="menu-item-wrapper">
-              <template v-slot:icon>
-                <span class="icon icon--community" />
-              </template>
-              <template v-slot:content>
-                <span class="content">{{ $t('home.menuCommunity') }}</span>
-              </template>
-            </ArrowBlock>
-          </NuxtLink>
+          <ArrowBlock
+            class="menu-item-wrapper"
+            :link="localePath('community').replace(/\/$/, '')"
+            @click="showTopbar()"
+          >
+            <template v-slot:icon>
+              <span class="icon icon--community" />
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('home.menuCommunity') }}</span>
+            </template>
+          </ArrowBlock>
 
           <!-- inquiry -->
-          <NuxtLink :to="localePath('inquiry').replace(/\/$/, '')">
-            <ArrowBlock class="menu-item-wrapper">
-              <template v-slot:icon>
-                <span class="icon icon--inquiry" />
-              </template>
-              <template v-slot:content>
-                <span class="content">{{ $t('home.menuInquiry') }}</span>
-              </template>
-            </ArrowBlock>
-          </NuxtLink>
+          <ArrowBlock
+            class="menu-item-wrapper"
+            :link="localePath('inquiry').replace(/\/$/, '')"
+          >
+            <template v-slot:icon>
+              <span class="icon icon--inquiry" />
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('home.menuInquiry') }}</span>
+            </template>
+          </ArrowBlock>
 
           <!-- donation -->
-          <NuxtLink :to="localePath('donation').replace(/\/$/, '')">
-            <ArrowBlock class="menu-item-wrapper">
-              <template v-slot:icon>
-                <span class="icon icon--donation" />
-              </template>
-              <template v-slot:content>
-                <span class="content">{{ $t('home.menuDonation') }}</span>
-              </template>
-            </ArrowBlock>
-          </NuxtLink>
+          <ArrowBlock
+            class="menu-item-wrapper"
+            :link="localePath('donation').replace(/\/$/, '')"
+          >
+            <template v-slot:icon>
+              <span class="icon icon--donation" />
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('home.menuDonation') }}</span>
+            </template>
+          </ArrowBlock>
 
           <!-- preferences -->
-          <NuxtLink :to="localePath('preferences').replace(/\/$/, '')">
-            <ArrowBlock class="menu-item-wrapper">
-              <template v-slot:icon>
-                <span class="icon icon--preferences" />
-              </template>
-              <template v-slot:content>
-                <span class="content">{{ $t('home.menuPreferences') }}</span>
-              </template>
-            </ArrowBlock>
-          </NuxtLink>
+          <ArrowBlock
+            class="menu-item-wrapper"
+            :link="localePath('preferences').replace(/\/$/, '')"
+          >
+            <template v-slot:icon>
+              <span class="icon icon--preferences" />
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('home.menuPreferences') }}</span>
+            </template>
+          </ArrowBlock>
         </Grid>
       </div>
     </div>
