@@ -151,7 +151,7 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
       // height: calc(#{$nav-height} + 1px);
       height: $nav-height;
       transition: height $banner-transition-time $banner-bezier;
-      transition-delay: 10ms;
+      transition-delay: 100ms;
 
       @include larger-than($width-step--1) {
         border-radius: 0 0 radius(5) radius(5);
