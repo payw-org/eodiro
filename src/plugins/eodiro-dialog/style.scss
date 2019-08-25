@@ -43,7 +43,7 @@ $build-in-time: 700ms;
     transform: scale(0.9);
     // transition: opacity 200ms ease, transform 200ms ease;
     position: relative;
-    top: -1rem;
+    top: -3rem;
     animation: springZoomInOut $build-out-time linear;
     animation-fill-mode: both;
 

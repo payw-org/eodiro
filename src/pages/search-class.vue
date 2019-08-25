@@ -182,7 +182,6 @@ export default {
   computed: {
     searchClassList() {
       const numOfItemInPage = 4
-      console.log('1')
       return this.searchClassListAll.slice(0, numOfItemInPage * this.searchPage)
     },
     mainCategoryIsUnfold() {

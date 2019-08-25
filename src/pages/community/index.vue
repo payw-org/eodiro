@@ -28,13 +28,13 @@ export default {
   },
   activated() {
     CEM.addEventListener('scrollends', this.$el, () => {
-      this.loadMore()
+      // this.loadMore()
     })
   },
   methods: {
-    loadMore(fromId, number) {
-      console.log('Load more', fromId, number)
-    }
+    // loadMore(fromId, number) {
+    //   console.log('Load more', fromId, number)
+    // }
   }
 }
 </script>
