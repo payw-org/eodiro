@@ -13,7 +13,7 @@
           localePath({
             name: 'vacant-buildingId-floorId',
             params: {
-              floorId: floor.number
+              floorId: floor.number.toLowerCase()
             }
           })
         "
@@ -55,7 +55,6 @@ export default {
     return {
       buildingName: '',
       floors: [],
-      isEmptyLoaded: false,
       hasError: false,
       buildingId: this.$route.params.buildingId
     }
