@@ -40,7 +40,6 @@ export default {
       // Clear input
       this.comment = ''
       event.target.blur()
-      event.target.focus()
     }
   }
 }
