@@ -25,7 +25,7 @@ export default class ExpireCounter {
     })
 
     // get class array on the day
-    const day = this.parseDayNumberToDay(atDate.getDay())
+    const day = atDate.getDay()
     classOfRoom.forEach(function(item) {
       if (item.time.day === day) {
         classOfRoomOnDay.push(item)
