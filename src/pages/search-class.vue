@@ -7,7 +7,7 @@
           <Input
             v-model="searchClassQuary"
             class="search-input"
-            :placeholder="initInputText"
+            :placeholder="$t('searchClass.initInputText')"
           />
           <button class="search-button" />
         </div>
@@ -60,7 +60,7 @@
       <!-- search result section -->
       <div class="search-result-container">
         <Accordion
-          v-for="item in courseExample"
+          v-for="item in searchClassList"
           :key="item.classId"
           class="search-result-item"
         >
@@ -432,7 +432,7 @@ export default {
     box-shadow: 0 0.2rem 0.7rem rgba(#000, 0.2);
     @include dark-mode {
       background-color: #000;
-      box-shadow: 0 0.2rem 0.7rem rgba(#fff, 0.2);
+      box-shadow: 0 0.2rem 0.7rem rgba(#000, 0.2);
     }
 
     @include smaller-than($width-step--1) {
