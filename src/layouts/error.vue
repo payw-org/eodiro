@@ -18,11 +18,11 @@
         <br />
         {{ $t('global.error.page.secondLine') }}
       </h1>
-      <nuxt-link :to="localePath('index')">
+      <a :href="localePath('index')">
         <Button class="go-back">
           {{ $t('global.error.page.goHome') }}
         </Button>
-      </nuxt-link>
+      </a>
     </div>
   </div>
 </template>
