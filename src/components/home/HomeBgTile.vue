@@ -204,6 +204,8 @@ export default {
     grid-template-columns: repeat(auto-fit, minmax(3rem, 1fr));
     grid-template-rows: repeat(auto-fit, minmax(3rem, 1fr));
   }
+  z-index: 9999;
+
   .tile {
     border-radius: 1rem;
     background-color: #fff0f3;

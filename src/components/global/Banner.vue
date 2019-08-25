@@ -12,7 +12,9 @@
           :class="`background--${hamletName}`"
         />
       </transition>
-      <HomeBgTile v-if="$route.meta.hamletName === 'home' && !isMini" />
+      <transition name="global-soft-fade">
+        <HomeBgTile v-if="$route.meta.hamletName === 'home' && !isMini" />
+      </transition>
       <div class="logo-wrapper">
         <transition
           v-for="hamletName in $store.state.hamletList"
@@ -122,7 +124,7 @@ export default {
 <style lang="scss">
 @import '~/assets/styles/scss/main.scss';
 
-$banner-transition-time: 500ms;
+$banner-transition-time: 400ms;
 $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 // $banner-bezier: ease;
 
