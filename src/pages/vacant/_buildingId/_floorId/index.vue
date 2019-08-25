@@ -150,7 +150,6 @@
 import axios from 'axios'
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 import pageBase from '~/mixins/page-base'
-import vacant from '~/mixins/vacant'
 import modalScroll from '~/mixins/modal-scroll'
 import ExpireCounter from '~/plugins/ExpireCounter'
 import ApiUrl from '~/plugins/ApiUrl'
@@ -159,7 +158,7 @@ import { Grid, ArrowBlock } from '~/components/ui'
 export default {
   name: 'vacant-result',
   components: { Grid, ArrowBlock },
-  mixins: [pageBase, vacant, modalScroll],
+  mixins: [pageBase, modalScroll],
   data() {
     return {
       classrooms: [],
@@ -167,8 +166,7 @@ export default {
       isTimeTableActive: false,
       selectedRoom: {},
       timetableDay: new Date().getDay(),
-      selectedLectures: [],
-      hasError: false
+      selectedLectures: []
     }
   },
   computed: {
@@ -176,7 +174,7 @@ export default {
       return start + end
     }
   },
-  asyncData({ route }) {
+  asyncData({ app, redirect, route }) {
     const campus = 'seoul'
     const url = ApiUrl.get(
       'alpha',
@@ -198,11 +196,8 @@ export default {
           }
         }
       })
-      .catch((err) => {
-        console.error(err)
-        return {
-          hasError: true
-        }
+      .catch(() => {
+        redirect(app.localePath('not-found'))
       })
   },
   mounted() {

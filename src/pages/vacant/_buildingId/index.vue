@@ -17,6 +17,7 @@
             }
           })
         "
+        @click="showTopbar()"
       >
         <template v-slot:content>
           <div class="floor-info-container">
@@ -43,23 +44,21 @@
 <script>
 import axios from 'axios'
 import pageBase from '~/mixins/page-base'
-import vacant from '~/mixins/vacant'
 import { Grid, ArrowBlock } from '~/components/ui'
 import ApiUrl from '~/plugins/ApiUrl'
 
 export default {
   name: 'vacant-floor',
   components: { Grid, ArrowBlock },
-  mixins: [pageBase, vacant],
+  mixins: [pageBase],
   data() {
     return {
       buildingName: '',
       floors: [],
-      hasError: false,
       buildingId: this.$route.params.buildingId
     }
   },
-  asyncData({ route }) {
+  asyncData({ app, route, redirect }) {
     const campus = 'seoul'
     const url = ApiUrl.get(
       'alpha',
@@ -71,19 +70,12 @@ export default {
       method: 'get'
     })
       .then((res) => {
-        if (res.data.err) {
-          console.error(res.data.err.msg)
-        } else {
-          return {
-            floors: res.data.floors
-          }
+        return {
+          floors: res.data.floors
         }
       })
-      .catch((err) => {
-        console.error(err)
-        return {
-          hasError: true
-        }
+      .catch(() => {
+        redirect(app.localePath('not-found'))
       })
   }
 }
