@@ -7,7 +7,7 @@
           <Input
             v-model="searchClassQuary"
             class="search-input"
-            :placeholder="initInputText"
+            :placeholder="$t('searchClass.initInputText')"
           />
           <button class="search-button" />
         </div>
@@ -60,7 +60,7 @@
       <!-- search result section -->
       <div class="search-result-container">
         <Accordion
-          v-for="item in courseExample"
+          v-for="item in searchClassList"
           :key="item.classId"
           class="search-result-item"
         >
@@ -420,6 +420,9 @@ export default {
     top: $banner-height;
     height: calc(100vh - #{$banner-height} - 2rem);
     right: calc((100vw - #{$master-content-max-width}) / 2);
+    @media (max-width: 60rem) {
+      right: space(5);
+    }
 
     border-radius: $border-radius;
     margin: space(4) 0;
