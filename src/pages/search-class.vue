@@ -420,6 +420,9 @@ export default {
     top: $banner-height;
     height: calc(100vh - #{$banner-height} - 2rem);
     right: calc((100vw - #{$master-content-max-width}) / 2);
+    @media (max-width: 60rem) {
+      right: space(5);
+    }
 
     border-radius: $border-radius;
     margin: space(4) 0;
@@ -429,7 +432,7 @@ export default {
     box-shadow: 0 0.2rem 0.7rem rgba(#000, 0.2);
     @include dark-mode {
       background-color: #000;
-      box-shadow: 0 0.2rem 0.7rem rgba(#000, 0.2);
+      box-shadow: 0 0.2rem 0.7rem rgba(#fff, 0.2);
     }
 
     @include smaller-than($width-step--1) {
