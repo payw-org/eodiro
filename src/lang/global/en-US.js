@@ -11,7 +11,7 @@ export default {
     }
   },
   dataFetchError:
-    'Failed to load data. If this problem consistently happen, leave us an inquiry.',
+    'Failed to load data. If it happens consistently, please leave us an inquiry.',
   goBack: 'Go Back',
   seeAll: 'See All',
   time: {
