@@ -5,9 +5,9 @@ export default {
   },
   error: {
     page: {
-      firstLine: '맙소사...',
-      secondLine: '존재하지 않는 페이지에요.',
-      goHome: '홈으로 가기'
+      firstLine: 'Oh my god...',
+      secondLine: 'This page does not exist.',
+      goHome: 'Go Home'
     }
   },
   dataFetchError:

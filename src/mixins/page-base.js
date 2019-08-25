@@ -34,6 +34,11 @@ const mixinOptions = {
       lastScrollPosition: 0
     }
   },
+  mounted() {
+    // Finish topbar when the data is completely loaded
+    // and the page is mounted
+    window.topbar.hide()
+  },
   activated() {
     setTimeout(() => {
       // Restore scroll position
@@ -47,6 +52,12 @@ const mixinOptions = {
   deactivated() {
     // Store current scroll position
     this.lastScrollPosition = window.scrollY
+  },
+  methods: {
+    // Start topbar
+    showTopbar() {
+      window.topbar.show()
+    }
   }
 }
 
