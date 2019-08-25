@@ -6,6 +6,7 @@
       { 'is-banner-forced-mini': isBannerForcedMini }
     ]"
   >
+    <div id="scroll-end-point" />
     <div v-if="!isValidPage" id="banner-observer-sentinel" />
     <Banner v-if="!isValidPage" />
     <Nuxt
@@ -18,6 +19,7 @@
 </template>
 
 <script>
+import { CEM } from '../plugins/custom-event-manager'
 import Banner from '~/components/global/Banner'
 import GoBack from '~/components/global/GoBack'
 
@@ -99,9 +101,28 @@ export default {
   },
   mounted() {
     // Before page enters
-    document.addEventListener('beforepageenter', () => {
+    CEM.addEventListener('beforepageenter', this.$el, () => {
       this.identifyBannerForcedMini()
     })
+
+    CEM.addEventListener('scrollrestored', this.$el, () => {
+      observer.observe(document.getElementById('scroll-end-point'))
+    })
+
+    CEM.addEventListener('beforepageleave', this.$el, () => {
+      observer.unobserve(document.getElementById('scroll-end-point'))
+    })
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Reach scroll end
+          CEM.dispatchEvent('scrollends')
+        }
+      })
+    })
+
+    observer.observe(document.getElementById('scroll-end-point'))
   },
   methods: {
     identifyBannerForcedMini() {
@@ -112,9 +133,18 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/main.scss';
+@import '~/assets/styles/scss/main';
 
 #app {
+  position: relative;
+
+  #scroll-end-point {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 1px;
+  }
+
   .master-content {
     min-height: 100vh;
     padding-bottom: $master-content-bottom-gap;

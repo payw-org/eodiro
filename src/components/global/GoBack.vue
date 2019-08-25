@@ -16,6 +16,7 @@
 </template>
 
 <script>
+import { CEM } from '~/plugins/custom-event-manager'
 export default {
   data() {
     return {
@@ -32,7 +33,7 @@ export default {
     const that = this // alias
 
     // Create scroll event callback function
-    this.scrollEventCallback = function (e) {
+    this.scrollEventCallback = function() {
       if (
         this.oldScroll > this.scrollY &&
         window.innerHeight + this.scrollY < document.body.scrollHeight
@@ -41,7 +42,7 @@ export default {
 
         if (that.isHidden) {
           // Dispatch scroll up custom event
-          document.dispatchEvent(new CustomEvent('gobackbtnappeared'))
+          CEM.dispatchEvent('gobackbtnappeared')
         }
 
         // Show goback button
@@ -51,7 +52,7 @@ export default {
 
         if (!that.isHidden) {
           // Dispatch scroll down custom event
-          document.dispatchEvent(new CustomEvent('gobackbtnhidden'))
+          CEM.dispatchEvent('gobackbtnhidden')
         }
 
         // Hide goback button
@@ -61,7 +62,7 @@ export default {
         if (window.innerHeight + this.scrollY >= document.body.scrollHeight) {
           if (that.isHidden) {
             // Dispatch scroll up custom event
-            document.dispatchEvent(new CustomEvent('gobackbtnappeared'))
+            CEM.dispatchEvent('gobackbtnappeared')
           }
 
           that.isHidden = false
@@ -121,7 +122,7 @@ $go-back-btn-height: 2.7rem;
   align-items: center;
   justify-content: center;
   left: 50%;
-  bottom: 3.5rem;
+  bottom: 3.1rem;
   height: $go-back-btn-height;
   opacity: 1;
   transform: translateX(-50%) scale(1);

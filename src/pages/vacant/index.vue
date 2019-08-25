@@ -4,12 +4,14 @@
       <nuxt-link
         v-for="building in buildings"
         :key="building.name + building.number"
-        :to="localePath({
-          name: 'vacant-buildingId',
-          params: {
-            buildingId: building.number
-          }
-        })"
+        :to="
+          localePath({
+            name: 'vacant-buildingId',
+            params: {
+              buildingId: building.number
+            }
+          })
+        "
       >
         <ArrowBlock class="building-item">
           <template v-slot:content>
@@ -24,11 +26,13 @@
               </div>
 
               <div class="brief-summary">
-                <div class="empty-count-badge" :class="{ loaded: isEmptyLoaded }">
-                  <span
-                    class="label"
-                    :class="{ opaque: !isEmptyLoaded }"
-                  >{{ building.empty_classroom }}</span>
+                <div
+                  class="empty-count-badge"
+                  :class="{ loaded: isEmptyLoaded }"
+                >
+                  <span class="label" :class="{ opaque: !isEmptyLoaded }">
+                    {{ building.empty_classroom }}
+                  </span>
                 </div>
               </div>
             </div>
@@ -113,7 +117,7 @@ export default {
 
           this.fetchEmpty()
         })
-        .catch(function () {
+        .catch(function() {
           new Dialog().alert(that.$t('global.dataFetchError'))
         })
     },

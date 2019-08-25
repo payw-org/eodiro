@@ -160,6 +160,12 @@
   line-height: lh(4);
 }
 
+@mixin input-text {
+  @include smaller-than($width-step--1) {
+    font-size: 16px !important;
+  }
+}
+
 // background image utils
 @mixin bgImg($url, $position: center, $size: 'contain') {
   background-image: url($url);
@@ -184,4 +190,20 @@
   @include dark-mode {
     border: 1px solid rgba(#fff, 0.17) !important;
   }
+}
+
+// Forms
+@mixin input-style {
+  @include bordered;
+  @include text-color;
+  background-color: transparent;
+  font-size: 1rem;
+  padding: 0 1rem;
+  height: $btn-height !important;
+  appearance: none;
+  overflow: auto;
+  display: block;
+  width: 100%;
+
+  @include input-text;
 }

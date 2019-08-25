@@ -5,7 +5,7 @@
 'use strict'
 
 // https://gist.github.com/paulirish/1579671
-;(function () {
+;(function() {
   let lastTime = 0
   const vendors = ['ms', 'moz', 'webkit', 'o']
   for (let x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
@@ -15,10 +15,10 @@
       window[vendors[x] + 'CancelRequestAnimationFrame']
   }
   if (!window.requestAnimationFrame) {
-    window.requestAnimationFrame = function (callback, element) {
+    window.requestAnimationFrame = function(callback) {
       const currTime = new Date().getTime()
       const timeToCall = Math.max(0, 16 - (currTime - lastTime))
-      const id = window.setTimeout(function () {
+      const id = window.setTimeout(function() {
         // eslint-disable-next-line standard/no-callback-literal
         callback(currTime + timeToCall)
       }, timeToCall)
@@ -27,7 +27,7 @@
     }
   }
   if (!window.cancelAnimationFrame) {
-    window.cancelAnimationFrame = function (id) {
+    window.cancelAnimationFrame = function(id) {
       clearTimeout(id)
     }
   }
@@ -38,7 +38,7 @@ let progressTimerId
 let fadeTimerId
 let currentProgress
 let showing
-const addEvent = function (elem, type, handler) {
+const addEvent = function(elem, type, handler) {
   if (elem.addEventListener) {
     elem.addEventListener(type, handler, false)
   } else if (elem.attachEvent) {
@@ -60,7 +60,7 @@ const options = {
   shadowBlur: 10,
   shadowColor: 'rgba(0,   0,   0,   .6)'
 }
-const repaint = function () {
+const repaint = function() {
   canvas.width = window.innerWidth
   canvas.height = options.barThickness * 5 // need space for shadow
 
@@ -82,7 +82,7 @@ const repaint = function () {
   ctx.strokeStyle = lineGradient
   ctx.stroke()
 }
-const createCanvas = function () {
+const createCanvas = function() {
   canvas = document.createElement('canvas')
   const style = canvas.style
   style.position = 'fixed'

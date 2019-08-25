@@ -84,7 +84,7 @@ export default {
 @import '~/assets/styles/scss/main';
 
 .post-item {
-  margin-bottom: space(4);
+  margin-top: space(4);
   min-height: unset;
 
   .pi-content {
@@ -95,9 +95,6 @@ export default {
       font-weight: fw(5);
       font-size: body(3);
       margin-bottom: space(2);
-      @include overlay-inverted;
-      padding: space(1) space(2);
-      border-radius: radius(2);
     }
 
     .pi-title {

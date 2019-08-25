@@ -6,15 +6,15 @@ declare global {
   }
 }
 
-export default (context) => {
+export default (context: any) => {
   const { req, route, store, redirect } = context
 
-  // server init
+  // Server init
   if (process.server) {
     if (!route.name) {
       return
     }
-    // browser redirection
+    // Browser redirection
     const cookies =
       req.headers && req.headers.cookie ? Cookie.parse(req.headers.cookie) : {}
     const redirectLang = cookies.i18n_lang
@@ -37,10 +37,13 @@ export default (context) => {
     }
   }
 
-  // client init
+  // Client init
   if (process.client) {
-    // prevent browser's default scroll restoration behaviour
-    history.scrollRestoration = 'manual'
+    // Polyfills
+    require('~/polyfills')
+
+    // Prevent browser's default scroll restoration behaviour
+    // history.scrollRestoration = 'manual'
 
     window.addEventListener('keydown', (e) => {
       if (e.shiftKey && e.key === 'L') {

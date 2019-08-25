@@ -1,22 +1,23 @@
 {
   "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
     "noEmit": true,
     "outDir": "./",
     "allowJs": true,
-    "target": "es6",
     "strict": true,
-    "module": "es2015",
     "moduleResolution": "node",
-    "lib": ["dom", "es5", "es2015"],
+    "lib": ["esnext", "esnext.asynciterable", "dom"],
     "sourceMap": true,
     "noImplicitAny": false,
     "noImplicitReturns": true,
     "resolveJsonModule": true,
     "baseUrl": "./",
     "paths": {
-      "~/*": ["src/*"]
+      "~/*": ["src/*"],
+      "@/*": ["src/*"]
     },
-    "types": ["node"],
+    "types": ["@types/node", "@nuxt/types"],
     "allowSyntheticDefaultImports": true
   },
   "exclude": ["node_modules", "dist"]

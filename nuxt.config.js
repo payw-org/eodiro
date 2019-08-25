@@ -33,19 +33,19 @@ export default {
   router: {
     // custom link class names
     linkActiveClass: 'active-link',
-    linkExactActiveClass: 'exact-active-link',
+    linkExactActiveClass: 'exact-active-link'
 
     // run middleware when route changes
-    middleware: 'route-change'
+    // middleware: 'route-change'
   },
 
   hooks: {
-    'generate:page': (page) => {
-      page.html = modifyHtml(page.html)
-    },
-    'render:route': (url, page, { req, res }) => {
-      page.html = modifyHtml(page.html)
-    }
+    // 'generate:page': (page) => {
+    //   page.html = modifyHtml(page.html)
+    // },
+    // 'render:route': (url, page, { req, res }) => {
+    //   page.html = modifyHtml(page.html)
+    // }
   },
 
   // not using nuxt's loading feature
@@ -63,7 +63,11 @@ export default {
   plugins: ['~/plugins/init.ts'],
 
   // devModules
-  devModules: ['@nuxtjs/eslint-module', '~/modules/extend-route'],
+  buildModules: [
+    '@nuxtjs/eslint-module',
+    '@nuxt/typescript-build',
+    '~/modules/extend-route'
+  ],
 
   // modules
   modules: [
@@ -109,7 +113,7 @@ export default {
         autoprefixer: {}
       }
     },
-    extend (config) {
+    extend(config) {
       config.module.rules.push({
         // use html-loader for
         // loading templates inside js/ts

@@ -68,7 +68,7 @@ export const actions = {
   /**
    * Runs on server at first
    */
-  nuxtServerInit({ commit, state }, { req }) {
+  nuxtServerInit({ commit }, { req }) {
     // set color scheme using cookie
     const cookies =
       req.headers && req.headers.cookie ? Cookie.parse(req.headers.cookie) : {}

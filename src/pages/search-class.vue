@@ -29,7 +29,12 @@
               <div class="fc-item" @click="clickSubCategoryItem('')">
                 전체
               </div>
-              <div v-for="name in unfoldCategory" :key="name" class="fc-item" @click="clickSubCategoryItem(name)">
+              <div
+                v-for="name in unfoldCategory"
+                :key="name"
+                class="fc-item"
+                @click="clickSubCategoryItem(name)"
+              >
                 {{ name }}
               </div>
             </div>
@@ -290,7 +295,7 @@ export default {
       this.searchClassListAll = list
       this.searchPage = 1
     },
-    searchClassQuary(newSearch) {
+    searchClassQuary() {
       this.searchPage = 1
     }
   },
