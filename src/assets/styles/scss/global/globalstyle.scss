@@ -134,6 +134,11 @@ input {
   border: none;
 }
 
+input,
+textarea {
+  @include input-style;
+}
+
 p {
   @include paragraph;
 }

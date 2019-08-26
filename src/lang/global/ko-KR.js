@@ -8,7 +8,8 @@ export default {
       firstLine: '맙소사...',
       secondLine: '존재하지 않는 페이지에요.',
       goHome: '홈으로 가기'
-    }
+    },
+    dataSendError: '데이터 전송에 실패했습니다.'
   },
   dataFetchError: '데이터를 가져올 수 없습니다. 문제가 지속될 시 문의해주세요.',
   goBack: '뒤로가기',

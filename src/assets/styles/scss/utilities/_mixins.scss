@@ -183,6 +183,9 @@
   }
 }
 
+$border-color: rgba(#000, 0.1);
+$border-color-dark: rgba(#fff, 0.17);
+
 @mixin bordered {
   border: 1px solid rgba(#000, 0.1) !important;
 
@@ -192,6 +195,8 @@
 }
 
 // Forms
+$input-border-radius: radius(4);
+
 @mixin input-style {
   @include bordered;
   border-radius: radius(4);

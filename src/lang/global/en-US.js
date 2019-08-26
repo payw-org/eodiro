@@ -8,7 +8,8 @@ export default {
       firstLine: 'Oh my god...',
       secondLine: 'This page does not exist.',
       goHome: 'Go Home'
-    }
+    },
+    dataSendError: 'Failed to send data.'
   },
   dataFetchError:
     'Failed to load data. If it happens consistently, please leave us an inquiry.',

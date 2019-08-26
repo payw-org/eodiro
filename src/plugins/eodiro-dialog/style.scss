@@ -53,6 +53,14 @@ $build-in-time: 700ms;
         display: none;
       }
     }
+
+    &.active {
+      .content {
+        animation: springZoomInShallow $build-in-time linear;
+        animation-duration: 0.5s;
+        animation-fill-mode: both;
+      }
+    }
   }
 
   .content {
