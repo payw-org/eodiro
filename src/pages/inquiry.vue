@@ -1,12 +1,24 @@
 <template>
   <div id="inquiry">
     <div class="page-content">
-      <div class="content-container">
+      <form
+        class="content-container"
+        action="javascript:void(0)"
+        autocomplete="off"
+      >
+        <input
+          v-model="replyEmail"
+          type="email"
+          spellcheck="false"
+          class="input-email"
+          :placeholder="$t('inquiry.inputEmail')"
+        />
         <div class="writing-area-wrapper">
           <textarea
             v-model="inquiryContent"
             class="writing-area"
             :placeholder="$t('inquiry.writeHere')"
+            spellcheck="false"
           />
           <span class="counter">{{ currentLength }} / 500</span>
         </div>
@@ -14,7 +26,7 @@
           <!-- <span class="icon"></span> -->
           <span class="text">{{ $t('inquiry.send') }}</span>
         </Button>
-      </div>
+      </form>
     </div>
   </div>
 </template>
@@ -36,6 +48,7 @@ export default {
   },
   data() {
     return {
+      replyEmail: '',
       inquiryContent: '',
       minLength: 1,
       maxLength: 500
@@ -81,7 +94,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/main.scss';
+@import '~/assets/styles/scss/main';
 
 #inquiry {
   max-width: 30rem !important;
@@ -98,9 +111,13 @@ export default {
       width: 100%;
       height: 100%;
 
+      .input-email {
+        margin-bottom: space(3);
+      }
+
       .writing-area-wrapper {
         position: relative;
-        margin-bottom: $posh-gap;
+        margin-bottom: space(3);
 
         .writing-area {
           height: 20rem;

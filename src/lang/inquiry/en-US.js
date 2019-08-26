@@ -1,7 +1,8 @@
 export default {
   title: 'Inquiry',
   send: 'Send',
-  writeHere: 'Write anything here.',
+  inputEmail: '(optional) Email address',
+  writeHere: 'Write anything',
   sent: 'Your inquiry has been sent!',
   textLimit: {
     under: 'You have to write at least one charater',
