@@ -26,7 +26,7 @@
                 </div>
               </span>
               <p v-else-if="room.expireTimeLevel === -1" class="label">
-                현재 수업중입니다
+                {{ $t('vacant.inClass') }}
               </p>
               <p v-else class="no-next-class-label label">
                 {{ $t('vacant.noNextClassMsg') }}
