@@ -30,6 +30,31 @@ $build-in-time: 700ms;
     }
   }
 
+  &.vagabond {
+    pointer-events: none !important;
+
+    .wall {
+      display: none;
+    }
+
+    .content {
+      border-radius: radius(2);
+      width: auto;
+      max-width: calc(100% - #{space(5) * 2});
+      @include text-color-inverted;
+      @include elm-fill-inverted;
+      top: 0;
+
+      .message {
+        padding: space(2) space(3);
+      }
+
+      .actions {
+        display: none;
+      }
+    }
+  }
+
   .content {
     width: calc(100% - 2rem);
     max-width: 20rem;
