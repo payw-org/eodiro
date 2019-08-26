@@ -1,10 +1,11 @@
 export default {
   floorUnit: 'th',
-  nextClass: 'Next Class',
-  noNextClassMsg: '다음 수업이 없습니다.',
+  nextClass: 'Next class',
+  noNextClassMsg: 'No next class',
   hour: 'h',
   min: 'm',
   remain: 'Left',
   timetable: 'Timetable',
-  noTimetable: 'No Timetable'
+  noTimetable: 'No Timetable',
+  inClass: 'In class'
 }

@@ -26,7 +26,7 @@
                 </div>
               </span>
               <p v-else-if="room.expireTimeLevel === -1" class="label">
-                현재 수업중입니다
+                {{ $t('vacant.inClass') }}
               </p>
               <p v-else class="no-next-class-label label">
                 {{ $t('vacant.noNextClassMsg') }}
@@ -221,6 +221,11 @@ export default {
       classroom.hour = parseInt(counterResult.expireTime / 60)
       classroom.min = counterResult.expireTime - classroom.hour * 60
     }
+
+    // Server side rendered view will not be rerendered
+    // on client side even if you manipulate the data
+    // after mounted
+    this.$forceUpdate()
   },
   methods: {
     closeTimeTable() {
