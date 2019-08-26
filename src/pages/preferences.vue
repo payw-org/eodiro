@@ -74,7 +74,7 @@ export default {
       location.reload()
     },
     switchColorScheme(mode) {
-      this.$store.commit('setColorScheme', mode)
+      this.$store.commit('SET_COLOR_SCHEME', mode)
     }
   }
 }
