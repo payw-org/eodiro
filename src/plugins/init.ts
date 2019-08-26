@@ -47,9 +47,9 @@ export default (context: any) => {
 
     window.addEventListener('keydown', (e) => {
       if (e.shiftKey && e.key === 'L') {
-        store.commit('setColorScheme', 'light')
+        store.commit('SET_COLOR_SCHEME', 'light')
       } else if (e.shiftKey && e.key === 'D') {
-        store.commit('setColorScheme', 'dark')
+        store.commit('SET_COLOR_SCHEME', 'dark')
       }
     })
 

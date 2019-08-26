@@ -42,7 +42,7 @@ export const mutations = {
   /**
    * @param {'light'|'dark'|'auto'} mode
    */
-  setColorScheme(state, mode) {
+  SET_COLOR_SCHEME(state, mode) {
     JSCookie.set('color_scheme', mode, { expires: 99999 })
     const colorSchemeClassName = getColorClassName(mode)
     state.colorSchemeClassName = colorSchemeClassName
@@ -74,6 +74,6 @@ export const actions = {
       req.headers && req.headers.cookie ? Cookie.parse(req.headers.cookie) : {}
     const mode = cookies.color_scheme
 
-    commit('setColorScheme', mode)
+    commit('SET_COLOR_SCHEME', mode)
   }
 }

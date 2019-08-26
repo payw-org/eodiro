@@ -52,15 +52,15 @@ const options = {
   barThickness: 2.5,
   barColors: {
     // '0': '#31A8FF',
-    '0': '#000',
+    '0': '#00B2FF',
     // '.25': 'rgba(52,  152, 219, .9)',
     // '.50': 'rgba(241, 196, 15,  .9)',
     // '.75': 'rgba(230, 126, 34,  .9)',
     // '1.0': '#305DFF'
-    '1.0': '#000'
+    '1.0': '#0057FF'
   },
   shadowBlur: 3,
-  shadowColor: 'rgba(0, 0, 0, 0.2)'
+  shadowColor: 'rgba(0, 0, 0, 0.3)'
 }
 const repaint = function() {
   canvas.width = window.innerWidth
