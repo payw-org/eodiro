@@ -184,7 +184,6 @@
 }
 
 @mixin bordered {
-  border-radius: $border-radius !important;
   border: 1px solid rgba(#000, 0.1) !important;
 
   @include dark-mode {
@@ -195,15 +194,17 @@
 // Forms
 @mixin input-style {
   @include bordered;
+  border-radius: radius(4);
   @include text-color;
   background-color: transparent;
-  font-size: 1rem;
-  padding: 0 1rem;
+  font-size: body(2);
+  padding: space(3);
   height: $btn-height !important;
   appearance: none;
   overflow: auto;
   display: block;
   width: 100%;
+  resize: none;
 
   @include input-text;
 }

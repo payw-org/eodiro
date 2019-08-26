@@ -3,5 +3,6 @@ export default {
   posts: 'Posts',
   comments: 'Comments',
   noComments: 'No comments',
-  leaveComment: 'Leave a comment'
+  leaveComment: 'Leave a comment',
+  newPost: 'New Post'
 }

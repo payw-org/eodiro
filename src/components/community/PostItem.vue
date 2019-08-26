@@ -87,6 +87,10 @@ export default {
   margin-top: space(4);
   min-height: unset;
 
+  &:first-child {
+    margin-top: 0;
+  }
+
   .pi-content {
     display: block;
 
