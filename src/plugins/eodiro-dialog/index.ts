@@ -59,7 +59,7 @@ export default class EodiroDialog {
     this.setMsg(msg)
     this.open('alert')
 
-    this.closeBtn.onclick = (e) => {
+    this.closeBtn.onclick = () => {
       this.close()
     }
   }
@@ -69,23 +69,28 @@ export default class EodiroDialog {
     this.open('confirm')
 
     return new Promise((resolve) => {
-      this.confirmBtn.onclick = (e) => {
+      this.confirmBtn.onclick = () => {
         this.close()
         resolve(true)
       }
 
-      this.cancelBtn.onclick = (e) => {
+      this.cancelBtn.onclick = () => {
         this.close()
         resolve(false)
       }
     })
   }
 
+  vagabond(msg: string) {
+    this.setMsg(msg)
+    this.open('vagabond')
+  }
+
   setMsg(msg: string) {
     this.dialogContainerElm.getElementsByClassName('message')[0].innerHTML = msg
   }
 
-  open(mode: 'alert' | 'confirm') {
+  open(mode: 'alert' | 'confirm' | 'vagabond') {
     this.dialogContainerElm.classList.add('active')
     this.dialogContainerElm.classList.add(mode)
 
@@ -93,6 +98,13 @@ export default class EodiroDialog {
     setTimeout(() => {
       this.dialogContainerElm.focus()
     }, 10)
+
+    // If vagabond mode, auto-close it after some time
+    if (mode === 'vagabond') {
+      setTimeout(() => {
+        this.close()
+      }, 1200)
+    }
   }
 
   close() {
