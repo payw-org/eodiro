@@ -8,11 +8,7 @@ import pageBase from '~/mixins/page-base'
 export default {
   name: 'clubs-topic-index',
   transition: 'clubs-to-index',
-  mixins: [pageBase],
-  meta: {
-    depth: 2,
-    bannerMode: 'mini'
-  }
+  mixins: [pageBase]
 }
 </script>
 

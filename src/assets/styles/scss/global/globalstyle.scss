@@ -1,6 +1,6 @@
-@import '~/assets/styles/scss/main.scss';
-@import '~/assets/styles/scss/global/typography.scss';
-@import '~/assets/styles/scss/global/simplebar-custom.scss';
+@import '~/assets/styles/scss/main';
+@import '~/assets/styles/scss/global/typography';
+@import '~/assets/styles/scss/global/simplebar-custom';
 @import '~/assets/styles/scss/global/transition';
 
 ::-webkit-scrollbar {
@@ -20,11 +20,20 @@ html {
     .mode--light {
       display: none !important;
     }
+
+    [data-color-scheme='light'] {
+      display: none !important;
+    }
   }
   @media (prefers-color-scheme: dark) {
     &.auto-color-scheme {
       background-color: #000;
+
       .mode--light {
+        display: none !important;
+      }
+
+      [data-color-scheme='light'] {
         display: none !important;
       }
     }
@@ -32,14 +41,24 @@ html {
 
   &.light-mode {
     background-color: #fff;
+
     .mode--dark {
+      display: none !important;
+    }
+
+    [data-color-scheme='dark'] {
       display: none !important;
     }
   }
   @media (prefers-color-scheme: light) {
     &.auto-color-scheme {
       background-color: #fff;
+
       .mode--dark {
+        display: none !important;
+      }
+
+      [data-color-scheme='dark'] {
         display: none !important;
       }
     }
@@ -110,6 +129,14 @@ div,
 input {
   font-family: $ui-font;
   font-weight: 400;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+input,
+textarea {
+  @include input-style;
 }
 
 p {
@@ -189,88 +216,6 @@ img {
   @include dark-mode() {
     background-color: $light-yellow;
     box-shadow: 0 0.5rem 1.5rem rgba(#000, 0.3);
-  }
-}
-
-.empty-count-badge {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  color: $c-step--4;
-  background-color: $t-black;
-  border-radius: $border-radius;
-  padding: 0 0.5rem;
-  min-height: 2rem;
-  min-width: 2rem;
-  overflow: hidden;
-
-  @include dark-mode {
-    background-color: $t-white;
-  }
-
-  &,
-  & * {
-    font-weight: 500;
-  }
-
-  .total {
-    font-weight: 700;
-    opacity: 0.7;
-  }
-
-  @keyframes badge-load {
-    0% {
-      transform: scale(0);
-      opacity: 0;
-    }
-    20% {
-      opacity: 1;
-    }
-    40% {
-      opacity: 1;
-    }
-    100% {
-      transform: scale(1);
-      opacity: 0;
-    }
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    border-radius: $border-radius;
-    background-color: $t-black;
-    animation: 1000ms badge-load ease;
-    animation-fill-mode: both;
-    animation-iteration-count: infinite;
-    transition: opacity 500ms ease;
-
-    @include dark-mode {
-      background-color: $t-white;
-    }
-  }
-
-  &.loaded {
-    &::before {
-      display: none;
-      animation: none;
-    }
-  }
-
-  .label {
-    font-weight: 500 !important;
-    transition: opacity 400ms ease;
-    white-space: nowrap;
-
-    &.opaque {
-      opacity: 0;
-    }
   }
 }
 

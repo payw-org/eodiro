@@ -5,7 +5,7 @@
 'use strict'
 
 // https://gist.github.com/paulirish/1579671
-;(function () {
+;(function() {
   let lastTime = 0
   const vendors = ['ms', 'moz', 'webkit', 'o']
   for (let x = 0; x < vendors.length && !window.requestAnimationFrame; ++x) {
@@ -15,10 +15,10 @@
       window[vendors[x] + 'CancelRequestAnimationFrame']
   }
   if (!window.requestAnimationFrame) {
-    window.requestAnimationFrame = function (callback, element) {
+    window.requestAnimationFrame = function(callback) {
       const currTime = new Date().getTime()
       const timeToCall = Math.max(0, 16 - (currTime - lastTime))
-      const id = window.setTimeout(function () {
+      const id = window.setTimeout(function() {
         // eslint-disable-next-line standard/no-callback-literal
         callback(currTime + timeToCall)
       }, timeToCall)
@@ -27,7 +27,7 @@
     }
   }
   if (!window.cancelAnimationFrame) {
-    window.cancelAnimationFrame = function (id) {
+    window.cancelAnimationFrame = function(id) {
       clearTimeout(id)
     }
   }
@@ -38,7 +38,7 @@ let progressTimerId
 let fadeTimerId
 let currentProgress
 let showing
-const addEvent = function (elem, type, handler) {
+const addEvent = function(elem, type, handler) {
   if (elem.addEventListener) {
     elem.addEventListener(type, handler, false)
   } else if (elem.attachEvent) {
@@ -49,18 +49,20 @@ const addEvent = function (elem, type, handler) {
 }
 const options = {
   autoRun: true,
-  barThickness: 2,
+  barThickness: 2.5,
   barColors: {
-    '0': 'rgba(0,0,0,0.9)',
+    // '0': '#31A8FF',
+    '0': '#00B2FF',
     // '.25': 'rgba(52,  152, 219, .9)',
     // '.50': 'rgba(241, 196, 15,  .9)',
     // '.75': 'rgba(230, 126, 34,  .9)',
-    '1.0': 'rgba(0,0,0,0.9)'
+    // '1.0': '#305DFF'
+    '1.0': '#0057FF'
   },
-  shadowBlur: 10,
-  shadowColor: 'rgba(0,   0,   0,   .6)'
+  shadowBlur: 3,
+  shadowColor: 'rgba(0, 0, 0, 0.3)'
 }
-const repaint = function () {
+const repaint = function() {
   canvas.width = window.innerWidth
   canvas.height = options.barThickness * 5 // need space for shadow
 
@@ -82,7 +84,7 @@ const repaint = function () {
   ctx.strokeStyle = lineGradient
   ctx.stroke()
 }
-const createCanvas = function () {
+const createCanvas = function() {
   canvas = document.createElement('canvas')
   const style = canvas.style
   style.position = 'fixed'
@@ -93,14 +95,14 @@ const createCanvas = function () {
   addEvent(window, 'resize', repaint)
 }
 const topbar = {
-  config (opts) {
+  config(opts) {
     for (const key in opts) {
       if (options.hasOwnProperty(key)) {
         options[key] = opts[key]
       }
     }
   },
-  show () {
+  show() {
     if (showing) {
       return
     }
@@ -115,13 +117,13 @@ const topbar = {
     canvas.style.display = 'block'
     topbar.progress(0)
     if (options.autoRun) {
-      (function loop () {
+      (function loop() {
         progressTimerId = window.requestAnimationFrame(loop)
         topbar.progress('+' + 0.05 * (1 - Math.sqrt(currentProgress)) ** 2)
       })()
     }
   },
-  progress (to) {
+  progress(to) {
     if (typeof to === 'undefined') {
       return currentProgress
     }
@@ -134,7 +136,7 @@ const topbar = {
     repaint()
     return currentProgress
   },
-  hide () {
+  hide() {
     if (!showing) {
       return
     }
@@ -143,7 +145,7 @@ const topbar = {
       window.cancelAnimationFrame(progressTimerId)
       progressTimerId = null
     }
-    (function loop () {
+    (function loop() {
       if (topbar.progress('+.1') >= 1) {
         canvas.style.opacity -= 0.05
         if (canvas.style.opacity <= 0.05) {

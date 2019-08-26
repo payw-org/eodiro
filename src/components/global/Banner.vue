@@ -1,14 +1,20 @@
 <template>
   <div id="eodiro-banner" :class="{ mini: isMini }">
     <div class="banner">
-      <transition v-for="hamletName in $store.state.hamletList" :key="`bg-${hamletName}`" name="bg-fade">
+      <transition
+        v-for="hamletName in $store.state.hamletList"
+        :key="`bg-${hamletName}`"
+        name="bg-fade"
+      >
         <div
-          v-if="hamletName === $store.state.currentHamletName"
+          v-if="hamletName === $route.meta.hamletName"
           class="background"
           :class="`background--${hamletName}`"
         />
       </transition>
-      <HomeBgTile v-if="$store.state.currentHamletName === 'home' && !isMini" />
+      <transition name="global-soft-fade">
+        <HomeBgTile v-if="$route.meta.hamletName === 'home' && !isMini" />
+      </transition>
       <div class="logo-wrapper">
         <transition
           v-for="hamletName in $store.state.hamletList"
@@ -16,7 +22,7 @@
           name="icon-change"
         >
           <div
-            v-if="hamletName === $store.state.currentHamletName"
+            v-if="hamletName === $route.meta.hamletName"
             class="logo hamlet-icon"
             :class="`hamlet--${hamletName}`"
           >
@@ -29,13 +35,15 @@
         <div class="dummy" />
         <transition name="icon-change">
           <div v-if="isMini" class="nav-icon-wrapper">
-            <transition v-for="hamletName in $store.state.hamletList" :key="`nav-${hamletName}`" name="fade">
+            <transition
+              v-for="hamletName in $store.state.hamletList"
+              :key="`nav-${hamletName}`"
+              name="fade"
+            >
               <div
-                v-if="hamletName === $store.state.currentHamletName"
+                v-if="hamletName === $route.meta.hamletName"
                 class="nav-icon hamlet-icon hamlet--home"
-                :class="[
-                  `hamlet--${hamletName}`,
-                ]"
+                :class="[`hamlet--${hamletName}`]"
               >
                 <span class="icon" />
               </div>
@@ -49,11 +57,12 @@
 </template>
 
 <script>
+import { CEM } from '../../plugins/custom-event-manager'
 import HomeBgTile from '~/components/home/HomeBgTile.vue'
 
 export default {
   components: { HomeBgTile },
-  data () {
+  data() {
     return {
       isMini: false,
       observer: null,
@@ -61,25 +70,26 @@ export default {
     }
   },
   watch: {
-    $route (to, from) {
-      // stop observing when the route is changing
-      this.observer.unobserve(this.sentinel)
+    isMini(bool) {
+      if (bool) {
+        CEM.dispatchEvent('bannerminified')
+      } else {
+        CEM.dispatchEvent('bannerspreaded')
+      }
     }
   },
-  created () {
-    // for the first time,
-    // check if the page requires Banner mini mode
-    if (this.$store.state.banner.isForcedMini) {
+  created() {
+    if (this.$route.meta.depth > 1) {
       this.isMini = true
     }
   },
-  mounted () {
-    // middle sentinel for navigation hamlet icon transition effect
+  mounted() {
+    // Sentinel for banner
     this.sentinel = document.querySelector('#banner-observer-sentinel')
     this.observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.target.isSameNode(this.sentinel)) {
-          if (this.$store.state.banner.isForcedMini) {
+          if (this.$route.meta.depth > 1) {
             this.isMini = true
           } else if (entry.isIntersecting) {
             this.isMini = false
@@ -90,14 +100,22 @@ export default {
       })
     })
 
-    // start observing
+    // Start observing
     this.observer.observe(this.sentinel)
 
-    // when route changes(page move),
+    // When route changes(page move),
     // after scroll position restoration
     // reobserve the sentinel
     document.addEventListener('scrollrestored', () => {
-      this.observer.observe(this.sentinel)
+      setTimeout(() => {
+        this.observer.observe(this.sentinel)
+      }, 50)
+    })
+
+    // Before page leaves, unobserve sentinel
+    // to prevent unexpected error
+    document.addEventListener('beforepageleave', () => {
+      this.observer.unobserve(this.sentinel)
     })
   }
 }
@@ -105,6 +123,10 @@ export default {
 
 <style lang="scss">
 @import '~/assets/styles/scss/main.scss';
+
+$banner-transition-time: 400ms;
+$banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
+// $banner-bezier: ease;
 
 #eodiro-banner {
   position: fixed;
@@ -116,15 +138,24 @@ export default {
   align-items: flex-end;
   justify-content: center;
   transform: translateY(0px);
-  transition: all 400ms cubic-bezier(0.34, 0.23, 0, 1);
+  transition: transform $banner-transition-time $banner-bezier;
 
   &.mini {
-    // transform: translateY(calc(#{$nav-height * 2} - #{$banner-height}));
     transform: translateY(calc(#{$nav-height} - #{$banner-height}));
 
     .logo-wrapper {
       opacity: 0;
-      // transform: translateY(-30%);
+    }
+
+    .banner {
+      // height: calc(#{$nav-height} + 1px);
+      height: $nav-height;
+      transition: height $banner-transition-time $banner-bezier;
+      transition-delay: 100ms;
+
+      @include larger-than($width-step--1) {
+        border-radius: 0 0 radius(5) radius(5);
+      }
     }
   }
 
@@ -136,16 +167,20 @@ export default {
     height: 100%;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 0.2rem 1rem rgba(#000, 0.25);
+    box-shadow: 0 0.3rem 1rem rgba(#000, 0.17);
+    transition: height 0ms ease;
+    transform: translate3d(0, 0, 0);
 
     @include larger-than($width-step--1) {
-      width: calc(100% - #{2 * $posh-gap});
-      height: calc(100% - #{$posh-gap});
+      width: calc(100% - #{2 * space(4)});
+      height: calc(100% - #{space(4)});
       max-width: $master-content-max-width;
-      border-radius: $border-radius;
+      border-radius: radius(5);
 
       .background {
-        border-radius: $border-radius !important;
+        border-radius: 0 0 radius(5) radius(5) !important;
+        border-radius: radius(5) !important;
+        height: calc(#{$banner-height} - #{space(4)}) !important;
         overflow: hidden;
       }
     }
@@ -157,7 +192,7 @@ export default {
       left: 0;
       background-image: linear-gradient(to bottom, $c-step--3, $c-step--4);
       width: 100%;
-      height: 100%;
+      height: $banner-height;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -189,13 +224,19 @@ export default {
         background-image: linear-gradient(to bottom, #939393, #636363);
       }
       &.background--inquiry {
-        background-image: linear-gradient(to bottom, #ffc700, #ff8a00);
+        background-image: linear-gradient(to bottom, #ffcf26, #ff9922);
+      }
+      &.background--donation {
+        background-image: linear-gradient(to bottom, #e751ff, #b221f6);
       }
       &.background--clubs {
         background-image: linear-gradient(to bottom, #00e3d6, #00b5dd);
       }
-      &.background--searchClass {
-        background-image: linear-gradient(to bottom, #22f200, #14c34f);
+      &.background--search-class {
+        background-image: linear-gradient(to bottom, #56f23d, #00d749);
+      }
+      &.background--community {
+        background-image: linear-gradient(to bottom, #ff79b9, #ff3e78);
       }
     }
 
@@ -339,6 +380,16 @@ export default {
       }
     }
 
+    &.hamlet--donation {
+      .icon {
+        @include bgImg('~assets/images/heart_white.svg', center, '75%');
+
+        @include dark-mode {
+          @include bgImg('~assets/images/heart_black.svg', center, '75%');
+        }
+      }
+    }
+
     &.hamlet--clubs {
       .icon {
         @include bgImg('~assets/images/three-white.svg', center, '75%');
@@ -349,12 +400,22 @@ export default {
       }
     }
 
-    &.hamlet--searchClass {
+    &.hamlet--search-class {
       .icon {
         @include bgImg('~assets/images/magnifier-white.svg', center, '75%');
 
         @include dark-mode {
           @include bgImg('~assets/images/magnifier-black.svg', center, '75%');
+        }
+      }
+    }
+
+    &.hamlet--community {
+      .icon {
+        @include bgImg('~assets/images/community-white.svg', center, '75%');
+
+        @include dark-mode {
+          @include bgImg('~assets/images/community.svg', center, '75%');
         }
       }
     }

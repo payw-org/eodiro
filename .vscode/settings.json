@@ -10,12 +10,14 @@
     {
       "language": "javascript",
       "autoFix": true
+    },
+    {
+      "language": "typescript",
+      "autoFix": true
     }
   ],
   "eslint.packageManager": "yarn",
-  "prettier.eslintIntegration": true,
-  "vetur.format.defaultFormatter.html": "none",
-  "vetur.format.defaultFormatter.js": "prettier-eslint",
-  "vetur.format.defaultFormatter.ts": "prettier-tslint",
+  "vetur.completion.tagCasing": "initial",
+  "vetur.format.defaultFormatter.html": "prettier",
   "files.insertFinalNewline": true
 }

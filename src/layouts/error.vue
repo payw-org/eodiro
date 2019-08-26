@@ -1,18 +1,3 @@
-<i18n>
-{
-  "kr": {
-    "first_line": "맙소사...",
-    "second_line": "존재하지 않는 페이지에요.",
-    "go_home": "홈으로 가기"
-  },
-  "en": {
-    "first_line": "Oh my god...",
-    "second_line": "This page does not exist.",
-    "go_home": "Go Home"
-  }
-}
-</i18n>
-
 <template>
   <div id="not-found">
     <div class="wrapper">
@@ -21,23 +6,23 @@
           class="hamlet-icon mode--light"
           src="~/assets/images/eodiro-icon_sq.svg"
           alt="eodiro-logo"
-        >
+        />
         <img
           class="hamlet-icon mode--dark"
           src="~/assets/images/eodiro-icon_sq_dark.svg"
           alt="eodiro-logo"
-        >
+        />
       </div>
       <h1 class="manifesto">
-        {{ $t('first_line') }}
-        <br>
-        {{ $t('second_line') }}
+        {{ $t('global.error.page.firstLine') }}
+        <br />
+        {{ $t('global.error.page.secondLine') }}
       </h1>
-      <nuxt-link :to="localePath('index')">
+      <a :href="localePath('index')">
         <Button class="go-back">
-          {{ $t('go_home') }}
+          {{ $t('global.error.page.goHome') }}
         </Button>
-      </nuxt-link>
+      </a>
     </div>
   </div>
 </template>
@@ -50,7 +35,7 @@ export default {
   meta: {
     hamletName: 'error'
   },
-  head () {
+  head() {
     return {
       htmlAttrs: {
         class: this.$store.state.colorSchemeClassName
@@ -58,7 +43,7 @@ export default {
     }
   },
   methods: {
-    goBack () {
+    goBack() {
       // this.$router.push('/')
       history.back()
     }

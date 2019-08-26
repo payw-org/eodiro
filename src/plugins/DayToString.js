@@ -2,7 +2,7 @@ export default class DayToString {
   /**
    * @param {number} dayNum
    */
-  static dts (dayNum) {
+  static dts(dayNum) {
     if (dayNum === 0) {
       return 'SUN'
     } else if (dayNum === 1) {

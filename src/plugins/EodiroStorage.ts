@@ -29,7 +29,7 @@ export default class EodiroStorage {
   }
 
   getFavoriteBuildings(): string[] {
-    let univData = this.getUnivData()
+    const univData = this.getUnivData()
     let list = univData.favoriteBuildings
     if (!list) {
       list = []
@@ -40,14 +40,14 @@ export default class EodiroStorage {
 
   toggleFavoriteBuilding(buildingID: string) {
     let result
-    let univData = this.getUnivData()
+    const univData = this.getUnivData()
     let list: string[] = univData.favoriteBuildings
     if (!list) {
       list = []
       univData.favoriteBuildings = list
     }
 
-    let index = list.indexOf(buildingID)
+    const index = list.indexOf(buildingID)
     if (index !== -1) {
       list.splice(index, 1)
       result = false

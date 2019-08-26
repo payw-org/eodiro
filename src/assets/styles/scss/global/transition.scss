@@ -1,13 +1,13 @@
 // fade page transition
 .fade-enter-active {
-  transition: opacity 200ms ease;
+  transition: opacity 400ms ease;
   opacity: 1;
 }
 .fade-enter {
   opacity: 0;
 }
 .fade-leave-active {
-  transition: opacity 200ms ease;
+  transition: opacity 150ms ease;
   opacity: 1;
 }
 .fade-leave-to {
@@ -77,6 +77,22 @@
 }
 .clubs-to-index-leave-to {
   visibility: hidden;
+}
+
+// Custom transition
+// .custom-enter-active {
+//   transition: visibility 500ms ease;
+//   visibility: visible;
+// }
+// .custom-enter {
+//   visibility: hidden;
+// }
+.custom-leave-active {
+  transition: opacity 400ms ease;
+  opacity: 1;
+}
+.custom-leave-to {
+  opacity: 0;
 }
 
 // template

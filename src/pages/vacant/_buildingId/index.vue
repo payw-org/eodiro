@@ -1,40 +1,42 @@
 <template>
   <div class="select-floor">
     <h1 class="building-id">
-      {{ $route.params.buildingId }}
+      {{ buildingId }}
     </h1>
 
     <Grid class="floor-container">
-      <nuxt-link
+      <ArrowBlock
         v-for="floor in floors"
         :key="floor.number"
-        class="floor-link"
-        :to="localePath({
-          name: 'vacant-buildingId-floorId',
-          params: {
-            floorId: floor.number
-          }
-        })"
+        class="floor-item"
+        :link="
+          localePath({
+            name: 'vacant-buildingId-floorId',
+            params: {
+              floorId: floor.number.toLowerCase()
+            }
+          })
+        "
+        @click="showTopbar()"
       >
-        <ArrowBlock class="floor-item">
-          <template v-slot:content>
-            <div class="floor-info-container">
-              <h1 class="floor-info">
-                <span class="number">{{ floor.number }}</span>
-                <span class="unit">{{ $t('vacant.floorUnit') }}</span>
-              </h1>
+        <template v-slot:content>
+          <div class="floor-info-container">
+            <h1 class="floor-info">
+              <span class="number">{{ floor.number }}</span>
+              <span class="unit">{{ $t('vacant.floorUnit') }}</span>
+            </h1>
 
-              <div class="empty-count-badge-wrapper">
-                <div class="empty-count-badge" :class="{loaded: isEmptyLoaded}">
-                  <span class="label" :class="{opaque: !isEmptyLoaded}">{{ floor.empty_classroom }}</span>
-                </div>
+            <div class="empty-count-badge-wrapper">
+              <div class="empty-count-badge">
+                <span class="label">
+                  {{ floor.empty }}
+                  <span class="total">/ {{ floor.total }}</span>
+                </span>
               </div>
             </div>
-          </template>
-        </ArrowBlock>
-      </nuxt-link>
-
-      <loading v-if="floors.length === 0" />
+          </div>
+        </template>
+      </ArrowBlock>
     </Grid>
   </div>
 </template>
@@ -42,66 +44,39 @@
 <script>
 import axios from 'axios'
 import pageBase from '~/mixins/page-base'
-import Loading from '~/components/ui/Loading.vue'
 import { Grid, ArrowBlock } from '~/components/ui'
+import ApiUrl from '~/plugins/ApiUrl'
 
 export default {
   name: 'vacant-floor',
-  components: { Loading, Grid, ArrowBlock },
+  components: { Grid, ArrowBlock },
   mixins: [pageBase],
-  meta: {
-    depth: 2,
-    bannerMode: 'mini'
-  },
-  data () {
+  data() {
     return {
       buildingName: '',
       floors: [],
-      isEmptyLoaded: false
+      buildingId: this.$route.params.buildingId
     }
   },
-  mounted () {
-    this.buildingName = this.$route.params.buildingId
-    this.fetchFloors()
-  },
-  activated () {
-    // this.fetchEmpty()
-  },
-  methods: {
-    fetchFloors () {
-      const url = `https://api.eodiro.com/cau/${this.$route.params.buildingId}`
+  asyncData({ app, route, redirect }) {
+    const campus = 'seoul'
+    const url = ApiUrl.get(
+      'alpha',
+      2,
+      `/campuses/${campus}/vacant/buildings/${route.params.buildingId}/floors`
+    )
 
-      axios
-        .get(url)
-        .then((r) => {
-          if (r.data.err) {
-            alert('데이터를 가져올 수 없습니다. 잠시 후 이용 바랍니다.')
-            return
-          }
-
-          this.floors = r.data.floors
-          this.fetchEmpty()
-        })
-        .catch(function (error) {
-          console.error(error)
-          alert('데이터를 가져올 수 없습니다. 잠시 후 이용 바랍니다.')
-        })
-    },
-    fetchEmpty () {
-      this.isEmptyLoaded = false
-
-      const url = `https://api.eodiro.com/cau/${this.$route.params.buildingId}/empty`
-
-      axios.get(url).then((r) => {
-        if (r.data.err) {
-          alert('데이터를 가져올 수 없습니다. 잠시 후 이용 바랍니다.')
-          return
+    return axios(url, {
+      method: 'get'
+    })
+      .then((res) => {
+        return {
+          floors: res.data.floors
         }
-
-        this.floors = r.data.floors
-        this.isEmptyLoaded = true
       })
-    }
+      .catch(() => {
+        redirect(app.localePath('not-found'))
+      })
   }
 }
 </script>
@@ -159,9 +134,6 @@ export default {
           border-left: 1px solid;
           @include separator;
           align-self: center;
-
-          .empty-count-badge {
-          }
         }
       }
     }

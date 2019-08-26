@@ -50,21 +50,17 @@ export default {
   name: 'preferences',
   components: { Button },
   mixins: [pageBase],
-  meta: {
-    depth: 1,
-    hamletName: 'preferences'
-  },
-  head () {
+  head() {
     return {
       title: this.$t('pref.title')
     }
   },
-  data () {
+  data() {
     return {
       autoDarkModeSupport: false
     }
   },
-  mounted () {
+  mounted() {
     // check if the browser supports 'prefers-color-scheme' media query
     // if the autoDarkModeSupport is true,
     // dark mode option will appear in the color scheme settings
@@ -73,12 +69,12 @@ export default {
     }
   },
   methods: {
-    switchLang (lang) {
+    switchLang(lang) {
       Cookies.set('i18n_lang', lang, { expires: 99999 })
       location.reload()
     },
-    switchColorScheme (mode) {
-      this.$store.commit('setColorScheme', mode)
+    switchColorScheme(mode) {
+      this.$store.commit('SET_COLOR_SCHEME', mode)
     }
   }
 }

@@ -1,35 +1,64 @@
+import { CEM } from '~/plugins/custom-event-manager'
+
 /**
  * Add this mixin from every page component.
  */
 
-export default {
-  transition: 'fade',
-  data () {
+/**
+ * @type {Vue.ComponentOptions}
+ */
+const mixinOptions = {
+  transition: {
+    name: 'fade',
+    mode: 'out-in',
+    appear: true,
+    beforeEnter() {
+      // Dispatch event
+      CEM.dispatchEvent('beforepageenter')
+    },
+    afterEnter() {
+      // Dispatch event
+      CEM.dispatchEvent('afterpageenter')
+    },
+    beforeLeave() {
+      // Dispatch event
+      CEM.dispatchEvent('beforepageleave')
+    },
+    afterLeave() {
+      // Dispatch event
+      CEM.dispatchEvent('afterpageleave')
+    }
+  },
+  data() {
     return {
       lastScrollPosition: 0
     }
   },
-  activated () {
-    // Check banner mode
-    if (this.$store.state.banner.isForcedMini) {
-      this.$store.commit('banner/setMcBannerMiniFlag', true)
-    } else {
-      this.$store.commit('banner/setMcBannerMiniFlag', false)
-    }
-
+  mounted() {
+    // Finish topbar when the data is completely loaded
+    // and the page is mounted
+    window.topbar.hide()
+  },
+  activated() {
     setTimeout(() => {
-      // restore scroll position
+      // Restore scroll position
       window.scrollTo(0, this.lastScrollPosition)
-
-      // dispatch event
-      document.dispatchEvent(new CustomEvent('scrollrestored'))
+      setTimeout(() => {
+        // Dispatch an event
+        CEM.dispatchEvent('scrollrestored')
+      }, 20)
     }, 0)
   },
-  deactivated () {
-    // store scroll position
-    if (!this.$options.meta) {
-      this.$options.meta = {}
-    }
+  deactivated() {
+    // Store current scroll position
     this.lastScrollPosition = window.scrollY
+  },
+  methods: {
+    // Start topbar
+    showTopbar() {
+      window.topbar.show()
+    }
   }
 }
+
+export default mixinOptions

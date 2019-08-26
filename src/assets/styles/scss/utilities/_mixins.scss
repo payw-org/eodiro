@@ -1,4 +1,5 @@
-@import '~/assets/styles/scss/utilities/_variables.scss';
+@import '~assets/styles/scss/utilities/variables';
+@import '~assets/styles/scss/utilities/functions';
 
 // dark mode
 @mixin dark-mode {
@@ -138,27 +139,31 @@
 
 // typography
 // headings
-@mixin heading-common {
-  font-weight: 700;
-}
 @mixin heading1 {
-  @include heading-common;
   font-size: 2.3rem;
-  line-height: 1.1;
+  font-weight: fw(6);
+  line-height: lh(2);
 }
 @mixin heading2 {
-  @include heading-common;
   font-size: 1.7rem;
-  line-height: 1.2;
+  font-weight: fw(5);
+  line-height: lh(2);
 }
 @mixin heading3 {
-  @include heading-common;
   font-size: 1.2rem;
-  line-height: 1.3;
+  font-weight: fw(5);
+  line-height: lh(2);
 }
 @mixin paragraph {
   font-size: 1rem;
-  line-height: 1.4;
+  font-weight: fw(3);
+  line-height: lh(4);
+}
+
+@mixin input-text {
+  @include smaller-than($width-step--1) {
+    font-size: 16px !important;
+  }
 }
 
 // background image utils
@@ -178,11 +183,33 @@
   }
 }
 
+$border-color: rgba(#000, 0.1);
+$border-color-dark: rgba(#fff, 0.17);
+
 @mixin bordered {
-  border-radius: $border-radius !important;
   border: 1px solid rgba(#000, 0.1) !important;
 
   @include dark-mode {
     border: 1px solid rgba(#fff, 0.17) !important;
   }
+}
+
+// Forms
+$input-border-radius: radius(4);
+
+@mixin input-style {
+  @include bordered;
+  border-radius: radius(4);
+  @include text-color;
+  background-color: transparent;
+  font-size: body(2);
+  padding: space(3);
+  height: $btn-height !important;
+  appearance: none;
+  overflow: auto;
+  display: block;
+  width: 100%;
+  resize: none;
+
+  @include input-text;
 }

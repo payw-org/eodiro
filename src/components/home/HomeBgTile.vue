@@ -9,7 +9,7 @@
 </template>
 <script>
 export default {
-  data () {
+  data() {
     return {
       key: 0,
       tileStates: undefined,
@@ -20,7 +20,7 @@ export default {
       bannerHeight: null
     }
   },
-  mounted () {
+  mounted() {
     let bannerRect = document
       .querySelector('#eodiro-banner')
       .getBoundingClientRect()
@@ -56,12 +56,12 @@ export default {
       })
     )
   },
-  beforeDestroy () {
+  beforeDestroy() {
     clearInterval(this.interval)
     window.removeEventListener('resize', this.resizeEvent)
   },
   methods: {
-    calculateVisibleTilesNumber () {
+    calculateVisibleTilesNumber() {
       // notice - there must be no scrollbar
       const heightParentComponent = 37 / 100
       const remRatioMoreThan1400 = 1.1
@@ -101,8 +101,7 @@ export default {
         )
 
         // calc real widthTile
-        widthTile =
-          (widthContainerTiles + 1.5 * rem) / tileNumWidth - 1.5 * rem
+        widthTile = (widthContainerTiles + 1.5 * rem) / tileNumWidth - 1.5 * rem
         // calc tileNumHeight
         tileNumHeight =
           Math.floor(
@@ -120,13 +119,12 @@ export default {
         widthTile = (widthContainerTiles + 1 * rem) / tileNumWidth - 1 * rem
         // calc tileNumHeight
         tileNumHeight =
-          Math.floor(
-            (heightContainerTiles + 1 * rem) / (widthTile + 1 * rem)
-          ) + 1
+          Math.floor((heightContainerTiles + 1 * rem) / (widthTile + 1 * rem)) +
+          1
       }
       return tileNumHeight * tileNumWidth
     },
-    createTiles () {
+    createTiles() {
       const ts = []
       const tileNum = this.calculateVisibleTilesNumber()
       for (let i = 0; i < tileNum; i++) {
@@ -143,7 +141,7 @@ export default {
         this.activateAnimation()
       })
     },
-    updateTilesNumber () {
+    updateTilesNumber() {
       const currentTileNum = this.calculateVisibleTilesNumber()
       let previousTileNum
 
@@ -169,7 +167,7 @@ export default {
         }
       }
     },
-    activateAnimation () {
+    activateAnimation() {
       let i, c
       const tileNum = this.getTileNum()
       this.interval = setInterval(() => {
@@ -180,8 +178,10 @@ export default {
         }
       }, 100)
     },
-    getTileNum () {
-      if (this.tileStates != null) { return this.tileStates.length }
+    getTileNum() {
+      if (this.tileStates != null) {
+        return this.tileStates.length
+      }
       return 0
     }
   }
@@ -204,6 +204,8 @@ export default {
     grid-template-columns: repeat(auto-fit, minmax(3rem, 1fr));
     grid-template-rows: repeat(auto-fit, minmax(3rem, 1fr));
   }
+  z-index: 9999;
+
   .tile {
     border-radius: 1rem;
     background-color: #fff0f3;

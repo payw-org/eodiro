@@ -9,7 +9,7 @@
     @keydown="$emit('keydown')"
     @keyup="$emit('keyup')"
     @keypress="$emit('keypress')"
-  >
+  />
 </template>
 
 <script>
@@ -28,6 +28,7 @@ export default {
 
 .feed {
   @include bordered;
+  border-radius: radius(4);
   @include text-color;
   background-color: transparent;
   font-size: 1rem;

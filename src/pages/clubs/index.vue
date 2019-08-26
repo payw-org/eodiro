@@ -53,10 +53,7 @@ export default {
   name: 'clubs-index',
   components: { Grid, ArrowBlock },
   mixins: [pageBase],
-  meta: {
-    depth: 1
-  },
-  data () {
+  data() {
     return {
       topics: [
         {

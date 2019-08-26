@@ -6,15 +6,15 @@ declare global {
   }
 }
 
-export default (context) => {
+export default (context: any) => {
   const { req, route, store, redirect } = context
 
-  // server init
+  // Server init
   if (process.server) {
     if (!route.name) {
       return
     }
-    // browser redirection
+    // Browser redirection
     const cookies =
       req.headers && req.headers.cookie ? Cookie.parse(req.headers.cookie) : {}
     const redirectLang = cookies.i18n_lang
@@ -22,7 +22,7 @@ export default (context) => {
       return
     }
     const routeName: string = route.name
-    if (routeName.match(/___en$/)) {
+    if (routeName.endsWith('___en')) {
       // English page
       if (redirectLang !== 'en') {
         let to = route.path.replace(/^\/en/, '').replace(/\/$/, '')
@@ -31,25 +31,25 @@ export default (context) => {
         }
         redirect(to)
       }
-    } else {
-      // Korean page
-      if (redirectLang === 'en') {
-        // console.log(`/en${route.path.replace(/\/$/, '')}`)
-        redirect(`/en${route.path.replace(/\/$/, '')}`)
-      }
+    } else if (redirectLang === 'en') {
+      // console.log(`/en${route.path.replace(/\/$/, '')}`)
+      redirect(`/en${route.path.replace(/\/$/, '')}`)
     }
   }
 
-  // client init
+  // Client init
   if (process.client) {
-    // prevent browser's default scroll restoration behaviour
-    history.scrollRestoration = 'manual'
+    // Polyfills
+    require('~/polyfills')
+
+    // Prevent browser's default scroll restoration behaviour
+    // history.scrollRestoration = 'manual'
 
     window.addEventListener('keydown', (e) => {
       if (e.shiftKey && e.key === 'L') {
-        store.commit('setColorScheme', 'light')
+        store.commit('SET_COLOR_SCHEME', 'light')
       } else if (e.shiftKey && e.key === 'D') {
-        store.commit('setColorScheme', 'dark')
+        store.commit('SET_COLOR_SCHEME', 'dark')
       }
     })
 

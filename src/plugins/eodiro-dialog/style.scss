@@ -1,4 +1,4 @@
-@import '~/assets/styles/scss/main.scss';
+@import '~/assets/styles/scss/main';
 
 $build-out-time: 700ms;
 $build-in-time: 700ms;
@@ -30,13 +30,45 @@ $build-in-time: 700ms;
     }
   }
 
+  &.vagabond {
+    pointer-events: none !important;
+
+    .wall {
+      display: none;
+    }
+
+    .content {
+      border-radius: radius(2);
+      width: auto;
+      max-width: calc(100% - #{space(5) * 2});
+      @include text-color-inverted;
+      @include elm-fill-inverted;
+      top: 0;
+
+      .message {
+        padding: space(2) space(3);
+      }
+
+      .actions {
+        display: none;
+      }
+    }
+
+    &.active {
+      .content {
+        animation: springZoomInShallow $build-in-time linear;
+        animation-duration: 0.5s;
+        animation-fill-mode: both;
+      }
+    }
+  }
+
   .content {
     width: calc(100% - 2rem);
     max-width: 20rem;
     height: auto;
-    padding: $gentle-gap;
     background-color: #fff;
-    border-radius: $border-radius * 1.5;
+    border-radius: radius(5);
     text-align: center;
     font-size: 1rem;
     z-index: 1;
@@ -44,7 +76,7 @@ $build-in-time: 700ms;
     transform: scale(0.9);
     // transition: opacity 200ms ease, transform 200ms ease;
     position: relative;
-    top: -1rem;
+    top: -3rem;
     animation: springZoomInOut $build-out-time linear;
     animation-fill-mode: both;
 
@@ -53,20 +85,20 @@ $build-in-time: 700ms;
     }
 
     .message {
-      margin-top: 1rem;
-      line-height: 1.3;
+      padding: space(5);
+      line-height: line-height(3);
     }
 
     .actions {
-      margin-top: 2rem;
+      border-top: solid;
+      @include separator;
+      margin: 0 space(3);
       text-align: center;
       display: grid;
-      grid-gap: $posh-gap;
       grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
 
       .act {
         cursor: pointer;
-        @include elm-fill;
         border-radius: $border-radius;
         padding: 0.8rem;
 

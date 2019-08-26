@@ -4,16 +4,18 @@
       <div class="page-content">
         <Grid class="menu-item-container">
           <!-- vacant classrooms -->
-          <nuxt-link :to="localePath('vacant').replace(/\/$/, '')">
-            <ArrowBlock class="menu-item-wrapper">
-              <template v-slot:icon>
-                <span class="icon icon--vacant" />
-              </template>
-              <template v-slot:content>
-                <span class="content">{{ $t('home.menuVacant') }}</span>
-              </template>
-            </ArrowBlock>
-          </nuxt-link>
+          <ArrowBlock
+            class="menu-item-wrapper"
+            :link="localePath('vacant').replace(/\/$/, '')"
+            @click="showTopbar()"
+          >
+            <template v-slot:icon>
+              <span class="icon icon--vacant" />
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('home.menuVacant') }}</span>
+            </template>
+          </ArrowBlock>
 
           <!-- meal -->
           <ArrowBlock class="menu-item-wrapper">
@@ -26,43 +28,63 @@
           </ArrowBlock>
 
           <!-- search-class -->
-          <nuxt-link :to="localePath('search-class').replace(/\/$/, '')">
-            <ArrowBlock class="menu-item-wrapper">
-              <template v-slot:icon>
-                <span class="icon icon--search-class" />
-              </template>
-              <template v-slot:content>
-                <span class="content">{{ $t('home.menuClass') }}</span>
-              </template>
-            </ArrowBlock>
-          </nuxt-link>
+          <ArrowBlock
+            class="menu-item-wrapper"
+            :link="localePath('search-class').replace(/\/$/, '')"
+          >
+            <template v-slot:icon>
+              <span class="icon icon--search-class" />
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('home.menuClass') }}</span>
+            </template>
+          </ArrowBlock>
 
           <!-- clubs -->
-          <nuxt-link :to="localePath('clubs').replace(/\/$/, '')">
-            <ArrowBlock class="menu-item-wrapper">
-              <template v-slot:icon>
-                <span class="icon icon--clubs" />
-              </template>
-              <template v-slot:content>
-                <span class="content">{{ $t('home.menuClubs') }}</span>
-              </template>
-            </ArrowBlock>
-          </nuxt-link>
+          <ArrowBlock
+            class="menu-item-wrapper"
+            :link="localePath('clubs').replace(/\/$/, '')"
+          >
+            <template v-slot:icon>
+              <span class="icon icon--clubs" />
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('home.menuClubs') }}</span>
+            </template>
+          </ArrowBlock>
+
+          <!-- community -->
+          <ArrowBlock
+            class="menu-item-wrapper"
+            :link="localePath('community').replace(/\/$/, '')"
+            @click="showTopbar()"
+          >
+            <template v-slot:icon>
+              <span class="icon icon--community" />
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('home.menuCommunity') }}</span>
+            </template>
+          </ArrowBlock>
 
           <!-- inquiry -->
-          <nuxt-link :to="localePath('inquiry').replace(/\/$/, '')">
-            <ArrowBlock class="menu-item-wrapper">
-              <template v-slot:icon>
-                <span class="icon icon--inquiry" />
-              </template>
-              <template v-slot:content>
-                <span class="content">{{ $t('home.menuInquiry') }}</span>
-              </template>
-            </ArrowBlock>
-          </nuxt-link>
+          <ArrowBlock
+            class="menu-item-wrapper"
+            :link="localePath('inquiry').replace(/\/$/, '')"
+          >
+            <template v-slot:icon>
+              <span class="icon icon--inquiry" />
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('home.menuInquiry') }}</span>
+            </template>
+          </ArrowBlock>
 
           <!-- donation -->
-          <ArrowBlock class="menu-item-wrapper">
+          <ArrowBlock
+            class="menu-item-wrapper"
+            :link="localePath('donation').replace(/\/$/, '')"
+          >
             <template v-slot:icon>
               <span class="icon icon--donation" />
             </template>
@@ -72,16 +94,17 @@
           </ArrowBlock>
 
           <!-- preferences -->
-          <nuxt-link :to="localePath('preferences').replace(/\/$/, '')">
-            <ArrowBlock class="menu-item-wrapper">
-              <template v-slot:icon>
-                <span class="icon icon--preferences" />
-              </template>
-              <template v-slot:content>
-                <span class="content">{{ $t('home.menuPreferences') }}</span>
-              </template>
-            </ArrowBlock>
-          </nuxt-link>
+          <ArrowBlock
+            class="menu-item-wrapper"
+            :link="localePath('preferences').replace(/\/$/, '')"
+          >
+            <template v-slot:icon>
+              <span class="icon icon--preferences" />
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('home.menuPreferences') }}</span>
+            </template>
+          </ArrowBlock>
         </Grid>
       </div>
     </div>
@@ -103,12 +126,8 @@ export default {
   name: 'home',
   components: { Grid, ArrowBlock },
   mixins: [pageBase],
-  meta: {
-    depth: 0,
-    hamletName: 'home'
-  },
   methods: {
-    preparing () {
+    preparing() {
       new EodiroDialog().alert(this.$t('preparing'))
     }
   }
@@ -185,6 +204,14 @@ export default {
 
         @include dark-mode {
           background-image: url('~assets/images/home/home-menu-icon-club-black.svg');
+        }
+      }
+
+      .icon--community {
+        background-image: url('~assets/images/home/home-menu-icon-community-white.svg');
+
+        @include dark-mode {
+          background-image: url('~assets/images/home/home-menu-icon-community-black.svg');
         }
       }
     }

@@ -5,5 +5,6 @@ export default {
   menuPreferences: 'Preferences',
   menuInquiry: 'Inquiry',
   menuDonation: 'Donate',
-  menuClubs: 'Clubs'
+  menuClubs: 'Clubs',
+  menuCommunity: 'Community'
 }

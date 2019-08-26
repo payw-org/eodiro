@@ -1,5 +1,5 @@
 export default class ExpireCounter {
-  constructor (classOfFloor) {
+  constructor(classOfFloor) {
     this.classOfFloor = classOfFloor
   }
 
@@ -11,20 +11,22 @@ export default class ExpireCounter {
    * @param {number} roomId
    * @param {Date} atDate
    */
-  run (roomId, atDate) {
+  run(roomId, atDate) {
     const roomState = {}
     let classOfRoom
     const classOfRoomOnDay = []
     let atDateByValue = null
 
     // get class array in room
-    this.classOfFloor.forEach(function (item, index) {
-      if (item.number === roomId) { classOfRoom = item.lectures }
+    this.classOfFloor.forEach(function(item) {
+      if (item.number === roomId) {
+        classOfRoom = item.lectures
+      }
     })
 
     // get class array on the day
-    const day = this.parseDayNumberToDay(atDate.getDay())
-    classOfRoom.forEach(function (item, index) {
+    const day = atDate.getDay()
+    classOfRoom.forEach(function(item) {
       if (item.time.day === day) {
         classOfRoomOnDay.push(item)
       }
@@ -38,7 +40,8 @@ export default class ExpireCounter {
     })
 
     // make atTime hour-minute-second to second
-    atDateByValue = atDate.getHours() * 3600 + atDate.getMinutes() * 60 + atDate.getSeconds()
+    atDateByValue =
+      atDate.getHours() * 3600 + atDate.getMinutes() * 60 + atDate.getSeconds()
 
     // get next class and assign roomState property
     for (let i = 0; i < classOfRoomOnDay.length; i++) {
@@ -48,12 +51,15 @@ export default class ExpireCounter {
         // class is up coming
         if (atDateByValue < this.parseClassTimeToValue(item.time.start)) {
           roomState.nextClassName = item.name
-          roomState.expireTime = (this.parseClassTimeToValue(item.time.start) - atDateByValue) / 60
+          roomState.expireTime =
+            (this.parseClassTimeToValue(item.time.start) - atDateByValue) / 60
           roomState.expireTimeLevel = parseInt(roomState.expireTime / 15)
           break
-        } else { // class is now
+        } else {
+          // class is now
           roomState.nextClassName = item.name
-          roomState.expireTime = (this.parseClassTimeToValue(item.time.end) - atDateByValue) / 60
+          roomState.expireTime =
+            (this.parseClassTimeToValue(item.time.end) - atDateByValue) / 60
           roomState.expireTimeLevel = -1
           break
         }
@@ -68,22 +74,39 @@ export default class ExpireCounter {
    * return time to second
    * @param {String} classTime
    */
-  parseClassTimeToValue (classTime) {
-    return parseInt(classTime.substr(0, 2)) * 3600 + parseInt(classTime.substr(2, 2) * 60)
+  parseClassTimeToValue(classTime) {
+    return (
+      parseInt(classTime.substr(0, 2)) * 3600 +
+      parseInt(classTime.substr(2, 2) * 60)
+    )
   }
 
   /**
    * parser number To Day {"Sun","Mon", ...}
    * @param {number} dayNumber
    */
-  parseDayNumberToDay (dayNumber) {
-    if (dayNumber === 0) { return 'SUN' }
-    if (dayNumber === 1) { return 'MON' }
-    if (dayNumber === 2) { return 'TUE' }
-    if (dayNumber === 3) { return 'WED' }
-    if (dayNumber === 4) { return 'THU' }
-    if (dayNumber === 5) { return 'FRI' }
-    if (dayNumber === 6) { return 'SAT' }
+  parseDayNumberToDay(dayNumber) {
+    if (dayNumber === 0) {
+      return 'SUN'
+    }
+    if (dayNumber === 1) {
+      return 'MON'
+    }
+    if (dayNumber === 2) {
+      return 'TUE'
+    }
+    if (dayNumber === 3) {
+      return 'WED'
+    }
+    if (dayNumber === 4) {
+      return 'THU'
+    }
+    if (dayNumber === 5) {
+      return 'FRI'
+    }
+    if (dayNumber === 6) {
+      return 'SAT'
+    }
 
     return 'Error-Day'
   }

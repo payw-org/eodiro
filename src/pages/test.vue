@@ -20,6 +20,13 @@
         </template>
       </ArrowBlock>
     </Grid>
+    <Button>
+      Test Dialog
+    </Button>
+
+    <div class="parent">
+      <div class="child" />
+    </div>
   </div>
 </template>
 
@@ -27,10 +34,25 @@
 import { Accordion, ArrowBlock, Button, Grid } from '~/components/ui'
 
 export default {
-  components: { Accordion, ArrowBlock, Button, Grid }
+  components: { Accordion, ArrowBlock, Button, Grid },
+  mounted() {},
+  methods: {}
 }
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/main.scss';
+@import '~/assets/styles/scss/main';
+
+.parent {
+  width: 100px;
+  height: 100px;
+  background: black;
+  padding: 10px;
+
+  .child {
+    width: 100%;
+    height: 100%;
+    background: red;
+  }
+}
 </style>
