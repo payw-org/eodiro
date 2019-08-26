@@ -2,7 +2,14 @@
   <div id="inquiry">
     <div class="page-content">
       <div class="content-container">
-        <Textarea class="writing-area" :placeholder="$t('inquiry.writeHere')" />
+        <div class="writing-area-wrapper">
+          <textarea
+            v-model="inquiryContent"
+            class="writing-area"
+            :placeholder="$t('inquiry.writeHere')"
+          />
+          <span class="counter">{{ currentLength }} / 500</span>
+        </div>
         <Button class="send-btn" @click="sendEmail">
           <!-- <span class="icon"></span> -->
           <span class="text">{{ $t('inquiry.send') }}</span>
@@ -15,12 +22,12 @@
 <script>
 import axios from 'axios'
 import pageBase from '~/mixins/page-base'
-import { Button, Textarea } from '~/components/ui'
-// import Dialog from '~/plugins/eodiro-dialog'
+import { Button } from '~/components/ui'
+import Dialog from '~/plugins/eodiro-dialog'
 
 export default {
   name: 'inquiry',
-  components: { Button, Textarea },
+  components: { Button },
   mixins: [pageBase],
   head() {
     return {
@@ -28,20 +35,29 @@ export default {
     }
   },
   data() {
-    return {}
+    return {
+      inquiryContent: '',
+      minLength: 1,
+      maxLength: 500
+    }
+  },
+  computed: {
+    currentLength() {
+      return this.inquiryContent.length
+    }
   },
   mounted() {},
   methods: {
     sendEmail() {
       const campus = 'seoul'
-      const msgToSend = document.querySelector('.writing-area').value
+      const msgToSend = document.querySelector('.writing-area').value.trim()
 
-      if (msgToSend.length < 2) {
-        window.confirm('한글자는 보낼 수 없습니다.')
+      if (msgToSend.length < this.minLength) {
+        new Dialog().vagabond(this.$t('inquiry.textLimit.under'))
         return
       }
-      if (msgToSend.length > 500) {
-        window.confirm('500글자 내로 작성해주세요.')
+      if (msgToSend.length > this.maxLength) {
+        new Dialog().vagabond(this.$t('inquiry.textLimit.over'))
         return
       }
       axios({
@@ -52,13 +68,12 @@ export default {
         }
       })
         .then(() => {
-          window.confirm('메시지를 보냈습니다.')
+          new Dialog().alert(this.$t('inquiry.sent'))
+          this.inquiryContent = ''
         })
         .catch((error) => {
-          window.confirm('에러 : ' + error.msg)
-        })
-        .finally(() => {
-          document.querySelector('.writing-area').value = ''
+          new Dialog().alert(`${this.$t('global.error.dataSendError')}
+          ${error}`)
         })
     }
   }
@@ -83,10 +98,34 @@ export default {
       width: 100%;
       height: 100%;
 
-      .writing-area {
-        height: 20rem;
-        flex-grow: 1;
+      .writing-area-wrapper {
+        position: relative;
         margin-bottom: $posh-gap;
+
+        .writing-area {
+          height: 20rem;
+          flex-grow: 1;
+          @include input-style;
+          padding-bottom: 3rem;
+          min-height: 15rem;
+        }
+
+        .counter {
+          font-size: body(1);
+          display: inline-block;
+          padding: space(2);
+          position: absolute;
+          right: 0;
+          bottom: 0;
+          color: $base-gray;
+          @include bg;
+          border-radius: radius(1) 0 $input-border-radius 0;
+          border: 1px solid $border-color;
+
+          @include dark-mode {
+            border: 1px solid $border-color-dark;
+          }
+        }
       }
 
       .send-btn {
