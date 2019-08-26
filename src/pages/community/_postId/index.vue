@@ -52,6 +52,7 @@
 <script>
 import { LoremIpsum } from 'lorem-ipsum'
 import dayjs from 'dayjs'
+// import axios from 'axios'
 import pageBase from '~/mixins/page-base'
 import NewComment from '~/components/community/NewComment'
 // import { CEM } from '~/plugins/custom-event-manager'
@@ -62,7 +63,20 @@ export default {
   name: 'community-post-id',
   components: { NewComment },
   mixins: [pageBase],
+  data() {
+    return {
+      lastCommentId: 0
+    }
+  },
   asyncData({ route }) {
+    // axios({
+    //   method: 'get',
+    //   url: ''
+    // }).then((response) => {
+    //   return response.data
+    // }).catch(() => {
+    //   redirect(app.localePath('not-found'))
+    // })
     return {
       postData: {
         id: route.params.postId,
@@ -89,9 +103,13 @@ export default {
     toggleLike() {
       this.postData.isLiked = !this.postData.isLiked
     },
-    loadData() {},
-    leaveNewComment(commentObj) {
-      this.comments.push(commentObj)
+    loadData() {
+      // AJAX again from comment id of lastly loaded
+    },
+    leaveNewComment(commentData) {
+      this.comments.push(commentData)
+
+      // AJAX
     }
   }
 }

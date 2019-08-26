@@ -24,6 +24,7 @@ export default {
 
 .multi-feed {
   @include bordered;
+  border-radius: radius(4);
   @include text-color;
   cursor: text;
   background-color: transparent;

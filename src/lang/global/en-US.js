@@ -20,5 +20,6 @@ export default {
     second: 'sec',
     now: 'now',
     ago: 'ago'
-  }
+  },
+  upload: 'Upload'
 }

@@ -1,9 +1,17 @@
 <template>
-  <div class="posts-list">
-    <h1 class="pl-header">
-      {{ $t('community.posts') }}
-    </h1>
-    <PostItem v-for="item in posts" :key="item.id" :post-data="item" />
+  <div id="posts">
+    <div class="header">
+      <h1 class="title">
+        {{ $t('community.posts') }}
+      </h1>
+      <button class="new-post-btn">
+        +
+        <NuxtLink :to="localePath('community-new')" class="absolute-link" />
+      </button>
+    </div>
+    <div class="posts-list">
+      <PostItem v-for="item in posts" :key="item.id" :post-data="item" />
+    </div>
   </div>
 </template>
 
@@ -34,6 +42,9 @@ export default {
   methods: {
     // loadMore(fromId, number) {
     //   console.log('Load more', fromId, number)
+    // },
+    // publishNewPost(postData) {
+    //   // AJAX
     // }
   }
 }
@@ -42,9 +53,33 @@ export default {
 <style lang="scss">
 @import '~/assets/styles/scss/main';
 
-.posts-list {
-  .pl-header {
-    padding-left: radius(2);
+#posts {
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: $nav-height;
+    z-index: 100;
+    @include bg;
+    padding: space(2) 0;
+
+    .title {
+      padding-left: radius(2);
+    }
+
+    .new-post-btn {
+      position: relative;
+      font-weight: fw(6);
+      font-size: head(3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 3rem;
+      height: 3rem;
+      border-radius: radius(3);
+      user-select: none;
+    }
   }
 }
 </style>

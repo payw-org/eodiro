@@ -19,5 +19,6 @@ export default {
     second: '초',
     now: '방금',
     ago: '전'
-  }
+  },
+  upload: '업로드'
 }
