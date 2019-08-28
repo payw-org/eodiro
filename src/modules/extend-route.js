@@ -7,14 +7,14 @@
  * @license MIT
  */
 
-export default function (moduleOptions) {
+export default function() {
   this.extendRoutes((routes) => {
     // Start sniffing routes
     sniffRoutes(routes)
   })
 }
 
-function sniffRoutes (routes) {
+function sniffRoutes(routes) {
   if (!routes || !routes.length || routes.length < 1) {
     return
   }
@@ -41,7 +41,7 @@ function sniffRoutes (routes) {
   }
 }
 
-function setRouteDepth (route) {
+function setRouteDepth(route) {
   let routeDepth = 0
 
   if (route.name === 'index') {
@@ -59,7 +59,7 @@ function setRouteDepth (route) {
 // Simple algorithm.
 // For example, "route-name-like-this"
 // should go back to "route-name-like"
-function setPrevRouteName (route) {
+function setPrevRouteName(route) {
   let prevRouteName
 
   if (!route.name) {
@@ -86,7 +86,7 @@ function setPrevRouteName (route) {
   route.meta.prevRouteName = prevRouteName
 }
 
-function setHamletName (route) {
+function setHamletName(route) {
   const path = getClearDirPath(route)
 
   let hamletName = ''
@@ -100,14 +100,14 @@ function setHamletName (route) {
 }
 
 // Count characters from string with regular expression
-function countChar (str, regExp) {
+function countChar(str, regExp) {
   if (!str) {
     return 0
   }
   return (str.match(regExp) || []).length
 }
 
-function validateMeta (route) {
+function validateMeta(route) {
   if (!route.meta) {
     route.meta = {}
   }
@@ -115,6 +115,6 @@ function validateMeta (route) {
 
 // Deletes 'pages/', 'index' from route's chunkName
 // and returns relative path from '~/pages/'
-function getClearDirPath (route) {
+function getClearDirPath(route) {
   return route.chunkName.replace(/^pages\//g, '').replace(/\/?index$/g, '')
 }
