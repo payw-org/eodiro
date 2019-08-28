@@ -17,10 +17,13 @@
             </template>
           </ArrowBlock>
 
-          <!-- meal -->
-          <ArrowBlock class="menu-item-wrapper">
+          <!-- meals -->
+          <ArrowBlock
+            class="menu-item-wrapper"
+            :link="localePath('meals').replace(/\/$/, '')"
+          >
             <template v-slot:icon>
-              <span class="icon icon--meal" />
+              <span class="icon icon--meals" />
             </template>
             <template v-slot:content>
               <span class="content">{{ $t('home.menuMeal') }}</span>
@@ -159,7 +162,7 @@ export default {
         }
       }
 
-      .icon--meal {
+      .icon--meals {
         background-image: url('~assets/images/home/home_menu_icon_food.svg');
 
         @include dark-mode {
