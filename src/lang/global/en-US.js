@@ -20,7 +20,14 @@ export default {
     minute: 'min',
     second: 'sec',
     now: 'now',
-    ago: 'ago'
+    ago: 'ago',
+    yesterday: 'yesterday',
+    today: 'today',
+    tomorrow: 'tomorrow'
   },
-  upload: 'Upload'
+  upload: 'upload',
+  nav: {
+    prev: 'previous',
+    next: 'next'
+  }
 }

@@ -7,6 +7,7 @@ export default function(langCode) {
     inquiry: require(`../inquiry/${langCode}`).default,
     pref: require(`../preferences/${langCode}`).default,
     community: require(`../community/${langCode}`).default,
-    donation: require(`../donation/${langCode}`).default
+    donation: require(`../donation/${langCode}`).default,
+    meals: require(`../meals/${langCode}`).default
   }
 }

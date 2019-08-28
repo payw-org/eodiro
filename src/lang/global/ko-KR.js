@@ -19,7 +19,14 @@ export default {
     minute: '분',
     second: '초',
     now: '방금',
-    ago: '전'
+    ago: '전',
+    yesterday: '어제',
+    today: '오늘',
+    tomorrow: '내일'
   },
-  upload: '업로드'
+  upload: '업로드',
+  nav: {
+    prev: '이전',
+    next: '다음'
+  }
 }
