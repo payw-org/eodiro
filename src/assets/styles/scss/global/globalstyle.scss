@@ -172,6 +172,11 @@ img {
   pointer-events: none;
 }
 
+ul,
+ol {
+  list-style: none;
+}
+
 .eodiro-app {
   position: fixed;
   top: 0;
