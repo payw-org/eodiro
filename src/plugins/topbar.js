@@ -47,21 +47,30 @@ const addEvent = function(elem, type, handler) {
     elem['on' + type] = handler
   }
 }
-const options = {
+
+const lightModeOptions = {
   autoRun: true,
-  barThickness: 2.5,
+  barThickness: 4,
   barColors: {
-    // '0': '#31A8FF',
-    '0': '#00B2FF',
-    // '.25': 'rgba(52,  152, 219, .9)',
-    // '.50': 'rgba(241, 196, 15,  .9)',
-    // '.75': 'rgba(230, 126, 34,  .9)',
-    // '1.0': '#305DFF'
-    '1.0': '#0057FF'
+    '0': '#FFDF00',
+    '1.0': '#00E3D6'
   },
   shadowBlur: 3,
   shadowColor: 'rgba(0, 0, 0, 0.3)'
 }
+
+const darkModeOptions = {
+  autoRun: true,
+  barThickness: 4,
+  barColors: {
+    '0': '#fff',
+    '1.0': '#fff'
+  },
+  shadowBlur: 3,
+  shadowColor: 'rgba(0, 0, 0, 0.3)'
+}
+
+let options = lightModeOptions
 const repaint = function() {
   canvas.width = window.innerWidth
   canvas.height = options.barThickness * 5 // need space for shadow
@@ -101,6 +110,12 @@ const topbar = {
         options[key] = opts[key]
       }
     }
+  },
+  setLightMode() {
+    options = lightModeOptions
+  },
+  setDarkMode() {
+    options = darkModeOptions
   },
   show() {
     if (showing) {
