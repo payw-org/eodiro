@@ -238,6 +238,9 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
       &.background--community {
         background-image: linear-gradient(to bottom, #ff79b9, #ff3e78);
       }
+      &.background--meals {
+        background-image: linear-gradient(to bottom, #31a8ff, #305dff);
+      }
     }
 
     .logo-wrapper {
@@ -416,6 +419,16 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 
         @include dark-mode {
           @include bgImg('~assets/images/community.svg', center, '75%');
+        }
+      }
+    }
+
+    &.hamlet--meals {
+      .icon {
+        @include bgImg('~assets/images/fork_knife_white.svg', center, '75%');
+
+        @include dark-mode {
+          @include bgImg('~assets/images/fork_knife_black.svg', center, '75%');
         }
       }
     }

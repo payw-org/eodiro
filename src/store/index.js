@@ -31,7 +31,7 @@ export const state = () => ({
     'search-class',
     'clubs',
     'community',
-    'meal',
+    'meals',
     'inquiry',
     'donation',
     'preferences'
