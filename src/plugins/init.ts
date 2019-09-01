@@ -1,4 +1,5 @@
 import Cookie from 'cookie'
+import { Context } from '@nuxt/types'
 
 declare global {
   interface Window {
@@ -6,7 +7,7 @@ declare global {
   }
 }
 
-export default (context: any) => {
+export default (context: Context) => {
   const { req, route, store, redirect } = context
 
   // Server init
@@ -45,10 +46,12 @@ export default (context: any) => {
     // Prevent browser's default scroll restoration behaviour
     // history.scrollRestoration = 'manual'
 
+    // Color scheme mode keyboard shorcuts
+    // shift + ctrl + D | shift + ctrl + L
     window.addEventListener('keydown', (e) => {
-      if (e.shiftKey && e.key === 'L') {
+      if (e.shiftKey && (e.metaKey || e.ctrlKey) && e.code === 'KeyL') {
         store.commit('SET_COLOR_SCHEME', 'light')
-      } else if (e.shiftKey && e.key === 'D') {
+      } else if (e.shiftKey && (e.metaKey || e.ctrlKey) && e.code === 'KeyD') {
         store.commit('SET_COLOR_SCHEME', 'dark')
       }
     })
