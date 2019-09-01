@@ -17,28 +17,72 @@
         {{ $t('meals.breakfast') }}
       </h1>
       <Grid class="restaurant-container">
-        <Accordion class="restaurant-item">
+        <Accordion class="restaurant-item" elastic>
           <template v-slot:face>
             <h2 class="restaurant-name">
               참슬기식당(310관 B4층)
             </h2>
           </template>
+          <template v-slot:content>
+            <div class="meal-group">
+              <div class="meal-title-and-price">
+                <h3 class="meal-name">
+                  조식(한식)
+                </h3>
+                <span class="meal-price">72,000원</span>
+              </div>
+              <ul class="menus">
+                <li class="menu-item">
+                  공기밥
+                </li>
+                <li class="menu-item">
+                  김치
+                </li>
+                <li class="menu-item">
+                  당근
+                </li>
+                <li class="menu-item">
+                  떡갈비
+                </li>
+                <li class="menu-item">
+                  피자
+                </li>
+                <li class="menu-item">
+                  치킨
+                </li>
+                <li class="menu-item">
+                  똠양꿍
+                </li>
+                <li class="menu-item">
+                  쌀국수
+                </li>
+              </ul>
+            </div>
+            <div class="meal-group">
+              <div class="meal-title-and-price">
+                <h3 class="meal-name">
+                  조식(일품1)
+                </h3>
+                <span class="meal-price">3,900원</span>
+              </div>
+            </div>
+          </template>
         </Accordion>
-        <Accordion class="restaurant-item">
+        <Accordion class="restaurant-item" elastic>
           <template v-slot:face>
             <h2 class="restaurant-name">
               학생식당(303관 B1층)
             </h2>
           </template>
         </Accordion>
-        <Accordion class="restaurant-item">
+        <Accordion class="restaurant-item" elastic>
           <template v-slot:face>
             <h2 class="restaurant-name">
               생활관식당(블루미르 308관)
             </h2>
           </template>
         </Accordion>
-        <Accordion class="restaurant-item">
+        <Accordion class="restaurant-item" elastic>
           <template v-slot:face>
             <h2 class="restaurant-name">
               University Club(102관 11층)
@@ -53,28 +97,28 @@
         {{ $t('meals.lunch') }}
       </h1>
       <Grid class="restaurant-container">
-        <Accordion class="restaurant-item">
+        <Accordion class="restaurant-item" elastic>
           <template v-slot:face>
             <h2 class="restaurant-name">
               참슬기식당(310관 B4층)
             </h2>
           </template>
         </Accordion>
-        <Accordion class="restaurant-item">
+        <Accordion class="restaurant-item" elastic>
           <template v-slot:face>
             <h2 class="restaurant-name">
               학생식당(303관 B1층)
             </h2>
           </template>
         </Accordion>
-        <Accordion class="restaurant-item">
+        <Accordion class="restaurant-item" elastic>
           <template v-slot:face>
             <h2 class="restaurant-name">
               생활관식당(블루미르 308관)
             </h2>
           </template>
         </Accordion>
-        <Accordion class="restaurant-item">
+        <Accordion class="restaurant-item" elastic>
           <template v-slot:face>
             <h2 class="restaurant-name">
               University Club(102관 11층)
@@ -89,28 +133,28 @@
         {{ $t('meals.supper') }}
       </h1>
       <Grid class="restaurant-container">
-        <Accordion class="restaurant-item">
+        <Accordion class="restaurant-item" elastic>
           <template v-slot:face>
             <h2 class="restaurant-name">
               참슬기식당(310관 B4층)
             </h2>
           </template>
         </Accordion>
-        <Accordion class="restaurant-item">
+        <Accordion class="restaurant-item" elastic>
           <template v-slot:face>
             <h2 class="restaurant-name">
               학생식당(303관 B1층)
             </h2>
           </template>
         </Accordion>
-        <Accordion class="restaurant-item">
+        <Accordion class="restaurant-item" elastic>
           <template v-slot:face>
             <h2 class="restaurant-name">
               생활관식당(블루미르 308관)
             </h2>
           </template>
         </Accordion>
-        <Accordion class="restaurant-item">
+        <Accordion class="restaurant-item" elastic>
           <template v-slot:face>
             <h2 class="restaurant-name">
               University Club(102관 11층)
@@ -189,6 +233,47 @@ export default Vue.extend({
         color: #529dff;
         font-size: body(5);
         font-weight: fw(4);
+      }
+
+      .meal-group {
+        margin-bottom: space(3);
+        &:last-child {
+          margin-bottom: 0;
+        }
+        @include overlay-inverted;
+        border-radius: radius(2);
+        overflow: hidden;
+
+        .meal-title-and-price {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          padding: space(2);
+          @include overlay-inverted;
+
+          .meal-name {
+            font-size: body(2);
+            font-weight: fw(5);
+          }
+
+          .meal-price {
+            font-size: body(1);
+            font-weight: fw(4);
+            color: #529dff;
+          }
+        }
+
+        .menus {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-evenly;
+          padding: space(2);
+          margin: 0 -#{space(2)} -#{space(1)} -#{space(2)};
+
+          .menu-item {
+            margin: 0 space(2) space(1) space(2);
+          }
+        }
       }
     }
   }

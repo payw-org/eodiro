@@ -1,7 +1,7 @@
 <template>
   <div
     class="accordion"
-    :class="{ collapsed: isCollapsed }"
+    :class="{ collapsed: isCollapsed, elastic: elastic }"
     :style="{ height: totalHeight }"
     @click="toggleCollapse"
   >
@@ -23,6 +23,12 @@
 
 <script>
 export default {
+  props: {
+    elastic: {
+      type: Boolean,
+      default: false
+    }
+  },
   data() {
     return {
       totalHeight: 'auto',
@@ -72,6 +78,14 @@ export default {
   @include block-style;
   flex-wrap: wrap;
   position: relative;
+
+  &.elastic {
+    min-height: unset !important;
+
+    .acc-face-container {
+      min-height: unset !important;
+    }
+  }
 
   .acc-face-container {
     width: 100%;
