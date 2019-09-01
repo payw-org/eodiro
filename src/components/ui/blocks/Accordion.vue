@@ -43,7 +43,7 @@ export default {
         this.$refs.accContentContainer.addEventListener(
           'transitionend',
           (f = () => {
-            this.contentContainerHeight = 'auto'
+            this.$refs.accContentContainer.style.height = 'auto'
             this.$refs.accContentContainer.removeEventListener(
               'transitionend',
               f
