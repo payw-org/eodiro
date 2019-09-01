@@ -272,6 +272,7 @@ export default Vue.extend({
 
           .menu-item {
             margin: 0 space(2) space(1) space(2);
+            font-size: body(2);
           }
         }
       }
