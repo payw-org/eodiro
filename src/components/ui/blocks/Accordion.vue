@@ -13,7 +13,7 @@
         <span class="acc-arrow" />
       </div>
     </div>
-    <div class="acc-content-container">
+    <div ref="accContentContainer" class="acc-content-container">
       <div class="wrapper">
         <slot name="content" />
       </div>
@@ -26,19 +26,46 @@ export default {
   data() {
     return {
       totalHeight: 'auto',
-      isCollapsed: true
+      isCollapsed: true,
+      contentContainerHeight: 0
     }
   },
   methods: {
     toggleCollapse() {
-      this.isCollapsed = !this.isCollapsed
+      if (this.isCollapsed) {
+        this.isCollapsed = false
+        this.$refs.accContentContainer.style.height =
+          this.$refs.accContentContainer.firstElementChild.clientHeight +
+          1 +
+          'px'
+
+        let f
+        this.$refs.accContentContainer.addEventListener(
+          'transitionend',
+          (f = () => {
+            this.contentContainerHeight = 'auto'
+            this.$refs.accContentContainer.removeEventListener(
+              'transitionend',
+              f
+            )
+          })
+        )
+      } else {
+        this.isCollapsed = true
+        this.$refs.accContentContainer.style.height =
+          this.$refs.accContentContainer.firstElementChild.clientHeight +
+          1 +
+          'px'
+        this.$refs.accContentContainer.getBoundingClientRect()
+        this.$refs.accContentContainer.style.height = 0
+      }
     }
   }
 }
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/main.scss';
+@import '~/assets/styles/scss/main';
 
 .accordion {
   $accordion: &;
@@ -90,12 +117,12 @@ export default {
     width: 100%;
     border-top: 1px solid;
     @include separator;
-    transition: height 200ms ease, padding 200ms ease;
+    transition: height 200ms ease, padding 200ms ease, border 200ms ease;
 
     @at-root #{$accordion}.collapsed .acc-content-container {
       padding: 0;
       height: 0;
-      border-top: none;
+      border-top: 1px solid transparent;
     }
 
     .wrapper {

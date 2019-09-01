@@ -175,11 +175,11 @@
 }
 
 @mixin separator {
-  border-color: rgba(#000, 0.1) !important;
-  border-width: 1px !important;
+  border-color: rgba(#000, 0.1);
+  border-width: 1px;
 
   @include dark-mode {
-    border-color: rgba(#fff, 0.17) !important;
+    border-color: rgba(#fff, 0.17);
   }
 }
 
