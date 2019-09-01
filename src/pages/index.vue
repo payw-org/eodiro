@@ -21,6 +21,7 @@
           <ArrowBlock
             class="menu-item-wrapper"
             :link="localePath('meals').replace(/\/$/, '')"
+            @click="showTopbar()"
           >
             <template v-slot:icon>
               <span class="icon icon--meals" />
@@ -148,8 +149,8 @@ export default {
       .menu-item-container {
         .menu-item-wrapper {
           .content {
-            font-weight: 500;
             font-size: 1.2rem;
+            font-weight: 500;
           }
         }
       }
@@ -221,8 +222,8 @@ export default {
   }
 
   .footer {
-    text-align: center;
     margin-top: 5rem;
+    text-align: center;
 
     .manifesto {
       color: $base-gray;
