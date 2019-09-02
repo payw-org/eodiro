@@ -52,6 +52,14 @@
   @return calculate($min, $max, $level);
 }
 
+@function far($level) {
+  $level: validate($level);
+  $min: 1.6rem;
+  $max: 5rem;
+
+  @return calculate($min, $max, $level);
+}
+
 @function body($level) {
   $level: validate($level);
   $min: 0.9rem;
