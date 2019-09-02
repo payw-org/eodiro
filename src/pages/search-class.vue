@@ -5,7 +5,7 @@
       <div class="form-wrapper">
         <div class="search-bar-wrapper">
           <Input
-            v-model="searchClassQuary"
+            v-model="searchClassState.search.word"
             class="search-input"
             :placeholder="$t('searchClass.initInputText')"
           />
@@ -135,10 +135,25 @@ export default {
   },
   data() {
     return {
+      apiURL: 'https://dev-hch.api.eodiro.com/v2/campuses/seoul/search-class',
       observer: null,
       sentinel: null,
       searchClassQuary: '',
       filterIsFold: true,
+      searchClassState: {
+        filter: {
+          isChange: true,
+          year: '2019',
+          semester: '2',
+          campus: '서울',
+          mainCourse: '대학원'
+        },
+        search: {
+          word: '',
+          count: 20,
+          page: 1
+        }
+      },
       selectedSubCategory: {
         year: '',
         semester: '',
@@ -179,8 +194,7 @@ export default {
           value: 'major'
         }
       ],
-      searchPage: 1,
-      searchClassListAll: classListOrigin,
+      searchClassList: [],
       subCategoryItemList: {
         year: '',
         semester: '',
@@ -207,10 +221,6 @@ export default {
         }
       }
       return true
-    },
-    searchClassList() {
-      const numOfItemInPage = 4
-      return this.searchClassListAll.slice(0, numOfItemInPage * this.searchPage)
     },
     mainCategoryIsUnfold() {
       for (let i = 0; i < this.mainCategory.length; i++) {
@@ -273,11 +283,8 @@ export default {
       // sort
       list.sort()
 
-      this.searchClassListAll = list
-      this.searchPage = 1
-    },
-    searchClassQuary() {
-      this.searchPage = 1
+      this.searchClassList = list
+      this.searchClassState.search.page = 1
     }
   },
   mounted() {
@@ -291,8 +298,18 @@ export default {
     this.sentinel = document.querySelector('#infinity-scroll-observer-sentinel')
     this.observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.target.isSameNode(this.sentinel)) {
-          this.searchPage += 1
+        if (entry.isIntersecting) {
+          if (entry.target.isSameNode(this.sentinel)) {
+            console.log('load more')
+            this.searchClassState.search.page += 1
+            const axiosForm = {}
+            axiosForm.method = 'patch'
+            axiosForm.url = this.apiURL
+            axiosForm.data = this.searchClassState
+            axios(axiosForm).then((res) => {
+              this.searchClassList.push(...res.data.search.result)
+            })
+          }
         }
       })
     })
@@ -302,17 +319,20 @@ export default {
   },
   methods: {
     basicDataRequest() {
-      const axiosForm = {}
-      axiosForm.url =
-        'https://dev-hch.api.eodiro.com/v2/campuses/seoul/search-class/filter'
-      axiosForm.method = 'get'
-      axiosForm.data = {}
-      axios(axiosForm).then((res) => {
-        this.selectedSubCategory.year = res.data.filterDefault.year
-        this.selectedSubCategory.semester = res.data.filterDefault.semester
-        this.selectedSubCategory.campus = res.data.filterDefault.campus
-        this.selectedSubCategory.process = res.data.filterDefault.mainCourse
-        this.subCategoryItemList = res.data.filterList
+      const selected = this.selectedSubCategory
+      const params = {
+        params: {
+          count: 3
+        }
+      }
+      axios.get(this.apiURL, params).then((res) => {
+        selected.year = res.data.filter.value.year
+        selected.semester = res.data.filter.value.semester
+        selected.campus = res.data.filter.value.campus
+        selected.process = res.data.filter.value.mainCourse
+        this.subCategoryItemList = res.data.filter.list
+        this.selectedSubCategory = selected
+        this.searchClassList = res.data.search.result
       })
     },
     handleScroll() {
@@ -370,13 +390,12 @@ export default {
         }
       }
       const axiosForm = {}
-      axiosForm.url =
-        'https://dev-hch.api.eodiro.com/v2/campuses/seoul/search-class/filter'
+      axiosForm.url = this.apiURL
       axiosForm.method = 'patch'
       axiosForm.data = {}
-      axiosForm.data[main[i].value] = selectedSub[main[i].value]
+      axiosForm.data.filter[main[i].value] = selectedSub[main[i].value]
       axios(axiosForm).then((res) => {
-        this.subCategoryItemList = res.data.filterList
+        this.subCategoryItemList = res.data.filter.list
       })
 
       this.selectedSubCategory = selectedSub
