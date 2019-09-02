@@ -98,10 +98,10 @@
 </template>
 
 <script>
+import axios from 'axios'
 import pageBase from '~/mixins/page-base'
 import { Input, Button, Accordion } from '~/components/ui'
 import classListOrigin from '~/assets/data/class-list'
-import filterCategoryItemOrigin from '~/assets/data/filter-category-item.json'
 
 export default {
   name: 'search-class',
@@ -176,7 +176,16 @@ export default {
         }
       ],
       searchPage: 1,
-      searchClassListAll: classListOrigin
+      searchClassListAll: classListOrigin,
+      filterCategoryItemOrigin: {
+        'year': '',
+        'semester': '',
+        'campus': '',
+        'process': '',
+        'college': '',
+        'major': ''
+
+      }
     }
   },
   computed: {
@@ -204,69 +213,16 @@ export default {
       return nothingUnfold
     },
     filterCategoryItem() {
-      const origin = filterCategoryItemOrigin
-      const selected = this.selectedSubCategory
+      const origin = this.filterCategoryItemOrigin
       const refined = {}
 
       // list all
       refined.year = origin.year
       refined.semester = origin.semester
-      refined.campus = []
-      refined.process = []
-      refined.college = []
-      refined.major = []
-      for (let i = 0; i < origin.campus.length; i++) {
-        if (!refined.campus.includes(origin.campus[i].value)) {
-          refined.campus.push(origin.campus[i].value)
-        }
-        for (let ii = 0; ii < origin.campus[i].process.length; ii++) {
-          if (
-            (selected.campus === '' ||
-              (selected.campus !== '' &&
-                selected.campus === origin.campus[i].value)) &&
-            !refined.process.includes(origin.campus[i].process[ii].value)
-          ) {
-            refined.process.push(origin.campus[i].process[ii].value)
-          }
-          for (
-            let iii = 0;
-            iii < origin.campus[i].process[ii].college.length;
-            iii++
-          ) {
-            if (
-              (selected.process === '' ||
-                (selected.process !== '' &&
-                  selected.process === origin.campus[i].process[ii].value)) &&
-              !refined.college.includes(
-                origin.campus[i].process[ii].college[iii].value
-              )
-            ) {
-              refined.college.push(
-                origin.campus[i].process[ii].college[iii].value
-              )
-            }
-            for (
-              let iiii = 0;
-              iiii < origin.campus[i].process[ii].college[iii].major.length;
-              iiii++
-            ) {
-              if (
-                (selected.college === '' ||
-                  (selected.college !== '' &&
-                    selected.college ===
-                      origin.campus[i].process[ii].college[iii].value)) &&
-                !refined.major.includes(
-                  origin.campus[i].process[ii].college[iii].major[iiii].value
-                )
-              ) {
-                refined.major.push(
-                  origin.campus[i].process[ii].college[iii].major[iiii].value
-                )
-              }
-            }
-          }
-        }
-      }
+      refined.campus = origin.campus
+      refined.process = origin.mainCourse
+      refined.college = origin.college
+      refined.major = origin.subject
 
       // sort
       refined.college.sort()
@@ -276,6 +232,13 @@ export default {
     }
   },
   watch: {
+    // searchClassQuary(newQuery) {
+    //   let axiosForm = new Object()
+    //   axiosForm.url = 'https://dev-hch.api.eodiro.com/v2/campuses/seoul/search-class/filter'
+    //   axiosForm.method = 'get'
+    //   axiosForm.data = new Object()
+    //   axios(axiosForm)
+    // },
     selectedSubCategory(newSelectedSub) {
       let list = JSON.parse(JSON.stringify(classListOrigin))
       // filter
@@ -303,6 +266,8 @@ export default {
       this.handleScroll()
     }, 0)
 
+    this.basicDataRequest()
+
     // Sentinel for banner
     this.sentinel = document.querySelector('#infinity-scroll-observer-sentinel')
     this.observer = new IntersectionObserver((entries) => {
@@ -317,6 +282,19 @@ export default {
     this.observer.observe(this.sentinel)
   },
   methods: {
+    basicDataRequest() {
+      const axiosForm = {}
+      axiosForm.url = 'https://dev-hch.api.eodiro.com/v2/campuses/seoul/search-class/filter'
+      axiosForm.method = 'get'
+      axiosForm.data = {}
+      axios(axiosForm).then((res) => {
+        this.selectedSubCategory.year = res.data.filterDefault.year
+        this.selectedSubCategory.semester = res.data.filterDefault.semester
+        this.selectedSubCategory.campus = res.data.filterDefault.campus
+        this.selectedSubCategory.process = res.data.filterDefault.mainCourse
+        this.filterCategoryItemOrigin = res.data.filterList
+      })
+    },
     handleScroll() {
       const eodiroBannerHeight = document.querySelector('#eodiro-banner')
         .offsetHeight
@@ -354,17 +332,28 @@ export default {
     clickSubCategoryItem(name) {
       const main = JSON.parse(JSON.stringify(this.mainCategory))
       const selectedSub = JSON.parse(JSON.stringify(this.selectedSubCategory))
-
-      for (let i = 0; i < main.length; i++) {
+      let i
+      for (i = 0; i < main.length; i++) {
         if (main[i].isFold === false) {
           main[i].isFold = true
+          // select same category
           if (selectedSub[main[i].value] === name) {
             selectedSub[main[i].value] = ''
-          } else {
+          } else { // select different category
             selectedSub[main[i].value] = name
           }
+          break
         }
       }
+      const axiosForm = {}
+      axiosForm.url = 'https://dev-hch.api.eodiro.com/v2/campuses/seoul/search-class/filter'
+      axiosForm.method = 'patch'
+      axiosForm.data = {}
+      axiosForm.data[main[i].value] = selectedSub[main[i].value]
+      axios(axiosForm).then((res) => {
+        this.filterCategoryItemOrigin = res.data.filterList
+      })
+
       this.selectedSubCategory = selectedSub
       this.mainCategory = main
     }
