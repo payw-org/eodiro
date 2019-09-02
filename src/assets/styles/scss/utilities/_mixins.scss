@@ -174,12 +174,18 @@
   background-size: unquote($size);
 }
 
-@mixin separator {
-  border-color: rgba(#000, 0.1) !important;
-  border-width: 1px !important;
-
-  @include dark-mode {
-    border-color: rgba(#fff, 0.17) !important;
+@mixin separator($direction: '') {
+  @if $direction == '' {
+    border-color: rgba(#000, 0.1);
+    border-width: 1px;
+    @include dark-mode {
+      border-color: rgba(#fff, 0.17);
+    }
+  } @else {
+    border-#{$direction}: 1px solid rgba(#000, 0.1);
+    @include dark-mode {
+      border-color: rgba(#fff, 0.17);
+    }
   }
 }
 

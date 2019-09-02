@@ -100,30 +100,30 @@ export default {
 
 #preferences {
   .page-content {
-    max-width: 30rem;
     margin: auto;
+    max-width: 30rem;
 
     section.pref-section {
+      border-bottom: 1px solid;
       margin-bottom: 2rem;
       padding-bottom: 2rem;
-      border-bottom: 1px solid;
       @include separator;
 
       &:last-child {
+        border-bottom: none;
         margin-bottom: 0;
         padding-bottom: 0;
-        border-bottom: none;
       }
 
       .name {
-        font-weight: 700;
         font-size: 2rem;
+        font-weight: 700;
         text-align: center;
       }
 
       .options {
-        margin-top: 2rem;
         display: flex;
+        margin-top: 2rem;
 
         .opt {
           flex: 1;

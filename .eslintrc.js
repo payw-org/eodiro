@@ -14,7 +14,8 @@ module.exports = {
     'eslint:recommended',
     'standard',
     'plugin:vue/recommended',
-    '@nuxtjs/eslint-config-typescript'
+    '@nuxtjs/eslint-config-typescript',
+    'prettier'
   ],
   rules: {
     'no-console': ['warn', { allow: ['warn', 'error'] }],
