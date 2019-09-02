@@ -26,7 +26,11 @@
           <transition name="filter-fold">
             <!-- sub category -->
             <div v-if="mainCategoryIsUnfold" class="fc-category-sub">
-              <div class="fc-item" @click="clickSubCategoryItem('')">
+              <div
+                v-if="noFilterIsPossible"
+                class="fc-item"
+                @click="clickSubCategoryItem('')"
+              >
                 전체
               </div>
               <div
@@ -177,18 +181,33 @@ export default {
       ],
       searchPage: 1,
       searchClassListAll: classListOrigin,
-      filterCategoryItemOrigin: {
-        'year': '',
-        'semester': '',
-        'campus': '',
-        'process': '',
-        'college': '',
-        'major': ''
-
+      subCategoryItemList: {
+        year: '',
+        semester: '',
+        campus: '',
+        process: '',
+        college: '',
+        major: ''
       }
     }
   },
   computed: {
+    noFilterIsPossible() {
+      for (let i = 0; i < this.mainCategory.length; i++) {
+        // some filter is unfold
+        if (this.mainCategory[i].isFold === false) {
+          // the filter is possible no filter
+          if (
+            ['year', 'semester', 'campus', 'process'].includes(
+              this.mainCategory[i].value
+            )
+          ) {
+            return false
+          }
+        }
+      }
+      return true
+    },
     searchClassList() {
       const numOfItemInPage = 4
       return this.searchClassListAll.slice(0, numOfItemInPage * this.searchPage)
@@ -213,7 +232,7 @@ export default {
       return nothingUnfold
     },
     filterCategoryItem() {
-      const origin = this.filterCategoryItemOrigin
+      const origin = this.subCategoryItemList
       const refined = {}
 
       // list all
@@ -284,7 +303,8 @@ export default {
   methods: {
     basicDataRequest() {
       const axiosForm = {}
-      axiosForm.url = 'https://dev-hch.api.eodiro.com/v2/campuses/seoul/search-class/filter'
+      axiosForm.url =
+        'https://dev-hch.api.eodiro.com/v2/campuses/seoul/search-class/filter'
       axiosForm.method = 'get'
       axiosForm.data = {}
       axios(axiosForm).then((res) => {
@@ -292,7 +312,7 @@ export default {
         this.selectedSubCategory.semester = res.data.filterDefault.semester
         this.selectedSubCategory.campus = res.data.filterDefault.campus
         this.selectedSubCategory.process = res.data.filterDefault.mainCourse
-        this.filterCategoryItemOrigin = res.data.filterList
+        this.subCategoryItemList = res.data.filterList
       })
     },
     handleScroll() {
@@ -337,21 +357,26 @@ export default {
         if (main[i].isFold === false) {
           main[i].isFold = true
           // select same category
-          if (selectedSub[main[i].value] === name) {
+          if (
+            selectedSub[main[i].value] === name &&
+            this.noFilterIsPossible === true
+          ) {
             selectedSub[main[i].value] = ''
-          } else { // select different category
+          } else {
+            // select different category
             selectedSub[main[i].value] = name
           }
           break
         }
       }
       const axiosForm = {}
-      axiosForm.url = 'https://dev-hch.api.eodiro.com/v2/campuses/seoul/search-class/filter'
+      axiosForm.url =
+        'https://dev-hch.api.eodiro.com/v2/campuses/seoul/search-class/filter'
       axiosForm.method = 'patch'
       axiosForm.data = {}
       axiosForm.data[main[i].value] = selectedSub[main[i].value]
       axios(axiosForm).then((res) => {
-        this.filterCategoryItemOrigin = res.data.filterList
+        this.subCategoryItemList = res.data.filterList
       })
 
       this.selectedSubCategory = selectedSub
