@@ -105,7 +105,6 @@
 import axios from 'axios'
 import pageBase from '~/mixins/page-base'
 import { Input, Button, Accordion } from '~/components/ui'
-import classListOrigin from '~/assets/data/class-list'
 
 export default {
   name: 'search-class',
@@ -135,11 +134,10 @@ export default {
   },
   data() {
     return {
-      apiURL: 'https://dev-hch.api.eodiro.com/v2/campuses/seoul/search-class',
+      apiURL: 'https://alpha.api.eodiro.com/v2/campuses/seoul/search-class',
       observer: null,
       sentinel: null,
-      searchClassQuary: '',
-      filterIsFold: true,
+      filterIsFold: true, //
       searchClassState: {
         filter: {
           isChange: true,
@@ -158,9 +156,9 @@ export default {
         year: '',
         semester: '',
         campus: '',
-        process: '',
+        mainCourse: '',
         college: '',
-        major: ''
+        subject: ''
       },
       mainCategory: [
         {
@@ -179,9 +177,9 @@ export default {
           value: 'campus'
         },
         {
-          name: this.$t('searchClass.filterTitleProcess'),
+          name: this.$t('searchClass.filterTitleMainCourse'),
           isFold: true,
-          value: 'process'
+          value: 'mainCourse'
         },
         {
           name: this.$t('searchClass.filterTitleCollege'),
@@ -189,9 +187,9 @@ export default {
           value: 'college'
         },
         {
-          name: this.$t('searchClass.filterTitleMajor'),
+          name: this.$t('searchClass.filterTitleSubject'),
           isFold: true,
-          value: 'major'
+          value: 'subject'
         }
       ],
       searchClassList: [],
@@ -199,9 +197,9 @@ export default {
         year: '',
         semester: '',
         campus: '',
-        process: '',
+        mainCourse: '',
         college: '',
-        major: ''
+        subject: ''
       }
     }
   },
@@ -212,7 +210,7 @@ export default {
         if (this.mainCategory[i].isFold === false) {
           // the filter is possible no filter
           if (
-            ['year', 'semester', 'campus', 'process'].includes(
+            ['year', 'semester', 'campus', 'mainCourse'].includes(
               this.mainCategory[i].value
             )
           ) {
@@ -249,44 +247,18 @@ export default {
       refined.year = origin.year
       refined.semester = origin.semester
       refined.campus = origin.campus
-      refined.process = origin.mainCourse
+      refined.mainCourse = origin.mainCourse
       refined.college = origin.college
-      refined.major = origin.subject
+      refined.subject = origin.subject
 
       // sort
       refined.college.sort()
-      refined.major.sort()
+      refined.subject.sort()
 
       return refined
     }
   },
-  watch: {
-    // searchClassQuary(newQuery) {
-    //   let axiosForm = new Object()
-    //   axiosForm.url = 'https://dev-hch.api.eodiro.com/v2/campuses/seoul/search-class/filter'
-    //   axiosForm.method = 'get'
-    //   axiosForm.data = new Object()
-    //   axios(axiosForm)
-    // },
-    selectedSubCategory(newSelectedSub) {
-      let list = JSON.parse(JSON.stringify(classListOrigin))
-      // filter
-      list = list.filter((item) => {
-        if (
-          item.subInfo.match(newSelectedSub.college) !== null &&
-          item.subInfo.match(newSelectedSub.major) !== null
-        ) {
-          return true
-        }
-      })
-
-      // sort
-      list.sort()
-
-      this.searchClassList = list
-      this.searchClassState.search.page = 1
-    }
-  },
+  watch: {},
   mounted() {
     setInterval(() => {
       this.handleScroll()
@@ -300,7 +272,6 @@ export default {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           if (entry.target.isSameNode(this.sentinel)) {
-            console.log('load more')
             this.searchClassState.search.page += 1
             const axiosForm = {}
             axiosForm.method = 'patch'
@@ -322,14 +293,14 @@ export default {
       const selected = this.selectedSubCategory
       const params = {
         params: {
-          count: 3
+          count: 10
         }
       }
       axios.get(this.apiURL, params).then((res) => {
         selected.year = res.data.filter.value.year
         selected.semester = res.data.filter.value.semester
         selected.campus = res.data.filter.value.campus
-        selected.process = res.data.filter.value.mainCourse
+        selected.mainCourse = res.data.filter.value.mainCourse
         this.subCategoryItemList = res.data.filter.list
         this.selectedSubCategory = selected
         this.searchClassList = res.data.search.result
@@ -381,24 +352,30 @@ export default {
             selectedSub[main[i].value] === name &&
             this.noFilterIsPossible === true
           ) {
-            selectedSub[main[i].value] = ''
+            // selectedSub[main[i].value] = ''
+            this.searchClassState.filter.isChange = true
+            this.searchClassState.filter[main[i].value] = ''
           } else {
             // select different category
-            selectedSub[main[i].value] = name
+            // selectedSub[main[i].value] = name
+            this.searchClassState.filter.isChange = true
+            this.searchClassState.filter[main[i].value] = name
           }
           break
         }
       }
+      this.searchClassState.filter.isChange = true
+
       const axiosForm = {}
       axiosForm.url = this.apiURL
       axiosForm.method = 'patch'
-      axiosForm.data = {}
-      axiosForm.data.filter[main[i].value] = selectedSub[main[i].value]
+      axiosForm.data = this.searchClassState
       axios(axiosForm).then((res) => {
         this.subCategoryItemList = res.data.filter.list
+        this.selectedSubCategory = res.data.filter.value
+        this.searchClassList = res.data.search.result
       })
 
-      this.selectedSubCategory = selectedSub
       this.mainCategory = main
     }
   }

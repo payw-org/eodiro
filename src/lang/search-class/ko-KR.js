@@ -8,8 +8,8 @@ export default {
   filterButtonMsg: '필터',
   filterTitleYear: '년도',
   filterTitleSemester: '학기',
-  filterTitleProcess: '과정',
+  filterTitleMainCourse: '과정',
   filterTitleCampus: '캠퍼스',
   filterTitleCollege: '대학/교양',
-  filterTitleMajor: '학부/전공'
+  filterTitleSubject: '학부/전공'
 }
