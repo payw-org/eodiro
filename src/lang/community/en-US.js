@@ -4,5 +4,11 @@ export default {
   comments: 'Comments',
   noComments: 'No comments',
   leaveComment: 'Leave a comment',
-  newPost: 'New Post'
+  new: {
+    title: 'New Post',
+    placeholder: {
+      title: 'Title',
+      body: 'Body'
+    }
+  }
 }
