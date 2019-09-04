@@ -1,10 +1,18 @@
 <template>
   <div id="new-post">
     <h1 class="header">
-      {{ $t('community.newPost') }}
+      {{ $t('community.new.title') }}
     </h1>
-    <input v-model="title" class="title-input" />
-    <textarea v-model="body" class="body-input" />
+    <input
+      v-model="title"
+      :placeholder="$t('community.new.placeholder.title')"
+      class="title-input"
+    />
+    <textarea
+      v-model="body"
+      :placeholder="$t('community.new.placeholder.body')"
+      class="body-input"
+    />
     <Button full class="publish-btn" @click="publishNewPost">
       {{ $t('global.upload') }}
     </Button>
@@ -54,7 +62,7 @@ export default Vue.extend({
 
   .body-input {
     margin-top: space(3);
-    min-height: 70vh;
+    min-height: 50vh;
   }
 
   .publish-btn {
