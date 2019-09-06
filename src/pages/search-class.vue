@@ -4,12 +4,12 @@
       <!-- form-section -->
       <div class="form-wrapper">
         <div class="search-bar-wrapper">
+          <button class="search-button" />
           <Input
-            v-model="searchClassQuary"
+            v-model="searchClassState.search.word"
             class="search-input"
             :placeholder="$t('searchClass.initInputText')"
           />
-          <button class="search-button" />
         </div>
         <Button class="filter-button" @click="filterIsFold = !filterIsFold">
           {{ $t('searchClass.filterButtonMsg') }}
@@ -52,7 +52,7 @@
               @click="clickMainCategoryItem(item)"
             >
               <span class="fc-item-details">
-                {{ selectedSubCategory[item.value] }}
+                {{ searchClassState.filter[item.value] }}
               </span>
               <span class="fc-item-name">
                 {{ item.name }}
@@ -105,7 +105,6 @@
 import axios from 'axios'
 import pageBase from '~/mixins/page-base'
 import { Input, Button, Accordion } from '~/components/ui'
-import classListOrigin from '~/assets/data/class-list'
 
 export default {
   name: 'search-class',
@@ -135,17 +134,23 @@ export default {
   },
   data() {
     return {
+      apiURL: 'https://alpha.api.eodiro.com/v2/campuses/seoul/search-class',
       observer: null,
       sentinel: null,
-      searchClassQuary: '',
-      filterIsFold: true,
-      selectedSubCategory: {
-        year: '',
-        semester: '',
-        campus: '',
-        process: '',
-        college: '',
-        major: ''
+      filterIsFold: true, //
+      searchClassState: {
+        filter: {
+          isChange: true,
+          year: '2019',
+          semester: '2',
+          campus: '서울',
+          mainCourse: '학부'
+        },
+        search: {
+          word: '',
+          count: 50,
+          page: 1
+        }
       },
       mainCategory: [
         {
@@ -164,9 +169,9 @@ export default {
           value: 'campus'
         },
         {
-          name: this.$t('searchClass.filterTitleProcess'),
+          name: this.$t('searchClass.filterTitleMainCourse'),
           isFold: true,
-          value: 'process'
+          value: 'mainCourse'
         },
         {
           name: this.$t('searchClass.filterTitleCollege'),
@@ -174,20 +179,19 @@ export default {
           value: 'college'
         },
         {
-          name: this.$t('searchClass.filterTitleMajor'),
+          name: this.$t('searchClass.filterTitleSubject'),
           isFold: true,
-          value: 'major'
+          value: 'subject'
         }
       ],
-      searchPage: 1,
-      searchClassListAll: classListOrigin,
+      searchClassList: [],
       subCategoryItemList: {
         year: '',
         semester: '',
         campus: '',
-        process: '',
+        mainCourse: '',
         college: '',
-        major: ''
+        subject: ''
       }
     }
   },
@@ -198,7 +202,7 @@ export default {
         if (this.mainCategory[i].isFold === false) {
           // the filter is possible no filter
           if (
-            ['year', 'semester', 'campus', 'process'].includes(
+            ['year', 'semester', 'campus', 'mainCourse'].includes(
               this.mainCategory[i].value
             )
           ) {
@@ -207,10 +211,6 @@ export default {
         }
       }
       return true
-    },
-    searchClassList() {
-      const numOfItemInPage = 4
-      return this.searchClassListAll.slice(0, numOfItemInPage * this.searchPage)
     },
     mainCategoryIsUnfold() {
       for (let i = 0; i < this.mainCategory.length; i++) {
@@ -239,60 +239,80 @@ export default {
       refined.year = origin.year
       refined.semester = origin.semester
       refined.campus = origin.campus
-      refined.process = origin.mainCourse
+      refined.mainCourse = origin.mainCourse
       refined.college = origin.college
-      refined.major = origin.subject
+      refined.subject = origin.subject
 
       // sort
       refined.college.sort()
-      refined.major.sort()
+      refined.subject.sort()
 
       return refined
     }
   },
   watch: {
-    // searchClassQuary(newQuery) {
-    //   let axiosForm = new Object()
-    //   axiosForm.url = 'https://dev-hch.api.eodiro.com/v2/campuses/seoul/search-class/filter'
-    //   axiosForm.method = 'get'
-    //   axiosForm.data = new Object()
-    //   axios(axiosForm)
-    // },
-    selectedSubCategory(newSelectedSub) {
-      let list = JSON.parse(JSON.stringify(classListOrigin))
-      // filter
-      list = list.filter((item) => {
-        if (
-          item.subInfo.match(newSelectedSub.college) !== null &&
-          item.subInfo.match(newSelectedSub.major) !== null
-        ) {
-          return true
-        }
+    'searchClassState.search.word'() {
+      const oneList = [
+        'ㄱ',
+        'ㄴ',
+        'ㄷ',
+        'ㄹ',
+        'ㅁ',
+        'ㅂ',
+        'ㅅ',
+        'ㅇ',
+        'ㅈ',
+        'ㅊ',
+        'ㅋ',
+        'ㅌ',
+        'ㅍ',
+        'ㅎ'
+      ]
+      for (let i = 0; i < oneList.length; i++) {
+        if (this.searchClassState.search.word.includes(oneList[i]) === true)
+          return
+      }
+      this.searchClassState.filter.isChange = false
+      this.searchClassState.search.page = 0
+      const axiosForm = {}
+      axiosForm.url = this.apiURL
+      axiosForm.method = 'patch'
+      axiosForm.data = this.searchClassState
+      console.log(this.searchClassState.search.word)
+      axios(axiosForm).then((res) => {
+        if (this.searchClassState.search.word === res.data.search.word)
+          this.searchClassList = this.refineSearchClassList(
+            res.data.search.result
+          )
       })
-
-      // sort
-      list.sort()
-
-      this.searchClassListAll = list
-      this.searchPage = 1
-    },
-    searchClassQuary() {
-      this.searchPage = 1
     }
+  },
+  created() {
+    this.basicDataRequest()
   },
   mounted() {
     setInterval(() => {
       this.handleScroll()
     }, 0)
 
-    this.basicDataRequest()
-
     // Sentinel for banner
     this.sentinel = document.querySelector('#infinity-scroll-observer-sentinel')
     this.observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.target.isSameNode(this.sentinel)) {
-          this.searchPage += 1
+        if (entry.isIntersecting) {
+          if (entry.target.isSameNode(this.sentinel)) {
+            this.searchClassState.search.page += 1
+            this.searchClassState.filter.isChange = false
+            const axiosForm = {}
+            axiosForm.method = 'patch'
+            axiosForm.url = this.apiURL
+            axiosForm.data = this.searchClassState
+            axios(axiosForm).then((res) => {
+              this.searchClassList.push(
+                ...this.refineSearchClassList(res.data.search.result)
+              )
+            })
+          }
         }
       })
     })
@@ -301,18 +321,54 @@ export default {
     this.observer.observe(this.sentinel)
   },
   methods: {
+    refineSearchClassList(newSCList) {
+      const refinedSCList = []
+      let refinedSC
+      for (let i = 0; i < newSCList.length; i++) {
+        refinedSC = {}
+        refinedSC.name = newSCList[i].name
+        refinedSC.instructor = newSCList[i].instructor
+        refinedSC.timeTable = []
+        refinedSC.subInfo = `${newSCList[i].college} ${newSCList[i].subject} ${newSCList[i].grade}학년 ${newSCList[i].type} ${newSCList[i].term}시간 ${newSCList[i].unit}학점`
+        refinedSC.extInfo = `${newSCList[i].classId} ${newSCList[i].course}`
+        refinedSC.note = `${newSCList[i].note}`
+        for (let j = 0; j < newSCList[i].locations.length; j++) {
+          if (newSCList[i].times[j].day === 0) newSCList[i].times[j].day = '일'
+          if (newSCList[i].times[j].day === 1) newSCList[i].times[j].day = '월'
+          if (newSCList[i].times[j].day === 2) newSCList[i].times[j].day = '화'
+          if (newSCList[i].times[j].day === 3) newSCList[i].times[j].day = '수'
+          if (newSCList[i].times[j].day === 4) newSCList[i].times[j].day = '목'
+          if (newSCList[i].times[j].day === 5) newSCList[i].times[j].day = '금'
+          if (newSCList[i].times[j].day === 6) newSCList[i].times[j].day = '토'
+          newSCList[i].times[j].start = newSCList[i].times[j].start.replace(
+            /^(\d\d)/,
+            '$1:'
+          )
+          newSCList[i].times[j].end = newSCList[i].times[j].end.replace(
+            /^(\d\d)/,
+            '$1:'
+          )
+          refinedSC.timeTable.push(
+            `${newSCList[i].locations[j].building}관 ${newSCList[i].locations[j].room}호 (${newSCList[i].times[j].day}) ${newSCList[i].times[j].start}~${newSCList[i].times[j].end}`
+          )
+        }
+        refinedSCList.push(refinedSC)
+      }
+      return refinedSCList
+    },
     basicDataRequest() {
-      const axiosForm = {}
-      axiosForm.url =
-        'https://dev-hch.api.eodiro.com/v2/campuses/seoul/search-class/filter'
-      axiosForm.method = 'get'
-      axiosForm.data = {}
-      axios(axiosForm).then((res) => {
-        this.selectedSubCategory.year = res.data.filterDefault.year
-        this.selectedSubCategory.semester = res.data.filterDefault.semester
-        this.selectedSubCategory.campus = res.data.filterDefault.campus
-        this.selectedSubCategory.process = res.data.filterDefault.mainCourse
-        this.subCategoryItemList = res.data.filterList
+      const params = {
+        params: {
+          count: 50
+        }
+      }
+      axios.get(this.apiURL, params).then((res) => {
+        this.subCategoryItemList = res.data.filter.list
+        this.searchClassState.filter = res.data.filter.value
+        this.searchClassState.filter.isChange = false
+        this.searchClassList = this.refineSearchClassList(
+          res.data.search.result
+        )
       })
     },
     handleScroll() {
@@ -351,35 +407,41 @@ export default {
     },
     clickSubCategoryItem(name) {
       const main = JSON.parse(JSON.stringify(this.mainCategory))
-      const selectedSub = JSON.parse(JSON.stringify(this.selectedSubCategory))
+      const selectedSub = this.searchClassState.filter
       let i
       for (i = 0; i < main.length; i++) {
         if (main[i].isFold === false) {
           main[i].isFold = true
-          // select same category
+
           if (
             selectedSub[main[i].value] === name &&
             this.noFilterIsPossible === true
           ) {
-            selectedSub[main[i].value] = ''
+            // select same category
+            this.searchClassState.filter.isChange = true
+            this.searchClassState.filter[main[i].value] = ''
+            this.searchClassState.search.page = 0
           } else {
             // select different category
-            selectedSub[main[i].value] = name
+            this.searchClassState.filter.isChange = true
+            this.searchClassState.filter[main[i].value] = name
+            this.searchClassState.search.page = 0
           }
           break
         }
       }
+
       const axiosForm = {}
-      axiosForm.url =
-        'https://dev-hch.api.eodiro.com/v2/campuses/seoul/search-class/filter'
+      axiosForm.url = this.apiURL
       axiosForm.method = 'patch'
-      axiosForm.data = {}
-      axiosForm.data[main[i].value] = selectedSub[main[i].value]
+      axiosForm.data = this.searchClassState
       axios(axiosForm).then((res) => {
-        this.subCategoryItemList = res.data.filterList
+        this.subCategoryItemList = res.data.filter.list
+        this.searchClassState.filter = res.data.filter.value
+        this.searchClassState.filter.isChange = false
+        this.searchClassList = res.data.search.result
       })
 
-      this.selectedSubCategory = selectedSub
       this.mainCategory = main
     }
   }
@@ -401,12 +463,13 @@ export default {
       position: relative;
       flex-grow: 1;
       .search-input {
-        padding-right: 2.5rem;
+        padding-left: 2.5rem;
+        padding-right: 0.5rem;
       }
       .search-button {
         position: absolute;
         top: 0;
-        right: 0;
+        left: 0;
         height: 3rem;
         width: 3rem;
 

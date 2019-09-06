@@ -8,8 +8,8 @@ export default {
   filterButtonMsg: 'Filter',
   filterTitleYear: 'Year',
   filterTitleSemester: 'Semester',
-  filterTitleProcess: 'Process',
+  filterTitleMainCourse: 'Process',
   filterTitleCampus: 'Campus',
   filterTitleCollege: 'College',
-  filterTitleMajor: 'Major'
+  filterTitleSubject: 'Major'
 }
