@@ -183,6 +183,13 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
       // opacity: 0;
       transform: translateY(calc(#{$banner-height / 2} - #{$nav-height / 2}))
         scale(0.5);
+
+      @include larger-than($width-step--1) {
+        transform: translateY(
+            calc(#{$banner-height / 2} - #{space(4) / 2} - #{$nav-height / 2})
+          )
+          scale(0.5);
+      }
     }
 
     .banner {
