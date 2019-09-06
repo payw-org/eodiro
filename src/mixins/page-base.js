@@ -1,3 +1,4 @@
+import disableScroll from 'disable-scroll'
 import { CEM } from '~/plugins/custom-event-manager'
 
 /**
@@ -11,7 +12,6 @@ const mixinOptions = {
   transition: {
     name: 'fade',
     mode: 'out-in',
-    appear: true,
     beforeEnter() {
       // Dispatch event
       CEM.dispatchEvent('beforepageenter')
@@ -42,10 +42,14 @@ const mixinOptions = {
   activated() {
     setTimeout(() => {
       // Restore scroll position
+      disableScroll.off()
       window.scrollTo(0, this.lastScrollPosition)
+      disableScroll.on()
       setTimeout(() => {
         // Dispatch an event
-        CEM.dispatchEvent('scrollrestored')
+        CEM.dispatchEvent('scrollrestored', {
+          scrollPosition: this.lastScrollPosition
+        })
       }, 20)
     }, 0)
   },

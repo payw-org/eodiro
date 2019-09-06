@@ -179,9 +179,7 @@ export default {
     const url = ApiUrl.get(
       'alpha',
       2,
-      `/campuses/${campus}/vacant/buildings/${route.params.buildingId}/floors/${
-        route.params.floorId
-      }/classrooms`
+      `/campuses/${campus}/vacant/buildings/${route.params.buildingId}/floors/${route.params.floorId}/classrooms`
     )
 
     return axios(url, {
@@ -347,11 +345,6 @@ export default {
       border-radius: radius(6);
       overflow-x: hidden;
       overflow-y: auto;
-
-      @include smaller-than(500px) {
-        max-width: none;
-        width: 100%;
-      }
 
       @include dark-mode {
         background-color: #111;

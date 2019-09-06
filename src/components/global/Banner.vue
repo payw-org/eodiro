@@ -57,7 +57,8 @@
 </template>
 
 <script>
-import { CEM } from '../../plugins/custom-event-manager'
+import disableScroll from 'disable-scroll'
+import { CEM } from '~/plugins/custom-event-manager'
 import HomeBgTile from '~/components/home/HomeBgTile.vue'
 
 export default {
@@ -106,30 +107,51 @@ export default {
     // When route changes(page move),
     // after scroll position restoration
     // reobserve the sentinel
-    document.addEventListener('scrollrestored', () => {
+    CEM.addEventListener('scrollrestored', this.$el, (e) => {
+      const scrollTop = e.detail.scrollPosition // Always positive
+      const bannerTop = Math.abs(this.$el.getBoundingClientRect().top) // Convert to positive
+      const distance = bannerTop - scrollTop
+      let newBannerTop = bannerTop - distance
+      const bannerHeight = this.$el.getBoundingClientRect().height
+      // const navHeight = this.$el
+      //   .querySelector('.eodiro-navigation')
+      //   .getBoundingClientRect().height
+      if (newBannerTop > bannerHeight) {
+        newBannerTop = bannerHeight
+      }
+      this.$el.classList.remove('mini')
+      this.$el.classList.add('transitioning')
+      this.$el.style.transform = `translateY(${-newBannerTop}px)`
       setTimeout(() => {
         this.observer.observe(this.sentinel)
-      }, 50)
+        this.$el.style.transform = ''
+        this.$el.style.position = ''
+        this.$el.classList.remove('transitioning')
+        disableScroll.off()
+      }, 350)
     })
 
     // Before page leaves, unobserve sentinel
     // to prevent unexpected error
-    document.addEventListener('beforepageleave', () => {
+    CEM.addEventListener('beforepageleave', this.$el, () => {
       this.observer.unobserve(this.sentinel)
+      const top = this.$el.getBoundingClientRect().top
+      this.$el.style.cssText = `transform: translateY(${top}px); position: fixed;`
+      disableScroll.on()
     })
   }
 }
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/main.scss';
+@import '~/assets/styles/scss/main';
 
-$banner-transition-time: 400ms;
+$banner-transition-time: 350ms;
 $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 // $banner-bezier: ease;
 
 #eodiro-banner {
-  position: fixed;
+  position: absolute;
   z-index: 6666;
   top: 0;
   width: 100%;
@@ -138,10 +160,18 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
   align-items: flex-end;
   justify-content: center;
   transform: translateY(0px);
-  transition: transform $banner-transition-time $banner-bezier;
+  // transition: transform $banner-transition-time $banner-bezier;
+
+  &.transitioning {
+    transition: transform $banner-transition-time $banner-bezier !important;
+  }
 
   &.mini {
     transform: translateY(calc(#{$nav-height} - #{$banner-height}));
+    position: fixed;
+    top: -$banner-height;
+    transform: translateY($nav-height);
+    transition: transform $banner-transition-time $banner-bezier;
 
     .logo-wrapper {
       opacity: 0;
@@ -149,7 +179,7 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 
     .banner {
       // height: calc(#{$nav-height} + 1px);
-      height: $nav-height;
+      // height: $nav-height;
       transition: height $banner-transition-time $banner-bezier;
       transition-delay: 100ms;
 
@@ -437,8 +467,9 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 
 #banner-observer-sentinel {
   position: absolute;
-  top: calc(#{$banner-height} - #{$nav-height});
-  top: $banner-height / 3;
+  // top: calc(#{$banner-height} - #{$nav-height});
+  // top: $banner-height / 2;
+  top: $banner-height;
   right: 0;
   left: 0;
   height: 1px;

@@ -74,7 +74,7 @@ export class CEM {
   // }
 
   // Dispatch custom event after validating if elements are included in document
-  public static dispatchEvent(eventName: AvailableEventNames) {
+  public static dispatchEvent(eventName: AvailableEventNames, data) {
     if (this.storage.hasOwnProperty(eventName)) {
       if (Array.isArray(this.storage[eventName])) {
         let i = this.storage[eventName].length
@@ -88,6 +88,10 @@ export class CEM {
       }
     }
 
-    document.dispatchEvent(new CustomEvent(eventName))
+    document.dispatchEvent(
+      new CustomEvent(eventName, {
+        detail: data
+      })
+    )
   }
 }
