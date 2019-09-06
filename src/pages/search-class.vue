@@ -4,12 +4,12 @@
       <!-- form-section -->
       <div class="form-wrapper">
         <div class="search-bar-wrapper">
+          <button class="search-button" />
           <Input
             v-model="searchClassState.search.word"
             class="search-input"
             :placeholder="$t('searchClass.initInputText')"
           />
-          <button class="search-button" />
         </div>
         <Button class="filter-button" @click="filterIsFold = !filterIsFold">
           {{ $t('searchClass.filterButtonMsg') }}
@@ -52,7 +52,7 @@
               @click="clickMainCategoryItem(item)"
             >
               <span class="fc-item-details">
-                {{ selectedSubCategory[item.value] }}
+                {{ searchClassState.filter[item.value] }}
               </span>
               <span class="fc-item-name">
                 {{ item.name }}
@@ -144,21 +144,13 @@ export default {
           year: '2019',
           semester: '2',
           campus: '서울',
-          mainCourse: '대학원'
+          mainCourse: '학부'
         },
         search: {
           word: '',
-          count: 20,
+          count: 50,
           page: 1
         }
-      },
-      selectedSubCategory: {
-        year: '',
-        semester: '',
-        campus: '',
-        mainCourse: '',
-        college: '',
-        subject: ''
       },
       mainCategory: [
         {
@@ -258,13 +250,50 @@ export default {
       return refined
     }
   },
-  watch: {},
+  watch: {
+    'searchClassState.search.word'() {
+      const oneList = [
+        'ㄱ',
+        'ㄴ',
+        'ㄷ',
+        'ㄹ',
+        'ㅁ',
+        'ㅂ',
+        'ㅅ',
+        'ㅇ',
+        'ㅈ',
+        'ㅊ',
+        'ㅋ',
+        'ㅌ',
+        'ㅍ',
+        'ㅎ'
+      ]
+      for (let i = 0; i < oneList.length; i++) {
+        if (this.searchClassState.search.word.includes(oneList[i]) === true)
+          return
+      }
+      this.searchClassState.filter.isChange = false
+      this.searchClassState.search.page = 0
+      const axiosForm = {}
+      axiosForm.url = this.apiURL
+      axiosForm.method = 'patch'
+      axiosForm.data = this.searchClassState
+      console.log(this.searchClassState.search.word)
+      axios(axiosForm).then((res) => {
+        if (this.searchClassState.search.word === res.data.search.word)
+          this.searchClassList = this.refineSearchClassList(
+            res.data.search.result
+          )
+      })
+    }
+  },
+  created() {
+    this.basicDataRequest()
+  },
   mounted() {
     setInterval(() => {
       this.handleScroll()
     }, 0)
-
-    this.basicDataRequest()
 
     // Sentinel for banner
     this.sentinel = document.querySelector('#infinity-scroll-observer-sentinel')
@@ -273,12 +302,15 @@ export default {
         if (entry.isIntersecting) {
           if (entry.target.isSameNode(this.sentinel)) {
             this.searchClassState.search.page += 1
+            this.searchClassState.filter.isChange = false
             const axiosForm = {}
             axiosForm.method = 'patch'
             axiosForm.url = this.apiURL
             axiosForm.data = this.searchClassState
             axios(axiosForm).then((res) => {
-              this.searchClassList.push(...res.data.search.result)
+              this.searchClassList.push(
+                ...this.refineSearchClassList(res.data.search.result)
+              )
             })
           }
         }
@@ -289,21 +321,54 @@ export default {
     this.observer.observe(this.sentinel)
   },
   methods: {
+    refineSearchClassList(newSCList) {
+      const refinedSCList = []
+      let refinedSC
+      for (let i = 0; i < newSCList.length; i++) {
+        refinedSC = {}
+        refinedSC.name = newSCList[i].name
+        refinedSC.instructor = newSCList[i].instructor
+        refinedSC.timeTable = []
+        refinedSC.subInfo = `${newSCList[i].college} ${newSCList[i].subject} ${newSCList[i].grade}학년 ${newSCList[i].type} ${newSCList[i].term}시간 ${newSCList[i].unit}학점`
+        refinedSC.extInfo = `${newSCList[i].classId} ${newSCList[i].course}`
+        refinedSC.note = `${newSCList[i].note}`
+        for (let j = 0; j < newSCList[i].locations.length; j++) {
+          if (newSCList[i].times[j].day === 0) newSCList[i].times[j].day = '일'
+          if (newSCList[i].times[j].day === 1) newSCList[i].times[j].day = '월'
+          if (newSCList[i].times[j].day === 2) newSCList[i].times[j].day = '화'
+          if (newSCList[i].times[j].day === 3) newSCList[i].times[j].day = '수'
+          if (newSCList[i].times[j].day === 4) newSCList[i].times[j].day = '목'
+          if (newSCList[i].times[j].day === 5) newSCList[i].times[j].day = '금'
+          if (newSCList[i].times[j].day === 6) newSCList[i].times[j].day = '토'
+          newSCList[i].times[j].start = newSCList[i].times[j].start.replace(
+            /^(\d\d)/,
+            '$1:'
+          )
+          newSCList[i].times[j].end = newSCList[i].times[j].end.replace(
+            /^(\d\d)/,
+            '$1:'
+          )
+          refinedSC.timeTable.push(
+            `${newSCList[i].locations[j].building}관 ${newSCList[i].locations[j].room}호 (${newSCList[i].times[j].day}) ${newSCList[i].times[j].start}~${newSCList[i].times[j].end}`
+          )
+        }
+        refinedSCList.push(refinedSC)
+      }
+      return refinedSCList
+    },
     basicDataRequest() {
-      const selected = this.selectedSubCategory
       const params = {
         params: {
-          count: 10
+          count: 50
         }
       }
       axios.get(this.apiURL, params).then((res) => {
-        selected.year = res.data.filter.value.year
-        selected.semester = res.data.filter.value.semester
-        selected.campus = res.data.filter.value.campus
-        selected.mainCourse = res.data.filter.value.mainCourse
         this.subCategoryItemList = res.data.filter.list
-        this.selectedSubCategory = selected
-        this.searchClassList = res.data.search.result
+        this.searchClassState.filter = res.data.filter.value
+        this.searchClassState.filter.isChange = false
+        this.searchClassList = this.refineSearchClassList(
+          res.data.search.result
+        )
       })
     },
     handleScroll() {
@@ -342,29 +407,29 @@ export default {
     },
     clickSubCategoryItem(name) {
       const main = JSON.parse(JSON.stringify(this.mainCategory))
-      const selectedSub = JSON.parse(JSON.stringify(this.selectedSubCategory))
+      const selectedSub = this.searchClassState.filter
       let i
       for (i = 0; i < main.length; i++) {
         if (main[i].isFold === false) {
           main[i].isFold = true
-          // select same category
+
           if (
             selectedSub[main[i].value] === name &&
             this.noFilterIsPossible === true
           ) {
-            // selectedSub[main[i].value] = ''
+            // select same category
             this.searchClassState.filter.isChange = true
             this.searchClassState.filter[main[i].value] = ''
+            this.searchClassState.search.page = 0
           } else {
             // select different category
-            // selectedSub[main[i].value] = name
             this.searchClassState.filter.isChange = true
             this.searchClassState.filter[main[i].value] = name
+            this.searchClassState.search.page = 0
           }
           break
         }
       }
-      this.searchClassState.filter.isChange = true
 
       const axiosForm = {}
       axiosForm.url = this.apiURL
@@ -372,7 +437,8 @@ export default {
       axiosForm.data = this.searchClassState
       axios(axiosForm).then((res) => {
         this.subCategoryItemList = res.data.filter.list
-        this.selectedSubCategory = res.data.filter.value
+        this.searchClassState.filter = res.data.filter.value
+        this.searchClassState.filter.isChange = false
         this.searchClassList = res.data.search.result
       })
 
@@ -397,12 +463,13 @@ export default {
       position: relative;
       flex-grow: 1;
       .search-input {
-        padding-right: 2.5rem;
+        padding-left: 2.5rem;
+        padding-right: 0.5rem;
       }
       .search-button {
         position: absolute;
         top: 0;
-        right: 0;
+        left: 0;
         height: 3rem;
         width: 3rem;
 
