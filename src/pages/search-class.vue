@@ -278,7 +278,6 @@ export default {
       axiosForm.url = this.apiURL
       axiosForm.method = 'patch'
       axiosForm.data = this.searchClassState
-      console.log(this.searchClassState.search.word)
       axios(axiosForm).then((res) => {
         if (this.searchClassState.search.word === res.data.search.word)
           this.searchClassList = this.refineSearchClassList(
