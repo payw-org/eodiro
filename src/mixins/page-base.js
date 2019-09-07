@@ -40,6 +40,7 @@ const mixinOptions = {
     window.topbar.hide()
   },
   activated() {
+    console.log(this.$route)
     setTimeout(() => {
       // Restore scroll position
       disableScroll.off()
@@ -48,7 +49,8 @@ const mixinOptions = {
       setTimeout(() => {
         // Dispatch an event
         CEM.dispatchEvent('scrollrestored', {
-          scrollPosition: this.lastScrollPosition
+          scrollPosition: this.lastScrollPosition,
+          pageDepth: this.$route.meta.depth
         })
       }, 20)
     }, 0)

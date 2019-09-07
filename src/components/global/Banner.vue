@@ -34,7 +34,7 @@
       <nav class="eodiro-navigation">
         <div class="dummy" />
         <transition name="icon-change">
-          <div v-if="isMini" class="nav-icon-wrapper">
+          <div v-if="false" class="nav-icon-wrapper">
             <transition
               v-for="hamletName in $store.state.hamletList"
               :key="`nav-${hamletName}`"
@@ -109,17 +109,23 @@ export default {
     // reobserve the sentinel
     CEM.addEventListener('scrollrestored', this.$el, (e) => {
       const scrollTop = e.detail.scrollPosition // Always positive
+      const pageDepth = e.detail.pageDepth
       const bannerTop = Math.abs(this.$el.getBoundingClientRect().top) // Convert to positive
       const distance = bannerTop - scrollTop
       let newBannerTop = bannerTop - distance
       const bannerHeight = this.$el.getBoundingClientRect().height
-      // const navHeight = this.$el
-      //   .querySelector('.eodiro-navigation')
-      //   .getBoundingClientRect().height
-      if (newBannerTop > bannerHeight) {
-        newBannerTop = bannerHeight
+      const navHeight = this.$el
+        .querySelector('.eodiro-navigation')
+        .getBoundingClientRect().height
+
+      if (pageDepth > 1) {
+        newBannerTop = bannerHeight - navHeight
+      } else if (newBannerTop > bannerHeight - navHeight) {
+        newBannerTop = bannerHeight - navHeight
+        this.$el.classList.add('mini')
+      } else {
+        this.$el.classList.remove('mini')
       }
-      this.$el.classList.remove('mini')
       this.$el.classList.add('transitioning')
       this.$el.style.transform = `translateY(${-newBannerTop}px)`
       setTimeout(() => {
@@ -169,12 +175,21 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
   &.mini {
     transform: translateY(calc(#{$nav-height} - #{$banner-height}));
     position: fixed;
-    top: -$banner-height;
-    transform: translateY($nav-height);
-    transition: transform $banner-transition-time $banner-bezier;
+    // top: -$banner-height;
+    // transform: translateY($nav-height);
+    // transition: transform $banner-transition-time $banner-bezier;
 
     .logo-wrapper {
-      opacity: 0;
+      // opacity: 0;
+      transform: translateY(calc(#{$banner-height / 2} - #{$nav-height / 2}))
+        scale(0.5);
+
+      @include larger-than($width-step--1) {
+        transform: translateY(
+            calc(#{$banner-height / 2} - #{space(4) / 2} - #{$nav-height / 2})
+          )
+          scale(0.5);
+      }
     }
 
     .banner {
@@ -467,9 +482,9 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 
 #banner-observer-sentinel {
   position: absolute;
-  // top: calc(#{$banner-height} - #{$nav-height});
+  top: calc(#{$banner-height} - #{$nav-height});
   // top: $banner-height / 2;
-  top: $banner-height;
+  // top: $banner-height;
   right: 0;
   left: 0;
   height: 1px;
