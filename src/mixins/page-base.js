@@ -40,7 +40,6 @@ const mixinOptions = {
     window.topbar.hide()
   },
   activated() {
-    console.log(this.$route)
     setTimeout(() => {
       // Restore scroll position
       disableScroll.off()

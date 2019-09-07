@@ -120,6 +120,7 @@ export default {
 
       if (pageDepth > 1) {
         newBannerTop = bannerHeight - navHeight
+        this.$el.classList.add('mini')
       } else if (newBannerTop > bannerHeight - navHeight) {
         newBannerTop = bannerHeight - navHeight
         this.$el.classList.add('mini')
