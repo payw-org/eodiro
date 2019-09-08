@@ -188,6 +188,7 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
   justify-content: center;
   transform: translateY(0px);
   // transition: transform $banner-transition-time $banner-bezier;
+  @include bg; // Fill rounded corner with the same background color
 
   &.transitioning {
     transition: transform $banner-transition-time $banner-bezier !important;

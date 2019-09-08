@@ -454,30 +454,37 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/main.scss';
+@import '~/assets/styles/scss/main';
 
 #search-class {
   .form-wrapper {
+    position: sticky;
+    top: $nav-height;
     display: flex;
+    padding: space(3) 0;
+    @include bg;
+    z-index: 5;
 
     .filter-button {
       margin-left: 1rem;
       padding: 0 1.3rem !important;
     }
+
     .search-bar-wrapper {
       position: relative;
       flex-grow: 1;
+
       .search-input {
-        padding-left: 2.5rem;
+        padding-left: 2.8rem;
         padding-right: 0.5rem;
       }
+
       .search-button {
         position: absolute;
         top: 0;
         left: 0;
         height: 3rem;
         width: 3rem;
-
         @include bgImg('~assets/images/magnifier-black.svg', 'center', '70%');
 
         @include dark-mode {

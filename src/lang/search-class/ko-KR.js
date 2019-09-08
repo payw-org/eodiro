@@ -4,7 +4,7 @@ export default {
     description: 'aaa',
     title: 'bbb'
   },
-  initInputText: '강의 정보를 입력해주세요',
+  initInputText: '지니어스 검색',
   filterButtonMsg: '필터',
   filterTitleYear: '년도',
   filterTitleSemester: '학기',
