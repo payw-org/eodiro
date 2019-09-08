@@ -45,10 +45,7 @@
           </ArrowBlock>
 
           <!-- clubs -->
-          <ArrowBlock
-            class="menu-item-wrapper"
-            :link="localePath('clubs').replace(/\/$/, '')"
-          >
+          <ArrowBlock class="menu-item-wrapper disabled">
             <template v-slot:icon>
               <span class="icon icon--clubs" />
             </template>
@@ -58,11 +55,7 @@
           </ArrowBlock>
 
           <!-- community -->
-          <ArrowBlock
-            class="menu-item-wrapper"
-            :link="localePath('community').replace(/\/$/, '')"
-            @click="showTopbar()"
-          >
+          <ArrowBlock class="menu-item-wrapper disabled">
             <template v-slot:icon>
               <span class="icon icon--community" />
             </template>
@@ -148,6 +141,11 @@ export default {
     .page-content {
       .menu-item-container {
         .menu-item-wrapper {
+          &.disabled {
+            opacity: 0.4;
+            filter: grayscale(0.8);
+          }
+
           .content {
             font-size: 1.2rem;
             font-weight: 500;
