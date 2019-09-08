@@ -1,57 +1,59 @@
 <template>
-  <div id="eodiro-banner" :class="{ mini: isMini }">
-    <div class="banner">
-      <transition
-        v-for="hamletName in $store.state.hamletList"
-        :key="`bg-${hamletName}`"
-        name="bg-fade"
-      >
-        <div
-          v-if="hamletName === $route.meta.hamletName"
-          class="background"
-          :class="`background--${hamletName}`"
-        />
-      </transition>
-      <transition name="global-soft-fade">
-        <HomeBgTile v-if="$route.meta.hamletName === 'home' && !isMini" />
-      </transition>
-      <div class="logo-wrapper">
+  <div id="eodiro-banner-wrapper">
+    <div id="eodiro-banner" ref="banner" :class="{ mini: appearMini }">
+      <div class="banner">
         <transition
           v-for="hamletName in $store.state.hamletList"
-          :key="`banner-${hamletName}`"
-          name="icon-change"
+          :key="`bg-${hamletName}`"
+          name="bg-fade"
         >
           <div
             v-if="hamletName === $route.meta.hamletName"
-            class="logo hamlet-icon"
-            :class="`hamlet--${hamletName}`"
+            class="background"
+            :class="`background--${hamletName}`"
+          />
+        </transition>
+        <transition name="global-soft-fade">
+          <HomeBgTile v-if="$route.meta.hamletName === 'home' && !isNavMode" />
+        </transition>
+        <div class="logo-wrapper">
+          <transition
+            v-for="hamletName in $store.state.hamletList"
+            :key="`banner-${hamletName}`"
+            name="icon-change"
           >
-            <span class="icon" />
-          </div>
-        </transition>
-      </div>
-
-      <nav class="eodiro-navigation">
-        <div class="dummy" />
-        <transition name="icon-change">
-          <div v-if="false" class="nav-icon-wrapper">
-            <transition
-              v-for="hamletName in $store.state.hamletList"
-              :key="`nav-${hamletName}`"
-              name="fade"
+            <div
+              v-if="hamletName === $route.meta.hamletName"
+              class="logo hamlet-icon"
+              :class="`hamlet--${hamletName}`"
             >
-              <div
-                v-if="hamletName === $route.meta.hamletName"
-                class="nav-icon hamlet-icon hamlet--home"
-                :class="[`hamlet--${hamletName}`]"
+              <span class="icon" />
+            </div>
+          </transition>
+        </div>
+
+        <nav class="eodiro-navigation">
+          <div class="dummy" />
+          <transition name="icon-change">
+            <div v-if="false" class="nav-icon-wrapper">
+              <transition
+                v-for="hamletName in $store.state.hamletList"
+                :key="`nav-${hamletName}`"
+                name="fade"
               >
-                <span class="icon" />
-              </div>
-            </transition>
-          </div>
-        </transition>
-        <div class="dummy" />
-      </nav>
+                <div
+                  v-if="hamletName === $route.meta.hamletName"
+                  class="nav-icon hamlet-icon hamlet--home"
+                  :class="[`hamlet--${hamletName}`]"
+                >
+                  <span class="icon" />
+                </div>
+              </transition>
+            </div>
+          </transition>
+          <div class="dummy" />
+        </nav>
+      </div>
     </div>
   </div>
 </template>
@@ -65,7 +67,9 @@ export default {
   components: { HomeBgTile },
   data() {
     return {
+      appearMini: false,
       isMini: false,
+      isNavMode: false,
       observer: null,
       sentinel: null
     }
@@ -81,7 +85,7 @@ export default {
   },
   created() {
     if (this.$route.meta.depth > 1) {
-      this.isMini = true
+      this.appearMini = true
     }
   },
   mounted() {
@@ -92,10 +96,15 @@ export default {
         if (entry.target.isSameNode(this.sentinel)) {
           if (this.$route.meta.depth > 1) {
             this.isMini = true
+            this.isNavMode = true
+            this.$refs.banner.classList.add('mini')
+            this.$refs.banner.classList.add('nav-mode')
           } else if (entry.isIntersecting) {
-            this.isMini = false
+            this.isNavMode = false
+            this.$refs.banner.classList.remove('nav-mode')
           } else {
-            this.isMini = true
+            this.isNavMode = true
+            this.$refs.banner.classList.add('nav-mode')
           }
         }
       })
@@ -108,32 +117,31 @@ export default {
     // after scroll position restoration
     // reobserve the sentinel
     CEM.addEventListener('scrollrestored', this.$el, (e) => {
+      // Reobserve sentinel
+      this.observer.observe(this.sentinel)
       const scrollTop = e.detail.scrollPosition // Always positive
       const pageDepth = e.detail.pageDepth
-      const bannerTop = Math.abs(this.$el.getBoundingClientRect().top) // Convert to positive
+      const bannerTop = Math.abs(this.$refs.banner.getBoundingClientRect().top) // Convert to positive
       const distance = bannerTop - scrollTop
       let newBannerTop = bannerTop - distance
-      const bannerHeight = this.$el.getBoundingClientRect().height
-      const navHeight = this.$el
+      const bannerHeight = this.$refs.banner.getBoundingClientRect().height
+      const navHeight = this.$refs.banner
         .querySelector('.eodiro-navigation')
         .getBoundingClientRect().height
-
       if (pageDepth > 1) {
         newBannerTop = bannerHeight - navHeight
-        this.$el.classList.add('mini')
-      } else if (newBannerTop > bannerHeight - navHeight) {
-        newBannerTop = bannerHeight - navHeight
-        this.$el.classList.add('mini')
+        this.$refs.banner.classList.add('mini')
       } else {
-        this.$el.classList.remove('mini')
+        this.$refs.banner.classList.remove('mini')
       }
-      this.$el.classList.add('transitioning')
-      this.$el.style.transform = `translateY(${-newBannerTop}px)`
+      if (newBannerTop > bannerHeight - navHeight) {
+        newBannerTop = bannerHeight - navHeight
+      }
+      this.$refs.banner.classList.add('transitioning')
+      this.$refs.banner.style.transform = `translateY(${-newBannerTop}px)`
       setTimeout(() => {
-        this.observer.observe(this.sentinel)
-        this.$el.style.transform = ''
-        this.$el.style.position = ''
-        this.$el.classList.remove('transitioning')
+        this.$refs.banner.style.cssText = ''
+        this.$refs.banner.classList.remove('transitioning')
         disableScroll.off()
       }, 350)
     })
@@ -142,8 +150,8 @@ export default {
     // to prevent unexpected error
     CEM.addEventListener('beforepageleave', this.$el, () => {
       this.observer.unobserve(this.sentinel)
-      const top = this.$el.getBoundingClientRect().top
-      this.$el.style.cssText = `transform: translateY(${top}px); position: fixed;`
+      const top = this.$refs.banner.getBoundingClientRect().top
+      this.$refs.banner.style.cssText = `transform: translateY(${top}px); position: fixed; top: 0;`
       disableScroll.on()
     })
   }
@@ -157,10 +165,22 @@ $banner-transition-time: 350ms;
 $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 // $banner-bezier: ease;
 
-#eodiro-banner {
+#eodiro-banner-wrapper {
   position: absolute;
   z-index: 6666;
+  left: 0;
   top: 0;
+  width: 100%;
+  height: 100%;
+  user-select: none;
+  touch-action: none;
+  pointer-events: none;
+}
+
+#eodiro-banner {
+  position: sticky;
+  top: 0;
+  top: calc(#{$nav-height} - #{$banner-height});
   width: 100%;
   height: $banner-height;
   display: flex;
@@ -176,22 +196,10 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
   &.mini {
     transform: translateY(calc(#{$nav-height} - #{$banner-height}));
     position: fixed;
+    top: 0;
     // top: -$banner-height;
     // transform: translateY($nav-height);
     // transition: transform $banner-transition-time $banner-bezier;
-
-    .logo-wrapper {
-      // opacity: 0;
-      transform: translateY(calc(#{$banner-height / 2} - #{$nav-height / 2}))
-        scale(0.5);
-
-      @include larger-than($width-step--1) {
-        transform: translateY(
-            calc(#{$banner-height / 2} - #{space(4) / 2} - #{$nav-height / 2})
-          )
-          scale(0.5);
-      }
-    }
 
     .banner {
       // height: calc(#{$nav-height} + 1px);
@@ -205,6 +213,25 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
     }
   }
 
+  &.nav-mode {
+    .banner {
+      box-shadow: none;
+    }
+
+    .logo-wrapper {
+      // opacity: 0;
+      transform: translateY(calc(#{$banner-height / 2} - #{$nav-height / 2}))
+        scale(0.5);
+
+      @include larger-than($width-step--1) {
+        transform: translateY(
+            calc(#{$banner-height / 2} - #{space(4) / 2} - #{$nav-height / 2})
+          )
+          scale(0.5);
+      }
+    }
+  }
+
   .banner {
     display: flex;
     align-items: center;
@@ -214,7 +241,7 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
     position: relative;
     overflow: hidden;
     box-shadow: 0 0.2rem 0.5rem rgba(#000, 0.2);
-    transition: height 0ms ease;
+    transition: height 0ms ease, box-shadow 500ms ease;
     transform: translate3d(0, 0, 0);
 
     @include larger-than($width-step--1) {
@@ -495,8 +522,8 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 
 #banner-observer-sentinel {
   position: absolute;
-  top: calc(#{$banner-height} - #{$nav-height});
-  // top: $banner-height / 2;
+  // top: calc(#{$banner-height} - #{$nav-height});
+  top: calc(#{$banner-height / 2} - 1rem);
   // top: $banner-height;
   right: 0;
   left: 0;
