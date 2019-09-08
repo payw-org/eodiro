@@ -32,6 +32,7 @@ export const state = () => ({
     'meals',
     'inquiry',
     'donation',
+    'opensource',
     'preferences'
   ]
 })

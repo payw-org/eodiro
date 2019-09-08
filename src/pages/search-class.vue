@@ -5,10 +5,16 @@
       <div class="form-wrapper">
         <div class="search-bar-wrapper">
           <button class="search-button" />
-          <Input
+          <input
             v-model="searchClassState.search.word"
             class="search-input"
             :placeholder="$t('searchClass.initInputText')"
+            type="search"
+            autocomplete="off"
+            aria-autocomplete="both"
+            aria-haspopup="false"
+            autocapitalize="off"
+            autocorrect="off"
           />
         </div>
         <Button class="filter-button" @click="filterIsFold = !filterIsFold">
@@ -104,11 +110,11 @@
 <script>
 import axios from 'axios'
 import pageBase from '~/mixins/page-base'
-import { Input, Button, Accordion } from '~/components/ui'
+import { Button, Accordion } from '~/components/ui'
 
 export default {
   name: 'search-class',
-  components: { Input, Button, Accordion },
+  components: { Button, Accordion },
   mixins: [pageBase],
   head() {
     return {

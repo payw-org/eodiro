@@ -78,7 +78,7 @@
           </ArrowBlock>
 
           <!-- donation -->
-          <ArrowBlock
+          <!-- <ArrowBlock
             class="menu-item-wrapper"
             :link="localePath('donation').replace(/\/$/, '')"
           >
@@ -87,6 +87,19 @@
             </template>
             <template v-slot:content>
               <span class="content">{{ $t('home.menuDonation') }}</span>
+            </template>
+          </ArrowBlock> -->
+
+          <!-- open source -->
+          <ArrowBlock
+            class="menu-item-wrapper"
+            :link="localePath('opensource')"
+          >
+            <template v-slot:icon>
+              <span class="icon icon--donation" />
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('home.menuOpenSource') }}</span>
             </template>
           </ArrowBlock>
 

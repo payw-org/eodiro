@@ -275,6 +275,9 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
       &.background--donation {
         background-image: linear-gradient(to bottom, #e751ff, #b221f6);
       }
+      &.background--opensource {
+        background-image: linear-gradient(to bottom, #e751ff, #b221f6);
+      }
       &.background--clubs {
         background-image: linear-gradient(to bottom, #00e3d6, #00b5dd);
       }
@@ -430,6 +433,15 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
     }
 
     &.hamlet--donation {
+      .icon {
+        @include bgImg('~assets/images/heart_white.svg', center, '75%');
+
+        @include dark-mode {
+          @include bgImg('~assets/images/heart_black.svg', center, '75%');
+        }
+      }
+    }
+    &.hamlet--opensource {
       .icon {
         @include bgImg('~assets/images/heart_white.svg', center, '75%');
 
