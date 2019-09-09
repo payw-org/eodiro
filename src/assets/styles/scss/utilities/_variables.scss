@@ -25,7 +25,9 @@ $light-yellow: #ffb109;
 
 // responsive width steps
 $width-step--1: 700px;
+$width-step--1_: 699px;
 $width-step--2: 1400px;
+$width-step--2_: 1401px;
 
 // master content sizes
 // check default.vue
@@ -37,7 +39,6 @@ $master-content-bottom-gap: 8rem;
 // if you modify these values
 // you should also modify HomeBgTile component
 $banner-height: 37vh;
-$nav-height: 50px;
 $nav-height: 3.5rem;
 
 // button

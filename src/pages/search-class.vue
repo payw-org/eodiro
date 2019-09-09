@@ -1,6 +1,6 @@
 <template>
   <div id="search-class">
-    <div class="page-content" @scroll.native="handleScroll">
+    <div class="page-content">
       <!-- form-section -->
       <div class="form-wrapper">
         <div class="search-bar-wrapper">
@@ -28,41 +28,43 @@
         @click="filterIsFold = !filterIsFold"
       />
       <transition name="filter-fold">
-        <div v-if="!filterIsFold" class="filter-category-container">
-          <transition name="filter-fold">
-            <!-- sub category -->
-            <div v-if="mainCategoryIsUnfold" class="fc-category-sub">
-              <div
-                v-if="noFilterIsPossible"
-                class="fc-item"
-                @click="clickSubCategoryItem('')"
-              >
-                전체
+        <div class="filter-category-wrapper">
+          <div v-if="!filterIsFold" class="filter-category-container">
+            <transition name="filter-fold">
+              <!-- sub category -->
+              <div v-if="mainCategoryIsUnfold" class="fc-category-sub">
+                <div
+                  v-if="noFilterIsPossible"
+                  class="fc-item"
+                  @click="clickSubCategoryItem('')"
+                >
+                  전체
+                </div>
+                <div
+                  v-for="name in unfoldCategory"
+                  :key="name"
+                  class="fc-item"
+                  @click="clickSubCategoryItem(name)"
+                >
+                  {{ name }}
+                </div>
               </div>
+            </transition>
+            <!-- main category -->
+            <div class="fc-category-main">
               <div
-                v-for="name in unfoldCategory"
-                :key="name"
+                v-for="item in mainCategory"
+                :key="item.name"
                 class="fc-item"
-                @click="clickSubCategoryItem(name)"
+                @click="clickMainCategoryItem(item)"
               >
-                {{ name }}
+                <span class="fc-item-details">
+                  {{ searchClassState.filter[item.value] }}
+                </span>
+                <span class="fc-item-name">
+                  {{ item.name }}
+                </span>
               </div>
-            </div>
-          </transition>
-          <!-- main category -->
-          <div class="fc-category-main">
-            <div
-              v-for="item in mainCategory"
-              :key="item.name"
-              class="fc-item"
-              @click="clickMainCategoryItem(item)"
-            >
-              <span class="fc-item-details">
-                {{ searchClassState.filter[item.value] }}
-              </span>
-              <span class="fc-item-name">
-                {{ item.name }}
-              </span>
             </div>
           </div>
         </div>
@@ -377,24 +379,21 @@ export default {
       })
     },
     handleScroll() {
-      const eodiroBannerHeight = document.querySelector('#eodiro-banner')
-        .offsetHeight
-      const heightDifference = parseInt(
-        window
-          .getComputedStyle(document.querySelector('#eodiro-banner'))
-          .transform.match(/\d+/g)[5],
-        10
-      )
       const filterCategoryContainer = document.querySelector(
         '.filter-category-container'
       )
+
       if (filterCategoryContainer == null) {
-        return
+        return 0
       }
-      filterCategoryContainer.style.height = `calc(100vh - ${eodiroBannerHeight}px - 2rem + ${heightDifference}px)`
-      filterCategoryContainer.style.top = `calc(${eodiroBannerHeight}px - ${heightDifference}px)`
+      const heightOfFilter = document
+        .querySelector('.filter-category-container')
+        .getBoundingClientRect().y
+      filterCategoryContainer.style.height = `calc(100vh - ${heightOfFilter}px - 2rem)`
+      // filterCategoryContainer.style.height = `calc(100vh - ${eodiroBannerHeight}px - 2rem + ${heightDifference}px)`
+      // filterCategoryContainer.style.top = `calc(${eodiroBannerHeight}px - ${heightDifference}px)`
       if (window.innerWidth < 700) {
-        filterCategoryContainer.style.height = `calc(100vh - ${eodiroBannerHeight}px - 2rem + ${heightDifference}px + 2rem)`
+        filterCategoryContainer.style.height = `calc(100vh - ${heightOfFilter}px)`
       }
     },
     clickMainCategoryItem(item) {
@@ -460,6 +459,7 @@ export default {
   .form-wrapper {
     position: sticky;
     top: $nav-height;
+    margin-top: calc(-#{space(3)});
     display: flex;
     padding: space(3) 0;
     @include bg;
@@ -503,73 +503,92 @@ export default {
     height: 100%;
   }
 
-  .filter-category-container {
-    position: fixed;
-    z-index: 1592653;
-    top: $banner-height;
-    height: calc(100vh - #{$banner-height} - 2rem);
+  .filter-category-wrapper {
+    position: absolute;
+    top: calc(#{$banner-height} + #{space(3)});
+    height: 100%;
     right: calc((100vw - #{$master-content-max-width}) / 2);
-    @media (max-width: 60rem) {
+
+    @media (max-width: $master-content-max-width) {
       right: space(5);
     }
 
-    border-radius: $border-radius;
-    margin: space(4) 0;
-
-    font-size: body(5);
-    background-color: #fff;
-    box-shadow: 0 0.2rem 0.7rem rgba(#000, 0.2);
-    @include dark-mode {
-      background-color: #000;
-      box-shadow: 0 0.2rem 0.7rem rgba(#000, 0.2);
-    }
-
-    @include smaller-than($width-step--1) {
+    @include smaller-than($width-step--1_) {
       right: 0;
+      top: $banner-height;
+    }
+
+    .filter-category-container {
+      position: sticky;
+      z-index: 1592653;
       height: calc(100vh - #{$banner-height});
-      margin: 0;
-      border-radius: 0 !important;
-      font-size: body(2);
-    }
-    @include larger-than($width-step--2) {
-    }
 
-    .fc-category-main,
-    .fc-category-sub {
-      float: left;
-      display: block;
+      top: calc(#{$nav-height} + #{space(3)});
+      border-radius: $border-radius;
+      padding: space(3) 0;
 
-      height: 100%;
-      margin-left: 1.5rem;
-      overflow: auto;
-      // max-width: $master-content-max-width/3;
-      // height: calc(100vh - #{$banner-height} - 2rem);
-
-      &:last-child {
-        margin-right: 1.5rem;
+      font-size: body(5);
+      background-color: #fff;
+      box-shadow: 0 0.2rem 0.7rem rgba(#000, 0.2);
+      @include dark-mode {
+        background-color: #000;
+        box-shadow: 0 0.2rem 0.7rem rgba(#000, 0.2);
       }
-    }
-    .fc-item {
-      width: 35vw;
-      min-height: 4rem;
-      max-width: $master-content-max-width/3;
-      padding: space(2) 0;
-      text-align: right;
-      cursor: pointer;
-      border-top: solid;
-      @include separator;
 
-      &:first-child {
-        border-top: none;
+      @include smaller-than($width-step--1_) {
+        top: $nav-height;
+        margin: 0;
+        border-radius: 0 !important;
+        font-size: body(2);
       }
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      word-break: break-all;
-      // .fc-item-details {
-      // }
-      .fc-item-name {
-        padding: 0 space(3);
+
+      .fc-category-main,
+      .fc-category-sub {
+        float: left;
+        display: block;
+
+        height: 100%;
+        margin-left: 1.5rem;
+        overflow: auto;
+        // max-width: $master-content-max-width/3;
+        // height: calc(100vh - #{$banner-height} - 2rem);
+        @include smaller-than($width-step--1_) {
+          margin-left: 1rem;
+        }
+
+        &:last-child {
+          margin-right: 1.5rem;
+          @include smaller-than($width-step--1_) {
+            margin-left: 1rem;
+          }
+        }
+      }
+      .fc-item {
+        width: 35vw;
+        min-height: 4rem;
+        max-width: $master-content-max-width/3;
+        padding: space(2) 0;
+        text-align: right;
+        cursor: pointer;
+        border-top: solid;
+        @include separator;
+
+        &:first-child {
+          border-top: none;
+        }
+        &:last-child {
+          padding-bottom: 4rem;
+        }
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        word-break: break-all;
+        // .fc-item-details {
+        // }
+        .fc-item-name {
+          padding: 0 space(3);
+        }
       }
     }
   }
