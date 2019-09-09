@@ -78,7 +78,7 @@ export default {
 
       // Use API
       axios({
-        url: `https://alpha.api.eodiro.com/v2/campuses/${campus}/inquiry`,
+        url: `https://api.eodiro.com/v2/campuses/${campus}/inquiry`,
         method: 'post',
         data: {
           email: replyEmail,

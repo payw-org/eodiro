@@ -6,11 +6,12 @@
     <Grid class="restaurant-container">
       <Accordion
         v-for="restaurant in mealTimeData"
-        :key="timeGroup + restaurant.restaurantName"
+        :key="timeGroup + restaurant.name"
+        class="restaurant-item"
       >
         <template v-slot:face>
           <h2 class="restaurant-name">
-            {{ restaurant.restaurantName }}
+            {{ restaurant.name }}
           </h2>
         </template>
         <template v-slot:content>
@@ -20,19 +21,16 @@
             class="meal-group"
           >
             <div class="meal-title-and-price">
-              <h3 class="meal-title">
-                {{ meal.title }}
-              </h3>
+              <span class="meal-time">{{ meal.time }}</span>
               <span class="meal-price">
                 {{ meal.price }}
               </span>
-              <ul class="menus">
-                <li v-for="menu in menus" :key="menu">
-                  {{ menu }}
-                </li>
-              </ul>
             </div>
-            span
+            <ul class="menus">
+              <li v-for="menu in meal.menus" :key="menu" class="menu-item">
+                {{ menu }}
+              </li>
+            </ul>
           </div>
         </template>
       </Accordion>
@@ -55,10 +53,13 @@ export default Vue.extend({
       }
     },
     mealTimeData: {
-      type: Object,
+      type: Array,
       required: true,
-      default: () => ({})
+      default: () => []
     }
+  },
+  mounted() {
+    console.log(this.mealTimeData)
   }
 })
 </script>
@@ -95,7 +96,7 @@ export default Vue.extend({
     }
 
     .meal-group {
-      margin-bottom: space(3);
+      margin-bottom: space(4);
       &:last-child {
         margin-bottom: 0;
       }
@@ -115,6 +116,11 @@ export default Vue.extend({
           font-weight: fw(5);
         }
 
+        .meal-time {
+          font-size: body(2);
+          color: $base-gray;
+        }
+
         .meal-price {
           font-size: body(1);
           font-weight: fw(4);
@@ -126,8 +132,7 @@ export default Vue.extend({
         display: flex;
         flex-wrap: wrap;
         justify-content: space-evenly;
-        padding: space(2);
-        margin: 0 -#{space(2)} -#{space(1)} -#{space(2)};
+        padding: space(3) space(2);
 
         .menu-item {
           margin: 0 space(2) space(1) space(2);

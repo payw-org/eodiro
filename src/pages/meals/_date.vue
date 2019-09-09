@@ -1,6 +1,6 @@
 <template>
-  <div class="meals-home">
-    <div class="date-picker">
+  <div id="eodiro-meals">
+    <!-- <div class="date-picker">
       <button class="prev">
         {{ $t('global.nav.prev') }}
       </button>
@@ -10,25 +10,44 @@
       <button class="next">
         {{ $t('global.nav.next') }}
       </button>
-    </div>
+    </div> -->
 
-    <MealTimeGroup time-group="breakfast" :meal-time-data="{}" />
+    <MealTimeGroup time-group="breakfast" :meal-time-data="meal.breakfast" />
 
-    <MealTimeGroup time-group="lunch" :meal-time-data="{}" />
+    <MealTimeGroup time-group="lunch" :meal-time-data="meal.lunch" />
 
-    <MealTimeGroup time-group="supper" :meal-time-data="{}" />
+    <MealTimeGroup time-group="supper" :meal-time-data="meal.supper" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import axios from 'axios'
+import dayjs from 'dayjs'
 import pageBase from '~/mixins/page-base'
 import MealTimeGroup from '~/components/meals/MealTimeGroup.vue'
 
 export default Vue.extend({
-  name: 'meals-index',
+  name: 'meals-date',
   components: { MealTimeGroup },
-  mixins: [pageBase]
+  mixins: [pageBase],
+  data() {
+    return {
+      meal: {}
+    }
+  },
+  async asyncData() {
+    const res = await axios({
+      method: 'GET',
+      url: `https://api.eodiro.com/v2/campuses/seoul/meal/dates/${dayjs().format(
+        'YYYY-MM-DD'
+      )}`
+    })
+    const data = res.data
+    return {
+      meal: data.meal
+    }
+  }
 })
 </script>
 
