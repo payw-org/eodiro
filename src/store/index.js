@@ -22,18 +22,17 @@ function getColorClassName(colorMode) {
 // states
 export const state = () => ({
   colorSchemeClassName: 'light-mode',
-  historyStack: [],
   cachedComponents: [],
-  routeDirection: '', // forward|backward
   hamletList: [
     'home',
     'vacant',
     'search-class',
     'clubs',
     'community',
-    'meal',
+    'meals',
     'inquiry',
     'donation',
+    'opensource',
     'preferences'
   ]
 })

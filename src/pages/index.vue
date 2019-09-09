@@ -17,10 +17,14 @@
             </template>
           </ArrowBlock>
 
-          <!-- meal -->
-          <ArrowBlock class="menu-item-wrapper">
+          <!-- meals -->
+          <ArrowBlock
+            class="menu-item-wrapper"
+            :link="localePath('meals-date').replace(/\/$/, '')"
+            @click="showTopbar()"
+          >
             <template v-slot:icon>
-              <span class="icon icon--meal" />
+              <span class="icon icon--meals" />
             </template>
             <template v-slot:content>
               <span class="content">{{ $t('home.menuMeal') }}</span>
@@ -41,10 +45,7 @@
           </ArrowBlock>
 
           <!-- clubs -->
-          <ArrowBlock
-            class="menu-item-wrapper"
-            :link="localePath('clubs').replace(/\/$/, '')"
-          >
+          <ArrowBlock class="menu-item-wrapper disabled">
             <template v-slot:icon>
               <span class="icon icon--clubs" />
             </template>
@@ -54,11 +55,7 @@
           </ArrowBlock>
 
           <!-- community -->
-          <ArrowBlock
-            class="menu-item-wrapper"
-            :link="localePath('community').replace(/\/$/, '')"
-            @click="showTopbar()"
-          >
+          <ArrowBlock class="menu-item-wrapper disabled">
             <template v-slot:icon>
               <span class="icon icon--community" />
             </template>
@@ -81,7 +78,7 @@
           </ArrowBlock>
 
           <!-- donation -->
-          <ArrowBlock
+          <!-- <ArrowBlock
             class="menu-item-wrapper"
             :link="localePath('donation').replace(/\/$/, '')"
           >
@@ -90,6 +87,19 @@
             </template>
             <template v-slot:content>
               <span class="content">{{ $t('home.menuDonation') }}</span>
+            </template>
+          </ArrowBlock> -->
+
+          <!-- open source -->
+          <ArrowBlock
+            class="menu-item-wrapper"
+            :link="localePath('opensource')"
+          >
+            <template v-slot:icon>
+              <span class="icon icon--donation" />
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('home.menuOpenSource') }}</span>
             </template>
           </ArrowBlock>
 
@@ -144,9 +154,14 @@ export default {
     .page-content {
       .menu-item-container {
         .menu-item-wrapper {
+          &.disabled {
+            opacity: 0.4;
+            filter: grayscale(0.8);
+          }
+
           .content {
-            font-weight: 500;
             font-size: 1.2rem;
+            font-weight: 500;
           }
         }
       }
@@ -159,7 +174,7 @@ export default {
         }
       }
 
-      .icon--meal {
+      .icon--meals {
         background-image: url('~assets/images/home/home_menu_icon_food.svg');
 
         @include dark-mode {
@@ -218,8 +233,8 @@ export default {
   }
 
   .footer {
-    text-align: center;
     margin-top: 5rem;
+    text-align: center;
 
     .manifesto {
       color: $base-gray;

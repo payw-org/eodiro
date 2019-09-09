@@ -3,6 +3,6 @@
 !.vscode/settings.json
 .DS_Store
 node_modules
-package-lock.json
+yarn.lock
 .nuxt
 dist

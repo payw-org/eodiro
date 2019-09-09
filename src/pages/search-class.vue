@@ -1,15 +1,21 @@
 <template>
   <div id="search-class">
-    <div class="page-content" @scroll.native="handleScroll">
+    <div class="page-content">
       <!-- form-section -->
       <div class="form-wrapper">
         <div class="search-bar-wrapper">
-          <Input
-            v-model="searchClassQuary"
+          <button class="search-button" />
+          <input
+            v-model="searchClassState.search.word"
             class="search-input"
             :placeholder="$t('searchClass.initInputText')"
+            type="search"
+            autocomplete="off"
+            aria-autocomplete="both"
+            aria-haspopup="false"
+            autocapitalize="off"
+            autocorrect="off"
           />
-          <button class="search-button" />
         </div>
         <Button class="filter-button" @click="filterIsFold = !filterIsFold">
           {{ $t('searchClass.filterButtonMsg') }}
@@ -22,37 +28,43 @@
         @click="filterIsFold = !filterIsFold"
       />
       <transition name="filter-fold">
-        <div v-if="!filterIsFold" class="filter-category-container">
-          <transition name="filter-fold">
-            <!-- sub category -->
-            <div v-if="mainCategoryIsUnfold" class="fc-category-sub">
-              <div class="fc-item" @click="clickSubCategoryItem('')">
-                전체
+        <div class="filter-category-wrapper">
+          <div v-if="!filterIsFold" class="filter-category-container">
+            <transition name="filter-fold">
+              <!-- sub category -->
+              <div v-if="mainCategoryIsUnfold" class="fc-category-sub">
+                <div
+                  v-if="noFilterIsPossible"
+                  class="fc-item"
+                  @click="clickSubCategoryItem('')"
+                >
+                  전체
+                </div>
+                <div
+                  v-for="name in unfoldCategory"
+                  :key="name"
+                  class="fc-item"
+                  @click="clickSubCategoryItem(name)"
+                >
+                  {{ name }}
+                </div>
               </div>
+            </transition>
+            <!-- main category -->
+            <div class="fc-category-main">
               <div
-                v-for="name in unfoldCategory"
-                :key="name"
+                v-for="item in mainCategory"
+                :key="item.name"
                 class="fc-item"
-                @click="clickSubCategoryItem(name)"
+                @click="clickMainCategoryItem(item)"
               >
-                {{ name }}
+                <span class="fc-item-details">
+                  {{ searchClassState.filter[item.value] }}
+                </span>
+                <span class="fc-item-name">
+                  {{ item.name }}
+                </span>
               </div>
-            </div>
-          </transition>
-          <!-- main category -->
-          <div class="fc-category-main">
-            <div
-              v-for="item in mainCategory"
-              :key="item.name"
-              class="fc-item"
-              @click="clickMainCategoryItem(item)"
-            >
-              <span class="fc-item-details">
-                {{ selectedSubCategory[item.value] }}
-              </span>
-              <span class="fc-item-name">
-                {{ item.name }}
-              </span>
             </div>
           </div>
         </div>
@@ -98,14 +110,13 @@
 </template>
 
 <script>
+import axios from 'axios'
 import pageBase from '~/mixins/page-base'
-import { Input, Button, Accordion } from '~/components/ui'
-import classListOrigin from '~/assets/data/class-list'
-import filterCategoryItemOrigin from '~/assets/data/filter-category-item.json'
+import { Button, Accordion } from '~/components/ui'
 
 export default {
   name: 'search-class',
-  components: { Input, Button, Accordion },
+  components: { Button, Accordion },
   mixins: [pageBase],
   head() {
     return {
@@ -131,17 +142,23 @@ export default {
   },
   data() {
     return {
+      apiURL: 'https://api.eodiro.com/v2/campuses/seoul/search-class',
       observer: null,
       sentinel: null,
-      searchClassQuary: '',
-      filterIsFold: true,
-      selectedSubCategory: {
-        year: '',
-        semester: '',
-        campus: '',
-        process: '',
-        college: '',
-        major: ''
+      filterIsFold: true, //
+      searchClassState: {
+        filter: {
+          isChange: true,
+          year: '2019',
+          semester: '2',
+          campus: '서울',
+          mainCourse: '학부'
+        },
+        search: {
+          word: '',
+          count: 50,
+          page: 1
+        }
       },
       mainCategory: [
         {
@@ -160,9 +177,9 @@ export default {
           value: 'campus'
         },
         {
-          name: this.$t('searchClass.filterTitleProcess'),
+          name: this.$t('searchClass.filterTitleMainCourse'),
           isFold: true,
-          value: 'process'
+          value: 'mainCourse'
         },
         {
           name: this.$t('searchClass.filterTitleCollege'),
@@ -170,19 +187,38 @@ export default {
           value: 'college'
         },
         {
-          name: this.$t('searchClass.filterTitleMajor'),
+          name: this.$t('searchClass.filterTitleSubject'),
           isFold: true,
-          value: 'major'
+          value: 'subject'
         }
       ],
-      searchPage: 1,
-      searchClassListAll: classListOrigin
+      searchClassList: [],
+      subCategoryItemList: {
+        year: '',
+        semester: '',
+        campus: '',
+        mainCourse: '',
+        college: '',
+        subject: ''
+      }
     }
   },
   computed: {
-    searchClassList() {
-      const numOfItemInPage = 4
-      return this.searchClassListAll.slice(0, numOfItemInPage * this.searchPage)
+    noFilterIsPossible() {
+      for (let i = 0; i < this.mainCategory.length; i++) {
+        // some filter is unfold
+        if (this.mainCategory[i].isFold === false) {
+          // the filter is possible no filter
+          if (
+            ['year', 'semester', 'campus', 'mainCourse'].includes(
+              this.mainCategory[i].value
+            )
+          ) {
+            return false
+          }
+        }
+      }
+      return true
     },
     mainCategoryIsUnfold() {
       for (let i = 0; i < this.mainCategory.length; i++) {
@@ -204,99 +240,62 @@ export default {
       return nothingUnfold
     },
     filterCategoryItem() {
-      const origin = filterCategoryItemOrigin
-      const selected = this.selectedSubCategory
+      const origin = this.subCategoryItemList
       const refined = {}
 
       // list all
       refined.year = origin.year
       refined.semester = origin.semester
-      refined.campus = []
-      refined.process = []
-      refined.college = []
-      refined.major = []
-      for (let i = 0; i < origin.campus.length; i++) {
-        if (!refined.campus.includes(origin.campus[i].value)) {
-          refined.campus.push(origin.campus[i].value)
-        }
-        for (let ii = 0; ii < origin.campus[i].process.length; ii++) {
-          if (
-            (selected.campus === '' ||
-              (selected.campus !== '' &&
-                selected.campus === origin.campus[i].value)) &&
-            !refined.process.includes(origin.campus[i].process[ii].value)
-          ) {
-            refined.process.push(origin.campus[i].process[ii].value)
-          }
-          for (
-            let iii = 0;
-            iii < origin.campus[i].process[ii].college.length;
-            iii++
-          ) {
-            if (
-              (selected.process === '' ||
-                (selected.process !== '' &&
-                  selected.process === origin.campus[i].process[ii].value)) &&
-              !refined.college.includes(
-                origin.campus[i].process[ii].college[iii].value
-              )
-            ) {
-              refined.college.push(
-                origin.campus[i].process[ii].college[iii].value
-              )
-            }
-            for (
-              let iiii = 0;
-              iiii < origin.campus[i].process[ii].college[iii].major.length;
-              iiii++
-            ) {
-              if (
-                (selected.college === '' ||
-                  (selected.college !== '' &&
-                    selected.college ===
-                      origin.campus[i].process[ii].college[iii].value)) &&
-                !refined.major.includes(
-                  origin.campus[i].process[ii].college[iii].major[iiii].value
-                )
-              ) {
-                refined.major.push(
-                  origin.campus[i].process[ii].college[iii].major[iiii].value
-                )
-              }
-            }
-          }
-        }
-      }
+      refined.campus = origin.campus
+      refined.mainCourse = origin.mainCourse
+      refined.college = origin.college
+      refined.subject = origin.subject
 
       // sort
       refined.college.sort()
-      refined.major.sort()
+      refined.subject.sort()
 
       return refined
     }
   },
   watch: {
-    selectedSubCategory(newSelectedSub) {
-      let list = JSON.parse(JSON.stringify(classListOrigin))
-      // filter
-      list = list.filter((item) => {
-        if (
-          item.subInfo.match(newSelectedSub.college) !== null &&
-          item.subInfo.match(newSelectedSub.major) !== null
-        ) {
-          return true
-        }
+    'searchClassState.search.word'() {
+      const oneList = [
+        'ㄱ',
+        'ㄴ',
+        'ㄷ',
+        'ㄹ',
+        'ㅁ',
+        'ㅂ',
+        'ㅅ',
+        'ㅇ',
+        'ㅈ',
+        'ㅊ',
+        'ㅋ',
+        'ㅌ',
+        'ㅍ',
+        'ㅎ'
+      ]
+      for (let i = 0; i < oneList.length; i++) {
+        if (this.searchClassState.search.word.includes(oneList[i]) === true)
+          return
+      }
+      this.searchClassState.filter.isChange = false
+      this.searchClassState.search.page = 0
+      const axiosForm = {}
+      axiosForm.url = this.apiURL
+      axiosForm.method = 'patch'
+      axiosForm.data = this.searchClassState
+      axios(axiosForm).then((res) => {
+        if (this.searchClassState.search.word === res.data.search.word)
+          this.searchClassList = this.refineSearchClassList(
+            res.data.search.result
+          )
       })
-
-      // sort
-      list.sort()
-
-      this.searchClassListAll = list
-      this.searchPage = 1
-    },
-    searchClassQuary() {
-      this.searchPage = 1
     }
+  },
+  created() {
+    this.basicDataRequest()
   },
   mounted() {
     setInterval(() => {
@@ -307,8 +306,20 @@ export default {
     this.sentinel = document.querySelector('#infinity-scroll-observer-sentinel')
     this.observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        if (entry.target.isSameNode(this.sentinel)) {
-          this.searchPage += 1
+        if (entry.isIntersecting) {
+          if (entry.target.isSameNode(this.sentinel)) {
+            this.searchClassState.search.page += 1
+            this.searchClassState.filter.isChange = false
+            const axiosForm = {}
+            axiosForm.method = 'patch'
+            axiosForm.url = this.apiURL
+            axiosForm.data = this.searchClassState
+            axios(axiosForm).then((res) => {
+              this.searchClassList.push(
+                ...this.refineSearchClassList(res.data.search.result)
+              )
+            })
+          }
         }
       })
     })
@@ -317,25 +328,72 @@ export default {
     this.observer.observe(this.sentinel)
   },
   methods: {
+    refineSearchClassList(newSCList) {
+      const refinedSCList = []
+      let refinedSC
+      for (let i = 0; i < newSCList.length; i++) {
+        refinedSC = {}
+        refinedSC.name = newSCList[i].name
+        refinedSC.instructor = newSCList[i].instructor
+        refinedSC.timeTable = []
+        refinedSC.subInfo = `${newSCList[i].college} ${newSCList[i].subject} ${newSCList[i].grade}학년 ${newSCList[i].type} ${newSCList[i].term}시간 ${newSCList[i].unit}학점`
+        refinedSC.extInfo = `${newSCList[i].classId} ${newSCList[i].course}`
+        refinedSC.note = `${newSCList[i].note}`
+        for (let j = 0; j < newSCList[i].locations.length; j++) {
+          if (newSCList[i].times[j].day === 0) newSCList[i].times[j].day = '일'
+          if (newSCList[i].times[j].day === 1) newSCList[i].times[j].day = '월'
+          if (newSCList[i].times[j].day === 2) newSCList[i].times[j].day = '화'
+          if (newSCList[i].times[j].day === 3) newSCList[i].times[j].day = '수'
+          if (newSCList[i].times[j].day === 4) newSCList[i].times[j].day = '목'
+          if (newSCList[i].times[j].day === 5) newSCList[i].times[j].day = '금'
+          if (newSCList[i].times[j].day === 6) newSCList[i].times[j].day = '토'
+          newSCList[i].times[j].start = newSCList[i].times[j].start.replace(
+            /^(\d\d)/,
+            '$1:'
+          )
+          newSCList[i].times[j].end = newSCList[i].times[j].end.replace(
+            /^(\d\d)/,
+            '$1:'
+          )
+          refinedSC.timeTable.push(
+            `${newSCList[i].locations[j].building}관 ${newSCList[i].locations[j].room}호 (${newSCList[i].times[j].day}) ${newSCList[i].times[j].start}~${newSCList[i].times[j].end}`
+          )
+        }
+        refinedSCList.push(refinedSC)
+      }
+      return refinedSCList
+    },
+    basicDataRequest() {
+      const params = {
+        params: {
+          count: 50
+        }
+      }
+      axios.get(this.apiURL, params).then((res) => {
+        this.subCategoryItemList = res.data.filter.list
+        this.searchClassState.filter = res.data.filter.value
+        this.searchClassState.filter.isChange = false
+        this.searchClassList = this.refineSearchClassList(
+          res.data.search.result
+        )
+      })
+    },
     handleScroll() {
-      const eodiroBannerHeight = document.querySelector('#eodiro-banner')
-        .offsetHeight
-      const heightDifference = parseInt(
-        window
-          .getComputedStyle(document.querySelector('#eodiro-banner'))
-          .transform.match(/\d+/g)[5],
-        10
-      )
       const filterCategoryContainer = document.querySelector(
         '.filter-category-container'
       )
+
       if (filterCategoryContainer == null) {
-        return
+        return 0
       }
-      filterCategoryContainer.style.height = `calc(100vh - ${eodiroBannerHeight}px - 2rem + ${heightDifference}px)`
-      filterCategoryContainer.style.top = `calc(${eodiroBannerHeight}px - ${heightDifference}px)`
+      const heightOfFilter = document
+        .querySelector('.filter-category-container')
+        .getBoundingClientRect().y
+      filterCategoryContainer.style.height = `calc(100vh - ${heightOfFilter}px - 2rem)`
+      // filterCategoryContainer.style.height = `calc(100vh - ${eodiroBannerHeight}px - 2rem + ${heightDifference}px)`
+      // filterCategoryContainer.style.top = `calc(${eodiroBannerHeight}px - ${heightDifference}px)`
       if (window.innerWidth < 700) {
-        filterCategoryContainer.style.height = `calc(100vh - ${eodiroBannerHeight}px - 2rem + ${heightDifference}px + 2rem)`
+        filterCategoryContainer.style.height = `calc(100vh - ${heightOfFilter}px)`
       }
     },
     clickMainCategoryItem(item) {
@@ -353,19 +411,41 @@ export default {
     },
     clickSubCategoryItem(name) {
       const main = JSON.parse(JSON.stringify(this.mainCategory))
-      const selectedSub = JSON.parse(JSON.stringify(this.selectedSubCategory))
-
-      for (let i = 0; i < main.length; i++) {
+      const selectedSub = this.searchClassState.filter
+      let i
+      for (i = 0; i < main.length; i++) {
         if (main[i].isFold === false) {
           main[i].isFold = true
-          if (selectedSub[main[i].value] === name) {
-            selectedSub[main[i].value] = ''
+
+          if (
+            selectedSub[main[i].value] === name &&
+            this.noFilterIsPossible === true
+          ) {
+            // select same category
+            this.searchClassState.filter.isChange = true
+            this.searchClassState.filter[main[i].value] = ''
+            this.searchClassState.search.page = 0
           } else {
-            selectedSub[main[i].value] = name
+            // select different category
+            this.searchClassState.filter.isChange = true
+            this.searchClassState.filter[main[i].value] = name
+            this.searchClassState.search.page = 0
           }
+          break
         }
       }
-      this.selectedSubCategory = selectedSub
+
+      const axiosForm = {}
+      axiosForm.url = this.apiURL
+      axiosForm.method = 'patch'
+      axiosForm.data = this.searchClassState
+      axios(axiosForm).then((res) => {
+        this.subCategoryItemList = res.data.filter.list
+        this.searchClassState.filter = res.data.filter.value
+        this.searchClassState.filter.isChange = false
+        this.searchClassList = res.data.search.result
+      })
+
       this.mainCategory = main
     }
   }
@@ -373,29 +453,38 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/main.scss';
+@import '~/assets/styles/scss/main';
 
 #search-class {
   .form-wrapper {
+    position: sticky;
+    top: $nav-height;
+    margin-top: calc(-#{space(3)});
     display: flex;
+    padding: space(3) 0;
+    @include bg;
+    z-index: 5;
 
     .filter-button {
       margin-left: 1rem;
       padding: 0 1.3rem !important;
     }
+
     .search-bar-wrapper {
       position: relative;
       flex-grow: 1;
+
       .search-input {
-        padding-right: 2.5rem;
+        padding-left: 2.8rem;
+        padding-right: 0.5rem;
       }
+
       .search-button {
         position: absolute;
         top: 0;
-        right: 0;
+        left: 0;
         height: 3rem;
         width: 3rem;
-
         @include bgImg('~assets/images/magnifier-black.svg', 'center', '70%');
 
         @include dark-mode {
@@ -414,73 +503,92 @@ export default {
     height: 100%;
   }
 
-  .filter-category-container {
-    position: fixed;
-    z-index: 1592653;
-    top: $banner-height;
-    height: calc(100vh - #{$banner-height} - 2rem);
+  .filter-category-wrapper {
+    position: absolute;
+    top: calc(#{$banner-height} + #{space(3)});
+    height: 100%;
     right: calc((100vw - #{$master-content-max-width}) / 2);
-    @media (max-width: 60rem) {
+
+    @media (max-width: $master-content-max-width) {
       right: space(5);
     }
 
-    border-radius: $border-radius;
-    margin: space(4) 0;
-
-    font-size: body(5);
-    background-color: #fff;
-    box-shadow: 0 0.2rem 0.7rem rgba(#000, 0.2);
-    @include dark-mode {
-      background-color: #000;
-      box-shadow: 0 0.2rem 0.7rem rgba(#000, 0.2);
-    }
-
-    @include smaller-than($width-step--1) {
+    @include smaller-than($width-step--1_) {
       right: 0;
+      top: $banner-height;
+    }
+
+    .filter-category-container {
+      position: sticky;
+      z-index: 1592653;
       height: calc(100vh - #{$banner-height});
-      margin: 0;
-      border-radius: 0 !important;
-      font-size: body(2);
-    }
-    @include larger-than($width-step--2) {
-    }
 
-    .fc-category-main,
-    .fc-category-sub {
-      float: left;
-      display: block;
+      top: calc(#{$nav-height} + #{space(3)});
+      border-radius: $border-radius;
+      padding: space(3) 0;
 
-      height: 100%;
-      margin-left: 1.5rem;
-      overflow: auto;
-      // max-width: $master-content-max-width/3;
-      // height: calc(100vh - #{$banner-height} - 2rem);
-
-      &:last-child {
-        margin-right: 1.5rem;
+      font-size: body(5);
+      background-color: #fff;
+      box-shadow: 0 0.2rem 0.7rem rgba(#000, 0.2);
+      @include dark-mode {
+        background-color: #000;
+        box-shadow: 0 0.2rem 0.7rem rgba(#000, 0.2);
       }
-    }
-    .fc-item {
-      width: 35vw;
-      min-height: 4rem;
-      max-width: $master-content-max-width/3;
-      padding: space(2) 0;
-      text-align: right;
-      cursor: pointer;
-      border-top: solid;
-      @include separator;
 
-      &:first-child {
-        border-top: none;
+      @include smaller-than($width-step--1_) {
+        top: $nav-height;
+        margin: 0;
+        border-radius: 0 !important;
+        font-size: body(2);
       }
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      word-break: break-all;
-      // .fc-item-details {
-      // }
-      .fc-item-name {
-        padding: 0 space(3);
+
+      .fc-category-main,
+      .fc-category-sub {
+        float: left;
+        display: block;
+
+        height: 100%;
+        margin-left: 1.5rem;
+        overflow: auto;
+        // max-width: $master-content-max-width/3;
+        // height: calc(100vh - #{$banner-height} - 2rem);
+        @include smaller-than($width-step--1_) {
+          margin-left: 1rem;
+        }
+
+        &:last-child {
+          margin-right: 1.5rem;
+          @include smaller-than($width-step--1_) {
+            margin-left: 1rem;
+          }
+        }
+      }
+      .fc-item {
+        width: 35vw;
+        min-height: 4rem;
+        max-width: $master-content-max-width/3;
+        padding: space(2) 0;
+        text-align: right;
+        cursor: pointer;
+        border-top: solid;
+        @include separator;
+
+        &:first-child {
+          border-top: none;
+        }
+        &:last-child {
+          padding-bottom: 4rem;
+        }
+
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        word-break: break-all;
+        // .fc-item-details {
+        // }
+        .fc-item-name {
+          padding: 0 space(3);
+        }
       }
     }
   }

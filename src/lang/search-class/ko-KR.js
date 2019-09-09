@@ -4,12 +4,12 @@ export default {
     description: 'aaa',
     title: 'bbb'
   },
-  initInputText: '강의 정보를 입력해주세요',
+  initInputText: '지니어스 검색',
   filterButtonMsg: '필터',
   filterTitleYear: '년도',
   filterTitleSemester: '학기',
-  filterTitleProcess: '과정',
+  filterTitleMainCourse: '과정',
   filterTitleCampus: '캠퍼스',
   filterTitleCollege: '대학/교양',
-  filterTitleMajor: '학부/전공'
+  filterTitleSubject: '학부/전공'
 }

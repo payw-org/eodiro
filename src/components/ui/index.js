@@ -1,15 +1,28 @@
 // basic
-import Button from '~/components/ui/basic/Button.vue'
+import Button from '~/components/ui/basic/Button'
 
 // form
-import Input from '~/components/ui/form/Input.vue'
-import Textarea from '~/components/ui/form/Textarea.vue'
+import Input from '~/components/ui/form/Input'
+import Textarea from '~/components/ui/form/Textarea'
 
 // layouts
-import Grid from '~/components/ui/layouts/Grid.vue'
+import Grid from '~/components/ui/layouts/Grid'
 
 // blocks
-import ArrowBlock from '~/components/ui/blocks/ArrowBlock.vue'
-import Accordion from '~/components/ui/blocks/Accordion.vue'
+import ArrowBlock from '~/components/ui/blocks/ArrowBlock'
+import Accordion from '~/components/ui/blocks/Accordion'
 
-export { Button, Input, Textarea, ArrowBlock, Accordion, Grid }
+// icons
+import IconArrowRight from '~/components/ui/icons/IconArrowRight'
+import IconArrowLeft from '~/components/ui/icons/IconArrowLeft'
+
+export {
+  Button,
+  Input,
+  Textarea,
+  ArrowBlock,
+  Accordion,
+  Grid,
+  IconArrowRight,
+  IconArrowLeft
+}

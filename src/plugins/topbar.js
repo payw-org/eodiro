@@ -47,21 +47,30 @@ const addEvent = function(elem, type, handler) {
     elem['on' + type] = handler
   }
 }
-const options = {
+
+const lightModeOptions = {
   autoRun: true,
-  barThickness: 2.5,
+  barThickness: 4,
   barColors: {
-    // '0': '#31A8FF',
-    '0': '#00B2FF',
-    // '.25': 'rgba(52,  152, 219, .9)',
-    // '.50': 'rgba(241, 196, 15,  .9)',
-    // '.75': 'rgba(230, 126, 34,  .9)',
-    // '1.0': '#305DFF'
-    '1.0': '#0057FF'
+    '0': '#FFDF00',
+    '1.0': '#00E3D6'
   },
   shadowBlur: 3,
-  shadowColor: 'rgba(0, 0, 0, 0.3)'
+  shadowColor: 'rgba(0, 0, 0, 0)'
 }
+
+const darkModeOptions = {
+  autoRun: true,
+  barThickness: 4,
+  barColors: {
+    '0': '#fff',
+    '1.0': '#fff'
+  },
+  shadowBlur: 3,
+  shadowColor: 'rgba(0, 0, 0, 0)'
+}
+
+let options = lightModeOptions
 const repaint = function() {
   canvas.width = window.innerWidth
   canvas.height = options.barThickness * 5 // need space for shadow
@@ -102,6 +111,12 @@ const topbar = {
       }
     }
   },
+  setLightMode() {
+    options = lightModeOptions
+  },
+  setDarkMode() {
+    options = darkModeOptions
+  },
   show() {
     if (showing) {
       return
@@ -117,7 +132,7 @@ const topbar = {
     canvas.style.display = 'block'
     topbar.progress(0)
     if (options.autoRun) {
-      (function loop() {
+      ;(function loop() {
         progressTimerId = window.requestAnimationFrame(loop)
         topbar.progress('+' + 0.05 * (1 - Math.sqrt(currentProgress)) ** 2)
       })()
@@ -145,7 +160,7 @@ const topbar = {
       window.cancelAnimationFrame(progressTimerId)
       progressTimerId = null
     }
-    (function loop() {
+    ;(function loop() {
       if (topbar.progress('+.1') >= 1) {
         canvas.style.opacity -= 0.05
         if (canvas.style.opacity <= 0.05) {

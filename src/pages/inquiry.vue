@@ -63,26 +63,32 @@ export default {
   methods: {
     sendEmail() {
       const campus = 'seoul'
-      const msgToSend = document.querySelector('.writing-area').value.trim()
+      const replyEmail = this.replyEmail
+      const inquiryContent = this.inquiryContent.trim()
 
-      if (msgToSend.length < this.minLength) {
+      // Inquiry content validation
+      if (inquiryContent.length < this.minLength) {
         new Dialog().vagabond(this.$t('inquiry.textLimit.under'))
         return
       }
-      if (msgToSend.length > this.maxLength) {
+      if (inquiryContent.length > this.maxLength) {
         new Dialog().vagabond(this.$t('inquiry.textLimit.over'))
         return
       }
+
+      // Use API
       axios({
-        url: `https://alpha.api.eodiro.com/v2/campuses/${campus}/inquiry`,
+        url: `https://api.eodiro.com/v2/campuses/${campus}/inquiry`,
         method: 'post',
         data: {
-          text: msgToSend
+          email: replyEmail,
+          text: inquiryContent
         }
       })
         .then(() => {
           new Dialog().alert(this.$t('inquiry.sent'))
           this.inquiryContent = ''
+          this.replyEmail = ''
         })
         .catch((error) => {
           new Dialog().alert(`${this.$t('global.error.dataSendError')}

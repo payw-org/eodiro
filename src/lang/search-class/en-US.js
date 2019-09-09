@@ -4,12 +4,12 @@ export default {
     description: 'aaa',
     title: 'bbb'
   },
-  initInputText: 'Please enter Class Information',
+  initInputText: 'Genius search',
   filterButtonMsg: 'Filter',
   filterTitleYear: 'Year',
   filterTitleSemester: 'Semester',
-  filterTitleProcess: 'Process',
+  filterTitleMainCourse: 'Process',
   filterTitleCampus: 'Campus',
   filterTitleCollege: 'College',
-  filterTitleMajor: 'Major'
+  filterTitleSubject: 'Major'
 }
