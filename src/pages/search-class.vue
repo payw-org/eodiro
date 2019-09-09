@@ -142,7 +142,7 @@ export default {
   },
   data() {
     return {
-      apiURL: 'https://alpha.api.eodiro.com/v2/campuses/seoul/search-class',
+      apiURL: 'https://api.eodiro.com/v2/campuses/seoul/search-class',
       observer: null,
       sentinel: null,
       filterIsFold: true, //
