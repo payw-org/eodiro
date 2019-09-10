@@ -35,7 +35,7 @@
 import axios from 'axios'
 import pageBase from '~/mixins/page-base'
 import { Button } from '~/components/ui'
-import Dialog from '~/plugins/eodiro-dialog'
+// import Dialog from '~/plugins/eodiro-dialog'
 
 export default {
   name: 'inquiry',
@@ -50,7 +50,7 @@ export default {
     return {
       replyEmail: '',
       inquiryContent: '',
-      minLength: 1,
+      minLength: 2,
       maxLength: 500
     }
   },
@@ -61,18 +61,38 @@ export default {
   },
   mounted() {},
   methods: {
+    validateEmail(email) {
+      const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+      return re.test(String(email).toLowerCase())
+    },
     sendEmail() {
       const campus = 'seoul'
       const replyEmail = this.replyEmail
       const inquiryContent = this.inquiryContent.trim()
 
+      // Check email input length
+      if (replyEmail.length === 0) {
+        // new Dialog().alert(this.$t('inquiry.requireEmail'))
+        window.alert(this.$t('inquiry.requireEmail'))
+        return
+      }
+
+      // Check email format
+      if (!this.validateEmail(replyEmail)) {
+        // new Dialog().alert(this.$t('inquiry.wrongEmailFormat'))
+        window.alert(this.$t('inquiry.wrongEmailFormat'))
+        return
+      }
+
       // Inquiry content validation
       if (inquiryContent.length < this.minLength) {
-        new Dialog().vagabond(this.$t('inquiry.textLimit.under'))
+        // new Dialog().vagabond(this.$t('inquiry.textLimit.under'))
+        window.alert(this.$t('inquiry.textLimit.under'))
         return
       }
       if (inquiryContent.length > this.maxLength) {
-        new Dialog().vagabond(this.$t('inquiry.textLimit.over'))
+        // new Dialog().vagabond(this.$t('inquiry.textLimit.over'))
+        window.alert(this.$t('inquiry.textLimit.over'))
         return
       }
 
@@ -86,12 +106,13 @@ export default {
         }
       })
         .then(() => {
-          new Dialog().alert(this.$t('inquiry.sent'))
           this.inquiryContent = ''
           this.replyEmail = ''
+          // new Dialog().alert(this.$t('inquiry.sent'))
+          window.alert(this.$t('inquiry.sent'))
         })
         .catch((error) => {
-          new Dialog().alert(`${this.$t('global.error.dataSendError')}
+          window.alert(`${this.$t('global.error.dataSendError')}
           ${error}`)
         })
     }
