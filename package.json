@@ -8,7 +8,8 @@
     "start-hcj": "HOST=0.0.0.0 PORT=3200 nuxt start",
     "build": "nuxt build",
     "start": "nuxt start",
-    "generate": "nuxt generate"
+    "generate": "nuxt generate",
+    "dist": "git checkout master && git fetch && npm install && pm2 stop dist && pm2 delete dist && pm2 start nuxt --name 'dist' -- start"
   },
   "repository": {
     "type": "git",
