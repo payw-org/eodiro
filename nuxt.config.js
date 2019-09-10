@@ -58,7 +58,7 @@ export default {
     '~/assets/styles/stylus/spring.styl'
   ],
 
-  plugins: ['~/plugins/init.ts'],
+  plugins: ['~/plugins/init.ts', { src: '~/plugins/ga.js', ssr: false }],
 
   buildModules: [
     '@nuxtjs/eslint-module',
@@ -93,14 +93,11 @@ export default {
           cookieKey: 'i18n_lang'
         }
       }
-    ]
+    ],
+    ['@nuxtjs/google-analytics', {
+      id: 'UA-140443623-1'
+    }]
   ],
-
-  // GA
-  googleAnalytics: {
-    id: 'UA-140443623-1',
-    dev: false
-  },
 
   // custom build path name
   build: {

@@ -57,9 +57,6 @@ export default Vue.extend({
       required: true,
       default: () => []
     }
-  },
-  mounted() {
-    console.log(this.mealTimeData)
   }
 })
 </script>
