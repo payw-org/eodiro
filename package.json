@@ -9,7 +9,7 @@
     "build": "nuxt build",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "dist": "git checkout master && git fetch && npm install && sudo pm2 delete dist && pm2 start nuxt --name 'dist' -- start"
+    "dist": "git checkout master && git fetch && npm install && pm2 stop dist && pm2 delete dist && pm2 start nuxt --name 'dist' -- start"
   },
   "repository": {
     "type": "git",
