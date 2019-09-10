@@ -7,7 +7,7 @@
           <ArrowBlock
             class="menu-item-wrapper"
             :link="localePath('vacant').replace(/\/$/, '')"
-            @click="showTopbar()"
+            @click="showTopbar"
           >
             <template v-slot:icon>
               <span class="icon icon--vacant" />
@@ -35,6 +35,7 @@
           <ArrowBlock
             class="menu-item-wrapper"
             :link="localePath('search-class').replace(/\/$/, '')"
+            @click="showTopbar"
           >
             <template v-slot:icon>
               <span class="icon icon--search-class" />
