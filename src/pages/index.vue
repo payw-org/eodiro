@@ -21,7 +21,7 @@
           <ArrowBlock
             class="menu-item-wrapper"
             :link="localePath('meals-date').replace(/\/$/, '')"
-            @click="showTopbar()"
+            @click="showTopbar"
           >
             <template v-slot:icon>
               <span class="icon icon--meals" />
