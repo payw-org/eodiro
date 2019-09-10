@@ -1,9 +1,9 @@
 // global title and description
 // we can set these on each page vue components
-const modifyHtml = (html) => {
-  // remove data-n-head="true"
-  return html.replace(/data-n-head(=".*?")?(?!-)/g, '')
-}
+// const modifyHtml = (html) => {
+//   // remove data-n-head="true"
+//   return html.replace(/data-n-head(=".*?")?(?!-)/g, '')
+// }
 
 export default {
   // custom global id of html dom
