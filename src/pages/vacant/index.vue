@@ -44,7 +44,6 @@
 <script>
 import axios from 'axios'
 import pageBase from '~/mixins/page-base'
-import ApiUrl from '~/plugins/ApiUrl'
 import { Grid, ArrowBlock } from '~/components/ui'
 
 export default {
@@ -58,7 +57,7 @@ export default {
   },
   asyncData({ app, redirect }) {
     const campus = 'seoul'
-    const url = ApiUrl.get('alpha', 2, `/campuses/${campus}/vacant/buildings`)
+    const url = `https://api.eodiro.com/v2/campuses/${campus}/vacant/buildings`
 
     return axios(url, {
       method: 'get'

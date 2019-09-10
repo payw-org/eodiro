@@ -178,6 +178,9 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 }
 
 #eodiro-banner {
+  pointer-events: all;
+  touch-action: auto;
+  z-index: 6666;
   position: sticky;
   top: 0;
   top: calc(#{$nav-height} - #{$banner-height});
@@ -196,7 +199,7 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 
   &.mini {
     transform: translateY(calc(#{$nav-height} - #{$banner-height}));
-    position: fixed;
+    // position: fixed;
     top: 0;
     // top: -$banner-height;
     // transform: translateY($nav-height);
@@ -524,7 +527,7 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 #banner-observer-sentinel {
   position: absolute;
   // top: calc(#{$banner-height} - #{$nav-height});
-  top: calc(#{$banner-height / 2} - 1rem);
+  top: calc(#{$banner-height / 2} - 2rem);
   // top: $banner-height;
   right: 0;
   left: 0;

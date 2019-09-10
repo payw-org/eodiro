@@ -1,9 +1,9 @@
 // global title and description
 // we can set these on each page vue components
-const modifyHtml = (html) => {
-  // remove data-n-head="true"
-  return html.replace(/data-n-head(=".*?")?(?!-)/g, '')
-}
+// const modifyHtml = (html) => {
+//   // remove data-n-head="true"
+//   return html.replace(/data-n-head(=".*?")?(?!-)/g, '')
+// }
 
 export default {
   // custom global id of html dom
@@ -58,7 +58,7 @@ export default {
     '~/assets/styles/stylus/spring.styl'
   ],
 
-  plugins: ['~/plugins/init.ts'],
+  plugins: ['~/plugins/init.ts', { src: '~/plugins/ga.js', ssr: false }],
 
   buildModules: [
     '@nuxtjs/eslint-module',
@@ -93,14 +93,15 @@ export default {
           cookieKey: 'i18n_lang'
         }
       }
-    ]
+    ],
+    [
+      '@nuxtjs/google-analytics',
+      {
+        id: 'UA-140443623-1'
+      }
+    ],
+    '@nuxtjs/pwa'
   ],
-
-  // GA
-  googleAnalytics: {
-    id: 'UA-140443623-1',
-    dev: false
-  },
 
   // custom build path name
   build: {

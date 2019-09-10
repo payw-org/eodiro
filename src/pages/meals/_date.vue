@@ -55,6 +55,8 @@ export default Vue.extend({
 @import '~/assets/styles/scss/main';
 
 #eodiro-meals {
+  max-width: 40rem !important;
+
   .date-picker {
     align-items: center;
     border-radius: 50px;

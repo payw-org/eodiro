@@ -112,7 +112,7 @@ export default class EodiroDialog {
     this.dialogContainerElm.classList.remove('active')
 
     setTimeout(() => {
-      (<HTMLElement> this.dialogContainerElm.parentElement).removeChild(
+      ;(<HTMLElement>this.dialogContainerElm.parentElement).removeChild(
         this.dialogContainerElm
       )
     }, 700)

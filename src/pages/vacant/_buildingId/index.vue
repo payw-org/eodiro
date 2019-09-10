@@ -45,7 +45,6 @@
 import axios from 'axios'
 import pageBase from '~/mixins/page-base'
 import { Grid, ArrowBlock } from '~/components/ui'
-import ApiUrl from '~/plugins/ApiUrl'
 
 export default {
   name: 'vacant-floor',
@@ -60,11 +59,7 @@ export default {
   },
   asyncData({ app, route, redirect }) {
     const campus = 'seoul'
-    const url = ApiUrl.get(
-      'alpha',
-      2,
-      `/campuses/${campus}/vacant/buildings/${route.params.buildingId}/floors`
-    )
+    const url = `https://api.eodiro.com/v2/campuses/${campus}/vacant/buildings/${route.params.buildingId}/floors`
 
     return axios(url, {
       method: 'get'
