@@ -152,7 +152,6 @@ import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 import pageBase from '~/mixins/page-base'
 import modalScroll from '~/mixins/modal-scroll'
 import ExpireCounter from '~/plugins/ExpireCounter'
-import ApiUrl from '~/plugins/ApiUrl'
 import { Grid, ArrowBlock } from '~/components/ui'
 
 export default {
@@ -176,11 +175,7 @@ export default {
   },
   asyncData({ app, redirect, route }) {
     const campus = 'seoul'
-    const url = ApiUrl.get(
-      'alpha',
-      2,
-      `/campuses/${campus}/vacant/buildings/${route.params.buildingId}/floors/${route.params.floorId}/classrooms`
-    )
+    const url = `https://api.eodiro.com/v2/campuses/${campus}/vacant/buildings/${route.params.buildingId}/floors/${route.params.floorId}/classrooms`
 
     return axios(url, {
       method: 'get'
