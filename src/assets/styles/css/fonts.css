@@ -66,9 +66,9 @@
   font-style: normal;
 }
 
-/* Inter 3.7 */
+/* Inter 3.9 */
 
-@font-face {
+/* @font-face {
   font-family: 'PAYW Pro';
   font-style: normal;
   font-weight: 100;
@@ -90,7 +90,7 @@
   font-weight: 300;
   src: url('/fonts/Inter/Inter-Light-BETA.woff2') format('woff2'),
     url('/fonts/Inter/Inter-Light-BETA.woff') format('woff');
-}
+} */
 
 @font-face {
   font-family: 'PAYW Pro';
