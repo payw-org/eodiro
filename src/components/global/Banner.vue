@@ -329,7 +329,7 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
       $logo-size: 7rem;
       width: $logo-size;
       height: $logo-size;
-      transition: opacity 300ms ease, transform 300ms ease;
+      transition: opacity 300ms ease, transform 300ms ease-out;
     }
   }
 
