@@ -22,8 +22,11 @@ export default {
       }
     ],
     link: [
-      { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico' },
-      { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' }
+      { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico?v2' },
+      { rel: 'apple-touch-icon', href: '/apple-touch-icon.png?v2' },
+      { rel: 'icon', href: '/icon.png?v2' },
+      { rel: 'icon', sizes: '192x192', href: '/icon-192.png?v2' },
+      { rel: 'icon', sizes: '512x512', href: '/icon-512.png?v2' }
     ]
   },
 

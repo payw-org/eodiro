@@ -18,9 +18,9 @@
           </ArrowBlock>
 
           <!-- meals -->
-          <ArrowBlock
+          <ArrowBlock 
             class="menu-item-wrapper"
-            :link="localePath('meals-date').replace(/\/$/, '')"
+            :link="localePath('meals').replace(/\/$/, '')"
             @click="showTopbar"
           >
             <template v-slot:icon>
