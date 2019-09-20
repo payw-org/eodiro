@@ -329,7 +329,7 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
       $logo-size: 7rem;
       width: $logo-size;
       height: $logo-size;
-      transition: opacity 300ms ease, transform 300ms ease-out;
+      transition: opacity 300ms ease, transform 180ms ease;
       will-change: transform, opacity;
     }
   }
@@ -528,7 +528,7 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 #banner-observer-sentinel {
   position: absolute;
   // top: calc(#{$banner-height} - #{$nav-height});
-  top: calc(#{$banner-height / 2} - 2rem);
+  top: calc(#{$banner-height / 2} - 1rem);
   // top: $banner-height;
   right: 0;
   left: 0;
