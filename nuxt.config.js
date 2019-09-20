@@ -1,9 +1,9 @@
 // global title and description
 // we can set these on each page vue components
-// const modifyHtml = (html) => {
-//   // remove data-n-head="true"
-//   return html.replace(/data-n-head(=".*?")?(?!-)/g, '')
-// }
+const modifyHtml = (html) => {
+  // remove data-n-head="true"
+  return html.replace(/data-n-head(=".*?")?(?!-)/g, '')
+}
 
 export default {
   // custom global id of html dom
@@ -59,12 +59,13 @@ export default {
   },
 
   hooks: {
-    // 'generate:page': (page) => {
-    //   page.html = modifyHtml(page.html)
-    // },
-    // 'render:route': (url, page, { req, res }) => {
-    //   page.html = modifyHtml(page.html)
-    // }
+    'generate:page': (page) => {
+      page.html = modifyHtml(page.html)
+    },
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    'render:route': (url, page) => {
+      page.html = modifyHtml(page.html)
+    }
   },
 
   // Disable Nuxt.js's loading feature
