@@ -180,7 +180,7 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 #eodiro-banner {
   pointer-events: all;
   touch-action: auto;
-  z-index: 6666;
+  z-index: 6665;
   position: sticky;
   top: 0;
   top: calc(#{$nav-height} - #{$banner-height});
@@ -219,7 +219,7 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 
   &.nav-mode {
     .banner {
-      box-shadow: none;
+      box-shadow: 0 0.2rem 0.5rem rgba(#000, 0);
     }
 
     .logo-wrapper {
@@ -325,11 +325,12 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 
     .logo-wrapper {
       position: relative;
-      z-index: 1;
+      z-index: 10;
       $logo-size: 7rem;
       width: $logo-size;
       height: $logo-size;
       transition: opacity 300ms ease, transform 300ms ease-out;
+      will-change: transform, opacity;
     }
   }
 

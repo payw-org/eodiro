@@ -7,7 +7,6 @@
       collapsing: isCollapsing,
       elastic: elastic
     }"
-    :style="{ height: totalHeight }"
     @click="toggleCollapse"
   >
     <div class="acc-face-container">
@@ -36,7 +35,6 @@ export default {
   },
   data() {
     return {
-      totalHeight: 'auto',
       isCollapsing: false,
       willCollapse: true,
       isCollapsed: true,
@@ -81,17 +79,19 @@ export default {
         // eslint-disable-next-line no-unused-expressions
         container.getBoundingClientRect().height
 
-        container.style.height = 0
+        setTimeout(() => {
+          container.style.height = 0
 
-        let f
-        container.addEventListener(
-          'transitionend',
-          (f = () => {
-            container.removeEventListener('transitionend', f)
-            this.isCollapsed = true
-            this.isCollapsing = false
-          })
-        )
+          let f
+          container.addEventListener(
+            'transitionend',
+            (f = () => {
+              container.removeEventListener('transitionend', f)
+              this.isCollapsed = true
+              this.isCollapsing = false
+            })
+          )
+        }, 0)
       }
     }
   }
@@ -159,7 +159,7 @@ export default {
     width: 100%;
     border-top: 1px solid;
     @include separator;
-    transition: height 300ms ease, padding 300ms ease, border 300ms ease;
+    transition: all 300ms ease;
 
     @at-root #{$accordion}.will-collapse .acc-content-container {
       padding: 0;

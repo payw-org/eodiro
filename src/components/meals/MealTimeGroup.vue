@@ -82,8 +82,9 @@ export default Vue.extend({
 
   .meal-time-name {
     font-size: head(3);
-    padding: space(3) 0;
-    padding-left: radius(3);
+    padding: space(2) 0 space(1);
+    padding-left: radius(3) / 2;
+    margin-bottom: space(2);
     position: sticky;
     top: $nav-height;
     z-index: 2;
@@ -95,6 +96,7 @@ export default Vue.extend({
       color: #529dff;
       font-size: body(5);
       font-weight: fw(4);
+      line-height: 1;
     }
 
     .meal-group {
