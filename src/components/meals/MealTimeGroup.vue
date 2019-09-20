@@ -8,6 +8,7 @@
         v-for="restaurant in mealTimeData"
         :key="timeGroup + restaurant.name"
         class="restaurant-item"
+        elastic
       >
         <template v-slot:face>
           <h2 class="restaurant-name">
@@ -16,8 +17,8 @@
         </template>
         <template v-slot:content>
           <div
-            v-for="meal in restaurant.meals"
-            :key="meal.time + meal.title + meal.price"
+            v-for="(meal, i) in restaurant.meals"
+            :key="i + meal.time + meal.title + meal.price + meal.menus[0]"
             class="meal-group"
           >
             <div class="meal-title-and-price">
@@ -27,7 +28,11 @@
               </span>
             </div>
             <ul class="menus">
-              <li v-for="menu in meal.menus" :key="menu" class="menu-item">
+              <li
+                v-for="(menu, j) in meal.menus"
+                :key="j + menu"
+                class="menu-item"
+              >
                 {{ menu }}
               </li>
             </ul>
