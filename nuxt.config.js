@@ -22,11 +22,27 @@ export default {
       }
     ],
     link: [
-      { rel: 'shortcut icon', type: 'image/x-icon', href: '/favicon.ico?v2' },
-      { rel: 'apple-touch-icon', href: '/apple-touch-icon.png?v2' },
-      { rel: 'icon', href: '/icon.png?v2' },
-      { rel: 'icon', sizes: '192x192', href: '/icon-192.png?v2' },
-      { rel: 'icon', sizes: '512x512', href: '/icon-512.png?v2' }
+      {
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: '/apple-touch-icon.png'
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '32x32',
+        href: '/favicon-32x32.png'
+      },
+      {
+        rel: 'icon',
+        type: 'image/png',
+        sizes: '16x16',
+        href: '/favicon-16x16.png'
+      },
+      { rel: 'manifest', href: '/site.webmanifest' },
+      { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#ff6421' },
+      { name: 'msapplication-TileColor', content: '#da532c' },
+      { name: 'theme-color', content: '#ffffff' }
     ]
   },
 
