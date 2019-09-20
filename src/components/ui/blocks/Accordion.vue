@@ -1,7 +1,12 @@
 <template>
   <div
     class="accordion"
-    :class="{ collapsed: isCollapsed, elastic: elastic }"
+    :class="{
+      collapsed: isCollapsed,
+      'will-collapse': willCollapse,
+      collapsing: isCollapsing,
+      elastic: elastic
+    }"
     :style="{ height: totalHeight }"
     @click="toggleCollapse"
   >
@@ -32,38 +37,61 @@ export default {
   data() {
     return {
       totalHeight: 'auto',
+      isCollapsing: false,
+      willCollapse: true,
       isCollapsed: true,
       contentContainerHeight: 0
     }
   },
   methods: {
     toggleCollapse() {
+      if (this.isCollapsing) {
+        return
+      } else {
+        this.isCollapsing = true
+      }
+
       if (this.isCollapsed) {
-        this.isCollapsed = false
-        this.$refs.accContentContainer.style.height =
-          this.$refs.accContentContainer.firstElementChild.clientHeight +
-          1 +
-          'px'
+        this.willCollapse = false
+        const container = this.$refs.accContentContainer
+        container.style.height = `${container.firstElementChild.getBoundingClientRect()
+          .height + 1}px`
+
+        // eslint-disable-next-line no-unused-expressions
+        container.getBoundingClientRect().height
 
         let f
-        this.$refs.accContentContainer.addEventListener(
+        container.addEventListener(
           'transitionend',
           (f = () => {
-            this.$refs.accContentContainer.style.height = 'auto'
-            this.$refs.accContentContainer.removeEventListener(
-              'transitionend',
-              f
-            )
+            container.style.height = 'auto'
+            // eslint-disable-next-line no-unused-expressions
+            container.getBoundingClientRect().height
+            container.removeEventListener('transitionend', f)
+            this.isCollapsed = false
+            this.isCollapsing = false
           })
         )
       } else {
-        this.isCollapsed = true
-        this.$refs.accContentContainer.style.height =
-          this.$refs.accContentContainer.firstElementChild.clientHeight +
-          1 +
-          'px'
-        this.$refs.accContentContainer.getBoundingClientRect()
-        this.$refs.accContentContainer.style.height = 0
+        this.willCollapse = true
+        const container = this.$refs.accContentContainer
+        container.style.height = `${container.firstElementChild.getBoundingClientRect()
+          .height + 1}px`
+
+        // eslint-disable-next-line no-unused-expressions
+        container.getBoundingClientRect().height
+
+        container.style.height = 0
+
+        let f
+        container.addEventListener(
+          'transitionend',
+          (f = () => {
+            container.removeEventListener('transitionend', f)
+            this.isCollapsed = true
+            this.isCollapsing = false
+          })
+        )
       }
     }
   }
@@ -115,7 +143,7 @@ export default {
         transform: rotate(270deg);
         transition: transform 200ms ease;
 
-        @at-root #{$accordion}.collapsed .acc-arrow {
+        @at-root #{$accordion}.will-collapse .acc-arrow {
           transform: rotate(90deg) !important;
         }
 
@@ -131,9 +159,9 @@ export default {
     width: 100%;
     border-top: 1px solid;
     @include separator;
-    transition: height 200ms ease, padding 200ms ease, border 200ms ease;
+    transition: height 300ms ease, padding 300ms ease, border 300ms ease;
 
-    @at-root #{$accordion}.collapsed .acc-content-container {
+    @at-root #{$accordion}.will-collapse .acc-content-container {
       padding: 0;
       height: 0;
       border-top: 1px solid transparent;
