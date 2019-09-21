@@ -191,6 +191,7 @@ export default {
 @import '~/assets/styles/scss/main.scss';
 
 #tiles-container {
+  z-index: 1;
   position: absolute;
   width: 105%;
   height: auto;
