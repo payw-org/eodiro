@@ -35,7 +35,7 @@
         <nav class="eodiro-navigation">
           <div class="dummy" />
           <transition name="icon-change">
-            <div v-if="false" class="nav-icon-wrapper">
+            <div class="nav-icon-wrapper">
               <transition
                 v-for="hamletName in $store.state.hamletList"
                 :key="`nav-${hamletName}`"
@@ -168,10 +168,10 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 #eodiro-banner-wrapper {
   position: absolute;
   z-index: 6666;
-  left: 0;
   top: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  bottom: 0;
+  left: 0;
   user-select: none;
   touch-action: none;
   pointer-events: none;
@@ -223,16 +223,21 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
     }
 
     .logo-wrapper {
-      // opacity: 0;
-      transform: translateY(calc(#{$banner-height / 2} - #{$nav-height / 2}))
-        scale(0.5);
+      opacity: 0;
+      // transform: translateY(calc(#{$banner-height / 2} - #{$nav-height / 2}))
+      //   scale(0.5);
 
-      @include larger-than($width-step--1) {
-        transform: translateY(
-            calc(#{$banner-height / 2} - #{space(4) / 2} - #{$nav-height / 2})
-          )
-          scale(0.5);
-      }
+      // @include larger-than($width-step--1) {
+      //   transform: translateY(
+      //       calc(#{$banner-height / 2} - #{space(4) / 2} - #{$nav-height / 2})
+      //     )
+      //     scale(0.5);
+      // }
+      // transform: translateY(-50%);
+    }
+
+    .nav-icon-wrapper {
+      opacity: 1 !important;
     }
   }
 
@@ -330,7 +335,6 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
       width: $logo-size;
       height: $logo-size;
       transition: opacity 300ms ease, transform 180ms ease;
-      will-change: transform, opacity;
     }
   }
 
@@ -385,6 +389,8 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
       position: relative;
       width: $nav-height;
       height: $nav-height;
+      opacity: 0;
+      transition: opacity 200ms ease;
     }
 
     .dummy {
@@ -528,7 +534,7 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 #banner-observer-sentinel {
   position: absolute;
   // top: calc(#{$banner-height} - #{$nav-height});
-  top: calc(#{$banner-height / 2} - 1rem);
+  top: calc(#{$banner-height / 2} + 2rem);
   // top: $banner-height;
   right: 0;
   left: 0;
