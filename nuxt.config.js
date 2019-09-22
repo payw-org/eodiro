@@ -124,8 +124,7 @@ export default {
       {
         id: 'UA-140443623-1'
       }
-    ],
-    '@nuxtjs/pwa'
+    ]
   ],
 
   // custom build path name
