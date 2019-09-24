@@ -309,13 +309,13 @@ export default {
       }
 
       .timetable {
-        animation: springSlideUp 700ms linear;
+        animation: springSlideUp 600ms linear;
       }
     }
 
     &.custom-leave-active {
       .timetable {
-        animation: springSlideDown 700ms linear both;
+        animation: springSlideDown 600ms linear both;
       }
     }
 
