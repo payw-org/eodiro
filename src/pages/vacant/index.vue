@@ -1,5 +1,8 @@
 <template>
   <div class="select-building">
+    <div class="info">
+      <p>{{ $t('vacant.info') }}</p>
+    </div>
     <Grid>
       <ArrowBlock
         v-for="building in buildings"
@@ -79,6 +82,14 @@ export default {
 
 .select-building {
   position: relative;
+
+  .info {
+    @include block-style;
+    padding: space(4);
+    margin-bottom: space(5);
+    min-height: unset;
+    color: $base-gray;
+  }
 
   .building-item {
     .building-info-container {
