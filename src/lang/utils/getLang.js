@@ -8,6 +8,7 @@ export default function(langCode) {
     pref: require(`../preferences/${langCode}`).default,
     community: require(`../community/${langCode}`).default,
     donation: require(`../donation/${langCode}`).default,
-    meals: require(`../meals/${langCode}`).default
+    meals: require(`../meals/${langCode}`).default,
+    opensource: require(`../opensource/${langCode}`).default
   }
 }
