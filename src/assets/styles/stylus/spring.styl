@@ -80,7 +80,7 @@ lerp(a, b, p)
     {i + '%'}
       t = i / 100
       p = spring-gentle(t)
-      transform: translateY(lerp(50%, 0%, p))
+      transform: translateY(lerp(30%, 0%, p))
       opacity: lerp(0, 1, p)
 
 @keyframes springSlideDown
@@ -88,5 +88,5 @@ lerp(a, b, p)
     {i + '%'}
       t = i / 100
       p = spring-gentle(t)
-      transform: translateY(lerp(0%, 20%, p))
+      transform: translateY(lerp(0%, 15%, p))
       opacity: lerp(1, 0, p)

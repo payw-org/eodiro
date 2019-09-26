@@ -1,6 +1,6 @@
 {
   "name": "eodiro",
-  "version": "2.0.0-beta.1",
+  "version": "2.0.0-beta.2",
   "description": "CAU Utility Service",
   "scripts": {
     "dev": "cross-env HOST=0.0.0.0 PORT=3500 nuxt",
@@ -8,6 +8,8 @@
     "start-hcj": "HOST=0.0.0.0 PORT=3200 nuxt start",
     "build": "nuxt build",
     "start": "nuxt start",
+    "start-dev": "nuxt start --port 3020",
+    "start-pm2": "pm2 start npm --name 'dist' -- run start",
     "generate": "nuxt generate",
     "dist": "git checkout master && git fetch && git pull && npm install && npm run build && pm2 stop dist && pm2 delete dist && pm2 start npm --name 'dist' -- run start"
   },
@@ -23,7 +25,6 @@
   "homepage": "https://github.com/paywteam/eodiro#readme",
   "dependencies": {
     "@nuxtjs/google-analytics": "^2.2.0",
-    "@nuxtjs/pwa": "^3.0.0-beta.18",
     "axios": "^0.19.0",
     "body-scroll-lock": "^2.6.4",
     "cookie": "^0.4.0",
