@@ -29,6 +29,13 @@
           src="@/assets/images/github/logo-inverted.svg"
           alt="github logo"
           class="github-logo"
+          data-color-scheme="light"
+        />
+        <img
+          src="@/assets/images/github/logo-original.svg"
+          alt="github logo"
+          class="github-logo"
+          data-color-scheme="dark"
         />
       </span>
       <span>{{ $t('opensource.visit') }}</span>
