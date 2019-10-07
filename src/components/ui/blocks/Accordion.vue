@@ -106,6 +106,7 @@ export default {
   @include block-style;
   flex-wrap: wrap;
   position: relative;
+  cursor: pointer;
 
   &.elastic {
     min-height: unset !important;
