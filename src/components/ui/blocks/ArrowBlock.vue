@@ -38,6 +38,7 @@ export default {
 
 .arrow-block {
   @include block-style;
+  cursor: pointer;
 
   .arrb-icon-wrapper {
     display: flex;
