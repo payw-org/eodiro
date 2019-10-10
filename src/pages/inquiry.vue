@@ -35,7 +35,7 @@
 import axios from 'axios'
 import pageBase from '~/mixins/page-base'
 import { Button } from '~/components/ui'
-// import Dialog from '~/plugins/eodiro-dialog'
+// import Dialog from '~/modules/eodiro-dialog'
 
 export default {
   name: 'inquiry',

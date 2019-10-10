@@ -86,7 +86,7 @@
 
 <script>
 import pageBase from '~/mixins/page-base'
-import Dialog from '~/plugins/eodiro-dialog'
+import Dialog from '~/modules/eodiro-dialog'
 
 export default {
   name: 'donation',

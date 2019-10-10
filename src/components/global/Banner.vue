@@ -33,7 +33,6 @@
         </div>
 
         <nav class="eodiro-navigation">
-          <div class="dummy" />
           <transition name="icon-change">
             <div class="nav-icon-wrapper">
               <transition
@@ -43,7 +42,7 @@
               >
                 <div
                   v-if="hamletName === $route.meta.hamletName"
-                  class="nav-icon hamlet-icon hamlet--home"
+                  class="nav-icon hamlet-icon"
                   :class="[`hamlet--${hamletName}`]"
                 >
                   <span class="icon" />
@@ -51,7 +50,6 @@
               </transition>
             </div>
           </transition>
-          <div class="dummy" />
         </nav>
       </div>
     </div>
@@ -60,7 +58,7 @@
 
 <script>
 import disableScroll from 'disable-scroll'
-import { CEM } from '~/plugins/custom-event-manager'
+import { CEM } from '~/modules/custom-event-manager'
 import HomeBgTile from '~/components/home/HomeBgTile.vue'
 
 export default {
@@ -163,15 +161,14 @@ export default {
 
 $banner-transition-time: 350ms;
 $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
-// $banner-bezier: ease;
 
 #eodiro-banner-wrapper {
   position: absolute;
-  z-index: 6666;
+  z-index: 8888;
   top: 0;
-  right: 0;
-  bottom: 0;
   left: 0;
+  width: 100%;
+  height: 100%;
   user-select: none;
   touch-action: none;
   pointer-events: none;
@@ -180,7 +177,7 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 #eodiro-banner {
   pointer-events: all;
   touch-action: auto;
-  z-index: 6665;
+  z-index: 9999;
   position: sticky;
   top: 0;
   top: calc(#{$nav-height} - #{$banner-height});
@@ -190,7 +187,6 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
   align-items: flex-end;
   justify-content: center;
   transform: translateY(0px);
-  // transition: transform $banner-transition-time $banner-bezier;
   @include bg; // Fill rounded corner with the same background color
 
   &.transitioning {
@@ -199,15 +195,9 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 
   &.mini {
     transform: translateY(calc(#{$nav-height} - #{$banner-height}));
-    // position: fixed;
     top: 0;
-    // top: -$banner-height;
-    // transform: translateY($nav-height);
-    // transition: transform $banner-transition-time $banner-bezier;
 
     .banner {
-      // height: calc(#{$nav-height} + 1px);
-      // height: $nav-height;
       transition: height $banner-transition-time $banner-bezier;
       transition-delay: 100ms;
 
@@ -219,21 +209,11 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 
   &.nav-mode {
     .banner {
-      box-shadow: 0 0.2rem 0.5rem rgba(#000, 0);
+      // box-shadow: 0 0.2rem 0.5rem rgba(#000, 0);
     }
 
     .logo-wrapper {
-      opacity: 0;
-      // transform: translateY(calc(#{$banner-height / 2} - #{$nav-height / 2}))
-      //   scale(0.5);
-
-      // @include larger-than($width-step--1) {
-      //   transform: translateY(
-      //       calc(#{$banner-height / 2} - #{space(4) / 2} - #{$nav-height / 2})
-      //     )
-      //     scale(0.5);
-      // }
-      // transform: translateY(-50%);
+      opacity: 0 !important;
     }
 
     .nav-icon-wrapper {
@@ -249,8 +229,8 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
     height: 100%;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 0.2rem 0.5rem rgba(#000, 0.2);
-    transition: height 0ms ease, box-shadow 500ms ease;
+    // box-shadow: 0 0.2rem 0.5rem rgba(#000, 0.2);
+    transition: box-shadow 500ms ease;
     transform: translate3d(0, 0, 0);
 
     @include larger-than($width-step--1) {
@@ -329,6 +309,7 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
     }
 
     .logo-wrapper {
+      opacity: 1;
       position: relative;
       z-index: 10;
       $logo-size: 7rem;
@@ -341,12 +322,13 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
   .eodiro-navigation {
     position: absolute;
     left: 0;
-    right: 0;
     bottom: 0;
+    width: 100%;
     height: $nav-height;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    z-index: 10;
 
     .prev-wrapper {
       display: flex;
