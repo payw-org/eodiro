@@ -19,7 +19,7 @@
 </template>
 
 <script>
-import { CEM } from '../plugins/custom-event-manager'
+import { CEM } from '~/modules/custom-event-manager'
 import Banner from '~/components/global/Banner'
 import GoBack from '~/components/global/GoBack'
 
