@@ -91,7 +91,6 @@ function setDepthAndPrevRoute() {
       }
     }
   }
-  // console.log(JSON.stringify(hamletRoutes, null, 2))
 }
 
 // function setRouteDepth(route) {
