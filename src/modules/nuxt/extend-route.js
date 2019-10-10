@@ -1,4 +1,5 @@
-/* 'extend-route' module for Nuxt.js
+/**
+ * 'extend-route' module for Nuxt.js
  *
  * It automatically assigns page depth, hamlet name
  * and previous page's route for each route.

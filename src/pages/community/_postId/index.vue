@@ -55,7 +55,7 @@ import dayjs from 'dayjs'
 // import axios from 'axios'
 import pageBase from '~/mixins/page-base'
 import NewComment from '~/components/community/NewComment'
-// import { CEM } from '~/plugins/custom-event-manager'
+// import { CEM } from '~/modules/custom-event-manager'
 
 const lorem = new LoremIpsum()
 

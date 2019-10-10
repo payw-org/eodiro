@@ -130,7 +130,7 @@
 
 <script>
 import pageBase from '~/mixins/page-base'
-import EodiroDialog from '~/plugins/eodiro-dialog'
+import EodiroDialog from '~/modules/eodiro-dialog'
 import { Grid, ArrowBlock } from '~/components/ui'
 
 export default {

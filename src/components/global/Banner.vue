@@ -58,7 +58,7 @@
 
 <script>
 import disableScroll from 'disable-scroll'
-import { CEM } from '~/plugins/custom-event-manager'
+import { CEM } from '~/modules/custom-event-manager'
 import HomeBgTile from '~/components/home/HomeBgTile.vue'
 
 export default {

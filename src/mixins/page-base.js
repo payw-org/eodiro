@@ -1,5 +1,5 @@
 import disableScroll from 'disable-scroll'
-import { CEM } from '~/plugins/custom-event-manager'
+import { CEM } from '~/modules/custom-event-manager'
 
 /**
  * Add this mixin from every page component.

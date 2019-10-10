@@ -92,7 +92,6 @@ export default {
 
   css: [
     '~/assets/styles/css/fonts.css',
-    '~/plugins/eodiro-dialog/style.scss',
     '~/assets/styles/scss/global/globalstyle.scss',
     '~/assets/styles/stylus/spring.styl'
   ],
@@ -102,7 +101,7 @@ export default {
   buildModules: [
     '@nuxtjs/eslint-module',
     '@nuxt/typescript-build',
-    '~/modules/extend-route'
+    '~/modules/nuxt/extend-route'
   ],
 
   // Nuxt.js modules

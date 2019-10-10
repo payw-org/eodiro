@@ -57,7 +57,7 @@ export default (context: Context) => {
     })
 
     // Assign topbar to window
-    const topbar = require('./topbar').default
+    const topbar = require('~/modules/topbar').default
     window.topbar = topbar
   }
 }
