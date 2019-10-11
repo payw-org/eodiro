@@ -1,19 +1,19 @@
 <template>
   <div id="eodiro-community">
-    <NuxtChild
-      keep-alive
-      :keep-alive-props="{ include: $store.state.cachedComponents }"
-    />
+    <EodiroChild />
   </div>
 </template>
 
 <script>
+import Vue from 'vue'
 import pageBase from '~/mixins/page-base'
+import EodiroChild from '~/components/global/EodiroChild'
 
-export default {
+export default Vue.extend({
   name: 'community',
+  components: { EodiroChild },
   mixins: [pageBase]
-}
+})
 </script>
 
 <style lang="scss">
