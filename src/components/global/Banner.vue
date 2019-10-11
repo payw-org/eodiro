@@ -300,7 +300,7 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
       &.background--search-class {
         background-image: linear-gradient(to bottom, #56f23d, #00d749);
       }
-      &.background--square {
+      &.background--pepero-square {
         background-image: linear-gradient(to bottom, #ff79b9, #ff3e78);
       }
       &.background--meals {
@@ -491,7 +491,7 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
       }
     }
 
-    &.hamlet--square {
+    &.hamlet--pepero-square {
       .icon {
         @include bgImg('~assets/images/community-white.svg', center, '75%');
 

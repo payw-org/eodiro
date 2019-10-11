@@ -6,7 +6,7 @@ export default function(langCode) {
     searchClass: require(`../search-class/${langCode}`).default,
     inquiry: require(`../inquiry/${langCode}`).default,
     pref: require(`../preferences/${langCode}`).default,
-    square: require(`../square/${langCode}`).default,
+    peperoSquare: require(`../pepero-square/${langCode}`).default,
     donation: require(`../donation/${langCode}`).default,
     meals: require(`../meals/${langCode}`).default,
     opensource: require(`../opensource/${langCode}`).default

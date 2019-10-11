@@ -1,5 +1,5 @@
 <template>
-  <div id="eodiro-square">
+  <div id="eodiro-pepero-square">
     <EodiroChild />
   </div>
 </template>
@@ -12,17 +12,17 @@ import EodiroChild from '~/components/global/EodiroChild'
 export default Vue.extend({
   head() {
     return {
-      title: this.$t('square.title')
+      title: this.$t('peperoSquare.title')
     }
   },
-  name: 'square',
+  name: 'pepero-square',
   components: { EodiroChild },
   mixins: [pageBase]
 })
 </script>
 
 <style lang="scss">
-#eodiro-square {
+#eodiro-pepero-square {
   max-width: 40rem !important;
 }
 </style>

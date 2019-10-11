@@ -24,7 +24,7 @@
 
     <div class="comments-container">
       <h2 class="comment-header">
-        {{ $t('square.comments') }}
+        {{ $t('peperoSquare.comments') }}
       </h2>
 
       <div class="comment-item-container">
@@ -39,7 +39,7 @@
 
         <div v-if="comments.length === 0" class="no-comments">
           <p>
-            {{ $t('square.noComments') }}
+            {{ $t('peperoSquare.noComments') }}
           </p>
         </div>
 
@@ -54,13 +54,13 @@ import { LoremIpsum } from 'lorem-ipsum'
 import dayjs from 'dayjs'
 // import axios from 'axios'
 import pageBase from '~/mixins/page-base'
-import NewComment from '~/components/square/NewComment'
+import NewComment from '~/components/pepero-square/NewComment'
 // import { CEM } from '~/modules/custom-event-manager'
 
 const lorem = new LoremIpsum()
 
 export default {
-  name: 'square-post-id',
+  name: 'pepero-square-post-id',
   components: { NewComment },
   mixins: [pageBase],
   data() {

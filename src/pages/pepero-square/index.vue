@@ -2,11 +2,11 @@
   <div id="posts">
     <div class="header">
       <h1 class="title">
-        {{ $t('square.posts') }}
+        {{ $t('peperoSquare.posts') }}
       </h1>
       <button class="new-post-btn">
         +
-        <NuxtLink :to="localePath('square-new')" class="absolute-link" />
+        <NuxtLink :to="localePath('pepero-square-new')" class="absolute-link" />
       </button>
     </div>
     <div class="posts-list">
@@ -18,20 +18,20 @@
 <script>
 import { CEM } from '~/modules/custom-event-manager'
 import pageBase from '~/mixins/page-base'
-import PostItem from '~/components/square/PostItem'
+import PostItem from '~/components/pepero-square/PostItem'
 
 export default {
-  name: 'square-index',
+  name: 'pepero-square-index',
   components: { PostItem },
   mixins: [pageBase],
   head() {
     return {
-      title: this.$t('square.title')
+      title: this.$t('peperoSquare.title')
     }
   },
   asyncData() {
     return {
-      posts: require('~/assets/data/square-posts').default.data
+      posts: require('~/assets/data/pepero-square-posts').default.data
     }
   },
   activated() {

@@ -7,7 +7,7 @@
         name="comment"
         autocomplete="off"
         spellcheck="false"
-        :placeholder="$t('square.leaveComment')"
+        :placeholder="$t('peperoSquare.leaveComment')"
         class="comment-input"
         @keyup.enter="leaveComment($event)"
       />

@@ -3,7 +3,7 @@
     class="post-item"
     :link="
       localePath({
-        name: 'square-postId',
+        name: 'pepero-square-postId',
         params: {
           postId: postData.id
         }
