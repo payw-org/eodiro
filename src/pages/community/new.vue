@@ -48,7 +48,7 @@ export default Vue.extend({
 
 #new-post {
   .header {
-    padding-left: radius(2);
+    padding-left: r(2);
   }
 
   .title-input,
@@ -57,16 +57,16 @@ export default Vue.extend({
   }
 
   .title-input {
-    margin-top: space(3);
+    margin-top: s(3);
   }
 
   .body-input {
-    margin-top: space(3);
+    margin-top: s(3);
     min-height: 50vh;
   }
 
   .publish-btn {
-    margin-top: space(3);
+    margin-top: s(3);
   }
 }
 </style>

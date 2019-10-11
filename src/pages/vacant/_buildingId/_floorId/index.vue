@@ -337,7 +337,7 @@ export default {
       max-width: 30rem;
       max-height: 40rem;
       background-color: #fff;
-      border-radius: radius(6);
+      border-radius: r(6);
       overflow-x: hidden;
       overflow-y: auto;
 
@@ -355,7 +355,7 @@ export default {
         background-repeat: no-repeat;
         background-position: center;
         background-size: 2rem;
-        border-radius: radius(6);
+        border-radius: r(6);
         background-color: #fff;
 
         @include dark-mode {

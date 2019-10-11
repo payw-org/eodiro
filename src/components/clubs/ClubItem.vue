@@ -85,13 +85,13 @@ export default {
     padding: $gentle-gap 0;
 
     .club--name {
-      font-size: body(2);
+      font-size: b(2);
       font-weight: 600;
     }
 
     .club--explanation {
-      font-size: body(2);
-      margin-top: space(1);
+      font-size: b(2);
+      margin-top: s(1);
       $line-height: lh(1);
       line-height: $line-height;
       max-height: $line-height * 3 * 9.8/10;

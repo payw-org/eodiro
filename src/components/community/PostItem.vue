@@ -84,7 +84,7 @@ export default {
 @import '~/assets/styles/scss/main';
 
 .post-item {
-  margin-top: space(4);
+  margin-top: s(4);
   min-height: unset;
 
   &:first-child {
@@ -97,18 +97,18 @@ export default {
     .pi-author {
       display: inline-block;
       font-weight: fw(5);
-      font-size: body(3);
-      margin-bottom: space(2);
+      font-size: b(3);
+      margin-bottom: s(2);
     }
 
     .pi-title {
-      font-size: body(3);
+      font-size: b(3);
     }
 
     .pi-posted-at {
-      font-size: body(1);
+      font-size: b(1);
       color: $base-gray;
-      margin-top: space(2);
+      margin-top: s(2);
     }
   }
 }

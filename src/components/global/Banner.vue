@@ -202,7 +202,7 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
       transition-delay: 100ms;
 
       @include larger-than($width-step--1) {
-        border-radius: 0 0 radius(5) radius(5);
+        border-radius: 0 0 r(5) r(5);
       }
     }
   }
@@ -234,15 +234,15 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
     transform: translate3d(0, 0, 0);
 
     @include larger-than($width-step--1) {
-      width: calc(100% - #{2 * space(4)});
-      height: calc(100% - #{space(4)});
+      width: calc(100% - #{2 * s(4)});
+      height: calc(100% - #{s(4)});
       max-width: $master-content-max-width;
-      border-radius: radius(5);
+      border-radius: r(5);
 
       .background {
-        border-radius: 0 0 radius(5) radius(5) !important;
-        border-radius: radius(5) !important;
-        height: calc(#{$banner-height} - #{space(4)}) !important;
+        border-radius: 0 0 r(5) r(5) !important;
+        border-radius: r(5) !important;
+        height: calc(#{$banner-height} - #{s(4)}) !important;
         overflow: hidden;
       }
     }

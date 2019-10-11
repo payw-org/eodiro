@@ -62,22 +62,22 @@ export default {
     top: $nav-height;
     z-index: 100;
     @include bg;
-    padding: space(2) 0;
+    padding: s(2) 0;
 
     .title {
-      padding-left: radius(2);
+      padding-left: r(2);
     }
 
     .new-post-btn {
       position: relative;
       font-weight: fw(6);
-      font-size: head(3);
+      font-size: h(3);
       display: flex;
       align-items: center;
       justify-content: center;
       width: 3rem;
       height: 3rem;
-      border-radius: radius(3);
+      border-radius: r(3);
       user-select: none;
     }
   }
