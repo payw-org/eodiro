@@ -6,6 +6,6 @@ export default {
   menuInquiry: '문의하기',
   menuDonation: '후원하기',
   menuClubs: '소모임',
-  menuCommunity: '커뮤니티',
+  menuSquare: '빼빼로 광장',
   menuOpenSource: '오픈소스'
 }

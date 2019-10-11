@@ -2,11 +2,11 @@
   <div id="posts">
     <div class="header">
       <h1 class="title">
-        {{ $t('community.posts') }}
+        {{ $t('peperoSquare.posts') }}
       </h1>
       <button class="new-post-btn">
         +
-        <NuxtLink :to="localePath('community-new')" class="absolute-link" />
+        <NuxtLink :to="localePath('pepero-square-new')" class="absolute-link" />
       </button>
     </div>
     <div class="posts-list">
@@ -18,20 +18,20 @@
 <script>
 import { CEM } from '~/modules/custom-event-manager'
 import pageBase from '~/mixins/page-base'
-import PostItem from '~/components/community/PostItem'
+import PostItem from '~/components/pepero-square/PostItem'
 
 export default {
-  name: 'community-index',
+  name: 'pepero-square-index',
   components: { PostItem },
   mixins: [pageBase],
   head() {
     return {
-      title: this.$t('community.title')
+      title: this.$t('peperoSquare.title')
     }
   },
   asyncData() {
     return {
-      posts: require('~/assets/data/community-posts').default.data
+      posts: require('~/assets/data/pepero-square-posts').default.data
     }
   },
   activated() {
@@ -62,22 +62,22 @@ export default {
     top: $nav-height;
     z-index: 100;
     @include bg;
-    padding: space(2) 0;
+    padding: s(2) 0;
 
     .title {
-      padding-left: radius(2);
+      padding-left: r(2);
     }
 
     .new-post-btn {
       position: relative;
       font-weight: fw(6);
-      font-size: head(3);
+      font-size: h(3);
       display: flex;
       align-items: center;
       justify-content: center;
       width: 3rem;
       height: 3rem;
-      border-radius: radius(3);
+      border-radius: r(3);
       user-select: none;
     }
   }

@@ -24,7 +24,7 @@
 
     <div class="comments-container">
       <h2 class="comment-header">
-        {{ $t('community.comments') }}
+        {{ $t('peperoSquare.comments') }}
       </h2>
 
       <div class="comment-item-container">
@@ -39,7 +39,7 @@
 
         <div v-if="comments.length === 0" class="no-comments">
           <p>
-            {{ $t('community.noComments') }}
+            {{ $t('peperoSquare.noComments') }}
           </p>
         </div>
 
@@ -54,13 +54,13 @@ import { LoremIpsum } from 'lorem-ipsum'
 import dayjs from 'dayjs'
 // import axios from 'axios'
 import pageBase from '~/mixins/page-base'
-import NewComment from '~/components/community/NewComment'
+import NewComment from '~/components/pepero-square/NewComment'
 // import { CEM } from '~/modules/custom-event-manager'
 
 const lorem = new LoremIpsum()
 
 export default {
-  name: 'community-post-id',
+  name: 'pepero-square-post-id',
   components: { NewComment },
   mixins: [pageBase],
   data() {
@@ -121,14 +121,14 @@ export default {
 #post-details {
   .post-wrapper {
     @include elm-fill;
-    border-radius: radius(5);
-    padding: 0 space(4);
+    border-radius: r(5);
+    padding: 0 s(4);
 
     .post {
-      padding: space(5) 0;
+      padding: s(5) 0;
 
       .at {
-        font-size: body(1);
+        font-size: b(1);
         line-height: lh(1);
         display: block;
         color: $base-gray;
@@ -136,30 +136,30 @@ export default {
 
       .author {
         display: inline-block;
-        font-size: body(3);
+        font-size: b(3);
         font-weight: fw(5);
-        margin-top: space(3);
+        margin-top: s(3);
         @include overlay-inverted;
-        padding: space(2) space(3);
-        border-radius: radius(2);
+        padding: s(2) s(3);
+        border-radius: r(2);
       }
 
       .title {
-        margin-top: space(2);
+        margin-top: s(2);
       }
 
       .body {
-        margin-top: space(4);
+        margin-top: s(4);
       }
 
       .actions {
-        margin-top: space(5);
+        margin-top: s(5);
         display: flex;
         justify-content: center;
 
         .like {
-          padding: space(2);
-          border-radius: radius(2);
+          padding: s(2);
+          border-radius: r(2);
           @include overlay-inverted;
           width: 2rem;
           height: 2rem;
@@ -174,11 +174,11 @@ export default {
   }
 
   .comments-container {
-    margin-top: space(6);
+    margin-top: s(6);
 
     .comment-header {
       @include bg;
-      padding: space(3) 0;
+      padding: s(3) 0;
       border-bottom: solid;
       @include separator;
       position: sticky;
@@ -186,7 +186,7 @@ export default {
     }
 
     .comment-item {
-      padding: space(3) space(1);
+      padding: s(3) s(1);
       border-bottom: solid;
       @include separator;
 
@@ -196,7 +196,7 @@ export default {
 
       .author {
         line-height: lh(1);
-        margin-bottom: space(2);
+        margin-bottom: s(2);
         font-weight: fw(5);
       }
 
@@ -207,7 +207,7 @@ export default {
     }
 
     .no-comments {
-      padding: space(4) 0;
+      padding: s(4) 0;
       text-align: center;
     }
   }

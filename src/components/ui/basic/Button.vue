@@ -26,7 +26,7 @@ export default {
   align-items: center;
   justify-content: center;
   padding: 0 1.5rem !important;
-  border-radius: radius(4) !important;
+  border-radius: r(4) !important;
   cursor: pointer;
 
   @include dark-mode {

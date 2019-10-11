@@ -38,15 +38,15 @@ $build-in-time: 700ms;
     }
 
     .content {
-      border-radius: radius(2);
+      border-radius: r(2);
       width: auto;
-      max-width: calc(100% - #{space(5) * 2});
+      max-width: calc(100% - #{s(5) * 2});
       @include text-color-inverted;
       @include elm-fill-inverted;
       top: 0;
 
       .message {
-        padding: space(2) space(3);
+        padding: s(2) s(3);
       }
 
       .actions {
@@ -68,7 +68,7 @@ $build-in-time: 700ms;
     max-width: 20rem;
     height: auto;
     background-color: #fff;
-    border-radius: radius(5);
+    border-radius: r(5);
     text-align: center;
     font-size: 1rem;
     z-index: 1;
@@ -85,14 +85,14 @@ $build-in-time: 700ms;
     }
 
     .message {
-      padding: space(5);
+      padding: s(5);
       line-height: line-height(3);
     }
 
     .actions {
       border-top: solid;
       @include separator;
-      margin: 0 space(3);
+      margin: 0 s(3);
       text-align: center;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(0, 1fr));

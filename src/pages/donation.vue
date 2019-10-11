@@ -142,25 +142,25 @@ export default {
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      margin-right: space(5);
+      margin-right: s(5);
 
       @include on-mobile {
         margin-right: 0;
-        margin-bottom: far(2);
+        margin-bottom: f(2);
       }
 
       .manifesto {
         min-width: 100%;
         text-align: left;
-        margin-bottom: space(4);
-        padding: 0 radius(2);
+        margin-bottom: s(4);
+        padding: 0 r(2);
       }
 
       .card {
         position: relative;
         background-color: #ffe600;
         color: #281d20;
-        border-radius: radius(3);
+        border-radius: r(3);
         width: 100%;
         max-width: 22rem;
         cursor: pointer;
@@ -182,19 +182,19 @@ export default {
           left: 0;
           width: 100%;
           height: 100%;
-          padding: space(5);
+          padding: s(5);
 
           .bank {
             display: flex;
             align-items: flex-end;
 
             .bank-logo {
-              height: head(1);
-              margin-right: space(2);
+              height: h(1);
+              margin-right: s(2);
             }
 
             .bank-name {
-              font-size: head(1);
+              font-size: h(1);
               line-height: lh(1);
             }
           }
@@ -207,16 +207,16 @@ export default {
             justify-content: center;
 
             .press-to-copy {
-              font-size: body(2);
-              margin-bottom: space(3);
+              font-size: b(2);
+              margin-bottom: s(3);
               color: $base-gray;
             }
 
             .bank-account-number {
-              font-size: head(1);
+              font-size: h(1);
               @include overlay-inverted;
-              padding: space(2);
-              border-radius: radius(2);
+              padding: s(2);
+              border-radius: r(2);
             }
           }
         }
@@ -230,20 +230,20 @@ export default {
       .thof {
         text-align: left;
         @include elm-fill;
-        border-radius: radius(5);
-        padding: space(4);
+        border-radius: r(5);
+        padding: s(4);
 
         .title {
-          font-size: head(2);
-          padding-left: radius(1);
+          font-size: h(2);
+          padding-left: r(1);
         }
 
         .donator-list {
           .donator-item {
             @include bg;
-            border-radius: radius(3);
-            padding: space(3);
-            margin-top: space(4);
+            border-radius: r(3);
+            padding: s(3);
+            margin-top: s(4);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -256,7 +256,7 @@ export default {
             .num-badge {
               background-color: #8c00ff;
               font-weight: fw(5);
-              font-size: body(2);
+              font-size: b(2);
               color: #fff;
               border-radius: 50px;
               width: 1.5rem;
@@ -264,11 +264,11 @@ export default {
               display: flex;
               align-items: center;
               justify-content: center;
-              margin-right: space(3);
+              margin-right: s(3);
             }
 
             .amount {
-              font-size: body(2);
+              font-size: b(2);
               color: #0077ff;
             }
           }

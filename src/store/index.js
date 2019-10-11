@@ -28,7 +28,7 @@ export const state = () => ({
     'vacant',
     'search-class',
     'clubs',
-    'community',
+    'pepero-square',
     'meals',
     'inquiry',
     'donation',
