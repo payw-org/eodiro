@@ -1,16 +1,16 @@
 <template>
   <div id="new-post">
     <h1 class="header">
-      {{ $t('community.new.title') }}
+      {{ $t('square.new.title') }}
     </h1>
     <input
       v-model="title"
-      :placeholder="$t('community.new.placeholder.title')"
+      :placeholder="$t('square.new.placeholder.title')"
       class="title-input"
     />
     <textarea
       v-model="body"
-      :placeholder="$t('community.new.placeholder.body')"
+      :placeholder="$t('square.new.placeholder.body')"
       class="body-input"
     />
     <Button full class="publish-btn" @click="publishNewPost">

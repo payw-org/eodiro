@@ -7,7 +7,7 @@
         name="comment"
         autocomplete="off"
         spellcheck="false"
-        :placeholder="$t('community.leaveComment')"
+        :placeholder="$t('square.leaveComment')"
         class="comment-input"
         @keyup.enter="leaveComment($event)"
       />

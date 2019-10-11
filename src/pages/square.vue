@@ -1,5 +1,5 @@
 <template>
-  <div id="eodiro-community">
+  <div id="eodiro-square">
     <EodiroChild />
   </div>
 </template>
@@ -12,17 +12,17 @@ import EodiroChild from '~/components/global/EodiroChild'
 export default Vue.extend({
   head() {
     return {
-      title: this.$t('community.title')
+      title: this.$t('square.title')
     }
   },
-  name: 'community',
+  name: 'square',
   components: { EodiroChild },
   mixins: [pageBase]
 })
 </script>
 
 <style lang="scss">
-#eodiro-community {
+#eodiro-square {
   max-width: 40rem !important;
 }
 </style>

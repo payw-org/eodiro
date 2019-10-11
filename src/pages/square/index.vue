@@ -2,11 +2,11 @@
   <div id="posts">
     <div class="header">
       <h1 class="title">
-        {{ $t('community.posts') }}
+        {{ $t('square.posts') }}
       </h1>
       <button class="new-post-btn">
         +
-        <NuxtLink :to="localePath('community-new')" class="absolute-link" />
+        <NuxtLink :to="localePath('square-new')" class="absolute-link" />
       </button>
     </div>
     <div class="posts-list">
@@ -18,20 +18,20 @@
 <script>
 import { CEM } from '~/modules/custom-event-manager'
 import pageBase from '~/mixins/page-base'
-import PostItem from '~/components/community/PostItem'
+import PostItem from '~/components/square/PostItem'
 
 export default {
-  name: 'community-index',
+  name: 'square-index',
   components: { PostItem },
   mixins: [pageBase],
   head() {
     return {
-      title: this.$t('community.title')
+      title: this.$t('square.title')
     }
   },
   asyncData() {
     return {
-      posts: require('~/assets/data/community-posts').default.data
+      posts: require('~/assets/data/square-posts').default.data
     }
   },
   activated() {
