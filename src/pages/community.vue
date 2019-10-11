@@ -10,6 +10,11 @@ import pageBase from '~/mixins/page-base'
 import EodiroChild from '~/components/global/EodiroChild'
 
 export default Vue.extend({
+  head() {
+    return {
+      title: this.$t('community.title')
+    }
+  },
   name: 'community',
   components: { EodiroChild },
   mixins: [pageBase]
