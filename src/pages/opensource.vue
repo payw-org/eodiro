@@ -69,26 +69,26 @@ export default Vue.extend({
 
 #opensource {
   .manifesto {
-    margin-top: space(2);
+    margin-top: s(2);
   }
 
   .github-star-button {
-    margin-top: space(4);
+    margin-top: s(4);
   }
 
   .github-organization-button {
     @include bg-inverted;
     @include text-color-inverted;
-    padding: space(2) space(3);
-    margin-top: space(3);
-    border-radius: radius(2);
+    padding: s(2) s(3);
+    margin-top: s(3);
+    border-radius: r(2);
     display: flex;
     align-items: center;
     justify-content: center;
     position: relative;
 
     .github-logo-wrapper {
-      margin-right: space(2);
+      margin-right: s(2);
       width: 1.2rem;
       height: 1.2rem;
       display: flex;

@@ -1,16 +1,16 @@
 <template>
   <div id="new-post">
     <h1 class="header">
-      {{ $t('community.new.title') }}
+      {{ $t('peperoSquare.new.title') }}
     </h1>
     <input
       v-model="title"
-      :placeholder="$t('community.new.placeholder.title')"
+      :placeholder="$t('peperoSquare.new.placeholder.title')"
       class="title-input"
     />
     <textarea
       v-model="body"
-      :placeholder="$t('community.new.placeholder.body')"
+      :placeholder="$t('peperoSquare.new.placeholder.body')"
       class="body-input"
     />
     <Button full class="publish-btn" @click="publishNewPost">
@@ -48,7 +48,7 @@ export default Vue.extend({
 
 #new-post {
   .header {
-    padding-left: radius(2);
+    padding-left: r(2);
   }
 
   .title-input,
@@ -57,16 +57,16 @@ export default Vue.extend({
   }
 
   .title-input {
-    margin-top: space(3);
+    margin-top: s(3);
   }
 
   .body-input {
-    margin-top: space(3);
+    margin-top: s(3);
     min-height: 50vh;
   }
 
   .publish-btn {
-    margin-top: space(3);
+    margin-top: s(3);
   }
 }
 </style>

@@ -70,8 +70,8 @@ export default Vue.extend({
 @import '~/assets/styles/scss/main';
 
 .meal-time-group {
-  margin-bottom: space(6);
-  padding-bottom: space(6);
+  margin-bottom: s(6);
+  padding-bottom: s(6);
   @include separator(bottom);
 
   &:last-child {
@@ -81,9 +81,9 @@ export default Vue.extend({
   }
 
   .meal-time-name {
-    font-size: head(3);
-    padding: space(2) 0 space(2);
-    padding-left: radius(3) / 2;
+    font-size: h(3);
+    padding: s(2) 0 s(2);
+    padding-left: r(3) / 2;
     position: sticky;
     top: $nav-height;
     z-index: 2;
@@ -93,39 +93,39 @@ export default Vue.extend({
   .restaurant-item {
     .restaurant-name {
       color: #529dff;
-      font-size: body(5);
+      font-size: b(5);
       font-weight: fw(4);
       line-height: 1;
     }
 
     .meal-group {
-      margin-bottom: space(4);
+      margin-bottom: s(4);
       &:last-child {
         margin-bottom: 0;
       }
       @include overlay-inverted;
-      border-radius: radius(2);
+      border-radius: r(2);
       overflow: hidden;
 
       .meal-title-and-price {
         display: flex;
         align-items: center;
         justify-content: space-between;
-        padding: space(2);
+        padding: s(2);
         @include overlay-inverted;
 
         .meal-title {
-          font-size: body(2);
+          font-size: b(2);
           font-weight: fw(5);
         }
 
         .meal-time {
-          font-size: body(2);
+          font-size: b(2);
           color: $base-gray;
         }
 
         .meal-price {
-          font-size: body(1);
+          font-size: b(1);
           font-weight: fw(4);
           color: #529dff;
         }
@@ -135,11 +135,11 @@ export default Vue.extend({
         display: flex;
         flex-wrap: wrap;
         justify-content: space-evenly;
-        padding: space(3) space(2);
+        padding: s(3) s(2);
 
         .menu-item {
-          margin: 0 space(2) space(1) space(2);
-          font-size: body(2);
+          margin: 0 s(2) s(1) s(2);
+          font-size: b(2);
         }
       }
     }

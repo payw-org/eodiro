@@ -459,9 +459,9 @@ export default {
   .form-wrapper {
     position: sticky;
     top: $nav-height;
-    margin-top: calc(-#{space(3)});
+    margin-top: calc(-#{s(3)});
     display: flex;
-    padding: space(3) 0;
+    padding: s(3) 0;
     @include bg;
     z-index: 5;
 
@@ -505,12 +505,12 @@ export default {
 
   .filter-category-wrapper {
     position: absolute;
-    top: calc(#{$banner-height} + #{space(3)});
+    top: calc(#{$banner-height} + #{s(3)});
     height: 100%;
     right: calc((100vw - #{$master-content-max-width}) / 2);
 
     @media (max-width: $master-content-max-width) {
-      right: space(5);
+      right: s(5);
     }
 
     @include smaller-than($width-step--1_) {
@@ -523,11 +523,11 @@ export default {
       z-index: 1592653;
       height: calc(100vh - #{$banner-height});
 
-      top: calc(#{$nav-height} + #{space(3)});
+      top: calc(#{$nav-height} + #{s(3)});
       border-radius: $border-radius;
-      padding: space(3) 0;
+      padding: s(3) 0;
 
-      font-size: body(5);
+      font-size: b(5);
       background-color: #fff;
       box-shadow: 0 0.2rem 0.7rem rgba(#000, 0.2);
       @include dark-mode {
@@ -539,7 +539,7 @@ export default {
         top: $nav-height;
         margin: 0;
         border-radius: 0 !important;
-        font-size: body(2);
+        font-size: b(2);
       }
 
       .fc-category-main,
@@ -567,7 +567,7 @@ export default {
         width: 35vw;
         min-height: 4rem;
         max-width: $master-content-max-width/3;
-        padding: space(2) 0;
+        padding: s(2) 0;
         text-align: right;
         cursor: pointer;
         border-top: solid;
@@ -587,7 +587,7 @@ export default {
         // .fc-item-details {
         // }
         .fc-item-name {
-          padding: 0 space(3);
+          padding: 0 s(3);
         }
       }
     }
@@ -597,24 +597,24 @@ export default {
     .search-result-item {
       margin: 1rem 0;
       .src-item-title {
-        font-size: body(6);
+        font-size: b(6);
         font-weight: fw(5);
       }
       .src-item-instructor {
-        font-size: body(2);
+        font-size: b(2);
       }
       .src-item-timeTable {
-        font-size: body(1);
+        font-size: b(1);
       }
       .src-item-subInfo {
-        font-size: body(1);
+        font-size: b(1);
         color: $base-gray;
       }
       .src-item-extInfo {
-        font-size: body(1);
+        font-size: b(1);
       }
       .src-item-note {
-        font-size: body(1);
+        font-size: b(1);
       }
     }
   }

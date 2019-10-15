@@ -85,8 +85,8 @@ export default {
 
   .info {
     @include block-style;
-    padding: space(4);
-    margin-bottom: space(5);
+    padding: s(4);
+    margin-bottom: s(5);
     min-height: unset;
     color: $base-gray;
   }

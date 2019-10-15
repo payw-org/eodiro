@@ -139,12 +139,12 @@ export default {
       height: 100%;
 
       .input-email {
-        margin-bottom: space(3);
+        margin-bottom: s(3);
       }
 
       .writing-area-wrapper {
         position: relative;
-        margin-bottom: space(3);
+        margin-bottom: s(3);
 
         .writing-area {
           height: 20rem;
@@ -155,15 +155,15 @@ export default {
         }
 
         .counter {
-          font-size: body(1);
+          font-size: b(1);
           display: inline-block;
-          padding: space(2);
+          padding: s(2);
           position: absolute;
           right: 0;
           bottom: 0;
           color: $base-gray;
           @include bg;
-          border-radius: radius(1) 0 $input-border-radius 0;
+          border-radius: r(1) 0 $input-border-radius 0;
           border: 1px solid $border-color;
 
           @include dark-mode {

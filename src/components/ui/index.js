@@ -1,10 +1,6 @@
 // basic
 import Button from '~/components/ui/basic/Button'
 
-// form
-import Input from '~/components/ui/form/Input'
-import Textarea from '~/components/ui/form/Textarea'
-
 // layouts
 import Grid from '~/components/ui/layouts/Grid'
 
@@ -16,13 +12,4 @@ import Accordion from '~/components/ui/blocks/Accordion'
 import IconArrowRight from '~/components/ui/icons/IconArrowRight'
 import IconArrowLeft from '~/components/ui/icons/IconArrowLeft'
 
-export {
-  Button,
-  Input,
-  Textarea,
-  ArrowBlock,
-  Accordion,
-  Grid,
-  IconArrowRight,
-  IconArrowLeft
-}
+export { Button, ArrowBlock, Accordion, Grid, IconArrowRight, IconArrowLeft }

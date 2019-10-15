@@ -1,6 +1,6 @@
 {
   "name": "eodiro",
-  "version": "2.0.0-beta.3",
+  "version": "2.0.0-beta.4",
   "description": "CAU Utility Service",
   "scripts": {
     "dev": "cross-env HOST=0.0.0.0 PORT=3500 nuxt",
@@ -11,7 +11,7 @@
     "start-dev": "nuxt start --port 3020",
     "start-pm2": "pm2 start npm --name 'dist' -- run start",
     "generate": "nuxt generate",
-    "dist": "git checkout master && git fetch && git pull && npm install && npm run build && pm2 stop dist && pm2 delete dist && pm2 start npm --name 'dist' -- run start"
+    "dist": "git checkout master && git fetch && git pull && yarn install && yarn build && pm2 stop dist && pm2 delete dist && pm2 start npm --name 'dist' -- run start"
   },
   "repository": {
     "type": "git",

@@ -36,7 +36,7 @@
   }
 }
 
-@function radius($level) {
+@function r($level) {
   $level: validate($level);
   $min: 0.2rem;
   $max: 1rem;
@@ -44,7 +44,7 @@
   @return calculate($min, $max, $level);
 }
 
-@function space($level) {
+@function s($level) {
   $level: validate($level);
   $min: 0.2rem;
   $max: 1.5rem;
@@ -52,7 +52,7 @@
   @return calculate($min, $max, $level);
 }
 
-@function far($level) {
+@function f($level) {
   $level: validate($level);
   $min: 1.6rem;
   $max: 5rem;
@@ -60,7 +60,7 @@
   @return calculate($min, $max, $level);
 }
 
-@function body($level) {
+@function b($level) {
   $level: validate($level);
   $min: 0.9rem;
   $max: 1.2rem;
@@ -68,7 +68,7 @@
   @return calculate($min, $max, $level);
 }
 
-@function head($level) {
+@function h($level) {
   $level: validate($level);
   $min: 1.3rem;
   $max: 2.5rem;

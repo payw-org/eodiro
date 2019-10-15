@@ -55,13 +55,13 @@
             </template>
           </ArrowBlock>
 
-          <!-- community -->
+          <!-- pepero square -->
           <ArrowBlock class="menu-item-wrapper disabled">
             <template v-slot:icon>
-              <span class="icon icon--community" />
+              <span class="icon icon--pepero-square" />
             </template>
             <template v-slot:content>
-              <span class="content">{{ $t('home.menuCommunity') }}</span>
+              <span class="content">{{ $t('home.menuSquare') }}</span>
             </template>
           </ArrowBlock>
 
@@ -223,7 +223,7 @@ export default {
         }
       }
 
-      .icon--community {
+      .icon--pepero-square {
         background-image: url('~assets/images/home/home-menu-icon-community-white.svg');
 
         @include dark-mode {

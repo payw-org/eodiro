@@ -7,7 +7,7 @@
         name="comment"
         autocomplete="off"
         spellcheck="false"
-        :placeholder="$t('community.leaveComment')"
+        :placeholder="$t('peperoSquare.leaveComment')"
         class="comment-input"
         @keyup.enter="leaveComment($event)"
       />
@@ -51,14 +51,14 @@ export default {
 #new-comment {
   // position: sticky;
   // bottom: 0;
-  margin-top: space(4);
+  margin-top: s(4);
 
   .comment-input {
     display: block;
     width: 100%;
-    font-size: body(2);
+    font-size: b(2);
     @include input-style;
-    padding: space(3);
+    padding: s(3);
   }
 }
 </style>

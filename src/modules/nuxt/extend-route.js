@@ -74,16 +74,23 @@ function setDepthAndPrevRoute() {
       if (routes[i].name === 'index') {
         routes[i].meta.prevRouteName = undefined
         routes[i].meta.depth = 0
-      } else if (routes[i - 1]) {
-        routes[i].meta.prevRouteName = routes[i - 1].name
-        routes[i].meta.depth = i + 1
-      } else {
+      } else if (!routes[i - 1]) {
         routes[i].meta.prevRouteName = 'index'
-        routes[i].meta.depth = i + 1
+        routes[i].meta.depth = 1
+      } else {
+        for (let j = i - 1; j >= 0; j -= 1) {
+          if (routes[i].name.includes(routes[j].name)) {
+            routes[i].meta.prevRouteName = routes[j].name
+            routes[i].meta.depth = routes[j].meta.depth + 1
+            break
+          } else if (j === 0) {
+            routes[i].meta.prevRouteName = 'index'
+            routes[i].meta.depth = 1
+          }
+        }
       }
     }
   }
-  // console.log(hamletRoutes)
 }
 
 // function setRouteDepth(route) {

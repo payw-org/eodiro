@@ -6,6 +6,6 @@ export default {
   menuInquiry: 'Inquiry',
   menuDonation: 'Donate',
   menuClubs: 'Clubs',
-  menuCommunity: 'Community',
+  menuSquare: 'Pepero Square',
   menuOpenSource: 'Open Source'
 }

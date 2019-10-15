@@ -29,7 +29,7 @@ export default {
     font-size: 1rem;
     color: $c-step--4;
     background-color: $t-black;
-    border-radius: radius(3);
+    border-radius: r(3);
     padding: 0 0.5rem;
     min-height: 2rem;
     min-width: 2rem;

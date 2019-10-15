@@ -64,15 +64,15 @@ export default Vue.extend({
     justify-content: space-around;
     @include elm-fill;
     margin: auto;
-    margin-bottom: space(3);
+    margin-bottom: s(3);
     max-width: 20rem;
 
     button {
       flex: 1;
       @include text-color;
       font-weight: fw(4);
-      margin: space(2) 0;
-      padding: space(1) 0;
+      margin: s(2) 0;
+      padding: s(1) 0;
     }
 
     .today {

@@ -123,13 +123,13 @@ export default {
   .cp-info {
     display: flex;
     position: relative;
-    width: calc(100% - #{space(5) * 2});
-    height: calc(100% - #{space(5) * 2});
+    width: calc(100% - #{s(5) * 2});
+    height: calc(100% - #{s(5) * 2});
     max-width: 30rem;
     max-height: 60rem;
     @include elm-fill;
-    border-radius: radius(4);
-    padding: 0 space(4);
+    border-radius: r(4);
+    padding: 0 s(4);
     z-index: 100;
     opacity: 0;
 
@@ -137,7 +137,7 @@ export default {
       position: absolute;
       z-index: 2;
       left: 50%;
-      bottom: space(5);
+      bottom: s(5);
       transform: translateX(-50%);
       // @include bg;
       background-color: #fff;
@@ -163,8 +163,8 @@ export default {
 
         .cp-name {
           text-align: center;
-          padding: space(5) 0 space(4);
-          font-size: head(3);
+          padding: s(5) 0 s(4);
+          font-size: h(3);
           font-weight: fw(5);
           position: sticky;
           top: 0;
@@ -172,9 +172,9 @@ export default {
         }
 
         .cp-hero-wrapper {
-          border-radius: radius(3);
+          border-radius: r(3);
           overflow: hidden;
-          margin-top: space(2);
+          margin-top: s(2);
 
           .cp-hero {
             display: block;
@@ -185,8 +185,8 @@ export default {
         .cp-summary {
           color: $base-gray;
           line-height: lh(3);
-          padding-top: space(3);
-          margin-top: space(3);
+          padding-top: s(3);
+          margin-top: s(3);
           border-top: solid;
           @include separator;
         }

@@ -201,15 +201,15 @@ $border-color-dark: rgba(#fff, 0.17);
 }
 
 // Forms
-$input-border-radius: radius(4);
+$input-border-radius: r(4);
 
 @mixin input-style {
   @include bordered;
-  border-radius: radius(4);
+  border-radius: r(4);
   @include text-color;
   background-color: transparent;
-  font-size: body(2);
-  padding: space(3);
+  font-size: b(2);
+  padding: s(3);
   height: $btn-height !important;
   appearance: none;
   overflow: auto;
