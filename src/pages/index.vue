@@ -3,10 +3,7 @@
     <div class="page-content-wrapper">
       <div class="page-content">
         <Grid class="menu-item-container">
-          <ArrowBlock
-            class="menu-item-wrapper"
-            :link="localePath('signin').replace(/\/$/, '')"
-          >
+          <ArrowBlock class="menu-item-wrapper disabled">
             <template v-slot:icon>
               <span class="icon icon--signin" />
             </template>
