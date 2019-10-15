@@ -276,6 +276,10 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
         opacity: 0;
       }
 
+      &.background--signin,
+      &.background--signup {
+        background-image: linear-gradient(to bottom, #987eff, #5f14be);
+      }
       &.background--home {
         background-image: linear-gradient(to bottom, $c-step--3, $c-step--4);
       }
@@ -407,6 +411,17 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
             center,
             '50%'
           );
+        }
+      }
+    }
+
+    &.hamlet--signin,
+    &.hamlet--signup {
+      .icon {
+        @include bgImg('~assets/images/key-white.svg', center, '75%');
+
+        @include dark-mode {
+          @include bgImg('~assets/images/key.svg', center, '75%');
         }
       }
     }

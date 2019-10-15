@@ -3,6 +3,15 @@
     <div class="page-content-wrapper">
       <div class="page-content">
         <Grid class="menu-item-container">
+          <ArrowBlock class="menu-item-wrapper disabled">
+            <template v-slot:icon>
+              <span class="icon icon--signin" />
+            </template>
+            <template v-slot:content>
+              <span class="content">로그인</span>
+            </template>
+          </ArrowBlock>
+
           <!-- vacant classrooms -->
           <ArrowBlock
             class="menu-item-wrapper"
@@ -146,7 +155,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/main.scss';
+@import '~/assets/styles/scss/main';
 
 #home {
   .page-content-wrapper {
@@ -164,6 +173,14 @@ export default {
             font-size: 1.2rem;
             font-weight: 500;
           }
+        }
+      }
+
+      .icon--signin {
+        background-image: url('~assets/images/home/home-menu-icon-key.svg');
+
+        @include dark-mode {
+          background-image: url('~assets/images/home/home-menu-icon-key-black.svg');
         }
       }
 

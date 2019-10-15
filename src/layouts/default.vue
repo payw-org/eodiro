@@ -149,14 +149,14 @@ export default {
     min-height: 100vh;
     padding-bottom: $master-content-bottom-gap;
     width: calc(100% - #{2 * s(5)});
-    padding-top: calc(#{$banner-height} + #{s(6)});
+    padding-top: calc(#{$banner-height} + #{s(5)});
     max-width: $master-content-max-width;
     margin: auto;
   }
 
   &.is-banner-forced-mini {
     .master-content {
-      padding-top: calc(#{$nav-height} + #{s(6)});
+      padding-top: calc(#{$nav-height} + #{s(5)});
     }
   }
 }

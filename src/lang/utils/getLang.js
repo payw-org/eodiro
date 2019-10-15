@@ -9,6 +9,7 @@ export default function(langCode) {
     peperoSquare: require(`../pepero-square/${langCode}`).default,
     donation: require(`../donation/${langCode}`).default,
     meals: require(`../meals/${langCode}`).default,
-    opensource: require(`../opensource/${langCode}`).default
+    opensource: require(`../opensource/${langCode}`).default,
+    auth: require(`../auth/${langCode}`).default
   }
 }
