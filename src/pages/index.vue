@@ -139,7 +139,6 @@
 
 <script>
 import pageBase from '~/mixins/page-base'
-import EodiroDialog from '~/modules/eodiro-dialog'
 import { Grid, ArrowBlock } from '~/components/ui'
 
 export default {
@@ -148,7 +147,7 @@ export default {
   mixins: [pageBase],
   methods: {
     preparing() {
-      new EodiroDialog().alert(this.$t('preparing'))
+      window.alert(this.$t('preparing'))
     }
   }
 }

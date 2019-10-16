@@ -86,7 +86,6 @@
 
 <script>
 import pageBase from '~/mixins/page-base'
-import Dialog from '~/modules/eodiro-dialog'
 
 export default {
   name: 'donation',
@@ -115,7 +114,7 @@ export default {
       document.execCommand('copy')
       tempTextArea.parentElement.removeChild(tempTextArea)
 
-      new Dialog().alert(this.$t('donation.copied'))
+      window.alert(this.$t('donation.copied'))
     }
   }
 }
