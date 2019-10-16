@@ -170,13 +170,11 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
   width: 100%;
   height: 100%;
   user-select: none;
-  touch-action: none;
   pointer-events: none;
 }
 
 #eodiro-banner {
   pointer-events: all;
-  touch-action: auto;
   z-index: 9999;
   position: sticky;
   top: 0;
