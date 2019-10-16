@@ -35,7 +35,6 @@
 import axios from 'axios'
 import pageBase from '~/mixins/page-base'
 import { Button } from '~/components/ui'
-// import Dialog from '~/modules/eodiro-dialog'
 
 export default {
   name: 'inquiry',
@@ -72,26 +71,22 @@ export default {
 
       // Check email input length
       if (replyEmail.length === 0) {
-        // new Dialog().alert(this.$t('inquiry.requireEmail'))
         window.alert(this.$t('inquiry.requireEmail'))
         return
       }
 
       // Check email format
       if (!this.validateEmail(replyEmail)) {
-        // new Dialog().alert(this.$t('inquiry.wrongEmailFormat'))
         window.alert(this.$t('inquiry.wrongEmailFormat'))
         return
       }
 
       // Inquiry content validation
       if (inquiryContent.length < this.minLength) {
-        // new Dialog().vagabond(this.$t('inquiry.textLimit.under'))
         window.alert(this.$t('inquiry.textLimit.under'))
         return
       }
       if (inquiryContent.length > this.maxLength) {
-        // new Dialog().vagabond(this.$t('inquiry.textLimit.over'))
         window.alert(this.$t('inquiry.textLimit.over'))
         return
       }
@@ -108,7 +103,6 @@ export default {
         .then(() => {
           this.inquiryContent = ''
           this.replyEmail = ''
-          // new Dialog().alert(this.$t('inquiry.sent'))
           window.alert(this.$t('inquiry.sent'))
         })
         .catch((error) => {

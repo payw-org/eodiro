@@ -53,7 +53,7 @@ export default Vue.extend({
     timeGroup: {
       type: String,
       required: true,
-      validastor(value) {
+      validator(value) {
         return ['breakfast', 'lunch', 'supper'].includes(value)
       }
     },
