@@ -20,17 +20,21 @@
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
+<script>
 import axios from 'axios'
 import dayjs from 'dayjs'
 import pageBase from '~/mixins/page-base'
 import MealTimeGroup from '~/components/meals/MealTimeGroup.vue'
 
-export default Vue.extend({
+export default {
   name: 'meals-date',
   components: { MealTimeGroup },
   mixins: [pageBase],
+  head() {
+    return {
+      title: this.$t('meals.title')
+    }
+  },
   data() {
     return {
       meal: {}
@@ -48,7 +52,7 @@ export default Vue.extend({
       meal: data.meal
     }
   }
-})
+}
 </script>
 
 <style lang="scss">
