@@ -41,6 +41,10 @@ export default {
         {
           property: 'og:description',
           content: this.$t('global.head.description')
+        },
+        {
+          property: 'og:image',
+          content: 'https://eodiro.com/assets/images/open-graph/open_graph.png'
         }
       ],
       htmlAttrs: {
