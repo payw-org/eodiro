@@ -1,6 +1,6 @@
 ![banner](https://user-images.githubusercontent.com/19797697/62412275-ebaf3f80-b63a-11e9-8363-5d226ad57351.png)
 
-<p style="text-align: center;"><b>eodiro</b> is an open source utility service for Chung-Ang university students.</p>
+<p align="center"><b>eodiro</b> is an open source utility service for Chung-Ang university students.</p>
 
 <p align="center">
   <img src="https://img.shields.io/github/license/paywteam/eodiro.com" />
