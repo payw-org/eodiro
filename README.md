@@ -1,8 +1,13 @@
 ![banner](https://user-images.githubusercontent.com/19797697/62412275-ebaf3f80-b63a-11e9-8363-5d226ad57351.png)
 
-# eodiro
+<p align="center"><b>eodiro</b> is an open source utility service for Chung-Ang university students.</p>
 
-**eodiro** is an utility service for Chungang University students.
+<p align="center">
+  <img src="https://img.shields.io/github/license/paywteam/eodiro.com" />
+  <img src="https://img.shields.io/github/stars/paywteam/eodiro.com?style=social" />
+</p>
+
+---
 
 ## How to Use
 
@@ -17,31 +22,31 @@ https://eodiro.com
 1. Go to the project's root directory and install dependencies.
 
 ```zsh
-npm install
+→ yarn install
 ```
 
 3. Happy developing
 
 ```zsh
 # Development
-npm run dev
+→ yarn run dev
 ```
 
 ```zsh
 # Build and start the server
-npm run build
-npm run start
+→ yarn run build
+→ yarn run start
 ```
 
 ## Contributing
 
-You can leave an issue/pull request here or send us an email at support@eodiro.com.
+You can leave an issue/pull request here or send us an email at support@eodiro.com, or contact@payw.org for more general things about us.
 
 ## License
 
 MIT License
 
-Copyright (c) 2019 eodiro
+Copyright (c) 2019-current eodiro
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
