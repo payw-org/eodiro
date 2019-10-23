@@ -16,6 +16,7 @@ export default {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { name: 'theme-color', content: '#ffffff' },
       {
         name: 'apple-mobile-web-app-status-bar-style',
         content: 'default'
@@ -59,7 +60,6 @@ export default {
         href: '/favicon-16x16.png?v=zOR9fsj0rI'
       },
       { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#ff6421' },
-      { name: 'theme-color', content: '#ffffff' },
       {
         rel: 'manifest',
         href: '/site.webmanifest'
