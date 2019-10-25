@@ -12,8 +12,8 @@ export default {
       redirect(app.localePath('home'))
     }
 
-    const token = t
-    console.log(token)
+    // const token = t
+    // console.log(token)
     // Axios.get('https://api2.eodiro.com/')
   }
 }
