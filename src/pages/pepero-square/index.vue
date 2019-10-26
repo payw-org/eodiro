@@ -19,6 +19,7 @@
 import { CEM } from '~/modules/custom-event-manager'
 import pageBase from '~/mixins/page-base'
 import PostItem from '~/components/pepero-square/PostItem'
+import autohead from '~/modules/autohead'
 
 export default {
   name: 'pepero-square-index',
@@ -26,7 +27,8 @@ export default {
   mixins: [pageBase],
   head() {
     return {
-      title: this.$t('peperoSquare.title')
+      title: this.$t('peperoSquare.title'),
+      meta: [...autohead(this.$t('peperoSqaure.title'))]
     }
   },
   asyncData() {
@@ -35,7 +37,7 @@ export default {
     }
   },
   activated() {
-    CEM.addEventListener('scrollends', this.$el, () => {
+    CEM.addEventListener('scrollended', this.$el, () => {
       // this.loadMore()
     })
   },

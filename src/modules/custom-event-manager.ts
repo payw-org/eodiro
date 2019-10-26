@@ -4,9 +4,10 @@ type AvailableEventNames =
   | 'beforepageenter'
   | 'afterpageenter'
   | 'scrollrestored'
-  | 'scrollends'
-  | 'bannerminified'
-  | 'bannerspreaded'
+  | 'scrollended'
+  | 'bannerminified' // Deprecated
+  | 'bannerspreaded' // Deprecated
+  | 'bannertransitionended'
   | 'gobackbtnappeared'
   | 'gobackbtnhidden'
 
