@@ -19,5 +19,6 @@
   "eslint.packageManager": "yarn",
   "vetur.completion.tagCasing": "initial",
   "vetur.format.defaultFormatter.html": "prettier",
-  "files.insertFinalNewline": true
+  "files.insertFinalNewline": true,
+  "editor.formatOnPaste": true
 }
