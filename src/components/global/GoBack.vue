@@ -1,7 +1,10 @@
 <template>
   <transition name="fade">
-    <div v-if="prevRouteName" id="go-back" :class="{ hidden: isHidden }">
-      <NuxtLink class="prev-link" :to="localePath(prevRouteName)">
+    <div v-show="prevRouteName" id="go-back" :class="{ hidden: isHidden }">
+      <NuxtLink
+        class="prev-link"
+        :to="prevRouteName ? localePath(prevRouteName) : localePath('index')"
+      >
         <button class="prev-btn">
           <span class="icon" />
           {{ $t('global.goBack') }}
@@ -17,6 +20,7 @@
 
 <script>
 import { CEM } from '~/modules/custom-event-manager'
+
 export default {
   data() {
     return {
@@ -39,23 +43,21 @@ export default {
         window.innerHeight + this.scrollY < document.body.scrollHeight
       ) {
         // Up
-
         if (that.isHidden) {
           // Dispatch scroll up custom event
           CEM.dispatchEvent('gobackbtnappeared')
         }
 
-        // Show goback button
+        // Show go back button
         that.isHidden = false
       } else if (this.scrollY > 0) {
         // Down
-
         if (!that.isHidden) {
           // Dispatch scroll down custom event
           CEM.dispatchEvent('gobackbtnhidden')
         }
 
-        // Hide goback button
+        // Hide go back button
         that.isHidden = true
 
         // When the scroll hits the bottom
@@ -74,15 +76,17 @@ export default {
     // Add scroll event listener for the first time
     window.addEventListener('scroll', this.scrollEventCallback)
 
+    const goBackElm = document.getElementById('go-back')
+
     // Remove scroll event when go back
-    document.addEventListener('beforepageleave', () => {
+    CEM.addEventListener('beforepageleave', goBackElm, () => {
       window.removeEventListener('scroll', this.scrollEventCallback)
     })
 
     // When route changes(page move),
     // add scroll event listener again
     // to determine the visibility of goback element
-    document.addEventListener('scrollrestored', () => {
+    CEM.addEventListener('scrollrestored', goBackElm, () => {
       window.removeEventListener('scroll', this.scrollEventCallback)
       setTimeout(() => {
         window.addEventListener('scroll', this.scrollEventCallback)
@@ -91,7 +95,7 @@ export default {
 
     // When the route moves forward
     // forcedly show go back button
-    document.addEventListener('beforepageenter', () => {
+    CEM.addEventListener('beforepageenter', goBackElm, () => {
       this.isHidden = false
     })
   }
@@ -99,14 +103,14 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/main.scss';
+@import '~/assets/styles/scss/main';
 
 $go-back-btn-height: 2.7rem;
 
 #go-back {
   &.fade-enter-active,
   &.fade-leave-active {
-    transition: opacity 200ms ease;
+    transition: opacity 500ms ease;
     opacity: 1;
   }
   &.fade-enter,
@@ -138,6 +142,7 @@ $go-back-btn-height: 2.7rem;
   &.hidden {
     transform: translateX(-50%) scale(0.9);
     opacity: 0;
+    pointer-events: none;
   }
 
   .prev-btn {
