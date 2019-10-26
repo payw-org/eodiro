@@ -16,7 +16,8 @@
     "baseUrl": "./",
     "paths": {
       "~/*": ["src/*"],
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "~~/*": ["./*"]
     },
     "types": ["@types/node", "@nuxt/types"],
     "allowSyntheticDefaultImports": true
