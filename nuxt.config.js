@@ -30,7 +30,7 @@ export default {
       { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#ff6421' },
       {
         rel: 'manifest',
-        href: '/site.webmanifest'
+        href: '/manifest.webmanifest'
       }
     ]
   },
