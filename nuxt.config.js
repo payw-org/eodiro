@@ -32,15 +32,6 @@ export default {
         rel: 'manifest',
         href: '/manifest.webmanifest'
       }
-    ],
-    script: [
-      {
-        async: true,
-        src: 'https://cdn.jsdelivr.net/npm/pwacompat@2.0.9/pwacompat.min.js',
-        integrity:
-          'sha384-VcI6S+HIsE80FVM1jgbd6WDFhzKYA0PecD/LcIyMQpT4fMJdijBh0I7Iblaacawc',
-        crossorigin: 'anonymous'
-      }
     ]
   },
 
