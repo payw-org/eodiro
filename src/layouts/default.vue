@@ -3,7 +3,8 @@
     id="app"
     :class="[
       $store.state.currentHamletName,
-      { 'is-banner-forced-mini': isBannerForcedMini }
+      { 'is-banner-forced-mini': isBannerForcedMini },
+      { transitioning: isPointerEventsPrevented }
     ]"
   >
     <div id="scroll-end-point" />
@@ -48,7 +49,8 @@ export default {
     return {
       // If this is true
       // master content's padding-top will be narrower
-      isBannerForcedMini: false
+      isBannerForcedMini: false,
+      isPointerEventsPrevented: false
     }
   },
   computed: {
@@ -58,6 +60,8 @@ export default {
   },
   watch: {
     $route(to, from) {
+      this.isPointerEventsPrevented = true
+
       // When route changes
       // cache or remove components from keep-alive
       if (from.meta.depth < to.meta.depth) {
@@ -109,11 +113,15 @@ export default {
       observer.unobserve(document.getElementById('scroll-end-point'))
     })
 
+    CEM.addEventListener('bannertransitionended', this.$el, () => {
+      this.isPointerEventsPrevented = false
+    })
+
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           // Reach scroll end
-          CEM.dispatchEvent('scrollends')
+          CEM.dispatchEvent('scrollended')
         }
       })
     })
@@ -133,6 +141,10 @@ export default {
 
 #app {
   position: relative;
+
+  &.transitioning {
+    pointer-events: none;
+  }
 
   #scroll-end-point {
     position: absolute;
