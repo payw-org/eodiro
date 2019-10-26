@@ -96,10 +96,7 @@ export default {
         lazy: true,
         langDir: 'lang/',
         defaultLocale: 'kr',
-        detectBrowserLanguage: {
-          useCookie: true,
-          cookieKey: 'i18n_lang'
-        }
+        detectBrowserLanguage: false
       }
     ],
     [

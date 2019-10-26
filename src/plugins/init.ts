@@ -1,5 +1,8 @@
 import Cookie from 'cookie'
 import { Context } from '@nuxt/types'
+import JsCookie from 'js-cookie'
+import CookieConfig from '~~/config/cookie'
+const { langCookieName } = CookieConfig
 
 declare global {
   interface Window {
@@ -7,8 +10,24 @@ declare global {
   }
 }
 
+function getRedirectPath(currentPath: string, lang: 'kr' | 'en') {
+  let newPath = currentPath
+  const cleanPath = currentPath.replace(/^\/en/, '').replace(/\/$/, '')
+
+  if (lang === 'kr') {
+    newPath = cleanPath
+    if (newPath === '') {
+      newPath = '/'
+    }
+  } else if (lang === 'en') {
+    newPath = `/en${cleanPath}`
+  }
+
+  return newPath
+}
+
 export default (context: Context) => {
-  const { req, route, store, redirect } = context
+  const { req, route, store, redirect, app } = context
 
   // Server init
   if (process.server) {
@@ -18,23 +37,30 @@ export default (context: Context) => {
     // Browser redirection
     const cookies =
       req.headers && req.headers.cookie ? Cookie.parse(req.headers.cookie) : {}
-    const redirectLang = cookies.i18n_lang
+    const redirectLang = cookies[langCookieName]
     if (!redirectLang) {
+      // Language cookie is not set yet
+      const acceptLang = req.headers['accept-language']
+        ? req.headers['accept-language'].slice(0, 2).toLowerCase()
+        : undefined
+      if (acceptLang === 'ko') {
+        redirect(getRedirectPath(route.path, 'kr'))
+      } else {
+        redirect(getRedirectPath(route.path, 'en'))
+      }
       return
     }
+
+    // Language cookie available
     const routeName: string = route.name
     if (routeName.endsWith('___en')) {
-      // English page
+      // Visit english url page
       if (redirectLang !== 'en') {
-        let to = route.path.replace(/^\/en/, '').replace(/\/$/, '')
-        if (to === '') {
-          to = '/'
-        }
-        redirect(to)
+        // But cookie is set to Korean
+        redirect(getRedirectPath(route.path, 'kr'))
       }
     } else if (redirectLang === 'en') {
-      // console.log(`/en${route.path.replace(/\/$/, '')}`)
-      redirect(`/en${route.path.replace(/\/$/, '')}`)
+      redirect(getRedirectPath(route.path, 'en'))
     }
   }
 
@@ -42,6 +68,12 @@ export default (context: Context) => {
   if (process.client) {
     // Polyfills
     require('~/polyfills')
+
+    // Set cookies on client
+    const i18nLang = JsCookie.get(langCookieName)
+    if (!i18nLang) {
+      JsCookie.set(langCookieName, app.i18n.locale, { expires: 99999 })
+    }
 
     // Prevent browser's default scroll restoration behaviour
     // history.scrollRestoration = 'manual'
