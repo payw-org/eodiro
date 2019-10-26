@@ -95,10 +95,6 @@ export default {
       })
     }
   },
-  mounted() {
-    // document.addEventListener('scrollends', this.loadData)
-    // CEM.addEventListener('scrollends', this.$el, this.loadData)
-  },
   methods: {
     toggleLike() {
       this.postData.isLiked = !this.postData.isLiked
