@@ -1,13 +1,15 @@
 <template>
   <div class="clubs-topics">
     <Grid proportion="small">
-      <nuxt-link
-        :to="localePath({
-          name: 'clubs-topic',
-          params: {
-            topic: 'all'
-          }
-        })"
+      <NuxtLink
+        :to="
+          localePath({
+            name: 'clubs-topic',
+            params: {
+              topic: 'all'
+            }
+          })
+        "
       >
         <ArrowBlock class="ct-item">
           <template v-slot:icon>
@@ -19,16 +21,18 @@
             </h1>
           </template>
         </ArrowBlock>
-      </nuxt-link>
-      <nuxt-link
+      </NuxtLink>
+      <NuxtLink
         v-for="topic in topics"
         :key="topic.name"
-        :to="localePath({
-          name: 'clubs-topic',
-          params: {
-            topic: topic.url
-          }
-        })"
+        :to="
+          localePath({
+            name: 'clubs-topic',
+            params: {
+              topic: topic.url
+            }
+          })
+        "
       >
         <ArrowBlock class="ct-item">
           <template v-slot:icon>
@@ -40,7 +44,7 @@
             </h1>
           </template>
         </ArrowBlock>
-      </nuxt-link>
+      </NuxtLink>
     </Grid>
   </div>
 </template>

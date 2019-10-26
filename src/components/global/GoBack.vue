@@ -1,16 +1,16 @@
 <template>
   <transition name="fade">
     <div v-if="prevRouteName" id="go-back" :class="{ hidden: isHidden }">
-      <nuxt-link class="prev-link" :to="localePath(prevRouteName)">
+      <NuxtLink class="prev-link" :to="localePath(prevRouteName)">
         <button class="prev-btn">
           <span class="icon" />
           {{ $t('global.goBack') }}
         </button>
-      </nuxt-link>
+      </NuxtLink>
 
-      <nuxt-link :to="localePath('index')">
+      <NuxtLink :to="localePath('index')">
         <button class="go-home" />
-      </nuxt-link>
+      </NuxtLink>
     </div>
   </transition>
 </template>
