@@ -43,15 +43,18 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import Vue from 'vue'
 import pageBase from '~/mixins/page-base'
+import autohead from '~/modules/autohead'
 
 export default Vue.extend({
   name: 'opensource',
   mixins: [pageBase],
   head() {
     return {
+      title: this.$t('opensource.title'),
+      meta: [...autohead(this.$t('opensource.title'))],
       script: [
         {
           async: true,

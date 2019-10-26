@@ -25,6 +25,7 @@ import axios from 'axios'
 import dayjs from 'dayjs'
 import pageBase from '~/mixins/page-base'
 import MealTimeGroup from '~/components/meals/MealTimeGroup.vue'
+import autohead from '~/modules/autohead'
 
 export default {
   name: 'meals-date',
@@ -32,7 +33,8 @@ export default {
   mixins: [pageBase],
   head() {
     return {
-      title: this.$t('meals.title')
+      title: this.$t('meals.title'),
+      meta: [...autohead(this.$t('meals.title'))]
     }
   },
   data() {

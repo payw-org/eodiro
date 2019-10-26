@@ -113,6 +113,7 @@
 import axios from 'axios'
 import pageBase from '~/mixins/page-base'
 import { Button, Accordion } from '~/components/ui'
+import autohead from '~/modules/autohead'
 
 export default {
   name: 'search-class',
@@ -121,23 +122,7 @@ export default {
   head() {
     return {
       title: this.$t('searchClass.title'),
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: this.$t('searchClass.head.description')
-        },
-        {
-          hid: 'og:title',
-          property: 'og:title',
-          content: this.$t('global.head.title')
-        },
-        {
-          hid: 'og:description',
-          property: 'og:description',
-          content: this.$t('global.head.description')
-        }
-      ]
+      meta: [...autohead(this.$t('searchClass.title'))]
     }
   },
   data() {

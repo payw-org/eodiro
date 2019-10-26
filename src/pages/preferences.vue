@@ -45,6 +45,7 @@
 import Cookies from 'js-cookie'
 import pageBase from '~/mixins/page-base'
 import { Button } from '~/components/ui'
+import autohead from '~/modules/autohead'
 
 export default {
   name: 'preferences',
@@ -52,7 +53,8 @@ export default {
   mixins: [pageBase],
   head() {
     return {
-      title: this.$t('pref.title')
+      title: this.$t('pref.title'),
+      meta: [...autohead(this.$t('pref.title'))]
     }
   },
   data() {
