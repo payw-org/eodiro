@@ -49,6 +49,7 @@
     "@nuxtjs/eslint-module": "^1.0.0",
     "@types/cookie": "^0.3.3",
     "@types/cors": "^2.8.6",
+    "@types/js-cookie": "^2.2.4",
     "@types/mustache": "^0.8.32",
     "@types/node": "^12.7.3",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
