@@ -299,13 +299,13 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
       &.background--clubs {
         background-image: linear-gradient(to bottom, #00e3d6, #00b5dd);
       }
-      &.background--search-class {
+      &.background--lectures {
         background-image: linear-gradient(to bottom, #56f23d, #00d749);
       }
       &.background--pepero-square {
         background-image: linear-gradient(to bottom, #ff79b9, #ff3e78);
       }
-      &.background--meals {
+      &.background--cafeteria {
         background-image: linear-gradient(to bottom, #31a8ff, #305dff);
       }
     }
@@ -494,7 +494,7 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
       }
     }
 
-    &.hamlet--search-class {
+    &.hamlet--lectures {
       .icon {
         @include bgImg('~assets/images/magnifier-white.svg', center, '75%');
 
@@ -514,7 +514,7 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
       }
     }
 
-    &.hamlet--meals {
+    &.hamlet--cafeteria {
       .icon {
         @include bgImg('~assets/images/fork_knife_white.svg', center, '75%');
 

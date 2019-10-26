@@ -1,7 +1,7 @@
 <template>
   <section class="meal-time-group" :class="timeGroup">
     <h1 class="meal-time-name">
-      {{ $t(`meals.${timeGroup}`) }}
+      {{ $t(`cafeteria.${timeGroup}`) }}
     </h1>
     <Grid class="restaurant-container">
       <Accordion

@@ -1,7 +1,7 @@
 export default {
   menuVacant: 'Vacant Classrooms',
-  menuMeal: 'Restaurant Menu',
-  menuClass: 'Search Classes',
+  menuMeal: 'Cafeteria Menus',
+  menuClass: 'Lectures',
   menuPreferences: 'Preferences',
   menuInquiry: 'Inquiry',
   menuDonation: 'Donate',

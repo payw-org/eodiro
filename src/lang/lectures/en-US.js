@@ -1,5 +1,5 @@
 export default {
-  title: 'Search Class',
+  title: 'Lectures',
   head: {
     description: 'aaa',
     title: 'bbb'

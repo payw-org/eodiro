@@ -13,9 +13,7 @@
     </div> -->
 
     <MealTimeGroup time-group="breakfast" :meal-time-data="meal.breakfast" />
-
     <MealTimeGroup time-group="lunch" :meal-time-data="meal.lunch" />
-
     <MealTimeGroup time-group="supper" :meal-time-data="meal.supper" />
   </div>
 </template>
@@ -24,7 +22,7 @@
 import axios from 'axios'
 import dayjs from 'dayjs'
 import pageBase from '~/mixins/page-base'
-import MealTimeGroup from '~/components/meals/MealTimeGroup.vue'
+import MealTimeGroup from '~/components/cafeteria/MealTimeGroup'
 import autohead from '~/modules/autohead'
 
 export default {
@@ -33,8 +31,8 @@ export default {
   mixins: [pageBase],
   head() {
     return {
-      title: this.$t('meals.title'),
-      meta: [...autohead(this.$t('meals.title'))]
+      title: this.$t('cafeteria.title'),
+      meta: [...autohead(this.$t('cafeteria.title'))]
     }
   },
   data() {

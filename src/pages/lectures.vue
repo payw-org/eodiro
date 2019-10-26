@@ -1,5 +1,5 @@
 <template>
-  <div id="search-class">
+  <div id="eodiro-lectures">
     <div class="page-content">
       <!-- form-section -->
       <div class="form-wrapper">
@@ -116,7 +116,7 @@ import { Button, Accordion } from '~/components/ui'
 import autohead from '~/modules/autohead'
 
 export default {
-  name: 'search-class',
+  name: 'lectures',
   components: { Button, Accordion },
   mixins: [pageBase],
   head() {
@@ -440,7 +440,7 @@ export default {
 <style lang="scss">
 @import '~/assets/styles/scss/main';
 
-#search-class {
+#eodiro-lectures {
   .form-wrapper {
     position: sticky;
     top: $nav-height;
