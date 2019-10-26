@@ -46,6 +46,7 @@ import Cookies from 'js-cookie'
 import pageBase from '~/mixins/page-base'
 import { Button } from '~/components/ui'
 import autohead from '~/modules/autohead'
+import CookieConfig from '~~/config/cookie'
 
 export default {
   name: 'preferences',
@@ -72,7 +73,7 @@ export default {
   },
   methods: {
     switchLang(lang) {
-      Cookies.set('i18n_lang', lang, { expires: 99999 })
+      Cookies.set(CookieConfig.langCookieName, lang, { expires: 99999 })
       location.reload()
     },
     switchColorScheme(mode) {
