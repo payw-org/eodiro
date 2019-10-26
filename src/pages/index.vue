@@ -12,7 +12,7 @@
             </template>
           </ArrowBlock>
 
-          <!-- pepero square -->
+          <!-- Pepero Square -->
           <ArrowBlock class="menu-item-wrapper disabled">
             <template v-slot:icon>
               <span class="icon icon--pepero-square" />
@@ -22,7 +22,7 @@
             </template>
           </ArrowBlock>
 
-          <!-- vacant classrooms -->
+          <!-- Vacant Classrooms -->
           <ArrowBlock
             class="menu-item-wrapper"
             :link="localePath('vacant').replace(/\/$/, '')"
@@ -36,7 +36,7 @@
             </template>
           </ArrowBlock>
 
-          <!-- Cafeteria menus -->
+          <!-- Cafeteria Menus -->
           <ArrowBlock
             class="menu-item-wrapper"
             :link="localePath('cafeteria-date').replace(/\/$/, '')"
@@ -64,19 +64,6 @@
             </template>
           </ArrowBlock>
 
-          <!-- inquiry -->
-          <ArrowBlock
-            class="menu-item-wrapper"
-            :link="localePath('inquiry').replace(/\/$/, '')"
-          >
-            <template v-slot:icon>
-              <span class="icon icon--inquiry" />
-            </template>
-            <template v-slot:content>
-              <span class="content">{{ $t('home.menuInquiry') }}</span>
-            </template>
-          </ArrowBlock>
-
           <!-- donation -->
           <!-- <ArrowBlock
             class="menu-item-wrapper"
@@ -90,7 +77,7 @@
             </template>
           </ArrowBlock> -->
 
-          <!-- open source -->
+          <!-- Open Source -->
           <ArrowBlock
             class="menu-item-wrapper"
             :link="localePath('opensource')"
@@ -100,6 +87,19 @@
             </template>
             <template v-slot:content>
               <span class="content">{{ $t('home.menuOpenSource') }}</span>
+            </template>
+          </ArrowBlock>
+
+          <!-- Inquiry -->
+          <ArrowBlock
+            class="menu-item-wrapper"
+            :link="localePath('inquiry').replace(/\/$/, '')"
+          >
+            <template v-slot:icon>
+              <span class="icon icon--inquiry" />
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('home.menuInquiry') }}</span>
             </template>
           </ArrowBlock>
 
