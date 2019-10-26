@@ -26,10 +26,10 @@ export const state = () => ({
   hamletList: [
     'home',
     'vacant',
-    'search-class',
+    'lectures',
     'clubs',
     'pepero-square',
-    'meals',
+    'cafeteria',
     'inquiry',
     'donation',
     'opensource',

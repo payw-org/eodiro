@@ -12,6 +12,16 @@
             </template>
           </ArrowBlock>
 
+          <!-- pepero square -->
+          <ArrowBlock class="menu-item-wrapper disabled">
+            <template v-slot:icon>
+              <span class="icon icon--pepero-square" />
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('home.menuSquare') }}</span>
+            </template>
+          </ArrowBlock>
+
           <!-- vacant classrooms -->
           <ArrowBlock
             class="menu-item-wrapper"
@@ -26,51 +36,31 @@
             </template>
           </ArrowBlock>
 
-          <!-- meals -->
+          <!-- Cafeteria menus -->
           <ArrowBlock
             class="menu-item-wrapper"
-            :link="localePath('meals-date').replace(/\/$/, '')"
+            :link="localePath('cafeteria-date').replace(/\/$/, '')"
             @click="showTopbar"
           >
             <template v-slot:icon>
-              <span class="icon icon--meals" />
+              <span class="icon icon--cafeteria" />
             </template>
             <template v-slot:content>
               <span class="content">{{ $t('home.menuMeal') }}</span>
             </template>
           </ArrowBlock>
 
-          <!-- search-class -->
+          <!-- Lectures -->
           <ArrowBlock
             class="menu-item-wrapper"
-            :link="localePath('search-class').replace(/\/$/, '')"
+            :link="localePath('lectures').replace(/\/$/, '')"
             @click="showTopbar"
           >
             <template v-slot:icon>
-              <span class="icon icon--search-class" />
+              <span class="icon icon--lectures" />
             </template>
             <template v-slot:content>
               <span class="content">{{ $t('home.menuClass') }}</span>
-            </template>
-          </ArrowBlock>
-
-          <!-- clubs -->
-          <ArrowBlock class="menu-item-wrapper disabled">
-            <template v-slot:icon>
-              <span class="icon icon--clubs" />
-            </template>
-            <template v-slot:content>
-              <span class="content">{{ $t('home.menuClubs') }}</span>
-            </template>
-          </ArrowBlock>
-
-          <!-- pepero square -->
-          <ArrowBlock class="menu-item-wrapper disabled">
-            <template v-slot:icon>
-              <span class="icon icon--pepero-square" />
-            </template>
-            <template v-slot:content>
-              <span class="content">{{ $t('home.menuSquare') }}</span>
             </template>
           </ArrowBlock>
 
@@ -191,7 +181,7 @@ export default {
         }
       }
 
-      .icon--meals {
+      .icon--cafeteria {
         background-image: url('~assets/images/home/home_menu_icon_food.svg');
 
         @include dark-mode {
@@ -199,7 +189,7 @@ export default {
         }
       }
 
-      .icon--search-class {
+      .icon--lectures {
         background-image: url('~assets/images/home/home_menu_icon_search-class.svg');
 
         @include dark-mode {
