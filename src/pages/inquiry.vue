@@ -35,6 +35,7 @@
 import axios from 'axios'
 import pageBase from '~/mixins/page-base'
 import { Button } from '~/components/ui'
+import autohead from '~/modules/autohead'
 
 export default {
   name: 'inquiry',
@@ -42,7 +43,8 @@ export default {
   mixins: [pageBase],
   head() {
     return {
-      title: this.$t('inquiry.title')
+      title: this.$t('inquiry.title'),
+      meta: [...autohead(this.$t('inquiry.title'))]
     }
   },
   data() {

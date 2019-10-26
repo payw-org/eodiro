@@ -22,6 +22,7 @@
 import { CEM } from '~/modules/custom-event-manager'
 import Banner from '~/components/global/Banner'
 import GoBack from '~/components/global/GoBack'
+import autohead from '~/modules/autohead'
 
 export default {
   components: { Banner, GoBack },
@@ -29,19 +30,10 @@ export default {
     return {
       title: this.$t('global.head.title'),
       meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: this.$t('global.head.description')
-        },
-        {
-          property: 'og:title',
-          content: this.$t('global.head.title')
-        },
-        {
-          property: 'og:description',
-          content: this.$t('global.head.description')
-        },
+        ...autohead(
+          this.$t('global.head.title'),
+          this.$t('global.head.description')
+        ),
         {
           property: 'og:image',
           content: 'https://eodiro.com/assets/images/open-graph/open_graph.png'
