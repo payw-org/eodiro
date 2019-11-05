@@ -45,7 +45,7 @@ const config = {
     // Custom link class names
     linkActiveClass: 'active-link',
     linkExactActiveClass: 'exact-active-link',
-    base: '/eodiro.com/'
+    base: '/eodiro/'
 
     // Run middleware when route changes
     // middleware: 'route-change'
