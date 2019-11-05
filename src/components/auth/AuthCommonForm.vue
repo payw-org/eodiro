@@ -35,26 +35,37 @@
           패스워드가 다릅니다.
         </p>
       </div>
-      <Button full class="process-btn" @click="process">
+      <Button
+        full
+        class="process-btn"
+        @click="process"
+      >
         <span v-if="isSignUp">{{ $t('auth.signUp') }}</span>
         <span v-else>{{ $t('auth.signIn') }}</span>
       </Button>
-      <NuxtLink v-if="isSignUp" class="redirect" :to="localePath('signin')">
+      <NuxtLink
+        v-if="isSignUp"
+        class="redirect"
+        :to="localePath('signin')"
+      >
         {{ $t('auth.signIn') }}
       </NuxtLink>
-      <NuxtLink v-else class="redirect" :to="localePath('signup')">
+      <NuxtLink
+        v-else
+        class="redirect"
+        :to="localePath('signup')"
+      >
         {{ $t('auth.signUp') }}
       </NuxtLink>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
+<script>
 import Axios from 'axios'
 import { Button } from '~/components/ui'
 
-export default Vue.extend({
+export default {
   components: { Button },
   props: {
     form: {
@@ -78,7 +89,7 @@ export default Vue.extend({
     }
   },
   computed: {
-    isSignUp(): boolean {
+    isSignUp() {
       return this.form === 'sign-up'
     }
   },
@@ -86,7 +97,7 @@ export default Vue.extend({
     refineNickname() {
       this.inputs.nickname = this.inputs.nickname.replace(/\s/g, '')
     },
-    validatePasswordMatch(): void {
+    validatePasswordMatch() {
       if (this.pwTimeout) {
         window.clearTimeout(this.pwTimeout)
       }
@@ -98,7 +109,7 @@ export default Vue.extend({
         }
       }, 500)
     },
-    process(): void {
+    process() {
       if (this.isSignUp) {
         const { portalId, password, nickname } = this.inputs
         Axios({
@@ -116,7 +127,7 @@ export default Vue.extend({
       }
     }
   }
-})
+}
 </script>
 
 <style lang="scss">

@@ -1,6 +1,9 @@
 <template>
   <div id="new-comment">
-    <form action="javascript:void(0)" autocomplete="off">
+    <form
+      action="javascript:void(0)"
+      autocomplete="off"
+    >
       <input
         v-model="comment"
         type="text"

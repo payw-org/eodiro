@@ -1,5 +1,8 @@
 <template>
-  <section class="meal-time-group" :class="timeGroup">
+  <section
+    class="meal-time-group"
+    :class="timeGroup"
+  >
     <h1 class="meal-time-name">
       {{ $t(`cafeteria.${timeGroup}`) }}
     </h1>
@@ -43,11 +46,10 @@
   </section>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
+<script>
 import { Grid, Accordion } from '~/components/ui'
 
-export default Vue.extend({
+export default {
   components: { Grid, Accordion },
   props: {
     timeGroup: {
@@ -63,7 +65,7 @@ export default Vue.extend({
       default: () => []
     }
   }
-})
+}
 </script>
 
 <style lang="scss">

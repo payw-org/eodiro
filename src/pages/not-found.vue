@@ -2,13 +2,12 @@
   <div />
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
-export default Vue.extend({
+<script>
+export default {
   middleware({ error }) {
     error({
       statusCode: 404
     })
   }
-})
+}
 </script>

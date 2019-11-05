@@ -1,9 +1,19 @@
 <template>
-  <div class="arrow-block" @click="$emit('click')">
-    <NuxtLink v-if="link !== ''" :to="link" class="absolute-link" />
+  <div
+    class="arrow-block"
+    @click="$emit('click')"
+  >
+    <NuxtLink
+      v-if="link !== ''"
+      :to="link"
+      class="absolute-link"
+    />
 
     <!-- only visible when icon slot is set -->
-    <div v-if="$slots.icon" class="arrb-icon-wrapper">
+    <div
+      v-if="$slots.icon"
+      class="arrb-icon-wrapper"
+    >
       <slot name="icon" />
     </div>
 
@@ -11,7 +21,10 @@
       <slot name="content" />
     </div>
 
-    <div v-if="!noArrow" class="arrb-arrow-wrapper">
+    <div
+      v-if="!noArrow"
+      class="arrb-arrow-wrapper"
+    >
       <span class="arrb-arrow" />
     </div>
   </div>

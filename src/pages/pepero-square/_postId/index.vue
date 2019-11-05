@@ -28,7 +28,11 @@
       </h2>
 
       <div class="comment-item-container">
-        <div v-for="comment in comments" :key="comment.id" class="comment-item">
+        <div
+          v-for="comment in comments"
+          :key="comment.id"
+          class="comment-item"
+        >
           <p class="author">
             {{ comment.author }}
           </p>
@@ -37,7 +41,10 @@
           </p>
         </div>
 
-        <div v-if="comments.length === 0" class="no-comments">
+        <div
+          v-if="comments.length === 0"
+          class="no-comments"
+        >
           <p>
             {{ $t('peperoSquare.noComments') }}
           </p>

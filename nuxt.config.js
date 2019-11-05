@@ -5,11 +5,14 @@
 // return html.replace(/data-n-head(=".*?")?(?!-)/g, '')
 // }
 
-export default {
+/**
+ * @type {import("@nuxt/types").Configuration}
+ */
+const config = {
   // custom global id of html dom
   globalName: 'eodiro',
 
-  mode: 'universal', // SSR + CSR (hybrid)
+  mode: 'spa',
 
   // head tags options
   head: {
@@ -41,7 +44,8 @@ export default {
   router: {
     // Custom link class names
     linkActiveClass: 'active-link',
-    linkExactActiveClass: 'exact-active-link'
+    linkExactActiveClass: 'exact-active-link',
+    base: '/eodiro.com/'
 
     // Run middleware when route changes
     // middleware: 'route-change'
@@ -66,13 +70,12 @@ export default {
     '~/assets/styles/stylus/spring.styl'
   ],
 
-  plugins: ['~/plugins/init.ts', { src: '~/plugins/ga.js', ssr: false }],
-
-  buildModules: [
-    '@nuxtjs/eslint-module',
-    '@nuxt/typescript-build',
-    '~/modules/nuxt/extend-route'
+  plugins: [
+    { src: '~/plugins/init.js', mode: 'client' },
+    { src: '~/plugins/ga.js', mode: 'client' }
   ],
+
+  buildModules: ['@nuxtjs/eslint-module', '~/modules/nuxt/extend-route'],
 
   // Nuxt.js modules
   modules: [
@@ -127,3 +130,5 @@ export default {
     }
   }
 }
+
+export default config

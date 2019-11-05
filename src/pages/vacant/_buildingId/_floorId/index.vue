@@ -1,8 +1,16 @@
 <template>
   <div class="content-item result">
     <Grid class="empty-classrooms-container">
-      <div v-for="room in classrooms" :key="room.number" class="grid-wrapper">
-        <ArrowBlock class="classroom" no-arrow @click="openTimeTable(room)">
+      <div
+        v-for="room in classrooms"
+        :key="room.number"
+        class="grid-wrapper"
+      >
+        <ArrowBlock
+          class="classroom"
+          no-arrow
+          @click="openTimeTable(room)"
+        >
           <template v-slot:content>
             <h1 class="room-number">
               {{ room.number }}
@@ -15,20 +23,32 @@
                 </p>
                 <div>
                   <p class="time label">
-                    <span v-if="room.hour" class="hour">
+                    <span
+                      v-if="room.hour"
+                      class="hour"
+                    >
                       <b>{{ room.hour + $t('vacant.hour') }}</b>
                     </span>
-                    <span v-if="room.min" class="min">
+                    <span
+                      v-if="room.min"
+                      class="min"
+                    >
                       <b>{{ room.min + $t('vacant.min') }}</b>
                     </span>
                     {{ $t('vacant.remain') }}
                   </p>
                 </div>
               </span>
-              <p v-else-if="room.expireTimeLevel === -1" class="label">
+              <p
+                v-else-if="room.expireTimeLevel === -1"
+                class="label"
+              >
                 {{ $t('vacant.inClass') }}
               </p>
-              <p v-else class="no-next-class-label label">
+              <p
+                v-else
+                class="no-next-class-label label"
+              >
                 {{ $t('vacant.noNextClassMsg') }}
               </p>
             </div>
@@ -44,9 +64,19 @@
         class="timetable-container"
         :class="{ active: isTimeTableActive }"
       >
-        <div class="background" @click="closeTimeTable" />
-        <div ref="timetable" class="timetable" @scroll="fixScroll">
-          <button class="close" @click="closeTimeTable" />
+        <div
+          class="background"
+          @click="closeTimeTable"
+        />
+        <div
+          ref="timetable"
+          class="timetable"
+          @scroll="fixScroll"
+        >
+          <button
+            class="close"
+            @click="closeTimeTable"
+          />
           <div class="content">
             <h1 class="title">
               {{ selectedRoom.number + ' ' + $t('vacant.timetable') }}
@@ -135,7 +165,10 @@
                   </div>
                 </div>
               </div>
-              <div v-else class="no-timetable-msg">
+              <div
+                v-else
+                class="no-timetable-msg"
+              >
                 {{ $t('vacant.noTimetable') }}
               </div>
             </div>

@@ -13,18 +13,21 @@
       :placeholder="$t('peperoSquare.new.placeholder.body')"
       class="body-input"
     />
-    <Button full class="publish-btn" @click="publishNewPost">
+    <Button
+      full
+      class="publish-btn"
+      @click="publishNewPost"
+    >
       {{ $t('global.upload') }}
     </Button>
   </div>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
+<script>
 import pageBase from '~/mixins/page-base'
 import { Button } from '~/components/ui'
 
-export default Vue.extend({
+export default {
   components: { Button },
   mixins: [pageBase],
   data() {
@@ -40,7 +43,7 @@ export default Vue.extend({
       // AJAX
     }
   }
-})
+}
 </script>
 
 <style lang="scss">

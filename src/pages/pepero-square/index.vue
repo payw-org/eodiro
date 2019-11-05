@@ -6,11 +6,18 @@
       </h1>
       <button class="new-post-btn">
         +
-        <NuxtLink :to="localePath('pepero-square-new')" class="absolute-link" />
+        <NuxtLink
+          :to="localePath('pepero-square-new')"
+          class="absolute-link"
+        />
       </button>
     </div>
     <div class="posts-list">
-      <PostItem v-for="item in posts" :key="item.id" :post-data="item" />
+      <PostItem
+        v-for="item in posts"
+        :key="item.id"
+        :post-data="item"
+      />
     </div>
   </div>
 </template>

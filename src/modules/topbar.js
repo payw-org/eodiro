@@ -52,7 +52,7 @@ const lightModeOptions = {
   autoRun: true,
   barThickness: 4,
   barColors: {
-    '0': '#FFDF00',
+    0: '#FFDF00',
     '1.0': '#00E3D6'
   },
   shadowBlur: 3,
@@ -63,7 +63,7 @@ const darkModeOptions = {
   autoRun: true,
   barThickness: 4,
   barColors: {
-    '0': '#fff',
+    0: '#fff',
     '1.0': '#fff'
   },
   shadowBlur: 3,
@@ -106,7 +106,7 @@ const createCanvas = function() {
 const topbar = {
   config(opts) {
     for (const key in opts) {
-      if (options.hasOwnProperty(key)) {
+      if (options[key]) {
         options[key] = opts[key]
       }
     }
@@ -132,7 +132,7 @@ const topbar = {
     canvas.style.display = 'block'
     topbar.progress(0)
     if (options.autoRun) {
-      ;(function loop() {
+      (function loop() {
         progressTimerId = window.requestAnimationFrame(loop)
         topbar.progress('+' + 0.05 * (1 - Math.sqrt(currentProgress)) ** 2)
       })()
@@ -160,7 +160,7 @@ const topbar = {
       window.cancelAnimationFrame(progressTimerId)
       progressTimerId = null
     }
-    ;(function loop() {
+    (function loop() {
       if (topbar.progress('+.1') >= 1) {
         canvas.style.opacity -= 0.05
         if (canvas.style.opacity <= 0.05) {

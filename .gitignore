@@ -3,8 +3,10 @@
 !.vscode/settings.json
 .DS_Store
 node_modules
-package-lock.json
+# package-lock.json
+yarn.lock
 yarn-error.log
 .nuxt
 dist
+build
 sw.*
