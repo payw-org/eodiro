@@ -43,18 +43,10 @@
         <span v-if="isSignUp">{{ $t('auth.signUp') }}</span>
         <span v-else>{{ $t('auth.signIn') }}</span>
       </Button>
-      <NuxtLink
-        v-if="isSignUp"
-        class="redirect"
-        :to="localePath('signin')"
-      >
+      <NuxtLink v-if="isSignUp" class="redirect" :to="localePath('sign-in')">
         {{ $t('auth.signIn') }}
       </NuxtLink>
-      <NuxtLink
-        v-else
-        class="redirect"
-        :to="localePath('signup')"
-      >
+      <NuxtLink v-else class="redirect" :to="localePath('sign-up')">
         {{ $t('auth.signUp') }}
       </NuxtLink>
     </div>

@@ -34,8 +34,8 @@ export const state = () => ({
     'donation',
     'opensource',
     'preferences',
-    'signin',
-    'signup'
+    'sign-in',
+    'sign-up'
   ]
 })
 
