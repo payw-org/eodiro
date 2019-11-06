@@ -1,10 +1,6 @@
 <template>
   <div id="eodiro-banner-wrapper">
-    <div
-      id="eodiro-banner"
-      ref="banner"
-      :class="{ mini: appearMini }"
-    >
+    <div id="eodiro-banner" ref="banner" :class="{ mini: appearMini }">
       <div class="banner">
         <transition
           v-for="hamletName in $store.state.hamletList"

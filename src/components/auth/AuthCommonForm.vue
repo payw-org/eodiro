@@ -35,11 +35,7 @@
           패스워드가 다릅니다.
         </p>
       </div>
-      <Button
-        full
-        class="process-btn"
-        @click="process"
-      >
+      <Button full class="process-btn" @click="process">
         <span v-if="isSignUp">{{ $t('auth.signUp') }}</span>
         <span v-else>{{ $t('auth.signIn') }}</span>
       </Button>

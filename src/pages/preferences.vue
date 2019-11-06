@@ -7,16 +7,10 @@
           {{ $t('pref.lang') }}
         </h2>
         <div class="options">
-          <Button
-            class="opt"
-            @click="switchLang('kr')"
-          >
+          <Button class="opt" @click="switchLang('kr')">
             한국어
           </Button>
-          <Button
-            class="opt"
-            @click="switchLang('en')"
-          >
+          <Button class="opt" @click="switchLang('en')">
             English
           </Button>
         </div>
@@ -28,16 +22,10 @@
           {{ $t('pref.colorScheme.title') }}
         </h2>
         <div class="options">
-          <Button
-            class="opt"
-            @click="switchColorScheme('light')"
-          >
+          <Button class="opt" @click="switchColorScheme('light')">
             {{ $t('pref.colorScheme.light') }}
           </Button>
-          <Button
-            class="opt"
-            @click="switchColorScheme('dark')"
-          >
+          <Button class="opt" @click="switchColorScheme('dark')">
             {{ $t('pref.colorScheme.dark') }}
           </Button>
           <Button
@@ -84,6 +72,9 @@ export default {
     }
   },
   methods: {
+    /**
+     * @param {'kr' | 'en'} lang
+     */
     switchLang(lang) {
       Cookies.set(CookieConfig.langCookieName, lang, { expires: 99999 })
       location.reload()
