@@ -8,10 +8,13 @@
     "start-hcj": "HOST=0.0.0.0 PORT=3200 nuxt start",
     "build": "nuxt build",
     "start": "nuxt start",
+    "serve": "serve dist --listen=3000",
     "start-dev": "nuxt start --port 3020",
     "start-pm2": "pm2 start npm --name 'dist' -- run start",
     "generate": "nuxt generate",
-    "deploy": "gh-pages -d dist"
+    "add-domain": "echo \"eodiro.com\" > dist/CNAME",
+    "deploy": "gh-pages -d dist",
+    "dist": "yarn build && yarn add-domain && yarn deploy"
   },
   "repository": {
     "type": "git",
