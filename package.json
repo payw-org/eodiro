@@ -14,7 +14,7 @@
     "generate": "nuxt generate",
     "add-domain": "echo \"eodiro.com\" > dist/CNAME",
     "deploy": "gh-pages -d dist",
-    "dist": "yarn build && yarn add-domain && yarn deploy"
+    "dist": "npm run build && npm run deploy"
   },
   "repository": {
     "type": "git",
