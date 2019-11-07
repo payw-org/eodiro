@@ -1,4 +1,3 @@
-import Cookie from 'cookie'
 import JsCookie from 'js-cookie'
 
 /**
@@ -69,19 +68,5 @@ export const mutations = {
     if (index !== -1) {
       state.cachedComponents.splice(index, 1)
     }
-  }
-}
-
-export const actions = {
-  /**
-   * Runs on server at first
-   */
-  nuxtServerInit({ commit }, { req }) {
-    // set color scheme using cookie
-    const cookies =
-      req.headers && req.headers.cookie ? Cookie.parse(req.headers.cookie) : {}
-    const mode = cookies.color_scheme
-
-    commit('SET_COLOR_SCHEME', mode)
   }
 }
