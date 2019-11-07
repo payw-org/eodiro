@@ -48,7 +48,7 @@ export default (context) => {
 
   // Language cookie available
   const routeName = route.name
-  if (routeName !== undefined) {
+  if (routeName) {
     if (routeName.endsWith('___en')) {
       // Visit english url page
       if (redirectLang !== 'en') {
