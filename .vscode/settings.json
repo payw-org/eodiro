@@ -20,5 +20,6 @@
   "vetur.completion.tagCasing": "initial",
   "vetur.format.defaultFormatter.html": "prettier",
   "files.insertFinalNewline": true,
-  "editor.formatOnPaste": true
+  "javascript.suggest.completeJSDocs": false,
+  "typescript.suggest.completeJSDocs": false
 }

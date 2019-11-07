@@ -15,11 +15,10 @@
   </svg>
 </template>
 
-<script lang="ts">
-import Vue from 'vue'
+<script>
 import icon from '~/mixins/icon'
 
-export default Vue.extend({
+export default {
   mixins: [icon]
-})
+}
 </script>

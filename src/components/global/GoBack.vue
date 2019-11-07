@@ -1,6 +1,10 @@
 <template>
   <transition name="fade">
-    <div v-show="prevRouteName" id="go-back" :class="{ hidden: isHidden }">
+    <div
+      v-show="prevRouteName"
+      id="go-back"
+      :class="{ hidden: isHidden }"
+    >
       <NuxtLink
         class="prev-link"
         :to="prevRouteName ? localePath(prevRouteName) : localePath('index')"

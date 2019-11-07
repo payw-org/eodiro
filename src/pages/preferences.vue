@@ -72,6 +72,9 @@ export default {
     }
   },
   methods: {
+    /**
+     * @param {'kr' | 'en'} lang
+     */
     switchLang(lang) {
       Cookies.set(CookieConfig.langCookieName, lang, { expires: 99999 })
       location.reload()

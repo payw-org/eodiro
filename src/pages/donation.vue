@@ -5,7 +5,10 @@
         <p class="manifesto">
           {{ $t('donation.manifesto') }}
         </p>
-        <div class="card" @click="copyToClipboard">
+        <div
+          class="card"
+          @click="copyToClipboard"
+        >
           <div class="card-info">
             <div class="bank">
               <img

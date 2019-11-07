@@ -1,3 +1,4 @@
 export default {
-  langCookieName: 'eodiro_lang'
+  langCookieName: 'eodiro_lang',
+  colorSchemeCookieName: 'color_scheme'
 }

@@ -274,8 +274,8 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
           opacity: 0;
         }
 
-        &.background--signin,
-        &.background--signup {
+        &.background--sign-in,
+        &.background--sign-up {
           background-image: linear-gradient(to bottom, #987eff, #5f14be);
         }
         &.background--home {
@@ -417,8 +417,8 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
         }
       }
 
-      &.hamlet--signin,
-      &.hamlet--signup {
+      &.hamlet--sign-in,
+      &.hamlet--sign-up {
         .icon {
           @include bgImg('~assets/images/key-white.svg', center, '75%');
 

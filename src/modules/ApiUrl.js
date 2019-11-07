@@ -3,10 +3,13 @@
  * @license MIT
  */
 
-type AvailableChannels = 'alpha' | 'beta'
-
 export default class ApiUrl {
-  static get(channel: AvailableChannels, version: number, location: string) {
+  /**
+   * @param {'alpha' | 'beta'} channel
+   * @param {number} version
+   * @param {string} location
+   */
+  static get(channel, version, location) {
     if (channel === undefined) {
       console.error('ApiUrl: No channel specified')
       return ''

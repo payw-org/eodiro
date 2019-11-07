@@ -17,7 +17,10 @@
         <span class="acc-arrow" />
       </div>
     </div>
-    <div ref="accContentContainer" class="acc-content-container">
+    <div
+      ref="accContentContainer"
+      class="acc-content-container"
+    >
       <div class="wrapper">
         <slot name="content" />
       </div>

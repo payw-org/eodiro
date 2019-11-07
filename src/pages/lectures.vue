@@ -17,7 +17,10 @@
             autocorrect="off"
           />
         </div>
-        <Button class="filter-button" @click="filterIsFold = !filterIsFold">
+        <Button
+          class="filter-button"
+          @click="filterIsFold = !filterIsFold"
+        >
           {{ $t('searchClass.filterButtonMsg') }}
         </Button>
       </div>
@@ -29,10 +32,16 @@
       />
       <transition name="filter-fold">
         <div class="filter-category-wrapper">
-          <div v-if="!filterIsFold" class="filter-category-container">
+          <div
+            v-if="!filterIsFold"
+            class="filter-category-container"
+          >
             <transition name="filter-fold">
               <!-- sub category -->
-              <div v-if="mainCategoryIsUnfold" class="fc-category-sub">
+              <div
+                v-if="mainCategoryIsUnfold"
+                class="fc-category-sub"
+              >
                 <div
                   v-if="noFilterIsPossible"
                   class="fc-item"
@@ -262,8 +271,7 @@ export default {
         'ㅎ'
       ]
       for (let i = 0; i < oneList.length; i++) {
-        if (this.searchClassState.search.word.includes(oneList[i]) === true)
-          return
+        if (this.searchClassState.search.word.includes(oneList[i]) === true) { return }
       }
       this.searchClassState.filter.isChange = false
       this.searchClassState.search.page = 0
@@ -272,10 +280,11 @@ export default {
       axiosForm.method = 'patch'
       axiosForm.data = this.searchClassState
       axios(axiosForm).then((res) => {
-        if (this.searchClassState.search.word === res.data.search.word)
+        if (this.searchClassState.search.word === res.data.search.word) {
           this.searchClassList = this.refineSearchClassList(
             res.data.search.result
           )
+        }
       })
     }
   },
