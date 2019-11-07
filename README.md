@@ -46,7 +46,7 @@ You can leave an issue/pull request here or send us an email to support@eodiro.c
 
 MIT License
 
-Copyright (c) 2019-current PAYW™
+Copyright (c) 2019-current PAYW
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
