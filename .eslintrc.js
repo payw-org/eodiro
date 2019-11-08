@@ -42,6 +42,7 @@ module.exports = {
           allowFirstLine: false
         }
       }
-    ]
+    ],
+    'no-extra-semi': [0]
   }
 }
