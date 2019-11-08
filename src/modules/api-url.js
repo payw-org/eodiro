@@ -3,33 +3,23 @@
  * @license MIT
  */
 
-export default class ApiUrl {
-  /**
-   * @param {'alpha' | 'beta'} channel
-   * @param {number} version
-   * @param {string} location
-   */
-  static get(channel, version, location) {
-    if (channel === undefined) {
-      console.error('ApiUrl: No channel specified')
-      return ''
-    }
+const localHost = 'http://localhost:4000'
+const serverHost = 'https://api2.eodiro.com'
 
-    if (version === undefined) {
-      console.error('ApiUrl: No version specified')
-      return ''
-    }
+/** @type {string} */
+let host = localHost
 
-    const protocol = 'https'
-    const host = 'api.eodiro.com'
+if (process.env.NODE_ENV === 'development') {
+  host = localHost
+} else {
+  host = serverHost
+}
 
-    // Trim starting '/' if possible
-    location = location.replace(/^\//g, '')
-
-    if (channel === 'alpha') {
-      return `${protocol}://alpha.${host}/v${version}/${location}`
-    } else {
-      return `${protocol}://${host}/v${version}/${location}`
-    }
+export default {
+  user: {
+    signIn: `${host}/auth/sign-in`,
+    signUp: `${host}/auth/sign-up`,
+    signOut: `${host}/auth/sign-out`,
+    verify: `${host}/auth/verify`
   }
 }
