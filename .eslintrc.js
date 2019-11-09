@@ -43,6 +43,7 @@ module.exports = {
         }
       }
     ],
-    'no-extra-semi': [0]
+    'no-extra-semi': [0],
+    'no-unused-vars': [1]
   }
 }
