@@ -5,7 +5,7 @@ export default {
   },
   error: {
     page: {
-      firstLine: 'Oh my god...',
+      firstLine: 'Oops...',
       secondLine: 'This page does not exist.',
       goHome: 'Go Home'
     },

@@ -1,44 +1,100 @@
 <template>
   <div class="eodiro-auth-common-form">
     <div class="input-box">
+      <!-- Portal ID input -->
       <input
+        ref="portalIdInput"
         v-model="inputs.portalId"
-        type="text"
+        type="email"
         :placeholder="$t('auth.portalId')"
-        class="input-id"
+        :disabled="isValidating"
+        class="input-id entry"
+        @keydown="handleKeydown"
+        @keypress.enter="enterPortalId"
+        @input="validatePi"
+        @focus="resetSignInFail"
       />
+      <p
+        v-if="isSignUp && !piInfo.isValid && inputs.portalId.length > 0"
+        class="error-msg"
+      >
+        사용할 수 없는 아이디입니다
+      </p>
+
+      <!-- Nickname input -->
       <input
         v-if="isSignUp"
+        ref="nicknameInput"
         v-model="inputs.nickname"
         type="text"
+        class="input-nickname entry"
         :placeholder="$t('auth.nickname')"
-        @input="refineNickname"
+        :disabled="isValidating"
+        @keydown="handleKeydown"
+        @keypress.enter="enterNickname"
+        @input="validateNn"
       />
+      <p
+        v-if="isSignUp && !nnInfo.isValid && inputs.nickname.length > 0"
+        class="error-msg"
+      >
+        사용할 수 없는 닉네임입니다
+      </p>
+
+      <!-- Password input -->
       <input
+        ref="passwordInput"
         v-model="inputs.password"
         type="password"
         :placeholder="$t('auth.password')"
-        class="input-pw"
+        :disabled="isValidating"
+        class="input-pw entry"
+        @keypress.enter="enterPassword"
+        @input="validatePw"
+        @focus="resetSignInFail"
       />
+      <p
+        v-if="isSignUp && !pwInfo.isValid && inputs.password.length > 0"
+        class="error-msg"
+      >
+        사용할 수 없는 패스워드입니다
+      </p>
+
       <div v-if="isSignUp">
+        <!-- Password confirmation input -->
         <input
+          ref="passwordConfirmInput"
           v-model="inputs.passwordConfirm"
           type="password"
           :placeholder="$t('auth.passwordConfirm')"
-          class="input-pw-confirm"
+          :disabled="isValidating"
+          class="input-pw-confirm entry"
           @input="validatePasswordMatch"
+          @keypress.enter="enterPasswordConfirm"
         />
         <p
-          v-if="!isPwValidated && inputs.passwordConfirm.length > 0"
-          class="diff-pw-msg"
+          v-if="!isPwSame && inputs.passwordConfirm.length > 0"
+          class="error-msg"
         >
-          패스워드가 다릅니다.
+          패스워드가 일치하지 않습니다.
         </p>
       </div>
-      <Button full class="process-btn" @click="process">
+
+      <!-- Sign in failed message -->
+      <p v-if="isSignInFailed" class="error-msg">
+        아이디 또는 패스워드를 확인해주세요.
+      </p>
+
+      <Button
+        full
+        class="process-btn entry"
+        :disabled="isValidating"
+        @click="process"
+      >
         <span v-if="isSignUp">{{ $t('auth.signUp') }}</span>
         <span v-else>{{ $t('auth.signIn') }}</span>
       </Button>
+
       <NuxtLink v-if="isSignUp" class="redirect" :to="localePath('sign-in')">
         {{ $t('auth.signIn') }}
       </NuxtLink>
@@ -52,9 +108,15 @@
 <script>
 import Axios from 'axios'
 import { Button } from '~/components/ui'
+import ApiUrl from '~/modules/api-url'
+import Auth from '~/modules/auth'
+import handleInputEnter from './handle-input-enter'
+import handleInput from './handle-input'
+import requireUnauth from '~/mixins/require-unauth'
 
 export default {
   components: { Button },
+  mixins: [handleInputEnter, handleInput, requireUnauth],
   props: {
     form: {
       type: String,
@@ -73,7 +135,9 @@ export default {
         passwordConfirm: ''
       },
       pwTimeout: 0,
-      isPwValidated: true
+      isPwSame: true,
+      isValidating: false,
+      isSignInFailed: false
     }
   },
   computed: {
@@ -82,7 +146,22 @@ export default {
     }
   },
   methods: {
-    refineNickname() {
+    resetSignInFail() {
+      this.isSignInFailed = false
+    },
+    /**
+     * Prevent typing space character
+     * @param {KeyboardEvent} e
+     */
+    handleKeydown(e) {
+      if (e.key === ' ') {
+        e.preventDefault()
+      }
+    },
+    /**
+     * @param {InputEvent} e
+     */
+    refineNickname(e) {
       this.inputs.nickname = this.inputs.nickname.replace(/\s/g, '')
     },
     validatePasswordMatch() {
@@ -91,27 +170,88 @@ export default {
       }
       this.pwTimeout = window.setTimeout(() => {
         if (this.inputs.password === this.inputs.passwordConfirm) {
-          this.isPwValidated = true
+          this.isPwSame = true
         } else {
-          this.isPwValidated = false
+          this.isPwSame = false
         }
-      }, 500)
+      }, 300)
     },
+    /**
+     * Process sign in or sign up
+     */
     process() {
       if (this.isSignUp) {
+        this.validatePi()
+        this.validateNn()
+        this.validatePw()
+
+        if (
+          !this.inputs.portalId.length === 0 ||
+          !this.inputs.nickname.length === 0 ||
+          !this.inputs.password.length === 0 ||
+          !this.isPwSame ||
+          !this.piInfo.isValid ||
+          !this.nnInfo.isValid ||
+          !this.pwInfo.isValid
+        ) {
+          alert('조건을 한 번 더 확인해주세요')
+          return
+        }
+
+        // Start validation from server
+        this.isValidating = true
+
+        // Sign Up
         const { portalId, password, nickname } = this.inputs
         Axios({
-          url: 'https://api2.eodiro.com/auth/sign-up',
-          method: 'post',
+          ...ApiUrl.user.signUp,
           data: { portalId, password, nickname }
         })
+          .then((res) => {
+            // Sign up success
+            alert(
+              '회원가입이 완료되었습니다.\nCAU 포탈에서 인증 메일을 확인해주세요!'
+            )
+            location.replace('/')
+          })
+          .catch((err) => {
+            if (!err.response) {
+              console.error('❌ API server network error')
+            } else {
+              alert('조건을 한 번 더 확인해주세요')
+            }
+          })
+          .finally(() => {
+            // Restore validating state
+            this.isValidating = false
+          })
       } else {
+        // Sign In
         const { portalId, password } = this.inputs
         Axios({
-          url: 'https://api2.eodiro.com/auth/sign-in',
-          method: 'get',
+          url: ApiUrl.user.signIn.url,
+          method: ApiUrl.user.signIn.method,
           data: { portalId, password }
         })
+          .then((res) => {
+            // Sign in success
+            const { data } = res
+            Auth.setJwt(data.accessToken, data.refreshToken)
+            location.replace('/')
+          })
+          .catch((err) => {
+            if (!err.response) {
+              console.error('❌ API server network error')
+              return
+            }
+
+            if (err.response.status === 401) {
+              this.isSignInFailed = true
+            }
+          })
+          .finally(() => {
+            this.isValidating = false
+          })
       }
     }
   }
@@ -125,24 +265,13 @@ export default {
   max-width: 20rem;
   margin: auto;
 
-  input {
+  .entry {
     text-align: center;
-    margin-bottom: s(3);
-  }
-
-  .input-pw-confirm {
-    margin-bottom: 0;
-  }
-
-  .diff-pw-msg {
-    margin-top: s(1);
-    margin-bottom: s(3);
-    text-align: center;
-    color: red;
-  }
-
-  .process-btn {
     margin-top: s(3);
+
+    &.input-id {
+      margin-top: 0;
+    }
   }
 
   .redirect {
@@ -157,6 +286,12 @@ export default {
     @include dark-mode {
       color: #987eff;
     }
+  }
+
+  .error-msg {
+    color: #ff1f50;
+    padding-top: s(2);
+    text-align: center;
   }
 }
 </style>

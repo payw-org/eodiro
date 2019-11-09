@@ -1,5 +1,6 @@
 import JsCookie from 'js-cookie'
 import CookieConfig from '~~/config/cookie'
+import Auth from '~/modules/auth'
 const { langCookieName, colorSchemeCookieName } = CookieConfig
 
 /**
@@ -25,7 +26,7 @@ function getRedirectPath(currentPath, lang) {
 /**
  * @param {import('@nuxt/types').Context} context
  */
-export default (context) => {
+export default async (context) => {
   const { store, app, route, redirect } = context
 
   const pathnameQueryString = location.pathname + location.search
@@ -48,7 +49,7 @@ export default (context) => {
 
   // Language cookie available
   const routeName = route.name
-  if (routeName !== undefined) {
+  if (routeName) {
     if (routeName.endsWith('___en')) {
       // Visit english url page
       if (redirectLang !== 'en') {
@@ -73,7 +74,7 @@ export default (context) => {
   // When the single page app is loaded further down in this file,
   // the correct url will be waiting in the browser's history for
   // the single page app to route accordingly.
-  (function(l) {
+  ;(function(l) {
     if (l.search) {
       var q = {}
       l.search
@@ -133,4 +134,12 @@ export default (context) => {
   // Assign topbar to window
   const topbar = require('~/modules/topbar').default
   window.topbar = topbar
+
+  // Authorization
+  const isSignedIn = await Auth.isSignedIn()
+  if (isSignedIn) {
+    store.commit('SET_SIGNED_IN', true)
+  } else {
+    store.commit('SET_SIGNED_IN', false)
+  }
 }
