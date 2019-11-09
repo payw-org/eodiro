@@ -17,9 +17,51 @@ if (process.env.NODE_ENV === 'development') {
 
 export default {
   user: {
-    signIn: `${host}/auth/sign-in`,
-    signUp: `${host}/auth/sign-up`,
-    signOut: `${host}/auth/sign-out`,
-    verify: `${host}/auth/verify`
+    signIn: {
+      method: 'post',
+      url: `${host}/auth/sign-in`
+    },
+    signUp: {
+      method: 'post',
+      url: `${host}/auth/sign-up`
+    },
+    signOut: {
+      method: 'post',
+      usl: `${host}/auth/sign-out`
+    },
+    verify: {
+      method: 'post',
+      url: `${host}/auth/verify`
+    },
+    validatePi: {
+      method: 'post',
+      url: `${host}/auth/validate/portal-id`
+    },
+    validateNn: {
+      method: 'post',
+      url: `${host}/auth/validate/nickname`
+    },
+    validatePw: {
+      method: 'post',
+      url: `${host}/auth/validate/password`
+    },
+    isSignedIn: {
+      method: 'post',
+      url: `${host}/auth/is-signed-in`
+    },
+    refreshToken: {
+      method: 'post',
+      url: `${host}/auth/refresh-token`
+    }
+  },
+  peperoSquare: {
+    getPosts: {
+      method: 'get',
+      url: `${host}/pepero-square/posts`
+    },
+    uploadPost: {
+      method: 'post',
+      url: `${host}/pepero-square/posts`
+    }
   }
 }
