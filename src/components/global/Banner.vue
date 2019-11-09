@@ -278,6 +278,9 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
         &.background--sign-up {
           background-image: linear-gradient(to bottom, #987eff, #5f14be);
         }
+        &.background--me {
+          background-image: linear-gradient(to bottom, #987eff, #5f14be);
+        }
         &.background--home {
           background-image: linear-gradient(to bottom, $c-step--3, $c-step--4);
         }
@@ -424,6 +427,16 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 
           @include dark-mode {
             @include bgImg('~assets/images/key.svg', center, '75%');
+          }
+        }
+      }
+
+      &.hamlet--me {
+        .icon {
+          @include bgImg('~assets/images/man-white.svg', center, '75%');
+
+          @include dark-mode {
+            @include bgImg('~assets/images/man.svg', center, '75%');
           }
         }
       }
