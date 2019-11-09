@@ -34,8 +34,13 @@ export const state = () => ({
     'opensource',
     'preferences',
     'sign-in',
-    'sign-up'
-  ]
+    'sign-up',
+    'me'
+  ],
+  auth: {
+    isSignedIn: false,
+    userId: undefined
+  }
 })
 
 export const mutations = {
@@ -68,5 +73,11 @@ export const mutations = {
     if (index !== -1) {
       state.cachedComponents.splice(index, 1)
     }
+  },
+  /**
+   * @param {boolean} bool
+   */
+  SET_SIGNED_IN(state, bool) {
+    state.auth.isSignedIn = bool
   }
 }
