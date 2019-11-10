@@ -166,9 +166,12 @@ export default {
             }
           })
           .catch((err) => {
-            if (err.response && err.response.status === 500) {
+            if (
+              !err.response ||
+              (err.response && err.response.status === 500)
+            ) {
               alert(
-                '서버에 문제가 발생했습니다.\n문제가 지속될 시 contact@payw.org로 연락주세요!'
+                '서버에 문제가 발생해 데이터를 로드하지 못했습니다.\n문제가 지속될 시 contact@payw.org로 연락주세요!'
               )
             }
           })
