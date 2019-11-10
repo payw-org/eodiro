@@ -9,7 +9,9 @@ export default {
       secondLine: 'This page does not exist.',
       goHome: 'Go Home'
     },
-    dataSendError: 'Failed to send data.'
+    dataSendError: 'Failed to send data.',
+    networkError:
+      'Could not connect to the server.\nLeave an inquiry if this problems occur repeatedly.'
   },
   dataFetchError:
     'Failed to load data. If it happens consistently, please leave us an inquiry.',
@@ -21,13 +23,15 @@ export default {
     second: 'sec',
     now: 'now',
     ago: 'ago',
-    yesterday: 'yesterday',
-    today: 'today',
-    tomorrow: 'tomorrow'
+    yesterday: 'Yesterday',
+    today: 'Today',
+    tomorrow: 'Tomorrow'
   },
-  upload: 'upload',
+  upload: 'Upload',
   nav: {
-    prev: 'previous',
-    next: 'next'
-  }
+    prev: 'Previous',
+    next: 'Next'
+  },
+  loading: 'Loading',
+  requireAuth: 'You need to sign in to use this feature.'
 }

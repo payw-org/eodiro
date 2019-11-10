@@ -1,5 +1,5 @@
 export default {
-  title: 'Community',
+  title: 'Pepero Square',
   posts: 'Posts',
   comments: 'Comments',
   noComments: 'No comments',
@@ -10,5 +10,6 @@ export default {
       title: 'Title',
       body: 'Body'
     }
-  }
+  },
+  loading: 'Loading'
 }
