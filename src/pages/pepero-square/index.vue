@@ -6,10 +6,7 @@
       </h1>
       <button class="new-post-btn">
         +
-        <NuxtLink
-          :to="localePath('pepero-square-new')"
-          class="absolute-link"
-        />
+        <NuxtLink :to="localePath('pepero-square-new')" class="absolute-link" />
       </button>
     </div>
     <div class="posts-list">
@@ -17,8 +14,19 @@
         v-for="item in posts"
         :key="item.id"
         :post-data="item"
+        @click.native="showTopbar"
       />
     </div>
+
+    <p v-if="!isLoadingMore && posts.length === 0" class="message">
+      포스트가 없습니다.
+    </p>
+    <p v-if="isLoadingMore" class="message">
+      {{ `🚀 ${$t('global.loading')}...` }}
+    </p>
+    <p v-if="isEnd && posts.length > 0" class="message">
+      더 이상 포스트가 없습니다.
+    </p>
   </div>
 </template>
 
@@ -27,6 +35,9 @@ import { CEM } from '~/modules/custom-event-manager'
 import pageBase from '~/mixins/page-base'
 import PostItem from '~/components/pepero-square/PostItem'
 import autohead from '~/modules/autohead'
+import Axios from 'axios'
+import apiUrl from '~/modules/api-url'
+import EodiroDialog from '~/modules/eodiro-dialog'
 
 export default {
   name: 'pepero-square-index',
@@ -35,26 +46,137 @@ export default {
   head() {
     return {
       title: this.$t('peperoSquare.title'),
-      meta: [...autohead(this.$t('peperoSqaure.title'))]
+      meta: [...autohead(this.$t('peperoSquare.title'))]
     }
   },
-  asyncData() {
+  data() {
     return {
-      posts: require('~/assets/data/pepero-square-posts').default.data
+      posts: [],
+      isLoadingMore: false,
+      isFetchingRecent: false,
+      isEnd: false,
+      fetchingInterval: null
     }
   },
-  activated() {
+  mounted() {
     CEM.addEventListener('scrollended', this.$el, () => {
-      // this.loadMore()
+      const lastPost = this.posts[this.posts.length - 1]
+
+      if (!lastPost) {
+        return
+      }
+
+      const lastPostId = lastPost.id
+
+      if (lastPostId > 0) {
+        this.loadPosts(lastPostId - 1, 20)
+      }
     })
   },
+  beforeMount() {
+    this.loadPosts(null, 20)
+    this.startFetchingRecent()
+  },
+  beforeDestroy() {
+    this.stopFetchingRecent()
+  },
+  activated() {
+    this.startFetchingRecent()
+  },
+  deactivated() {
+    this.stopFetchingRecent()
+  },
   methods: {
-    // loadMore(fromId, number) {
-    //   console.log('Load more', fromId, number)
-    // },
-    // publishNewPost(postData) {
-    //   // AJAX
-    // }
+    startFetchingRecent() {
+      if (this.fetchingInterval) {
+        this.stopFetchingRecent()
+      }
+
+      this.fetchRecentPosts()
+      this.fetchingInterval = setInterval(() => {
+        this.fetchRecentPosts()
+      }, 5000)
+    },
+    stopFetchingRecent() {
+      clearInterval(this.fetchingInterval)
+    },
+    fetchRecentPosts() {
+      const mostRecentPost = this.posts[0]
+
+      if (!mostRecentPost || this.isFetchingRecent) {
+        return
+      }
+
+      this.isFetchingRecent = true
+
+      const mostRecentPostId = mostRecentPost.id
+
+      Axios({
+        ...apiUrl.peperoSquare.getRecentPosts,
+        params: {
+          from: mostRecentPostId + 1
+        }
+      })
+        .then((res) => {
+          const { data } = res
+
+          if (data.length > 0) {
+            this.posts = [...data, ...this.posts]
+            // alert('새로운 포스트가 업데이트되었습니다.')
+            new EodiroDialog().vagabond(
+              '📦 새로운 포스트가 업데이트되었습니다.'
+            )
+          }
+        })
+        .catch((err) => {
+          console.error(err)
+        })
+        .finally(() => {
+          this.isFetchingRecent = false
+        })
+    },
+    /**
+     * @param {number} from
+     * @param {number} quantity
+     */
+    loadPosts(from, quantity) {
+      if (this.isEnd || this.isLoadingMore) {
+        return
+      }
+
+      this.isLoadingMore = true
+
+      setTimeout(() => {
+        Axios({
+          ...apiUrl.peperoSquare.getPosts,
+          params: {
+            from,
+            quantity
+          }
+        })
+          .then((res) => {
+            const { data } = res
+
+            window.scrollTo(0, window.scrollY - 1)
+
+            if (data.length === 0) {
+              this.isEnd = true
+            } else {
+              this.posts.push(...data)
+            }
+          })
+          .catch((err) => {
+            if (err.response && err.response.status === 500) {
+              alert(
+                '서버에 문제가 발생했습니다.\n문제가 지속될 시 contact@payw.org로 연락주세요!'
+              )
+            }
+          })
+          .finally(() => {
+            this.isLoadingMore = false
+          })
+      }, 500)
+    }
   }
 }
 </script>
@@ -89,6 +211,14 @@ export default {
       border-radius: r(3);
       user-select: none;
     }
+  }
+
+  .message {
+    text-align: center;
+    margin-top: s(6);
+    // padding: s(3);
+    // border-radius: r(3);
+    // @include elm-fill;
   }
 }
 </style>

@@ -2,9 +2,9 @@
   <div id="post-details">
     <div class="post-wrapper">
       <div class="post">
-        <span class="at">{{ postData.at }}</span>
+        <span class="at">{{ uploadedAt }}</span>
         <h2 class="author">
-          {{ postData.author }}
+          {{ postData.random_nickname }}
         </h2>
         <h1 class="title">
           {{ postData.title }}
@@ -12,102 +12,83 @@
         <p class="body">
           {{ postData.body }}
         </p>
-        <div class="actions">
+        <!-- <div class="actions">
           <button
             class="like"
             :class="{ fill: postData.isLiked }"
             @click="toggleLike"
           />
-        </div>
+        </div> -->
       </div>
     </div>
 
-    <div class="comments-container">
-      <h2 class="comment-header">
-        {{ $t('peperoSquare.comments') }}
-      </h2>
-
-      <div class="comment-item-container">
-        <div
-          v-for="comment in comments"
-          :key="comment.id"
-          class="comment-item"
-        >
-          <p class="author">
-            {{ comment.author }}
-          </p>
-          <p class="body">
-            {{ comment.body }}
-          </p>
-        </div>
-
-        <div
-          v-if="comments.length === 0"
-          class="no-comments"
-        >
-          <p>
-            {{ $t('peperoSquare.noComments') }}
-          </p>
-        </div>
-
-        <NewComment @leaveNewComment="leaveNewComment" />
-      </div>
-    </div>
+    <Comments :post-id="postData.id" />
   </div>
 </template>
 
 <script>
-import { LoremIpsum } from 'lorem-ipsum'
 import dayjs from 'dayjs'
-// import axios from 'axios'
+import Axios from 'axios'
 import pageBase from '~/mixins/page-base'
-import NewComment from '~/components/pepero-square/NewComment'
-// import { CEM } from '~/modules/custom-event-manager'
-
-const lorem = new LoremIpsum()
+import apiUrl from '~/modules/api-url'
+import Auth from '~/modules/auth'
+import requireAuth from '~/mixins/require-auth'
+import Comments from '~/components/pepero-square/Comments'
 
 export default {
   name: 'pepero-square-post-id',
-  components: { NewComment },
-  mixins: [pageBase],
+  components: { Comments },
+  mixins: [pageBase, requireAuth],
   data() {
     return {
-      lastCommentId: 0
+      lastCommentId: 0,
+      postData: {},
+      comments: []
     }
   },
-  asyncData({ route }) {
-    // axios({
-    //   method: 'get',
-    //   url: ''
-    // }).then((response) => {
-    //   return response.data
-    // }).catch(() => {
-    //   redirect(app.localePath('not-found'))
-    // })
-    return {
-      postData: {
-        id: route.params.postId,
-        at: dayjs().format('YYYY. MM. DD. HH:mm'),
-        title: lorem.generateSentences(1),
-        body: lorem.generateParagraphs(2),
-        author: lorem.generateWords(1),
-        isLiked: false
+  computed: {
+    uploadedAt() {
+      return dayjs(this.postData.uploaded_at).format('YYYY. MM. DD. HH:mm')
+    }
+  },
+  asyncData({ route, app }) {
+    return Axios({
+      ...apiUrl.peperoSquare.getAPost,
+      params: {
+        postId: route.params.postId
       },
-      comments: Array.from({ length: Math.floor(Math.random() * 10) }, (i) => {
+      headers: {
+        accessToken: Auth.getAccessToken()
+      }
+    })
+      .then((res) => {
         return {
-          id: i,
-          author: lorem.generateWords(1),
-          body: lorem.generateSentences(1)
+          postData: res.data
         }
       })
-    }
+      .catch(() => {
+        alert(app.i18n.t('global.error.networkError'))
+      })
+  },
+  created() {
+    this.loadPost()
   },
   methods: {
     toggleLike() {
       this.postData.isLiked = !this.postData.isLiked
     },
-    loadData() {
-      // AJAX again from comment id of lastly loaded
+    loadPost() {
+      // Axios({
+      //   ...apiUrl.peperoSquare.getAPost,
+      //   params: {
+      //     postId: this.$route.params.postId
+      //   },
+      //   headers: {
+      //     accessToken: Auth.getAccessToken()
+      //   }
+      // }).then((res) => {
+      //   this.postData = res.data
+      // })
     },
     leaveNewComment(commentData) {
       this.comments.push(commentData)
@@ -149,9 +130,11 @@ export default {
 
       .title {
         margin-top: s(2);
+        font-size: h(5);
       }
 
       .body {
+        font-size: b(3);
         margin-top: s(4);
       }
 
@@ -173,45 +156,6 @@ export default {
           }
         }
       }
-    }
-  }
-
-  .comments-container {
-    margin-top: s(6);
-
-    .comment-header {
-      @include bg;
-      padding: s(3) 0;
-      border-bottom: solid;
-      @include separator;
-      position: sticky;
-      top: $nav-height;
-    }
-
-    .comment-item {
-      padding: s(3) s(1);
-      border-bottom: solid;
-      @include separator;
-
-      &:last-child {
-        margin-bottom: 0;
-      }
-
-      .author {
-        line-height: lh(1);
-        margin-bottom: s(2);
-        font-weight: fw(5);
-      }
-
-      .body {
-        line-height: lh(2);
-        color: $base-gray;
-      }
-    }
-
-    .no-comments {
-      padding: s(4) 0;
-      text-align: center;
     }
   }
 }
