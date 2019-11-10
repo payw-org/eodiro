@@ -212,11 +212,12 @@ export default {
             alert(
               '회원가입이 완료되었습니다.\nCAU 포탈에서 인증 메일을 확인해주세요!'
             )
-            location.replace('/')
+            this.$router.replace(this.localePath('index'))
           })
           .catch((err) => {
             if (!err.response) {
               console.error('❌ API server network error')
+              alert(this.$t('global.error.networkError'))
             } else {
               alert('조건을 한 번 더 확인해주세요')
             }
@@ -237,11 +238,13 @@ export default {
             // Sign in success
             const { data } = res
             Auth.setJwt(data.accessToken, data.refreshToken)
-            location.replace('/')
+            this.$store.commit('SET_SIGNED_IN', true)
+            this.$router.replace(this.localePath('index'))
           })
           .catch((err) => {
             if (!err.response) {
               console.error('❌ API server network error')
+              alert(this.$t('global.error.networkError'))
               return
             }
 
