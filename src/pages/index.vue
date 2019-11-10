@@ -4,7 +4,8 @@
       <div class="page-content">
         <Grid class="menu-item-container">
           <ArrowBlock
-            class="menu-item-wrapper disabled"
+            v-if="!$store.state.auth.isSignedIn"
+            class="menu-item-wrapper"
             :link="localePath('sign-in').replace(/\/$/, '')"
           >
             <template v-slot:icon>
@@ -15,8 +16,24 @@
             </template>
           </ArrowBlock>
 
+          <ArrowBlock
+            v-else
+            class="menu-item-wrapper"
+            :link="localePath('me').replace(/\/$/, '')"
+          >
+            <template v-slot:icon>
+              <span class="icon icon--me" />
+            </template>
+            <template v-slot:content>
+              <span class="content">마이페이지</span>
+            </template>
+          </ArrowBlock>
+
           <!-- Pepero Square -->
-          <ArrowBlock class="menu-item-wrapper disabled">
+          <ArrowBlock
+            class="menu-item-wrapper"
+            :link="localePath('pepero-square').replace(/\/$/, '')"
+          >
             <template v-slot:icon>
               <span class="icon icon--pepero-square" />
             </template>
@@ -173,6 +190,14 @@ export default {
 
         @include dark-mode {
           background-image: url('~assets/images/home/home-menu-icon-key-black.svg');
+        }
+      }
+
+      .icon--me {
+        background-image: url('~assets/images/home/home-menu-icon-me.svg');
+
+        @include dark-mode {
+          background-image: url('~assets/images/home/home-menu-icon-me-black.svg');
         }
       }
 
