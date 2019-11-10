@@ -11,15 +11,15 @@
 </template>
 
 <script>
-import requireAuth from '~/mixins/require-auth'
 import pageBase from '~/mixins/page-base'
 import Button from '~/components/ui/basic/Button'
 import Auth from '~/modules/auth'
 
 export default {
   name: 'me',
+  middleware: 'require-auth',
   components: { Button },
-  mixins: [pageBase, requireAuth],
+  mixins: [pageBase],
   methods: {
     signOut() {
       this.$store.commit('SET_SIGNED_IN', false)

@@ -31,15 +31,15 @@
 <script>
 import pageBase from '~/mixins/page-base'
 import { Button } from '~/components/ui'
-import requireAuth from '~/mixins/require-auth'
 import Axios from 'axios'
 import apiUrl from '~/modules/api-url'
 import Auth from '~/modules/auth'
 
 export default {
   name: 'pepero-square-new',
+  middleware: 'require-auth',
   components: { Button },
-  mixins: [pageBase, requireAuth],
+  mixins: [pageBase],
   data() {
     return {
       title: '',

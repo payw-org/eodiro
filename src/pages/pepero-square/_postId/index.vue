@@ -32,13 +32,13 @@ import Axios from 'axios'
 import pageBase from '~/mixins/page-base'
 import apiUrl from '~/modules/api-url'
 import Auth from '~/modules/auth'
-import requireAuth from '~/mixins/require-auth'
 import Comments from '~/components/pepero-square/Comments'
 
 export default {
   name: 'pepero-square-post-id',
   components: { Comments },
-  mixins: [pageBase, requireAuth],
+  middleware: 'require-auth',
+  mixins: [pageBase],
   data() {
     return {
       lastCommentId: 0,
@@ -51,7 +51,7 @@ export default {
       return dayjs(this.postData.uploaded_at).format('YYYY. MM. DD. HH:mm')
     }
   },
-  asyncData({ route, app }) {
+  asyncData({ route, app, store, redirect }) {
     return Axios({
       ...apiUrl.peperoSquare.getAPost,
       params: {
