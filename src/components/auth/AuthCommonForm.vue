@@ -210,7 +210,7 @@ export default {
           .then((res) => {
             // Sign up success
             alert(
-              '회원가입이 완료되었습니다.\nCAU 포탈에서 인증 메일을 확인해주세요!'
+              '회원가입이 완료되었습니다.\nCAU 포탈에서 인증 메일을 확인해주세요!\n인증 코드는 30분동안 유효합니다.'
             )
             this.$router.replace(this.localePath('index'))
           })

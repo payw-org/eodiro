@@ -4,7 +4,8 @@
 const options = {
   created() {
     if (!this.$store.state.auth.isSignedIn) {
-      location.replace('/')
+      alert(this.$t('global.requireAuth'))
+      this.$router.replace(this.localePath('sign-in'))
     }
   }
 }

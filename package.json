@@ -1,13 +1,13 @@
 {
   "name": "eodiro",
-  "version": "2.1.0-beta.1",
+  "version": "2.1.0-beta.2",
   "description": "CAU Utility Service",
   "scripts": {
     "dev": "cross-env HOST=0.0.0.0 PORT=3000 NODE_ENV=development nuxt",
     "dev-hcj": "cross-env HOST=0.0.0.0 PORT=3200 nuxt",
     "start-hcj": "HOST=0.0.0.0 PORT=3200 nuxt start",
     "build": "nuxt build",
-    "start": "nuxt start",
+    "start": "cross-env HOST=0.0.0.0 nuxt start",
     "serve": "serve dist --listen=3000",
     "start-dev": "nuxt start --port 3020",
     "start-pm2": "pm2 start npm --name 'dist' -- run start",
