@@ -72,7 +72,7 @@ export default {
           this.$store.commit('CACHE_COMPONENT', compName)
         })
       } else if (from.meta.depth >= to.meta.depth) {
-        // Route direction: backward
+        // Route direction: backward or same level
 
         // Cache destination components if not cached
         to.matched.forEach((matched) => {
