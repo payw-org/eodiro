@@ -59,9 +59,25 @@ export default {
       method: 'get',
       url: `${host}/pepero-square/posts`
     },
+    getRecentPosts: {
+      method: 'get',
+      url: `${host}/pepero-square/posts/recent`
+    },
+    getAPost: {
+      method: 'get',
+      url: `${host}/pepero-square/post`
+    },
     uploadPost: {
       method: 'post',
-      url: `${host}/pepero-square/posts`
+      url: `${host}/pepero-square/post`
+    },
+    getComments: {
+      method: 'get',
+      url: `${host}/pepero-square/posts/comments`
+    },
+    uploadComment: {
+      method: 'post',
+      url: `${host}/pepero-square/posts/comment`
     }
   }
 }
