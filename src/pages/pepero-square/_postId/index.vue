@@ -9,9 +9,7 @@
         <h1 class="title">
           {{ postData.title }}
         </h1>
-        <p class="body">
-          {{ postData.body }}
-        </p>
+        <p class="body" v-html="postBody" />
         <!-- <div class="actions">
           <button
             class="like"
@@ -33,6 +31,7 @@ import pageBase from '~/mixins/page-base'
 import apiUrl from '~/modules/api-url'
 import Auth from '~/modules/auth'
 import Comments from '~/components/pepero-square/Comments'
+import escapeHtml from '~/modules/escape-html'
 
 export default {
   name: 'pepero-square-post-id',
@@ -49,6 +48,9 @@ export default {
   computed: {
     uploadedAt() {
       return dayjs(this.postData.uploaded_at).format('YYYY. MM. DD. HH:mm')
+    },
+    postBody() {
+      return escapeHtml(this.postData.body).replace(/(?:\r\n|\r|\n)/g, '<br>')
     }
   },
   asyncData({ route, app, store, redirect }) {
