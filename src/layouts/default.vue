@@ -71,7 +71,7 @@ export default {
           const compName = matched.components.default.options.name
           this.$store.commit('CACHE_COMPONENT', compName)
         })
-      } else if (from.meta.depth > to.meta.depth) {
+      } else if (from.meta.depth >= to.meta.depth) {
         // Route direction: backward
 
         // Cache destination components if not cached

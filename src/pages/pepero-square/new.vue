@@ -7,16 +7,21 @@
       v-model="title"
       :placeholder="$t('peperoSquare.new.placeholder.title')"
       class="title-input"
+      :disabled="isWaiting"
+      @keypress.enter="enterOnTitle"
     />
     <textarea
+      ref="body"
       v-model="body"
       :placeholder="$t('peperoSquare.new.placeholder.body')"
       class="body-input"
+      :disabled="isWaiting"
     />
     <Button
       full
       class="publish-btn"
-      @click="publishNewPost"
+      :disabled="isWaiting"
+      @click="uploadNewPost"
     >
       {{ $t('global.upload') }}
     </Button>
@@ -26,21 +31,70 @@
 <script>
 import pageBase from '~/mixins/page-base'
 import { Button } from '~/components/ui'
+import requireAuth from '~/mixins/require-auth'
+import Axios from 'axios'
+import apiUrl from '~/modules/api-url'
+import Auth from '~/modules/auth'
 
 export default {
+  name: 'pepero-square-new',
   components: { Button },
-  mixins: [pageBase],
+  mixins: [pageBase, requireAuth],
   data() {
     return {
       title: '',
-      body: ''
+      body: '',
+      isWaiting: false
     }
   },
   methods: {
-    publishNewPost() {
-      // Create post data object
-      // const newPostData = {}
-      // AJAX
+    enterOnTitle() {
+      /** @type {HTMLTextAreaElement} */
+      const bodyTextArea = this.$refs.body
+      bodyTextArea.focus()
+    },
+    uploadNewPost() {
+      if (this.title.trim().length === 0) {
+        alert('제목을 입력하세요')
+        return
+      }
+
+      if (this.body.trim().length === 0) {
+        alert('내용을 입력하세요')
+        return
+      }
+
+      // Start waiting server response
+      this.isWaiting = true
+
+      Axios({
+        ...apiUrl.peperoSquare.uploadPost,
+        headers: {
+          accessToken: Auth.getAccessToken()
+        },
+        data: {
+          body: this.body,
+          title: this.title
+        }
+      })
+        .then((res) => {
+          alert('업로드되었습니다!')
+          const { postId } = res.data
+          this.$router.replace(
+            this.localePath({
+              name: 'pepero-square-postId',
+              params: {
+                postId
+              }
+            })
+          )
+        })
+        .catch(() => {
+          alert('업로드에 실패했습니다.')
+        })
+        .finally(() => {
+          this.isWaiting = false
+        })
     }
   }
 }

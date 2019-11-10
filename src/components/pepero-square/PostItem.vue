@@ -13,7 +13,7 @@
     <template v-slot:content>
       <div class="pi-content">
         <div class="pi-author">
-          {{ postData.author }}
+          {{ postData.random_nickname }}
         </div>
         <div class="pi-title">
           {{ postData.title }}
@@ -40,10 +40,12 @@ export default {
   },
   computed: {
     postedAt() {
-      let postedAt = dayjs(this.postData.at).format('YYYY. MM. DD. HH:mm')
+      let postedAt = dayjs(this.postData.uploaded_at).format(
+        'YYYY. MM. DD. HH:mm'
+      )
 
       const now = dayjs()
-      const atObj = dayjs(this.postData.at)
+      const atObj = dayjs(this.postData.uploaded_at)
 
       const secDiff = now.diff(atObj, 'second')
       if (secDiff < 10) {

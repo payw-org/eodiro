@@ -38,8 +38,7 @@ export const state = () => ({
     'me'
   ],
   auth: {
-    isSignedIn: false,
-    userId: undefined
+    isSignedIn: false
   }
 })
 

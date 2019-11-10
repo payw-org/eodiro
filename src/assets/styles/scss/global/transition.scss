@@ -95,6 +95,16 @@
   opacity: 0;
 }
 
+// Transitions
+.fold-enter-active,
+.fold-leave-active {
+  transition: height 0.3s ease, padding 0.3s ease;
+}
+.fold-enter, .fold-leave-to /* .fade-leave-active below version 2.1.8 */ {
+  height: 0 !important;
+  padding: 0 !important;
+}
+
 // template
 // .name-enter-active,
 // .name-leave-active {

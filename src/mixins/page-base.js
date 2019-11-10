@@ -34,6 +34,18 @@ const mixinOptions = {
       lastScrollPosition: 0
     }
   },
+  created() {
+    /**
+     * Nuxt.js injects automatically generated
+     * component name if a component doesn't have name.
+     * So the page-base' page transition may not work on distribution.
+     */
+    if (!this.$options.name) {
+      console.error(
+        '🏷 This page component has no name. You must set unique name.'
+      )
+    }
+  },
   mounted() {
     // Finish topbar when the data is completely loaded
     // and the page is mounted

@@ -276,10 +276,10 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 
         &.background--sign-in,
         &.background--sign-up {
-          background-image: linear-gradient(to bottom, #987eff, #5f14be);
+          background-image: linear-gradient(to bottom, #8a6cff, #5f14be);
         }
         &.background--me {
-          background-image: linear-gradient(to bottom, #987eff, #5f14be);
+          background-image: linear-gradient(to bottom, #8a6cff, #5f14be);
         }
         &.background--home {
           background-image: linear-gradient(to bottom, $c-step--3, $c-step--4);
