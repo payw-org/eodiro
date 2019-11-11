@@ -14,7 +14,7 @@ export default {
       meta: [...autohead(this.$t('auth.signUp'))]
     }
   },
-  name: 'signin',
+  name: 'sign-up',
   components: { AuthCommonForm },
   mixins: [pageBase]
 }
