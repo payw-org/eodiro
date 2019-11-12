@@ -1,3 +1,4 @@
+import Cookie from 'cookie'
 import JsCookie from 'js-cookie'
 
 /**
@@ -78,5 +79,19 @@ export const mutations = {
    */
   SET_SIGNED_IN(state, bool) {
     state.auth.isSignedIn = bool
+  }
+}
+
+export const actions = {
+  /**
+   * Run on server at first
+   */
+  nuxtServerInit({ commit }, { req }) {
+    // set color scheme using cookie
+    const cookies =
+      req.headers && req.headers.cookie ? Cookie.parse(req.headers.cookie) : {}
+    const mode = cookies.color_scheme
+
+    commit('SET_COLOR_SCHEME', mode)
   }
 }

@@ -12,7 +12,7 @@ const config = {
   // custom global id of html dom
   globalName: 'eodiro',
 
-  mode: 'spa',
+  mode: 'universal',
 
   // head tags options
   head: {
