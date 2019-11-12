@@ -70,7 +70,10 @@ const config = {
     '~/assets/styles/stylus/spring.styl'
   ],
 
-  plugins: [{ src: '~/plugins/init.js' }, { src: '~/plugins/ga.js' }],
+  plugins: [
+    { src: '~/plugins/init.js' },
+    { src: '~/plugins/ga.js', mode: 'client' }
+  ],
 
   buildModules: ['@nuxtjs/eslint-module', '~/modules/nuxt/extend-route'],
 
