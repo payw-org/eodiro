@@ -12,7 +12,7 @@ const config = {
   // custom global id of html dom
   globalName: 'eodiro',
 
-  mode: 'spa',
+  mode: 'universal',
 
   // head tags options
   head: {
@@ -70,10 +70,7 @@ const config = {
     '~/assets/styles/stylus/spring.styl'
   ],
 
-  plugins: [
-    { src: '~/plugins/init.js', mode: 'client' },
-    { src: '~/plugins/ga.js', mode: 'client' }
-  ],
+  plugins: [{ src: '~/plugins/init.js' }, { src: '~/plugins/ga.js' }],
 
   buildModules: ['@nuxtjs/eslint-module', '~/modules/nuxt/extend-route'],
 
@@ -101,13 +98,13 @@ const config = {
         defaultLocale: 'kr',
         detectBrowserLanguage: false
       }
-    ],
-    [
-      '@nuxtjs/google-analytics',
-      {
-        id: 'UA-140443623-1'
-      }
     ]
+    // [
+    //   '@nuxtjs/google-analytics',
+    //   {
+    //     id: 'UA-140443623-1'
+    //   }
+    // ]
   ],
 
   // Custom build path name
