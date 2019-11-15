@@ -12,11 +12,14 @@
   >
     <template v-slot:content>
       <div class="pi-content">
-        <div class="pi-author">
+        <!-- <div class="pi-author">
           {{ postData.random_nickname }}
-        </div>
+        </div> -->
         <div class="pi-title">
           {{ postData.title }}
+        </div>
+        <div class="pi-body">
+          {{ postData.body }}
         </div>
         <div class="pi-posted-at">
           {{ postedAt }}
@@ -105,6 +108,13 @@ export default {
 
     .pi-title {
       font-size: b(3);
+      font-weight: fw(4);
+    }
+
+    .pi-body {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .pi-posted-at {
