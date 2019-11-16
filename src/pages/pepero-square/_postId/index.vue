@@ -130,6 +130,11 @@ export default {
         border-radius: r(2);
       }
 
+      .title,
+      .body {
+        word-break: break-all;
+      }
+
       .title {
         margin-top: s(2);
         font-size: h(5);
