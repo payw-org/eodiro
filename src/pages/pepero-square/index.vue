@@ -58,7 +58,16 @@ export default {
       fetchingInterval: null
     }
   },
-  mounted() {
+  beforeMount() {
+    this.loadPosts(null, 20)
+    this.startFetchingRecent()
+  },
+  beforeDestroy() {
+    this.stopFetchingRecent()
+  },
+  activated() {
+    this.startFetchingRecent()
+
     CEM.addEventListener('scrollended', this.$el, () => {
       const lastPost = this.posts[this.posts.length - 1]
 
@@ -72,16 +81,6 @@ export default {
         this.loadPosts(lastPostId - 1, 20)
       }
     })
-  },
-  beforeMount() {
-    this.loadPosts(null, 20)
-    this.startFetchingRecent()
-  },
-  beforeDestroy() {
-    this.stopFetchingRecent()
-  },
-  activated() {
-    this.startFetchingRecent()
   },
   deactivated() {
     this.stopFetchingRecent()
