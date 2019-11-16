@@ -12,7 +12,7 @@
               <span class="icon icon--signin" />
             </template>
             <template v-slot:content>
-              <span class="content">로그인</span>
+              <span class="content">{{ $t('auth.signIn') }}</span>
             </template>
           </ArrowBlock>
 
@@ -25,7 +25,7 @@
               <span class="icon icon--me" />
             </template>
             <template v-slot:content>
-              <span class="content">마이페이지</span>
+              <span class="content">{{ $t('me.title') }}</span>
             </template>
           </ArrowBlock>
 
