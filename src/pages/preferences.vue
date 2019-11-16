@@ -80,7 +80,7 @@ export default {
       location.reload()
     },
     switchColorScheme(mode) {
-      this.$store.commit('SET_COLOR_SCHEME', mode)
+      this.$store.commit('SET_COLOR_SCHEME', { mode })
     }
   }
 }

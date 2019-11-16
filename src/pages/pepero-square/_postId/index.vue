@@ -60,7 +60,7 @@ export default {
         postId: route.params.postId
       },
       headers: {
-        accessToken: Auth.getAccessToken()
+        accessToken: Auth.getAccessToken(app)
       }
     })
       .then((res) => {
@@ -69,7 +69,7 @@ export default {
         }
       })
       .catch(() => {
-        alert(app.i18n.t('global.error.networkError'))
+        console.error(app.i18n.t('global.error.networkError'))
       })
   },
   created() {

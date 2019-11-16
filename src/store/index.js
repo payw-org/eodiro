@@ -1,5 +1,7 @@
-import Cookie from 'cookie'
 import JsCookie from 'js-cookie'
+import Cookies from 'universal-cookie'
+import dayjs from 'dayjs'
+import Auth from '~/modules/auth'
 
 /**
  * Returns a class name matches to color scheme mode
@@ -46,14 +48,32 @@ export const state = () => ({
 export const mutations = {
   /**
    * @param {'light'|'dark'|'auto'} mode
+   * @param {Object} payload
+   * @param {string} payload.mode
+   * @param {import('@nuxt/types').NuxtAppOptions} payload.app
    */
-  SET_COLOR_SCHEME(state, mode) {
+  SET_COLOR_SCHEME(state, payload) {
+    const { mode, app } = payload
+
+    let newMode = mode
+
     if (!mode) {
-      mode = 'light'
+      newMode = 'light'
     }
 
-    JsCookie.set('color_scheme', mode, { expires: 99999 })
-    const colorSchemeClassName = getColorClassName(mode)
+    if (app) {
+      app.$cookies.set('color_scheme', newMode, {
+        path: '/',
+        expires: dayjs('2500-12-31').toDate()
+      })
+    } else {
+      JsCookie.set('color_scheme', newMode, {
+        path: '/',
+        expires: dayjs('2500-12-31').toDate()
+      })
+    }
+
+    const colorSchemeClassName = getColorClassName(newMode)
     state.colorSchemeClassName = colorSchemeClassName
   },
   /**
@@ -85,13 +105,22 @@ export const mutations = {
 export const actions = {
   /**
    * Run on server at first
+   * @param {import('@nuxt/types').Context} ctx
    */
-  nuxtServerInit({ commit }, { req }) {
-    // set color scheme using cookie
-    const cookies =
-      req.headers && req.headers.cookie ? Cookie.parse(req.headers.cookie) : {}
-    const mode = cookies.color_scheme
+  async nuxtServerInit({ commit }, ctx) {
+    const { req, app } = ctx
 
-    commit('SET_COLOR_SCHEME', mode)
+    // set color scheme using cookie
+    const cookies = new Cookies(req.headers.cookie)
+    const mode = cookies.get('color_scheme')
+    commit('SET_COLOR_SCHEME', {
+      mode,
+      app
+    })
+
+    const isSignedIn = await Auth.isSignedIn(app)
+    if (isSignedIn) {
+      commit('SET_SIGNED_IN', true)
+    }
   }
 }
