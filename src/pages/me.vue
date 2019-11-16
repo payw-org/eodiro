@@ -1,6 +1,6 @@
 <template>
   <div id="eodiro-me">
-    <h1 class="title ui6-fw-1 ui6-s-mb-4">
+    <h1 class="title ui6-fw-6 ui6-s-mb-4">
       {{ $t('me.title') }}
     </h1>
 
