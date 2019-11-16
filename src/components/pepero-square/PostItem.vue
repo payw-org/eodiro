@@ -112,6 +112,7 @@ export default {
     }
 
     .pi-body {
+      font-size: b(3);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
