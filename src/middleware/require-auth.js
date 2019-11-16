@@ -8,7 +8,7 @@
  */
 export default function({ app, store, redirect }) {
   if (!store.state.auth.isSignedIn) {
-    alert(app.i18n.t('global.requireAuth'))
+    console.error(app.i18n.t('global.requireAuth'))
     redirect(app.localePath('sign-in'))
   }
 }
