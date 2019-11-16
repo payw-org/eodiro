@@ -44,6 +44,7 @@ module.exports = {
       }
     ],
     'no-extra-semi': [0],
-    'no-unused-vars': [1]
+    'no-unused-vars': [1],
+    'vue/no-v-html': [0]
   }
 }
