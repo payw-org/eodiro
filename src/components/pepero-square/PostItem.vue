@@ -21,8 +21,13 @@
         <div class="pi-body">
           {{ postData.body }}
         </div>
-        <div class="pi-posted-at">
-          {{ postedAt }}
+        <div class="information">
+          <div class="pi-posted-at">
+            {{ postedAt }}
+          </div>
+          <div class="pi-random-nickname">
+            {{ postData.random_nickname }}
+          </div>
         </div>
       </div>
     </template>
@@ -106,22 +111,39 @@ export default {
       margin-bottom: s(2);
     }
 
+    .pi-title,
+    .pi-body {
+      word-break: break-all;
+    }
+
     .pi-title {
-      font-size: b(3);
-      font-weight: fw(4);
+      font-size: b(4);
+      font-weight: fw(5);
     }
 
     .pi-body {
+      margin-top: s(1);
       font-size: b(3);
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
     }
 
-    .pi-posted-at {
+    .information {
+      margin-top: s(2);
       font-size: b(1);
       color: $base-gray;
-      margin-top: s(2);
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+
+      .pi-posted-at {
+        margin-right: s(3);
+      }
+
+      .pi-random-nickname {
+      }
     }
   }
 }
