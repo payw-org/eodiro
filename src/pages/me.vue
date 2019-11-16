@@ -1,10 +1,29 @@
 <template>
   <div id="eodiro-me">
-    <h1 class="title">
-      마이페이지
+    <h1 class="title ui6-fw-1 ui6-s-mb-4">
+      {{ $t('me.title') }}
     </h1>
+
+    <div class="registration-information">
+      <h2 class="ui6-h-1 ui6-s-mb-3">
+        {{ $t('me.information') }}
+      </h2>
+      <h3 class="ui6-b-3">
+        {{ $t('me.portalEmailId') }}
+      </h3>
+      <p>{{ myInfo.portal_id }}</p>
+      <h3 class="ui6-b-3 ui6-s-mt-2">
+        {{ $t('me.nickname') }}
+      </h3>
+      <p>{{ myInfo.nickname }}</p>
+      <h3 class="ui6-b-3 ui6-s-mt-2">
+        {{ $t('me.randomNickname') }}
+      </h3>
+      <p>{{ myInfo.random_nickname }}</p>
+    </div>
+
     <Button class="sign-out-btn" @click="signOut">
-      로그아웃
+      {{ $t('me.signOut') }}
     </Button>
     <p class="manifesto" />
   </div>
