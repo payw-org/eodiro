@@ -101,13 +101,8 @@ const config = {
         defaultLocale: 'kr',
         detectBrowserLanguage: false
       }
-    ]
-    // [
-    //   '@nuxtjs/google-analytics',
-    //   {
-    //     id: 'UA-140443623-1'
-    //   }
-    // ]
+    ],
+    'cookie-universal-nuxt'
   ],
 
   // Custom build path name
