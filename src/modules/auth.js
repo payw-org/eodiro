@@ -1,5 +1,6 @@
 import Axios from 'axios'
 import apiUrl from '~/modules/api-url'
+import JsCookie from 'js-cookie'
 
 /**
  * @typedef Tokens
@@ -10,10 +11,13 @@ import apiUrl from '~/modules/api-url'
 
 export default class Auth {
   /**
+   * @param {import('@nuxt/types').NuxtAppOptions} app
    * @returns {Promise<boolean>}
    */
-  static isSignedIn() {
-    if (!this.getAccessToken()) {
+  static isSignedIn(app) {
+    this.validate(app)
+
+    if (!this.getAccessToken(app)) {
       return new Promise((resolve) => {
         resolve(false)
       })
@@ -23,7 +27,7 @@ export default class Auth {
       Axios({
         ...apiUrl.user.isSignedIn,
         headers: {
-          accessToken: `${this.getAccessToken()}`
+          accessToken: `${this.getAccessToken(app)}`
         }
       })
         .then((res) => {
@@ -35,13 +39,13 @@ export default class Auth {
           Axios({
             ...apiUrl.user.refreshToken,
             headers: {
-              refreshToken: `${this.getRefreshToken()}`
+              refreshToken: `${this.getRefreshToken(app)}`
             }
           })
             .then((res) => {
               // Successfully refreshed the tokens
               const { data } = res
-              this.setJwt(data.accessToken, data.refreshToken)
+              this.setJwt(data.accessToken, data.refreshToken, app)
               resolve(true)
             })
             .catch(() => {
@@ -54,10 +58,11 @@ export default class Auth {
   }
 
   /**
+   * @param {import('@nuxt/types').NuxtAppOptions} app
    * @returns {string}
    */
-  static getAccessToken() {
-    const tokens = this.getJwt()
+  static getAccessToken(app) {
+    const tokens = this.getJwt(app)
     if (tokens) {
       return tokens.accessToken
     } else {
@@ -66,10 +71,11 @@ export default class Auth {
   }
 
   /**
+   * @param {import('@nuxt/types').NuxtAppOptions} app
    * @returns {string}
    */
-  static getRefreshToken() {
-    const tokens = this.getJwt()
+  static getRefreshToken(app) {
+    const tokens = this.getJwt(app)
     if (tokens) {
       return tokens.refreshToken
     } else {
@@ -79,43 +85,92 @@ export default class Auth {
 
   /**
    * Get JWT object containing both access token and refresh token
+   * @param {import('@nuxt/types').NuxtAppOptions} app
    * @returns {Tokens}
    */
-  static getJwt() {
-    return JSON.parse(localStorage.getItem('tokens'))
+  static getJwt(app) {
+    this.validate(app)
+    if (app) {
+      const tokens = app.$cookies.get('tokens')
+      return tokens
+    } else {
+      const tokens = JsCookie.get('tokens')
+      if (tokens) {
+        return JSON.parse(tokens)
+      }
+    }
   }
 
   /**
    * @param {string} accessToken
+   * @param {import('@nuxt/types').NuxtAppOptions} app
    */
-  static setAccessToken(accessToken) {
+  static setAccessToken(accessToken, app) {
+    this.validate(app)
     const tokens = this.getJwt()
     tokens.accessToken = accessToken
-    localStorage.setItem('tokens', JSON.stringify(tokens))
+    if (app) {
+      app.$cookies.set('tokens', tokens)
+    } else {
+      JsCookie.set('tokens', JSON.stringify(tokens))
+    }
   }
 
   /**
    * @param {string} refreshToken
+   * @param {import('@nuxt/types').NuxtAppOptions} app
    */
-  static setRefreshToken(refreshToken) {
+  static setRefreshToken(refreshToken, app) {
+    this.validate(app)
     const tokens = JSON.parse(localStorage.getItem('tokens'))
     tokens.refreshToken = refreshToken
-    localStorage.setItem('tokens', JSON.stringify(tokens))
+    if (app) {
+      app.$cookies.set('tokens', tokens)
+    } else {
+      JsCookie.set('tokens', JSON.stringify(tokens))
+    }
   }
 
   /**
    * @param {string} accessToken
    * @param {string} refreshToken
+   * @param {import('@nuxt/types').NuxtAppOptions} app
    */
-  static setJwt(accessToken, refreshToken) {
+  static setJwt(accessToken, refreshToken, app) {
+    this.validate(app)
     const tokens = {
       accessToken,
       refreshToken
     }
-    localStorage.setItem('tokens', JSON.stringify(tokens))
+    if (app) {
+      app.$cookies.set('tokens', tokens)
+    } else {
+      JsCookie.set('tokens', JSON.stringify(tokens))
+    }
   }
 
-  static clearJwt() {
-    localStorage.removeItem('tokens')
+  /**
+   * @param {import('@nuxt/types').NuxtAppOptions} app
+   */
+  static clearJwt(app) {
+    this.validate(app)
+    if (app) {
+      app.$cookies.remove('tokens')
+    } else {
+      JsCookie.remove('tokens')
+    }
+  }
+
+  /**
+   * @param {import('@nuxt/types').NuxtAppOptions} app
+   */
+  static validate(app) {
+    if (!app && typeof window === 'undefined') {
+      console.warn(
+        'You may use Auth on server side without passing the Nuxt App options'
+      )
+    }
   }
 }
+
+Auth.cookie = undefined
