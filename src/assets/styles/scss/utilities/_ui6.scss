@@ -1,0 +1,116 @@
+@import '~/assets/styles/scss/main';
+
+@function calculate($min, $max, $level) {
+  $interval: ($max - $min) / 5;
+  $result: $min + $interval * ($level - 1);
+
+  @return $result;
+}
+
+@mixin generate-class($min, $max, $kind, $prop, $prop-key: '') {
+  @if $prop-key != '' {
+    @for $i from 1 through 6 {
+      .ui6-#{$kind}-#{$prop-key}-#{$i} {
+        #{$prop}: calculate($min, $max, $i);
+      }
+    }
+  } @else {
+    @for $i from 1 through 6 {
+      .ui6-#{$kind}-#{$i} {
+        #{$prop}: calculate($min, $max, $i);
+      }
+    }
+  }
+}
+
+$gap-props: (
+  'margin': 'm',
+  'margin-top': 'mt',
+  'margin-right': 'mr',
+  'margin-bottom': 'mb',
+  'padding': 'p',
+  'padding-top': 'pt',
+  'padding-right': 'pr',
+  'padding-bottom': 'pb',
+  'padding-left': 'pl'
+);
+
+// Space
+@mixin space {
+  $min: 0.2rem;
+  $max: 1.5rem;
+  $kind: 's';
+
+  @each $prop, $prop-key in $gap-props {
+    @include generate-class($min, $max, $kind, $prop, $prop-key);
+  }
+}
+@include space;
+
+// Far
+@mixin far {
+  $min: 1.6rem;
+  $max: 5rem;
+  $kind: 'f';
+
+  @each $prop, $prop-key in $gap-props {
+    @include generate-class($min, $max, $kind, $prop, $prop-key);
+  }
+}
+@include far;
+
+// Font size
+// Body
+@mixin body {
+  $min: 0.9rem;
+  $max: 1.2rem;
+  $kind: 'b';
+
+  @include generate-class($min, $max, $kind, 'font-size');
+}
+@include body;
+
+// Head
+@mixin head {
+  $min: 1.3rem;
+  $max: 2.5rem;
+  $kind: 'h';
+
+  @include generate-class($min, $max, $kind, 'font-size');
+}
+@include head;
+
+// Font weight
+@mixin font-weight {
+  @for $i from 1 through 6 {
+    .ui6-fw-#{$i} {
+      font-weight: ($i + 1) * 100;
+    }
+  }
+}
+@include font-weight;
+
+// Line height
+@mixin line-height {
+  $min: 1em;
+  $max: 1.8em;
+  $kind: 'lh';
+
+  @include generate-class($min, $max, $kind, 'line-height');
+}
+@include line-height;
+
+// Border radius
+@mixin border-radius {
+  $min: 0.2rem;
+  $max: 1rem;
+  $kind: 'r';
+
+  @include generate-class($min, $max, $kind, 'border-radius');
+}
+@include border-radius;
+
+// Block style
+.block-style {
+  @include block-style;
+}
