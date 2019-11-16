@@ -18,13 +18,13 @@
       />
     </div>
 
-    <p v-if="!isLoadingMore && posts.length === 0" class="message">
+    <p v-show="!isLoadingMore && posts.length === 0" class="message">
       포스트가 없습니다.
     </p>
-    <p v-if="isLoadingMore" class="message">
+    <p v-show="isLoadingMore" class="message">
       {{ `🚀 ${$t('global.loading')}...` }}
     </p>
-    <p v-if="isEnd && posts.length > 0" class="message">
+    <p v-show="isEnd && posts.length > 0" class="message">
       더 이상 포스트가 없습니다.
     </p>
   </div>
@@ -122,7 +122,6 @@ export default {
 
           if (data.length > 0) {
             this.posts = [...data, ...this.posts]
-            // alert('새로운 포스트가 업데이트되었습니다.')
             new EodiroDialog().vagabond(
               '📦 새로운 포스트가 업데이트되었습니다.'
             )
