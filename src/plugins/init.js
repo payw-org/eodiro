@@ -65,6 +65,19 @@ export default async (context) => {
     } else if (redirectLang === 'en') {
       redirect(getRedirectPath(route.path, 'en'))
     }
+
+    // Set color scheme using cookie
+    const mode = cookies.color_scheme
+    store.commit('SET_COLOR_SCHEME', {
+      mode,
+      app
+    })
+
+    // Check authentication
+    const isSignedIn = await Auth.isSignedIn(app)
+    if (isSignedIn) {
+      store.commit('SET_SIGNED_IN', true)
+    }
   }
 
   // Client init

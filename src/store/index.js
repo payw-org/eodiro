@@ -1,7 +1,5 @@
 import JsCookie from 'js-cookie'
-import Cookies from 'universal-cookie'
 import dayjs from 'dayjs'
-import Auth from '~/modules/auth'
 
 /**
  * Returns a class name matches to color scheme mode
@@ -99,28 +97,5 @@ export const mutations = {
    */
   SET_SIGNED_IN(state, bool) {
     state.auth.isSignedIn = bool
-  }
-}
-
-export const actions = {
-  /**
-   * Run on server at first
-   * @param {import('@nuxt/types').Context} ctx
-   */
-  async nuxtServerInit({ commit }, ctx) {
-    const { req, app } = ctx
-
-    // set color scheme using cookie
-    const cookies = new Cookies(req.headers.cookie)
-    const mode = cookies.get('color_scheme')
-    commit('SET_COLOR_SCHEME', {
-      mode,
-      app
-    })
-
-    const isSignedIn = await Auth.isSignedIn(app)
-    if (isSignedIn) {
-      commit('SET_SIGNED_IN', true)
-    }
   }
 }
