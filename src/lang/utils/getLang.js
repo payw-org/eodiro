@@ -10,6 +10,7 @@ export default function(langCode) {
     donation: require(`../donation/${langCode}`).default,
     cafeteria: require(`../cafeteria/${langCode}`).default,
     opensource: require(`../opensource/${langCode}`).default,
-    auth: require(`../auth/${langCode}`).default
+    auth: require(`../auth/${langCode}`).default,
+    me: require(`../me/${langCode}`).default
   }
 }
