@@ -53,14 +53,14 @@ export default {
       return escapeHtml(this.postData.body).replace(/(?:\r\n|\r|\n)/g, '<br>')
     }
   },
-  asyncData({ route, app, store, redirect }) {
+  asyncData({ route, app, store, redirect, req, res }) {
     return Axios({
       ...apiUrl.peperoSquare.getAPost,
       params: {
         postId: route.params.postId
       },
       headers: {
-        accessToken: Auth.getAccessToken(app)
+        accessToken: Auth.getAccessToken({ req, res })
       }
     })
       .then((res) => {

@@ -1,7 +1,7 @@
-import Cookie from 'cookie'
 import JsCookie from 'js-cookie'
 import CookieConfig from '~~/config/cookie'
 import Auth from '~/modules/auth'
+import EodiroCookie from '~/modules/cookie'
 const { langCookieName } = CookieConfig
 
 /**
@@ -28,7 +28,7 @@ function getRedirectPath(currentPath, lang) {
  * @param {import('@nuxt/types').Context} context
  */
 export default async (context) => {
-  const { req, route, store, redirect, app } = context
+  const { req, res, route, store, redirect, app } = context
 
   // Server init
   if (process.server) {
@@ -37,9 +37,8 @@ export default async (context) => {
     }
 
     // Browser redirection
-    const cookies =
-      req.headers && req.headers.cookie ? Cookie.parse(req.headers.cookie) : {}
-    const redirectLang = cookies[langCookieName]
+    const eodiroCookie = new EodiroCookie({ req, res })
+    const redirectLang = eodiroCookie.get(langCookieName)
 
     // Language cookie is not set yet
     if (!redirectLang) {
@@ -67,14 +66,14 @@ export default async (context) => {
     }
 
     // Set color scheme using cookie
-    const mode = cookies.color_scheme
+    const mode = eodiroCookie.get('color_scheme')
     store.commit('SET_COLOR_SCHEME', {
       mode,
-      app
+      res
     })
 
     // Check authentication
-    const isSignedIn = await Auth.isSignedIn(app)
+    const isSignedIn = await Auth.isSignedIn({ req, res })
     if (isSignedIn) {
       store.commit('SET_SIGNED_IN', true)
     }

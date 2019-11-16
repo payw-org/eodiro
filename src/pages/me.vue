@@ -53,11 +53,11 @@ export default {
       myInfo: {}
     }
   },
-  asyncData({ app }) {
+  asyncData({ app, req, res }) {
     return Axios({
       ...apiUrl.user.information,
       headers: {
-        accessToken: Auth.getAccessToken(app)
+        accessToken: Auth.getAccessToken({ req, res })
       }
     }).then((res) => {
       return {

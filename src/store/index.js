@@ -1,5 +1,5 @@
-import JsCookie from 'js-cookie'
 import dayjs from 'dayjs'
+import EodiroCookie from '~/modules/cookie'
 
 /**
  * Returns a class name matches to color scheme mode
@@ -48,10 +48,10 @@ export const mutations = {
    * @param {'light'|'dark'|'auto'} mode
    * @param {Object} payload
    * @param {string} payload.mode
-   * @param {import('@nuxt/types').NuxtAppOptions} payload.app
+   * @param {import('http').ServerResponse} payload.res
    */
   SET_COLOR_SCHEME(state, payload) {
-    const { mode, app } = payload
+    const { mode, res } = payload
 
     let newMode = mode
 
@@ -59,17 +59,11 @@ export const mutations = {
       newMode = 'light'
     }
 
-    if (app) {
-      app.$cookies.set('color_scheme', newMode, {
-        path: '/',
-        expires: dayjs('2500-12-31').toDate()
-      })
-    } else {
-      JsCookie.set('color_scheme', newMode, {
-        path: '/',
-        expires: dayjs('2500-12-31').toDate()
-      })
-    }
+    const eodiroCookie = new EodiroCookie({ res })
+    eodiroCookie.set('color_scheme', newMode, {
+      expires: dayjs('2500-12-31').toDate(),
+      path: '/'
+    })
 
     const colorSchemeClassName = getColorClassName(newMode)
     state.colorSchemeClassName = colorSchemeClassName
