@@ -101,8 +101,7 @@ const config = {
         defaultLocale: 'kr',
         detectBrowserLanguage: false
       }
-    ],
-    'cookie-universal-nuxt'
+    ]
   ],
 
   // Custom build path name
