@@ -167,7 +167,7 @@ export default class Auth {
   static validate(app) {
     if (!app && typeof window === 'undefined') {
       console.warn(
-        'You may use Auth on server side without passing the Nuxt App options'
+        'You may be using Auth on server side without passing the Nuxt App options'
       )
     }
   }
