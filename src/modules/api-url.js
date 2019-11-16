@@ -49,6 +49,10 @@ export default {
       method: 'post',
       url: `${host}/auth/is-signed-in`
     },
+    information: {
+      method: 'get',
+      url: `${host}/auth/information`
+    },
     refreshToken: {
       method: 'post',
       url: `${host}/auth/refresh-token`

@@ -14,6 +14,8 @@
 import pageBase from '~/mixins/page-base'
 import Button from '~/components/ui/basic/Button'
 import Auth from '~/modules/auth'
+import Axios from 'axios'
+import apiUrl from '~/modules/api-url'
 import autoHead from '~/modules/auto-head'
 
 export default {
@@ -26,6 +28,23 @@ export default {
       title: this.$t('me.title'),
       meta: [...autoHead(this.$t('me.title'))]
     }
+  },
+  data() {
+    return {
+      myInfo: {}
+    }
+  },
+  asyncData({ app }) {
+    return Axios({
+      ...apiUrl.user.information,
+      headers: {
+        accessToken: Auth.getAccessToken(app)
+      }
+    }).then((res) => {
+      return {
+        myInfo: res.data
+      }
+    })
   },
   methods: {
     signOut() {
