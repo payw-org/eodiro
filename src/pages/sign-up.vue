@@ -5,13 +5,13 @@
 <script>
 import pageBase from '~/mixins/page-base'
 import AuthCommonForm from '~/components/auth/AuthCommonForm'
-import autohead from '~/modules/autohead'
+import autoHead from '~/modules/auto-head'
 
 export default {
   head() {
     return {
       title: this.$t('auth.signUp'),
-      meta: [...autohead(this.$t('auth.signUp'))]
+      meta: [...autoHead(this.$t('auth.signUp'))]
     }
   },
   name: 'sign-up',

@@ -14,12 +14,19 @@
 import pageBase from '~/mixins/page-base'
 import Button from '~/components/ui/basic/Button'
 import Auth from '~/modules/auth'
+import autoHead from '~/modules/auto-head'
 
 export default {
   name: 'me',
   middleware: 'require-auth',
   components: { Button },
   mixins: [pageBase],
+  head() {
+    return {
+      title: this.$t('me.title'),
+      meta: [...autoHead(this.$t('me.title'))]
+    }
+  },
   methods: {
     signOut() {
       this.$store.commit('SET_SIGNED_IN', false)

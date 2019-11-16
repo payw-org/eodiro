@@ -32,7 +32,7 @@ import axios from 'axios'
 import dayjs from 'dayjs'
 import pageBase from '~/mixins/page-base'
 import MealTimeGroup from '~/components/cafeteria/MealTimeGroup'
-import autohead from '~/modules/autohead'
+import autoHead from '~/modules/auto-head'
 
 export default {
   name: 'meals-date',
@@ -41,7 +41,7 @@ export default {
   head() {
     return {
       title: this.$t('cafeteria.title'),
-      meta: [...autohead(this.$t('cafeteria.title'))]
+      meta: [...autoHead(this.$t('cafeteria.title'))]
     }
   },
   data() {

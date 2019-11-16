@@ -23,7 +23,7 @@
 import { CEM } from '~/modules/custom-event-manager'
 import Banner from '~/components/global/Banner'
 import GoBack from '~/components/global/GoBack'
-import autohead from '~/modules/autohead'
+import autoHead from '~/modules/auto-head'
 
 export default {
   components: { Banner, GoBack },
@@ -31,7 +31,7 @@ export default {
     return {
       title: this.$t('global.head.title'),
       meta: [
-        ...autohead(
+        ...autoHead(
           this.$t('global.head.title'),
           this.$t('global.head.description')
         ),

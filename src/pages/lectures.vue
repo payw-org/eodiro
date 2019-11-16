@@ -122,7 +122,7 @@
 import axios from 'axios'
 import pageBase from '~/mixins/page-base'
 import { Button, Accordion } from '~/components/ui'
-import autohead from '~/modules/autohead'
+import autoHead from '~/modules/auto-head'
 
 export default {
   name: 'lectures',
@@ -131,7 +131,7 @@ export default {
   head() {
     return {
       title: this.$t('searchClass.title'),
-      meta: [...autohead(this.$t('searchClass.title'))]
+      meta: [...autoHead(this.$t('searchClass.title'))]
     }
   },
   data() {

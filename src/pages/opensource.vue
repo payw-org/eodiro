@@ -46,7 +46,7 @@
 <script>
 import Vue from 'vue'
 import pageBase from '~/mixins/page-base'
-import autohead from '~/modules/autohead'
+import autoHead from '~/modules/auto-head'
 
 export default Vue.extend({
   name: 'opensource',
@@ -54,7 +54,7 @@ export default Vue.extend({
   head() {
     return {
       title: this.$t('opensource.title'),
-      meta: [...autohead(this.$t('opensource.title'))],
+      meta: [...autoHead(this.$t('opensource.title'))],
       script: [
         {
           async: true,

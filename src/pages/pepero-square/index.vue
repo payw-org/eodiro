@@ -34,7 +34,7 @@
 import { CEM } from '~/modules/custom-event-manager'
 import pageBase from '~/mixins/page-base'
 import PostItem from '~/components/pepero-square/PostItem'
-import autohead from '~/modules/autohead'
+import autoHead from '~/modules/auto-head'
 import Axios from 'axios'
 import apiUrl from '~/modules/api-url'
 import EodiroDialog from '~/modules/eodiro-dialog'
@@ -46,7 +46,7 @@ export default {
   head() {
     return {
       title: this.$t('peperoSquare.title'),
-      meta: [...autohead(this.$t('peperoSquare.title'))]
+      meta: [...autoHead(this.$t('peperoSquare.title'))]
     }
   },
   data() {
