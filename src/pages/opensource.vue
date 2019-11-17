@@ -68,7 +68,7 @@ export default Vue.extend({
 </script>
 
 <style lang="scss">
-@import '@/assets/styles/scss/main';
+@import '~/assets/styles/scss/main';
 
 #opensource {
   .manifesto {
