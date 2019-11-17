@@ -141,7 +141,7 @@
 
     <footer class="footer">
       <p class="manifesto">
-        Copyright © 2019 PAYW™
+        Copyright © 2019 PAYW
       </p>
     </footer>
   </div>
