@@ -4,6 +4,9 @@
 
 <p align="center">
   <img src="https://img.shields.io/github/license/paywteam/eodiro.com" />
+  <a href="https://github.com/paywteam/eodiro/actions">
+    <img src="https://github.com/paywteam/eodiro/workflows/CI/badge.svg" />
+  </a>
   <img src="https://img.shields.io/github/stars/paywteam/eodiro.com?style=social" />
 </p>
 
