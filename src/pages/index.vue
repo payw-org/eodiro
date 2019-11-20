@@ -45,11 +45,7 @@
           </ArrowBlock>
 
           <!-- Vacant Classrooms -->
-          <ArrowBlock
-            class="menu-item-wrapper disabled"
-            :link="localePath('/').replace(/\/$/, '')"
-            @click="showTopbar"
-          >
+          <ArrowBlock class="menu-item-wrapper disabled">
             <template v-slot:icon>
               <span class="icon icon--vacant" />
             </template>
@@ -59,11 +55,7 @@
           </ArrowBlock>
 
           <!-- Cafeteria Menus -->
-          <ArrowBlock
-            class="menu-item-wrapper disabled"
-            :link="localePath('/').replace(/\/$/, '')"
-            @click="showTopbar"
-          >
+          <ArrowBlock class="menu-item-wrapper disabled">
             <template v-slot:icon>
               <span class="icon icon--cafeteria" />
             </template>
@@ -73,11 +65,7 @@
           </ArrowBlock>
 
           <!-- Lectures -->
-          <ArrowBlock
-            class="menu-item-wrapper disabled"
-            :link="localePath('/').replace(/\/$/, '')"
-            @click="showTopbar"
-          >
+          <ArrowBlock class="menu-item-wrapper disabled">
             <template v-slot:icon>
               <span class="icon icon--lectures" />
             </template>
