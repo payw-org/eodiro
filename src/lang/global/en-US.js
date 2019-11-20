@@ -11,7 +11,7 @@ export default {
     },
     dataSendError: 'Failed to send data.',
     networkError:
-      'Could not connect to the server.\nLeave an inquiry if this problems occur repeatedly.'
+      'Could not connect to the server.\nLeave an inquiry if this problem occur repeatedly.'
   },
   dataFetchError:
     'Failed to load data. If it happens consistently, please leave us an inquiry.',
