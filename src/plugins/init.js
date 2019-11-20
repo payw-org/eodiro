@@ -67,10 +67,12 @@ export default async (context) => {
 
     // Set color scheme using cookie
     const mode = eodiroCookie.get('color_scheme')
-    store.commit('SET_COLOR_SCHEME', {
-      mode,
-      res
-    })
+    if (!mode) {
+      store.commit('SET_COLOR_SCHEME', {
+        mode,
+        res
+      })
+    }
 
     // Check authentication
     const isSignedIn = await Auth.isSignedIn({ req, res })
