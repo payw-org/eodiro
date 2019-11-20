@@ -52,11 +52,23 @@ export default class Cookie {
    */
   set(name, value, options) {
     if (this.res) {
-      let cookie = `${name}=${value};`
-      if (options.expires) {
-        cookie += `Expires=${options.expires};`
+      // If the value is an object
+      // convert to JSON string
+      if (typeof value === 'object') {
+        value = JSON.stringify(value)
       }
+
+      // Initialize a cookie string with the value
+      let cookie = `${name}=${value};`
+
+      // Append expires
+      if (options.expires) {
+        cookie += `Expires=${options.expires.toString()};`
+      }
+
+      // Append cookie path
       if (options.path) {
+        // Clean the path
         cookie += `Path=${options.path.replace(/'/g, '')};`
       }
       this.res.setHeader('Set-Cookie', [cookie])
