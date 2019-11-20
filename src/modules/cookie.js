@@ -8,12 +8,11 @@ export default class Cookie {
    * @param {import('http').ServerResponse} http.res
    */
   constructor(http) {
-    const { res, req } = http || {}
-    if (res) {
-      this.res = res
+    if (http && http.res) {
+      this.res = http.res
     }
-    if (req) {
-      this.req = req
+    if (http && http.req) {
+      this.req = http.req
     }
   }
 
