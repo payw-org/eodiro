@@ -3,6 +3,7 @@
     <div class="page-content-wrapper">
       <div class="page-content">
         <Grid class="menu-item-container">
+          <!-- Sign In -->
           <ArrowBlock
             v-if="!$store.state.auth.isSignedIn"
             class="menu-item-wrapper"
@@ -16,6 +17,7 @@
             </template>
           </ArrowBlock>
 
+          <!-- My Page -->
           <ArrowBlock
             v-else
             class="menu-item-wrapper"
@@ -44,8 +46,8 @@
 
           <!-- Vacant Classrooms -->
           <ArrowBlock
-            class="menu-item-wrapper"
-            :link="localePath('vacant').replace(/\/$/, '')"
+            class="menu-item-wrapper disabled"
+            :link="localePath('/').replace(/\/$/, '')"
             @click="showTopbar"
           >
             <template v-slot:icon>
@@ -58,8 +60,8 @@
 
           <!-- Cafeteria Menus -->
           <ArrowBlock
-            class="menu-item-wrapper"
-            :link="localePath('cafeteria-date').replace(/\/$/, '')"
+            class="menu-item-wrapper disabled"
+            :link="localePath('/').replace(/\/$/, '')"
             @click="showTopbar"
           >
             <template v-slot:icon>
@@ -72,8 +74,8 @@
 
           <!-- Lectures -->
           <ArrowBlock
-            class="menu-item-wrapper"
-            :link="localePath('lectures').replace(/\/$/, '')"
+            class="menu-item-wrapper disabled"
+            :link="localePath('/').replace(/\/$/, '')"
             @click="showTopbar"
           >
             <template v-slot:icon>
@@ -112,8 +114,8 @@
 
           <!-- Inquiry -->
           <ArrowBlock
-            class="menu-item-wrapper"
-            :link="localePath('inquiry').replace(/\/$/, '')"
+            class="menu-item-wrapper disabled"
+            :link="localePath('/').replace(/\/$/, '')"
           >
             <template v-slot:icon>
               <span class="icon icon--inquiry" />
