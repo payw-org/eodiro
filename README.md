@@ -3,11 +3,12 @@
 <p align="center"><b>eodiro</b> is an open source utility service for Chung-Ang university students.</p>
 
 <p align="center">
-  <img src="https://img.shields.io/github/license/paywteam/eodiro.com" />
+  <img src="https://img.shields.io/github/license/paywteam/eodiro" />
   <a href="https://github.com/paywteam/eodiro/actions">
     <img src="https://github.com/paywteam/eodiro/workflows/CI/badge.svg" />
   </a>
-  <img src="https://img.shields.io/github/stars/paywteam/eodiro.com?style=social" />
+  <img src="https://img.shields.io/github/v/release/paywteam/eodiro" />
+  <img src="https://img.shields.io/github/stars/paywteam/eodiro?style=social" />
 </p>
 
 ---
@@ -43,7 +44,9 @@ https://eodiro.com
 
 ## Contributing
 
-You can leave an issue/pull request here or send us an email to support@eodiro.com, or contact@payw.org for more general things about us.
+Follow our [PAYW Contributing Guidelines](https://github.com/paywteam/contributing-guidelines).
+
+You can also leave an issue/pull request here or send us an email to support@eodiro.com, or contact@payw.org for more general things about us.
 
 ## License
 
