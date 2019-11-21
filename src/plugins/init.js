@@ -93,7 +93,9 @@ export default async (context) => {
     }
 
     // Prevent browser's default scroll restoration behaviour
-    // history.scrollRestoration = 'manual'
+    if ('scrollRestoration' in history) {
+      history.scrollRestoration = 'manual'
+    }
 
     // Color scheme mode keyboard shorcuts
     // shift + ctrl + D | shift + ctrl + L

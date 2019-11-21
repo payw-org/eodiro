@@ -155,8 +155,6 @@ export default {
           .then((res) => {
             const { data } = res
 
-            window.scrollTo(0, window.scrollY - 1)
-
             if (data.length === 0) {
               this.isEnd = true
             } else {
