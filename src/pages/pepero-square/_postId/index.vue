@@ -32,12 +32,12 @@ import apiUrl from '~/modules/api-url'
 import Auth from '~/modules/auth'
 import Comments from '~/components/pepero-square/Comments'
 import escapeHtml from '~/modules/escape-html'
+import requireAuthMixin from '~/mixins/require-auth-mixin'
 
 export default {
   name: 'pepero-square-post-id',
   components: { Comments },
-  middleware: 'require-auth',
-  mixins: [pageBase],
+  mixins: [pageBase, requireAuthMixin],
   data() {
     return {
       lastCommentId: 0,
@@ -54,6 +54,8 @@ export default {
     }
   },
   asyncData({ route, app, store, redirect, req, res }) {
+    if (!store.state.auth.isSignedIn) return
+
     return Axios({
       ...apiUrl.peperoSquare.getAPost,
       params: {

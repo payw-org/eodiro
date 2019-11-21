@@ -36,12 +36,12 @@ import Auth from '~/modules/auth'
 import Axios from 'axios'
 import apiUrl from '~/modules/api-url'
 import autoHead from '~/modules/auto-head'
+import requireAuthMixin from '~/mixins/require-auth-mixin'
 
 export default {
   name: 'me',
-  middleware: 'require-auth',
   components: { Button },
-  mixins: [pageBase],
+  mixins: [pageBase, requireAuthMixin],
   head() {
     return {
       title: this.$t('me.title'),
@@ -53,7 +53,9 @@ export default {
       myInfo: {}
     }
   },
-  asyncData({ app, req, res }) {
+  asyncData({ app, req, res, store }) {
+    if (!store.state.auth.isSignedIn) return
+
     return Axios({
       ...apiUrl.user.information,
       headers: {

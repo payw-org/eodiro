@@ -74,6 +74,10 @@ export default {
     }
   },
   mounted() {
+    if (!this.$store.state.auth.isSignedIn) {
+      return
+    }
+
     // When the post id is being updated from the parent, fetch comments
     this.isFetching = false
     this.fetchComments()

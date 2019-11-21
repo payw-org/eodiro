@@ -34,12 +34,12 @@ import { Button } from '~/components/ui'
 import Axios from 'axios'
 import apiUrl from '~/modules/api-url'
 import Auth from '~/modules/auth'
+import requireAuthMixin from '~/mixins/require-auth-mixin'
 
 export default {
   name: 'pepero-square-new',
-  middleware: 'require-auth',
   components: { Button },
-  mixins: [pageBase],
+  mixins: [pageBase, requireAuthMixin],
   data() {
     return {
       title: '',
