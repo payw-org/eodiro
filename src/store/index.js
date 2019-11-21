@@ -93,3 +93,15 @@ export const mutations = {
     state.auth.isSignedIn = bool
   }
 }
+
+export const actions = {
+  nuxtServerInit({ commit, state }, { req, res }) {
+    // If color scheme is set in cookie
+    // initialize vuex store with the value
+    const eodiroCookie = new EodiroCookie({ req, res })
+    const colorScheme = eodiroCookie.get('color_scheme')
+    if (colorScheme) {
+      state.colorSchemeClassName = getColorClassName(colorScheme)
+    }
+  }
+}
