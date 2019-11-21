@@ -34,7 +34,7 @@ export class CEM {
   }
 
   /**
-   * Attach event listener to document
+   * Attach event listener to document.
    * @param {AvailableEventNames} eventName
    * @param {HTMLElement | Element} target
    * @param {EventListenerOrEventListenerObject} listener
@@ -50,6 +50,9 @@ export class CEM {
     // Check if the same event listener has already been added
     for (const chunk of this.storage[eventName]) {
       if (chunk.target.isSameNode(target)) {
+        console.warn(
+          `CEM - ${eventName} event is already attached to ${target}`
+        )
         return
       }
     }
@@ -61,24 +64,19 @@ export class CEM {
     })
   }
 
-  // public static collectGarbage() {
-  // }
-
   /**
    * Dispatch custom event after validating if elements are included in document
    * @param {AvailableEventNames} eventName
    * @param {any} data
    */
   static dispatchEvent(eventName, data) {
-    if (this.storage[eventName]) {
-      if (Array.isArray(this.storage[eventName])) {
-        let i = this.storage[eventName].length
-        while (i--) {
-          const chunk = this.storage[eventName][i]
-          if (!chunk.target.parentElement) {
-            this.removeEventListener(eventName, chunk.listener)
-            this.storage[eventName].splice(i, 1)
-          }
+    if (this.storage[eventName] && Array.isArray(this.storage[eventName])) {
+      let i = this.storage[eventName].length
+      while (i--) {
+        const chunk = this.storage[eventName][i]
+        if (!chunk.target.parentElement) {
+          this.removeEventListener(eventName, chunk.listener)
+          this.storage[eventName].splice(i, 1)
         }
       }
     }
