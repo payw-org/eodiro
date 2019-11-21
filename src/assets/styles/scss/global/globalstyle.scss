@@ -91,6 +91,7 @@ body {
   word-break: keep-all;
   font-size: 16px;
   user-select: none;
+  overflow-anchor: none; // prevent always scroll end
   @include bg;
   @include text-color;
 }
