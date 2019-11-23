@@ -1,8 +1,5 @@
 <template>
-  <div
-    id="clubs-profile"
-    :class="{ active: active }"
-  >
+  <div id="clubs-profile" :class="{ active: active }">
     <div class="background">
       <NuxtLink
         :to="localePath($route.meta.prevRouteName)"
@@ -16,11 +13,7 @@
           class="absolute-link"
         />
       </button>
-      <div
-        ref="scrollElm"
-        class="cp-content"
-        @scroll="onScroll"
-      >
+      <div ref="scrollElm" class="cp-content" @scroll="onScroll">
         <div class="cpc-wrapper">
           <!-- club name -->
           <h1 class="cp-name">

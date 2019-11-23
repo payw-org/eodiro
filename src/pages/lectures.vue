@@ -17,10 +17,7 @@
             autocorrect="off"
           />
         </div>
-        <Button
-          class="filter-button"
-          @click="filterIsFold = !filterIsFold"
-        >
+        <Button class="filter-button" @click="filterIsFold = !filterIsFold">
           {{ $t('searchClass.filterButtonMsg') }}
         </Button>
       </div>
@@ -32,16 +29,10 @@
       />
       <transition name="filter-fold">
         <div class="filter-category-wrapper">
-          <div
-            v-if="!filterIsFold"
-            class="filter-category-container"
-          >
+          <div v-if="!filterIsFold" class="filter-category-container">
             <transition name="filter-fold">
               <!-- sub category -->
-              <div
-                v-if="mainCategoryIsUnfold"
-                class="fc-category-sub"
-              >
+              <div v-if="mainCategoryIsUnfold" class="fc-category-sub">
                 <div
                   v-if="noFilterIsPossible"
                   class="fc-item"
@@ -271,7 +262,9 @@ export default {
         'ㅎ'
       ]
       for (let i = 0; i < oneList.length; i++) {
-        if (this.searchClassState.search.word.includes(oneList[i]) === true) { return }
+        if (this.searchClassState.search.word.includes(oneList[i]) === true) {
+          return
+        }
       }
       this.searchClassState.filter.isChange = false
       this.searchClassState.search.page = 0

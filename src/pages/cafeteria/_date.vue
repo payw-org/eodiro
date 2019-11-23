@@ -12,18 +12,9 @@
       </button>
     </div> -->
 
-    <MealTimeGroup
-      time-group="breakfast"
-      :meal-time-data="meal.breakfast"
-    />
-    <MealTimeGroup
-      time-group="lunch"
-      :meal-time-data="meal.lunch"
-    />
-    <MealTimeGroup
-      time-group="supper"
-      :meal-time-data="meal.supper"
-    />
+    <MealTimeGroup time-group="breakfast" :meal-time-data="meal.breakfast" />
+    <MealTimeGroup time-group="lunch" :meal-time-data="meal.lunch" />
+    <MealTimeGroup time-group="supper" :meal-time-data="meal.supper" />
   </div>
 </template>
 

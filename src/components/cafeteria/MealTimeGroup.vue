@@ -1,8 +1,5 @@
 <template>
-  <section
-    class="meal-time-group"
-    :class="timeGroup"
-  >
+  <section class="meal-time-group" :class="timeGroup">
     <h1 class="meal-time-name">
       {{ $t(`cafeteria.${timeGroup}`) }}
     </h1>

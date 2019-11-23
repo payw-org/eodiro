@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="grid-layout"
-    :class="proportion"
-  >
+  <div class="grid-layout" :class="proportion">
     <slot />
   </div>
 </template>

@@ -8,7 +8,13 @@ module.exports = {
     es6: true,
     browser: true
   },
-  extends: ['eslint:recommended', 'standard', 'plugin:vue/recommended'],
+  extends: [
+    'eslint:recommended',
+    'standard',
+    'plugin:vue/recommended',
+    'prettier/vue',
+    'plugin:prettier/recommended'
+  ],
   rules: {
     'no-console': ['warn', { allow: ['warn', 'error'] }],
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
@@ -33,16 +39,16 @@ module.exports = {
         math: 'always'
       }
     ],
-    'vue/max-attributes-per-line': [
-      2,
-      {
-        singleline: 20,
-        multiline: {
-          max: 1,
-          allowFirstLine: false
-        }
-      }
-    ],
+    // 'vue/max-attributes-per-line': [
+    //   2,
+    //   {
+    //     singleline: 20,
+    //     multiline: {
+    //       max: 1,
+    //       allowFirstLine: false
+    //     }
+    //   }
+    // ],
     'no-extra-semi': [0],
     'no-unused-vars': [1],
     'vue/no-v-html': [0]

@@ -36,10 +36,7 @@
       >
         <ArrowBlock class="ct-item">
           <template v-slot:icon>
-            <span
-              class="icon"
-              :class="`icon--${topic.url}`"
-            />
+            <span class="icon" :class="`icon--${topic.url}`" />
           </template>
           <template v-slot:content>
             <h1 class="topic-name">

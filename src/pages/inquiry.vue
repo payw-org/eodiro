@@ -22,10 +22,7 @@
           />
           <span class="counter">{{ currentLength }} / 500</span>
         </div>
-        <Button
-          class="send-btn"
-          @click="sendEmail"
-        >
+        <Button class="send-btn" @click="sendEmail">
           <!-- <span class="icon"></span> -->
           <span class="text">{{ $t('inquiry.send') }}</span>
         </Button>
