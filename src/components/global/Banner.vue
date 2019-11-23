@@ -117,29 +117,32 @@ export default {
     CEM.addEventListener('scrollrestored', this.$el, (e) => {
       // Reobserve sentinel
       this.observer.observe(this.sentinel)
+      const bannerElm = this.$refs.banner
       const scrollTop = e.detail.scrollPosition // Always positive
       const pageDepth = e.detail.pageDepth
-      const bannerTop = Math.abs(this.$refs.banner.getBoundingClientRect().top) // Convert to positive
+      const bannerRect = bannerElm.getBoundingClientRect()
+      const bannerTop = Math.abs(bannerRect.top) // Convert to positive
       const distance = bannerTop - scrollTop
-      let newBannerTop = bannerTop - distance
-      const bannerHeight = this.$refs.banner.getBoundingClientRect().height
-      const navHeight = this.$refs.banner
+      const bannerHeight = bannerRect.height
+      const navHeight = this.$el
         .querySelector('.eodiro-navigation')
         .getBoundingClientRect().height
+      const bannerHeightWithoutNav = bannerHeight - navHeight
+      let newBannerTop = bannerTop - distance
       if (pageDepth > 1) {
-        newBannerTop = bannerHeight - navHeight
-        this.$refs.banner.classList.add('mini')
+        newBannerTop = bannerHeightWithoutNav
+        bannerElm.classList.add('mini')
       } else {
-        this.$refs.banner.classList.remove('mini')
+        bannerElm.classList.remove('mini')
       }
-      if (newBannerTop > bannerHeight - navHeight) {
-        newBannerTop = bannerHeight - navHeight
+      if (newBannerTop > bannerHeightWithoutNav) {
+        newBannerTop = bannerHeightWithoutNav
       }
-      this.$refs.banner.classList.add('transitioning')
-      this.$refs.banner.style.transform = `translateY(${-newBannerTop}px)`
+      bannerElm.classList.add('transitioning')
+      bannerElm.style.transform = `translateY(${-newBannerTop}px)`
       setTimeout(() => {
-        this.$refs.banner.style.cssText = ''
-        this.$refs.banner.classList.remove('transitioning')
+        bannerElm.style.cssText = ''
+        bannerElm.classList.remove('transitioning')
         disableScroll.off()
         CEM.dispatchEvent('bannertransitionended')
       }, 300)
