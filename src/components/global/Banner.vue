@@ -314,6 +314,9 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
         &.background--cafeteria {
           background-image: linear-gradient(to bottom, #31a8ff, #305dff);
         }
+        &.background--privacy {
+          background-image: linear-gradient(to bottom, #33d9a7, #04ab65);
+        }
       }
 
       .logo-wrapper {
@@ -544,6 +547,16 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
               center,
               '75%'
             );
+          }
+        }
+      }
+
+      &.hamlet--privacy {
+        .icon {
+          @include bgImg('~assets/images/shield-white.svg', center, '75%');
+
+          @include dark-mode {
+            @include bgImg('~assets/images/shield.svg', center, '75%');
           }
         }
       }
