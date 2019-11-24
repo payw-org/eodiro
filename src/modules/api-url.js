@@ -56,6 +56,10 @@ export default {
     refreshToken: {
       method: 'post',
       url: `${host}/auth/refresh-token`
+    },
+    clearToken: {
+      method: 'delete',
+      url: `${host}/auth/refresh-token`
     }
   },
   peperoSquare: {

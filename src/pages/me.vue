@@ -25,6 +25,10 @@
     <Button class="sign-out-btn" @click="signOut">
       {{ $t('me.signOut') }}
     </Button>
+
+    <Button class="sign-out-all-btn" @click="signOutAll">
+      모든 기기에서 자동로그인 해제
+    </Button>
     <p class="manifesto" />
   </div>
 </template>
@@ -72,6 +76,14 @@ export default {
       this.$store.commit('SET_SIGNED_IN', false)
       Auth.clearJwt()
       this.$router.replace(this.localePath('index'))
+    },
+    signOutAll() {
+      Axios({
+        ...apiUrl.user.clearToken,
+        headers: {
+          accessToken: Auth.getAccessToken()
+        }
+      })
     }
   }
 }
