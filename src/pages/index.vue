@@ -143,7 +143,10 @@
 
     <footer class="footer">
       <p class="manifesto">
-        Copyright © 2019 PAYW
+        Copyright © 2019 PAYW |
+        <NuxtLink :to="localePath('privacy')">
+          {{ $t('privacy.title') }}
+        </NuxtLink>
       </p>
     </footer>
   </div>
@@ -275,7 +278,6 @@ export default {
 
     .manifesto {
       color: $base-gray;
-      font-size: 0.9rem;
     }
   }
 }
