@@ -8,12 +8,12 @@
     ]"
   >
     <div id="scroll-end-point" />
-    <div v-if="!isValidPage" id="banner-observer-sentinel" />
-    <Banner v-if="!isValidPage" />
+    <div v-if="!hasOwnBannerDesign" id="banner-observer-sentinel" />
+    <Banner v-if="!hasOwnBannerDesign" />
     <Nuxt
       keep-alive
       :keep-alive-props="{ include: $store.state.cachedComponents }"
-      :class="{ 'master-content': !isValidPage }"
+      :class="['master-content', { 'without-banner': hasOwnBannerDesign }]"
     />
     <GoBack />
   </div>
@@ -54,7 +54,7 @@ export default {
     }
   },
   computed: {
-    isValidPage() {
+    hasOwnBannerDesign() {
       return !this.$store.state.hamletList.includes(this.$route.meta.hamletName)
     }
   },
@@ -107,6 +107,9 @@ export default {
 
     CEM.addEventListener('scrollrestored', this.$el, () => {
       observer.observe(document.getElementById('scroll-end-point'))
+      setTimeout(() => {
+        this.isPointerEventsPrevented = false
+      }, 300)
     })
 
     CEM.addEventListener('beforepageleave', this.$el, () => {
@@ -160,12 +163,14 @@ export default {
     padding-top: calc(#{$banner-height} + #{s(5)});
     max-width: $master-content-max-width;
     margin: auto;
+
+    &.without-banner {
+      padding-top: s(6);
+    }
   }
 
-  &.is-banner-forced-mini {
-    .master-content {
-      padding-top: calc(#{$nav-height} + #{s(5)});
-    }
+  &.is-banner-forced-mini .master-content {
+    padding-top: calc(#{$nav-height} + #{s(5)});
   }
 }
 </style>
