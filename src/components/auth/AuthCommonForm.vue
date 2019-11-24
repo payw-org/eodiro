@@ -1,6 +1,11 @@
 <template>
   <div class="eodiro-auth-common-form">
     <div class="input-box">
+      <h1 v-if="isSignUp" class="headline ui6-s-mb-6">
+        {{ $t('auth.signUp') }}
+      </h1>
+      <h1 v-else class="headline ui6-s-mb-6">{{ $t('auth.signIn') }}</h1>
+
       <!-- Portal ID input -->
       <input
         ref="portalIdInput"
@@ -96,10 +101,14 @@
       </Button>
 
       <NuxtLink v-if="isSignUp" class="redirect" :to="localePath('sign-in')">
-        {{ $t('auth.signIn') }}
+        {{ $t('auth.signIn') }} →
       </NuxtLink>
       <NuxtLink v-else class="redirect" :to="localePath('sign-up')">
-        {{ $t('auth.signUp') }}
+        {{ $t('auth.signUp') }} →
+      </NuxtLink>
+
+      <NuxtLink :to="localePath('privacy')" class="privacy-policy">
+        {{ $t('privacy.title') }}
       </NuxtLink>
     </div>
   </div>
@@ -268,6 +277,10 @@ export default {
   max-width: 20rem;
   margin: auto;
 
+  .headline {
+    text-align: center;
+  }
+
   .entry {
     text-align: center;
     margin-top: s(3);
@@ -295,6 +308,16 @@ export default {
     color: #ff1f50;
     padding-top: s(2);
     text-align: center;
+  }
+
+  .privacy-policy {
+    text-align: center;
+    display: block;
+    margin-top: f(1);
+    @include bg-inverted;
+    @include text-color-inverted;
+    padding: s(3);
+    border-radius: r(4);
   }
 }
 </style>

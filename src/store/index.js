@@ -36,7 +36,8 @@ export const state = () => ({
     'preferences',
     'sign-in',
     'sign-up',
-    'me'
+    'me',
+    'privacy'
   ],
   auth: {
     isSignedIn: false
