@@ -232,7 +232,7 @@ export default {
             }
           })
           .finally(() => {
-            // Restore validating state
+            // Restore validation state
             this.isValidating = false
           })
       } else {
