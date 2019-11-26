@@ -22,11 +22,11 @@
       <p>{{ myInfo.random_nickname }}</p>
     </div>
 
-    <Button class="sign-out-btn" @click="signOut">
+    <Button class="sign-out-btn ui6-s-mb-3" full @click="signOut">
       {{ $t('me.signOut') }}
     </Button>
 
-    <Button class="sign-out-all-btn" @click="signOutAll">
+    <Button class="sign-out-all-btn" full @click="signOutAll">
       모든 기기에서 자동로그인 해제
     </Button>
     <p class="manifesto" />
