@@ -211,7 +211,11 @@ export default {
         this.isValidating = true
 
         // Sign Up
-        const { portalId, password, nickname } = this.inputs
+        // Refine input data to lowercase
+        const portalId = this.inputs.portalId.toLowerCase()
+        const password = this.inputs.password.toLowerCase()
+        const nickname = this.inputs.nickname.toLowerCase()
+
         Axios({
           ...ApiUrl.user.signUp,
           data: { portalId, password, nickname }
