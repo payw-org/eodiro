@@ -193,11 +193,15 @@ $border-color: rgba(#000, 0.1);
 $border-color-dark: rgba(#fff, 0.17);
 
 @mixin bordered {
-  border: 1px solid rgba(#000, 0.1) !important;
+  border: 1px solid rgba(#000, 0.1);
 
   @include dark-mode {
-    border: 1px solid rgba(#fff, 0.17) !important;
+    border: 1px solid rgba(#fff, 0.17);
   }
+}
+
+@mixin rounded {
+  border-radius: r(4);
 }
 
 // Forms
@@ -205,7 +209,7 @@ $input-border-radius: r(4);
 
 @mixin input-style {
   @include bordered;
-  border-radius: r(4);
+  @include rounded;
   @include text-color;
   background-color: transparent;
   font-size: b(2);
