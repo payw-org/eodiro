@@ -47,10 +47,22 @@ const options = {
     }
   },
   methods: {
-    validatePi() {
+    /**
+     * @param {InputEvent} e
+     */
+    validatePi(e) {
+      const unavailableChars = /[@ ]/g
+      if (e && !e.data) {
+        setTimeout(() => {
+          this.inputs.portalId = this.inputs.portalId.replace(
+            unavailableChars,
+            ''
+          )
+        }, 0)
+      }
       if (this.isSignUp) {
         check(this.piInfo, apiUrl.user.validatePi, {
-          portalId: this.inputs.portalId
+          portalId: `${this.inputs.portalId}@cau.ac.kr`
         })
       }
     },
@@ -61,7 +73,15 @@ const options = {
         })
       }
     },
-    validatePw() {
+    /**
+     * @param {InputEvent} e
+     */
+    validatePw(e) {
+      if (e && e.data && e.data.match(/[ㄱ-힣]/)) {
+        this.$refs.passwordInput.value = ''
+        alert(this.$t('auth.noHangulInPw'))
+      }
+
       if (this.isSignUp) {
         check(this.pwInfo, apiUrl.user.validatePw, {
           password: this.inputs.password
