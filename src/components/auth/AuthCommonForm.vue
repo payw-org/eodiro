@@ -7,18 +7,21 @@
       <h1 v-else class="headline ui6-s-mb-6">{{ $t('auth.signIn') }}</h1>
 
       <!-- Portal ID input -->
-      <input
-        ref="portalIdInput"
-        v-model="inputs.portalId"
-        type="email"
-        :placeholder="$t('auth.portalId')"
-        :disabled="isValidating"
-        class="input-id entry"
-        @keydown="handleKeydown"
-        @keypress.enter="enterPortalId"
-        @input="validatePi"
-        @focus="resetSignInFail"
-      />
+      <div class="input-id-wrapper">
+        <input
+          ref="portalIdInput"
+          v-model="inputs.portalId"
+          type="email"
+          :placeholder="$t('auth.portalId')"
+          :disabled="isValidating"
+          class="input-id entry"
+          @keydown="handleKeydown"
+          @keypress.enter="enterPortalId"
+          @input="validatePi"
+          @focus="resetSignInFail"
+        />
+        <div class="email-host">@cau.ac.kr</div>
+      </div>
       <p
         v-if="isSignUp && !piInfo.isValid && inputs.portalId.length > 0"
         class="error-msg"
@@ -119,13 +122,13 @@ import Axios from 'axios'
 import { Button } from '~/components/ui'
 import ApiUrl from '~/modules/api-url'
 import Auth from '~/modules/auth'
-import handleInputEnter from './handle-input-enter'
-import handleInput from './handle-input'
-import requireUnauth from '~/mixins/require-unauth'
+import handleInputEnter from './mixins/handle-input-enter'
+import handleInput from './mixins/handle-input'
 
 export default {
   components: { Button },
-  mixins: [handleInputEnter, handleInput, requireUnauth],
+  mixins: [handleInputEnter, handleInput],
+  middleware: 'require-unauth',
   props: {
     form: {
       type: String,
@@ -163,7 +166,7 @@ export default {
      * @param {KeyboardEvent} e
      */
     handleKeydown(e) {
-      if (e.key === ' ') {
+      if (e.key.match(/[@ ]/)) {
         e.preventDefault()
       }
     },
@@ -212,7 +215,7 @@ export default {
 
         // Sign Up
         // Refine input data to lowercase
-        const portalId = this.inputs.portalId.toLowerCase()
+        const portalId = `${this.inputs.portalId.toLowerCase()}@cau.ac.kr`
         const password = this.inputs.password.toLowerCase()
         const nickname = this.inputs.nickname.toLowerCase()
 
@@ -241,7 +244,11 @@ export default {
           })
       } else {
         // Sign In
-        const { portalId, password } = this.inputs
+        const portalId = `${this.inputs.portalId
+          .trim()
+          .toLowerCase()}@cau.ac.kr`
+        const password = this.inputs.password
+
         Axios({
           url: ApiUrl.user.signIn.url,
           method: ApiUrl.user.signIn.method,
@@ -292,6 +299,40 @@ export default {
     &.input-id {
       margin-top: 0;
     }
+  }
+
+  .input-id-wrapper {
+    display: flex;
+
+    .input-id {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+      flex: 1;
+      border-right: none;
+    }
+
+    .email-host {
+      @include bordered;
+      @include rounded;
+      @include elm-fill;
+      font-size: b(2);
+      font-weight: fw(4);
+      padding: s(3);
+      line-height: lh(1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  .input-pw,
+  .input-pw-confirm {
+    -webkit-ime-mode: active;
+    -moz-ime-mode: active;
+    -ms-ime-mode: active;
+    ime-mode: active;
   }
 
   .redirect {
