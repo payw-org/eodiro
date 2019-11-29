@@ -9,6 +9,7 @@ export default {
   props: {
     full: {
       type: Boolean,
+      default: false,
       required: false
     }
   }
