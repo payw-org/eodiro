@@ -4,5 +4,6 @@ export default {
   portalEmailId: 'Portal email ID',
   nickname: 'Nickname',
   randomNickname: "Today's random nickname",
-  signOut: 'Sign Out'
+  signOut: 'Sign Out',
+  signOutFromAll: 'Sign out from all devices'
 }
