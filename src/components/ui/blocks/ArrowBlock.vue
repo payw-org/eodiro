@@ -34,7 +34,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/main.scss';
+@import '~/assets/styles/scss/main';
 
 .arrow-block {
   @include block-style;
@@ -52,7 +52,7 @@ export default {
       height: $icon-size;
       background-position: center;
       background-repeat: no-repeat;
-      background-size: contain;
+      background-size: $icon-size $icon-size;
     }
   }
 
@@ -75,7 +75,7 @@ export default {
       background-image: url('~assets/images/arrow_right_gray.svg');
       background-position: center;
       background-repeat: no-repeat;
-      background-size: contain;
+      background-size: 0.6rem auto;
 
       @include dark-mode {
         background-image: url('~assets/images/arrow_right_dark.svg');
