@@ -26,8 +26,8 @@
       {{ $t('me.signOut') }}
     </Button>
 
-    <Button class="sign-out-all-btn" full @click="signOutAll">
-      모든 기기에서 자동로그인 해제
+    <Button class="sign-out-all-btn" full @click="signOutFromAll">
+      {{ $t('me.signOutFromAll') }}
     </Button>
     <p class="manifesto" />
   </div>
@@ -77,13 +77,22 @@ export default {
       Auth.clearJwt()
       this.$router.replace(this.localePath('index'))
     },
-    signOutAll() {
+    signOutFromAll() {
       Axios({
         ...apiUrl.user.clearToken,
         headers: {
           accessToken: Auth.getAccessToken()
         }
       })
+        .then((res) => {
+          this.$store.commit('SET_SIGNED_IN', false)
+          Auth.clearJwt()
+          this.$router.replace(this.localePath('sign-in'))
+        })
+        .catch((err) => {
+          console.error(err)
+          alert(this.$t('global.error.networkError'))
+        })
     }
   }
 }
