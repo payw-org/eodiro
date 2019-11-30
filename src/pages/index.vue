@@ -172,6 +172,8 @@ export default {
 @import '~/assets/styles/scss/main';
 
 #home {
+  padding-bottom: 5rem !important;
+
   .page-content-wrapper {
     width: 100%;
 
