@@ -22,6 +22,7 @@
             v-else
             class="menu-item-wrapper"
             :link="localePath('me').replace(/\/$/, '')"
+            @click="showTopbar"
           >
             <template v-slot:icon>
               <span class="icon icon--me" />
