@@ -406,22 +406,35 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
         display: block;
         width: 100%;
         height: 100%;
+        background-position: center;
+        background-size: 4.5rem;
+        background-repeat: no-repeat;
       }
 
       &.hamlet--home {
         .icon {
-          @include bgImg(
-            '~assets/images/eodiro_logo_arrow_white.svg',
-            center,
-            '50%'
-          );
+          background-size: 3.5rem;
+        }
+      }
+
+      &.nav-icon {
+        .icon {
+          background-size: 2.5rem !important;
+        }
+
+        &.hamlet--home {
+          .icon {
+            background-size: 1.7rem !important;
+          }
+        }
+      }
+
+      &.hamlet--home {
+        .icon {
+          background-image: url(~assets/images/eodiro_logo_arrow_white.svg);
 
           @include dark-mode {
-            @include bgImg(
-              '~assets/images/eodiro_logo_arrow_black.svg',
-              center,
-              '50%'
-            );
+            background-image: url(~assets/images/eodiro_logo_arrow_black.svg);
           }
         }
       }
@@ -429,30 +442,30 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
       &.hamlet--sign-in,
       &.hamlet--sign-up {
         .icon {
-          @include bgImg('~assets/images/key-white.svg', center, '75%');
+          background-image: url(~assets/images/key-white.svg);
 
           @include dark-mode {
-            @include bgImg('~assets/images/key.svg', center, '75%');
+            background-image: url(~assets/images/key.svg);
           }
         }
       }
 
       &.hamlet--me {
         .icon {
-          @include bgImg('~assets/images/man-white.svg', center, '75%');
+          background-image: url(~assets/images/man-white.svg);
 
           @include dark-mode {
-            @include bgImg('~assets/images/man.svg', center, '75%');
+            background-image: url(~assets/images/man.svg);
           }
         }
       }
 
       &.hamlet--vacant {
         .icon {
-          @include bgImg('~assets/images/door_white.svg', center, '75%');
+          background-image: url(~assets/images/door_white.svg);
 
           @include dark-mode {
-            @include bgImg('~assets/images/door_black.svg', center, '75%');
+            background-image: url(~assets/images/door_black.svg);
           }
         }
       }
@@ -469,94 +482,89 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 
         .icon {
           animation: rotatingGear 5s linear 0s infinite normal forwards;
-
-          @include bgImg('~assets/images/gear_white.svg', center, '75%');
+          background-image: url(~assets/images/gear_white.svg);
 
           @include dark-mode {
-            @include bgImg('~assets/images/gear_black.svg', center, '75%');
+            background-image: url(~assets/images/gear_black.svg);
           }
         }
       }
 
       &.hamlet--inquiry {
         .icon {
-          @include bgImg('~assets/images/inquiry_white.svg', center, '75%');
+          background-image: url(~assets/images/inquiry_white.svg);
 
           @include dark-mode {
-            @include bgImg('~assets/images/inquiry_black.svg', center, '75%');
+            background-image: url(~assets/images/inquiry_black.svg);
           }
         }
       }
 
       &.hamlet--donation {
         .icon {
-          @include bgImg('~assets/images/heart_white.svg', center, '75%');
+          background-image: url(~assets/images/heart_white.svg);
 
           @include dark-mode {
-            @include bgImg('~assets/images/heart_black.svg', center, '75%');
+            background-image: url(~assets/images/heart_black.svg);
           }
         }
       }
       &.hamlet--opensource {
         .icon {
-          @include bgImg('~assets/images/heart_white.svg', center, '75%');
+          background-image: url(~assets/images/heart_white.svg);
 
           @include dark-mode {
-            @include bgImg('~assets/images/heart_black.svg', center, '75%');
+            background-image: url(~assets/images/heart_black.svg);
           }
         }
       }
 
       &.hamlet--clubs {
         .icon {
-          @include bgImg('~assets/images/three-white.svg', center, '75%');
+          background-image: url(~assets/images/three-white.svg);
 
           @include dark-mode {
-            @include bgImg('~assets/images/three-black.svg', center, '75%');
+            background-image: url(~assets/images/three-black.svg);
           }
         }
       }
 
       &.hamlet--lectures {
         .icon {
-          @include bgImg('~assets/images/magnifier-white.svg', center, '75%');
+          background-image: url(~assets/images/magnifier-white.svg);
 
           @include dark-mode {
-            @include bgImg('~assets/images/magnifier-black.svg', center, '75%');
+            background-image: url(~assets/images/magnifier-black.svg);
           }
         }
       }
 
       &.hamlet--pepero-square {
         .icon {
-          @include bgImg('~assets/images/community-white.svg', center, '75%');
+          background-image: url(~assets/images/community-white.svg);
 
           @include dark-mode {
-            @include bgImg('~assets/images/community.svg', center, '75%');
+            background-image: url(~assets/images/community.svg);
           }
         }
       }
 
       &.hamlet--cafeteria {
         .icon {
-          @include bgImg('~assets/images/fork_knife_white.svg', center, '75%');
+          background-image: url(~assets/images/fork_knife_white.svg);
 
           @include dark-mode {
-            @include bgImg(
-              '~assets/images/fork_knife_black.svg',
-              center,
-              '75%'
-            );
+            background-image: url(~assets/images/fork_knife_black.svg);
           }
         }
       }
 
       &.hamlet--privacy {
         .icon {
-          @include bgImg('~assets/images/shield-white.svg', center, '75%');
+          background-image: url(~assets/images/shield-white.svg);
 
           @include dark-mode {
-            @include bgImg('~assets/images/shield.svg', center, '75%');
+            background-image: url(~assets/images/shield.svg);
           }
         }
       }
