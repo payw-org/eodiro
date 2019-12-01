@@ -1,6 +1,6 @@
 {
   "name": "eodiro",
-  "version": "2.1.0-beta.2",
+  "version": "2.1.0-beta.4",
   "description": "CAU Utility Service",
   "scripts": {
     "dev": "cross-env HOST=0.0.0.0 PORT=3000 NODE_ENV=development nuxt",
@@ -10,7 +10,7 @@
     "start": "cross-env HOST=0.0.0.0 nuxt start",
     "serve": "serve dist --listen=3000",
     "start-dev": "nuxt start --port 3020",
-    "start-pm2": "pm2 start npm --name 'dist' -- run start",
+    "start-pm2": "pm2 start npm --name 'nuxt-dist' -- run start",
     "generate": "nuxt generate",
     "add-domain": "echo \"eodiro.com\" > dist/CNAME",
     "deploy": "gh-pages -d dist",
