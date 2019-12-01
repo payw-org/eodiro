@@ -30,6 +30,16 @@ const config = {
         rel: 'apple-touch-icon',
         href: '/apple-touch-icon.png'
       },
+      {
+        rel: 'apple-touch-icon',
+        sizes: '180x180',
+        href: '/apple-touch-icon-180.png'
+      },
+      {
+        rel: 'apple-touch-icon',
+        sizes: '152x152',
+        href: '/apple-touch-icon-152.png'
+      },
       { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#ff6421' },
       {
         rel: 'manifest',
