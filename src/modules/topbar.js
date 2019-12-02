@@ -1,3 +1,8 @@
+/* topbar for eodiro
+ * (c) 2019 Jang Haemin
+ * @license MIT
+ */
+
 /*! topbar 0.1.3, 2014-12-09
  *  http://buunguyen.github.io/topbar
  *  Copyright (c) 2014 Buu Nguyen
