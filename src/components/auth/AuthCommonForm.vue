@@ -119,6 +119,7 @@
 
 <script>
 import Axios from 'axios'
+import useAxios from '~/modules/use-axios'
 import { Button } from '~/components/ui'
 import ApiUrl from '~/modules/api-url'
 import Auth from '~/modules/auth'
@@ -191,7 +192,7 @@ export default {
     /**
      * Process sign in or sign up
      */
-    process() {
+    async process() {
       if (this.isSignUp) {
         this.validatePi()
         this.validateNn()
@@ -219,29 +220,28 @@ export default {
         const password = this.inputs.password.toLowerCase()
         const nickname = this.inputs.nickname.toLowerCase()
 
-        Axios({
+        const [err, res] = await useAxios({
           ...ApiUrl.user.signUp,
           data: { portalId, password, nickname }
         })
-          .then((res) => {
-            // Sign up success
-            alert(
-              '회원가입이 완료되었습니다.\nCAU 포탈에서 인증 메일을 확인해주세요!\n인증 코드는 30분동안 유효합니다.'
-            )
-            this.$router.replace(this.localePath('index'))
-          })
-          .catch((err) => {
-            if (!err.response) {
-              console.error('❌ API server network error')
-              alert(this.$t('global.error.networkError'))
-            } else {
-              alert('조건을 한 번 더 확인해주세요')
-            }
-          })
-          .finally(() => {
-            // Restore validation state
-            this.isValidating = false
-          })
+
+        if (err) {
+          if (!err.response) {
+            console.error('❌ API server network error')
+            alert(this.$t('global.error.networkError'))
+          } else {
+            alert('조건을 한 번 더 확인해주세요')
+          }
+        } else if (res) {
+          // Sign up success
+          alert(
+            '회원가입이 완료되었습니다.\nCAU 포탈에서 인증 메일을 확인해주세요!\n인증 코드는 30분동안 유효합니다.'
+          )
+          this.$router.replace(this.localePath('index'))
+        }
+
+        // Restore validation state
+        this.isValidating = false
       } else {
         // Sign In
         const portalId = `${this.inputs.portalId

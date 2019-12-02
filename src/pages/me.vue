@@ -37,10 +37,10 @@
 import pageBase from '~/mixins/page-base'
 import Button from '~/components/ui/basic/Button'
 import Auth from '~/modules/auth'
-import Axios from 'axios'
 import apiUrl from '~/modules/api-url'
 import autoHead from '~/modules/auto-head'
 import requireAuthMixin from '~/mixins/require-auth-mixin'
+import useAxios from '~/modules/use-axios'
 
 export default {
   name: 'me',
@@ -57,19 +57,23 @@ export default {
       myInfo: {}
     }
   },
-  asyncData({ app, req, res, store }) {
+  async asyncData({ app, req, res, store }) {
     if (!store.state.auth.isSignedIn) return
 
-    return Axios({
+    const [err, axRes] = await useAxios({
       ...apiUrl.user.information,
       headers: {
         accessToken: Auth.getAccessToken({ req, res })
       }
-    }).then((res) => {
-      return {
-        myInfo: res.data
-      }
     })
+
+    if (err) {
+      console.error(app.i18n.t('global.error.networkError'))
+    } else {
+      return {
+        myInfo: axRes.data
+      }
+    }
   },
   methods: {
     signOut() {
@@ -77,22 +81,22 @@ export default {
       Auth.clearJwt()
       this.$router.replace(this.localePath('index'))
     },
-    signOutFromAll() {
-      Axios({
+    async signOutFromAll() {
+      const [err] = await useAxios({
         ...apiUrl.user.clearToken,
         headers: {
           accessToken: Auth.getAccessToken()
         }
       })
-        .then((res) => {
-          this.$store.commit('SET_SIGNED_IN', false)
-          Auth.clearJwt()
-          this.$router.replace(this.localePath('sign-in'))
-        })
-        .catch((err) => {
-          console.error(err)
-          alert(this.$t('global.error.networkError'))
-        })
+
+      if (err) {
+        console.error(err)
+        alert(this.$t('global.error.networkError'))
+      } else {
+        this.$store.commit('SET_SIGNED_IN', false)
+        Auth.clearJwt()
+        this.$router.replace(this.localePath('sign-in'))
+      }
     }
   }
 }
