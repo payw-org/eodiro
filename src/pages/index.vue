@@ -36,6 +36,7 @@
           <ArrowBlock
             class="menu-item-wrapper"
             :link="localePath('pepero-square').replace(/\/$/, '')"
+            @click="showTopbar"
           >
             <template v-slot:icon>
               <span class="icon icon--pepero-square" />
