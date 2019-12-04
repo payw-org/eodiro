@@ -11,7 +11,7 @@
         <input
           ref="portalIdInput"
           v-model="inputs.portalId"
-          type="email"
+          type="text"
           :placeholder="$t('auth.portalId')"
           :disabled="isValidating"
           class="input-id entry"
