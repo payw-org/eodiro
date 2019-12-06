@@ -1,5 +1,9 @@
 <template>
-  <div class="arrow-block" @click="$emit('click')">
+  <div
+    class="arrow-block"
+    :class="{ pressed: isPressed, hovered: isHovered }"
+    @click="$emit('click')"
+  >
     <NuxtLink v-if="link !== ''" :to="link" class="absolute-link" />
 
     <!-- only visible when icon slot is set -->
@@ -29,7 +33,99 @@ export default {
       required: false,
       default: ''
     }
-  }
+  },
+  data() {
+    return {
+      isPressed: false,
+      isHovered: false,
+      pressTimeout: null
+    }
+  },
+  mounted() {
+    /** @type {HTMLElement} */
+    const btn = this.$el
+
+    if (window.isTouchDevice) {
+      let touchmoveCallback, touchendCallback
+
+      btn.addEventListener('touchstart', () => {
+        this.pressTimeout = window.setTimeout(() => {
+          this.isPressed = true
+        }, 150)
+
+        btn.addEventListener(
+          'touchmove',
+          (touchmoveCallback = () => {
+            btn.removeEventListener('touchend', touchendCallback)
+            this.isPressed = false
+            window.clearTimeout(this.pressTimeout)
+          })
+        )
+
+        btn.addEventListener(
+          'touchend',
+          (touchendCallback = () => {
+            btn.removeEventListener('touchmove', touchmoveCallback)
+            btn.removeEventListener('touchend', touchendCallback)
+
+            window.clearTimeout(this.pressTimeout)
+            this.isPressed = true
+            window.setTimeout(() => {
+              this.isPressed = false
+            }, 500)
+          })
+        )
+      })
+    } else {
+      let mousedownCallback,
+        mouseupCallback,
+        mousemoveCallback,
+        mouseleaveCallback
+
+      btn.addEventListener('mouseenter', () => {
+        this.isHovered = true
+
+        btn.addEventListener(
+          'mousedown',
+          (mousedownCallback = (e) => {
+            e.preventDefault()
+            this.isPressed = true
+
+            btn.addEventListener(
+              'mousemove',
+              (mousemoveCallback = (e) => {
+                btn.removeEventListener('mousedown', mousedownCallback)
+                btn.removeEventListener('mousemove', mousemoveCallback)
+                btn.removeEventListener('mouseup', mouseupCallback)
+                this.isPressed = false
+              })
+            )
+
+            btn.addEventListener(
+              'mouseup',
+              (mouseupCallback = () => {
+                btn.removeEventListener('mouseup', mouseupCallback)
+                btn.removeEventListener('mousedown', mousedownCallback)
+                btn.removeEventListener('mousemove', mousemoveCallback)
+                setTimeout(() => {
+                  this.isPressed = false
+                }, 500)
+              })
+            )
+          })
+        )
+
+        btn.addEventListener(
+          'mouseleave',
+          (mouseleaveCallback = () => {
+            btn.removeEventListener('mouseleave', mouseleaveCallback)
+            this.isHovered = false
+          })
+        )
+      })
+    }
+  },
+  methods: {}
 }
 </script>
 
@@ -39,6 +135,22 @@ export default {
 .arrow-block {
   @include block-style;
   cursor: pointer;
+
+  &.hovered {
+    background: darken($base-white-blue, 3%);
+
+    @include dark-mode {
+      background: lighten($base-black-soft, 3%);
+    }
+  }
+
+  &.pressed {
+    background: darken($base-white-blue, 10%);
+
+    @include dark-mode {
+      background: lighten($base-black-soft, 10%);
+    }
+  }
 
   .arrb-icon-wrapper {
     display: flex;

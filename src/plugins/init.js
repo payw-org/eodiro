@@ -118,5 +118,12 @@ export default async (context) => {
     } else {
       store.commit('SET_SIGNED_IN', false)
     }
+
+    // Detect touch device
+    if ('ontouchstart' in window || navigator.maxTouchPoints) {
+      window.isTouchDevice = true
+    } else {
+      window.isTouchDevice = false
+    }
   }
 }
