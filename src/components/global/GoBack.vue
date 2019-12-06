@@ -131,7 +131,7 @@ $go-back-btn-height: 2.7rem;
   opacity: 1;
   transform: translateX(-50%) scale(1);
   border-radius: 50px;
-  box-shadow: 0 1rem 10rem rgba(#000, 0.6);
+  box-shadow: 0 2rem 10rem rgba(#000, 0.6);
   transition: transform 300ms ease, opacity 300ms ease,
     background-color $color-scheme-transition-time ease;
 
