@@ -24,6 +24,12 @@
   }
 }
 
+@mixin on-english {
+  [lang='en'] & {
+    @content;
+  }
+}
+
 // transitions
 @mixin ui-transition {
   transition: border $color-scheme-transition-time ease,
