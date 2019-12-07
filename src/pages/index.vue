@@ -6,7 +6,7 @@
           <!-- Sign In -->
           <ArrowBlock
             v-if="!$store.state.auth.isSignedIn"
-            class="menu-item-wrapper"
+            class="menu-item-wrapper beta"
             :link="localePath('sign-in').replace(/\/$/, '')"
           >
             <template v-slot:icon>
@@ -20,7 +20,7 @@
           <!-- My Page -->
           <ArrowBlock
             v-else
-            class="menu-item-wrapper"
+            class="menu-item-wrapper beta"
             :link="localePath('me').replace(/\/$/, '')"
             @click="showTopbar"
           >
@@ -34,7 +34,7 @@
 
           <!-- Pepero Square -->
           <ArrowBlock
-            class="menu-item-wrapper"
+            class="menu-item-wrapper beta"
             :link="localePath('pepero-square').replace(/\/$/, '')"
             @click="showTopbar"
           >
@@ -182,6 +182,30 @@ export default {
     .page-content {
       .menu-item-container {
         .menu-item-wrapper {
+          &.beta {
+            .content {
+              display: flex;
+              align-items: center;
+            }
+
+            .content::before {
+              content: '베타';
+              display: inline-block;
+              margin-right: s(3);
+              @include bg-inverted;
+              @include text-color-inverted;
+              border-radius: r(2);
+              padding: 0.3rem 0.4rem;
+              line-height: lh(1);
+              font-size: b(2);
+              font-weight: fw(5);
+
+              @include on-english {
+                content: 'Beta';
+              }
+            }
+          }
+
           &.disabled {
             opacity: 0.4;
             filter: grayscale(0.8);
