@@ -7,7 +7,7 @@
           {{ $t('pref.lang') }}
         </h2>
         <div class="options">
-          <Button class="opt" @click="switchLang('kr')">
+          <Button class="opt" @click="switchLang('ko')">
             한국어
           </Button>
           <Button class="opt" @click="switchLang('en')">
@@ -42,11 +42,11 @@
 </template>
 
 <script>
-import Cookies from 'js-cookie'
 import pageBase from '~/mixins/page-base'
 import { Button } from '~/components/ui'
 import autoHead from '~/modules/auto-head'
 import CookieConfig from '~~/config/cookie'
+import EodiroCookie, { defaultCookieOptions } from '~/modules/cookie'
 
 export default {
   name: 'preferences',
@@ -73,11 +73,16 @@ export default {
   },
   methods: {
     /**
-     * @param {'kr' | 'en'} lang
+     * @param {'ko' | 'en'} lang
      */
     switchLang(lang) {
-      Cookies.set(CookieConfig.langCookieName, lang, { expires: 99999 })
-      location.reload()
+      new EodiroCookie().set(
+        CookieConfig.langCookieName,
+        lang,
+        defaultCookieOptions
+      )
+      this.$store.commit('SET_LANG', lang)
+      window.location.reload()
     },
     switchColorScheme(mode) {
       this.$store.commit('SET_COLOR_SCHEME', { mode })
