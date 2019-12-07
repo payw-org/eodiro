@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="arrow-block"
-    :class="{ pressed: isPressed, hovered: isHovered }"
-    @click="$emit('click')"
-  >
+  <div class="arrow-block" @click="$emit('click')">
     <NuxtLink v-if="link !== ''" :to="link" class="absolute-link" />
 
     <!-- only visible when icon slot is set -->
