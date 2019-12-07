@@ -1,5 +1,5 @@
-import dayjs from 'dayjs'
-import EodiroCookie from '~/modules/cookie'
+import EodiroCookie, { defaultCookieOptions } from '~/modules/cookie'
+import CookieConfig from '~~/config/cookie'
 
 /**
  * Returns a class name matches to color scheme mode
@@ -22,6 +22,7 @@ function getColorClassName(colorMode) {
 // states
 export const state = () => ({
   colorSchemeClassName: 'light-mode',
+  lang: 'en',
   cachedComponents: [],
   hamletList: [
     'home',
@@ -46,6 +47,12 @@ export const state = () => ({
 
 export const mutations = {
   /**
+   * @param {'ko'|'en'} lang
+   */
+  SET_LANG(state, lang) {
+    state.lang = lang
+  },
+  /**
    * @param {'light'|'dark'|'auto'} mode
    * @param {Object} payload
    * @param {string} payload.mode
@@ -61,10 +68,11 @@ export const mutations = {
     }
 
     const eodiroCookie = new EodiroCookie({ res })
-    eodiroCookie.set('color_scheme', newMode, {
-      expires: dayjs('2500-12-31').toDate(),
-      path: '/'
-    })
+    eodiroCookie.set(
+      CookieConfig.colorSchemeCookieName,
+      newMode,
+      defaultCookieOptions
+    )
 
     const colorSchemeClassName = getColorClassName(newMode)
     state.colorSchemeClassName = colorSchemeClassName
@@ -96,13 +104,45 @@ export const mutations = {
 }
 
 export const actions = {
-  nuxtServerInit({ commit, state }, { req, res }) {
+  async nuxtServerInit({ commit, state }, { req, res, redirect, app, route }) {
     // If color scheme is set in cookie
     // initialize vuex store with the value
     const eodiroCookie = new EodiroCookie({ req, res })
-    const colorScheme = eodiroCookie.get('color_scheme')
+    const colorScheme = eodiroCookie.get(CookieConfig.colorSchemeCookieName)
+
     if (colorScheme) {
       state.colorSchemeClassName = getColorClassName(colorScheme)
+    } else {
+      commit('SET_COLOR_SCHEME', { res })
+      eodiroCookie.pile(
+        CookieConfig.colorSchemeCookieName,
+        'light',
+        defaultCookieOptions
+      )
     }
+
+    let lang = eodiroCookie.get(CookieConfig.langCookieName)
+      ? eodiroCookie.get(CookieConfig.langCookieName)
+      : req.headers['accept-language']
+      ? req.headers['accept-language'].slice(0, 2).toLowerCase()
+      : 'en'
+
+    // For old lang code compatibility
+    // TODO: remove this code when sufficient time had been passed
+    if (lang === 'kr') {
+      lang = 'ko'
+    }
+
+    // Real page language
+    const pageLang = app.i18n.locale
+
+    if (lang !== pageLang) {
+      app.i18n.setLocale(lang)
+    }
+
+    commit('SET_LANG', lang)
+    eodiroCookie.pile(CookieConfig.langCookieName, lang, defaultCookieOptions)
+
+    eodiroCookie.bulkSet()
   }
 }

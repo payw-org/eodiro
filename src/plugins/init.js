@@ -1,18 +1,14 @@
-import JsCookie from 'js-cookie'
-import CookieConfig from '~~/config/cookie'
 import Auth from '~/modules/auth'
-import EodiroCookie from '~/modules/cookie'
-const { langCookieName } = CookieConfig
 
 /**
  * @param {string} currentPath
- * @param {'kr' | 'en'} lang
+ * @param {'ko' | 'en'} lang
  */
 function getRedirectPath(currentPath, lang) {
   let newPath = currentPath
   const cleanPath = currentPath.replace(/^\/en/, '').replace(/\/$/, '')
 
-  if (lang === 'kr') {
+  if (lang === 'ko') {
     newPath = cleanPath
     if (newPath === '') {
       newPath = '/'
@@ -36,44 +32,6 @@ export default async (context) => {
       return
     }
 
-    // Browser redirection
-    const eodiroCookie = new EodiroCookie({ req, res })
-    const redirectLang = eodiroCookie.get(langCookieName)
-
-    // Language cookie is not set yet
-    if (!redirectLang) {
-      const acceptLang = req.headers['accept-language']
-        ? req.headers['accept-language'].slice(0, 2).toLowerCase()
-        : undefined
-      if (acceptLang === 'ko') {
-        redirect(getRedirectPath(route.path, 'kr'))
-      } else {
-        redirect(getRedirectPath(route.path, 'en'))
-      }
-      return
-    }
-
-    // Language cookie available
-    const routeName = route.name
-    if (routeName.endsWith('___en')) {
-      // Visit english url page
-      if (redirectLang !== 'en') {
-        // But cookie is set to Korean
-        redirect(getRedirectPath(route.path, 'kr'))
-      }
-    } else if (redirectLang === 'en') {
-      redirect(getRedirectPath(route.path, 'en'))
-    }
-
-    // Set color scheme using cookie
-    const mode = eodiroCookie.get('color_scheme')
-    if (!mode) {
-      store.commit('SET_COLOR_SCHEME', {
-        mode,
-        res
-      })
-    }
-
     // Check authentication
     const isSignedIn = await Auth.isSignedIn({ req, res })
     if (isSignedIn) {
@@ -85,12 +43,6 @@ export default async (context) => {
   if (process.client) {
     // Polyfills
     require('~/polyfills')
-
-    // Set cookies on client
-    const i18nLang = JsCookie.get(langCookieName)
-    if (!i18nLang) {
-      JsCookie.set(langCookieName, app.i18n.locale, { expires: 99999 })
-    }
 
     // Prevent browser's default scroll restoration behaviour
     if ('scrollRestoration' in history) {

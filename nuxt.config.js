@@ -101,14 +101,14 @@ const config = {
           },
           {
             name: 'Korean',
-            code: 'kr',
+            code: 'ko',
             iso: 'ko-KR',
             file: 'ko-KR.js'
           }
         ],
         lazy: true,
         langDir: 'lang/',
-        defaultLocale: 'kr',
+        defaultLocale: 'ko',
         detectBrowserLanguage: false
       }
     ]

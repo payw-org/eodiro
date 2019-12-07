@@ -1,5 +1,6 @@
 import JsCookie from 'js-cookie'
 import NodeCookie from 'cookie'
+import dayjs from 'dayjs'
 
 export default class Cookie {
   /**
@@ -11,9 +12,46 @@ export default class Cookie {
     if (http && http.res) {
       this.res = http.res
     }
+
     if (http && http.req) {
       this.req = http.req
     }
+
+    this.cookieStack = []
+  }
+
+  /**
+   * Only for server-side cookie
+   * @param {string} name
+   * @param {string | Object} value
+   */
+  generateCookieString(name, value, options) {
+    if (!this.res) {
+      console.warn("Don't use generateCookieString() on client side")
+      return undefined
+    }
+
+    // If the value is an object
+    // convert to JSON string
+    if (typeof value === 'object') {
+      value = JSON.stringify(value)
+    }
+
+    // Initialize a cookie string with the value
+    let cookie = `${name}=${value};`
+
+    // Append expires
+    if (options && options.expires) {
+      cookie += `Expires=${options.expires.toString()};`
+    }
+
+    // Append cookie path
+    if (options && options.path) {
+      // Clean the path
+      cookie += `Path=${options.path.replace(/'/g, '')};`
+    }
+
+    return cookie
   }
 
   /**
@@ -52,26 +90,8 @@ export default class Cookie {
    */
   set(name, value, options) {
     if (this.res) {
-      // If the value is an object
-      // convert to JSON string
-      if (typeof value === 'object') {
-        value = JSON.stringify(value)
-      }
-
-      // Initialize a cookie string with the value
-      let cookie = `${name}=${value};`
-
-      // Append expires
-      if (options.expires) {
-        cookie += `Expires=${options.expires.toString()};`
-      }
-
-      // Append cookie path
-      if (options.path) {
-        // Clean the path
-        cookie += `Path=${options.path.replace(/'/g, '')};`
-      }
-      this.res.setHeader('Set-Cookie', [cookie])
+      const cookie = this.generateCookieString(name, value, options)
+      this.res.setHeader('Set-Cookie', cookie)
     } else if (typeof window !== 'undefined') {
       JsCookie.set(name, value, {
         expires: options.expires,
@@ -81,6 +101,28 @@ export default class Cookie {
       console.warn(
         'You are using eodiro Cookie set on server side without passing server response object.'
       )
+    }
+  }
+
+  /**
+   * Adds a cookie to the stack. Run bulkSet() after piling up.
+   */
+  pile(name, value, options) {
+    const cookie = this.generateCookieString(name, value, options)
+    if (cookie) {
+      this.cookieStack.push(cookie)
+    }
+  }
+
+  bulkSet() {
+    if (!this.res) {
+      console.warn('bulkSet() works only on server-side')
+      return
+    }
+
+    if (this.cookieStack.length > 0) {
+      this.res.setHeader('Set-Cookie', this.cookieStack)
+      this.cookieStack = []
     }
   }
 
@@ -96,4 +138,9 @@ export default class Cookie {
       JsCookie.remove(name)
     }
   }
+}
+
+export const defaultCookieOptions = {
+  expires: dayjs('2500-12-31').toDate(),
+  path: '/'
 }

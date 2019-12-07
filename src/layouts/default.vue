@@ -41,7 +41,8 @@ export default {
         }
       ],
       htmlAttrs: {
-        class: this.$store.state.colorSchemeClassName
+        class: this.$store.state.colorSchemeClassName,
+        lang: this.$store.state.lang
       }
     }
   },
