@@ -15,6 +15,7 @@
           :placeholder="$t('auth.portalId')"
           :disabled="isValidating"
           class="input-id entry"
+          spellcheck="false"
           @keydown="handleKeydown"
           @keypress.enter="enterPortalId"
           @input="validatePi"
@@ -118,13 +119,11 @@
 </template>
 
 <script>
-import Axios from 'axios'
-import useAxios from '~/modules/use-axios'
 import { Button } from '~/components/ui'
-import ApiUrl from '~/modules/api-url'
 import Auth from '~/modules/auth'
 import handleInputEnter from './mixins/handle-input-enter'
 import handleInput from './mixins/handle-input'
+import { AuthApi } from '~/modules/eodiro-api'
 
 export default {
   components: { Button },
@@ -214,30 +213,18 @@ export default {
         // Start validation from server
         this.isValidating = true
 
-        // Sign Up
-        // Refine input data to lowercase
-        const portalId = `${this.inputs.portalId.toLowerCase()}@cau.ac.kr`
-        const password = this.inputs.password.toLowerCase()
-        const nickname = this.inputs.nickname.toLowerCase()
-
-        const [err, res] = await useAxios({
-          ...ApiUrl.user.signUp,
-          data: { portalId, password, nickname }
-        })
-
-        if (err) {
-          if (!err.response) {
-            console.error('❌ API server network error')
-            alert(this.$t('global.error.networkError'))
-          } else {
-            alert('조건을 한 번 더 확인해주세요')
-          }
-        } else if (res) {
-          // Sign up success
-          alert(
+        const isSignedUp = await AuthApi.signUp(
+          this.inputs.portalId,
+          this.inputs.nickname,
+          this.inputs.password
+        )
+        if (isSignedUp) {
+          window.alert(
             '회원가입이 완료되었습니다.\nCAU 포탈에서 인증 메일을 확인해주세요!\n인증 코드는 30분동안 유효합니다.'
           )
           this.$router.replace(this.localePath('index'))
+        } else {
+          window.alert('조건을 한 번 더 확인해주세요')
         }
 
         // Restore validation state
@@ -249,32 +236,18 @@ export default {
           .toLowerCase()}@cau.ac.kr`
         const password = this.inputs.password
 
-        Axios({
-          url: ApiUrl.user.signIn.url,
-          method: ApiUrl.user.signIn.method,
-          data: { portalId, password }
-        })
-          .then((res) => {
-            // Sign in success
-            const { data } = res
-            Auth.setJwt(data.accessToken, data.refreshToken)
-            this.$store.commit('SET_SIGNED_IN', true)
-            this.$router.replace(this.localePath('index'))
-          })
-          .catch((err) => {
-            if (!err.response) {
-              console.error('❌ API server network error')
-              alert(this.$t('global.error.networkError'))
-              return
-            }
+        // Use UserApi module
+        const signInResult = await AuthApi.signIn(portalId, password)
+        if (signInResult) {
+          // Sign in success
+          Auth.setJwt(signInResult.accessToken, signInResult.refreshToken)
+          this.$store.commit('SET_SIGNED_IN', true)
+          this.$router.replace(this.localePath('index'))
+        } else {
+          this.isSignInFailed = true
+        }
 
-            if (err.response.status === 401) {
-              this.isSignInFailed = true
-            }
-          })
-          .finally(() => {
-            this.isValidating = false
-          })
+        this.isValidating = false
       }
     }
   }

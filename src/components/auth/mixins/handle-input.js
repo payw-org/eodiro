@@ -1,30 +1,4 @@
-import Axios from 'axios'
-import apiUrl from '~/modules/api-url'
-
-function check(info, api, data) {
-  if (info.timeout) {
-    clearTimeout(info.timeout)
-  }
-
-  info.timeout = setTimeout(() => {
-    Axios({
-      ...api,
-      data
-    })
-      .then(() => {
-        info.isValid = true
-      })
-      .catch(() => {
-        info.isValid = false
-      })
-      .finally(() => {
-        const key = Object.keys(data)[0]
-        if (data[key].length === 0) {
-          info.isValid = true
-        }
-      })
-  }, 300)
-}
+import { AuthApi } from '~/modules/eodiro-api'
 
 /**
  * @type {Vue.ComponentOptions}
@@ -61,16 +35,26 @@ const options = {
         }, 0)
       }
       if (this.isSignUp) {
-        check(this.piInfo, apiUrl.user.validatePi, {
-          portalId: `${this.inputs.portalId}@cau.ac.kr`
-        })
+        if (this.piInfo.timeout) {
+          window.clearTimeout(this.piInfo.timeout)
+        }
+        this.piInfo.timeout = window.setTimeout(async () => {
+          this.piInfo.isValid = await AuthApi.validatePortalId(
+            this.inputs.portalId
+          )
+        }, 300)
       }
     },
     validateNn() {
       if (this.isSignUp) {
-        check(this.nnInfo, apiUrl.user.validateNn, {
-          nickname: this.inputs.nickname
-        })
+        if (this.nnInfo.timeout) {
+          window.clearTimeout(this.nnInfo.timeout)
+        }
+        this.nnInfo.timeout = window.setTimeout(async () => {
+          this.nnInfo.isValid = await AuthApi.validateNickname(
+            this.inputs.nickname
+          )
+        }, 300)
       }
     },
     /**
@@ -83,9 +67,14 @@ const options = {
       }
 
       if (this.isSignUp) {
-        check(this.pwInfo, apiUrl.user.validatePw, {
-          password: this.inputs.password
-        })
+        if (this.pwInfo.timeout) {
+          window.clearTimeout(this.pwInfo.timeout)
+        }
+        this.pwInfo.timeout = window.setTimeout(async () => {
+          this.pwInfo.isValid = await AuthApi.validatePassword(
+            this.inputs.password
+          )
+        }, 300)
       }
     }
   }
