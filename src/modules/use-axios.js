@@ -17,6 +17,20 @@ export default function useAxios(config) {
         resolve([null, res])
       })
       .catch((err) => {
+        if (err) {
+          console.error(err)
+        }
+
+        // Network error
+        // Perhaps our server is closed
+        if (!err.response) {
+          console.error('Network Error')
+
+          // Client side alert
+          if (typeof window !== 'undefined') {
+            window.alert('Network Error')
+          }
+        }
         resolve([err, null])
       })
   })
