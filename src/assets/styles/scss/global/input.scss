@@ -1,0 +1,39 @@
+@import '~/assets/styles/scss/main';
+
+input[type='checkbox'] {
+  $checkbox-size: 23px;
+  $indicator-size: 11px;
+
+  appearance: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: $checkbox-size;
+  height: $checkbox-size;
+  border-radius: r(2);
+  @include elm-fill;
+  @include bordered;
+
+  &::before {
+    content: '';
+    display: block;
+    width: $indicator-size;
+    height: $indicator-size;
+    background: $light-blue;
+    border-radius: r(1);
+    opacity: 0;
+    transform: scale(0.7);
+    transition: transform 100ms ease, opacity 100ms ease;
+
+    @include dark-mode {
+      background: $light-yellow;
+    }
+  }
+
+  &:checked {
+    &::before {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
