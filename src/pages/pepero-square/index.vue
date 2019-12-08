@@ -36,9 +36,9 @@ import pageBase from '~/mixins/page-base'
 import PostItem from '~/components/pepero-square/PostItem'
 import autoHead from '~/modules/auto-head'
 import Axios from 'axios'
-import useAxios from '~/modules/use-axios'
 import apiUrl from '~/modules/api-url'
 import EodiroDialog from '~/modules/eodiro-dialog'
+import { SquareApi } from '~/modules/eodiro-api'
 
 export default {
   name: 'pepero-square-index',
@@ -60,24 +60,13 @@ export default {
     }
   },
   async asyncData() {
-    const [err, res] = await useAxios({
-      ...apiUrl.peperoSquare.getPosts,
-      params: {
-        from: null,
-        quantity: 20
-      }
-    })
+    const posts = await SquareApi.getPosts(0, 20)
 
-    if (err) {
-      console.error(err)
-    }
-
-    return {
-      posts: res.data
+    if (posts) {
+      return { posts }
     }
   },
   beforeMount() {
-    // this.loadPosts(null, 20)
     this.startFetchingRecent()
   },
   beforeDestroy() {
@@ -129,6 +118,7 @@ export default {
 
       const mostRecentPostId = mostRecentPost.id
 
+      // TODO: use SquareApi instead of manual Axios request
       Axios({
         ...apiUrl.peperoSquare.getRecentPosts,
         params: {

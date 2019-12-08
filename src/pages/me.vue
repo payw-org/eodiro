@@ -60,20 +60,9 @@ export default {
   async asyncData({ app, req, res, store }) {
     if (!store.state.auth.isSignedIn) return
 
-    const [err, axRes] = await useAxios({
-      ...apiUrl.user.information,
-      headers: {
-        accessToken: Auth.getAccessToken({ req, res })
-      }
-    })
+    const myInfo = await UserApi.getUserInfo({ req, res })
 
-    if (err) {
-      console.error(app.i18n.t('global.error.networkError'))
-    } else {
-      return {
-        myInfo: axRes.data
-      }
-    }
+    return myInfo ? { myInfo } : undefined
   },
   methods: {
     signOut() {

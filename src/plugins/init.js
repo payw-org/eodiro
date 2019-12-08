@@ -1,30 +1,31 @@
 import Auth from '~/modules/auth'
+import ApiHost from '~/modules/eodiro-api/api-host'
 
-/**
- * @param {string} currentPath
- * @param {'ko' | 'en'} lang
- */
-function getRedirectPath(currentPath, lang) {
-  let newPath = currentPath
-  const cleanPath = currentPath.replace(/^\/en/, '').replace(/\/$/, '')
+// /**
+//  * @param {string} currentPath
+//  * @param {'ko' | 'en'} lang
+//  */
+// function getRedirectPath(currentPath, lang) {
+//   let newPath = currentPath
+//   const cleanPath = currentPath.replace(/^\/en/, '').replace(/\/$/, '')
 
-  if (lang === 'ko') {
-    newPath = cleanPath
-    if (newPath === '') {
-      newPath = '/'
-    }
-  } else if (lang === 'en') {
-    newPath = `/en${cleanPath}`
-  }
+//   if (lang === 'ko') {
+//     newPath = cleanPath
+//     if (newPath === '') {
+//       newPath = '/'
+//     }
+//   } else if (lang === 'en') {
+//     newPath = `/en${cleanPath}`
+//   }
 
-  return newPath
-}
+//   return newPath
+// }
 
 /**
  * @param {import('@nuxt/types').Context} context
  */
 export default async (context) => {
-  const { req, res, route, store, redirect, app } = context
+  const { req, res, route, store } = context
 
   // Server init
   if (process.server) {
@@ -36,6 +37,11 @@ export default async (context) => {
     const isSignedIn = await Auth.isSignedIn({ req, res })
     if (isSignedIn) {
       store.commit('SET_SIGNED_IN', true)
+    }
+
+    // Set host name globally on server side
+    if (req && req.headers && req.headers.host) {
+      ApiHost.setHost(req.headers.host)
     }
   }
 
@@ -77,5 +83,8 @@ export default async (context) => {
     } else {
       window.isTouchDevice = false
     }
+
+    // Set host name globally on client side
+    ApiHost.setHost(window.location.hostname)
   }
 }
