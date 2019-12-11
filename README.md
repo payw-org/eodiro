@@ -26,20 +26,20 @@ https://eodiro.com
 3. Go to the project's root directory and install dependencies.
 
 ```zsh
-→ yarn install
+→ npm install
 ```
 
 4. Happy developing
 
 ```zsh
 # Development
-→ yarn run dev
+→ npm run dev
 ```
 
 ```zsh
 # Build and start the server
-→ yarn run build
-→ yarn run start
+→ npm run build
+→ npm run start
 ```
 
 ## Contributing
