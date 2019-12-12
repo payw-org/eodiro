@@ -1,10 +1,15 @@
 <template>
   <div class="eodiro-auth-common-form">
     <div class="input-box">
-      <h1 v-if="isSignUp" class="headline ui6-s-mb-6">
+      <h1 v-if="pageMode === 'signUp'" class="headline ui6-s-mb-6">
         {{ $t('auth.signUp') }}
       </h1>
-      <h1 v-else class="headline ui6-s-mb-6">{{ $t('auth.signIn') }}</h1>
+      <h1 v-else-if="pageMode === 'signIn'" class="headline ui6-s-mb-6">
+        {{ $t('auth.signIn') }}
+      </h1>
+      <h1 v-else-if="pageMode === 'forgot'" class="headline ui6-s-mb-6">
+        {{ $t('auth.reissue') }}
+      </h1>
 
       <!-- Portal ID input -->
       <div class="input-id-wrapper">
@@ -15,6 +20,7 @@
           :placeholder="$t('auth.portalId')"
           :disabled="isValidating"
           class="input-id entry"
+          spellcheck="false"
           @keydown="handleKeydown"
           @keypress.enter="enterPortalId"
           @input="validatePi"
@@ -51,6 +57,7 @@
 
       <!-- Password input -->
       <input
+        v-if="!isForgot"
         ref="passwordInput"
         v-model="inputs.password"
         type="password"
@@ -68,74 +75,85 @@
         사용할 수 없는 패스워드입니다
       </p>
 
-      <div v-if="isSignUp">
-        <!-- Password confirmation input -->
-        <input
-          ref="passwordConfirmInput"
-          v-model="inputs.passwordConfirm"
-          type="password"
-          :placeholder="$t('auth.passwordConfirm')"
-          :disabled="isValidating"
-          class="input-pw-confirm entry"
-          @input="validatePasswordMatch"
-          @keypress.enter="enterPasswordConfirm"
-        />
-        <p
-          v-if="!isPwSame && inputs.passwordConfirm.length > 0"
-          class="error-msg"
-        >
-          패스워드가 일치하지 않습니다.
-        </p>
-      </div>
+      <!-- Password confirmation input -->
+      <input
+        v-if="isSignUp"
+        ref="passwordConfirmInput"
+        v-model="inputs.passwordConfirm"
+        type="password"
+        :placeholder="$t('auth.passwordConfirm')"
+        :disabled="isValidating"
+        class="input-pw-confirm entry"
+        @input="validatePasswordMatch"
+        @keypress.enter="enterPasswordConfirm"
+      />
+      <p
+        v-if="!isPwSame && inputs.passwordConfirm.length > 0"
+        class="error-msg"
+      >
+        패스워드가 일치하지 않습니다.
+      </p>
 
       <!-- Sign in failed message -->
       <p v-if="isSignInFailed" class="error-msg">
         아이디 또는 패스워드를 확인해주세요.
       </p>
 
+      <!-- Process button -->
       <Button
         full
         class="process-btn entry"
         :disabled="isValidating"
         @click="process"
       >
+        <!-- Different button lables -->
         <span v-if="isSignUp">{{ $t('auth.signUp') }}</span>
-        <span v-else>{{ $t('auth.signIn') }}</span>
+        <span v-else-if="isSignIn">{{ $t('auth.signIn') }}</span>
+        <span v-else-if="isForgot">{{ $t('auth.reissue') }}</span>
       </Button>
 
-      <NuxtLink v-if="isSignUp" class="redirect" :to="localePath('sign-in')">
-        {{ $t('auth.signIn') }} →
-      </NuxtLink>
-      <NuxtLink v-else class="redirect" :to="localePath('sign-up')">
-        {{ $t('auth.signUp') }} →
-      </NuxtLink>
+      <div>
+        <!-- Redirect to sign in -->
+        <NuxtLink v-if="!isSignIn" class="redirect" :to="localePath('sign-in')">
+          {{ $t('auth.signIn') }} →
+        </NuxtLink>
 
-      <NuxtLink :to="localePath('privacy')" class="privacy-policy">
-        {{ $t('privacy.title') }}
-      </NuxtLink>
+        <!-- Redirect to sign up -->
+        <NuxtLink v-if="!isSignUp" class="redirect" :to="localePath('sign-up')">
+          {{ $t('auth.signUp') }} →
+        </NuxtLink>
+
+        <!-- Forgot password -->
+        <NuxtLink v-if="isSignIn" :to="localePath('forgot')" class="redirect">
+          {{ $t('auth.didYouForgot') }}
+        </NuxtLink>
+
+        <!-- Privacy policy -->
+        <NuxtLink :to="localePath('privacy')" class="redirect">
+          {{ $t('privacy.title') }}
+        </NuxtLink>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import Axios from 'axios'
-import useAxios from '~/modules/use-axios'
 import { Button } from '~/components/ui'
-import ApiUrl from '~/modules/api-url'
 import Auth from '~/modules/auth'
 import handleInputEnter from './mixins/handle-input-enter'
 import handleInput from './mixins/handle-input'
+import { AuthApi } from '~/modules/eodiro-api'
 
 export default {
   components: { Button },
   mixins: [handleInputEnter, handleInput],
   middleware: 'require-unauth',
   props: {
-    form: {
+    pageMode: {
       type: String,
-      default: 'sign-in',
-      validator(value) {
-        return ['sign-in', 'sign-up'].includes(value)
+      default: 'signIn',
+      validator(mode) {
+        return ['signIn', 'signUp', 'forgot'].includes(mode)
       }
     }
   },
@@ -154,8 +172,14 @@ export default {
     }
   },
   computed: {
+    isSignIn() {
+      return this.pageMode === 'signIn'
+    },
     isSignUp() {
-      return this.form === 'sign-up'
+      return this.pageMode === 'signUp'
+    },
+    isForgot() {
+      return this.pageMode === 'forgot'
     }
   },
   methods: {
@@ -214,67 +238,43 @@ export default {
         // Start validation from server
         this.isValidating = true
 
-        // Sign Up
-        // Refine input data to lowercase
-        const portalId = `${this.inputs.portalId.toLowerCase()}@cau.ac.kr`
-        const password = this.inputs.password.toLowerCase()
-        const nickname = this.inputs.nickname.toLowerCase()
-
-        const [err, res] = await useAxios({
-          ...ApiUrl.user.signUp,
-          data: { portalId, password, nickname }
-        })
-
-        if (err) {
-          if (!err.response) {
-            console.error('❌ API server network error')
-            alert(this.$t('global.error.networkError'))
-          } else {
-            alert('조건을 한 번 더 확인해주세요')
-          }
-        } else if (res) {
-          // Sign up success
-          alert(
+        const isSignedUp = await AuthApi.signUp(
+          this.inputs.portalId,
+          this.inputs.nickname,
+          this.inputs.password
+        )
+        if (isSignedUp) {
+          window.alert(
             '회원가입이 완료되었습니다.\nCAU 포탈에서 인증 메일을 확인해주세요!\n인증 코드는 30분동안 유효합니다.'
           )
           this.$router.replace(this.localePath('index'))
+        } else {
+          window.alert('조건을 한 번 더 확인해주세요')
         }
 
         // Restore validation state
         this.isValidating = false
       } else {
+        this.isValidating = true
+
         // Sign In
         const portalId = `${this.inputs.portalId
           .trim()
           .toLowerCase()}@cau.ac.kr`
         const password = this.inputs.password
 
-        Axios({
-          url: ApiUrl.user.signIn.url,
-          method: ApiUrl.user.signIn.method,
-          data: { portalId, password }
-        })
-          .then((res) => {
-            // Sign in success
-            const { data } = res
-            Auth.setJwt(data.accessToken, data.refreshToken)
-            this.$store.commit('SET_SIGNED_IN', true)
-            this.$router.replace(this.localePath('index'))
-          })
-          .catch((err) => {
-            if (!err.response) {
-              console.error('❌ API server network error')
-              alert(this.$t('global.error.networkError'))
-              return
-            }
+        // Use UserApi module
+        const signInResult = await AuthApi.signIn(portalId, password)
+        if (signInResult) {
+          // Sign in success
+          Auth.setJwt(signInResult.accessToken, signInResult.refreshToken)
+          this.$store.commit('SET_SIGNED_IN', true)
+          this.$router.replace(this.localePath('index'))
+        } else {
+          this.isSignInFailed = true
+        }
 
-            if (err.response.status === 401) {
-              this.isSignInFailed = true
-            }
-          })
-          .finally(() => {
-            this.isValidating = false
-          })
+        this.isValidating = false
       }
     }
   }
@@ -340,12 +340,20 @@ export default {
     width: 100%;
     color: #5f14be;
     text-align: center;
-    margin-top: s(4);
-    padding-top: s(3);
+    padding: s(3) 0;
+    font-size: b(3);
     @include separator('top');
 
     @include dark-mode {
       color: #987eff;
+    }
+
+    &:first-child {
+      margin-top: f(2);
+    }
+
+    &:last-child {
+      @include separator('bottom');
     }
   }
 
@@ -355,6 +363,7 @@ export default {
     text-align: center;
   }
 
+  // TODO: Remove
   .privacy-policy {
     text-align: center;
     display: block;

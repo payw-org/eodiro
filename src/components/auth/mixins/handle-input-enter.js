@@ -4,11 +4,11 @@
 const options = {
   methods: {
     enterPortalId() {
-      if (this.form === 'sign-in') {
+      if (this.isSignIn) {
         /** @type {HTMLInputElement} */
         const passwordInput = this.$refs.passwordInput
         passwordInput.focus()
-      } else if (this.form === 'sign-up') {
+      } else if (this.isSignUp) {
         /** @type {HTMLInputElement} */
         const nicknameInput = this.$refs.nicknameInput
         nicknameInput.focus()
@@ -20,7 +20,7 @@ const options = {
       passwordInput.focus()
     },
     enterPassword() {
-      if (this.form === 'sign-in') {
+      if (this.isSignIn) {
         /** @type {HTMLInputElement} */
         const passwordInput = this.$refs.passwordInput
         passwordInput.blur()
@@ -28,7 +28,7 @@ const options = {
         /** @type {HTMLButtonElement} */
         const processButton = this.$el.querySelector('.process-btn')
         processButton.click()
-      } else if (this.form === 'sign-up') {
+      } else if (this.isSignUp) {
         /** @type {HTMLInputElement} */
         const passwordConfirmInput = this.$refs.passwordConfirmInput
         passwordConfirmInput.focus()

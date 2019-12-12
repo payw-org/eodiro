@@ -3,23 +3,9 @@ import apiUrl from '~/modules/api-url'
 import EodiroCookie from '~/modules/cookie'
 import dayjs from 'dayjs'
 
-/**
- * @typedef Tokens
- * @type {Object}
- * @property {string} accessToken
- * @property {string} refreshToken
- */
-
-/**
- * @typedef Http
- * @type {Object}
- * @property {import('http').IncomingMessage} req
- * @property {import('http').ServerResponse} res
- */
-
 export default class Auth {
   /**
-   * @param {Http} http
+   * @param {Http=} http
    * @returns {Promise<boolean>}
    */
   static isSignedIn(http) {
@@ -64,29 +50,29 @@ export default class Auth {
   }
 
   /**
-   * @param {Http} http
+   * @param {Http=} http
    * @returns {string}
    */
   static getAccessToken(http) {
-    const tokens = this.getJwt(http)
+    const tokens = this.getTokens(http)
     return tokens ? tokens.accessToken : undefined
   }
 
   /**
-   * @param {Http} http
+   * @param {Http=} http
    * @returns {string}
    */
   static getRefreshToken(http) {
-    const tokens = this.getJwt(http)
+    const tokens = this.getTokens(http)
     return tokens ? tokens.refreshToken : undefined
   }
 
   /**
    * Get JWT object containing both access token and refresh token
-   * @param {Http} http
+   * @param {Http=} http
    * @returns {Tokens}
    */
-  static getJwt(http) {
+  static getTokens(http) {
     const eodiroCookie = new EodiroCookie(http)
     return eodiroCookie.get('tokens')
   }
@@ -94,7 +80,7 @@ export default class Auth {
   /**
    * @param {string} accessToken
    * @param {string} refreshToken
-   * @param {Http} http
+   * @param {Http=} http
    */
   static setJwt(accessToken, refreshToken, http) {
     const eodiroCookie = new EodiroCookie(http)
@@ -111,7 +97,7 @@ export default class Auth {
   }
 
   /**
-   * @param {Http} http
+   * @param {Http=} http
    */
   static clearJwt(http) {
     const eodiroCookie = new EodiroCookie(http)

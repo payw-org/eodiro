@@ -1,35 +1,52 @@
 <template>
   <div id="eodiro-me">
-    <h1 class="title ui6-fw-6 ui6-s-mb-4">
+    <h1 class="title ui6-fw-6">
       {{ $t('me.title') }}
     </h1>
 
-    <div class="registration-information">
-      <h2 class="ui6-h-1 ui6-s-mb-3">
+    <section class="registration-information ui6-s-mt-5">
+      <h2 class="ui6-h-2 ui6-s-mb-3">
         {{ $t('me.information') }}
       </h2>
-      <h3 class="ui6-b-3">
+      <h3 class="ui6-b-4">
         {{ $t('me.portalEmailId') }}
       </h3>
       <p>{{ myInfo.portal_id }}</p>
-      <h3 class="ui6-b-3 ui6-s-mt-2">
+      <h3 class="ui6-b-4 ui6-s-mt-2">
         {{ $t('me.nickname') }}
       </h3>
       <p>{{ myInfo.nickname }}</p>
-      <h3 class="ui6-b-3 ui6-s-mt-2">
+      <h3 class="ui6-b-4 ui6-s-mt-2">
         {{ $t('me.randomNickname') }}
       </h3>
       <p>{{ myInfo.random_nickname }}</p>
+    </section>
+
+    <section class="mail-subscription ui6-s-mt-5">
+      <h2 class="ui6-h-2">이메일 알림</h2>
+      <div class="ms-item ms-comment flex align-center">
+        <input
+          id="comment-subscription"
+          type="checkbox"
+          name="comment-subscription"
+        />
+        <label for="comment-subscription">댓글 알림</label>
+      </div>
+    </section>
+
+    <div class="sign-out-section ui6-f-mt-3">
+      <div>
+        <Button class="sign-out-btn" full @click="signOut">
+          {{ $t('me.signOut') }}
+        </Button>
+      </div>
+
+      <div>
+        <Button class="sign-out-all-btn" full @click="signOutFromAll">
+          {{ $t('me.signOutFromAll') }}
+        </Button>
+      </div>
     </div>
-
-    <Button class="sign-out-btn ui6-s-mb-3" full @click="signOut">
-      {{ $t('me.signOut') }}
-    </Button>
-
-    <Button class="sign-out-all-btn" full @click="signOutFromAll">
-      {{ $t('me.signOutFromAll') }}
-    </Button>
-    <p class="manifesto" />
   </div>
 </template>
 
@@ -41,6 +58,7 @@ import apiUrl from '~/modules/api-url'
 import autoHead from '~/modules/auto-head'
 import requireAuthMixin from '~/mixins/require-auth-mixin'
 import useAxios from '~/modules/use-axios'
+import { UserApi } from '~/modules/eodiro-api'
 
 export default {
   name: 'me',
@@ -60,20 +78,9 @@ export default {
   async asyncData({ app, req, res, store }) {
     if (!store.state.auth.isSignedIn) return
 
-    const [err, axRes] = await useAxios({
-      ...apiUrl.user.information,
-      headers: {
-        accessToken: Auth.getAccessToken({ req, res })
-      }
-    })
+    const myInfo = await UserApi.getUserInfo({ req, res })
 
-    if (err) {
-      console.error(app.i18n.t('global.error.networkError'))
-    } else {
-      return {
-        myInfo: axRes.data
-      }
-    }
+    return myInfo ? { myInfo } : undefined
   },
   methods: {
     signOut() {
@@ -103,15 +110,35 @@ export default {
 </script>
 
 <style lang="scss">
+@import '~/assets/styles/scss/main';
+
 #eodiro-me {
   max-width: 40rem !important;
 
-  .sign-out-btn {
+  .manifesto {
     margin-top: 1rem;
   }
 
-  .manifesto {
-    margin-top: 1rem;
+  .mail-subscription {
+    .ms-item {
+      margin-top: s(3);
+
+      input {
+      }
+
+      label {
+        padding-left: s(2);
+        font-size: b(3);
+      }
+    }
+  }
+
+  .sign-out-section {
+    @include separator('top');
+    padding-top: s(5);
+    display: grid;
+    gap: s(3);
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
   }
 }
 </style>

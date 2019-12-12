@@ -5,11 +5,16 @@
 
 const localHost = 'http://localhost:4000'
 const serverHost = 'https://api2.eodiro.com'
+const useServer = false
+
+if (useServer) {
+  console.warn('api-url.js: eodiro is forcedly connecting to the remote server')
+}
 
 /** @type {string} */
 let host = localHost
 
-if (process.env.NODE_ENV === 'development') {
+if (process.env.NODE_ENV === 'development' && !useServer) {
   host = localHost
 } else {
   host = serverHost

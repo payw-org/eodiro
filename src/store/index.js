@@ -24,6 +24,8 @@ export const state = () => ({
   colorSchemeClassName: 'light-mode',
   lang: 'en',
   cachedComponents: [],
+  routeCache: [],
+  currentHamlet: '',
   hamletList: [
     'home',
     'vacant',
@@ -37,6 +39,7 @@ export const state = () => ({
     'preferences',
     'sign-in',
     'sign-up',
+    'forgot',
     'me',
     'privacy'
   ],
@@ -77,22 +80,46 @@ export const mutations = {
     const colorSchemeClassName = getColorClassName(newMode)
     state.colorSchemeClassName = colorSchemeClassName
   },
-  /**
-   * @param {string} componentName
-   */
-  CACHE_COMPONENT(state, componentName) {
-    const index = state.cachedComponents.indexOf(componentName)
-    if (index === -1) {
-      state.cachedComponents.push(componentName)
+  CACHE_ROUTE(state, payload) {
+    const { componentName, depth } = payload
+    if (componentName === undefined || depth === undefined) {
+      console.warn(
+        'Route cache - insufficient payload data',
+        componentName,
+        depth
+      )
+      return
+    }
+
+    const existingIndex = state.cachedComponents.indexOf(componentName)
+    /** @type {[]} */
+    const cachedComponents = state.cachedComponents
+    /** @type {[[]]} */
+    const routeCache = state.routeCache
+
+    if (existingIndex === -1) {
+      if (!routeCache[depth]) {
+        routeCache[depth] = []
+      }
+      cachedComponents.push(componentName)
+      routeCache[depth].push(componentName)
     }
   },
-  /**
-   * @param {string} componentName
-   */
-  POP_COMPONENT(state, componentName) {
-    const index = state.cachedComponents.indexOf(componentName)
-    if (index !== -1) {
-      state.cachedComponents.splice(index, 1)
+  CLEAR_ROUTE(state, payload) {
+    const { destinationDepth } = payload
+    /** @type {[[]]} */
+    const routeCache = state.routeCache
+    for (let i = routeCache.length - 1; i > destinationDepth; i -= 1) {
+      if (routeCache[i] && routeCache[i].length > 0) {
+        for (let j = 0; j < routeCache[i].length; j += 1) {
+          const existingIndex = state.cachedComponents.indexOf(routeCache[i][j])
+          if (existingIndex !== -1) {
+            state.cachedComponents.splice(existingIndex, 1)
+          }
+        }
+      }
+
+      routeCache.pop()
     }
   },
   /**

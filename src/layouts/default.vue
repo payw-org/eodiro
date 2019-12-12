@@ -65,37 +65,53 @@ export default {
 
       // When route changes
       // cache or remove components from keep-alive
+
       if (from.meta.depth < to.meta.depth) {
         // Route direction: forward
         // Cache components included in the destination route
         to.matched.forEach((matched) => {
-          const compName = matched.components.default.options.name
-          this.$store.commit('CACHE_COMPONENT', compName)
+          const componentName = matched.components.default.options.name
+          this.$store.commit('CACHE_ROUTE', {
+            componentName,
+            depth: to.meta.depth,
+            hamletName: to.meta.hamletName
+          })
         })
       } else if (from.meta.depth >= to.meta.depth) {
         // Route direction: backward or same level
 
-        // Cache destination components if not cached
-        to.matched.forEach((matched) => {
-          const compName = matched.components.default.options.name
-          this.$store.commit('CACHE_COMPONENT', compName)
+        // When redirect to different hamlet,
+        // clear cached routes from other hamlets
+        let clearDepth = to.meta.depth
+        if (from.meta.hamletName !== to.meta.hamletName) {
+          clearDepth = 0
+        }
+
+        this.$store.commit('CLEAR_ROUTE', {
+          destinationDepth: clearDepth
         })
 
-        // Remove components included in the current route
-        from.matched.forEach((matched) => {
-          if (!to.matched.includes(matched)) {
-            const compName = matched.components.default.options.name
-            this.$store.commit('POP_COMPONENT', compName)
-          }
+        // Cache destination components if not cached
+        to.matched.forEach((matched) => {
+          const componentName = matched.components.default.options.name
+          this.$store.commit('CACHE_ROUTE', {
+            componentName,
+            depth: to.meta.depth,
+            hamletName: to.meta.hamletName
+          })
         })
       }
     }
   },
   created() {
-    // Cache components on first load
+    // Cache components on the first load
     this.$route.matched.forEach((matched) => {
-      const compName = matched.components.default.options.name
-      this.$store.commit('CACHE_COMPONENT', compName)
+      const componentName = matched.components.default.options.name
+      this.$store.commit('CACHE_ROUTE', {
+        componentName,
+        depth: this.$route.meta.depth,
+        hamletName: this.$route.meta.hamletName
+      })
     })
 
     this.identifyBannerForcedMini()

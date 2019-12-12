@@ -2,6 +2,7 @@
 @import '~/assets/styles/scss/global/typography';
 @import '~/assets/styles/scss/global/simplebar-custom';
 @import '~/assets/styles/scss/global/transition';
+@import '~/assets/styles/scss/global/input';
 
 // UI6
 @import '~assets/styles/scss/utilities/ui6';
@@ -138,7 +139,10 @@ input {
   border: none;
 }
 
-input,
+input[type='text'],
+input[type='email'],
+input[type='password'],
+input[type='search'],
 textarea {
   @include input-style;
 }
