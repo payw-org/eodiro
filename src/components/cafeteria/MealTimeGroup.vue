@@ -135,6 +135,7 @@ export default {
         flex-wrap: wrap;
         justify-content: space-evenly;
         padding: s(3) s(2);
+        word-break: break-all;
 
         .menu-item {
           margin: 0 s(2) s(1) s(2);
