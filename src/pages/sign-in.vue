@@ -1,5 +1,5 @@
 <template>
-  <AuthCommonForm form="sign-in" />
+  <AuthCommonForm form="sign-in" page-mode="signIn" />
 </template>
 
 <script>

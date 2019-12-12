@@ -1,5 +1,5 @@
 <template>
-  <AuthCommonForm form="sign-up" page-mode="signUp" />
+  <AuthCommonForm form="sign-in" page-mode="forgot" />
 </template>
 
 <script>
@@ -10,11 +10,11 @@ import autoHead from '~/modules/auto-head'
 export default {
   head() {
     return {
-      title: this.$t('auth.signUp'),
-      meta: [...autoHead(this.$t('auth.signUp'))]
+      title: this.$t('auth.signIn'),
+      meta: [...autoHead(this.$t('auth.signIn'))]
     }
   },
-  name: 'sign-up',
+  name: 'sign-in',
   components: { AuthCommonForm },
   mixins: [pageBase]
 }

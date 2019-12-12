@@ -37,6 +37,7 @@ export const state = () => ({
     'preferences',
     'sign-in',
     'sign-up',
+    'forgot',
     'me',
     'privacy'
   ],

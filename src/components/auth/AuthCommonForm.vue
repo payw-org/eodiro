@@ -1,10 +1,15 @@
 <template>
   <div class="eodiro-auth-common-form">
     <div class="input-box">
-      <h1 v-if="isSignUp" class="headline ui6-s-mb-6">
+      <h1 v-if="pageMode === 'signUp'" class="headline ui6-s-mb-6">
         {{ $t('auth.signUp') }}
       </h1>
-      <h1 v-else class="headline ui6-s-mb-6">{{ $t('auth.signIn') }}</h1>
+      <h1 v-else-if="pageMode === 'signIn'" class="headline ui6-s-mb-6">
+        {{ $t('auth.signIn') }}
+      </h1>
+      <h1 v-else-if="pageMode === 'forgot'" class="headline ui6-s-mb-6">
+        암호 재발급
+      </h1>
 
       <!-- Portal ID input -->
       <div class="input-id-wrapper">
@@ -111,6 +116,14 @@
         {{ $t('auth.signUp') }} →
       </NuxtLink>
 
+      <NuxtLink
+        v-if="pageMode === 'signIn'"
+        :to="localePath('forgot')"
+        class="redirect"
+      >
+        암호를 잊으셨나요?
+      </NuxtLink>
+
       <NuxtLink :to="localePath('privacy')" class="privacy-policy">
         {{ $t('privacy.title') }}
       </NuxtLink>
@@ -135,6 +148,13 @@ export default {
       default: 'sign-in',
       validator(value) {
         return ['sign-in', 'sign-up'].includes(value)
+      }
+    },
+    pageMode: {
+      type: String,
+      default: 'signIn',
+      validator(mode) {
+        return ['signIn', 'signUp', 'forgot'].includes(mode)
       }
     }
   },
@@ -230,6 +250,8 @@ export default {
         // Restore validation state
         this.isValidating = false
       } else {
+        this.isValidating = true
+
         // Sign In
         const portalId = `${this.inputs.portalId
           .trim()
