@@ -143,13 +143,6 @@ export default {
   mixins: [handleInputEnter, handleInput],
   middleware: 'require-unauth',
   props: {
-    form: {
-      type: String,
-      default: 'sign-in',
-      validator(value) {
-        return ['sign-in', 'sign-up'].includes(value)
-      }
-    },
     pageMode: {
       type: String,
       default: 'signIn',
@@ -173,8 +166,14 @@ export default {
     }
   },
   computed: {
+    isSignIn() {
+      return this.pageMode === 'signIn'
+    },
     isSignUp() {
-      return this.form === 'sign-up'
+      return this.pageMode === 'signUp'
+    },
+    isForgot() {
+      return this.pageMode === 'forgot'
     }
   },
   methods: {
