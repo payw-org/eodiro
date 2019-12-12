@@ -78,7 +78,7 @@ export default {
         }
       })
         .then((res) => {
-          alert('업로드되었습니다!')
+          alert('업로드되었습니다.')
           const { postId } = res.data
           this.$router.replace(
             this.localePath({
