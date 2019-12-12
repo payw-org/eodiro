@@ -191,7 +191,7 @@ export default {
      * @param {KeyboardEvent} e
      */
     handleKeydown(e) {
-      if (e.key.match(/[@ ]/)) {
+      if (e && e.key && e.key.match(/[@ ]/)) {
         e.preventDefault()
       }
     },
