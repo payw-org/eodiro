@@ -4,7 +4,7 @@ import modalTemplate from './template.html'
 import './style.scss'
 
 const conf = {
-  langCookieName: 'i18n_lang'
+  langCookieName: 'eodiro_lang'
 }
 
 const messages = {
