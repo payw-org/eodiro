@@ -110,13 +110,15 @@ export default {
       // Get most recent post's id
       const mostRecentPost = this.posts[0]
 
-      if (!mostRecentPost || this.isFetchingRecent) {
+      // Fetch only after done fetching
+      if (this.isFetchingRecent) {
         return
       }
 
       this.isFetchingRecent = true
 
-      const mostRecentPostId = mostRecentPost.id
+      // If no most recent post, set most recent post id as -1
+      const mostRecentPostId = mostRecentPost ? mostRecentPost.id : -1
 
       // TODO: use SquareApi instead of manual Axios request
       Axios({
