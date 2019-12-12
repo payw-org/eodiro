@@ -8,7 +8,7 @@
         {{ $t('auth.signIn') }}
       </h1>
       <h1 v-else-if="pageMode === 'forgot'" class="headline ui6-s-mb-6">
-        암호 재발급
+        {{ $t('auth.reissue') }}
       </h1>
 
       <!-- Portal ID input -->
@@ -57,6 +57,7 @@
 
       <!-- Password input -->
       <input
+        v-if="!isForgot"
         ref="passwordInput"
         v-model="inputs.password"
         type="password"
@@ -74,59 +75,64 @@
         사용할 수 없는 패스워드입니다
       </p>
 
-      <div v-if="isSignUp">
-        <!-- Password confirmation input -->
-        <input
-          ref="passwordConfirmInput"
-          v-model="inputs.passwordConfirm"
-          type="password"
-          :placeholder="$t('auth.passwordConfirm')"
-          :disabled="isValidating"
-          class="input-pw-confirm entry"
-          @input="validatePasswordMatch"
-          @keypress.enter="enterPasswordConfirm"
-        />
-        <p
-          v-if="!isPwSame && inputs.passwordConfirm.length > 0"
-          class="error-msg"
-        >
-          패스워드가 일치하지 않습니다.
-        </p>
-      </div>
+      <!-- Password confirmation input -->
+      <input
+        v-if="isSignUp"
+        ref="passwordConfirmInput"
+        v-model="inputs.passwordConfirm"
+        type="password"
+        :placeholder="$t('auth.passwordConfirm')"
+        :disabled="isValidating"
+        class="input-pw-confirm entry"
+        @input="validatePasswordMatch"
+        @keypress.enter="enterPasswordConfirm"
+      />
+      <p
+        v-if="!isPwSame && inputs.passwordConfirm.length > 0"
+        class="error-msg"
+      >
+        패스워드가 일치하지 않습니다.
+      </p>
 
       <!-- Sign in failed message -->
       <p v-if="isSignInFailed" class="error-msg">
         아이디 또는 패스워드를 확인해주세요.
       </p>
 
+      <!-- Process button -->
       <Button
         full
         class="process-btn entry"
         :disabled="isValidating"
         @click="process"
       >
+        <!-- Different button lables -->
         <span v-if="isSignUp">{{ $t('auth.signUp') }}</span>
-        <span v-else>{{ $t('auth.signIn') }}</span>
+        <span v-else-if="isSignIn">{{ $t('auth.signIn') }}</span>
+        <span v-else-if="isForgot">{{ $t('auth.reissue') }}</span>
       </Button>
 
-      <NuxtLink v-if="isSignUp" class="redirect" :to="localePath('sign-in')">
-        {{ $t('auth.signIn') }} →
-      </NuxtLink>
-      <NuxtLink v-else class="redirect" :to="localePath('sign-up')">
-        {{ $t('auth.signUp') }} →
-      </NuxtLink>
+      <div>
+        <!-- Redirect to sign in -->
+        <NuxtLink v-if="!isSignIn" class="redirect" :to="localePath('sign-in')">
+          {{ $t('auth.signIn') }} →
+        </NuxtLink>
 
-      <NuxtLink
-        v-if="pageMode === 'signIn'"
-        :to="localePath('forgot')"
-        class="redirect"
-      >
-        암호를 잊으셨나요?
-      </NuxtLink>
+        <!-- Redirect to sign up -->
+        <NuxtLink v-if="!isSignUp" class="redirect" :to="localePath('sign-up')">
+          {{ $t('auth.signUp') }} →
+        </NuxtLink>
 
-      <NuxtLink :to="localePath('privacy')" class="privacy-policy">
-        {{ $t('privacy.title') }}
-      </NuxtLink>
+        <!-- Forgot password -->
+        <NuxtLink v-if="isSignIn" :to="localePath('forgot')" class="redirect">
+          {{ $t('auth.didYouForgot') }}
+        </NuxtLink>
+
+        <!-- Privacy policy -->
+        <NuxtLink :to="localePath('privacy')" class="redirect">
+          {{ $t('privacy.title') }}
+        </NuxtLink>
+      </div>
     </div>
   </div>
 </template>
@@ -334,12 +340,20 @@ export default {
     width: 100%;
     color: #5f14be;
     text-align: center;
-    margin-top: s(4);
-    padding-top: s(3);
+    padding: s(3) 0;
+    font-size: b(3);
     @include separator('top');
 
     @include dark-mode {
       color: #987eff;
+    }
+
+    &:first-child {
+      margin-top: f(2);
+    }
+
+    &:last-child {
+      @include separator('bottom');
     }
   }
 
@@ -349,6 +363,7 @@ export default {
     text-align: center;
   }
 
+  // TODO: Remove
   .privacy-policy {
     text-align: center;
     display: block;
