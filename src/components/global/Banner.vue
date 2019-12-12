@@ -412,30 +412,18 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
         background-repeat: no-repeat;
       }
 
-      &.hamlet--home {
-        .icon {
-          background-size: 3.5rem;
-        }
-      }
-
       &.nav-icon {
         .icon {
           background-size: 2.5rem !important;
         }
-
-        &.hamlet--home {
-          .icon {
-            background-size: 1.7rem !important;
-          }
-        }
       }
 
       &.hamlet--home {
         .icon {
-          background-image: url(~assets/images/eodiro_logo_arrow_white.svg);
+          background-image: url(~assets/images/icons/eodiro-arrow-white.svg);
 
           @include dark-mode {
-            background-image: url(~assets/images/eodiro_logo_arrow_black.svg);
+            background-image: url(~assets/images/icons/eodiro-arrow.svg);
           }
         }
       }
