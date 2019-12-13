@@ -131,7 +131,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async nuxtServerInit({ commit, state }, { req, res, redirect, app, route }) {
+  nuxtServerInit({ commit, state }, { req, res, redirect, app, route }) {
     // If color scheme is set in cookie
     // initialize vuex store with the value
     const eodiroCookie = new EodiroCookie({ req, res })

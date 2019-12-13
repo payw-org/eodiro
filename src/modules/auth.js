@@ -1,7 +1,7 @@
 import Axios from 'axios'
+import dayjs from 'dayjs'
 import apiUrl from '~/modules/api-url'
 import EodiroCookie from '~/modules/cookie'
-import dayjs from 'dayjs'
 
 export default class Auth {
   /**

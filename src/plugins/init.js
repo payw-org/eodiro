@@ -78,11 +78,11 @@ export default async (context) => {
     }
 
     // Detect touch device
-    if ('ontouchstart' in window || navigator.maxTouchPoints) {
-      window.isTouchDevice = true
-    } else {
-      window.isTouchDevice = false
-    }
+    // if ('ontouchstart' in window || navigator.maxTouchPoints) {
+    //   window.isTouchDevice = true
+    // } else {
+    //   window.isTouchDevice = false
+    // }
 
     // Set host name globally on client side
     ApiHost.setHost(window.location.hostname)

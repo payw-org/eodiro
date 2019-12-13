@@ -1,5 +1,5 @@
-import useAxios from '~/modules/use-axios'
 import ApiHost from './api-host'
+import useAxios from '~/modules/use-axios'
 
 export default class AuthApi {
   /**
