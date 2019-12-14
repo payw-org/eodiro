@@ -1,6 +1,6 @@
-import autoHead from '../src/modules/auto-head'
 import { describe, it } from 'mocha'
 import { expect } from 'chai'
+import autoHead from '../src/modules/auto-head'
 
 const title = 'page title'
 const description = 'welcome'
