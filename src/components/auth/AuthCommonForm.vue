@@ -364,16 +364,5 @@ export default {
     padding-top: s(2);
     text-align: center;
   }
-
-  // TODO: Remove
-  .privacy-policy {
-    text-align: center;
-    display: block;
-    margin-top: f(1);
-    @include bg-inverted;
-    @include text-color-inverted;
-    padding: s(3);
-    border-radius: r(4);
-  }
 }
 </style>
