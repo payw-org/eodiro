@@ -1,6 +1,6 @@
 <template>
   <div id="eodiro-banner-wrapper">
-    <div id="eodiro-banner" ref="banner" :class="{ mini: appearMini }">
+    <div id="eodiro-banner" :class="{ mini: appearMini }">
       <div class="banner">
         <transition
           v-for="hamletName in $store.state.hamletList"
@@ -89,20 +89,21 @@ export default {
   mounted() {
     // Sentinel for banner
     this.sentinel = document.querySelector('#banner-observer-sentinel')
+    const bannerElm = document.getElementById('eodiro-banner')
     this.observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.target.isSameNode(this.sentinel)) {
           if (this.$route.meta.depth > 1) {
             this.isMini = true
             this.isNavMode = true
-            this.$refs.banner.classList.add('mini')
-            this.$refs.banner.classList.add('nav-mode')
+            bannerElm.classList.add('mini')
+            bannerElm.classList.add('nav-mode')
           } else if (entry.isIntersecting) {
             this.isNavMode = false
-            this.$refs.banner.classList.remove('nav-mode')
+            bannerElm.classList.remove('nav-mode')
           } else {
             this.isNavMode = true
-            this.$refs.banner.classList.add('nav-mode')
+            bannerElm.classList.add('nav-mode')
           }
         }
       })
@@ -117,7 +118,7 @@ export default {
     CEM.addEventListener('scrollrestored', this.$el, (e) => {
       // Reobserve sentinel
       this.observer.observe(this.sentinel)
-      const bannerElm = this.$refs.banner
+      const bannerElm = document.getElementById('eodiro-banner')
       const scrollTop = e.detail.scrollPosition // Always positive
       const pageDepth = e.detail.pageDepth
       const bannerRect = bannerElm.getBoundingClientRect()
@@ -152,8 +153,9 @@ export default {
     // to prevent unexpected error
     CEM.addEventListener('beforepageleave', this.$el, () => {
       this.observer.unobserve(this.sentinel)
-      const top = this.$refs.banner.getBoundingClientRect().top
-      this.$refs.banner.style.cssText = `transform: translateY(${top}px); position: fixed; top: 0;`
+      const bannerElm = document.getElementById('eodiro-banner')
+      const top = bannerElm.getBoundingClientRect().top
+      bannerElm.style.cssText = `transform: translateY(${top}px); position: fixed; top: 0;`
       disableScroll.on()
     })
   }
