@@ -4,8 +4,8 @@ export default class ApiHost {
    * @param {string} host
    */
   static setHost(host) {
-    if (host.startsWith('eodiro')) {
-      host = 'https://api2.' + host
+    if (host.includes('eodiro')) {
+      host = 'https://api2.eodiro.com'
     } else {
       host = 'http://' + host.split(':')[0] + ':4000'
     }
