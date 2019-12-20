@@ -157,21 +157,6 @@ export default {
   name: 'vacant-result',
   components: { Grid, ArrowBlock },
   mixins: [pageBase, modalScroll],
-  data() {
-    return {
-      classrooms: [],
-      isTimeTableVisible: false,
-      isTimeTableActive: false,
-      selectedRoom: {},
-      timetableDay: new Date().getDay(),
-      selectedLectures: []
-    }
-  },
-  computed: {
-    timeInterval(start, end) {
-      return start + end
-    }
-  },
   asyncData({ app, redirect, route }) {
     const campus = 'seoul'
     const url = `https://api.eodiro.com/v2/campuses/${campus}/vacant/buildings/${route.params.buildingId}/floors/${route.params.floorId}/classrooms`
@@ -191,6 +176,21 @@ export default {
       .catch(() => {
         redirect(app.localePath('not-found'))
       })
+  },
+  data() {
+    return {
+      classrooms: [],
+      isTimeTableVisible: false,
+      isTimeTableActive: false,
+      selectedRoom: {},
+      timetableDay: new Date().getDay(),
+      selectedLectures: []
+    }
+  },
+  computed: {
+    timeInterval(start, end) {
+      return start + end
+    }
   },
   mounted() {
     // Calculate remaining time of each class after load

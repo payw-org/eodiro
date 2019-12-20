@@ -26,7 +26,9 @@
           @input="validatePi"
           @focus="resetSignInFail"
         />
-        <div class="email-host">@cau.ac.kr</div>
+        <div class="email-host">
+          @cau.ac.kr
+        </div>
       </div>
       <p
         v-if="isSignUp && !piInfo.isValid && inputs.portalId.length > 0"
@@ -138,10 +140,10 @@
 </template>
 
 <script>
-import { Button } from '~/components/ui'
-import Auth from '~/modules/auth'
 import handleInputEnter from './mixins/handle-input-enter'
 import handleInput from './mixins/handle-input'
+import { Button } from '~/components/ui'
+import Auth from '~/modules/auth'
 import { AuthApi } from '~/modules/eodiro-api'
 
 export default {
@@ -361,17 +363,6 @@ export default {
     color: #ff1f50;
     padding-top: s(2);
     text-align: center;
-  }
-
-  // TODO: Remove
-  .privacy-policy {
-    text-align: center;
-    display: block;
-    margin-top: f(1);
-    @include bg-inverted;
-    @include text-color-inverted;
-    padding: s(3);
-    border-radius: r(4);
   }
 }
 </style>

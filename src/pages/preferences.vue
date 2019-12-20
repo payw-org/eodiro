@@ -52,12 +52,6 @@ export default {
   name: 'preferences',
   components: { Button },
   mixins: [pageBase],
-  head() {
-    return {
-      title: this.$t('pref.title'),
-      meta: [...autoHead(this.$t('pref.title'))]
-    }
-  },
   data() {
     return {
       autoDarkModeSupport: false
@@ -86,6 +80,12 @@ export default {
     },
     switchColorScheme(mode) {
       this.$store.commit('SET_COLOR_SCHEME', { mode })
+    }
+  },
+  head() {
+    return {
+      title: this.$t('pref.title'),
+      meta: [...autoHead(this.$t('pref.title'))]
     }
   }
 }

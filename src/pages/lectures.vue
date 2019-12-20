@@ -119,12 +119,6 @@ export default {
   name: 'lectures',
   components: { Button, Accordion },
   mixins: [pageBase],
-  head() {
-    return {
-      title: this.$t('searchClass.title'),
-      meta: [...autoHead(this.$t('searchClass.title'))]
-    }
-  },
   data() {
     return {
       apiURL: 'https://api.eodiro.com/v2/campuses/seoul/search-class',
@@ -434,6 +428,12 @@ export default {
       })
 
       this.mainCategory = main
+    }
+  },
+  head() {
+    return {
+      title: this.$t('searchClass.title'),
+      meta: [...autoHead(this.$t('searchClass.title'))]
     }
   }
 }

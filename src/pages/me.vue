@@ -23,7 +23,9 @@
     </section>
 
     <section class="mail-subscription ui6-s-mt-5">
-      <h2 class="ui6-h-2">이메일 알림</h2>
+      <h2 class="ui6-h-2">
+        이메일 알림
+      </h2>
       <div class="ms-item ms-comment flex align-center">
         <input
           id="comment-subscription"
@@ -64,23 +66,17 @@ export default {
   name: 'me',
   components: { Button },
   mixins: [pageBase, requireAuthMixin],
-  head() {
-    return {
-      title: this.$t('me.title'),
-      meta: [...autoHead(this.$t('me.title'))]
-    }
-  },
-  data() {
-    return {
-      myInfo: {}
-    }
-  },
   async asyncData({ app, req, res, store }) {
     if (!store.state.auth.isSignedIn) return
 
     const myInfo = await UserApi.getUserInfo({ req, res })
 
     return myInfo ? { myInfo } : undefined
+  },
+  data() {
+    return {
+      myInfo: {}
+    }
   },
   methods: {
     signOut() {
@@ -104,6 +100,12 @@ export default {
         Auth.clearJwt()
         this.$router.replace(this.localePath('sign-in'))
       }
+    }
+  },
+  head() {
+    return {
+      title: this.$t('me.title'),
+      meta: [...autoHead(this.$t('me.title'))]
     }
   }
 }

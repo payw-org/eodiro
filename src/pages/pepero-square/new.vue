@@ -29,9 +29,9 @@
 </template>
 
 <script>
+import Axios from 'axios'
 import pageBase from '~/mixins/page-base'
 import { Button } from '~/components/ui'
-import Axios from 'axios'
 import apiUrl from '~/modules/api-url'
 import Auth from '~/modules/auth'
 import requireAuthMixin from '~/mixins/require-auth-mixin'

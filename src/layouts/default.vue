@@ -27,25 +27,6 @@ import autoHead from '~/modules/auto-head'
 
 export default {
   components: { Banner, GoBack },
-  head() {
-    return {
-      title: this.$t('global.head.title'),
-      meta: [
-        ...autoHead(
-          this.$t('global.head.title'),
-          this.$t('global.head.description')
-        ),
-        {
-          property: 'og:image',
-          content: 'https://eodiro.com/assets/images/open-graph/open_graph.png'
-        }
-      ],
-      htmlAttrs: {
-        class: this.$store.state.colorSchemeClassName,
-        lang: this.$store.state.lang
-      }
-    }
-  },
   data() {
     return {
       // If this is true
@@ -151,6 +132,25 @@ export default {
   methods: {
     identifyBannerForcedMini() {
       this.isBannerForcedMini = this.$route.meta.depth > 1
+    }
+  },
+  head() {
+    return {
+      title: this.$t('global.head.title'),
+      meta: [
+        ...autoHead(
+          this.$t('global.head.title'),
+          this.$t('global.head.description')
+        ),
+        {
+          property: 'og:image',
+          content: 'https://eodiro.com/assets/images/open-graph/open_graph.png'
+        }
+      ],
+      htmlAttrs: {
+        class: this.$store.state.colorSchemeClassName,
+        lang: this.$store.state.lang
+      }
     }
   }
 }

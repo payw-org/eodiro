@@ -69,7 +69,7 @@ $build-in-time: 700ms;
     height: auto;
     background-color: #fff;
     border-radius: r(5);
-    text-align: left;
+    text-align: center;
     font-size: 1rem;
     z-index: 1;
     opacity: 0;
@@ -81,21 +81,21 @@ $build-in-time: 700ms;
     animation-fill-mode: both;
 
     @include dark-mode {
-      background-color: #111;
+      background-color: $base-black-soft;
     }
 
     .message {
       padding: s(5);
-      line-height: line-height(3);
+      line-height: lh(3);
+      font-size: b(4);
     }
 
     .actions {
-      border-top: solid;
-      @include separator;
       margin: 0 s(3);
       text-align: center;
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+      @include separator('top');
 
       .act {
         cursor: pointer;
@@ -104,7 +104,7 @@ $build-in-time: 700ms;
 
         button {
           color: $c-step--4;
-          font-size: 1rem;
+          font-size: b(4);
         }
 
         &.confirm button {

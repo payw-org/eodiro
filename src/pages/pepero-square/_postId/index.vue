@@ -38,21 +38,6 @@ export default {
   name: 'pepero-square-post-id',
   components: { Comments },
   mixins: [pageBase, requireAuthMixin],
-  data() {
-    return {
-      lastCommentId: 0,
-      postData: {},
-      comments: []
-    }
-  },
-  computed: {
-    uploadedAt() {
-      return dayjs(this.postData.uploaded_at).format('YYYY. MM. DD. HH:mm')
-    },
-    postBody() {
-      return escapeHtml(this.postData.body).replace(/(?:\r\n|\r|\n)/g, '<br>')
-    }
-  },
   asyncData({ route, app, store, redirect, req, res }) {
     if (!store.state.auth.isSignedIn) return
 
@@ -73,6 +58,21 @@ export default {
       .catch(() => {
         console.error(app.i18n.t('global.error.networkError'))
       })
+  },
+  data() {
+    return {
+      lastCommentId: 0,
+      postData: {},
+      comments: []
+    }
+  },
+  computed: {
+    uploadedAt() {
+      return dayjs(this.postData.uploaded_at).format('YYYY. MM. DD. HH:mm')
+    },
+    postBody() {
+      return escapeHtml(this.postData.body).replace(/(?:\r\n|\r|\n)/g, '<br>')
+    }
   },
   created() {
     this.loadPost()

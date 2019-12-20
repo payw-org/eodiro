@@ -1,25 +1,13 @@
 {
   "editor.formatOnSave": true,
-  "eslint.autoFixOnSave": true,
   "eslint.alwaysShowStatus": true,
-  "eslint.validate": [
-    {
-      "language": "vue",
-      "autoFix": true
-    },
-    {
-      "language": "javascript",
-      "autoFix": true
-    },
-    {
-      "language": "typescript",
-      "autoFix": true
-    }
-  ],
   "eslint.packageManager": "yarn",
   "vetur.completion.tagCasing": "initial",
   "vetur.format.defaultFormatter.html": "prettier",
   "files.insertFinalNewline": true,
   "javascript.suggest.completeJSDocs": false,
-  "typescript.suggest.completeJSDocs": false
+  "typescript.suggest.completeJSDocs": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": true
+  }
 }
