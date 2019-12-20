@@ -29,17 +29,6 @@ export default {
   name: 'meals-date',
   components: { MealTimeGroup },
   mixins: [pageBase],
-  head() {
-    return {
-      title: this.$t('cafeteria.title'),
-      meta: [...autoHead(this.$t('cafeteria.title'))]
-    }
-  },
-  data() {
-    return {
-      meal: {}
-    }
-  },
   async asyncData() {
     const res = await axios({
       method: 'GET',
@@ -50,6 +39,17 @@ export default {
     const data = res.data
     return {
       meal: data.meal
+    }
+  },
+  data() {
+    return {
+      meal: {}
+    }
+  },
+  head() {
+    return {
+      title: this.$t('cafeteria.title'),
+      meta: [...autoHead(this.$t('cafeteria.title'))]
     }
   }
 }

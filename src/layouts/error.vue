@@ -35,17 +35,17 @@ export default {
   meta: {
     hamletName: 'error'
   },
+  methods: {
+    goBack() {
+      // this.$router.push('/')
+      history.back()
+    }
+  },
   head() {
     return {
       htmlAttrs: {
         class: this.$store.state.colorSchemeClassName
       }
-    }
-  },
-  methods: {
-    goBack() {
-      // this.$router.push('/')
-      history.back()
     }
   }
 }

@@ -10,14 +10,14 @@ import pageBase from '~/mixins/page-base'
 import EodiroChild from '~/components/global/EodiroChild'
 
 export default Vue.extend({
+  name: 'pepero-square',
+  components: { EodiroChild },
+  mixins: [pageBase],
   head() {
     return {
       title: this.$t('peperoSquare.title')
     }
-  },
-  name: 'pepero-square',
-  components: { EodiroChild },
-  mixins: [pageBase]
+  }
 })
 </script>
 

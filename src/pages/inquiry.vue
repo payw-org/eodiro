@@ -41,12 +41,6 @@ export default {
   name: 'inquiry',
   components: { Button },
   mixins: [pageBase],
-  head() {
-    return {
-      title: this.$t('inquiry.title'),
-      meta: [...autoHead(this.$t('inquiry.title'))]
-    }
-  },
   data() {
     return {
       replyEmail: '',
@@ -111,6 +105,12 @@ export default {
           window.alert(`${this.$t('global.error.dataSendError')}
           ${error}`)
         })
+    }
+  },
+  head() {
+    return {
+      title: this.$t('inquiry.title'),
+      meta: [...autoHead(this.$t('inquiry.title'))]
     }
   }
 }

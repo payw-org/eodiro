@@ -50,13 +50,6 @@ export default {
   name: 'vacant-floor',
   components: { Grid, ArrowBlock },
   mixins: [pageBase],
-  data() {
-    return {
-      buildingName: '',
-      floors: [],
-      buildingId: this.$route.params.buildingId
-    }
-  },
   asyncData({ app, route, redirect }) {
     const campus = 'seoul'
     const url = `https://api.eodiro.com/v2/campuses/${campus}/vacant/buildings/${route.params.buildingId}/floors`
@@ -72,6 +65,13 @@ export default {
       .catch(() => {
         redirect(app.localePath('not-found'))
       })
+  },
+  data() {
+    return {
+      buildingName: '',
+      floors: [],
+      buildingId: this.$route.params.buildingId
+    }
   }
 }
 </script>
