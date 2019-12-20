@@ -1,6 +1,6 @@
 {
   "name": "eodiro",
-  "version": "2.1.0-beta.4",
+  "version": "2.1.0-beta.6",
   "description": "CAU Utility Service",
   "scripts": {
     "dev": "cross-env HOST=0.0.0.0 PORT=3000 NODE_ENV=development nuxt",
