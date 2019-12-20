@@ -54,9 +54,12 @@ export default class EodiroDialog {
     this.setMsg(msg)
     this.open('alert')
 
-    this.closeBtn.onclick = () => {
-      this.close()
-    }
+    return new Promise((resolve) => {
+      this.closeBtn.onclick = () => {
+        this.close()
+        resolve(true)
+      }
+    })
   }
 
   /**
