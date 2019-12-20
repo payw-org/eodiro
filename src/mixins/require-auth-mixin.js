@@ -6,9 +6,9 @@ import EodiroDialog from '~/modules/eodiro-dialog'
  * @type {Vue.ComponentOptions}
  */
 const options = {
-  beforeMount() {
+  async beforeMount() {
     if (!this.$store.state.auth.isSignedIn) {
-      new EodiroDialog().alert(this.$t('global.requireAuth'))
+      await new EodiroDialog().alert(this.$t('global.requireAuth'))
       this.$router.replace(this.localePath('sign-in'))
     }
   }
