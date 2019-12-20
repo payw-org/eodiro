@@ -31,12 +31,10 @@
 </template>
 
 <script>
-import Axios from 'axios'
 import { CEM } from '~/modules/custom-event-manager'
 import pageBase from '~/mixins/page-base'
 import PostItem from '~/components/pepero-square/PostItem'
 import autoHead from '~/modules/auto-head'
-import apiUrl from '~/modules/api-url'
 import EodiroDialog from '~/modules/eodiro-dialog'
 import { SquareApi } from '~/modules/eodiro-api'
 
@@ -59,9 +57,6 @@ export default {
       isEnd: false,
       fetchingInterval: null
     }
-  },
-  beforeMount() {
-    this.startFetchingRecent()
   },
   beforeDestroy() {
     this.stopFetchingRecent()
@@ -100,7 +95,7 @@ export default {
     stopFetchingRecent() {
       clearInterval(this.fetchingInterval)
     },
-    fetchRecentPosts() {
+    async fetchRecentPosts() {
       // Get most recent post's id
       const mostRecentPost = this.posts[0]
 
@@ -114,29 +109,13 @@ export default {
       // If no most recent post, set most recent post id as -1
       const mostRecentPostId = mostRecentPost ? mostRecentPost.id : -1
 
-      // TODO: use SquareApi instead of manual Axios request
-      Axios({
-        ...apiUrl.peperoSquare.getRecentPosts,
-        params: {
-          from: mostRecentPostId + 1
-        }
-      })
-        .then((res) => {
-          const { data } = res
+      const recentPosts = await SquareApi.getRecentPosts(mostRecentPostId + 1)
+      if (recentPosts && recentPosts.length > 0) {
+        this.posts = [...recentPosts, ...this.posts]
+        new EodiroDialog().vagabond('📦 새로운 포스트가 업데이트되었습니다.')
+      }
 
-          if (data.length > 0) {
-            this.posts = [...data, ...this.posts]
-            new EodiroDialog().vagabond(
-              '📦 새로운 포스트가 업데이트되었습니다.'
-            )
-          }
-        })
-        .catch((err) => {
-          console.error(err)
-        })
-        .finally(() => {
-          this.isFetchingRecent = false
-        })
+      this.isFetchingRecent = false
     },
     /**
      * @param {number} from
@@ -149,34 +128,20 @@ export default {
 
       this.isLoadingMore = true
 
-      setTimeout(() => {
-        Axios({
-          ...apiUrl.peperoSquare.getPosts,
-          params: {
-            from,
-            quantity
-          }
-        })
-          .then((res) => {
-            const { data } = res
+      setTimeout(async () => {
+        const morePosts = await SquareApi.getPosts(from, quantity)
 
-            if (data.length === 0) {
-              this.isEnd = true
-            } else {
-              this.posts.push(...data)
-            }
-          })
-          .catch((err) => {
-            if (
-              !err.response ||
-              (err.response && err.response.status === 500)
-            ) {
-              alert(this.$t('global.error.networkError'))
-            }
-          })
-          .finally(() => {
-            this.isLoadingMore = false
-          })
+        if (!morePosts) {
+          return
+        }
+
+        if (morePosts.length === 0) {
+          this.isEnd = true
+        } else {
+          this.posts.push(...morePosts)
+        }
+
+        this.isLoadingMore = false
       }, 500)
     }
   },
