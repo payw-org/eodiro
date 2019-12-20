@@ -8,7 +8,7 @@ const conf = {
 }
 
 const messages = {
-  kr: {
+  ko: {
     confirmLabel: '확인',
     cancelLabel: '취소',
     closeLabel: '닫기'
@@ -22,7 +22,7 @@ const messages = {
 
 export default class EodiroDialog {
   /**
-   * @param {'kr' | 'en'} lang
+   * @param {'ko' | 'en'} lang
    */
   constructor(lang) {
     // init language
@@ -31,7 +31,7 @@ export default class EodiroDialog {
     } else if (JSCookie.get(conf.langCookieName)) {
       this.lang = JSCookie.get(conf.langCookieName)
     } else {
-      this.lang = 'kr'
+      this.lang = 'ko'
     }
 
     // create a DOM
