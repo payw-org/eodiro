@@ -145,6 +145,7 @@ import handleInput from './mixins/handle-input'
 import { Button } from '~/components/ui'
 import Auth from '~/modules/auth'
 import { AuthApi } from '~/modules/eodiro-api'
+import EodiroDialog from '~/modules/eodiro-dialog'
 
 export default {
   components: { Button },
@@ -234,7 +235,7 @@ export default {
           !this.nnInfo.isValid ||
           !this.pwInfo.isValid
         ) {
-          alert('조건을 한 번 더 확인해주세요')
+          await new EodiroDialog().alert(this.$t('auth.checkFields'))
           return
         }
 
@@ -247,12 +248,10 @@ export default {
           this.inputs.password
         )
         if (isSignedUp) {
-          window.alert(
-            '회원가입이 완료되었습니다.\nCAU 포탈에서 인증 메일을 확인해주세요!\n인증 코드는 30분동안 유효합니다.'
-          )
+          new EodiroDialog().alert(this.$t('auth.signUpSuccess'))
           this.$router.replace(this.localePath('index'))
         } else {
-          window.alert('조건을 한 번 더 확인해주세요')
+          await new EodiroDialog().alert(this.$t('auth.checkFields'))
         }
 
         // Restore validation state
