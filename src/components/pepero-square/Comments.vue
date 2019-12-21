@@ -57,6 +57,7 @@ import Axios from 'axios'
 import apiUrl from '~/modules/api-url'
 import Auth from '~/modules/auth'
 import { CEM } from '~/modules/custom-event-manager'
+import { SquareApi } from '~/modules/eodiro-api'
 
 export default {
   props: {
@@ -104,28 +105,14 @@ export default {
 
       this.isFetching = true
 
-      setTimeout(() => {
-        Axios({
-          ...apiUrl.peperoSquare.getComments,
-          headers: {
-            accessToken: Auth.getAccessToken()
-          },
-          params: {
-            postId: this.postId,
-            fromId
-          }
-        })
-          .then((res) => {
-            const { data } = res
-            this.comments.push(...data)
-          })
-          .catch((err) => {
-            console.error(err)
-            alert(this.$t('global.error.networkError'))
-          })
-          .finally(() => {
-            this.isFetching = false
-          })
+      setTimeout(async () => {
+        const comments = await new SquareApi().getComments(this.postId, fromId)
+
+        if (comments) {
+          this.comments.push(...comments)
+        }
+
+        this.isFetching = false
       }, 300)
     },
     leaveComment(event) {
