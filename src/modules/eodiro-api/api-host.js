@@ -24,4 +24,21 @@ export default class ApiHost {
   static getHost() {
     return this.host
   }
+
+  /**
+   * @param {string} path
+   * @returns {string}
+   */
+  static getUrl(path) {
+    if (!this.host) {
+      console.error('ApiHost - You must set host')
+      return
+    }
+
+    if (!path.startsWith('/')) {
+      path = '/' + path
+    }
+
+    return this.host + path
+  }
 }
