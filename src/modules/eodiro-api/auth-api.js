@@ -3,6 +3,25 @@ import useAxios from '~/modules/use-axios'
 
 export default class AuthApi {
   /**
+   * @param {Http} http
+   * @returns {Promise<boolean>}
+   */
+  static async isSignedIn(http) {
+    const [err] = await useAxios(
+      {
+        method: 'post',
+        url: ApiHost.getUrl('auth/is-signed-in')
+      },
+      {
+        withHeader: true,
+        http
+      }
+    )
+
+    return !err
+  }
+
+  /**
    * @typedef {Object} Tokens
    * @property {string} accessToken
    * @property {string} refreshToken
@@ -104,5 +123,24 @@ export default class AuthApi {
     })
 
     return !err
+  }
+
+  /**
+   * @param {Http} http
+   * @returns {Promise<Tokens|false>}
+   */
+  static async refreshTokens(http) {
+    const [err, res] = await useAxios(
+      {
+        method: 'post',
+        url: ApiHost.getUrl('auth/refresh-token')
+      },
+      {
+        withHeader: true,
+        http
+      }
+    )
+
+    return err ? false : res.data
   }
 }
