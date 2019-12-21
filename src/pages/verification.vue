@@ -13,6 +13,7 @@ export default {
       location.replace('/')
     }
 
+    // TODO: replace with authApi module
     Axios({
       ...apiUrl.user.verify,
       data: {
