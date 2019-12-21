@@ -79,7 +79,9 @@ export default {
 
       const hourDiff = now.diff(atObj, 'hour')
       if (hourDiff > 0 && hourDiff < 24) {
-        postedAt = `${hourDiff}시간 전`
+        postedAt = `
+        ${hourDiff}${this.$t('global.time.hour')} ${this.$t('global.time.ago')}
+        `
 
         return postedAt
       }
