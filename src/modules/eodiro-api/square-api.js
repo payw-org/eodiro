@@ -1,27 +1,31 @@
-import ApiHost from './api-host'
+import ApiHost from '~/modules/eodiro-api/api-host'
 import useAxios from '~/modules/use-axios'
+import Api from '~/modules/eodiro-api/api'
 
-export default class SquareApi {
-  static async getRecentPosts(from) {
+export default class SquareApi extends Api {
+  /**
+   * @param {number} from
+   */
+  async getRecentPosts(from) {
+    if (from === undefined) {
+      return false
+    }
+
     const [err, res] = await useAxios({
       method: 'get',
       url: ApiHost.host + '/pepero-square/posts/recent',
       params: { from }
     })
 
-    if (err) {
-      return false
-    } else {
-      return res.data
-    }
+    return err ? false : res.data
   }
 
   /**
    * @param {number} from
    * @param {number=} quantity
-   * @returns {Promise<Object|false>}
+   * @returns {Promise<Array|false>}
    */
-  static async getPosts(from, quantity) {
+  async getPosts(from, quantity) {
     const [err, res] = await useAxios({
       method: 'get',
       url: ApiHost.host + '/pepero-square/posts',
@@ -31,10 +35,58 @@ export default class SquareApi {
       }
     })
 
-    if (err) {
-      return false
-    } else {
-      return res.data
-    }
+    return err ? false : res.data
+  }
+
+  /**
+   * @param {number} postId
+   * @returns {Promise<Array|false>}
+   */
+  async getPostItem(postId) {
+    const [err, res] = await useAxios(
+      {
+        method: 'get',
+        url: ApiHost.host + '/pepero-square/post',
+        params: { postId }
+      },
+      {
+        withHeader: true,
+        http: this.http
+      }
+    )
+
+    return err ? false : res.data
+  }
+
+  /**
+   * @param {number} postId
+   * @param {number} fromId
+   * @returns {Promise<Array|false>}
+   */
+  async getComments(postId, fromId) {
+    const [err, res] = await useAxios(
+      {
+        method: 'get',
+        url: ApiHost.getUrl('pepero-square/posts/comments'),
+        params: {
+          postId,
+          fromId
+        }
+      },
+      {
+        withHeader: true,
+        http: this.http
+      }
+    )
+
+    return err ? false : res.data
+  }
+
+  /**
+   * @param {Http} http
+   */
+  setHttp(http) {
+    this.http = http
+    return this
   }
 }

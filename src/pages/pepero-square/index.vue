@@ -43,7 +43,7 @@ export default {
   components: { PostItem },
   mixins: [pageBase],
   async asyncData() {
-    const posts = await SquareApi.getPosts(0, 20)
+    const posts = await new SquareApi().getPosts(0, 20)
 
     if (posts) {
       return { posts }
@@ -109,7 +109,9 @@ export default {
       // If no most recent post, set most recent post id as -1
       const mostRecentPostId = mostRecentPost ? mostRecentPost.id : -1
 
-      const recentPosts = await SquareApi.getRecentPosts(mostRecentPostId + 1)
+      const recentPosts = await new SquareApi().getRecentPosts(
+        mostRecentPostId + 1
+      )
       if (recentPosts && recentPosts.length > 0) {
         this.posts = [...recentPosts, ...this.posts]
         new EodiroDialog().vagabond('📦 새로운 포스트가 업데이트되었습니다.')
@@ -129,7 +131,7 @@ export default {
       this.isLoadingMore = true
 
       setTimeout(async () => {
-        const morePosts = await SquareApi.getPosts(from, quantity)
+        const morePosts = await new SquareApi().getPosts(from, quantity)
 
         if (!morePosts) {
           return
