@@ -225,9 +225,10 @@ export default {
         this.validatePw()
 
         if (
-          !this.inputs.portalId.length === 0 ||
-          !this.inputs.nickname.length === 0 ||
-          !this.inputs.password.length === 0 ||
+          this.inputs.portalId.length === 0 ||
+          this.inputs.nickname.length === 0 ||
+          this.inputs.password.length === 0 ||
+          this.inputs.passwordConfirm.length === 0 ||
           !this.isPwSame ||
           !this.piInfo.isValid ||
           !this.nnInfo.isValid ||
