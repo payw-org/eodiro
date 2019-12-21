@@ -1,52 +1,30 @@
-import Axios from 'axios'
 import dayjs from 'dayjs'
-import apiUrl from '~/modules/api-url'
 import EodiroCookie from '~/modules/cookie'
+import { AuthApi } from '~/modules/eodiro-api'
 
 export default class Auth {
   /**
    * @param {Http=} http
    * @returns {Promise<boolean>}
    */
-  static isSignedIn(http) {
+  static async isSignedIn(http) {
     if (!this.getAccessToken(http)) {
-      return new Promise((resolve) => {
-        resolve(false)
-      })
+      return false
     }
 
-    return new Promise((resolve) => {
-      Axios({
-        ...apiUrl.user.isSignedIn,
-        headers: {
-          accessToken: `${this.getAccessToken(http)}`
-        }
-      })
-        .then((res) => {
-          resolve(true)
-        })
-        .catch(() => {
-          // If the access token is expired
-          // refresh tokens with refresh token
-          Axios({
-            ...apiUrl.user.refreshToken,
-            headers: {
-              refreshToken: `${this.getRefreshToken(http)}`
-            }
-          })
-            .then((res) => {
-              // Successfully refreshed the tokens
-              const { data } = res
-              this.setJwt(data.accessToken, data.refreshToken, http)
-              resolve(true)
-            })
-            .catch(() => {
-              // Failed to refresh
-              // In this situation, user must re-login
-              resolve(false)
-            })
-        })
-    })
+    const isSignedIn = await AuthApi.isSignedIn(http)
+    if (isSignedIn) {
+      return true
+    }
+
+    const tokens = await AuthApi.refreshTokens(http)
+    if (!tokens) {
+      return false
+    }
+
+    this.setJwt(tokens.accessToken, tokens.refreshToken, http)
+
+    return true
   }
 
   /**
