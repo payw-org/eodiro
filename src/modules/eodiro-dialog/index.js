@@ -22,7 +22,7 @@ const messages = {
 
 export default class EodiroDialog {
   /**
-   * @param {'ko' | 'en'} lang
+   * @param {'ko'|'en'=} lang
    */
   constructor(lang) {
     // init language
