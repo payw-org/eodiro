@@ -90,8 +90,13 @@ export default class EodiroDialog {
     this.open('vagabond')
   }
 
+  /**
+   * @param {string} msg
+   */
   setMsg(msg) {
-    this.dialogContainerElm.getElementsByClassName('message')[0].innerHTML = msg
+    this.dialogContainerElm.getElementsByClassName(
+      'message'
+    )[0].innerHTML = msg.replace(/(?:\r\n|\r|\n)/g, '<br>')
   }
 
   /**
