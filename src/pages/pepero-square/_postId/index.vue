@@ -1,26 +1,42 @@
 <template>
   <div id="post-details">
-    <div class="post-wrapper">
-      <div class="post">
-        <span class="at">{{ uploadedAt }}</span>
-        <h2 class="author">
-          {{ postData.random_nickname }}
-        </h2>
-        <h1 class="title">
-          {{ postData.title }}
-        </h1>
-        <p class="body" v-html="postBody" />
-        <!-- <div class="actions">
+    <div v-if="postData">
+      <div class="post-wrapper">
+        <div class="post">
+          <span class="at">{{ uploadedAt }}</span>
+          <h2 class="author">
+            {{ postData.random_nickname }}
+          </h2>
+          <h1 class="title">
+            {{ postData.title }}
+          </h1>
+          <p class="body" v-html="postBody" />
+          <!-- <div class="actions">
           <button
             class="like"
             :class="{ fill: postData.isLiked }"
             @click="toggleLike"
           />
         </div> -->
+        </div>
       </div>
+
+      <Comments :post-id="postData.id" />
     </div>
 
-    <Comments :post-id="postData.id" />
+    <div v-else class="non-existing">
+      <div class="item-wrapper">
+        <h1>
+          <div class="icon">
+            🙅‍♂️
+          </div>
+          포스트가 존재하지 않습니다.
+        </h1>
+        <p class="sub">
+          포스트가 삭제되었거나 잘못된 링크일 수 있습니다.
+        </p>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -42,7 +58,7 @@ export default {
     const postId = route.params.postId
     const postData = await new SquareApi({ req, res }).getPostItem(postId)
 
-    return postData ? { postData } : {}
+    return { postData }
   },
   data() {
     return {
@@ -133,6 +149,29 @@ export default {
             @include bgImg('~assets/images/heart-fill.svg', 'center', '50%');
           }
         }
+      }
+    }
+  }
+
+  .non-existing {
+    height: 50vh;
+    @include center;
+    text-align: center;
+
+    .item-wrapper {
+      padding: s(10);
+      @include elm-fill;
+      @include rounded;
+
+      .icon {
+        font-size: 1.5em;
+        line-height: 1;
+        margin-bottom: s(3);
+      }
+
+      .sub {
+        margin-top: s(2);
+        color: $base-gray;
       }
     }
   }
