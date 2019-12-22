@@ -121,28 +121,6 @@
   }
 }
 
-// gap
-// @depreacted
-@mixin gap($custom-gap: null) {
-  @if $custom-gap {
-    $gap: $custom-gap !global;
-  } @else {
-    $gap: $posh-gap !global;
-  }
-
-  @content;
-
-  @include on-mobile {
-    @if $custom-gap {
-      $gap: $custom-gap / 1.25 !global;
-    } @else {
-      $gap: $posh-gap / 1.25 !global;
-    }
-
-    @content;
-  }
-}
-
 // typography
 // headings
 @mixin heading1 {
@@ -228,4 +206,11 @@ $input-border-radius: r(4);
   resize: none;
 
   @include input-text;
+}
+
+// Flex center center
+@mixin center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
