@@ -1,13 +1,13 @@
 // fade page transition
 .fade-enter-active {
-  transition: opacity 400ms ease;
+  transition: opacity 500ms ease;
   opacity: 1;
 }
 .fade-enter {
   opacity: 0;
 }
 .fade-leave-active {
-  transition: opacity 150ms ease;
+  transition: opacity 0ms ease;
   opacity: 1;
 }
 .fade-leave-to {
