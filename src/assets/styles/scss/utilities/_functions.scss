@@ -24,13 +24,20 @@
   @return $result;
 }
 
+@function calculate12($min, $max, $level) {
+  $interval: ($max - $min) / 11;
+  $result: $min + $interval * ($level - 1);
+
+  @return $result;
+}
+
 @function validate($level) {
   $level: floor($level);
 
   @if $level < 1 {
     @return 1;
-  } @else if $level > 6 {
-    @return 6;
+  } @else if $level > 12 {
+    @return 12;
   } @else {
     @return $level;
   }
@@ -47,9 +54,9 @@
 @function s($level) {
   $level: validate($level);
   $min: 0.2rem;
-  $max: 1.5rem;
+  $max: 3rem;
 
-  @return calculate($min, $max, $level);
+  @return calculate12($min, $max, $level);
 }
 
 @function f($level) {
