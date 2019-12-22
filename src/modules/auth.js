@@ -12,12 +12,14 @@ export default class Auth {
       return false
     }
 
-    const isSignedIn = await AuthApi.isSignedIn(http)
+    const authApi = new AuthApi(http)
+
+    const isSignedIn = await authApi.isSignedIn()
     if (isSignedIn) {
       return true
     }
 
-    const tokens = await AuthApi.refreshTokens(http)
+    const tokens = await authApi.refreshTokens()
     if (!tokens) {
       return false
     }
