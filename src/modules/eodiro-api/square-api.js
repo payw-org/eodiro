@@ -7,10 +7,6 @@ export default class SquareApi extends Api {
    * @param {number} from
    */
   async getRecentPosts(from) {
-    if (from === undefined) {
-      return false
-    }
-
     const [err, res] = await useAxios({
       method: 'get',
       url: ApiHost.host + '/pepero-square/posts/recent',
@@ -50,12 +46,38 @@ export default class SquareApi extends Api {
         params: { postId }
       },
       {
-        withHeader: true,
+        requireAuth: true,
         http: this.http
       }
     )
 
     return err ? false : res.data
+  }
+
+  /**
+   * @typedef {Object} PostData
+   * @property {string} title
+   * @property {string} body
+   *
+   * @param {PostData} postData
+   * @returns {number} Inserted post ID
+   */
+  async addPost({ title, body }) {
+    const [err, res] = await useAxios(
+      {
+        method: 'post',
+        url: ApiHost.getUrl('pepero-square/post'),
+        data: {
+          title,
+          body
+        }
+      },
+      {
+        requireAuth: true
+      }
+    )
+
+    return err ? false : res.data.postId
   }
 
   /**
@@ -67,14 +89,14 @@ export default class SquareApi extends Api {
     const [err, res] = await useAxios(
       {
         method: 'get',
-        url: ApiHost.getUrl('pepero-square/posts/comments'),
+        url: ApiHost.getUrl('pepero-square/post/comments'),
         params: {
           postId,
           fromId
         }
       },
       {
-        withHeader: true,
+        requireAuth: true,
         http: this.http
       }
     )
@@ -83,10 +105,27 @@ export default class SquareApi extends Api {
   }
 
   /**
-   * @param {Http} http
+   * @typedef {Object} AddCommentData
+   * @property {number} postId
+   * @property {string} body
+   *
+   * @param {AddCommentData} addCommentData
    */
-  setHttp(http) {
-    this.http = http
-    return this
+  async addComment({ postId, body }) {
+    const [err] = await useAxios(
+      {
+        method: 'post',
+        url: ApiHost.getUrl('pepero-square/post/comment'),
+        data: {
+          body,
+          postId
+        }
+      },
+      {
+        requireAuth: true
+      }
+    )
+
+    return !err
   }
 }

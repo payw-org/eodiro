@@ -34,14 +34,13 @@
       <div id="new-comment">
         <form action="javascript:void(0)" autocomplete="off">
           <input
-            ref="commentInput"
+            id="comment-input"
             v-model="newComment"
             type="text"
             name="comment"
             autocomplete="off"
             spellcheck="false"
             :placeholder="$t('peperoSquare.leaveComment')"
-            class="comment-input"
             :disabled="isUploading"
             @keypress.enter="leaveComment($event)"
           />
@@ -53,11 +52,12 @@
 
 <script>
 import dayjs from 'dayjs'
-import Axios from 'axios'
-import apiUrl from '~/modules/api-url'
-import Auth from '~/modules/auth'
+// import Axios from 'axios'
+// import apiUrl from '~/modules/api-url'
+// import Auth from '~/modules/auth'
 import { CEM } from '~/modules/custom-event-manager'
 import { SquareApi } from '~/modules/eodiro-api'
+import EodiroDialog from '~/modules/eodiro-dialog'
 
 export default {
   props: {
@@ -115,7 +115,7 @@ export default {
         this.isFetching = false
       }, 300)
     },
-    leaveComment(event) {
+    async leaveComment(event) {
       if (this.newComment.trim().length === 0) {
         alert('댓글 내용을 입력하세요.')
         return
@@ -128,26 +128,39 @@ export default {
         postId: this.postId
       }
 
-      Axios({
-        ...apiUrl.peperoSquare.uploadComment,
-        headers: {
-          accessToken: Auth.getAccessToken()
-        },
-        data: newCommentObj
+      const isAdded = await new SquareApi().addComment(newCommentObj)
+      if (!isAdded) {
+        new EodiroDialog().alert(this.$t('global.error.networkError'))
+      }
+
+      this.isUploading = false
+      // Clear input
+      this.newComment = ''
+      this.fetchComments()
+      this.$nextTick(() => {
+        document.getElementById('comment-input').focus()
       })
-        .then(() => {})
-        .catch(() => {
-          alert(this.$t('global.error.networkError'))
-        })
-        .finally(() => {
-          this.isUploading = false
-          // Clear input
-          this.newComment = ''
-          this.fetchComments()
-          this.$nextTick(() => {
-            this.$refs.commentInput.focus()
-          })
-        })
+
+      // Axios({
+      //   ...apiUrl.peperoSquare.uploadComment,
+      //   headers: {
+      //     accessToken: Auth.getAccessToken()
+      //   },
+      //   data: newCommentObj
+      // })
+      //   .then(() => {})
+      //   .catch(() => {
+      //     alert(this.$t('global.error.networkError'))
+      //   })
+      //   .finally(() => {
+      //     this.isUploading = false
+      //     // Clear input
+      //     this.newComment = ''
+      //     this.fetchComments()
+      //     this.$nextTick(() => {
+      //       this.$refs.commentInput.focus()
+      //     })
+      //   })
     }
   }
 }
@@ -223,7 +236,7 @@ export default {
   // bottom: 0;
   margin-top: s(4);
 
-  .comment-input {
+  #comment-input {
     display: block;
     width: 100%;
     font-size: b(2);

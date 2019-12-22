@@ -29,12 +29,11 @@
 </template>
 
 <script>
-import Axios from 'axios'
 import pageBase from '~/mixins/page-base'
 import { Button } from '~/components/ui'
-import apiUrl from '~/modules/api-url'
-import Auth from '~/modules/auth'
 import requireAuthMixin from '~/mixins/require-auth-mixin'
+import { SquareApi } from '~/modules/eodiro-api'
+import EodiroDialog from '~/modules/eodiro-dialog'
 
 export default {
   name: 'pepero-square-new',
@@ -53,13 +52,15 @@ export default {
       const bodyTextArea = this.$refs.body
       bodyTextArea.focus()
     },
-    uploadNewPost() {
+    async uploadNewPost() {
       if (this.title.trim().length === 0) {
+        // TODO Localization
         alert('제목을 입력하세요')
         return
       }
 
       if (this.body.trim().length === 0) {
+        // TODO Localization
         alert('내용을 입력하세요')
         return
       }
@@ -67,34 +68,28 @@ export default {
       // Start waiting server response
       this.isWaiting = true
 
-      Axios({
-        ...apiUrl.peperoSquare.uploadPost,
-        headers: {
-          accessToken: Auth.getAccessToken()
-        },
-        data: {
-          body: this.body,
-          title: this.title
-        }
+      const postId = await new SquareApi().addPost({
+        title: this.title,
+        body: this.body
       })
-        .then((res) => {
-          alert('업로드되었습니다.')
-          const { postId } = res.data
-          this.$router.replace(
-            this.localePath({
-              name: 'pepero-square-postId',
-              params: {
-                postId
-              }
-            })
-          )
-        })
-        .catch(() => {
-          alert('업로드에 실패했습니다.')
-        })
-        .finally(() => {
-          this.isWaiting = false
-        })
+      if (!postId) {
+        // TODO Localization
+        new EodiroDialog().alert('업로드에 실패했습니다.')
+      } else {
+        // TODO Localization
+        new EodiroDialog().alert('업로드되었습니다.')
+        this.$router.replace(
+          this.localePath({
+            name: 'pepero-square-postId',
+            params: {
+              postId
+            }
+          })
+        )
+      }
+
+      // Stop waiting server response
+      this.isWaiting = false
     }
   }
 }
