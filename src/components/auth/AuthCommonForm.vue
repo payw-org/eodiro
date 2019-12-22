@@ -242,7 +242,7 @@ export default {
         // Start validation from server
         this.isValidating = true
 
-        const isSignedUp = await AuthApi.signUp(
+        const isSignedUp = await new AuthApi().signUp(
           this.inputs.portalId,
           this.inputs.nickname,
           this.inputs.password
@@ -266,7 +266,7 @@ export default {
         const password = this.inputs.password
 
         // Use UserApi module
-        const signInResult = await AuthApi.signIn(portalId, password)
+        const signInResult = await new AuthApi().signIn(portalId, password)
         if (signInResult) {
           // Sign in success
           Auth.setJwt(signInResult.accessToken, signInResult.refreshToken)
