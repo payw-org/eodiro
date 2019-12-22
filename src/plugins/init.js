@@ -34,9 +34,7 @@ export default async (context) => {
     }
 
     // Set host name globally on server side
-    if (req && req.headers && req.headers.host) {
-      ApiHost.setHost(req.headers.host)
-    }
+    ApiHost.setHost(req?.headers?.host)
 
     // Check authentication
     const isSignedIn = await Auth.isSignedIn({ req, res })
