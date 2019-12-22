@@ -10,7 +10,7 @@ import Auth from '~/modules/auth'
 /**
  * @param {import('axios').AxiosRequestConfig} config
  * @param {Object} eodiroAxiosConfig
- * @param {true=} eodiroAxiosConfig.withHeader
+ * @param {true=} eodiroAxiosConfig.requireAuth
  * @param {Http=} eodiroAxiosConfig.http
  * @returns {Promise<[any, import('axios').AxiosResponse]>}
  */
@@ -23,7 +23,7 @@ export default function useAxios(config, eodiroAxiosConfig) {
     }
 
     if (eodiroAxiosConfig) {
-      const { withHeader, http } = eodiroAxiosConfig
+      const { requireAuth: withHeader, http } = eodiroAxiosConfig
 
       if (withHeader) {
         const accessToken = Auth.getAccessToken(http)
