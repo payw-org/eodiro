@@ -39,7 +39,7 @@ const options = {
           window.clearTimeout(this.piInfo.timeout)
         }
         this.piInfo.timeout = window.setTimeout(async () => {
-          this.piInfo.isValid = await AuthApi.validatePortalId(
+          this.piInfo.isValid = await new AuthApi().validatePortalId(
             this.inputs.portalId
           )
         }, 300)
@@ -51,7 +51,7 @@ const options = {
           window.clearTimeout(this.nnInfo.timeout)
         }
         this.nnInfo.timeout = window.setTimeout(async () => {
-          this.nnInfo.isValid = await AuthApi.validateNickname(
+          this.nnInfo.isValid = await new AuthApi().validateNickname(
             this.inputs.nickname
           )
         }, 300)
@@ -71,7 +71,7 @@ const options = {
           window.clearTimeout(this.pwInfo.timeout)
         }
         this.pwInfo.timeout = window.setTimeout(async () => {
-          this.pwInfo.isValid = await AuthApi.validatePassword(
+          this.pwInfo.isValid = await new AuthApi().validatePassword(
             this.inputs.password
           )
         }, 300)

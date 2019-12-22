@@ -1,7 +1,26 @@
-import ApiHost from './api-host'
+import ApiHost from '~/modules/eodiro-api/api-host'
 import useAxios from '~/modules/use-axios'
+import Api from '~/modules/eodiro-api/api'
 
-export default class AuthApi {
+export default class AuthApi extends Api {
+  /**
+   * @returns {Promise<boolean>}
+   */
+  async isSignedIn() {
+    const [err] = await useAxios(
+      {
+        method: 'post',
+        url: ApiHost.getUrl('auth/is-signed-in')
+      },
+      {
+        requireAuth: true,
+        http: this.http
+      }
+    )
+
+    return !err
+  }
+
   /**
    * @typedef {Object} Tokens
    * @property {string} accessToken
@@ -11,7 +30,7 @@ export default class AuthApi {
    * @param {string} password
    * @returns {Promise<Tokens|false>}
    */
-  static async signIn(portalId, password) {
+  async signIn(portalId, password) {
     const [err, res] = await useAxios({
       method: 'post',
       url: ApiHost.host + '/auth/sign-in',
@@ -27,7 +46,7 @@ export default class AuthApi {
    * @param {string} password
    * @returns {Promise<boolean>}
    */
-  static async signUp(portalId, nickname, password) {
+  async signUp(portalId, nickname, password) {
     portalId = portalId.toLowerCase().trim()
     nickname = nickname.trim().replace(' ', '')
 
@@ -56,7 +75,7 @@ export default class AuthApi {
    * @param {string} portalId
    * @returns {Promise<boolean>}
    */
-  static async validatePortalId(portalId) {
+  async validatePortalId(portalId) {
     if (!portalId) {
       return false
     }
@@ -74,7 +93,7 @@ export default class AuthApi {
     return !err
   }
 
-  static async validateNickname(nickname) {
+  async validateNickname(nickname) {
     if (!nickname) {
       return false
     }
@@ -90,7 +109,7 @@ export default class AuthApi {
     return !err
   }
 
-  static async validatePassword(password) {
+  async validatePassword(password) {
     if (!password) {
       return false
     }
@@ -104,5 +123,23 @@ export default class AuthApi {
     })
 
     return !err
+  }
+
+  /**
+   * @returns {Promise<Tokens|false>}
+   */
+  async refreshTokens() {
+    const [err, res] = await useAxios(
+      {
+        method: 'post',
+        url: ApiHost.getUrl('auth/refresh-token')
+      },
+      {
+        requireAuth: true,
+        http: this.http
+      }
+    )
+
+    return err ? false : res.data
   }
 }

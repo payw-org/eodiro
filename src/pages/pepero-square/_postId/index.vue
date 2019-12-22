@@ -26,38 +26,23 @@
 
 <script>
 import dayjs from 'dayjs'
-import Axios from 'axios'
 import pageBase from '~/mixins/page-base'
-import apiUrl from '~/modules/api-url'
-import Auth from '~/modules/auth'
 import Comments from '~/components/pepero-square/Comments'
 import escapeHtml from '~/modules/escape-html'
 import requireAuthMixin from '~/mixins/require-auth-mixin'
+import { SquareApi } from '~/modules/eodiro-api'
 
 export default {
   name: 'pepero-square-post-id',
   components: { Comments },
   mixins: [pageBase, requireAuthMixin],
-  asyncData({ route, app, store, redirect, req, res }) {
+  async asyncData({ route, app, store, redirect, req, res }) {
     if (!store.state.auth.isSignedIn) return
 
-    return Axios({
-      ...apiUrl.peperoSquare.getAPost,
-      params: {
-        postId: route.params.postId
-      },
-      headers: {
-        accessToken: Auth.getAccessToken({ req, res })
-      }
-    })
-      .then((res) => {
-        return {
-          postData: res.data
-        }
-      })
-      .catch(() => {
-        console.error(app.i18n.t('global.error.networkError'))
-      })
+    const postId = route.params.postId
+    const postData = await new SquareApi({ req, res }).getPostItem(postId)
+
+    return postData ? { postData } : {}
   },
   data() {
     return {
@@ -74,25 +59,9 @@ export default {
       return escapeHtml(this.postData.body).replace(/(?:\r\n|\r|\n)/g, '<br>')
     }
   },
-  created() {
-    this.loadPost()
-  },
   methods: {
     toggleLike() {
       this.postData.isLiked = !this.postData.isLiked
-    },
-    loadPost() {
-      // Axios({
-      //   ...apiUrl.peperoSquare.getAPost,
-      //   params: {
-      //     postId: this.$route.params.postId
-      //   },
-      //   headers: {
-      //     accessToken: Auth.getAccessToken()
-      //   }
-      // }).then((res) => {
-      //   this.postData = res.data
-      // })
     },
     leaveNewComment(commentData) {
       this.comments.push(commentData)

@@ -22,7 +22,7 @@ const messages = {
 
 export default class EodiroDialog {
   /**
-   * @param {'ko' | 'en'} lang
+   * @param {'ko'|'en'=} lang
    */
   constructor(lang) {
     // init language
@@ -90,8 +90,13 @@ export default class EodiroDialog {
     this.open('vagabond')
   }
 
+  /**
+   * @param {string} msg
+   */
   setMsg(msg) {
-    this.dialogContainerElm.getElementsByClassName('message')[0].innerHTML = msg
+    this.dialogContainerElm.getElementsByClassName(
+      'message'
+    )[0].innerHTML = msg.replace(/(?:\r\n|\r|\n)/g, '<br>')
   }
 
   /**

@@ -33,15 +33,15 @@ export default async (context) => {
       return
     }
 
+    // Set host name globally on server side
+    ApiHost.setHost(req?.headers?.host)
+
     // Check authentication
     const isSignedIn = await Auth.isSignedIn({ req, res })
     if (isSignedIn) {
       store.commit('SET_SIGNED_IN', true)
-    }
-
-    // Set host name globally on server side
-    if (req && req.headers && req.headers.host) {
-      ApiHost.setHost(req.headers.host)
+    } else {
+      store.commit('SET_SIGNED_IN', false)
     }
   }
 
@@ -69,7 +69,10 @@ export default async (context) => {
     const topbar = require('~/modules/topbar').default
     window.topbar = topbar
 
-    // Authorization
+    // Set host name globally on client side
+    ApiHost.setHost(window.location.hostname)
+
+    // Check authentication
     const isSignedIn = await Auth.isSignedIn()
     if (isSignedIn) {
       store.commit('SET_SIGNED_IN', true)
@@ -83,8 +86,5 @@ export default async (context) => {
     // } else {
     //   window.isTouchDevice = false
     // }
-
-    // Set host name globally on client side
-    ApiHost.setHost(window.location.hostname)
   }
 }

@@ -145,6 +145,7 @@ import handleInput from './mixins/handle-input'
 import { Button } from '~/components/ui'
 import Auth from '~/modules/auth'
 import { AuthApi } from '~/modules/eodiro-api'
+import EodiroDialog from '~/modules/eodiro-dialog'
 
 export default {
   components: { Button },
@@ -225,33 +226,32 @@ export default {
         this.validatePw()
 
         if (
-          !this.inputs.portalId.length === 0 ||
-          !this.inputs.nickname.length === 0 ||
-          !this.inputs.password.length === 0 ||
+          this.inputs.portalId.length === 0 ||
+          this.inputs.nickname.length === 0 ||
+          this.inputs.password.length === 0 ||
+          this.inputs.passwordConfirm.length === 0 ||
           !this.isPwSame ||
           !this.piInfo.isValid ||
           !this.nnInfo.isValid ||
           !this.pwInfo.isValid
         ) {
-          alert('조건을 한 번 더 확인해주세요')
+          await new EodiroDialog().alert(this.$t('auth.checkFields'))
           return
         }
 
         // Start validation from server
         this.isValidating = true
 
-        const isSignedUp = await AuthApi.signUp(
+        const isSignedUp = await new AuthApi().signUp(
           this.inputs.portalId,
           this.inputs.nickname,
           this.inputs.password
         )
         if (isSignedUp) {
-          window.alert(
-            '회원가입이 완료되었습니다.\nCAU 포탈에서 인증 메일을 확인해주세요!\n인증 코드는 30분동안 유효합니다.'
-          )
+          new EodiroDialog().alert(this.$t('auth.signUpSuccess'))
           this.$router.replace(this.localePath('index'))
         } else {
-          window.alert('조건을 한 번 더 확인해주세요')
+          await new EodiroDialog().alert(this.$t('auth.checkFields'))
         }
 
         // Restore validation state
@@ -266,7 +266,7 @@ export default {
         const password = this.inputs.password
 
         // Use UserApi module
-        const signInResult = await AuthApi.signIn(portalId, password)
+        const signInResult = await new AuthApi().signIn(portalId, password)
         if (signInResult) {
           // Sign in success
           Auth.setJwt(signInResult.accessToken, signInResult.refreshToken)
