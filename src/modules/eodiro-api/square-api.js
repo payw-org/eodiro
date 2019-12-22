@@ -36,7 +36,7 @@ export default class SquareApi extends Api {
 
   /**
    * @param {number} postId
-   * @returns {Promise<Array|false>}
+   * @returns {Promise<Array|null>}
    */
   async getPostItem(postId) {
     const [err, res] = await useAxios(
@@ -51,7 +51,7 @@ export default class SquareApi extends Api {
       }
     )
 
-    return err ? false : res.data
+    return err ? null : res.data
   }
 
   /**
