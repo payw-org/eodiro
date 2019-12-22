@@ -65,7 +65,6 @@ const config = {
     // 'generate:page': (page) => {
     //   page.html = modifyHtml(page.html)
     // },
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     // 'render:route': (url, page) => {
     //   page.html = modifyHtml(page.html)
     // }
@@ -121,6 +120,9 @@ const config = {
       plugins: {
         autoprefixer: {}
       }
+    },
+    babel: {
+      babelrc: true
     },
     extend(config) {
       config.module.rules.push({
