@@ -1,0 +1,49 @@
+@use './ui6';
+
+// Flex
+.flex {
+  display: flex;
+
+  &.align-center {
+    align-items: center;
+  }
+
+  &.justify-center {
+    justify-content: center;
+  }
+
+  &.wrap {
+    flex-wrap: wrap;
+  }
+}
+
+// Text align
+.text-align-center {
+  text-align: center;
+}
+
+.text-align-left {
+  text-align: left;
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+$directions: 'top', 'right', 'bottom', 'left';
+$space-properties: 'margin', 'padding';
+
+// Margin
+@each $prop in $space-properties {
+  @for $i from 1 through 12 {
+    .#{$prop}-#{$i} {
+      #{$prop}: s($i);
+    }
+
+    @each $direction in $directions {
+      .#{$prop}-#{$direction}-#{$i} {
+        #{$prop}-#{$direction}: s($i);
+      }
+    }
+  }
+}
