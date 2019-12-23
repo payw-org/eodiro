@@ -1,5 +1,7 @@
 # ToDo
 
+It includes new features to be added, bug fixes, source code refactoring and anything related to performance issue.
+
 ## Banner
 
 ### Performance
@@ -16,12 +18,13 @@
 
 ### Bug Fixes
 
-- [ ] Alert when the post is deleted
+- [x] Indicate non-existing post
 
 ### Features
 
 - [ ] Show the number of comments of each post
 - [ ] Upload images or files
+- [ ] Categories
 
 **Comments**
 
