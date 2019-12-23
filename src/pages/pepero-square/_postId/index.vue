@@ -24,17 +24,20 @@
       <Comments :post-id="postData.id" />
     </div>
 
-    <div v-else-if="!postData" class="non-existing">
+    <div v-else class="unavailable">
       <div class="item-wrapper">
         <h1>
           <div class="icon">
-            🙅‍♂️
+            {{ icon }}
           </div>
-          포스트가 존재하지 않습니다.
+          {{ unavailableHeadline }}
         </h1>
-        <p class="sub">
-          포스트가 삭제되었거나 잘못된 링크일 수 있습니다.
+        <p v-if="!postData" class="sub">
+          포스트가 삭제되었거나 잘못된 URL입니다.
         </p>
+        <NuxtLink v-if="!isSignedIn" :to="localePath('sign-in')" class="login">
+          {{ $t('auth.signIn') + ' →' }}
+        </NuxtLink>
       </div>
     </div>
   </div>
@@ -45,13 +48,12 @@ import dayjs from 'dayjs'
 import pageBase from '~/mixins/page-base'
 import Comments from '~/components/pepero-square/Comments'
 import escapeHtml from '~/modules/escape-html'
-import requireAuthMixin from '~/mixins/require-auth-mixin'
 import { SquareApi } from '~/modules/eodiro-api'
 
 export default {
   name: 'pepero-square-post-id',
   components: { Comments },
-  mixins: [pageBase, requireAuthMixin],
+  mixins: [pageBase],
   async asyncData({ route, app, store, redirect, req, res }) {
     if (!store.state.auth.isSignedIn) return
 
@@ -68,11 +70,22 @@ export default {
     }
   },
   computed: {
+    isSignedIn() {
+      return this.$store.state.auth.isSignedIn
+    },
     uploadedAt() {
       return dayjs(this.postData.uploaded_at).format('YYYY. MM. DD. HH:mm')
     },
     postBody() {
       return escapeHtml(this.postData.body).replace(/(?:\r\n|\r|\n)/g, '<br>')
+    },
+    icon() {
+      return !this.isSignedIn ? '🔐' : '🙅‍♂️'
+    },
+    unavailableHeadline() {
+      return !this.isSignedIn
+        ? '로그인이 필요한 기능입니다.'
+        : '포스트가 존재하지 않습니다.'
     }
   },
   methods: {
@@ -153,7 +166,7 @@ export default {
     }
   }
 
-  .non-existing {
+  .unavailable {
     @include center;
     text-align: center;
 
@@ -163,7 +176,7 @@ export default {
       @include rounded;
 
       .icon {
-        font-size: 1.5em;
+        font-size: 1.3em;
         line-height: 1;
         margin-bottom: s(3);
       }
@@ -171,6 +184,15 @@ export default {
       .sub {
         margin-top: s(2);
         color: $base-gray;
+      }
+
+      .login {
+        display: inline-block;
+        margin-top: s(5);
+        color: $c-step--4;
+        @include overlay-inverted;
+        padding: s(2);
+        border-radius: r(3);
       }
     }
   }
