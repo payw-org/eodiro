@@ -1,6 +1,4 @@
-/**
- * @type {}
- */
+/** @type {Vue.ComponentOptions} */
 const mixinOptions = {
   props: {
     name: {
