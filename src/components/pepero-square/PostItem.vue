@@ -32,6 +32,7 @@
           </div>
           <div class="right">
             <div class="pi-comment-count">
+              <BubbleIcon fill="#ff3852" class="pi-cc-icon" />
               {{ postData.comment_count }}
             </div>
           </div>
@@ -43,10 +44,10 @@
 
 <script>
 import dayjs from 'dayjs'
-import { ArrowBlock } from '~/components/ui'
+import { ArrowBlock, BubbleIcon } from '~/components/ui'
 
 export default {
-  components: { ArrowBlock },
+  components: { ArrowBlock, BubbleIcon },
   props: {
     postData: {
       type: Object,
@@ -153,18 +154,12 @@ export default {
 
       .right {
         .pi-comment-count {
-          color: $c-step--3;
+          color: $c-step--4;
           display: flex;
           align-items: center;
 
-          &::before {
-            content: '';
-            display: inline-block;
-            width: 1.5em;
-            height: 1.5em;
-            background-repeat: no-repeat;
-            background-position: center;
-            background-size: 100%;
+          .pi-cc-icon {
+            margin-right: s(1);
           }
         }
       }
