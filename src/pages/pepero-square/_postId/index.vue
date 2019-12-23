@@ -1,6 +1,6 @@
 <template>
   <div id="post-details">
-    <div v-if="postData">
+    <div v-if="postData && $store.state.auth.isSignedIn">
       <div class="post-wrapper">
         <div class="post">
           <span class="at">{{ uploadedAt }}</span>
@@ -24,7 +24,7 @@
       <Comments :post-id="postData.id" />
     </div>
 
-    <div v-else class="non-existing">
+    <div v-else-if="!postData" class="non-existing">
       <div class="item-wrapper">
         <h1>
           <div class="icon">
