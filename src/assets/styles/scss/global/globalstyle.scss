@@ -152,7 +152,8 @@ textarea {
   opacity: 0.5;
 }
 
-p {
+p,
+a {
   @include paragraph;
 }
 
