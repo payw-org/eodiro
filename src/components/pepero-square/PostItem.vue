@@ -162,7 +162,6 @@ export default {
             display: inline-block;
             width: 1.5em;
             height: 1.5em;
-            background-image: url(~assets/images/icons/bubble.svg);
             background-repeat: no-repeat;
             background-position: center;
             background-size: 100%;
