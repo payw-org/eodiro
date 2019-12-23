@@ -22,11 +22,18 @@
           {{ postData.body }}
         </div>
         <div class="information">
-          <div class="pi-posted-at">
-            {{ postedAt }}
+          <div class="left">
+            <div class="pi-posted-at">
+              {{ postedAt }}
+            </div>
+            <div class="pi-random-nickname">
+              {{ postData.random_nickname }}
+            </div>
           </div>
-          <div class="pi-random-nickname">
-            {{ postData.random_nickname }}
+          <div class="right">
+            <div class="pi-comment-count">
+              {{ postData.comment_count }}
+            </div>
           </div>
         </div>
       </div>
@@ -137,8 +144,31 @@ export default {
       color: $base-gray;
       display: flex;
       align-items: center;
-      justify-content: flex-start;
+      justify-content: space-between;
       flex-wrap: wrap;
+
+      .left {
+        display: flex;
+      }
+
+      .right {
+        .pi-comment-count {
+          color: $c-step--3;
+          display: flex;
+          align-items: center;
+
+          &::before {
+            content: '';
+            display: inline-block;
+            width: 1.5em;
+            height: 1.5em;
+            background-image: url(~assets/images/icons/bubble.svg);
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 100%;
+          }
+        }
+      }
 
       .pi-posted-at {
         margin-right: s(3);

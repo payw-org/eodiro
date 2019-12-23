@@ -19,12 +19,14 @@
     </div>
 
     <p v-show="!isLoadingMore && posts.length === 0" class="message">
+      <!-- TODO Localization -->
       포스트가 없습니다.
     </p>
     <p v-show="isLoadingMore" class="message">
       {{ `🚀 ${$t('global.loading')}...` }}
     </p>
     <p v-show="isEnd && posts.length > 0" class="message">
+      <!-- TODO Localization -->
       더 이상 포스트가 없습니다.
     </p>
   </div>
@@ -45,9 +47,7 @@ export default {
   async asyncData() {
     const posts = await new SquareApi().getPosts(0, 20)
 
-    if (posts) {
-      return { posts }
-    }
+    return posts ? { posts } : []
   },
   data() {
     return {
@@ -114,6 +114,7 @@ export default {
       )
       if (recentPosts && recentPosts.length > 0) {
         this.posts = [...recentPosts, ...this.posts]
+        // TODO Localization
         new EodiroDialog().vagabond('📦 새로운 포스트가 업데이트되었습니다.')
       }
 
