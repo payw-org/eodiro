@@ -154,7 +154,6 @@ export default {
   }
 
   .non-existing {
-    height: 50vh;
     @include center;
     text-align: center;
 
