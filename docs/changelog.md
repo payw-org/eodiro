@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.1.0 Beta 9
+
+### Chore
+
+- Show the version number in home
+
 ## v2.1.0 Beta 8
 
 ### Bug Fixes
