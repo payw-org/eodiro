@@ -7,7 +7,7 @@ export default class AuthApi extends Api {
    * @returns {Promise<boolean>}
    */
   async isSignedIn() {
-    const [err] = await useAxios(
+    const [err, res] = await useAxios(
       {
         method: 'post',
         url: ApiHost.getUrl('auth/is-signed-in')
@@ -18,7 +18,13 @@ export default class AuthApi extends Api {
       }
     )
 
-    return !err
+    if (err) {
+      return false
+    }
+
+    const { isSignedIn } = res.data
+
+    return isSignedIn
   }
 
   /**
