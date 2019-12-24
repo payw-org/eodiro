@@ -150,6 +150,11 @@
           {{ $t('privacy.title') }}
         </NuxtLink>
       </p>
+      <a href="https://github.com/paywteam/eodiro/releases" target="_blank">
+        <div class="version">
+          {{ version }}
+        </div>
+      </a>
     </footer>
   </div>
 </template>
@@ -157,11 +162,17 @@
 <script>
 import pageBase from '~/mixins/page-base'
 import { Grid, ArrowBlock } from '~/components/ui'
+import PackageJson from '~~/package.json'
 
 export default {
   name: 'home',
   components: { Grid, ArrowBlock },
   mixins: [pageBase],
+  computed: {
+    version() {
+      return 'v' + PackageJson.version.replace('-beta.', ' Beta ')
+    }
+  },
   methods: {
     preparing() {
       window.alert(this.$t('preparing'))
@@ -306,6 +317,18 @@ export default {
 
     .manifesto {
       color: $base-gray;
+      font-size: b(2);
+    }
+
+    .version {
+      font-size: b(1);
+      display: inline-block;
+      color: $c-step--4;
+      @include elm-fill;
+      padding: s(2);
+      border-radius: r(2);
+      margin-top: s(3);
+      line-height: 1.1;
     }
   }
 }
