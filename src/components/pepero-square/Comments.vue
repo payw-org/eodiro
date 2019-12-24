@@ -31,7 +31,7 @@
         {{ `🚀 ${$t('global.loading')}...` }}
       </p>
 
-      <div id="new-comment">
+      <div v-show="!isFetching" id="new-comment">
         <form action="javascript:void(0)" autocomplete="off">
           <input
             id="comment-input"
@@ -83,6 +83,7 @@ export default {
     this.isFetching = false
     this.fetchComments()
 
+    // Automatically fetch new comments when scroll ends
     CEM.addEventListener('scrollended', this.$el, () => {
       this.fetchComments()
     })
@@ -96,14 +97,14 @@ export default {
         return
       }
 
+      this.isFetching = true
+
       let fromId = 0
       const lastComment = this.comments[this.comments.length - 1]
 
       if (lastComment) {
         fromId = lastComment.id + 1
       }
-
-      this.isFetching = true
 
       setTimeout(async () => {
         const comments = await new SquareApi().getComments(this.postId, fromId)
@@ -134,33 +135,13 @@ export default {
       }
 
       this.isUploading = false
+
       // Clear input
       this.newComment = ''
       this.fetchComments()
       this.$nextTick(() => {
-        document.getElementById('comment-input').focus()
+        document.getElementById('comment-input').blur()
       })
-
-      // Axios({
-      //   ...apiUrl.peperoSquare.uploadComment,
-      //   headers: {
-      //     accessToken: Auth.getAccessToken()
-      //   },
-      //   data: newCommentObj
-      // })
-      //   .then(() => {})
-      //   .catch(() => {
-      //     alert(this.$t('global.error.networkError'))
-      //   })
-      //   .finally(() => {
-      //     this.isUploading = false
-      //     // Clear input
-      //     this.newComment = ''
-      //     this.fetchComments()
-      //     this.$nextTick(() => {
-      //       this.$refs.commentInput.focus()
-      //     })
-      //   })
     }
   }
 }
@@ -181,60 +162,64 @@ export default {
     top: $nav-height;
   }
 
-  .comment-item {
-    padding: s(3) s(1);
-    border-bottom: solid;
-    @include separator;
+  .comment-container {
+    margin-bottom: s(5);
 
-    &:last-child {
-      margin-bottom: 0;
-    }
+    .comment-item {
+      padding: s(3) s(1);
+      border-bottom: solid;
+      @include separator;
 
-    .author-and-date {
-      margin-bottom: s(2);
-      display: flex;
-      align-items: flex-end;
-      justify-content: space-between;
-
-      .author {
-        line-height: lh(1);
-        font-weight: fw(4);
-        font-size: b(2);
+      &:last-child {
+        margin-bottom: 0;
       }
 
-      .uploaded-at {
-        font-size: b(1);
-        line-height: lh(1);
+      .author-and-date {
+        margin-bottom: s(2);
+        display: flex;
+        align-items: flex-end;
+        justify-content: space-between;
+
+        .author {
+          line-height: lh(1);
+          font-weight: fw(4);
+          font-size: b(2);
+        }
+
+        .uploaded-at {
+          font-size: b(1);
+          line-height: lh(1);
+          color: $base-gray;
+        }
+      }
+
+      .body {
+        font-size: b(2);
+        line-height: lh(2);
         color: $base-gray;
       }
     }
+  }
 
-    .body {
-      font-size: b(2);
-      line-height: lh(2);
-      color: $base-gray;
-    }
+  .no-comments,
+  .message {
+    height: 3rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
   }
 
   .no-comments {
-    padding: s(4) 0;
     text-align: center;
   }
 
   .message {
-    padding: s(4) 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    // height: 4rem;
     overflow: hidden;
   }
 }
 
 #new-comment {
-  // position: sticky;
-  // bottom: 0;
-  margin-top: s(4);
+  height: 3rem;
 
   #comment-input {
     display: block;

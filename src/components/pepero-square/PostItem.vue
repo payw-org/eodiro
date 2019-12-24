@@ -22,11 +22,19 @@
           {{ postData.body }}
         </div>
         <div class="information">
-          <div class="pi-posted-at">
-            {{ postedAt }}
+          <div class="left">
+            <div class="pi-posted-at">
+              {{ postedAt }}
+            </div>
+            <div class="pi-random-nickname">
+              {{ postData.random_nickname }}
+            </div>
           </div>
-          <div class="pi-random-nickname">
-            {{ postData.random_nickname }}
+          <div class="right">
+            <div class="pi-comment-count">
+              <IconBlocks fill="#ff3852" class="pi-cc-icon" />
+              <span class="pi-cc-value">{{ postData.comment_count }}</span>
+            </div>
           </div>
         </div>
       </div>
@@ -36,10 +44,10 @@
 
 <script>
 import dayjs from 'dayjs'
-import { ArrowBlock } from '~/components/ui'
+import { ArrowBlock, IconBlocks } from '~/components/ui'
 
 export default {
-  components: { ArrowBlock },
+  components: { ArrowBlock, IconBlocks },
   props: {
     postData: {
       type: Object,
@@ -84,6 +92,10 @@ export default {
         `
 
         return postedAt
+      }
+
+      if (now.year() === atObj.year()) {
+        return dayjs(this.postData.uploaded_at).format('MM/DD HH:mm')
       }
 
       return postedAt
@@ -136,9 +148,34 @@ export default {
       font-size: b(1);
       color: $base-gray;
       display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      flex-wrap: wrap;
+      align-items: flex-end;
+      justify-content: space-between;
+
+      .left {
+        display: flex;
+        flex-wrap: wrap;
+      }
+
+      .right {
+        .pi-comment-count {
+          color: $c-step--4;
+          display: flex;
+          align-items: center;
+          @include overlay-inverted;
+          padding: s(1) s(2);
+          border-radius: r(2);
+
+          .pi-cc-icon {
+            margin-right: s(1) / 2;
+          }
+
+          .pi-cc-value {
+            line-height: 1;
+            font-weight: 500;
+            display: inline-block;
+          }
+        }
+      }
 
       .pi-posted-at {
         margin-right: s(3);

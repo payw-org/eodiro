@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import icon from '~/mixins/icon'
+import icon from '~/components/ui/icons/icon'
 
 export default {
   mixins: [icon]

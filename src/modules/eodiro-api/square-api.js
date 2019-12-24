@@ -19,7 +19,7 @@ export default class SquareApi extends Api {
   /**
    * @param {number} from
    * @param {number=} quantity
-   * @returns {Promise<Array|false>}
+   * @returns {Promise<Array|null>}
    */
   async getPosts(from, quantity) {
     const [err, res] = await useAxios({
@@ -31,12 +31,12 @@ export default class SquareApi extends Api {
       }
     })
 
-    return err ? false : res.data
+    return err ? null : res.data
   }
 
   /**
    * @param {number} postId
-   * @returns {Promise<Array|false>}
+   * @returns {Promise<Array|null>}
    */
   async getPostItem(postId) {
     const [err, res] = await useAxios(
@@ -51,7 +51,7 @@ export default class SquareApi extends Api {
       }
     )
 
-    return err ? false : res.data
+    return err ? null : res.data
   }
 
   /**

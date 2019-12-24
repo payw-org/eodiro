@@ -3,6 +3,7 @@
 @import '~/assets/styles/scss/global/simplebar-custom';
 @import '~/assets/styles/scss/global/transition';
 @import '~/assets/styles/scss/global/input';
+@import '~assets/styles/scss/utilities/htmlcss';
 
 // UI6
 @import '~assets/styles/scss/utilities/ui6';
@@ -151,7 +152,8 @@ textarea {
   opacity: 0.5;
 }
 
-p {
+p,
+a {
   @include paragraph;
 }
 
@@ -244,4 +246,10 @@ ol {
 
 .stagger-appear-fix {
   opacity: 1 !important;
+}
+
+// PAYW Icon
+.payw-icon {
+  height: 1.3em;
+  width: auto;
 }
