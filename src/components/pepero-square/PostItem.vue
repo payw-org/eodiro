@@ -32,8 +32,8 @@
           </div>
           <div class="right">
             <div class="pi-comment-count">
-              <BubbleIcon fill="#ff3852" class="pi-cc-icon" />
-              {{ postData.comment_count }}
+              <IconBlocks fill="#ff3852" class="pi-cc-icon" />
+              <span class="pi-cc-value">{{ postData.comment_count }}</span>
             </div>
           </div>
         </div>
@@ -44,10 +44,10 @@
 
 <script>
 import dayjs from 'dayjs'
-import { ArrowBlock, BubbleIcon } from '~/components/ui'
+import { ArrowBlock, IconBlocks } from '~/components/ui'
 
 export default {
-  components: { ArrowBlock, BubbleIcon },
+  components: { ArrowBlock, IconBlocks },
   props: {
     postData: {
       type: Object,
