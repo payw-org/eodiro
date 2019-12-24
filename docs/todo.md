@@ -5,6 +5,7 @@ It includes new features to be added, bug fixes, source code refactoring and any
 ## General
 
 - [ ] Add **Terms of Use** section and agreeing process
+- [ ] Set default color scheme to 'auto'
 
 ## Banner
 
@@ -23,6 +24,7 @@ It includes new features to be added, bug fixes, source code refactoring and any
 ### Bug Fixes
 
 - [x] Indicate non-existing post
+- [x] Infinite comments refreshing
 
 ### Features
 
@@ -40,3 +42,9 @@ It includes new features to be added, bug fixes, source code refactoring and any
   - Currently the APIs respond with 4xx when the validations have been failed
   - [x] `isSignedIn`
   - [ ] Sign up validation
+
+## Modules
+
+### eodiro Dialog
+
+- [ ] Focus keyboard action
