@@ -157,9 +157,18 @@ export default {
           color: $c-step--4;
           display: flex;
           align-items: center;
+          @include overlay-inverted;
+          padding: s(1) s(2);
+          border-radius: r(2);
 
           .pi-cc-icon {
-            margin-right: s(1);
+            margin-right: s(1) / 2;
+          }
+
+          .pi-cc-value {
+            line-height: 1;
+            font-weight: 500;
+            display: inline-block;
           }
         }
       }
