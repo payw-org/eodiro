@@ -34,6 +34,10 @@ It includes new features to be added, bug fixes, source code refactoring and any
 - [ ] Comments of a comment
 - [ ] 🔍 Search
 
+### Design
+
+- [x] Specify font size of post item's information
+
 ## Auth
 
 > Related to [eodiro API 2](https://github.com/paywteam/eodiro-api2)
