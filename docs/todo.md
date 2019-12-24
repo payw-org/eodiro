@@ -18,7 +18,7 @@ It includes new features to be added, bug fixes, source code refactoring and any
 - [ ] Reissue password
 - [ ] Withdraw a membership
 
-## Pepero Square
+## Pepero Square (Tentative Title)
 
 ### Bug Fixes
 
@@ -26,14 +26,17 @@ It includes new features to be added, bug fixes, source code refactoring and any
 
 ### Features
 
-- [ ] Show the number of comments of each post
+- [x] Show the number of comments of each post
 - [ ] Upload images or files
 - [ ] Categories
 - [ ] Comments of a comment
+- [ ] 🔍 Search
 
 ## Auth
 
 > Related to [eodiro API 2](https://github.com/paywteam/eodiro-api2)
 
-- [ ] Validation APIs should send 2xx status code with the result of validation
+- Validation APIs should send 2xx status code with the result of validation
   - Currently the APIs respond with 4xx when the validations have been failed
+  - [x] `isSignedIn`
+  - [ ] Sign up validation
