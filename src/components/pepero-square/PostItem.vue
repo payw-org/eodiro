@@ -94,6 +94,10 @@ export default {
         return postedAt
       }
 
+      if (now.year() === atObj.year()) {
+        return dayjs(this.postData.uploaded_at).format('MM/DD HH:mm')
+      }
+
       return postedAt
     }
   }
