@@ -6,6 +6,7 @@
 
 import Axios from 'axios'
 import Auth from '~/modules/auth'
+import EodiroDialog from '~/modules/eodiro-dialog'
 
 /**
  * @param {import('axios').AxiosRequestConfig} config
@@ -62,7 +63,7 @@ export default function useAxios(config, eodiroAxiosConfig) {
 
           // Client side alert
           if (typeof window !== 'undefined') {
-            window.alert('Network Error')
+            new EodiroDialog().alert('Network Error')
           }
         }
         resolve([err, null])
