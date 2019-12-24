@@ -135,11 +135,12 @@ export default {
       }
 
       this.isUploading = false
+
       // Clear input
       this.newComment = ''
       this.fetchComments()
       this.$nextTick(() => {
-        document.getElementById('comment-input').focus()
+        document.getElementById('comment-input').blur()
       })
     }
   }
