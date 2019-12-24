@@ -144,12 +144,12 @@ export default {
       font-size: b(1);
       color: $base-gray;
       display: flex;
-      align-items: center;
+      align-items: flex-end;
       justify-content: space-between;
-      flex-wrap: wrap;
 
       .left {
         display: flex;
+        flex-wrap: wrap;
       }
 
       .right {
