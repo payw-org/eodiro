@@ -130,14 +130,20 @@ export default {
           if (this.$route.meta.depth > 1) {
             this.isMini = true
             this.isNavMode = true
-            bannerElm.classList.add('mini')
-            bannerElm.classList.add('nav-mode')
+            this.$nextTick(() => {
+              bannerElm.classList.add('mini')
+              bannerElm.classList.add('nav-mode')
+            })
           } else if (entry.isIntersecting) {
             this.isNavMode = false
-            bannerElm.classList.remove('nav-mode')
+            this.$nextTick(() => {
+              bannerElm.classList.remove('nav-mode')
+            })
           } else {
             this.isNavMode = true
-            bannerElm.classList.add('nav-mode')
+            this.$nextTick(() => {
+              bannerElm.classList.add('nav-mode')
+            })
           }
         }
       })
