@@ -2,9 +2,17 @@
 
 ## v2.1.0 Beta 9
 
+### Performance
+
+- Use only two components to transition between previous and next routes instead of utilizing redundant `v-if`s for every hamlet
+
+### Bug Fixes
+
+- Mitigate some flickering problems inside the Banner - #205
+
 ### Chore
 
-- Show the version number in home
+- Show the currently deployed version number in home
 
 ## v2.1.0 Beta 8
 
