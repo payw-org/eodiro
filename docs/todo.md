@@ -11,7 +11,7 @@ It includes new features to be added, bug fixes, source code refactoring and any
 
 ### Performance
 
-- [ ] Select current hamlet in logic, not in view
+- [x] Improve transitioning
 
 ### Design
 
@@ -19,15 +19,23 @@ It includes new features to be added, bug fixes, source code refactoring and any
 
 ## My Page
 
+### Design
+
 - [ ] Better UI
+
+### Features
+
 - [ ] Reissue password
 - [ ] Withdraw a membership
+- [ ] Show my posts and comments
 
 ## Pepero Square (Tentative Title)
 
 ### Chore
 
-- [ ] Display 'need to sign in' component instead of `require-auth` mixin, popup and redirection
+- Display 'need to sign in' component instead of `require-auth` mixin, popup and redirection
+  - [x] Post
+  - [ ] New post
 
 ### Bug Fixes
 
