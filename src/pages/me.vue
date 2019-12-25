@@ -1,29 +1,51 @@
 <template>
   <div id="eodiro-me">
-    <h1 class="title ui6-fw-6">
+    <h1 class="title">
       {{ $t('me.title') }}
     </h1>
 
-    <section class="registration-information ui6-s-mt-5">
-      <h2 class="ui6-h-2 ui6-s-mb-3">
+    <section class="info-section registration-information">
+      <h2 class="section-title">
         {{ $t('me.information') }}
       </h2>
-      <h3 class="ui6-b-4">
-        {{ $t('me.portalEmailId') }}
-      </h3>
-      <p>{{ myInfo.portal_id }}</p>
-      <h3 class="ui6-b-4 ui6-s-mt-2">
-        {{ $t('me.nickname') }}
-      </h3>
-      <p>{{ myInfo.nickname }}</p>
-      <h3 class="ui6-b-4 ui6-s-mt-2">
-        {{ $t('me.randomNickname') }}
-      </h3>
-      <p>{{ myInfo.random_nickname }}</p>
+      <Grid proportion="small" gap="small">
+        <div>
+          <div class="info-block">
+            <h3 class="ib-title">
+              {{ $t('me.portalEmailId') }}
+            </h3>
+            <p class="ib-body">
+              {{ myInfo.portal_id }}
+            </p>
+          </div>
+        </div>
+        <div>
+          <div class="info-block">
+            <h3 class="ib-title">
+              {{ $t('me.nickname') }}
+            </h3>
+            <p class="ib-body">
+              {{ myInfo.nickname }}
+            </p>
+          </div>
+        </div>
+        <div>
+          <div class="info-block">
+            <h3 class="ib-title">
+              {{ $t('me.randomNickname') }}
+            </h3>
+            <p class="ib-body">
+              {{ myInfo.random_nickname }}
+            </p>
+          </div>
+        </div>
+      </Grid>
     </section>
 
-    <section class="mail-subscription ui6-s-mt-5">
-      <h2 class="ui6-h-2">
+    <!-- Email Subscriptions -->
+    <section class="info-section mail-subscription ui6-s-mt-5">
+      <h2 class="section-title">
+        <!-- Localization -->
         이메일 알림
       </h2>
       <div class="ms-item ms-comment flex align-center">
@@ -32,8 +54,23 @@
           type="checkbox"
           name="comment-subscription"
         />
+        <!-- Localization -->
         <label for="comment-subscription">댓글 알림</label>
       </div>
+    </section>
+
+    <!-- My Posts -->
+    <section class="info-section">
+      <h2 class="section-title">
+        나의 포스트
+      </h2>
+      <div class="" />
+    </section>
+
+    <section class="info-section">
+      <h2 class="section-title">
+        나의 댓글
+      </h2>
     </section>
 
     <div class="sign-out-section ui6-f-mt-3">
@@ -54,17 +91,17 @@
 
 <script>
 import pageBase from '~/mixins/page-base'
-import Button from '~/components/ui/basic/Button'
 import Auth from '~/modules/auth'
 import apiUrl from '~/modules/api-url'
 import autoHead from '~/modules/auto-head'
 import requireAuthMixin from '~/mixins/require-auth-mixin'
 import useAxios from '~/modules/use-axios'
 import { UserApi } from '~/modules/eodiro-api'
+import { Button, Grid } from '~/components/ui'
 
 export default {
   name: 'me',
-  components: { Button },
+  components: { Button, Grid },
   mixins: [pageBase, requireAuthMixin],
   async asyncData({ app, req, res, store }) {
     if (!store.state.auth.isSignedIn) return
@@ -117,8 +154,33 @@ export default {
 #eodiro-me {
   max-width: 40rem !important;
 
-  .manifesto {
-    margin-top: 1rem;
+  .title {
+    @include resolve-optical-illusion;
+  }
+
+  .info-section {
+    margin-top: s(6);
+
+    .section-title {
+      font-size: h(1);
+      margin-bottom: s(3);
+      @include resolve-optical-illusion;
+    }
+
+    .info-block {
+      @include elm-fill;
+      @include rounded;
+      padding: s(3);
+
+      .ib-title {
+        font-size: b(3);
+      }
+
+      .ib-body {
+        font-size: b(2);
+        margin-top: s(2);
+      }
+    }
   }
 
   .mail-subscription {
