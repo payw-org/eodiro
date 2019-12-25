@@ -13,6 +13,10 @@ It includes new features to be added, bug fixes, source code refactoring and any
 
 - [ ] Select current hamlet in logic, not in view
 
+### Design
+
+- [ ] Unpaint the part above bottom navigation to prevent flashing on iOS devices due to the translucency
+
 ## My Page
 
 - [ ] Better UI
@@ -20,6 +24,10 @@ It includes new features to be added, bug fixes, source code refactoring and any
 - [ ] Withdraw a membership
 
 ## Pepero Square (Tentative Title)
+
+### Chore
+
+- [ ] Display 'need to sign in' component instead of `require-auth` mixin, popup and redirection
 
 ### Bug Fixes
 
