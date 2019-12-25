@@ -4,29 +4,34 @@
       <div class="banner">
         <transition name="bg-fade">
           <div
-            v-if="!backgroundSwitch"
-            :class="`background background--${hamlet0} switch--0`"
+            v-if="!routeSwitch"
+            :class="`background background--${hamlet0}`"
           />
         </transition>
         <transition name="bg-fade">
           <div
-            v-if="backgroundSwitch"
-            :class="`background background--${hamlet1} switch--1`"
+            v-if="routeSwitch"
+            :class="`background background--${hamlet1}`"
           />
         </transition>
         <transition name="global-soft-fade">
           <HomeBgTile v-if="$route.meta.hamletName === 'home' && !isNavMode" />
         </transition>
         <div class="logo-wrapper">
-          <transition
-            v-for="hamletName in $store.state.hamletList"
-            :key="`banner-${hamletName}`"
-            name="icon-change"
-          >
+          <transition name="icon-change">
             <div
-              v-if="hamletName === $route.meta.hamletName"
+              v-if="!routeSwitch"
               class="logo hamlet-icon"
-              :class="`hamlet--${hamletName}`"
+              :class="`hamlet--${hamlet0}`"
+            >
+              <span class="icon" />
+            </div>
+          </transition>
+          <transition name="icon-change">
+            <div
+              v-if="routeSwitch"
+              class="logo hamlet-icon"
+              :class="`hamlet--${hamlet1}`"
             >
               <span class="icon" />
             </div>
@@ -36,15 +41,20 @@
         <nav class="eodiro-navigation">
           <transition name="icon-change">
             <div class="nav-icon-wrapper">
-              <transition
-                v-for="hamletName in $store.state.hamletList"
-                :key="`nav-${hamletName}`"
-                name="fade"
-              >
+              <transition name="icon-change">
                 <div
-                  v-if="hamletName === $route.meta.hamletName"
+                  v-if="!routeSwitch"
                   class="nav-icon hamlet-icon"
-                  :class="[`hamlet--${hamletName}`]"
+                  :class="`hamlet--${hamlet0}`"
+                >
+                  <span class="icon" />
+                </div>
+              </transition>
+              <transition name="icon-change">
+                <div
+                  v-if="routeSwitch"
+                  class="nav-icon hamlet-icon"
+                  :class="`hamlet--${hamlet1}`"
                 >
                   <span class="icon" />
                 </div>
@@ -71,7 +81,7 @@ export default {
       isNavMode: false,
       observer: null,
       sentinel: null,
-      backgroundSwitch: 0,
+      routeSwitch: 0,
       zIndexSwitch: 0,
       hamlet0: '',
       hamlet1: ''
@@ -91,7 +101,7 @@ export default {
       }
     },
     currentHamlet(next, previous) {
-      if (!this.backgroundSwitch) {
+      if (!this.routeSwitch) {
         this.hamlet0 = previous
         this.hamlet1 = next
       } else {
@@ -99,7 +109,7 @@ export default {
         this.hamlet0 = next
       }
 
-      this.backgroundSwitch = !this.backgroundSwitch
+      this.routeSwitch = !this.routeSwitch
     }
   },
   created() {
