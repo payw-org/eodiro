@@ -297,7 +297,7 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
         justify-content: center;
 
         &.bg-fade-leave-active {
-          transition: opacity 800ms ease;
+          transition: opacity 500ms ease;
           opacity: 1;
           z-index: 1;
         }
