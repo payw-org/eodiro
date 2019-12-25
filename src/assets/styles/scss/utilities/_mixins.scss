@@ -214,3 +214,11 @@ $input-border-radius: r(4);
   align-items: center;
   justify-content: center;
 }
+
+@mixin resolve-optical-illusion($value: null) {
+  @if $value {
+    margin-left: $value / 3;
+  } @else {
+    margin-left: r(4) / 3;
+  }
+}
