@@ -30,12 +30,8 @@ export default function useAxios(config, eodiroAxiosConfig) {
         const accessToken = Auth.getAccessToken(http)
 
         // If there is no access token avilable,
-        // terminate api request
+        // terminate api request and resolve with an error
         if (!accessToken) {
-          console.error(
-            'useAxios - Set withHeader true but there is no available access token in the device'
-          )
-
           resolve([true, null])
           return
         } else {
