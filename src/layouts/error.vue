@@ -1,18 +1,6 @@
 <template>
   <div id="not-found">
     <div class="wrapper">
-      <div class="hamlet-icon">
-        <img
-          class="hamlet-icon mode--light"
-          src="~/assets/images/eodiro-icon_sq.svg"
-          alt="eodiro-logo"
-        />
-        <img
-          class="hamlet-icon mode--dark"
-          src="~/assets/images/eodiro-icon_sq_dark.svg"
-          alt="eodiro-logo"
-        />
-      </div>
       <h1 class="manifesto">
         {{ $t('global.error.page.firstLine') }}
         <br />
@@ -52,27 +40,14 @@ export default {
 </script>
 
 <style lang="scss">
-@import '~/assets/styles/scss/main.scss';
+@import '~/assets/styles/scss/main';
 
 #not-found {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  @include center;
 
   .wrapper {
     width: calc(100% - 3rem);
     max-width: 40rem;
-
-    .hamlet-icon {
-      display: block;
-      width: 5rem;
-      position: relative;
-    }
 
     .manifesto {
       margin-top: 1rem;
