@@ -2,15 +2,16 @@
   <div id="eodiro-banner-wrapper">
     <div id="eodiro-banner" :class="{ mini: appearMini }">
       <div class="banner">
-        <transition
-          v-for="hamletName in $store.state.hamletList"
-          :key="`bg-${hamletName}`"
-          name="bg-fade"
-        >
+        <transition name="bg-fade">
           <div
-            v-if="hamletName === $route.meta.hamletName"
-            class="background"
-            :class="`background--${hamletName}`"
+            v-if="!backgroundSwitch"
+            :class="`background background--${hamlet0} switch--0`"
+          />
+        </transition>
+        <transition name="bg-fade">
+          <div
+            v-if="backgroundSwitch"
+            :class="`background background--${hamlet1} switch--1`"
           />
         </transition>
         <transition name="global-soft-fade">
@@ -69,7 +70,16 @@ export default {
       isMini: false,
       isNavMode: false,
       observer: null,
-      sentinel: null
+      sentinel: null,
+      backgroundSwitch: 0,
+      zIndexSwitch: 0,
+      hamlet0: '',
+      hamlet1: ''
+    }
+  },
+  computed: {
+    currentHamlet() {
+      return this.$route.meta.hamletName
     }
   },
   watch: {
@@ -79,9 +89,23 @@ export default {
       } else {
         CEM.dispatchEvent('bannerspreaded')
       }
+    },
+    currentHamlet(next, previous) {
+      if (!this.backgroundSwitch) {
+        this.hamlet0 = previous
+        this.hamlet1 = next
+      } else {
+        this.hamlet1 = previous
+        this.hamlet0 = next
+      }
+
+      this.backgroundSwitch = !this.backgroundSwitch
     }
   },
   created() {
+    // Initialize hamlet0 on server side
+    this.hamlet0 = this.currentHamlet
+
     if (this.$route.meta.depth > 1) {
       this.appearMini = true
     }
@@ -262,16 +286,8 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
         align-items: center;
         justify-content: center;
 
-        // &.bg-fade-enter-active {
-        //   transition: opacity 500ms ease;
-        //   opacity: 1;
-        //   z-index: 0;
-        // }
-        // &.bg-fade-enter {
-        //   opacity: 1;
-        // }
         &.bg-fade-leave-active {
-          transition: opacity 600ms ease;
+          transition: opacity 800ms ease;
           opacity: 1;
           z-index: 1;
         }
