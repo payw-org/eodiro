@@ -17,6 +17,7 @@
       class="body-input"
       :disabled="isWaiting"
     />
+    <input type="file" @change="fileChange" />
     <Button
       full
       class="publish-btn"
@@ -34,6 +35,8 @@ import { Button } from '~/components/ui'
 import requireAuthMixin from '~/mixins/require-auth-mixin'
 import { SquareApi } from '~/modules/eodiro-api'
 import EodiroDialog from '~/modules/eodiro-dialog'
+import useAxios from '~/modules/use-axios'
+import ApiHost from '~/modules/eodiro-api/api-host'
 
 export default {
   name: 'pepero-square-new',
@@ -51,6 +54,22 @@ export default {
       /** @type {HTMLTextAreaElement} */
       const bodyTextArea = this.$refs.body
       bodyTextArea.focus()
+    },
+    async fileChange(e) {
+      const formData = new FormData()
+      console.log(e.target.files[0])
+      formData.append('file', e.target.files[0])
+      const [err, res] = await useAxios({
+        method: 'post',
+        url: ApiHost.getUrl('pepero-square/file'),
+        data: formData
+      })
+
+      if (err) {
+        return
+      }
+
+      console.log(res)
     },
     async uploadNewPost() {
       if (this.title.trim().length === 0) {
