@@ -10,6 +10,7 @@
 
 - Mitigate some flickering problems inside the Banner - #205
 - Resolve #245
+- Resolve #246
 
 ### Chore
 
