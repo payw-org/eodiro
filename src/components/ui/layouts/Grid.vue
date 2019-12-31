@@ -1,5 +1,5 @@
 <template>
-  <div class="grid-layout" :class="proportion">
+  <div class="grid-layout" :class="`proportion--${proportion} gap--${gap}`">
     <slot />
   </div>
 </template>
@@ -8,6 +8,14 @@
 export default {
   props: {
     proportion: {
+      type: String,
+      required: false,
+      default: 'medium',
+      validator(value) {
+        return ['small', 'medium', 'large'].includes(value)
+      }
+    },
+    gap: {
       type: String,
       required: false,
       default: 'medium',
@@ -31,12 +39,20 @@ export default {
     grid-template-columns: 1fr !important;
   }
 
-  &.small {
+  &.proportion--small {
     grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
   }
 
-  &.large {
+  &.proportion--large {
     grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+  }
+
+  &.gap--small {
+    grid-gap: s(3);
+  }
+
+  &.gap--large {
+    grid-gap: s(7);
   }
 }
 </style>

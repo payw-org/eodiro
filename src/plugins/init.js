@@ -37,7 +37,7 @@ export default async (context) => {
     ApiHost.setHost(req?.headers?.host)
 
     // Check authentication
-    const isSignedIn = await Auth.isSignedIn({ req, res })
+    const isSignedIn = await Auth.isSignedInRefresh({ req, res })
     if (isSignedIn) {
       store.commit('SET_SIGNED_IN', true)
     } else {
@@ -73,7 +73,7 @@ export default async (context) => {
     ApiHost.setHost(window.location.hostname)
 
     // Check authentication
-    const isSignedIn = await Auth.isSignedIn()
+    const isSignedIn = await Auth.isSignedInRefresh()
     if (isSignedIn) {
       store.commit('SET_SIGNED_IN', true)
     } else {

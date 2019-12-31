@@ -17,6 +17,16 @@
       class="body-input"
       :disabled="isWaiting"
     />
+    <ClientOnly>
+      <label for="file-upload">Browse...</label>
+      <input id="file-upload" type="file" @change="fileChange" />
+      <div v-for="(name, i) in uploadFileNames" :key="i">
+        {{ name }}
+      </div>
+      <Button @click="upload">
+        Upload files
+      </Button>
+    </ClientOnly>
     <Button
       full
       class="publish-btn"
@@ -34,6 +44,8 @@ import { Button } from '~/components/ui'
 import requireAuthMixin from '~/mixins/require-auth-mixin'
 import { SquareApi } from '~/modules/eodiro-api'
 import EodiroDialog from '~/modules/eodiro-dialog'
+import useAxios from '~/modules/use-axios'
+import ApiHost from '~/modules/eodiro-api/api-host'
 
 export default {
   name: 'pepero-square-new',
@@ -43,14 +55,45 @@ export default {
     return {
       title: '',
       body: '',
-      isWaiting: false
+      isWaiting: false,
+      /** @type {FormData} */
+      formData: null,
+      uploadFileNames: []
     }
+  },
+  mounted() {
+    this.formData = new FormData()
   },
   methods: {
     enterOnTitle() {
       /** @type {HTMLTextAreaElement} */
       const bodyTextArea = this.$refs.body
       bodyTextArea.focus()
+    },
+    async upload() {
+      const [err, res] = await useAxios({
+        method: 'post',
+        url: ApiHost.getUrl('upload'),
+        data: this.formData
+      })
+
+      if (err) {
+        new EodiroDialog().alert('Internal server error')
+        return
+      }
+
+      console.log(res.data)
+    },
+    fileChange(e) {
+      /** @type {File} */
+      const file = e.target.files[0]
+      this.formData.append('file', file)
+
+      const names = []
+      this.formData.forEach((data) => {
+        names.push(data.name)
+      })
+      this.uploadFileNames = names
     },
     async uploadNewPost() {
       if (this.title.trim().length === 0) {
@@ -120,5 +163,11 @@ export default {
   .publish-btn {
     margin-top: s(3);
   }
+}
+
+#file-upload {
+  opacity: 0;
+  pointer-events: none;
+  position: absolute;
 }
 </style>

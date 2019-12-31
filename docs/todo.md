@@ -11,15 +11,31 @@ It includes new features to be added, bug fixes, source code refactoring and any
 
 ### Performance
 
-- [ ] Select current hamlet in logic, not in view
+- [x] Improve transitioning
+
+### Design
+
+- [ ] Unpaint the part above bottom navigation to prevent flashing on iOS devices due to the translucency
 
 ## My Page
 
+### Design
+
 - [ ] Better UI
+
+### Features
+
 - [ ] Reissue password
 - [ ] Withdraw a membership
+- [ ] Show my posts and comments
 
 ## Pepero Square (Tentative Title)
+
+### Chore
+
+- Display 'need to sign in' component instead of `require-auth` mixin, popup and redirection
+  - [x] Post
+  - [ ] New post
 
 ### Bug Fixes
 
@@ -33,6 +49,10 @@ It includes new features to be added, bug fixes, source code refactoring and any
 - [ ] Categories
 - [ ] Comments of a comment
 - [ ] 🔍 Search
+
+### Design
+
+- [x] Specify font size of post item's information
 
 ## Auth
 

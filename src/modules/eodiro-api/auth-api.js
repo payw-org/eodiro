@@ -4,6 +4,8 @@ import Api from '~/modules/eodiro-api/api'
 
 export default class AuthApi extends Api {
   /**
+   * Verify the authentication from server using tokens
+   *
    * @returns {Promise<boolean>}
    */
   async isSignedIn() {

@@ -2,30 +2,36 @@
   <div id="eodiro-banner-wrapper">
     <div id="eodiro-banner" :class="{ mini: appearMini }">
       <div class="banner">
-        <transition
-          v-for="hamletName in $store.state.hamletList"
-          :key="`bg-${hamletName}`"
-          name="bg-fade"
-        >
+        <transition name="bg-fade">
           <div
-            v-if="hamletName === $route.meta.hamletName"
-            class="background"
-            :class="`background--${hamletName}`"
+            v-if="!routeSwitch"
+            :class="`background background--${hamlet0}`"
+          />
+        </transition>
+        <transition name="bg-fade">
+          <div
+            v-if="routeSwitch"
+            :class="`background background--${hamlet1}`"
           />
         </transition>
         <transition name="global-soft-fade">
           <HomeBgTile v-if="$route.meta.hamletName === 'home' && !isNavMode" />
         </transition>
         <div class="logo-wrapper">
-          <transition
-            v-for="hamletName in $store.state.hamletList"
-            :key="`banner-${hamletName}`"
-            name="icon-change"
-          >
+          <transition name="icon-change">
             <div
-              v-if="hamletName === $route.meta.hamletName"
+              v-if="!routeSwitch"
               class="logo hamlet-icon"
-              :class="`hamlet--${hamletName}`"
+              :class="`hamlet--${hamlet0}`"
+            >
+              <span class="icon" />
+            </div>
+          </transition>
+          <transition name="icon-change">
+            <div
+              v-if="routeSwitch"
+              class="logo hamlet-icon"
+              :class="`hamlet--${hamlet1}`"
             >
               <span class="icon" />
             </div>
@@ -35,15 +41,20 @@
         <nav class="eodiro-navigation">
           <transition name="icon-change">
             <div class="nav-icon-wrapper">
-              <transition
-                v-for="hamletName in $store.state.hamletList"
-                :key="`nav-${hamletName}`"
-                name="fade"
-              >
+              <transition name="icon-change">
                 <div
-                  v-if="hamletName === $route.meta.hamletName"
+                  v-if="!routeSwitch"
                   class="nav-icon hamlet-icon"
-                  :class="[`hamlet--${hamletName}`]"
+                  :class="`hamlet--${hamlet0}`"
+                >
+                  <span class="icon" />
+                </div>
+              </transition>
+              <transition name="icon-change">
+                <div
+                  v-if="routeSwitch"
+                  class="nav-icon hamlet-icon"
+                  :class="`hamlet--${hamlet1}`"
                 >
                   <span class="icon" />
                 </div>
@@ -69,7 +80,16 @@ export default {
       isMini: false,
       isNavMode: false,
       observer: null,
-      sentinel: null
+      sentinel: null,
+      routeSwitch: 0,
+      zIndexSwitch: 0,
+      hamlet0: '',
+      hamlet1: ''
+    }
+  },
+  computed: {
+    currentHamlet() {
+      return this.$route.meta.hamletName
     }
   },
   watch: {
@@ -79,9 +99,23 @@ export default {
       } else {
         CEM.dispatchEvent('bannerspreaded')
       }
+    },
+    currentHamlet(next, previous) {
+      if (!this.routeSwitch) {
+        this.hamlet0 = previous
+        this.hamlet1 = next
+      } else {
+        this.hamlet1 = previous
+        this.hamlet0 = next
+      }
+
+      this.routeSwitch = !this.routeSwitch
     }
   },
   created() {
+    // Initialize hamlet0 on server side
+    this.hamlet0 = this.currentHamlet
+
     if (this.$route.meta.depth > 1) {
       this.appearMini = true
     }
@@ -96,14 +130,20 @@ export default {
           if (this.$route.meta.depth > 1) {
             this.isMini = true
             this.isNavMode = true
-            bannerElm.classList.add('mini')
-            bannerElm.classList.add('nav-mode')
+            this.$nextTick(() => {
+              bannerElm.classList.add('mini')
+              bannerElm.classList.add('nav-mode')
+            })
           } else if (entry.isIntersecting) {
             this.isNavMode = false
-            bannerElm.classList.remove('nav-mode')
+            this.$nextTick(() => {
+              bannerElm.classList.remove('nav-mode')
+            })
           } else {
             this.isNavMode = true
-            bannerElm.classList.add('nav-mode')
+            this.$nextTick(() => {
+              bannerElm.classList.add('nav-mode')
+            })
           }
         }
       })
@@ -262,16 +302,8 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
         align-items: center;
         justify-content: center;
 
-        // &.bg-fade-enter-active {
-        //   transition: opacity 500ms ease;
-        //   opacity: 1;
-        //   z-index: 0;
-        // }
-        // &.bg-fade-enter {
-        //   opacity: 1;
-        // }
         &.bg-fade-leave-active {
-          transition: opacity 600ms ease;
+          transition: opacity 500ms ease;
           opacity: 1;
           z-index: 1;
         }
@@ -281,11 +313,9 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 
         &.background--sign-in,
         &.background--sign-up,
-        &.background--forgot {
-          background-image: linear-gradient(to bottom, #8a6cff, #5f14be);
-        }
+        &.background--forgot,
         &.background--me {
-          background-image: linear-gradient(to bottom, #8a6cff, #5f14be);
+          background-image: linear-gradient(to bottom, #7b5aff, #5f14be);
         }
         &.background--home {
           background-image: linear-gradient(to bottom, $c-step--3, $c-step--4);

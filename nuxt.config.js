@@ -113,6 +113,13 @@ const config = {
     ]
   ],
 
+  serverMiddleware: [
+    {
+      path: '/api/set-cookie',
+      handler: '~/api/set-cookie.js'
+    }
+  ],
+
   // Custom build path name
   build: {
     publicPath: '/dist/',

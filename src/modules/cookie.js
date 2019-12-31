@@ -42,7 +42,7 @@ export default class Cookie {
 
     // Append expires
     if (options && options.expires) {
-      cookie += `Expires=${options.expires.toString()};`
+      cookie += `Expires=${options.expires.toUTCString()};`
     }
 
     // Append cookie path

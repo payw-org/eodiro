@@ -7,11 +7,11 @@
 </g>
 <defs>
 <linearGradient id="paint0_linear" x1="64" y1="0.433655" x2="64" y2="128.434" gradientUnits="userSpaceOnUse">
-<stop stop-color="#8A6CFF"/>
+<stop stop-color="#7B5AFF"/>
 <stop offset="1" stop-color="#5F14BE"/>
 </linearGradient>
 <clipPath id="clip0">
-<rect width="128" height="128" fill="white" transform="translate(0 0.433655)"/>
+<path d="M0 0.433655H128V128.434H0V0.433655Z" fill="white"/>
 </clipPath>
 </defs>
 </svg>

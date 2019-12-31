@@ -8,12 +8,12 @@
     ]"
   >
     <div id="scroll-end-point" />
-    <div v-if="!hasOwnBannerDesign" id="banner-observer-sentinel" />
-    <Banner v-if="!hasOwnBannerDesign" />
+    <div id="banner-observer-sentinel" />
+    <Banner v-if="!isErrorPage" />
     <Nuxt
       keep-alive
       :keep-alive-props="{ include: $store.state.cachedComponents }"
-      :class="['master-content', { 'without-banner': hasOwnBannerDesign }]"
+      class="master-content"
     />
     <GoBack />
   </div>
@@ -36,8 +36,8 @@ export default {
     }
   },
   computed: {
-    hasOwnBannerDesign() {
-      return !this.$store.state.hamletList.includes(this.$route.meta.hamletName)
+    isErrorPage() {
+      return !this.$route.name
     }
   },
   watch: {
@@ -131,7 +131,7 @@ export default {
   },
   methods: {
     identifyBannerForcedMini() {
-      this.isBannerForcedMini = this.$route.meta.depth > 1
+      this.isBannerForcedMini = this.$route.meta.depth > 1 || this.isErrorPage
     }
   },
   head() {

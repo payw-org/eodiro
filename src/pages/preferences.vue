@@ -46,7 +46,8 @@ import pageBase from '~/mixins/page-base'
 import { Button } from '~/components/ui'
 import autoHead from '~/modules/auto-head'
 import CookieConfig from '~~/config/cookie'
-import EodiroCookie, { defaultCookieOptions } from '~/modules/cookie'
+import { defaultCookieOptions } from '~/modules/cookie'
+import setHttpCookie from '~/modules/set-http-cookie'
 
 export default {
   name: 'preferences',
@@ -69,8 +70,8 @@ export default {
     /**
      * @param {'ko' | 'en'} lang
      */
-    switchLang(lang) {
-      new EodiroCookie().set(
+    async switchLang(lang) {
+      await setHttpCookie(
         CookieConfig.langCookieName,
         lang,
         defaultCookieOptions

@@ -170,7 +170,7 @@ export default {
           }
 
           .pi-cc-value {
-            line-height: 1;
+            line-height: 1.1;
             font-weight: 500;
             display: inline-block;
           }

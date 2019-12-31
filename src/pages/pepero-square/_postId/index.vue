@@ -1,6 +1,6 @@
 <template>
   <div id="post-details">
-    <div v-if="postData && $store.state.auth.isSignedIn">
+    <div v-if="postData && isSignedIn">
       <div class="post-wrapper">
         <div class="post">
           <span class="at">{{ uploadedAt }}</span>
@@ -49,13 +49,17 @@ import pageBase from '~/mixins/page-base'
 import Comments from '~/components/pepero-square/Comments'
 import escapeHtml from '~/modules/escape-html'
 import { SquareApi } from '~/modules/eodiro-api'
+import Auth from '~/modules/auth'
 
 export default {
   name: 'pepero-square-post-id',
   components: { Comments },
   mixins: [pageBase],
   async asyncData({ route, app, store, redirect, req, res }) {
-    if (!store.state.auth.isSignedIn) return
+    // if (!store.state.auth.isSignedIn) return
+    if (!Auth.isSignedInQuick()) {
+      return
+    }
 
     const postId = route.params.postId
     const postData = await new SquareApi({ req, res }).getPostItem(postId)
@@ -71,7 +75,7 @@ export default {
   },
   computed: {
     isSignedIn() {
-      return this.$store.state.auth.isSignedIn
+      return Auth.isSignedInQuick()
     },
     uploadedAt() {
       return dayjs(this.postData.uploaded_at).format('YYYY. MM. DD. HH:mm')
