@@ -9,10 +9,13 @@
 ### Bug Fixes
 
 - Mitigate some flickering problems inside the Banner - #205
+- Resolve #245
 
 ### Chore
 
+- Improve my page design and layouts
 - Show the currently deployed version number in home
+- Enhance page transition
 
 ## v2.1.0 Beta 8
 
