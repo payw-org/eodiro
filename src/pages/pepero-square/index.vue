@@ -44,7 +44,9 @@ export default {
   name: 'pepero-square-index',
   components: { PostItem },
   mixins: [pageBase],
-  async asyncData() {
+  async asyncData(ctx) {
+    if (!ctx.req) return
+
     const posts = await new SquareApi().getPosts(0, 20)
 
     return posts ? { posts } : []
