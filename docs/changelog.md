@@ -1,5 +1,12 @@
 # Changelog
 
+## v2.1.0 Beta 10
+
+### Performance
+
+- Improve go back speed from post to pepero square page
+- Remove transforming page transition due to a Safari bug - #249
+
 ## v2.1.0 Beta 9
 
 ### Performance
