@@ -24,10 +24,11 @@ export default function useAxios(config, eodiroAxiosConfig) {
     }
 
     if (eodiroAxiosConfig) {
-      const { requireAuth: withHeader, http } = eodiroAxiosConfig
+      const { requireAuth, http } = eodiroAxiosConfig
 
-      if (withHeader) {
+      if (requireAuth) {
         const accessToken = Auth.getAccessToken(http)
+        const refreshToken = Auth.getRefreshToken(http)
 
         // If there is no access token avilable,
         // terminate api request and resolve with an error
@@ -37,7 +38,8 @@ export default function useAxios(config, eodiroAxiosConfig) {
         } else {
           // Append headers data
           config.headers = {
-            accesstoken: accessToken
+            accesstoken: accessToken,
+            refreshtoken: refreshToken
           }
         }
       }
