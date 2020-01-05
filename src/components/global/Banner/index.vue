@@ -73,5 +73,5 @@ export default script
 </script>
 
 <style lang="scss">
-@import './style.scss';
+@import './design';
 </style>
