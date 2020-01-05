@@ -39,6 +39,7 @@ import PostItem from '~/components/pepero-square/PostItem'
 import autoHead from '~/modules/auto-head'
 import EodiroDialog from '~/modules/eodiro-dialog'
 import { SquareApi } from '~/modules/eodiro-api'
+import wait from '~/modules/wait'
 
 export default {
   name: 'pepero-square-index',
@@ -101,6 +102,11 @@ export default {
       // Get most recent post's id
       const mostRecentPost = this.posts[0]
 
+      if (!mostRecentPost) {
+        this.isLoadingMore = true
+        await wait(200)
+      }
+
       // Fetch only after done fetching
       if (this.isFetchingRecent) {
         return
@@ -114,40 +120,43 @@ export default {
       const recentPosts = await new SquareApi().getRecentPosts(
         mostRecentPostId + 1
       )
+
       if (recentPosts && recentPosts.length > 0) {
         this.posts = [...recentPosts, ...this.posts]
-        // TODO Localization
-        new EodiroDialog().vagabond('📦 새로운 포스트가 업데이트되었습니다.')
+        if (mostRecentPost !== undefined) {
+          // TODO Localization
+          new EodiroDialog().vagabond('📦 새로운 포스트가 업데이트되었습니다.')
+        }
       }
 
       this.isFetchingRecent = false
+      this.isLoadingMore = false
     },
     /**
      * @param {number} from
      * @param {number} quantity
      */
-    loadPosts(from, quantity) {
+    async loadPosts(from, quantity) {
       if (this.isEnd || this.isLoadingMore) {
         return
       }
 
       this.isLoadingMore = true
 
-      setTimeout(async () => {
-        const morePosts = await new SquareApi().getPosts(from, quantity)
+      await wait(200)
+      const morePosts = await new SquareApi().getPosts(from, quantity)
 
-        if (!morePosts) {
-          return
-        }
+      if (!morePosts) {
+        return
+      }
 
-        if (morePosts.length === 0) {
-          this.isEnd = true
-        } else {
-          this.posts.push(...morePosts)
-        }
+      if (morePosts.length === 0) {
+        this.isEnd = true
+      } else {
+        this.posts.push(...morePosts)
+      }
 
-        this.isLoadingMore = false
-      }, 500)
+      this.isLoadingMore = false
     }
   },
   head() {
