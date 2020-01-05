@@ -1,6 +1,7 @@
 import JsCookie from 'js-cookie'
 import NodeCookie from 'cookie'
 import dayjs from 'dayjs'
+import useAxios from '~/modules/use-axios'
 
 export default class Cookie {
   /**
@@ -93,9 +94,16 @@ export default class Cookie {
       const cookie = this.generateCookieString(name, value, options)
       this.res.setHeader('Set-Cookie', cookie)
     } else if (typeof window !== 'undefined') {
-      JsCookie.set(name, value, {
-        expires: options.expires,
-        path: options.path
+      // Use Nuxt server API instead of JSCookie
+      // due to Safari's cookie expiration date restriction on client side
+      useAxios({
+        url: '/api/set-cookie',
+        method: 'post',
+        data: {
+          name,
+          value,
+          options
+        }
       })
     } else {
       console.warn(
