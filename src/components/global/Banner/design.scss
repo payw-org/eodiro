@@ -90,15 +90,7 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
         right: 0;
         bottom: 0;
         left: 0;
-        background-image: linear-gradient(
-          to bottom,
-          $c-step--3,
-          $c-step--4
-        ) !important;
-        background: $base-white-blue !important;
-        @include dark-mode {
-          background: $base-black-soft !important;
-        }
+        background-image: linear-gradient(to bottom, $c-step--3, $c-step--4);
         width: 100%;
         height: $banner-height;
         display: flex;
