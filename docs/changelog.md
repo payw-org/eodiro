@@ -2,6 +2,10 @@
 
 ## v2.1.0 Beta 10
 
+### Bug Fixes
+
+- Now send refresh token to API2 and refresh the access token and refresh token itself correctly - #250
+
 ### Performance
 
 - Improve go back speed from post to pepero square page
