@@ -62,6 +62,7 @@ It includes new features to be added, bug fixes, source code refactoring and any
   - Currently the APIs respond with 4xx when the validations have been failed
   - [x] `isSignedIn`
   - [ ] Sign up validation
+- [ ] Clear tokens from cookie when refreshing process fails
 
 ## Modules
 
