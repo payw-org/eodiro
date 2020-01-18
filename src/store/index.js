@@ -1,6 +1,5 @@
 import EodiroCookie, { defaultCookieOptions } from '~/modules/cookie'
 import CookieConfig from '~~/config/cookie'
-import setHttpCookie from '~/modules/set-http-cookie'
 
 /**
  * Returns a class name matches to color scheme mode
@@ -71,7 +70,7 @@ export const mutations = {
       newMode = 'light'
     }
 
-    setHttpCookie(
+    new EodiroCookie({ res }).set(
       CookieConfig.colorSchemeCookieName,
       newMode,
       defaultCookieOptions

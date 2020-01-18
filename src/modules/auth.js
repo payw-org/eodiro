@@ -1,7 +1,6 @@
 import dayjs from 'dayjs'
 import EodiroCookie from '~/modules/cookie'
 import { AuthApi } from '~/modules/eodiro-api'
-import setHttpCookie from '~/modules/set-http-cookie'
 
 export default class Auth {
   /**
@@ -107,7 +106,7 @@ export default class Auth {
       refreshToken
     }
 
-    setHttpCookie('tokens', tokens, {
+    new EodiroCookie(http).set('tokens', tokens, {
       expires: dayjs()
         .add(30, 'day')
         .toDate(),
