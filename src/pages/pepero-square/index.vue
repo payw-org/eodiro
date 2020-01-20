@@ -46,40 +46,41 @@ export default {
   components: { PostItem },
   mixins: [pageBase],
   async asyncData(ctx) {
-    if (!ctx.req) return
+    if (!ctx.req) return { isInitialLoadSet: false }
 
     const posts = await new SquareApi().getPosts(0, 20)
 
-    return posts ? { posts } : []
+    return posts ? { posts, isInitialLoadSet: true } : []
   },
   data() {
     return {
       posts: [],
+      isInitialLoadSet: false,
       isLoadingMore: false,
       isFetchingRecent: false,
       isEnd: false,
       fetchingInterval: null
     }
   },
-  beforeDestroy() {
-    this.stopFetchingRecent()
-  },
-  activated() {
-    this.startFetchingRecent()
+  async activated() {
+    if (!this.isInitialLoadSet) {
+      await this.loadPosts(0, 20)
+      this.isInitialLoadSet = true
+    }
 
+    // Fetch previous posts when scroll ends
     CEM.addEventListener('scrollended', this.$el, () => {
       const lastPost = this.posts[this.posts.length - 1]
-
       if (!lastPost) {
         return
       }
-
       const lastPostId = lastPost.id
-
       if (lastPostId > 0) {
         this.loadPosts(lastPostId - 1, 20)
       }
     })
+
+    this.startFetchingRecent()
   },
   deactivated() {
     this.stopFetchingRecent()
