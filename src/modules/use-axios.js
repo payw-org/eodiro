@@ -61,7 +61,7 @@ export default function useAxios(config, eodiroAxiosConfig) {
 
           // Client side alert
           if (typeof window !== 'undefined') {
-            new EodiroDialog().alert('Network Error')
+            new EodiroDialog().vagabond('Network Error')
           }
         }
         resolve([err, null])
