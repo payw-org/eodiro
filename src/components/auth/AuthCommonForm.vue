@@ -25,6 +25,7 @@
           @keypress.enter="enterPortalId"
           @input="validatePi"
           @focus="resetSignInFail"
+          autofocus
         />
         <div class="email-host">
           @cau.ac.kr
