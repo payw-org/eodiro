@@ -144,7 +144,7 @@
 
     <footer class="footer">
       <p class="manifesto">
-        Copyright © 2019 PAYW |
+        Copyright © 2020 PAYW |
         <NuxtLink :to="localePath('privacy')">
           {{ $t('privacy.title') }}
         </NuxtLink>
