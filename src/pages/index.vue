@@ -45,8 +45,22 @@
             </template>
           </ArrowBlock>
 
-          <!-- Vacant Classrooms -->
+          <!-- Lectures -->
           <ArrowBlock
+            class="menu-item-wrapper"
+            :link="localePath('lectures').replace(/\/$/, '')"
+            @click="showTopbar"
+          >
+            <template v-slot:icon>
+              <span class="icon icon--lectures" />
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('home.menuClass') }}</span>
+            </template>
+          </ArrowBlock>
+
+          <!-- Vacant Classrooms -->
+          <!-- <ArrowBlock
             class="menu-item-wrapper"
             :link="localePath('vacant').replace(/\/$/, '')"
             @click="showTopbar"
@@ -57,7 +71,7 @@
             <template v-slot:content>
               <span class="content">{{ $t('home.menuVacant') }}</span>
             </template>
-          </ArrowBlock>
+          </ArrowBlock> -->
 
           <!-- Cafeteria Menus -->
           <ArrowBlock
@@ -70,20 +84,6 @@
             </template>
             <template v-slot:content>
               <span class="content">{{ $t('home.menuMeal') }}</span>
-            </template>
-          </ArrowBlock>
-
-          <!-- Lectures -->
-          <ArrowBlock
-            class="menu-item-wrapper"
-            :link="localePath('lectures').replace(/\/$/, '')"
-            @click="showTopbar"
-          >
-            <template v-slot:icon>
-              <span class="icon icon--lectures" />
-            </template>
-            <template v-slot:content>
-              <span class="content">{{ $t('home.menuClass') }}</span>
             </template>
           </ArrowBlock>
 
