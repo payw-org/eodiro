@@ -45,12 +45,19 @@
 
 <script>
 import Vue from 'vue'
+import useAxios from '~/modules/use-axios'
 import pageBase from '~/mixins/page-base'
 import autoHead from '~/modules/auto-head'
 
 export default Vue.extend({
   name: 'opensource',
   mixins: [pageBase],
+  async mounted() {
+    const [err, response] = await useAxios({
+      url: 'https://api.github.com/repos/paywteam/eodiro/contributors',
+      method: 'get'
+    })
+  },
   head() {
     return {
       title: this.$t('opensource.title'),
