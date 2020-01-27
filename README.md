@@ -1,4 +1,4 @@
-![banner](https://user-images.githubusercontent.com/19797697/62412275-ebaf3f80-b63a-11e9-8363-5d226ad57351.png)
+![banner](https://user-images.githubusercontent.com/19797697/73181031-73ef3880-40e4-11ea-9421-c6320144224b.png)
 
 <p align="center"><b>eodiro</b> is an open source utility service for Chung-Ang university students.</p>
 
