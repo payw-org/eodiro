@@ -5,7 +5,7 @@
 <p align="center">
   <img src="https://img.shields.io/github/license/paywteam/eodiro" />
   <a href="https://github.com/paywteam/eodiro/actions">
-    <img src="https://github.com/paywteam/eodiro/workflows/CI/badge.svg" />
+    <img src="https://github.com/paywteam/eodiro/workflows/ci/badge.svg" />
   </a>
   <img src="https://img.shields.io/github/v/release/paywteam/eodiro" />
   <img src="https://img.shields.io/github/stars/paywteam/eodiro?style=social" />
