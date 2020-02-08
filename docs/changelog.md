@@ -1,5 +1,19 @@
 # Changelog
 
+## v2.1.0 Beta 11
+
+### Bug Fixes
+
+- Resolve the problem where pepero square loads all the posts at first load - #252
+
+### Improvements
+
+- Autofocus sign in input - #254
+
+### Chore
+
+- Update year - #253
+
 ## v2.1.0 Beta 10
 
 ### Bug Fixes
