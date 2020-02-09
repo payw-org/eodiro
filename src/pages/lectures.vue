@@ -14,13 +14,26 @@
       >
         <Accordion class="lecture-item">
           <template v-slot:face>
-            <h1 class="lecture-name">
+            <h1 class="name">
               {{ lecture.name }}
             </h1>
             <p class="professor">
               {{ lecture.professor }}
             </p>
-            <p>{{ lecture.schedule }}</p>
+            <p class="schedule">
+              {{ lecture.schedule }}
+            </p>
+          </template>
+          <template v-slot:content>
+            <div class="more">
+              <p>{{ lecture.code }}</p>
+              <div v-if="lecture.note" class="note">
+                <h2 class="header">
+                  Note
+                </h2>
+                <p>{{ lecture.note }}</p>
+              </div>
+            </div>
           </template>
         </Accordion>
       </div>
@@ -87,9 +100,39 @@ export default {
 
 #eodiro-lectures {
   .lecture-item {
-    .lecture-name {
+    .name {
       font-size: b(5);
       font-weight: fw(5);
+    }
+
+    .professor {
+      margin-top: s(2);
+      font-weight: fw(4);
+      font-size: b(3);
+    }
+
+    .schedule {
+      margin-top: s(1);
+      font-size: b(2);
+      line-height: lh(2);
+      color: $base-gray;
+    }
+
+    .more {
+      &,
+      * {
+        font-size: b(2);
+      }
+
+      .note {
+        margin-top: s(2);
+        padding: s(2);
+        border-radius: r(2);
+        @include overlay-inverted;
+
+        .header {
+        }
+      }
     }
   }
 }
