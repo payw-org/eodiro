@@ -1,5 +1,25 @@
 # Changelog
 
+## v2.1.0 Beta 12
+
+### Features
+
+- Use new eodiro API 2's lecture API
+
+### Refactors
+
+- Add trailing commas
+
+### Bug Fixes
+
+- Keep scroll position when reload the page - #256
+
+### Chore
+
+- Add a slight border around the element fills to make them more distinguishable
+
+---
+
 ## v2.1.0 Beta 11
 
 ### Bug Fixes
@@ -14,6 +34,8 @@
 
 - Update year - #253
 
+---
+
 ## v2.1.0 Beta 10
 
 ### Bug Fixes
@@ -24,6 +46,8 @@
 
 - Improve go back speed from post to pepero square page
 - Remove transforming page transition due to a Safari bug - #249
+
+---
 
 ## v2.1.0 Beta 9
 
@@ -42,6 +66,8 @@
 - Improve my page design and layouts
 - Show the currently deployed version number in home
 - Enhance page transition
+
+---
 
 ## v2.1.0 Beta 8
 
