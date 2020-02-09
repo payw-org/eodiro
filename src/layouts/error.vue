@@ -21,21 +21,21 @@ import { Button } from '~/components/ui'
 export default {
   components: { Button },
   meta: {
-    hamletName: 'error'
+    hamletName: 'error',
   },
   methods: {
     goBack() {
       // this.$router.push('/')
       history.back()
-    }
+    },
   },
   head() {
     return {
       htmlAttrs: {
-        class: this.$store.state.colorSchemeClassName
-      }
+        class: this.$store.state.colorSchemeClassName,
+      },
     }
-  }
+  },
 }
 </script>
 

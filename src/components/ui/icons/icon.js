@@ -3,13 +3,13 @@ const mixinOptions = {
   props: {
     name: {
       type: String,
-      default: ''
+      default: '',
     },
     fill: {
       type: String,
-      default: '#808080'
-    }
-  }
+      default: '#808080',
+    },
+  },
 }
 
 export default mixinOptions

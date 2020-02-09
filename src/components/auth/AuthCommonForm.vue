@@ -21,11 +21,11 @@
           :disabled="isValidating"
           class="input-id entry"
           spellcheck="false"
+          autofocus
           @keydown="handleKeydown"
           @keypress.enter="enterPortalId"
           @input="validatePi"
           @focus="resetSignInFail"
-          autofocus
         />
         <div class="email-host">
           @cau.ac.kr
@@ -158,8 +158,8 @@ export default {
       default: 'signIn',
       validator(mode) {
         return ['signIn', 'signUp', 'forgot'].includes(mode)
-      }
-    }
+      },
+    },
   },
   data() {
     return {
@@ -167,12 +167,12 @@ export default {
         portalId: '',
         nickname: '',
         password: '',
-        passwordConfirm: ''
+        passwordConfirm: '',
       },
       pwTimeout: 0,
       isPwSame: true,
       isValidating: false,
-      isSignInFailed: false
+      isSignInFailed: false,
     }
   },
   computed: {
@@ -184,7 +184,7 @@ export default {
     },
     isForgot() {
       return this.pageMode === 'forgot'
-    }
+    },
   },
   methods: {
     resetSignInFail() {
@@ -279,8 +279,8 @@ export default {
 
         this.isValidating = false
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

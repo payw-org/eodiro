@@ -70,7 +70,7 @@ export default {
     return {
       lastCommentId: 0,
       postData: {},
-      comments: []
+      comments: [],
     }
   },
   computed: {
@@ -90,7 +90,7 @@ export default {
       return !this.isSignedIn
         ? '로그인이 필요한 기능입니다.'
         : '포스트가 존재하지 않습니다.'
-    }
+    },
   },
   methods: {
     toggleLike() {
@@ -100,8 +100,8 @@ export default {
       this.comments.push(commentData)
 
       // AJAX
-    }
-  }
+    },
+  },
 }
 </script>
 

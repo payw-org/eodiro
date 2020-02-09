@@ -10,7 +10,7 @@ export default function(title, description) {
     metaTags.push({
       hid: 'og:title',
       name: 'og:title',
-      content: title
+      content: title,
     })
   }
 
@@ -19,12 +19,12 @@ export default function(title, description) {
       {
         hid: 'description',
         name: 'description',
-        content: description
+        content: description,
       },
       {
         hid: 'og:description',
         name: 'og:description',
-        content: description
+        content: description,
       }
     )
   }

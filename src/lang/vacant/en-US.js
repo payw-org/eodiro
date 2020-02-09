@@ -9,5 +9,5 @@ export default {
   noTimetable: 'No Timetable',
   inClass: 'In class',
   info:
-    "️️Vacant classrooms are available until 6 PM and they may be in used since we don't consider the reservations yet."
+    "️️Vacant classrooms are available until 6 PM and they may be in used since we don't consider the reservations yet.",
 }

@@ -109,7 +109,7 @@
                       l.time.start,
                       l.time.end,
                       l.time.day
-                    )
+                    ),
                   }"
                 >
                   <div class="time">
@@ -162,14 +162,14 @@ export default {
     const url = `https://api.eodiro.com/v2/campuses/${campus}/vacant/buildings/${route.params.buildingId}/floors/${route.params.floorId}/classrooms`
 
     return axios(url, {
-      method: 'get'
+      method: 'get',
     })
       .then((res) => {
         if (res.data.err) {
           console.error(res.data.err.msg)
         } else {
           return {
-            classrooms: res.data.classrooms
+            classrooms: res.data.classrooms,
           }
         }
       })
@@ -184,13 +184,13 @@ export default {
       isTimeTableActive: false,
       selectedRoom: {},
       timetableDay: new Date().getDay(),
-      selectedLectures: []
+      selectedLectures: [],
     }
   },
   computed: {
     timeInterval(start, end) {
       return start + end
-    }
+    },
   },
   mounted() {
     // Calculate remaining time of each class after load
@@ -261,8 +261,8 @@ export default {
       } else {
         return false
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

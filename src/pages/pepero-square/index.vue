@@ -59,7 +59,7 @@ export default {
       isLoadingMore: false,
       isFetchingRecent: false,
       isEnd: false,
-      fetchingInterval: null
+      fetchingInterval: null,
     }
   },
   async activated() {
@@ -158,14 +158,14 @@ export default {
       }
 
       this.isLoadingMore = false
-    }
+    },
   },
   head() {
     return {
       title: this.$t('peperoSquare.title'),
-      meta: [...autoHead(this.$t('peperoSquare.title'))]
+      meta: [...autoHead(this.$t('peperoSquare.title'))],
     }
-  }
+  },
 }
 </script>
 

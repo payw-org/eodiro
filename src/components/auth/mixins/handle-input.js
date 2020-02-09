@@ -8,16 +8,16 @@ const options = {
     return {
       piInfo: {
         timeout: 0,
-        isValid: true
+        isValid: true,
       },
       nnInfo: {
         timeout: 0,
-        isValid: true
+        isValid: true,
       },
       pwInfo: {
         timeout: 0,
-        isValid: true
-      }
+        isValid: true,
+      },
     }
   },
   methods: {
@@ -76,8 +76,8 @@ const options = {
           )
         }, 300)
       }
-    }
-  }
+    },
+  },
 }
 
 export default options

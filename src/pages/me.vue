@@ -112,7 +112,7 @@ export default {
   },
   data() {
     return {
-      myInfo: {}
+      myInfo: {},
     }
   },
   methods: {
@@ -125,8 +125,8 @@ export default {
       const [err] = await useAxios({
         ...apiUrl.user.clearToken,
         headers: {
-          accessToken: Auth.getAccessToken()
-        }
+          accessToken: Auth.getAccessToken(),
+        },
       })
 
       if (err) {
@@ -137,14 +137,14 @@ export default {
         Auth.clearJwt()
         this.$router.replace(this.localePath('sign-in'))
       }
-    }
+    },
   },
   head() {
     return {
       title: this.$t('me.title'),
-      meta: [...autoHead(this.$t('me.title'))]
+      meta: [...autoHead(this.$t('me.title'))],
     }
-  }
+  },
 }
 </script>
 

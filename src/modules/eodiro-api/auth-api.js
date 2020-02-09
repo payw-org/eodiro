@@ -12,11 +12,11 @@ export default class AuthApi extends Api {
     const [err, res] = await useAxios(
       {
         method: 'post',
-        url: ApiHost.getUrl('auth/is-signed-in')
+        url: ApiHost.getUrl('auth/is-signed-in'),
       },
       {
         requireAuth: true,
-        http: this.http
+        http: this.http,
       }
     )
 
@@ -42,7 +42,7 @@ export default class AuthApi extends Api {
     const [err, res] = await useAxios({
       method: 'post',
       url: ApiHost.host + '/auth/sign-in',
-      data: { portalId, password }
+      data: { portalId, password },
     })
 
     return err ? false : res.data
@@ -72,8 +72,8 @@ export default class AuthApi extends Api {
       data: {
         portalId: portalId + '@cau.ac.kr',
         password,
-        nickname
-      }
+        nickname,
+      },
     })
 
     return !err
@@ -94,8 +94,8 @@ export default class AuthApi extends Api {
       method: 'post',
       url: ApiHost.host + '/auth/validate/portal-id',
       data: {
-        portalId
-      }
+        portalId,
+      },
     })
 
     return !err
@@ -110,8 +110,8 @@ export default class AuthApi extends Api {
       method: 'post',
       url: ApiHost.host + '/auth/validate/nickname',
       data: {
-        nickname
-      }
+        nickname,
+      },
     })
 
     return !err
@@ -126,8 +126,8 @@ export default class AuthApi extends Api {
       method: 'post',
       url: ApiHost.host + '/auth/validate/password',
       data: {
-        password
-      }
+        password,
+      },
     })
 
     return !err
@@ -140,11 +140,11 @@ export default class AuthApi extends Api {
     const [err, res] = await useAxios(
       {
         method: 'post',
-        url: ApiHost.getUrl('auth/refresh-token')
+        url: ApiHost.getUrl('auth/refresh-token'),
       },
       {
         requireAuth: true,
-        http: this.http
+        http: this.http,
       }
     )
 

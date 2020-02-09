@@ -36,7 +36,7 @@ import { Accordion, ArrowBlock, Button, Grid } from '~/components/ui'
 export default {
   components: { Accordion, ArrowBlock, Button, Grid },
   mounted() {},
-  methods: {}
+  methods: {},
 }
 </script>
 

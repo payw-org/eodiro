@@ -19,8 +19,8 @@ const mixinOptions = {
           scrollElm.scrollHeight - scrollElm.clientHeight - 1
         )
       }
-    }
-  }
+    },
+  },
 }
 
 export default mixinOptions

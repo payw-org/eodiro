@@ -5,7 +5,7 @@
       collapsed: isCollapsed,
       'will-collapse': willCollapse,
       collapsing: isCollapsing,
-      elastic: elastic
+      elastic: elastic,
     }"
     @click="toggleCollapse"
   >
@@ -30,15 +30,15 @@ export default {
   props: {
     elastic: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
       isCollapsing: false,
       willCollapse: true,
       isCollapsed: true,
-      contentContainerHeight: 0
+      contentContainerHeight: 0,
     }
   },
   methods: {
@@ -93,8 +93,8 @@ export default {
           )
         }, 0)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

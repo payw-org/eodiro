@@ -17,7 +17,7 @@ export default {
       interval: 0,
       resizeEvent: null,
       bannerWidth: null,
-      bannerHeight: null
+      bannerHeight: null,
     }
   },
   mounted() {
@@ -130,7 +130,7 @@ export default {
       for (let i = 0; i < tileNum; i++) {
         ts.push({
           key: i,
-          className: 'color-1'
+          className: 'color-1',
         })
       }
       this.tileStates = ts
@@ -158,7 +158,7 @@ export default {
         for (let i = 0; i < diff; i++) {
           this.tileStates.push({
             key: previousTileNum + i,
-            className: 'color-1'
+            className: 'color-1',
           })
         }
       } else if (diff < 0) {
@@ -183,8 +183,8 @@ export default {
         return this.tileStates.length
       }
       return 0
-    }
-  }
+    },
+  },
 }
 </script>
 <style lang="scss">

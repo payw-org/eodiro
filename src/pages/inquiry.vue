@@ -46,13 +46,13 @@ export default {
       replyEmail: '',
       inquiryContent: '',
       minLength: 2,
-      maxLength: 500
+      maxLength: 500,
     }
   },
   computed: {
     currentLength() {
       return this.inquiryContent.length
-    }
+    },
   },
   mounted() {},
   methods: {
@@ -93,8 +93,8 @@ export default {
         method: 'post',
         data: {
           email: replyEmail,
-          text: inquiryContent
-        }
+          text: inquiryContent,
+        },
       })
         .then(() => {
           this.inquiryContent = ''
@@ -105,14 +105,14 @@ export default {
           window.alert(`${this.$t('global.error.dataSendError')}
           ${error}`)
         })
-    }
+    },
   },
   head() {
     return {
       title: this.$t('inquiry.title'),
-      meta: [...autoHead(this.$t('inquiry.title'))]
+      meta: [...autoHead(this.$t('inquiry.title'))],
     }
-  }
+  },
 }
 </script>
 

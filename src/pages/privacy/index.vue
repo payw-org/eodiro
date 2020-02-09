@@ -48,7 +48,7 @@ import pageBase from '~/mixins/page-base'
 
 export default {
   name: 'privacy',
-  mixins: [pageBase]
+  mixins: [pageBase],
 }
 </script>
 

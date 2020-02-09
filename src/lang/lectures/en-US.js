@@ -2,7 +2,7 @@ export default {
   title: 'Lectures',
   head: {
     description: 'aaa',
-    title: 'bbb'
+    title: 'bbb',
   },
   initInputText: 'Genius search',
   filterButtonMsg: 'Filter',
@@ -11,5 +11,5 @@ export default {
   filterTitleMainCourse: 'Process',
   filterTitleCampus: 'Campus',
   filterTitleCollege: 'College',
-  filterTitleSubject: 'Major'
+  filterTitleSubject: 'Major',
 }

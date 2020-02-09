@@ -4,7 +4,7 @@
     :class="[
       $store.state.currentHamletName,
       { 'is-banner-forced-mini': isBannerForcedMini },
-      { transitioning: isPointerEventsPrevented }
+      { transitioning: isPointerEventsPrevented },
     ]"
   >
     <div id="scroll-end-point" />
@@ -32,13 +32,13 @@ export default {
       // If this is true
       // master content's padding-top will be narrower
       isBannerForcedMini: false,
-      isPointerEventsPrevented: false
+      isPointerEventsPrevented: false,
     }
   },
   computed: {
     isErrorPage() {
       return !this.$route.name
-    }
+    },
   },
   watch: {
     $route(to, from) {
@@ -55,7 +55,7 @@ export default {
           this.$store.commit('CACHE_ROUTE', {
             componentName,
             depth: to.meta.depth,
-            hamletName: to.meta.hamletName
+            hamletName: to.meta.hamletName,
           })
         })
       } else if (from.meta.depth >= to.meta.depth) {
@@ -69,7 +69,7 @@ export default {
         }
 
         this.$store.commit('CLEAR_ROUTE', {
-          destinationDepth: clearDepth
+          destinationDepth: clearDepth,
         })
 
         // Cache destination components if not cached
@@ -78,11 +78,11 @@ export default {
           this.$store.commit('CACHE_ROUTE', {
             componentName,
             depth: to.meta.depth,
-            hamletName: to.meta.hamletName
+            hamletName: to.meta.hamletName,
           })
         })
       }
-    }
+    },
   },
   created() {
     // Cache components on the first load
@@ -91,7 +91,7 @@ export default {
       this.$store.commit('CACHE_ROUTE', {
         componentName,
         depth: this.$route.meta.depth,
-        hamletName: this.$route.meta.hamletName
+        hamletName: this.$route.meta.hamletName,
       })
     })
 
@@ -132,7 +132,7 @@ export default {
   methods: {
     identifyBannerForcedMini() {
       this.isBannerForcedMini = this.$route.meta.depth > 1 || this.isErrorPage
-    }
+    },
   },
   head() {
     return {
@@ -144,15 +144,15 @@ export default {
         ),
         {
           property: 'og:image',
-          content: 'https://eodiro.com/assets/images/open-graph/open_graph.png'
-        }
+          content: 'https://eodiro.com/assets/images/open-graph/open_graph.png',
+        },
       ],
       htmlAttrs: {
         class: this.$store.state.colorSchemeClassName,
-        lang: this.$store.state.lang
-      }
+        lang: this.$store.state.lang,
+      },
     }
-  }
+  },
 }
 </script>
 

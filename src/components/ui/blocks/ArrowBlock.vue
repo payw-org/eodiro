@@ -22,14 +22,14 @@ export default {
   props: {
     noArrow: {
       type: Boolean,
-      required: false
+      required: false,
     },
     link: {
       type: String,
       required: false,
-      default: ''
-    }
-  }
+      default: '',
+    },
+  },
 }
 </script>
 

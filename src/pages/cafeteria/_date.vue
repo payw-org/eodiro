@@ -34,24 +34,24 @@ export default {
       method: 'GET',
       url: `https://api.eodiro.com/v2/campuses/seoul/meal/dates/${dayjs().format(
         'YYYY-MM-DD'
-      )}`
+      )}`,
     })
     const data = res.data
     return {
-      meal: data.meal
+      meal: data.meal,
     }
   },
   data() {
     return {
-      meal: {}
+      meal: {},
     }
   },
   head() {
     return {
       title: this.$t('cafeteria.title'),
-      meta: [...autoHead(this.$t('cafeteria.title'))]
+      meta: [...autoHead(this.$t('cafeteria.title'))],
     }
-  }
+  },
 }
 </script>
 

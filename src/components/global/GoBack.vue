@@ -25,13 +25,13 @@ export default {
   data() {
     return {
       isHidden: false,
-      scrollEventCallback: null
+      scrollEventCallback: null,
     }
   },
   computed: {
     prevRouteName() {
       return this.$route.meta.prevRouteName
-    }
+    },
   },
   mounted() {
     const that = this // alias
@@ -98,7 +98,7 @@ export default {
     CEM.addEventListener('beforepageenter', goBackElm, () => {
       this.isHidden = false
     })
-  }
+  },
 }
 </script>
 

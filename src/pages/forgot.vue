@@ -14,8 +14,8 @@ export default {
   head() {
     return {
       title: this.$t('auth.signIn'),
-      meta: [...autoHead(this.$t('auth.signIn'))]
+      meta: [...autoHead(this.$t('auth.signIn'))],
     }
-  }
+  },
 }
 </script>

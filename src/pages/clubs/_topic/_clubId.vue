@@ -55,7 +55,7 @@ export default {
       active: false,
       summary: new LoremIpsum().generateSentences(
         Math.floor(Math.random() * 100)
-      )
+      ),
     }
   },
   mounted() {
@@ -82,8 +82,8 @@ export default {
           scrollElm.scrollHeight - scrollElm.clientHeight - 1
         )
       }
-    }
-  }
+    },
+  },
 }
 </script>
 

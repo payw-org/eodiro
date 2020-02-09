@@ -170,13 +170,13 @@ export default {
   computed: {
     version() {
       return 'v' + PackageJson.version.replace('-beta.', ' Beta ')
-    }
+    },
   },
   methods: {
     preparing() {
       window.alert(this.$t('preparing'))
-    }
-  }
+    },
+  },
 }
 </script>
 

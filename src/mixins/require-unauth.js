@@ -6,7 +6,7 @@ const options = {
     if (this.$store.state.auth.isSignedIn) {
       location.replace('/')
     }
-  }
+  },
 }
 
 export default options

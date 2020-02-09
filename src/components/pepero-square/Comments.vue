@@ -63,15 +63,15 @@ export default {
   props: {
     postId: {
       type: Number,
-      default: 0
-    }
+      default: 0,
+    },
   },
   data() {
     return {
       comments: [],
       newComment: '',
       isUploading: false,
-      isFetching: true
+      isFetching: true,
     }
   },
   mounted() {
@@ -126,7 +126,7 @@ export default {
 
       const newCommentObj = {
         body: this.newComment,
-        postId: this.postId
+        postId: this.postId,
       }
 
       const isAdded = await new SquareApi().addComment(newCommentObj)
@@ -142,8 +142,8 @@ export default {
       this.$nextTick(() => {
         document.getElementById('comment-input').blur()
       })
-    }
-  }
+    },
+  },
 }
 </script>
 

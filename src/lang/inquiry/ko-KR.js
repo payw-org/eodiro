@@ -8,6 +8,6 @@ export default {
   wrongEmailFormat: '이메일 형식이 잘못됐습니다',
   textLimit: {
     under: '두 글자 이상 입력해주세요',
-    over: '500글자까지만 보낼 수 있습니다.'
-  }
+    over: '500글자까지만 보낼 수 있습니다.',
+  },
 }

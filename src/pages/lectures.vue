@@ -131,45 +131,45 @@ export default {
           year: '2019',
           semester: '2',
           campus: '서울',
-          mainCourse: '학부'
+          mainCourse: '학부',
         },
         search: {
           word: '',
           count: 50,
-          page: 1
-        }
+          page: 1,
+        },
       },
       mainCategory: [
         {
           name: this.$t('searchClass.filterTitleYear'),
           isFold: true,
-          value: 'year'
+          value: 'year',
         },
         {
           name: this.$t('searchClass.filterTitleSemester'),
           isFold: true,
-          value: 'semester'
+          value: 'semester',
         },
         {
           name: this.$t('searchClass.filterTitleCampus'),
           isFold: true,
-          value: 'campus'
+          value: 'campus',
         },
         {
           name: this.$t('searchClass.filterTitleMainCourse'),
           isFold: true,
-          value: 'mainCourse'
+          value: 'mainCourse',
         },
         {
           name: this.$t('searchClass.filterTitleCollege'),
           isFold: true,
-          value: 'college'
+          value: 'college',
         },
         {
           name: this.$t('searchClass.filterTitleSubject'),
           isFold: true,
-          value: 'subject'
-        }
+          value: 'subject',
+        },
       ],
       searchClassList: [],
       subCategoryItemList: {
@@ -178,8 +178,8 @@ export default {
         campus: '',
         mainCourse: '',
         college: '',
-        subject: ''
-      }
+        subject: '',
+      },
     }
   },
   computed: {
@@ -209,7 +209,7 @@ export default {
     },
     unfoldCategory() {
       const nothingUnfold = {
-        isFold: true
+        isFold: true,
       }
       for (let i = 0; i < this.mainCategory.length; i++) {
         if (this.mainCategory[i].isFold === false) {
@@ -235,7 +235,7 @@ export default {
       refined.subject.sort()
 
       return refined
-    }
+    },
   },
   watch: {
     'searchClassState.search.word'() {
@@ -253,7 +253,7 @@ export default {
         'ㅋ',
         'ㅌ',
         'ㅍ',
-        'ㅎ'
+        'ㅎ',
       ]
       for (let i = 0; i < oneList.length; i++) {
         if (this.searchClassState.search.word.includes(oneList[i]) === true) {
@@ -273,7 +273,7 @@ export default {
           )
         }
       })
-    }
+    },
   },
   created() {
     this.basicDataRequest()
@@ -347,8 +347,8 @@ export default {
     basicDataRequest() {
       const params = {
         params: {
-          count: 50
-        }
+          count: 50,
+        },
       }
       axios.get(this.apiURL, params).then((res) => {
         this.subCategoryItemList = res.data.filter.list
@@ -428,14 +428,14 @@ export default {
       })
 
       this.mainCategory = main
-    }
+    },
   },
   head() {
     return {
       title: this.$t('searchClass.title'),
-      meta: [...autoHead(this.$t('searchClass.title'))]
+      meta: [...autoHead(this.$t('searchClass.title'))],
     }
-  }
+  },
 }
 </script>
 

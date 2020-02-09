@@ -8,8 +8,8 @@ export default {
     title: 'New Post',
     placeholder: {
       title: 'Title',
-      body: 'Body'
-    }
+      body: 'Body',
+    },
   },
-  loading: 'Loading'
+  loading: 'Loading',
 }

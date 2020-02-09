@@ -19,6 +19,6 @@
 import icon from '~/components/ui/icons/icon'
 
 export default {
-  mixins: [icon]
+  mixins: [icon],
 }
 </script>

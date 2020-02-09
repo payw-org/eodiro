@@ -7,5 +7,5 @@ export default {
   menuDonation: '후원하기',
   menuClubs: '소모임',
   menuSquare: '빼빼로 광장',
-  menuOpenSource: '오픈소스'
+  menuOpenSource: '오픈소스',
 }

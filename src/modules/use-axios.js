@@ -39,7 +39,7 @@ export default function useAxios(config, eodiroAxiosConfig) {
           // Append headers data
           config.headers = {
             accesstoken: accessToken,
-            refreshtoken: refreshToken
+            refreshtoken: refreshToken,
           }
         }
       }
