@@ -23,6 +23,7 @@ function getColorClassName(colorMode) {
 export const state = () => ({
   colorSchemeClassName: 'light-mode',
   lang: 'en',
+  isFirstLoad: true,
   cachedComponents: [],
   routeCache: [],
   currentHamlet: '',
@@ -41,14 +42,17 @@ export const state = () => ({
     'sign-up',
     'forgot',
     'me',
-    'privacy'
+    'privacy',
   ],
   auth: {
-    isSignedIn: false
-  }
+    isSignedIn: false,
+  },
 })
 
 export const mutations = {
+  SET_IS_FIRST_LOAD(state, value) {
+    state.isFirstLoad = value
+  },
   /**
    * @param {'ko'|'en'} lang
    */
@@ -126,7 +130,7 @@ export const mutations = {
    */
   SET_SIGNED_IN(state, bool) {
     state.auth.isSignedIn = bool
-  }
+  },
 }
 
 export const actions = {
@@ -170,5 +174,5 @@ export const actions = {
     eodiroCookie.pile(CookieConfig.langCookieName, lang, defaultCookieOptions)
 
     eodiroCookie.bulkSet()
-  }
+  },
 }

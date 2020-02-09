@@ -27,11 +27,11 @@ const mixinOptions = {
     afterLeave() {
       // Dispatch event
       CEM.dispatchEvent('afterpageleave')
-    }
+    },
   },
   data() {
     return {
-      lastScrollPosition: 0
+      lastScrollPosition: 0,
     }
   },
   created() {
@@ -55,13 +55,17 @@ const mixinOptions = {
     setTimeout(() => {
       // Restore scroll position
       disableScroll.off()
-      window.scrollTo(0, this.lastScrollPosition)
+      if (this.$store.state.isFirstLoad) {
+        this.$store.commit('SET_IS_FIRST_LOAD', false)
+      } else {
+        window.scrollTo(0, this.lastScrollPosition)
+      }
       disableScroll.on()
       setTimeout(() => {
         // Dispatch an event
         CEM.dispatchEvent('scrollrestored', {
           scrollPosition: this.lastScrollPosition,
-          pageDepth: this.$route.meta.depth
+          pageDepth: this.$route.meta.depth,
         })
       }, 20)
     }, 0)
@@ -74,8 +78,8 @@ const mixinOptions = {
     // Start topbar
     showTopbar() {
       window.topbar.show()
-    }
-  }
+    },
+  },
 }
 
 export default mixinOptions
