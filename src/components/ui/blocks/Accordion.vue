@@ -143,7 +143,7 @@ export default {
         background-repeat: no-repeat;
         background-size: contain;
         transform: rotate(270deg);
-        transition: transform 200ms ease;
+        transition: transform 150ms ease;
 
         @at-root #{$accordion}.will-collapse .acc-arrow {
           transform: rotate(90deg) !important;
@@ -161,7 +161,7 @@ export default {
     width: 100%;
     border-top: 1px solid;
     @include separator;
-    transition: all 300ms ease;
+    transition: all 150ms ease;
 
     @at-root #{$accordion}.will-collapse .acc-content-container {
       padding: 0;
