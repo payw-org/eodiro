@@ -261,10 +261,10 @@ export default {
       }
 
       .icon--lectures {
-        background-image: url('~assets/images/home/home_menu_icon_search-class.svg');
+        background-image: url('~assets/images/home/home_menu_icon_class.svg');
 
         @include dark-mode {
-          background-image: url('~assets/images/home/home_menu_icon_search-class_black.svg');
+          background-image: url('~assets/images/home/home_menu_icon_class_black.svg');
         }
       }
 
