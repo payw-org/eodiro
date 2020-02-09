@@ -87,7 +87,7 @@ export const mutations = {
     const { componentName, depth } = payload
     if (componentName === undefined || depth === undefined) {
       console.warn(
-        'Route cache - insufficient payload data',
+        '⚠️ Route cache - insufficient payload data',
         componentName,
         depth
       )
