@@ -122,6 +122,7 @@ export default {
     display: flex;
     align-items: center;
     padding: $gentle-gap 0;
+    word-break: break-all;
 
     .acc-face-content {
       flex: 1;
