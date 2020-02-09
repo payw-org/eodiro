@@ -59,6 +59,20 @@
             </template>
           </ArrowBlock>
 
+          <!-- New Lectures -->
+          <ArrowBlock
+            class="menu-item-wrapper"
+            :link="localePath('lectures-new').replace(/\/$/, '')"
+            @click="showTopbar"
+          >
+            <template v-slot:icon>
+              <span class="icon icon--lectures" />
+            </template>
+            <template v-slot:content>
+              <span class="content">{{ $t('home.menuClass') }}</span>
+            </template>
+          </ArrowBlock>
+
           <!-- Vacant Classrooms -->
           <!-- <ArrowBlock
             class="menu-item-wrapper"
