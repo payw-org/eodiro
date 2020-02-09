@@ -21,7 +21,7 @@ export default {
 .loading {
   text-align: center;
   font-size: b(4);
-  height: 5rem;
+  margin-top: s(10);
   display: flex;
   align-items: center;
   justify-content: center;
