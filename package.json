@@ -1,6 +1,6 @@
 {
   "name": "eodiro",
-  "version": "2.1.0-beta.12",
+  "version": "2.1.0-beta.13",
   "description": "CAU Utility Service",
   "scripts": {
     "build": "nuxt build",
