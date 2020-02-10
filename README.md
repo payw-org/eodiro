@@ -1,6 +1,9 @@
 ![banner](https://user-images.githubusercontent.com/19797697/73181225-d21c1b80-40e4-11ea-80b1-d84fa6bb3a0a.png)
 
 <p align="center"><b>eodiro</b> is an open source utility service for Chung-Ang university students.</p>
+<p align="center">
+  <a href="https://eodiro.com">https://eodiro.com</a>
+</p>
 
 <p align="center">
   <img src="https://img.shields.io/github/license/paywteam/eodiro" />
@@ -13,11 +16,30 @@
 
 ---
 
-## How to Use
+## Documentation
 
-https://eodiro.com
+### Wiki
 
-## [Documentation](https://github.com/paywteam/eodiro/tree/master/docs)
+- [Terms](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Terms.md)
+- [Design Guidelines](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Design-Guidelines.md)
+- [UI Components](https://github.com/paywteam/eodiro/blob/master/docs/wiki/UI-Components.md)
+- [CustomEvents](https://github.com/paywteam/eodiro/blob/master/docs/wiki/CustomEvents.md)
+- [Modules](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Modules.md)
+- [Plugins](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Plugins.md)
+- Middleware
+- [Vuex Store](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Vuex-Store.md)
+- [Vue Mixins](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Vue-Mixins.md)
+
+**Components**
+
+- [Banner](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Banner.md)
+- [Tiles](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Tiles.md)
+
+---
+
+**[Changelog](https://github.com/paywteam/eodiro/blob/master/docs/Changelog.md)**
+
+**[ToDo](https://github.com/paywteam/eodiro/blob/master/docs/ToDo.md)**
 
 ## Build Instructions
 
@@ -28,20 +50,20 @@ https://eodiro.com
 3. Go to the project's root directory and install dependencies.
 
 ```zsh
-→ npm install
+% npm install
 ```
 
 4. Happy developing
 
 ```zsh
 # Development
-→ npm run dev
+% npm run dev
 ```
 
 ```zsh
 # Build and start the server
-→ npm run build
-→ npm run start
+% npm run build
+% npm run start
 ```
 
 ## Contributing
