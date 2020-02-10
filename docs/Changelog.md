@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.1.0 Beta 13
+
+### Fix
+
+- Add a component name to lecture page
+
 ## v2.1.0 Beta 12
 
 ### Features
