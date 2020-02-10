@@ -12,7 +12,7 @@
     "pm2-start": "if npm run pm2-show ; then npm run pm2-stop && npm run pm2-start ; else pm2 start npm --name 'eodiro-client-dist' -- run start ; fi",
     "pm2-restart": "if npm run pm2-show ; then pm2 restart eodiro-client-dist ; else npm run pm2-no-instance ; fi",
     "pm2-stop": "if npm run pm2-show ; then pm2 stop eodiro-client-dist ; else npm run pm2-no-instance ; fi",
-    "pm2-delete": "if pm2 show eodiro-client ; then pm2 delete eodiro-client-dist ; else npm run pm2-no-instance ; fi",
+    "pm2-delete": "if pm2 npm run pm2-show ; then pm2 delete eodiro-client-dist ; else npm run pm2-no-instance ; fi",
     "pm2-reboot": "npm run pm2-stop && npm run pm2-delete && npm run build && npm run pm2-start",
     "pm2-no-instance": "echo 'No pm2 instance for eodiro client'",
     "deploy": "npm install && npm run pm2-reboot"
