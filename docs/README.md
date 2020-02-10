@@ -1,6 +1,6 @@
-## Documentation
+## Wiki
 
-- [Terms](Terms)
+- [Terms](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Terms.md)
 - [Design Guidelines](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Design-Guidelines.md)
 - [UI Components](https://github.com/paywteam/eodiro/blob/master/docs/wiki/UI-Components.md)
 - [CustomEvents](https://github.com/paywteam/eodiro/blob/master/docs/wiki/CustomEvents.md)
@@ -10,7 +10,7 @@
 - [Vuex Store](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Vuex-Store.md)
 - [Vue Mixins](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Vue-Mixins.md)
 
-### Components
+**Components**
 
 - [Banner](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Banner.md)
 - [Tiles](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Tiles.md)
