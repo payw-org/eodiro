@@ -10,7 +10,7 @@ export default class SquareApi extends Api {
     const [err, res] = await useAxios({
       method: 'get',
       url: ApiHost.host + '/pepero-square/posts/recent',
-      params: { from }
+      params: { from },
     })
 
     return err ? false : res.data
@@ -27,8 +27,8 @@ export default class SquareApi extends Api {
       url: ApiHost.host + '/pepero-square/posts',
       params: {
         from,
-        quantity
-      }
+        quantity,
+      },
     })
 
     return err ? null : res.data
@@ -43,11 +43,11 @@ export default class SquareApi extends Api {
       {
         method: 'get',
         url: ApiHost.host + '/pepero-square/post',
-        params: { postId }
+        params: { postId },
       },
       {
         requireAuth: true,
-        http: this.http
+        http: this.http,
       }
     )
 
@@ -69,11 +69,11 @@ export default class SquareApi extends Api {
         url: ApiHost.getUrl('pepero-square/post'),
         data: {
           title,
-          body
-        }
+          body,
+        },
       },
       {
-        requireAuth: true
+        requireAuth: true,
       }
     )
 
@@ -92,12 +92,12 @@ export default class SquareApi extends Api {
         url: ApiHost.getUrl('pepero-square/post/comments'),
         params: {
           postId,
-          fromId
-        }
+          fromId,
+        },
       },
       {
         requireAuth: true,
-        http: this.http
+        http: this.http,
       }
     )
 
@@ -118,11 +118,11 @@ export default class SquareApi extends Api {
         url: ApiHost.getUrl('pepero-square/post/comment'),
         data: {
           body,
-          postId
-        }
+          postId,
+        },
       },
       {
-        requireAuth: true
+        requireAuth: true,
       }
     )
 

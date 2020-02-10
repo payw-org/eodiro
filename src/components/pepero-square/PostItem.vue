@@ -5,8 +5,8 @@
       localePath({
         name: 'pepero-square-postId',
         params: {
-          postId: postData.id
-        }
+          postId: postData.id,
+        },
       })
     "
   >
@@ -51,8 +51,8 @@ export default {
   props: {
     postData: {
       type: Object,
-      default: () => ({})
-    }
+      default: () => ({}),
+    },
   },
   computed: {
     postedAt() {
@@ -99,8 +99,8 @@ export default {
       }
 
       return postedAt
-    }
-  }
+    },
+  },
 }
 </script>
 

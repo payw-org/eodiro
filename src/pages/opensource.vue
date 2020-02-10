@@ -40,6 +40,10 @@
       </span>
       <span>{{ $t('opensource.visit') }}</span>
     </button>
+    <!-- <div v-for="person in contributors" :key="person.login">
+      <img :src="person.avatar_url" />
+      <span>{{ person.login }}</span>
+    </div> -->
   </div>
 </template>
 
@@ -52,11 +56,18 @@ import autoHead from '~/modules/auto-head'
 export default Vue.extend({
   name: 'opensource',
   mixins: [pageBase],
+  data() {
+    return {
+      contributors: [],
+    }
+  },
   async mounted() {
     const [err, response] = await useAxios({
       url: 'https://api.github.com/repos/paywteam/eodiro/contributors',
-      method: 'get'
+      method: 'get',
     })
+
+    this.contributors.push(...response.data)
   },
   head() {
     return {
@@ -66,11 +77,11 @@ export default Vue.extend({
         {
           async: true,
           defer: true,
-          src: 'https://buttons.github.io/buttons.js'
-        }
-      ]
+          src: 'https://buttons.github.io/buttons.js',
+        },
+      ],
     }
-  }
+  },
 })
 </script>
 

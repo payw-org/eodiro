@@ -14,8 +14,8 @@ export default class {
       method: 'get',
       url: ApiHost.host + '/auth/information',
       headers: {
-        accesstoken: accessToken
-      }
+        accesstoken: accessToken,
+      },
     })
 
     return err ? false : res.data

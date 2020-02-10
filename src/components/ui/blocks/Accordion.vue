@@ -5,7 +5,7 @@
       collapsed: isCollapsed,
       'will-collapse': willCollapse,
       collapsing: isCollapsing,
-      elastic: elastic
+      elastic: elastic,
     }"
     @click="toggleCollapse"
   >
@@ -30,15 +30,15 @@ export default {
   props: {
     elastic: {
       type: Boolean,
-      default: false
-    }
+      default: false,
+    },
   },
   data() {
     return {
       isCollapsing: false,
       willCollapse: true,
       isCollapsed: true,
-      contentContainerHeight: 0
+      contentContainerHeight: 0,
     }
   },
   methods: {
@@ -93,8 +93,8 @@ export default {
           )
         }, 0)
       }
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -122,6 +122,7 @@ export default {
     display: flex;
     align-items: center;
     padding: $gentle-gap 0;
+    word-break: break-all;
 
     .acc-face-content {
       flex: 1;
@@ -142,7 +143,7 @@ export default {
         background-repeat: no-repeat;
         background-size: contain;
         transform: rotate(270deg);
-        transition: transform 200ms ease;
+        transition: transform 150ms ease;
 
         @at-root #{$accordion}.will-collapse .acc-arrow {
           transform: rotate(90deg) !important;
@@ -160,7 +161,7 @@ export default {
     width: 100%;
     border-top: 1px solid;
     @include separator;
-    transition: all 300ms ease;
+    transition: all 150ms ease;
 
     @at-root #{$accordion}.will-collapse .acc-content-container {
       padding: 0;

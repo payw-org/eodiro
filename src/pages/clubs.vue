@@ -12,6 +12,6 @@ import pageBase from '~/mixins/page-base'
 
 export default {
   name: 'clubs-parent',
-  mixins: [pageBase]
+  mixins: [pageBase],
 }
 </script>

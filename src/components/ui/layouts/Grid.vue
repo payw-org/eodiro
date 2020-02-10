@@ -13,7 +13,7 @@ export default {
       default: 'medium',
       validator(value) {
         return ['small', 'medium', 'large'].includes(value)
-      }
+      },
     },
     gap: {
       type: String,
@@ -21,9 +21,9 @@ export default {
       default: 'medium',
       validator(value) {
         return ['small', 'medium', 'large'].includes(value)
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>
 

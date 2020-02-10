@@ -6,8 +6,8 @@
         localePath({
           name: 'clubs-topic-clubId',
           params: {
-            clubId: clubData.name
-          }
+            clubId: clubData.name,
+          },
         })
       "
     />
@@ -38,9 +38,9 @@ export default {
       required: true,
       default: () => {
         return {}
-      }
-    }
-  }
+      },
+    },
+  },
 }
 </script>
 

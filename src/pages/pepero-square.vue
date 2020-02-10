@@ -15,9 +15,9 @@ export default Vue.extend({
   mixins: [pageBase],
   head() {
     return {
-      title: this.$t('peperoSquare.title')
+      title: this.$t('peperoSquare.title'),
     }
-  }
+  },
 })
 </script>
 

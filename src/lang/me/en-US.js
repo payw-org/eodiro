@@ -5,5 +5,5 @@ export default {
   nickname: 'Nickname',
   randomNickname: "Today's random nickname",
   signOut: 'Sign Out',
-  signOutFromAll: 'Sign out from all devices'
+  signOutFromAll: 'Sign out from all devices',
 }

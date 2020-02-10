@@ -58,10 +58,10 @@ const lightModeOptions = {
   barThickness: 4,
   barColors: {
     0: '#FFDF00',
-    '1.0': '#00E3D6'
+    '1.0': '#00E3D6',
   },
   shadowBlur: 3,
-  shadowColor: 'rgba(0, 0, 0, 0)'
+  shadowColor: 'rgba(0, 0, 0, 0)',
 }
 
 const darkModeOptions = {
@@ -69,10 +69,10 @@ const darkModeOptions = {
   barThickness: 4,
   barColors: {
     0: '#fff',
-    '1.0': '#fff'
+    '1.0': '#fff',
   },
   shadowBlur: 3,
-  shadowColor: 'rgba(0, 0, 0, 0)'
+  shadowColor: 'rgba(0, 0, 0, 0)',
 }
 
 let options = lightModeOptions
@@ -176,7 +176,7 @@ const topbar = {
       }
       fadeTimerId = window.requestAnimationFrame(loop)
     })()
-  }
+  },
 }
 
 export default topbar

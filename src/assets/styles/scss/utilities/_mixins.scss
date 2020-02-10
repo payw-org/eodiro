@@ -75,9 +75,11 @@
 // element fill
 @mixin elm-fill {
   background-color: $base-white-blue;
+  border: 1px solid rgba($color: #000, $alpha: 0.05);
 
   @include dark-mode {
     background-color: $base-black-soft;
+    border: 1px solid rgba($color: #fff, $alpha: 0.05);
   }
 }
 @mixin elm-fill-inverted {

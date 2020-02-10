@@ -8,6 +8,6 @@ export default {
   wrongEmailFormat: 'Wrong email format',
   textLimit: {
     under: 'You have to write at least two charaters',
-    over: '500 characters limit'
-  }
+    over: '500 characters limit',
+  },
 }

@@ -4,7 +4,7 @@ export default {
     title: 'Color Scheme',
     light: 'Light',
     dark: 'Dark',
-    auto: 'Adaptive'
+    auto: 'Adaptive',
   },
-  lang: 'Language'
+  lang: 'Language',
 }

@@ -103,14 +103,14 @@ export default class Auth {
   static setJwt(accessToken, refreshToken, http) {
     const tokens = {
       accessToken,
-      refreshToken
+      refreshToken,
     }
 
     new EodiroCookie(http).set('tokens', tokens, {
       expires: dayjs()
         .add(30, 'day')
         .toDate(),
-      path: '/'
+      path: '/',
     })
 
     this.updateLastlySignedInVerificationTime()

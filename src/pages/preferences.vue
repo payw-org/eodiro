@@ -54,7 +54,7 @@ export default {
   mixins: [pageBase],
   data() {
     return {
-      autoDarkModeSupport: false
+      autoDarkModeSupport: false,
     }
   },
   mounted() {
@@ -80,14 +80,14 @@ export default {
     },
     switchColorScheme(mode) {
       this.$store.commit('SET_COLOR_SCHEME', { mode })
-    }
+    },
   },
   head() {
     return {
       title: this.$t('pref.title'),
-      meta: [...autoHead(this.$t('pref.title'))]
+      meta: [...autoHead(this.$t('pref.title'))],
     }
-  }
+  },
 }
 </script>
 

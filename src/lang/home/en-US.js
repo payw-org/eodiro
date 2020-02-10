@@ -7,5 +7,5 @@ export default {
   menuDonation: 'Donate',
   menuClubs: 'Clubs',
   menuSquare: 'Pepero Square',
-  menuOpenSource: 'Open Source'
+  menuOpenSource: 'Open Source',
 }

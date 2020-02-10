@@ -13,7 +13,7 @@ export default function(req, res) {
       ? body.options
       : {
           expires: dayjs('2500-12-31').toDate(),
-          path: '/'
+          path: '/',
         }
     if (body.options.expires) {
       body.options.expires = new Date(body.options.expires)

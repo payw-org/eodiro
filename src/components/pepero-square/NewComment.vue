@@ -21,7 +21,7 @@ import dayjs from 'dayjs'
 export default {
   data() {
     return {
-      comment: ''
+      comment: '',
     }
   },
   methods: {
@@ -34,7 +34,7 @@ export default {
       const newCommentObj = {
         body: this.comment,
         uploadedAt: dayjs(),
-        userId: this.$store.state.auth.userId
+        userId: this.$store.state.auth.userId,
       }
 
       // Emit event
@@ -43,8 +43,8 @@ export default {
       // Clear input
       this.comment = ''
       event.target.blur()
-    }
-  }
+    },
+  },
 }
 </script>
 

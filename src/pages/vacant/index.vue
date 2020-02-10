@@ -12,8 +12,8 @@
           localePath({
             name: 'vacant-buildingId',
             params: {
-              buildingId: building.number
-            }
+              buildingId: building.number,
+            },
           })
         "
         @click="showTopbar()"
@@ -58,11 +58,11 @@ export default {
     const url = `https://api.eodiro.com/v2/campuses/${campus}/vacant/buildings`
 
     return axios(url, {
-      method: 'get'
+      method: 'get',
     })
       .then((res) => {
         return {
-          buildings: res.data.buildings
+          buildings: res.data.buildings,
         }
       })
       .catch(() => {
@@ -71,9 +71,9 @@ export default {
   },
   data() {
     return {
-      buildings: []
+      buildings: [],
     }
-  }
+  },
 }
 </script>
 

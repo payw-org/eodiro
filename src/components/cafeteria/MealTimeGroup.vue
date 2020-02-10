@@ -54,14 +54,14 @@ export default {
       required: true,
       validator(value) {
         return ['breakfast', 'lunch', 'supper'].includes(value)
-      }
+      },
     },
     mealTimeData: {
       type: Array,
       required: true,
-      default: () => []
-    }
-  }
+      default: () => [],
+    },
+  },
 }
 </script>
 

@@ -102,8 +102,8 @@ export default class Cookie {
         data: {
           name,
           value,
-          options
-        }
+          options,
+        },
       })
     } else {
       console.warn(
@@ -140,7 +140,7 @@ export default class Cookie {
   remove(name) {
     if (this.res) {
       this.res.setHeader('Set-Cookie', [
-        `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT`
+        `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT`,
       ])
     } else if (typeof window !== 'undefined') {
       JsCookie.remove(name)
@@ -150,5 +150,5 @@ export default class Cookie {
 
 export const defaultCookieOptions = {
   expires: dayjs('2500-12-31').toDate(),
-  path: '/'
+  path: '/',
 }

@@ -84,13 +84,13 @@ export default {
       routeSwitch: 0,
       zIndexSwitch: 0,
       hamlet0: '',
-      hamlet1: ''
+      hamlet1: '',
     }
   },
   computed: {
     currentHamlet() {
       return this.$route.meta.hamletName
-    }
+    },
   },
   watch: {
     isMini(bool) {
@@ -110,7 +110,7 @@ export default {
       }
 
       this.routeSwitch = !this.routeSwitch
-    }
+    },
   },
   created() {
     // Initialize hamlet0 on server side
@@ -198,7 +198,7 @@ export default {
       bannerElm.style.cssText = `transform: translateY(${top}px); position: fixed; top: 0;`
       disableScroll.on()
     })
-  }
+  },
 }
 </script>
 

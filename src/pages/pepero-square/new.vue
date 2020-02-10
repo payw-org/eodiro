@@ -58,7 +58,7 @@ export default {
       isWaiting: false,
       /** @type {FormData} */
       formData: null,
-      uploadFileNames: []
+      uploadFileNames: [],
     }
   },
   mounted() {
@@ -74,7 +74,7 @@ export default {
       const [err, res] = await useAxios({
         method: 'post',
         url: ApiHost.getUrl('upload'),
-        data: this.formData
+        data: this.formData,
       })
 
       if (err) {
@@ -113,7 +113,7 @@ export default {
 
       const postId = await new SquareApi().addPost({
         title: this.title,
-        body: this.body
+        body: this.body,
       })
       if (!postId) {
         // TODO Localization
@@ -125,16 +125,16 @@ export default {
           this.localePath({
             name: 'pepero-square-postId',
             params: {
-              postId
-            }
+              postId,
+            },
           })
         )
       }
 
       // Stop waiting server response
       this.isWaiting = false
-    }
-  }
+    },
+  },
 }
 </script>
 

@@ -10,9 +10,9 @@ export default {
     full: {
       type: Boolean,
       default: false,
-      required: false
-    }
-  }
+      required: false,
+    },
+  },
 }
 </script>
 

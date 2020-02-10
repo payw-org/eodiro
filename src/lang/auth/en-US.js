@@ -11,5 +11,5 @@ export default {
   didYouForgot: 'Forgot password?',
   checkFields: 'Make sure all the fields satisfy the conditions.',
   signUpSuccess:
-    'You are successfully registered.\nWe sent an email to your CAU portal account and you can sign in after verification.\nThe verification code will be expired after 30 minutes.'
+    'You are successfully registered.\nWe sent an email to your CAU portal account and you can sign in after verification.\nThe verification code will be expired after 30 minutes.',
 }

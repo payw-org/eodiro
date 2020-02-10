@@ -42,8 +42,8 @@ const options = {
       /** @type {HTMLButtonElement} */
       const processButton = this.$el.querySelector('.process-btn')
       processButton.click()
-    }
-  }
+    },
+  },
 }
 
 export default options

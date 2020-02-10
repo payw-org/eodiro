@@ -12,6 +12,6 @@ export default function(langCode) {
     opensource: require(`../opensource/${langCode}`).default,
     auth: require(`../auth/${langCode}`).default,
     me: require(`../me/${langCode}`).default,
-    privacy: require(`../privacy/${langCode}`).default
+    privacy: require(`../privacy/${langCode}`).default,
   }
 }

@@ -12,7 +12,7 @@ import pageBase from '~/mixins/page-base'
 
 export default {
   name: 'vacant-parent',
-  mixins: [pageBase]
+  mixins: [pageBase],
 }
 </script>
 

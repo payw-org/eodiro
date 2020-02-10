@@ -4,20 +4,20 @@ import modalTemplate from './template.html'
 import './style.scss'
 
 const conf = {
-  langCookieName: 'eodiro_lang'
+  langCookieName: 'eodiro_lang',
 }
 
 const messages = {
   ko: {
     confirmLabel: '확인',
     cancelLabel: '취소',
-    closeLabel: '닫기'
+    closeLabel: '닫기',
   },
   en: {
     confirmLabel: 'Confirm',
     cancelLabel: 'Cancel',
-    closeLabel: 'Close'
-  }
+    closeLabel: 'Close',
+  },
 }
 
 export default class EodiroDialog {

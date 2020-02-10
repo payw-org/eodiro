@@ -6,8 +6,8 @@
           localePath({
             name: 'clubs-topic',
             params: {
-              topic: 'all'
-            }
+              topic: 'all',
+            },
           })
         "
       >
@@ -29,8 +29,8 @@
           localePath({
             name: 'clubs-topic',
             params: {
-              topic: topic.url
-            }
+              topic: topic.url,
+            },
           })
         "
       >
@@ -62,31 +62,31 @@ export default {
       topics: [
         {
           name: '스포츠',
-          url: 'sports'
+          url: 'sports',
         },
         {
           name: '음악',
-          url: 'music'
+          url: 'music',
         },
         {
           name: '미술',
-          url: 'art'
+          url: 'art',
         },
         {
           name: '종교',
-          url: 'religion'
+          url: 'religion',
         },
         {
           name: '학술',
-          url: 'scholarship'
+          url: 'scholarship',
         },
         {
           name: '봉사',
-          url: 'service'
-        }
-      ]
+          url: 'service',
+        },
+      ],
     }
-  }
+  },
 }
 </script>
 

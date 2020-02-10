@@ -15,13 +15,13 @@ const component = {
       routeSwitch: 0,
       zIndexSwitch: 0,
       hamlet0: '',
-      hamlet1: ''
+      hamlet1: '',
     }
   },
   computed: {
     currentHamlet() {
       return this.$route.meta.hamletName
-    }
+    },
   },
   watch: {
     isMini(bool) {
@@ -41,7 +41,7 @@ const component = {
       }
 
       this.routeSwitch = !this.routeSwitch
-    }
+    },
   },
   created() {
     // Initialize hamlet0 on server side
@@ -129,7 +129,7 @@ const component = {
       bannerElm.style.cssText = `transform: translateY(${top}px); position: fixed; top: 0;`
       disableScroll.on()
     })
-  }
+  },
 }
 
 export default component

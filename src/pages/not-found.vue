@@ -6,8 +6,8 @@
 export default {
   middleware({ error }) {
     error({
-      statusCode: 404
+      statusCode: 404,
     })
-  }
+  },
 }
 </script>

@@ -30,14 +30,14 @@
 import moment from 'moment'
 
 export default {
-  data () {
+  data() {
     return {
       isCompleted: false,
       msgItems: [
         {
           begin: '2019-06-12 23:00',
           end: '2019-06-20 23:59',
-          content: this.$t('noti')
+          content: this.$t('noti'),
         },
         {
           begin: '2019-05-20 09:00',
@@ -46,22 +46,22 @@ export default {
             🔧 고려대학교 안암캠퍼스와 중앙대학교 안성캠퍼스의 강의 시간표를 수정했습니다.
             🎉 연세대학교 신촌캠퍼스와 송도캠퍼스가 추가되었습니다. 친구들에게 알려주세요!
             🏃 앱이 좀 더 빨라졌습니다.
-          `
-        }
-      ]
+          `,
+        },
+      ],
     }
   },
   computed: {
-    htmlMsg () {
+    htmlMsg() {
       const msgArr = this.msgItems[0].content.trim().split('\n')
       let html = ''
       msgArr.forEach((msg) => {
         html += `<p ${this.$options._scopeId}>${msg}</p>`
       })
       return html
-    }
+    },
   },
-  created () {
+  created() {
     // remove old keys
     localStorage.removeItem('completeNoti')
     localStorage.removeItem('completeNoti-alt')
@@ -70,7 +70,7 @@ export default {
     let noti = JSON.parse(localStorage.getItem('notification'))
     if (!noti) {
       noti = {
-        completedAt: null
+        completedAt: null,
       }
       localStorage.setItem('notification', JSON.stringify(noti))
     }
@@ -100,17 +100,17 @@ export default {
     }
   },
   methods: {
-    complete () {
+    complete() {
       this.isCompleted = true
       const noti = {
-        completedAt: Date.now()
+        completedAt: Date.now(),
       }
       localStorage.setItem('notification', JSON.stringify(noti))
     },
-    getLastestNoti () {
+    getLastestNoti() {
       return this.msgItems[0]
-    }
-  }
+    },
+  },
 }
 </script>
 

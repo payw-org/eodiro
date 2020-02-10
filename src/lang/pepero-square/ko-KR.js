@@ -8,8 +8,8 @@ export default {
     title: '새 포스트',
     placeholder: {
       title: '제목',
-      body: '본문'
-    }
+      body: '본문',
+    },
   },
-  loading: '로드중입니다'
+  loading: '로드중입니다',
 }

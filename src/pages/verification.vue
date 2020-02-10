@@ -17,8 +17,8 @@ export default {
     Axios({
       ...apiUrl.user.verify,
       data: {
-        token
-      }
+        token,
+      },
     })
       .then(() => {
         // Verify success
@@ -29,6 +29,6 @@ export default {
         alert('이미 인증되었거나 만료된 인증 코드입니다.')
         this.$router.replace(this.localePath('sign-up'))
       })
-  }
+  },
 }
 </script>

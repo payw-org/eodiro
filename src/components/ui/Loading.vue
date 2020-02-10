@@ -1,6 +1,6 @@
 <template>
   <div class="loading">
-    <div class="spinner" :class="{start: start}" />
+    <div class="spinner" :class="{ start: start }" />
   </div>
 </template>
 
@@ -8,14 +8,14 @@
 export default {
   data() {
     return {
-      start: false
+      start: false,
     }
   },
   mounted() {
     setTimeout(() => {
       this.start = true
     }, 200)
-  }
+  },
 }
 </script>
 

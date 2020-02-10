@@ -24,73 +24,73 @@ export default {
   user: {
     signIn: {
       method: 'post',
-      url: `${host}/auth/sign-in`
+      url: `${host}/auth/sign-in`,
     },
     signUp: {
       method: 'post',
-      url: `${host}/auth/sign-up`
+      url: `${host}/auth/sign-up`,
     },
     signOut: {
       method: 'post',
-      usl: `${host}/auth/sign-out`
+      usl: `${host}/auth/sign-out`,
     },
     verify: {
       method: 'post',
-      url: `${host}/auth/verify`
+      url: `${host}/auth/verify`,
     },
     validatePi: {
       method: 'post',
-      url: `${host}/auth/validate/portal-id`
+      url: `${host}/auth/validate/portal-id`,
     },
     validateNn: {
       method: 'post',
-      url: `${host}/auth/validate/nickname`
+      url: `${host}/auth/validate/nickname`,
     },
     validatePw: {
       method: 'post',
-      url: `${host}/auth/validate/password`
+      url: `${host}/auth/validate/password`,
     },
     isSignedIn: {
       method: 'post',
-      url: `${host}/auth/is-signed-in`
+      url: `${host}/auth/is-signed-in`,
     },
     information: {
       method: 'get',
-      url: `${host}/auth/information`
+      url: `${host}/auth/information`,
     },
     refreshToken: {
       method: 'post',
-      url: `${host}/auth/refresh-token`
+      url: `${host}/auth/refresh-token`,
     },
     clearToken: {
       method: 'delete',
-      url: `${host}/auth/refresh-token`
-    }
+      url: `${host}/auth/refresh-token`,
+    },
   },
   peperoSquare: {
     getPosts: {
       method: 'get',
-      url: `${host}/pepero-square/posts`
+      url: `${host}/pepero-square/posts`,
     },
     getRecentPosts: {
       method: 'get',
-      url: `${host}/pepero-square/posts/recent`
+      url: `${host}/pepero-square/posts/recent`,
     },
     getAPost: {
       method: 'get',
-      url: `${host}/pepero-square/post`
+      url: `${host}/pepero-square/post`,
     },
     uploadPost: {
       method: 'post',
-      url: `${host}/pepero-square/post`
+      url: `${host}/pepero-square/post`,
     },
     getComments: {
       method: 'get',
-      url: `${host}/pepero-square/posts/comments`
+      url: `${host}/pepero-square/posts/comments`,
     },
     uploadComment: {
       method: 'post',
-      url: `${host}/pepero-square/posts/comment`
-    }
-  }
+      url: `${host}/pepero-square/posts/comment`,
+    },
+  },
 }

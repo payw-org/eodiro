@@ -60,7 +60,7 @@ export class CEM {
     document.addEventListener(eventName, listener)
     this.storage[eventName].push({
       target,
-      listener
+      listener,
     })
   }
 
@@ -83,7 +83,7 @@ export class CEM {
 
     document.dispatchEvent(
       new CustomEvent(eventName, {
-        detail: data
+        detail: data,
       })
     )
   }
@@ -97,5 +97,5 @@ CEM.observer = undefined
 /** @type {MutationObserverInit} */
 CEM.observerConfig = {
   childList: true,
-  subtree: true
+  subtree: true,
 }
