@@ -1,5 +1,11 @@
 # Changelog
 
+## v2.1.0 Beta 14
+
+### Fix
+
+- Fix deploy scripts
+
 ## v2.1.0 Beta 13
 
 ### Fix
