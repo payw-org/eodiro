@@ -17,6 +17,8 @@
 
 https://eodiro.com
 
+## [Documentation](https://github.com/paywteam/eodiro/tree/master/docs)
+
 ## Build Instructions
 
 1. You must install Node.js and Yarn before following the steps below.
