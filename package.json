@@ -8,7 +8,7 @@
     "dev": "cross-env HOST=0.0.0.0 PORT=3020 NODE_ENV=development nuxt",
     "start": "cross-env HOST=0.0.0.0 nuxt start",
     "start-dev": "nuxt start --port 3020",
-    "pm2-start": "if pm2 show eodiro-client-dist ; then npm run pm2-stop && npm run pm2-start ; else pm2 start npm --name 'eodiro-client-dist' -- run start ; fi",
+    "pm2-start": "if pm2 show eodiro-client-dist ; then npm run pm2-stop && npm run pm2-delete && npm run pm2-start ; else pm2 start npm --name 'eodiro-client-dist' -- run start ; fi",
     "pm2-restart": "if pm2 show eodiro-client-dist ; then pm2 restart eodiro-client-dist ; else echo 'No pm2 instance for eodiro client' ; fi",
     "pm2-stop": "if pm2 show eodiro-client-dist ; then pm2 stop eodiro-client-dist ; else echo 'No pm2 instance for eodiro client' ; fi",
     "pm2-delete": "if pm2 pm2 show eodiro-client-dist ; then pm2 delete eodiro-client-dist ; else echo 'No pm2 instance for eodiro client' ; fi",
