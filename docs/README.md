@@ -6,7 +6,7 @@
 - [CustomEvents](https://github.com/paywteam/eodiro/blob/master/docs/wiki/CustomEvents.md)
 - [Modules](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Modules.md)
 - [Plugins](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Plugins.md)
-- [Middleware](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Middleware.md)
+- Middleware
 - [Vuex Store](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Vuex-Store.md)
 - [Vue Mixins](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Vue-Mixins.md)
 
