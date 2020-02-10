@@ -51,6 +51,7 @@ import Loading from '~/components/global/Loading'
 import { CEM } from '~/modules/custom-event-manager'
 
 export default {
+  name: 'lectures',
   components: { Accordion, Grid, Loading },
   mixins: [pageBase],
   async asyncData() {
