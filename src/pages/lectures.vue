@@ -1,5 +1,15 @@
 <template>
   <div id="eodiro-lectures">
+    <div>
+      <input
+        v-model="searchQuery"
+        type="text"
+        spellcheck="false"
+        placeholder="검색"
+        @input="handleSearchInput"
+      />
+    </div>
+
     <Grid>
       <div
         v-for="lecture in lectures"
@@ -71,13 +81,60 @@ export default {
     return {
       lectures: [],
       loadingVisible: false,
+      searchQuery: '',
+      realSearchQuery: '',
+      lastCjkData: '',
+      searchTimeout: null,
+      scrollEndListener: null,
     }
   },
+  watch: {
+    searchQuery(value) {
+      this.realSearchQuery = value
+    },
+    /**
+     * @param {string} value
+     */
+    realSearchQuery(value) {
+      // When the real search query changes,
+      // search from the server
+      if (this.searchTimeout) {
+        clearTimeout(this.searchTimeout)
+      }
+
+      this.searchTimeout = setTimeout(async () => {
+        if (value.length === 0) {
+          this.fetchLectures(true)
+        } else {
+          CEM.removeEventListener('scrollended', this.scrollEndListener)
+
+          await this.searchLectures(true)
+
+          CEM.addEventListener('scrollended', this.$el, this.scrollEndListener)
+        }
+      }, 300)
+    },
+  },
   mounted() {
-    CEM.addEventListener('scrollended', this.$el, async () => {
+    this.scrollEndListener = async () => {
       this.loadingVisible = true
 
-      const offset = this.$el.querySelectorAll('.lecture-item-wrapper').length
+      if (this.realSearchQuery.length === 0) {
+        this.fetchLectures()
+      } else {
+        //
+        await this.searchLectures(false)
+      }
+
+      this.loadingVisible = false
+    }
+    CEM.addEventListener('scrollended', this.$el, this.scrollEndListener)
+  },
+  methods: {
+    async fetchLectures(firstLoad = false) {
+      const offset = firstLoad
+        ? 0
+        : this.$el.querySelectorAll('.lecture-item-wrapper').length
       const moreLectures = await new LectureApi().getLectures({
         year: 2020,
         semester: '1',
@@ -86,12 +143,41 @@ export default {
         offset,
       })
 
-      if (moreLectures) {
-        this.lectures.push(...moreLectures)
+      if (firstLoad) {
+        this.lectures = [...moreLectures]
+      } else {
+        this.lectures = [...this.lectures, ...moreLectures]
       }
+    },
+    async searchLectures(firstLoad = false) {
+      const offset = firstLoad
+        ? 0
+        : this.$el.querySelectorAll('.lecture-item-wrapper').length
+      const searchResults = await new LectureApi().searchLectures({
+        year: 2020,
+        semester: '1',
+        campus: encodeURIComponent('서울'),
+        amount: 20,
+        offset,
+        query: this.realSearchQuery,
+      })
 
-      this.loadingVisible = false
-    })
+      if (firstLoad) {
+        this.lectures = [...searchResults]
+      } else {
+        this.lectures = [...this.lectures, ...searchResults]
+      }
+    },
+    /**
+     * @param {InputEvent} e
+     */
+    handleSearchInput(e) {
+      if (this.lastCjkData === e.data) {
+        return
+      }
+      this.lastCjkData = e.data
+      this.realSearchQuery = this.searchQuery + (e.data || '')
+    },
   },
 }
 </script>
