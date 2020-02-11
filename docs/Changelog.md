@@ -1,16 +1,32 @@
 # Changelog
 
+## v2.1.0 Beta 15
+
+### Features
+
+- New lecture search using the eodiro API 2
+
+### Dev
+
+- Create scripts for purely automated deployment
+
+---
+
 ## v2.1.0 Beta 14
 
 ### Fix
 
 - Fix deploy scripts
 
+---
+
 ## v2.1.0 Beta 13
 
 ### Fix
 
 - Add a component name to lecture page
+
+---
 
 ## v2.1.0 Beta 12
 
