@@ -120,9 +120,8 @@ export default {
       this.loadingVisible = true
 
       if (this.realSearchQuery.length === 0) {
-        this.fetchLectures()
+        await this.fetchLectures()
       } else {
-        //
         await this.searchLectures(false)
       }
 
