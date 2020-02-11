@@ -1,13 +1,14 @@
 <template>
   <div id="eodiro-lectures">
-    <div>
+    <div class="search-container">
       <input
         v-model="searchQuery"
         type="text"
         spellcheck="false"
-        placeholder="검색"
+        :placeholder="$t('lectures.initInputText')"
         @input="handleSearchInput"
       />
+      <div class="magnifier-icon" />
     </div>
 
     <Grid>
@@ -185,6 +186,33 @@ export default {
 @import '~/assets/styles/scss/main';
 
 #eodiro-lectures {
+  .search-container {
+    @include bg;
+    z-index: 10;
+    position: sticky;
+    top: $nav-height;
+    padding: s(3) 0;
+    margin-top: -#{s(3)};
+    margin-bottom: s(2);
+
+    input {
+      padding-left: $btn-height;
+    }
+
+    .magnifier-icon {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: $btn-height;
+      height: $btn-height;
+      transform: translateY(-50%);
+      @include bgImg('~assets/images/magnifier-black.svg', 'center', '70%');
+      @include dark-mode {
+        @include bgImg('~assets/images/magnifier-white.svg', 'center', '70%');
+      }
+    }
+  }
+
   .lecture-item {
     .name {
       font-size: b(5);
