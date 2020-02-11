@@ -4,6 +4,7 @@ export default function(langCode) {
     home: require(`../home/${langCode}`).default,
     vacant: require(`../vacant/${langCode}`).default,
     searchClass: require(`../lectures/${langCode}`).default,
+    lectures: require(`../lectures/${langCode}`).default,
     inquiry: require(`../inquiry/${langCode}`).default,
     pref: require(`../preferences/${langCode}`).default,
     peperoSquare: require(`../pepero-square/${langCode}`).default,
