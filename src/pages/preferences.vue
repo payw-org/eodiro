@@ -69,13 +69,12 @@ export default {
     /**
      * @param {'ko' | 'en'} lang
      */
-    switchLang(lang) {
-      new EodiroCookie().set(
+    async switchLang(lang) {
+      await new EodiroCookie().set(
         CookieConfig.langCookieName,
         lang,
         defaultCookieOptions
       )
-      this.$store.commit('SET_LANG', lang)
       window.location.reload()
     },
     switchColorScheme(mode) {
