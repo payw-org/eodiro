@@ -89,14 +89,14 @@ export default class Cookie {
    * @param {Date} options.expires
    * @param {string} options.path
    */
-  set(name, value, options) {
+  async set(name, value, options) {
     if (this.res) {
       const cookie = this.generateCookieString(name, value, options)
       this.res.setHeader('Set-Cookie', cookie)
     } else if (typeof window !== 'undefined') {
       // Use Nuxt server API instead of JSCookie
       // due to Safari's cookie expiration date restriction on client side
-      useAxios({
+      await useAxios({
         url: '/api/set-cookie',
         method: 'post',
         data: {

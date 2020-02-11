@@ -100,13 +100,13 @@ export default class Auth {
    * @param {string} refreshToken
    * @param {Http=} http
    */
-  static setJwt(accessToken, refreshToken, http) {
+  static async setJwt(accessToken, refreshToken, http) {
     const tokens = {
       accessToken,
       refreshToken,
     }
 
-    new EodiroCookie(http).set('tokens', tokens, {
+    await new EodiroCookie(http).set('tokens', tokens, {
       expires: dayjs()
         .add(30, 'day')
         .toDate(),

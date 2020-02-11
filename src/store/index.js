@@ -65,7 +65,7 @@ export const mutations = {
    * @param {string} payload.mode
    * @param {import('http').ServerResponse} payload.res
    */
-  SET_COLOR_SCHEME(state, payload) {
+  async SET_COLOR_SCHEME(state, payload) {
     const { mode, res } = payload
 
     let newMode = mode
@@ -74,7 +74,7 @@ export const mutations = {
       newMode = 'light'
     }
 
-    new EodiroCookie({ res }).set(
+    await new EodiroCookie({ res }).set(
       CookieConfig.colorSchemeCookieName,
       newMode,
       defaultCookieOptions
