@@ -6,6 +6,10 @@
 
 - New lecture search using the eodiro API 2
 
+### Bug Fixes
+
+- Now can set the language properly - #259
+
 ### Dev
 
 - Create scripts for purely automated deployment
