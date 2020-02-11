@@ -30,6 +30,10 @@ export class CEM {
    * @param {EventListenerOrEventListenerObject} listener
    */
   static removeEventListener(eventName, listener) {
+    const i = this.storage[eventName].findIndex((event) => {
+      return event.listener === listener
+    })
+    this.storage[eventName].splice(i, 1)
     document.removeEventListener(eventName, listener)
   }
 
@@ -75,7 +79,7 @@ export class CEM {
       while (i--) {
         const chunk = this.storage[eventName][i]
         if (!chunk.target.parentElement) {
-          this.removeEventListener(eventName, chunk.listener)
+          document.removeEventListener(eventName, chunk.listener)
           this.storage[eventName].splice(i, 1)
         }
       }
