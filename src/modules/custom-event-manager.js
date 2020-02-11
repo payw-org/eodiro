@@ -26,7 +26,7 @@ export class CEM {
 
   /**
    * Remove event listener with the same event name and callback
-   * @param {string} eventName
+   * @param {AvailableEventNames} eventName
    * @param {EventListenerOrEventListenerObject} listener
    */
   static removeEventListener(eventName, listener) {
