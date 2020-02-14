@@ -1,10 +1,15 @@
 <template>
-  <div class="grid-layout" :class="`proportion--${proportion} gap--${gap}`">
+  <div
+    class="grid-layout"
+    :class="`proportion--${proportionClassName} gap--${gap}`"
+  >
     <slot />
   </div>
 </template>
 
 <script>
+import { camelToKebab } from '~/modules/string-utils'
+
 export default {
   props: {
     proportion: {
@@ -12,7 +17,7 @@ export default {
       required: false,
       default: 'medium',
       validator(value) {
-        return ['small', 'medium', 'large'].includes(value)
+        return ['extraSmall', 'small', 'medium', 'large'].includes(value)
       },
     },
     gap: {
@@ -22,6 +27,11 @@ export default {
       validator(value) {
         return ['small', 'medium', 'large'].includes(value)
       },
+    },
+  },
+  computed: {
+    proportionClassName() {
+      return camelToKebab(this.proportion)
     },
   },
 }
@@ -35,16 +45,24 @@ export default {
   grid-gap: s(5);
   grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
 
-  @include smaller-than(400px) {
-    grid-template-columns: 1fr !important;
+  &.proportion--extra-small {
+    grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
   }
 
   &.proportion--small {
     grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+
+    @include smaller-than(300px) {
+      grid-template-columns: 1fr !important;
+    }
   }
 
   &.proportion--large {
     grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+
+    @include smaller-than(400px) {
+      grid-template-columns: 1fr !important;
+    }
   }
 
   &.gap--small {
