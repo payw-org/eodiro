@@ -3,6 +3,15 @@ import useAxios from '~/modules/use-axios'
 import Api from '~/modules/eodiro-api/api'
 
 export default class LectureApi extends Api {
+  async getCoverages() {
+    const [err, res] = await useAxios({
+      method: 'get',
+      url: ApiHost.getUrl('/lectures/coverages'),
+    })
+
+    return err ? false : res.data
+  }
+
   /**
    * @param {Object} options
    * @param {number} options.year
