@@ -64,7 +64,21 @@
       <h2 class="section-title">
         나의 포스트
       </h2>
-      <div class="" />
+      <div class="my-posts">
+        <div
+          v-for="post in myPosts"
+          :key="post.id"
+          class="my-post-item info-block"
+        >
+          <NuxtLink :to="`/pepero-square/${post.id}`" class="absolute-link" />
+          <h1 class="post-title">
+            {{ post.title }}
+          </h1>
+          <p class="post-body">
+            {{ post.body }}
+          </p>
+        </div>
+      </div>
     </section>
 
     <section class="info-section">
@@ -106,13 +120,19 @@ export default {
   async asyncData({ app, req, res, store }) {
     if (!store.state.auth.isSignedIn) return
 
-    const myInfo = await UserApi.getUserInfo({ req, res })
+    const userApi = new UserApi()
+    const myInfo = await userApi.getUserInfo({ req, res })
+    const myPosts = await userApi.myPosts({
+      http: { req, res },
+      amount: 5,
+    })
 
-    return myInfo ? { myInfo } : undefined
+    return { myInfo: myInfo || {}, myPosts: myPosts || {} }
   },
   data() {
     return {
       myInfo: {},
+      myPosts: {},
     }
   },
   methods: {
@@ -179,6 +199,18 @@ export default {
       .ib-body {
         font-size: b(2);
         margin-top: s(2);
+      }
+    }
+
+    .my-posts {
+      .my-post-item {
+        position: relative;
+        margin-top: s(3);
+
+        .post-title {
+          font-size: b(4);
+          font-weight: fw(4);
+        }
       }
     }
   }
