@@ -7,6 +7,10 @@ It includes new features to be added, bug fixes, source code refactoring and any
 - [ ] Add **Terms of Use** section and agreeing process
 - [ ] Set default color scheme to 'auto'
 
+## Performance
+
+- Prevent running `asyncData()` again when load cached pages
+
 ## Banner
 
 ### Performance
