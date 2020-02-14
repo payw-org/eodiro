@@ -22,7 +22,6 @@
             v-else
             class="menu-item-wrapper beta"
             :link="localePath('me').replace(/\/$/, '')"
-            @click="showTopbar"
           >
             <template v-slot:icon>
               <span class="icon icon--me" />
@@ -49,7 +48,6 @@
           <ArrowBlock
             class="menu-item-wrapper"
             :link="localePath('lectures').replace(/\/$/, '')"
-            @click="showTopbar"
           >
             <template v-slot:icon>
               <span class="icon icon--lectures" />
@@ -63,7 +61,6 @@
           <!-- <ArrowBlock
             class="menu-item-wrapper"
             :link="localePath('vacant').replace(/\/$/, '')"
-            @click="showTopbar"
           >
             <template v-slot:icon>
               <span class="icon icon--vacant" />
@@ -77,7 +74,6 @@
           <ArrowBlock
             class="menu-item-wrapper"
             :link="localePath('cafeteria-date').replace(/\/$/, '')"
-            @click="showTopbar"
           >
             <template v-slot:icon>
               <span class="icon icon--cafeteria" />
