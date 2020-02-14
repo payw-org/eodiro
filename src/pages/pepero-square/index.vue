@@ -105,7 +105,7 @@ export default {
 
       if (!mostRecentPost) {
         this.isLoadingMore = true
-        await wait(200)
+        await wait(100)
       }
 
       // Fetch only after done fetching

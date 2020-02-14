@@ -114,7 +114,7 @@ export default {
         }
 
         this.isFetching = false
-      }, 300)
+      }, 100)
     },
     async leaveComment(event) {
       if (this.newComment.trim().length === 0) {
