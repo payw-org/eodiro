@@ -1,5 +1,5 @@
 <template>
-  <div class="arrow-block" @click="$emit('click')">
+  <div class="arrow-block" :class="{ fit: fit }" @click="$emit('click')">
     <NuxtLink v-if="link !== ''" :to="link" class="absolute-link" />
 
     <!-- only visible when icon slot is set -->
@@ -29,6 +29,11 @@ export default {
       required: false,
       default: '',
     },
+    fit: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
   },
 }
 </script>
@@ -39,6 +44,10 @@ export default {
 .arrow-block {
   @include block-style;
   cursor: pointer;
+
+  &.fit {
+    min-height: unset !important;
+  }
 
   .arrb-icon-wrapper {
     display: flex;
