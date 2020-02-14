@@ -32,6 +32,14 @@ export const state = () => ({
   },
 })
 
+/**
+ * @typedef RootState
+ * @type {ReturnType<typeof state>}
+ */
+
+/**
+ * @type {import('vuex').MutationTree<RootState>}
+ */
 export const mutations = {
   SET_IS_FIRST_LOAD(state, value) {
     state.isFirstLoad = value
@@ -42,29 +50,8 @@ export const mutations = {
   SET_LANG(state, lang) {
     state.lang = lang
   },
-  /**
-   * @param {'light'|'dark'|'auto'} mode
-   * @param {Object} payload
-   * @param {string} payload.mode
-   * @param {import('http').ServerResponse} payload.res
-   */
-  async SET_COLOR_SCHEME(state, payload) {
-    const { mode, res } = payload
-
-    let newMode = mode
-
-    if (!mode) {
-      newMode = 'light'
-    }
-
-    await new EodiroCookie({ res }).set(
-      CookieConfig.colorSchemeCookieName,
-      newMode,
-      defaultCookieOptions
-    )
-
-    const colorSchemeClassName = getColorClassName(newMode)
-    state.colorSchemeClassName = colorSchemeClassName
+  SET_COLOR_SCHEME(state, colorScheme) {
+    state.colorSchemeClassName = colorScheme
   },
   CACHE_ROUTE(state, payload) {
     const { componentName, depth } = payload
@@ -116,6 +103,9 @@ export const mutations = {
   },
 }
 
+/**
+ * @type {import('vuex').ActionTree<RootState, RootState>}
+ */
 export const actions = {
   nuxtServerInit({ commit, state }, { req, res, redirect, app, route }) {
     // If color scheme is set in cookie
@@ -157,5 +147,21 @@ export const actions = {
     eodiroCookie.pile(CookieConfig.langCookieName, lang, defaultCookieOptions)
 
     eodiroCookie.bulkSet()
+  },
+  async setColorScheme({ commit, state }, { res, mode }) {
+    let newMode = mode
+    if (!newMode) {
+      newMode = 'light'
+    }
+
+    await new EodiroCookie({ res }).set(
+      CookieConfig.colorSchemeCookieName,
+      newMode,
+      defaultCookieOptions
+    )
+
+    const colorSchemeClassName = getColorClassName(newMode)
+    commit('SET_COLOR_SCHEME', colorSchemeClassName)
+    // state.colorSchemeClassName = colorSchemeClassName
   },
 }

@@ -77,8 +77,8 @@ export default {
       )
       window.location.reload()
     },
-    switchColorScheme(mode) {
-      this.$store.commit('SET_COLOR_SCHEME', { mode })
+    async switchColorScheme(mode) {
+      await this.$store.dispatch('setColorScheme', { mode })
     },
   },
   head() {
