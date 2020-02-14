@@ -62,7 +62,7 @@ export default {
         this.oldScroll > this.scrollY &&
         window.innerHeight + this.scrollY < document.body.scrollHeight
       ) {
-        // Up
+        // Scroll up
         if (that.isHidden) {
           // Dispatch scroll up custom event
           CEM.dispatchEvent('gobackbtnappeared')
@@ -70,8 +70,7 @@ export default {
 
         // Show go back button
         that.isHidden = false
-      } else if (this.scrollY > 0) {
-        // Down
+        // Scroll down
         if (!that.isHidden) {
           // Dispatch scroll down custom event
           CEM.dispatchEvent('gobackbtnhidden')
