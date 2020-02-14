@@ -65,15 +65,21 @@
         나의 포스트
       </h2>
       <div class="my-posts">
+        <div v-for="post in myPosts" :key="post.id" class="my-post-item">
+          <ArrowBlock
+            :link="`/pepero-square/${post.id}`"
+            fit
             @click="showTopbar"
         >
-          <NuxtLink :to="`/pepero-square/${post.id}`" class="absolute-link" />
+            <template v-slot:content>
           <h1 class="post-title">
             {{ post.title }}
           </h1>
           <p class="post-body">
             {{ post.body }}
           </p>
+            </template>
+          </ArrowBlock>
         </div>
       </div>
     </section>
@@ -108,11 +114,11 @@ import autoHead from '~/modules/auto-head'
 import requireAuthMixin from '~/mixins/require-auth-mixin'
 import useAxios from '~/modules/use-axios'
 import { UserApi } from '~/modules/eodiro-api'
-import { Button, Grid } from '~/components/ui'
+import { Button, Grid, ArrowBlock } from '~/components/ui'
 
 export default {
   name: 'me',
-  components: { Button, Grid },
+  components: { Button, Grid, ArrowBlock },
   mixins: [pageBase, requireAuthMixin],
   async asyncData({ app, req, res, store }) {
     if (!store.state.auth.isSignedIn) return
