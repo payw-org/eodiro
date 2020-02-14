@@ -59,9 +59,13 @@ export default async (context) => {
     // shift + ctrl + D | shift + ctrl + L
     window.addEventListener('keydown', (e) => {
       if (e.shiftKey && (e.metaKey || e.ctrlKey) && e.code === 'KeyL') {
-        store.commit('SET_COLOR_SCHEME', { mode: 'light' })
+        store.dispatch('setColorScheme', {
+          mode: 'light',
+        })
       } else if (e.shiftKey && (e.metaKey || e.ctrlKey) && e.code === 'KeyD') {
-        store.commit('SET_COLOR_SCHEME', { mode: 'dark' })
+        store.dispatch('setColorScheme', {
+          mode: 'dark',
+        })
       }
     })
 
