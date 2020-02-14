@@ -22,30 +22,30 @@ const config = {
       { name: 'theme-color', content: '#ffffff' },
       {
         name: 'apple-mobile-web-app-status-bar-style',
-        content: 'default'
-      }
+        content: 'default',
+      },
     ],
     link: [
       {
         rel: 'apple-touch-icon',
-        href: '/apple-touch-icon.png'
+        href: '/apple-touch-icon.png',
       },
       {
         rel: 'apple-touch-icon',
         sizes: '180x180',
-        href: '/apple-touch-icon-180.png'
+        href: '/apple-touch-icon-180.png',
       },
       {
         rel: 'apple-touch-icon',
         sizes: '152x152',
-        href: '/apple-touch-icon-152.png'
+        href: '/apple-touch-icon-152.png',
       },
       { rel: 'mask-icon', href: '/safari-pinned-tab.svg', color: '#ff6421' },
       {
         rel: 'manifest',
-        href: '/manifest.webmanifest'
-      }
-    ]
+        href: '/manifest.webmanifest',
+      },
+    ],
   },
 
   // Source directory
@@ -54,7 +54,7 @@ const config = {
   router: {
     // Custom link class names
     linkActiveClass: 'active-link',
-    linkExactActiveClass: 'exact-active-link'
+    linkExactActiveClass: 'exact-active-link',
     // base: '/eodiro/'
 
     // Run middleware when route changes
@@ -76,12 +76,12 @@ const config = {
   css: [
     '~/assets/styles/css/fonts.css',
     '~/assets/styles/scss/global/globalstyle.scss',
-    '~/assets/styles/stylus/spring.styl'
+    '~/assets/styles/stylus/spring.styl',
   ],
 
   plugins: [
     { src: '~/plugins/init.js' },
-    { src: '~/plugins/ga.js', mode: 'client' }
+    { src: '~/plugins/ga.js', mode: 'client' },
   ],
 
   buildModules: ['@nuxtjs/eslint-module', '~/modules/nuxt/extend-route'],
@@ -96,28 +96,28 @@ const config = {
             name: 'English',
             code: 'en',
             iso: 'en-US',
-            file: 'en-US.js'
+            file: 'en-US.js',
           },
           {
             name: 'Korean',
             code: 'ko',
             iso: 'ko-KR',
-            file: 'ko-KR.js'
-          }
+            file: 'ko-KR.js',
+          },
         ],
         lazy: true,
         langDir: 'lang/',
         defaultLocale: 'ko',
-        detectBrowserLanguage: false
-      }
-    ]
+        detectBrowserLanguage: false,
+      },
+    ],
   ],
 
   serverMiddleware: [
     {
       path: '/api/set-cookie',
-      handler: '~/api/set-cookie.js'
-    }
+      handler: '~/api/set-cookie.js',
+    },
   ],
 
   // Custom build path name
@@ -125,11 +125,11 @@ const config = {
     publicPath: '/dist/',
     postcss: {
       plugins: {
-        autoprefixer: {}
-      }
+        autoprefixer: {},
+      },
     },
     babel: {
-      babelrc: true
+      babelrc: true,
     },
     extend(config) {
       config.module.rules.push({
@@ -137,11 +137,11 @@ const config = {
         // loading templates inside js/ts
         test: /\.(html)$/,
         use: {
-          loader: 'html-loader'
-        }
+          loader: 'html-loader',
+        },
       })
-    }
-  }
+    },
+  },
 }
 
 export default config
