@@ -121,8 +121,6 @@ export default {
           })
         })
       }
-
-      console.log(this.$store.state.cachedComponents)
     },
   },
   created() {
