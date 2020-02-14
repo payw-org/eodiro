@@ -70,14 +70,14 @@
             :link="`/pepero-square/${post.id}`"
             fit
             @click="showTopbar"
-        >
+          >
             <template v-slot:content>
-          <h1 class="post-title">
-            {{ post.title }}
-          </h1>
-          <p class="post-body">
-            {{ post.body }}
-          </p>
+              <h1 class="post-title">
+                {{ post.title }}
+              </h1>
+              <p class="post-body">
+                {{ post.body }}
+              </p>
             </template>
           </ArrowBlock>
         </div>
@@ -115,13 +115,16 @@ import requireAuthMixin from '~/mixins/require-auth-mixin'
 import useAxios from '~/modules/use-axios'
 import { UserApi } from '~/modules/eodiro-api'
 import { Button, Grid, ArrowBlock } from '~/components/ui'
+import { isCached } from '~/modules/nuxt/is-cached'
 
 export default {
   name: 'me',
   components: { Button, Grid, ArrowBlock },
   mixins: [pageBase, requireAuthMixin],
-  async asyncData({ app, req, res, store }) {
+  async asyncData({ app, req, res, store, route }) {
     if (!store.state.auth.isSignedIn) return
+
+    if (isCached(store, route)) return
 
     const userApi = new UserApi()
     const myInfo = await userApi.getUserInfo({ req, res })
