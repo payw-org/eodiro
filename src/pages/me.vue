@@ -65,10 +65,7 @@
         나의 포스트
       </h2>
       <div class="my-posts">
-        <div
-          v-for="post in myPosts"
-          :key="post.id"
-          class="my-post-item info-block"
+            @click="showTopbar"
         >
           <NuxtLink :to="`/pepero-square/${post.id}`" class="absolute-link" />
           <h1 class="post-title">

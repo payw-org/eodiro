@@ -32,6 +32,7 @@ const mixinOptions = {
   data() {
     return {
       lastScrollPosition: 0,
+      topbarTimeout: 0,
     }
   },
   created() {
@@ -46,12 +47,9 @@ const mixinOptions = {
       )
     }
   },
-  mounted() {
-    // Finish topbar when the data is completely loaded
-    // and the page is mounted
-    window.topbar.hide()
-  },
   activated() {
+    this.hideTopbar()
+
     setTimeout(() => {
       // Restore scroll position
       disableScroll.off()
@@ -77,7 +75,16 @@ const mixinOptions = {
   methods: {
     // Start topbar
     showTopbar() {
-      window.topbar.show()
+      this.topbarTimeout = window.topbar.show()
+      setTimeout(() => {
+        window.topbar.hide()
+      }, 10000)
+    },
+    hideTopbar() {
+      if (this.topbarTimeout) {
+        clearTimeout(this.topbarTimeout)
+      }
+      window.topbar.hide()
     },
   },
 }

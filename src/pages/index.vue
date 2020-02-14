@@ -8,6 +8,7 @@
             v-if="!$store.state.auth.isSignedIn"
             class="menu-item-wrapper beta"
             :link="localePath('sign-in').replace(/\/$/, '')"
+            @click="showTopbar"
           >
             <template v-slot:icon>
               <span class="icon icon--signin" />
@@ -22,6 +23,7 @@
             v-else
             class="menu-item-wrapper beta"
             :link="localePath('me').replace(/\/$/, '')"
+            @click="showTopbar"
           >
             <template v-slot:icon>
               <span class="icon icon--me" />
@@ -48,6 +50,7 @@
           <ArrowBlock
             class="menu-item-wrapper"
             :link="localePath('lectures').replace(/\/$/, '')"
+            @click="showTopbar"
           >
             <template v-slot:icon>
               <span class="icon icon--lectures" />
@@ -74,6 +77,7 @@
           <ArrowBlock
             class="menu-item-wrapper"
             :link="localePath('cafeteria-date').replace(/\/$/, '')"
+            @click="showTopbar"
           >
             <template v-slot:icon>
               <span class="icon icon--cafeteria" />
