@@ -11,6 +11,33 @@
       <div class="magnifier-icon" />
     </div>
 
+    <div class="coverage">
+      <div class="select-wrapper">
+        <select id="" name="">
+          <option v-for="year in coverage.year" :key="'year' + year">
+            {{ year }}
+          </option>
+        </select>
+      </div>
+      <div class="select-wrapper">
+        <select id="" name="">
+          <option
+            v-for="semester in coverage.semester"
+            :key="'semester' + semester"
+          >
+            {{ `${semester}학기` }}
+          </option>
+        </select>
+      </div>
+      <div class="select-wrapper">
+        <select id="" name="">
+          <option v-for="campus in coverage.campus" :key="'campus' + campus">
+            {{ campus }}
+          </option>
+        </select>
+      </div>
+    </div>
+
     <Grid>
       <div
         v-for="lecture in lectures"
@@ -66,6 +93,7 @@ export default {
   components: { Accordion, Grid, Loading },
   mixins: [pageBase],
   async asyncData() {
+    const coverage = await new LectureApi().getCoverages()
     const lectures = await new LectureApi().getLectures({
       year: 2020,
       semester: '1',
@@ -76,6 +104,7 @@ export default {
 
     return {
       lectures,
+      coverage,
     }
   },
   data() {
@@ -186,6 +215,20 @@ export default {
 @import '~/assets/styles/scss/main';
 
 #eodiro-lectures {
+  .coverage {
+    display: flex;
+    margin-bottom: s(5);
+
+    .select-wrapper {
+      flex: 1;
+      margin-right: s(3);
+
+      &:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
   .search-container {
     @include bg;
     z-index: 10;
