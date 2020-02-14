@@ -59,7 +59,6 @@ export default {
     })
 
     if (!err) {
-      console.log(response.data)
       this.contributors.push(...response.data)
     }
   },
