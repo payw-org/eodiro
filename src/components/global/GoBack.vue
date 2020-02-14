@@ -58,6 +58,10 @@ export default {
 
     // Create scroll event callback function
     this.scrollEventCallback = function() {
+      if (!this.anchor || this.anchor > this.scrollY) {
+        this.anchor = this.scrollY
+      }
+
       if (
         this.oldScroll > this.scrollY &&
         window.innerHeight + this.scrollY < document.body.scrollHeight
@@ -70,6 +74,8 @@ export default {
 
         // Show go back button
         that.isHidden = false
+        this.anchor = this.scrollY
+      } else if (this.anchor < this.scrollY - 100) {
         // Scroll down
         if (!that.isHidden) {
           // Dispatch scroll down custom event
@@ -89,6 +95,28 @@ export default {
           that.isHidden = false
         }
       }
+
+      // else if (this.scrollY > 0) {
+      //   // Scroll down
+      //   if (!that.isHidden) {
+      //     // Dispatch scroll down custom event
+      //     CEM.dispatchEvent('gobackbtnhidden')
+      //   }
+
+      //   // Hide go back button
+      //   that.isHidden = true
+
+      //   // When the scroll hits the bottom
+      //   if (window.innerHeight + this.scrollY >= document.body.scrollHeight) {
+      //     if (that.isHidden) {
+      //       // Dispatch scroll up custom event
+      //       CEM.dispatchEvent('gobackbtnappeared')
+      //     }
+
+      //     that.isHidden = false
+      //   }
+      // }
+
       this.oldScroll = this.scrollY
     }
 
