@@ -2,6 +2,14 @@
   <transition name="fade">
     <div v-show="prevRouteName" id="go-back" :class="{ hidden: isHidden }">
       <NuxtLink
+        :to="jumpLink"
+        class="jump-link"
+        :class="{ exists: isJumpExists }"
+      >
+        <button class="jump-btn" />
+      </NuxtLink>
+
+      <NuxtLink
         class="prev-link"
         :to="prevRouteName ? localePath(prevRouteName) : localePath('index')"
       >
@@ -19,6 +27,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 import { CEM } from '~/modules/custom-event-manager'
 
 export default {
@@ -31,6 +40,17 @@ export default {
   computed: {
     prevRouteName() {
       return this.$route.meta.prevRouteName
+    },
+    ...mapState({
+      jumpHistory: (state) => state.jumpHistory,
+    }),
+    isJumpExists() {
+      return this.jumpHistory.length > 0
+    },
+    jumpLink() {
+      return this.isJumpExists
+        ? this.localePath(this.jumpHistory[this.jumpHistory.length - 1])
+        : ''
     },
   },
   mounted() {
@@ -131,7 +151,7 @@ $go-back-btn-height: 2.7rem;
   opacity: 1;
   transform: translateX(-50%) scale(1);
   border-radius: 50px;
-  box-shadow: 0 2rem 10rem rgba(#000, 0.6);
+  box-shadow: 0 1.1rem 3rem rgba(#000, 0.2);
   transition: transform 300ms ease, opacity 300ms ease,
     background-color $color-scheme-transition-time ease;
 
@@ -145,8 +165,31 @@ $go-back-btn-height: 2.7rem;
     pointer-events: none;
   }
 
+  .jump-link {
+    display: flex;
+    width: 0;
+    overflow: hidden;
+    transition: width 200ms ease;
+
+    &.exists {
+      width: $go-back-btn-height * 1.3;
+    }
+
+    .jump-btn {
+      width: $go-back-btn-height * 1.3;
+      height: $go-back-btn-height;
+      @include bgImg(
+        '~assets/images/icons/jump-arrow.svg',
+        '57% center',
+        '45%'
+      );
+      @include separator('right');
+      padding: 0 s(4);
+    }
+  }
+
   .prev-btn {
-    padding: 0 $gentle-gap;
+    padding: 0 s(4);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -170,7 +213,7 @@ $go-back-btn-height: 2.7rem;
   }
 
   .go-home {
-    padding: 0 $gentle-gap;
+    padding: 0 s(4);
     // margin-right: $slight-gap;
     display: flex;
     height: $go-back-btn-height;

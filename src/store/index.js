@@ -26,6 +26,8 @@ export const state = () => ({
   isFirstLoad: true,
   cachedComponents: [],
   routeCache: [],
+  /** @type {string[]} */
+  jumpHistory: [],
   currentHamlet: '',
   auth: {
     isSignedIn: false,
@@ -101,6 +103,9 @@ export const mutations = {
   SET_SIGNED_IN(state, bool) {
     state.auth.isSignedIn = bool
   },
+  SET_JUMP_HISTORY(state, newHistory) {
+    state.jumpHistory = newHistory
+  },
 }
 
 /**
@@ -163,5 +168,21 @@ export const actions = {
     const colorSchemeClassName = getColorClassName(newMode)
     commit('SET_COLOR_SCHEME', colorSchemeClassName)
     // state.colorSchemeClassName = colorSchemeClassName
+  },
+  /**
+   * @param {string} routeName
+   */
+  pushJump({ commit, state }, routeName) {
+    const newHistory = [...state.jumpHistory]
+    newHistory.push(routeName)
+    commit('SET_JUMP_HISTORY', newHistory)
+  },
+  popJump({ commit, state }) {
+    const newHistory = [...state.jumpHistory]
+    newHistory.pop()
+    commit('SET_JUMP_HISTORY', newHistory)
+  },
+  clearJump({ commit, state }) {
+    commit('SET_JUMP_HISTORY', [])
   },
 }

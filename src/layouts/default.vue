@@ -24,6 +24,7 @@ import { CEM } from '~/modules/custom-event-manager'
 import Banner from '~/components/global/Banner'
 import GoBack from '~/components/global/GoBack'
 import autoHead from '~/modules/auto-head'
+import cleanPathName from '~/modules/clean-path-name'
 
 export default {
   components: { Banner, GoBack },
@@ -47,32 +48,70 @@ export default {
       // When route changes
       // cache or remove components from keep-alive
 
-      if (from.meta.depth < to.meta.depth) {
-        // Route direction: forward
-        // Cache components included in the destination route
-        to.matched.forEach((matched) => {
-          const componentName = matched.components.default.options.name
-          this.$store.commit('CACHE_ROUTE', {
-            componentName,
-            depth: to.meta.depth,
-            hamletName: to.meta.hamletName,
-          })
-        })
-      } else if (from.meta.depth >= to.meta.depth) {
-        // Route direction: backward or same level
+      if (from.meta.hamletName === to.meta.hamletName) {
+        // Clear jump history
+        this.$store.dispatch('clearJump')
 
-        // When redirect to different hamlet,
-        // clear cached routes from other hamlets
-        let clearDepth = to.meta.depth
-        if (from.meta.hamletName !== to.meta.hamletName) {
-          clearDepth = 0
+        if (from.meta.depth < to.meta.depth) {
+          // Route direction: forward
+          // Cache components included in the destination route
+          to.matched.forEach((matched) => {
+            const componentName = matched.components.default.options.name
+            this.$store.commit('CACHE_ROUTE', {
+              componentName,
+              depth: to.meta.depth,
+              hamletName: to.meta.hamletName,
+            })
+          })
+        } else if (from.meta.depth >= to.meta.depth) {
+          // Route direction: backward or same level
+
+          // When redirect to different hamlet,
+          // clear cached routes from other hamlets
+          // let clearDepth = to.meta.depth
+          // if (from.meta.hamletName !== to.meta.hamletName) {
+          //   clearDepth = 0
+          // }
+
+          // this.$store.commit('CLEAR_ROUTE', {
+          //   destinationDepth: clearDepth,
+          // })
+
+          // Cache destination components if not cached
+          to.matched.forEach((matched) => {
+            const componentName = matched.components.default.options.name
+            this.$store.commit('CACHE_ROUTE', {
+              componentName,
+              depth: to.meta.depth,
+              hamletName: to.meta.hamletName,
+            })
+          })
+        }
+      } else {
+        // Redirect to different hamlet
+        // We call it 'Jump'
+
+        // TODO: Add a jump button to the previous hamlet route
+        if (from.meta.hamletName !== 'home' && to.meta.hamletName !== 'home') {
+          const jumpHistory = this.$store.state.jumpHistory
+          if (
+            jumpHistory.length > 0 &&
+            jumpHistory[jumpHistory.length - 1] === cleanPathName(to.name)
+          ) {
+            this.$store.dispatch('popJump')
+          } else {
+            this.$store.dispatch('pushJump', cleanPathName(from.name))
+          }
         }
 
-        this.$store.commit('CLEAR_ROUTE', {
-          destinationDepth: clearDepth,
-        })
+        // When go to home, clear the cache
+        if (to.meta.hamletName === 'home') {
+          this.$store.commit('CLEAR_ROUTE', {
+            destinationDepth: to.meta.depth,
+          })
+        }
 
-        // Cache destination components if not cached
+        // Cache the destination route components
         to.matched.forEach((matched) => {
           const componentName = matched.components.default.options.name
           this.$store.commit('CACHE_ROUTE', {
@@ -82,6 +121,8 @@ export default {
           })
         })
       }
+
+      console.log(this.$store.state.cachedComponents)
     },
   },
   created() {
