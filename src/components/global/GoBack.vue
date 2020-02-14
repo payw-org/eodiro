@@ -200,16 +200,31 @@ $go-back-btn-height: 2.7rem;
 
     &.exists {
       width: $go-back-btn-height * 1.3;
+
+      .jump-btn {
+        opacity: 1;
+        transform: scale(1);
+      }
     }
 
     .jump-btn {
+      transition: opacity 200ms ease, transform 200ms ease;
+      opacity: 0;
+      transform: scale(0);
       width: $go-back-btn-height * 1.3;
       height: $go-back-btn-height;
       @include bgImg(
         '~assets/images/icons/jump-arrow.svg',
         '57% center',
-        '45%'
+        '1.5rem 1.5rem'
       );
+      @include dark-mode {
+        @include bgImg(
+          '~assets/images/icons/jump-arrow-dark.svg',
+          '57% center',
+          '1.5rem 1.5rem'
+        );
+      }
       @include separator('right');
       padding: 0 s(4);
     }
