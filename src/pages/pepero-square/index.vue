@@ -10,12 +10,7 @@
       </button>
     </div>
     <div class="posts-list">
-      <PostItem
-        v-for="item in posts"
-        :key="item.id"
-        :post-data="item"
-        @click.native="showTopbar"
-      />
+      <PostItem v-for="item in posts" :key="item.id" :post-data="item" />
     </div>
 
     <p v-show="!isLoadingMore && posts.length === 0" class="message">
