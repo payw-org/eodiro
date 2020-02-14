@@ -1,60 +1,51 @@
 <template>
   <div id="opensource">
-    <h1>{{ $t('opensource.title') }}</h1>
+    <div class="title-container">
+      <h1>{{ $t('opensource.title') }}</h1>
+      <div class="github-star-button">
+        <a href="https://github.com/paywteam/eodiro">
+          <img
+            src="https://img.shields.io/github/stars/paywteam/eodiro?style=social"
+          />
+        </a>
+      </div>
+    </div>
     <p class="manifesto">
       {{ $t('opensource.manifesto') }}
     </p>
 
-    <div class="github-star-button">
-      <a
-        class="github-button"
-        href="https://github.com/paywteam/eodiro"
-        data-icon="octicon-star"
-        data-size="large"
-        data-show-count="true"
-        aria-label="Star paywteam/eodiro on GitHub"
-      >
-        Star
-      </a>
-    </div>
-
-    <button class="github-organization-button">
-      <a
-        href="https://github.com/paywteam/eodiro"
-        class="absolute-link"
-        target="_blank"
-      />
-      <span class="github-logo-wrapper">
-        <img
-          src="@/assets/images/github/logo-inverted.svg"
-          alt="github logo"
-          class="github-logo"
-          data-color-scheme="light"
-        />
-        <img
-          src="@/assets/images/github/logo-original.svg"
-          alt="github logo"
-          class="github-logo"
-          data-color-scheme="dark"
-        />
-      </span>
-      <span>{{ $t('opensource.visit') }}</span>
-    </button>
-    <!-- <div v-for="person in contributors" :key="person.login">
-      <img :src="person.avatar_url" />
-      <span>{{ person.login }}</span>
-    </div> -->
+    <ClientOnly>
+      <div class="contributors-section">
+        <h2 class="header">
+          Contributors
+        </h2>
+        <Grid proportion="extraSmall" class="contributors">
+          <div
+            v-for="person in contributors"
+            :key="person.login"
+            class="person"
+          >
+            <a class="link" :href="person.html_url" target="_blank" />
+            <img :src="person.avatar_url" class="profile-photo" />
+            <p class="bio">
+              <span class="name">{{ person.login }}</span>
+            </p>
+          </div>
+        </Grid>
+      </div>
+    </ClientOnly>
   </div>
 </template>
 
 <script>
-import Vue from 'vue'
 import useAxios from '~/modules/use-axios'
 import pageBase from '~/mixins/page-base'
 import autoHead from '~/modules/auto-head'
+import { Grid } from '~/components/ui'
 
-export default Vue.extend({
+export default {
   name: 'opensource',
+  components: { Grid },
   mixins: [pageBase],
   data() {
     return {
@@ -67,7 +58,10 @@ export default Vue.extend({
       method: 'get',
     })
 
-    this.contributors.push(...response.data)
+    if (!err) {
+      console.log(response.data)
+      this.contributors.push(...response.data)
+    }
   },
   head() {
     return {
@@ -82,41 +76,71 @@ export default Vue.extend({
       ],
     }
   },
-})
+}
 </script>
 
 <style lang="scss">
 @import '~/assets/styles/scss/main';
 
 #opensource {
+  .title-container {
+    .github-star-button {
+      margin: s(3) 0;
+      a {
+        display: flex;
+      }
+    }
+
+    h1 {
+      color: #b91dce;
+    }
+  }
+
   .manifesto {
     margin-top: s(2);
   }
 
-  .github-star-button {
-    margin-top: s(4);
-  }
+  .contributors-section {
+    .header {
+      font-size: h(2);
+      margin-top: s(8);
+    }
 
-  .github-organization-button {
-    @include bg-inverted;
-    @include text-color-inverted;
-    padding: s(2) s(3);
-    margin-top: s(3);
-    border-radius: r(2);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
+    .contributors {
+      margin-top: s(3);
 
-    .github-logo-wrapper {
-      margin-right: s(2);
-      width: 1.2rem;
-      height: 1.2rem;
-      display: flex;
+      .person {
+        position: relative;
+        display: flex;
+        flex-direction: column;
 
-      .github-logo {
-        width: 100%;
-        height: auto;
+        .link {
+          position: absolute;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+        }
+
+        .profile-photo {
+          width: 100%;
+          border-radius: r(3);
+          box-shadow: 0 0.3rem 0.7rem rgba(#000, 0.2);
+        }
+
+        .bio {
+          border-radius: r(3);
+          text-align: center;
+          margin-top: s(2);
+          padding: s(1);
+          // background: $base-white-blue;
+
+          .name {
+            font-size: b(1);
+            font-weight: fw(4);
+            display: block;
+          }
+        }
       }
     }
   }
