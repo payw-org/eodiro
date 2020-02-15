@@ -67,7 +67,14 @@
       <div class="my-posts">
         <div v-for="post in myPosts" :key="post.id" class="my-post-item">
           <ArrowBlock
-            :link="`/pepero-square/${post.id}`"
+            :link="
+              localePath({
+                name: 'pepero-square-postId',
+                params: {
+                  postId: post.id,
+                },
+              })
+            "
             fit
             @click="showTopbar"
           >
