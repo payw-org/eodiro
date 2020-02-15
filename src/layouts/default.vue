@@ -106,6 +106,8 @@ export default {
 
         // When go to home, clear the cache
         if (to.meta.hamletName === 'home') {
+          this.$store.dispatch('clearJump')
+
           this.$store.commit('CLEAR_ROUTE', {
             destinationDepth: to.meta.depth,
           })
