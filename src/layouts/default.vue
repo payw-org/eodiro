@@ -50,46 +50,26 @@ export default {
 
       if (from.meta.hamletName === to.meta.hamletName) {
         // Clear jump history
-        this.$store.dispatch('clearJump')
+        this.$store.dispatch('clearJump', from.meta.hamletName)
 
         if (from.meta.depth < to.meta.depth) {
           // Route direction: forward
           // Cache components included in the destination route
-          to.matched.forEach((matched) => {
-            const componentName = matched.components.default.options.name
-            this.$store.commit('CACHE_ROUTE', {
-              componentName,
-              depth: to.meta.depth,
-              hamletName: to.meta.hamletName,
-            })
-          })
+          this.pushRoute(to)
         } else if (from.meta.depth >= to.meta.depth) {
           // Route direction: backward or same level
 
-          // When redirect to different hamlet,
-          // clear cached routes from other hamlets
-          // let clearDepth = to.meta.depth
-          // if (from.meta.hamletName !== to.meta.hamletName) {
-          //   clearDepth = 0
-          // }
-
-          // this.$store.commit('CLEAR_ROUTE', {
-          //   destinationDepth: clearDepth,
-          // })
+          this.popRoute(from)
 
           // Cache destination components if not cached
-          to.matched.forEach((matched) => {
-            const componentName = matched.components.default.options.name
-            this.$store.commit('CACHE_ROUTE', {
-              componentName,
-              depth: to.meta.depth,
-              hamletName: to.meta.hamletName,
-            })
-          })
+          this.pushRoute(to)
         }
       } else {
         // Redirect to different hamlet
         // We call it 'Jump'
+
+        // Cache destination
+        this.pushRoute(to)
 
         // TODO: Add a jump button to the previous hamlet route
         if (from.meta.hamletName !== 'home' && to.meta.hamletName !== 'home') {
@@ -98,31 +78,27 @@ export default {
             jumpHistory.length > 0 &&
             jumpHistory[jumpHistory.length - 1] === cleanPathName(to.name)
           ) {
-            this.$store.dispatch('popJump')
+            // Jump back
+            this.$store.dispatch('popJump', from.meta.hamletName)
+            this.popRoute(from)
           } else {
+            // Jump forward
             this.$store.dispatch('pushJump', cleanPathName(from.name))
           }
         }
 
-        // When go to home, clear the cache
+        // When go to home, clear the cache and jump history
         if (to.meta.hamletName === 'home') {
           this.$store.dispatch('clearJump')
-
-          this.$store.commit('CLEAR_ROUTE', {
-            destinationDepth: to.meta.depth,
-          })
+          this.$store.dispatch('clearComponent')
+          this.pushRoute(to)
         }
-
-        // Cache the destination route components
-        to.matched.forEach((matched) => {
-          const componentName = matched.components.default.options.name
-          this.$store.commit('CACHE_ROUTE', {
-            componentName,
-            depth: to.meta.depth,
-            hamletName: to.meta.hamletName,
-          })
-        })
       }
+
+      // console.log(JSON.stringify(this.$store.state.cachedComponents, null, 2))
+      // console.log(
+      //   JSON.stringify(this.$store.state.hamletCachedComponents, null, 2)
+      // )
     },
   },
   created() {
@@ -173,6 +149,32 @@ export default {
   methods: {
     identifyBannerForcedMini() {
       this.isBannerForcedMini = this.$route.meta.depth > 1 || this.isErrorPage
+    },
+    /**
+     * @param {import('vue-router/types').Route} route
+     */
+    pushRoute(route) {
+      route.matched.forEach((matched) => {
+        const componentName = matched.components.default.options.name
+        this.$store.dispatch('pushComponent', {
+          hamletName: route.meta.hamletName,
+          componentName,
+          depth: route.meta.depth,
+        })
+      })
+    },
+    /**
+     * @param {import('vue-router/types').Route} route
+     */
+    popRoute(route) {
+      route.matched.forEach((matched) => {
+        const componentName = matched.components.default.options.name
+        this.$store.dispatch('popComponent', {
+          hamletName: route.meta.hamletName,
+          componentName,
+          depth: route.meta.depth,
+        })
+      })
     },
   },
   head() {
