@@ -11,10 +11,16 @@
 - New 'Jump Back' navigation alongside the 'Go Back'
 - No more duplicate `asyncData` process when navigate to cached pages
   - Create and use a new `isCached` module
+- Show the posts I wrote in my page and also you can navigate to the post page directly by clicking it
 
 ### Performance
 
 - Make square posts and comments load much faster
+
+### Chore
+
+- Improve the stability of topbar progress
+- Now the GoBack button disappears when scroll over 100px distance, not immediately after scroll down
 
 ---
 
