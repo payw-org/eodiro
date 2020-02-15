@@ -1,5 +1,23 @@
 # Changelog
 
+## v2.1.0 Beta 16
+
+### Features
+
+- Show contributors in the opensource page
+- Now can select coverage options for searching lectures
+- Add a new `extraSmall` proportion props option to Grid layout comoponent
+- Create a new string utils module and `camelToKebab` function
+- New 'Jump Back' navigation alongside the 'Go Back'
+- No more duplicate `asyncData` process when navigate to cached pages
+  - Create and use a new `isCached` module
+
+### Performance
+
+- Make square posts and comments load much faster
+
+---
+
 ## v2.1.0 Beta 15
 
 ### Features
