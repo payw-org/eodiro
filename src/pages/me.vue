@@ -214,8 +214,21 @@ export default {
         margin-top: s(3);
 
         .post-title {
-          font-size: b(4);
-          font-weight: fw(4);
+          font-size: b(3);
+          font-weight: fw(5);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .post-body {
+          font-size: b(2);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          margin-top: s(2);
+          line-height: 1;
+          color: $base-gray;
         }
       }
     }
