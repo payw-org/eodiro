@@ -1,5 +1,17 @@
 # Changelog
 
+## v2.1.0 Beta 17
+
+### Refactor
+
+- Improve the stability of navigation including Go Back and Jump
+
+### Bug Fixes
+
+- Fix an issue where the lanuage changes unexpectedly when navigate to a post through my page - #260
+
+---
+
 ## v2.1.0 Beta 16
 
 ### Features
