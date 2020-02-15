@@ -66,7 +66,7 @@ export default {
   }
 
   .arrb-content-container {
-    flex: 1;
+    // flex: 1;
     width: calc(100% - #{s(4) * 2});
     padding: 1rem 0;
   }
