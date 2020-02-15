@@ -5,6 +5,7 @@
     </h1>
     <input
       v-model="title"
+      maxlength="100"
       :placeholder="$t('peperoSquare.new.placeholder.title')"
       class="title-input"
       :disabled="isWaiting"
