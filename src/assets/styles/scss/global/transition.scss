@@ -1,6 +1,6 @@
 // fade page transition
 .fade-enter-active {
-  transition: opacity 500ms ease;
+  transition: opacity 350ms ease;
   opacity: 1;
   // transform: scale(1);
 }
@@ -8,13 +8,13 @@
   opacity: 0;
   // transform: scale(0.95);
 }
-// .fade-leave-active {
-//   transition: opacity 0ms ease;
-//   opacity: 1;
-// }
-// .fade-leave-to {
-//   opacity: 0;
-// }
+.fade-leave-active {
+  transition: opacity 150ms ease;
+  opacity: 1;
+}
+.fade-leave-to {
+  opacity: 0;
+}
 
 // test 1
 .test-enter-active,

@@ -43,6 +43,7 @@ export default {
   },
   watch: {
     $route(to, from) {
+      this.$store.commit('SET_IS_FIRST_LOAD', false)
       this.isPointerEventsPrevented = true
 
       // When route changes

@@ -54,7 +54,7 @@ const mixinOptions = {
       // Restore scroll position
       disableScroll.off()
       if (this.$store.state.isFirstLoad) {
-        this.$store.commit('SET_IS_FIRST_LOAD', false)
+        return
       } else {
         window.scrollTo(0, this.lastScrollPosition)
       }
