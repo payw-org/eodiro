@@ -224,6 +224,7 @@ export default {
 
   .master-content {
     // min-height: 100vh;
+    padding-top: 2rem;
     padding-bottom: $master-content-bottom-gap;
     width: calc(100% - #{2 * s(5)});
     // padding-top: calc(#{$banner-height} + #{s(5)});
