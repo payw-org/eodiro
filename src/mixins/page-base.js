@@ -73,7 +73,7 @@ const mixinOptions = {
           pageDepth: this.$route.meta.depth,
         })
       }, 20)
-    }, 100)
+    }, 200)
   },
   deactivated() {
     // Store current scroll position
