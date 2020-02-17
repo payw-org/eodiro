@@ -1,9 +1,5 @@
 <template>
   <div id="eodiro-me">
-    <h1 class="title">
-      {{ $t('me.title') }}
-    </h1>
-
     <section class="info-section registration-information">
       <h2 class="section-title">
         {{ $t('me.information') }}
@@ -99,9 +95,14 @@
 
     <div class="sign-out-section ui6-f-mt-3">
       <div>
-        <Button class="sign-out-btn" full @click="signOut">
+        <!-- <Button class="sign-out-btn" full @click="signOut">
           {{ $t('me.signOut') }}
-        </Button>
+        </Button> -->
+        <EodiroLink :hook="signOut" :to="localePath('index')" replace>
+          <Button class="sign-out-btn" full @click="signOut">
+            {{ $t('me.signOut') }}
+          </Button>
+        </EodiroLink>
       </div>
 
       <div>
@@ -123,10 +124,11 @@ import useAxios from '~/modules/use-axios'
 import { UserApi } from '~/modules/eodiro-api'
 import { Button, Grid, ArrowBlock } from '~/components/ui'
 import { isCached } from '~/modules/nuxt/is-cached'
+import EodiroLink from '~/components/global/EodiroLink'
 
 export default {
   name: 'me',
-  components: { Button, Grid, ArrowBlock },
+  components: { Button, Grid, ArrowBlock, EodiroLink },
   mixins: [pageBase, requireAuthMixin],
   async asyncData({ app, req, res, store, route }) {
     if (!store.state.auth.isSignedIn) return
@@ -152,7 +154,7 @@ export default {
     signOut() {
       this.$store.commit('SET_SIGNED_IN', false)
       Auth.clearJwt()
-      this.$router.replace(this.localePath('index'))
+      // this.$router.replace(this.localePath('index'))
     },
     async signOutFromAll() {
       const [err] = await useAxios({

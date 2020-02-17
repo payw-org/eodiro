@@ -1,7 +1,6 @@
 <template>
   <div id="opensource">
     <div class="title-container">
-      <h1>{{ $t('opensource.title') }}</h1>
       <div class="github-star-button">
         <a href="https://github.com/paywteam/eodiro">
           <img
