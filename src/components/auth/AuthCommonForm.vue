@@ -107,24 +107,32 @@
 
       <div>
         <!-- Redirect to sign in -->
-        <NuxtLink v-if="!isSignIn" class="redirect" :to="localePath('sign-in')">
+        <EodiroLink
+          v-if="!isSignIn"
+          class="redirect"
+          :to="localePath('sign-in')"
+        >
           {{ $t('auth.signIn') }} →
-        </NuxtLink>
+        </EodiroLink>
 
         <!-- Redirect to sign up -->
-        <NuxtLink v-if="!isSignUp" class="redirect" :to="localePath('sign-up')">
+        <EodiroLink
+          v-if="!isSignUp"
+          class="redirect"
+          :to="localePath('sign-up')"
+        >
           {{ $t('auth.signUp') }} →
-        </NuxtLink>
+        </EodiroLink>
 
         <!-- Forgot password -->
-        <NuxtLink v-if="isSignIn" :to="localePath('forgot')" class="redirect">
+        <EodiroLink v-if="isSignIn" :to="localePath('forgot')" class="redirect">
           {{ $t('auth.didYouForgot') }}
-        </NuxtLink>
+        </EodiroLink>
 
         <!-- Privacy policy -->
-        <NuxtLink :to="localePath('privacy')" class="redirect">
+        <EodiroLink :to="localePath('privacy')" class="redirect">
           {{ $t('privacy.title') }}
-        </NuxtLink>
+        </EodiroLink>
       </div>
     </div>
   </div>
@@ -137,9 +145,10 @@ import { Button } from '~/components/ui'
 import Auth from '~/modules/auth'
 import { AuthApi } from '~/modules/eodiro-api'
 import EodiroDialog from '~/modules/eodiro-dialog'
+import EodiroLink from '~/components/global/EodiroLink'
 
 export default {
-  components: { Button },
+  components: { Button, EodiroLink },
   mixins: [handleInputEnter, handleInput],
   middleware: 'require-unauth',
   props: {
