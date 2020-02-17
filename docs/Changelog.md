@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.1.0 Beta 20
+
+### Bug Fixes
+
+- Resolve wrong background color in the adaptive color scheme mode
+
+---
+
 ## v2.1.0 Beta 19
 
 ### Bug Fixes
