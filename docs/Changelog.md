@@ -1,5 +1,19 @@
 # Changelog
 
+## v2.1.0 Beta 19
+
+### Bug Fixes
+
+- Use padding instead of margin under the banner
+
+### Chore
+
+- Remove headers from 'sign in', 'sign up', 'forgot' pages
+- Replace `nuxt-link` with `EodiroLink` in Pepero Square 'sign in' requirement
+- Make the page transition twice as faster
+
+---
+
 ## v2.1.0 Beta 18
 
 ### Highlights
