@@ -68,7 +68,6 @@
 </template>
 
 <script>
-import disableScroll from 'disable-scroll'
 import { CEM } from '~/modules/custom-event-manager'
 import HomeBgTile from '~/components/home/HomeBgTile.vue'
 
@@ -170,43 +169,43 @@ export default {
     // after scroll position restoration
     // reobserve the sentinel
     CEM.addEventListener('scrollrestored', this.$el, (e) => {
-      // Reobserve sentinel
-      this.observer.observe(this.sentinel)
-      const bannerElm = document.getElementById('eodiro-banner')
-      const bannerWrapperElm = document.getElementById('eodiro-banner-wrapper')
-      const bannerRect = bannerElm.getBoundingClientRect()
-      const bannerTop = Math.abs(bannerRect.top) // Convert to positive
-      console.log(`bannerTop: ${bannerTop}`)
-      const scrollTop = e.detail.scrollPosition // Always positive
-      console.log(`scrollTop: ${scrollTop}`)
-      const pageDepth = e.detail.pageDepth
-      const distance = bannerTop - scrollTop
-      const bannerHeight = bannerRect.height
-      const navHeight = this.$el
-        .querySelector('.eodiro-navigation')
-        .getBoundingClientRect().height
-      const bannerHeightWithoutNav = bannerHeight - navHeight
-      // let newBannerTop = bannerTop - distance
-      let newBannerTop = -distance
-      if (pageDepth > 1) {
-        newBannerTop = bannerHeightWithoutNav - bannerTop
-        bannerWrapperElm.classList.add('mini')
-      } else {
-        bannerWrapperElm.classList.remove('mini')
-      }
-      if (scrollTop > bannerTop) {
-        newBannerTop = 0
-      }
-      console.log(`newBannerTop: ${newBannerTop}`)
-      bannerWrapperElm.classList.add('transitioning')
-      bannerWrapperElm.style.transform = `translateY(${-newBannerTop}px)`
-      bannerWrapperElm.style.webkitTransform = `translateY(${-newBannerTop}px)`
-      setTimeout(() => {
-        bannerWrapperElm.style.cssText = ''
-        bannerWrapperElm.classList.remove('transitioning')
-        disableScroll.off()
-        CEM.dispatchEvent('bannertransitionended')
-      }, 300)
+      // disableScroll.off()
+      // // Reobserve sentinel
+      // this.observer.observe(this.sentinel)
+      // const bannerElm = document.getElementById('eodiro-banner')
+      // const bannerWrapperElm = document.getElementById('eodiro-banner-wrapper')
+      // const bannerRect = bannerElm.getBoundingClientRect()
+      // const bannerTop = Math.abs(bannerRect.top) // Convert to positive
+      // const scrollTop = e.detail.scrollPosition // Always positive
+      // const pageDepth = e.detail.pageDepth
+      // let distance = scrollTop - bannerTop
+      // const bannerHeight = bannerRect.height
+      // const navHeight = this.$el
+      //   .querySelector('.eodiro-navigation')
+      //   .getBoundingClientRect().height
+      // const bannerHeightWithoutNav = bannerHeight - navHeight
+      // // let newBannerTop = bannerTop - distance
+      // if (pageDepth > 1) {
+      //   distance = bannerHeightWithoutNav - bannerTop
+      //   bannerWrapperElm.classList.add('mini')
+      // } else {
+      //   bannerWrapperElm.classList.remove('mini')
+      // }
+      // if (scrollTop > bannerHeightWithoutNav) {
+      //   distance = -(bannerTop - bannerHeightWithoutNav)
+      // }
+      // console.log(`distance`, distance)
+      // bannerWrapperElm.classList.add('transitioning')
+      // // eslint-disable-next-line no-unused-expressions
+      // bannerWrapperElm.getBoundingClientRect().top
+      // bannerWrapperElm.style.transform = `translateY(${-distance}px)`
+      // bannerWrapperElm.style.webkitTransform = `translateY(${-distance}px)`
+      // setTimeout(() => {
+      //   bannerWrapperElm.style.cssText = ''
+      //   bannerWrapperElm.classList.remove('transitioning')
+      //   disableScroll.off()
+      //   CEM.dispatchEvent('bannertransitionended')
+      // }, 300)
     })
   },
 }
@@ -224,7 +223,6 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
   user-select: none;
   pointer-events: none;
 
@@ -242,9 +240,9 @@ $banner-bezier: cubic-bezier(0.34, 0.23, 0, 1);
 #eodiro-banner {
   pointer-events: all;
   z-index: 9999;
-  position: sticky;
-  top: 0;
-  top: calc(#{$nav-height} - #{$banner-height});
+  // position: sticky;
+  // top: 0;
+  // top: calc(#{$nav-height} - #{$banner-height});
   width: 100%;
   height: $banner-height;
   display: flex;
