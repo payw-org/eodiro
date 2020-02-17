@@ -52,13 +52,11 @@ const mixinOptions = {
 
     setTimeout(() => {
       // Restore scroll position
-      disableScroll.off()
       if (this.$store.state.isFirstLoad) {
         return
       } else {
         window.scrollTo(0, this.lastScrollPosition)
       }
-      disableScroll.on()
       setTimeout(() => {
         // Dispatch an event
         CEM.dispatchEvent('scrollrestored', {
@@ -66,7 +64,7 @@ const mixinOptions = {
           pageDepth: this.$route.meta.depth,
         })
       }, 20)
-    }, 0)
+    }, 200)
   },
   deactivated() {
     // Store current scroll position
