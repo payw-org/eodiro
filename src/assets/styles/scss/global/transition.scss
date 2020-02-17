@@ -1,6 +1,6 @@
 // fade page transition
 .fade-enter-active {
-  transition: opacity 350ms ease;
+  transition: opacity 500ms ease;
   opacity: 1;
   // transform: scale(1);
 }
@@ -9,7 +9,7 @@
   // transform: scale(0.95);
 }
 .fade-leave-active {
-  transition: opacity 150ms ease;
+  transition: opacity 500ms ease;
   opacity: 1;
 }
 .fade-leave-to {
