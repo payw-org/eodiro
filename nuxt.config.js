@@ -80,8 +80,9 @@ const config = {
   ],
 
   plugins: [
-    { src: '~/plugins/init.js' },
-    { src: '~/plugins/ga.js', mode: 'client' },
+    { src: '~/plugins/init' },
+    { src: '~/plugins/ga', mode: 'client' },
+    '~/plugins/vue-composition-api',
   ],
 
   buildModules: ['@nuxtjs/eslint-module', '~/modules/nuxt/extend-route'],
