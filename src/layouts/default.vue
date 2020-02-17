@@ -9,25 +9,29 @@
   >
     <div id="scroll-end-point" />
     <div id="banner-observer-sentinel" />
-    <Banner v-if="!isErrorPage" />
-    <Nuxt
-      keep-alive
-      :keep-alive-props="{ include: $store.state.cachedComponents }"
-      class="master-content"
-    />
+    <!-- <Banner v-if="!isErrorPage" /> -->
+    <NewBanner v-if="!isErrorPage" />
+    <div id="master-content-wrapper">
+      <Nuxt
+        keep-alive
+        :keep-alive-props="{ include: $store.state.cachedComponents }"
+        class="master-content"
+      />
+    </div>
     <GoBack />
   </div>
 </template>
 
 <script>
 import { CEM } from '~/modules/custom-event-manager'
-import Banner from '~/components/global/Banner'
+// import Banner from '~/components/global/Banner'
+import NewBanner from '~/components/global/NewBanner'
 import GoBack from '~/components/global/GoBack'
 import autoHead from '~/modules/auto-head'
 import cleanPathName from '~/modules/clean-path-name'
 
 export default {
-  components: { Banner, GoBack },
+  components: { NewBanner, GoBack },
   data() {
     return {
       // If this is true
@@ -205,6 +209,7 @@ export default {
 
 #app {
   position: relative;
+  // overflow-x: hidden;
 
   &.transitioning {
     pointer-events: none;
@@ -218,20 +223,20 @@ export default {
   }
 
   .master-content {
-    min-height: 100vh;
+    // min-height: 100vh;
     padding-bottom: $master-content-bottom-gap;
     width: calc(100% - #{2 * s(5)});
-    padding-top: calc(#{$banner-height} + #{s(5)});
+    // padding-top: calc(#{$banner-height} + #{s(5)});
     max-width: $master-content-max-width;
     margin: auto;
 
     &.without-banner {
-      padding-top: s(6);
+      // padding-top: s(6);
     }
   }
 
   &.is-banner-forced-mini .master-content {
-    padding-top: calc(#{$nav-height} + #{s(5)});
+    // padding-top: calc(#{$nav-height} + #{s(5)});
   }
 }
 </style>
