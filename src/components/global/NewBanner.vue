@@ -85,6 +85,18 @@ export default {
         case 'preferences':
           this.header = this.$t('pref.title')
           break
+        case 'sign-in':
+          this.header = this.$t('auth.signIn')
+          break
+        case 'sign-up':
+          this.header = this.$t('auth.signUp')
+          break
+        case 'forgot':
+          this.header = this.$t('auth.reissue')
+          break
+        case 'privacy':
+          this.header = this.$t('privacy.title')
+          break
         default:
           this.header = 'eodiro'
           break
@@ -123,15 +135,15 @@ export default {
   }
   z-index: 9999;
   margin: auto;
-  margin-bottom: 2rem;
-  height: 50vh;
+  // margin-bottom: 2rem;
+  height: 45vh;
   // min-height: 15rem;
   display: flex;
   align-items: center;
   justify-content: center;
   transition: opacity 200ms ease, transform 200ms ease, border 200ms ease;
   position: sticky;
-  top: calc(-50vh + #{$nav-height});
+  top: calc(-45vh + #{$nav-height});
   overflow-x: hidden;
 
   .header {
@@ -149,7 +161,10 @@ export default {
         color: #ff79b9;
       }
     }
-    &.me {
+    &.me,
+    &.sign-in,
+    &.sign-up,
+    &.forgot {
       color: #5f14be;
       @include dark-mode {
         color: #7b5aff;
@@ -183,6 +198,12 @@ export default {
       color: #636363;
       @include dark-mode {
         color: #939393;
+      }
+    }
+    &.privacy {
+      color: #04ab65;
+      @include dark-mode {
+        color: #33d9a7;
       }
     }
   }
