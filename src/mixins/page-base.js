@@ -55,7 +55,6 @@ const mixinOptions = {
       eodiroBanner.style.transform = 'translateY(0rem)'
       eodiroBanner.style.opacity = '1'
       const masterContent = document.getElementById('master-content-wrapper')
-      masterContent.style.transitionDelay = '100ms'
       masterContent.style.transition =
         'opacity 300ms ease, transform 300ms ease'
       // masterContent.style.transform = 'translateY(0rem)'
@@ -74,7 +73,7 @@ const mixinOptions = {
           pageDepth: this.$route.meta.depth,
         })
       }, 20)
-    }, 200)
+    }, 100)
   },
   deactivated() {
     // Store current scroll position
