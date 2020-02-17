@@ -30,8 +30,8 @@ export default {
       this.hook()
 
       const eodiroBanner = document.getElementById('eodiro-banner')
-      eodiroBanner.style.transitionDelay = '100ms'
       eodiroBanner.style.transition = 'opacity 200ms ease, transform 200ms ease'
+      eodiroBanner.style.transitionDelay = '100ms'
       // eslint-disable-next-line no-unused-expressions
       eodiroBanner.getBoundingClientRect().width
       eodiroBanner.style.transform = 'translateY(-0.5rem)'
