@@ -1,5 +1,18 @@
 # Changelog
 
+## v2.1.0 Beta 18
+
+### Highlights
+
+- Introducing all new design including Banner and page transition
+- Completely kill the flickering issue of the Banner component
+
+### Bug Fixes
+
+- Prevent zooming select element on iOS Safari
+
+---
+
 ## v2.1.0 Beta 17
 
 ### Refactor
