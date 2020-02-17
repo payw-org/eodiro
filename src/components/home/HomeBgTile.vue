@@ -208,7 +208,7 @@ export default {
 
   .tile {
     border-radius: 1rem;
-    background-color: #fff0f3;
+    background-color: #a8a9ad;
     opacity: 0;
     transition: opacity 500ms linear,
       background-color $color-scheme-transition-time ease;
@@ -218,7 +218,7 @@ export default {
     }
 
     @include dark-mode {
-      background-color: #63000d;
+      background-color: #707174;
     }
 
     &::before {
