@@ -40,17 +40,21 @@
 @mixin bg {
   @include ui-transition;
   background-color: #fff;
+  background-color: $base-white-blue;
 
   @include dark-mode {
     background-color: #000;
+    background-color: $base-black-soft;
   }
 }
 @mixin bg-inverted {
   @include ui-transition;
   background-color: #000;
+  background-color: $base-black-soft;
 
   @include dark-mode {
     background-color: #fff;
+    background-color: $base-white-blue;
   }
 }
 
@@ -75,11 +79,13 @@
 // element fill
 @mixin elm-fill {
   background-color: $base-white-blue;
-  border: 1px solid rgba($color: #000, $alpha: 0.05);
+  background-color: #fff;
+  border: 1px solid rgba($color: #000, $alpha: 0.1);
 
   @include dark-mode {
     background-color: $base-black-soft;
-    border: 1px solid rgba($color: #fff, $alpha: 0.05);
+    background-color: #000;
+    border: 1px solid rgba($color: #fff, $alpha: 0.2);
   }
 }
 @mixin elm-fill-inverted {
@@ -197,7 +203,8 @@ $input-border-radius: r(4);
   @include bordered;
   @include rounded;
   @include text-color;
-  background-color: transparent;
+  @include elm-fill;
+  // background-color: transparent;
   font-size: b(2);
   padding: s(3);
   height: $btn-height !important;

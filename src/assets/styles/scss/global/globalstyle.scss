@@ -33,7 +33,7 @@ html {
   }
   @media (prefers-color-scheme: dark) {
     &.auto-color-scheme {
-      background-color: #000;
+      background-color: $base-black-soft;
 
       .mode--light {
         display: none !important;
@@ -46,7 +46,7 @@ html {
   }
 
   &.light-mode {
-    background-color: #fff;
+    background-color: $base-white-blue;
 
     .mode--dark {
       display: none !important;
@@ -253,4 +253,9 @@ ol {
 .payw-icon {
   height: 1.3em;
   width: auto;
+}
+
+.eodiro-topbar {
+  top: 50% !important;
+  transform: translateY(-50%);
 }
