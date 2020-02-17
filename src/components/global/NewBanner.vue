@@ -119,7 +119,7 @@ export default {
   background-color: rgba(#fff, 0.7);
   backdrop-filter: blur(20px) saturate(1.7);
   @include dark-mode {
-    background-color: rgba(#000, 0.7);
+    background-color: rgba($base-black-soft, 0.7);
   }
   z-index: 9999;
   margin: auto;

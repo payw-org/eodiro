@@ -44,7 +44,7 @@
 
   @include dark-mode {
     background-color: #000;
-    background-color: $base-black-soft;
+    // background-color: $base-black-soft;
   }
 }
 @mixin bg-inverted {
@@ -84,8 +84,8 @@
 
   @include dark-mode {
     background-color: $base-black-soft;
-    background-color: #000;
-    border: 1px solid rgba($color: #fff, $alpha: 0.2);
+    // background-color: #000;
+    border: 1px solid rgba($color: #fff, $alpha: 0.1);
   }
 }
 @mixin elm-fill-inverted {
