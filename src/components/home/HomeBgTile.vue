@@ -191,7 +191,7 @@ export default {
 @import '~/assets/styles/scss/main.scss';
 
 #tiles-container {
-  z-index: 1;
+  z-index: -1;
   position: absolute;
   width: 105%;
   height: auto;
@@ -205,7 +205,6 @@ export default {
     grid-template-columns: repeat(auto-fit, minmax(3rem, 1fr));
     grid-template-rows: repeat(auto-fit, minmax(3rem, 1fr));
   }
-  z-index: 9999;
 
   .tile {
     border-radius: 1rem;
