@@ -35,9 +35,13 @@
         <p v-if="!postData" class="sub">
           포스트가 삭제되었거나 잘못된 URL입니다.
         </p>
-        <NuxtLink v-if="!isSignedIn" :to="localePath('sign-in')" class="login">
+        <EodiroLink
+          v-if="!isSignedIn"
+          :to="localePath('sign-in')"
+          class="login"
+        >
           {{ $t('auth.signIn') + ' →' }}
-        </NuxtLink>
+        </EodiroLink>
       </div>
     </div>
   </div>
@@ -50,10 +54,11 @@ import Comments from '~/components/pepero-square/Comments'
 import escapeHtml from '~/modules/escape-html'
 import { SquareApi } from '~/modules/eodiro-api'
 import Auth from '~/modules/auth'
+import EodiroLink from '~/components/global/EodiroLink'
 
 export default {
   name: 'pepero-square-post-id',
-  components: { Comments },
+  components: { Comments, EodiroLink },
   mixins: [pageBase],
   async asyncData({ route, app, store, redirect, req, res }) {
     // if (!store.state.auth.isSignedIn) return
