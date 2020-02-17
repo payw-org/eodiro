@@ -1,15 +1,15 @@
 <template>
   <div id="go-back-wrapper">
     <div v-show="prevRouteName" id="go-back" :class="{ hidden: isHidden }">
-      <NuxtLink
+      <EodiroLink
         :to="jumpLink"
         class="jump-link"
         :class="{ exists: isJumpExists }"
       >
         <button class="jump-btn" />
-      </NuxtLink>
+      </EodiroLink>
 
-      <NuxtLink
+      <EodiroLink
         class="prev-link"
         :to="prevRouteName ? localePath(prevRouteName) : localePath('index')"
       >
@@ -17,11 +17,11 @@
           <span class="icon" />
           {{ $t('global.goBack') }}
         </button>
-      </NuxtLink>
+      </EodiroLink>
 
-      <NuxtLink :to="localePath('index')">
+      <EodiroLink :to="localePath('index')">
         <button class="go-home" />
-      </NuxtLink>
+      </EodiroLink>
     </div>
   </div>
 </template>
@@ -29,8 +29,10 @@
 <script>
 import { mapState } from 'vuex'
 import { CEM } from '~/modules/custom-event-manager'
+import EodiroLink from '~/components/global/EodiroLink'
 
 export default {
+  components: { EodiroLink },
   data() {
     return {
       isHidden: false,
@@ -153,6 +155,10 @@ export default {
 @import '~/assets/styles/scss/main';
 
 $go-back-btn-height: 2.7rem;
+
+#app.transitioning #go-back {
+  pointer-events: none !important;
+}
 
 #go-back-wrapper {
   position: fixed;

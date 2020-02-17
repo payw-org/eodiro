@@ -1,6 +1,6 @@
 <template>
   <div class="arrow-block" :class="{ fit: fit }" @click="$emit('click')">
-    <NuxtLink v-if="link !== ''" :to="link" class="absolute-link" />
+    <EodiroLink v-if="link !== ''" :to="link" class="absolute-link" />
 
     <!-- only visible when icon slot is set -->
     <div v-if="$slots.icon" class="arrb-icon-wrapper">
@@ -18,7 +18,10 @@
 </template>
 
 <script>
+import EodiroLink from '~/components/global/EodiroLink'
+
 export default {
+  components: { EodiroLink },
   props: {
     noArrow: {
       type: Boolean,

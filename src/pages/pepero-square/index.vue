@@ -5,8 +5,11 @@
         {{ $t('peperoSquare.posts') }}
       </h1>
       <button class="new-post-btn">
-        +
-        <NuxtLink :to="localePath('pepero-square-new')" class="absolute-link" />
+        <span>+</span>
+        <EodiroLink
+          :to="localePath('pepero-square-new')"
+          class="absolute-link"
+        />
       </button>
     </div>
     <div class="posts-list">
@@ -40,10 +43,11 @@ import autoHead from '~/modules/auto-head'
 import EodiroDialog from '~/modules/eodiro-dialog'
 import { SquareApi } from '~/modules/eodiro-api'
 import wait from '~/modules/wait'
+import EodiroLink from '~/components/global/EodiroLink'
 
 export default {
   name: 'pepero-square-index',
-  components: { PostItem },
+  components: { PostItem, EodiroLink },
   mixins: [pageBase],
   async asyncData(ctx) {
     if (!ctx.req) return { isInitialLoadSet: false }
@@ -185,6 +189,7 @@ export default {
 
     .title {
       padding-left: r(2);
+      font-size: h(3);
     }
 
     .new-post-btn {
@@ -194,8 +199,8 @@ export default {
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 3rem;
-      height: 3rem;
+      width: 2.5rem;
+      height: 2.5rem;
       border-radius: r(3);
       user-select: none;
     }
