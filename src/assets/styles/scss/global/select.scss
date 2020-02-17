@@ -16,6 +16,8 @@
     padding: s(2) s(3);
     padding-right: s(3) * 1.5 + 1rem;
     @include text-color;
+    font-family: $ui-font;
+    @include input-text;
   }
 
   &::after {
