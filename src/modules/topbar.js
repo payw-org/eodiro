@@ -55,12 +55,12 @@ const addEvent = function(elem, type, handler) {
 
 const lightModeOptions = {
   autoRun: true,
-  barThickness: 4,
+  barThickness: 3,
   barColors: {
-    0: '#FFDF00',
-    '1.0': '#00E3D6',
+    0: '#ff3852',
+    '1.0': '#ff3852',
   },
-  shadowBlur: 3,
+  shadowBlur: 0,
   shadowColor: 'rgba(0, 0, 0, 0)',
 }
 
@@ -79,6 +79,7 @@ let options = lightModeOptions
 const repaint = function() {
   canvas.width = window.innerWidth
   canvas.height = options.barThickness * 5 // need space for shadow
+  canvas.className = 'eodiro-topbar'
 
   const ctx = canvas.getContext('2d')
   ctx.shadowBlur = options.shadowBlur
