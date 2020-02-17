@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.1.0 Beta 21
+
+### Chore
+
+- Set `min-height` of the App
+
+---
+
 ## v2.1.0 Beta 20
 
 ### Bug Fixes
