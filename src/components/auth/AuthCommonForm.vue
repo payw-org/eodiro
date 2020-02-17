@@ -1,16 +1,6 @@
 <template>
   <div class="eodiro-auth-common-form">
     <div class="input-box">
-      <h1 v-if="pageMode === 'signUp'" class="headline ui6-s-mb-6">
-        {{ $t('auth.signUp') }}
-      </h1>
-      <h1 v-else-if="pageMode === 'signIn'" class="headline ui6-s-mb-6">
-        {{ $t('auth.signIn') }}
-      </h1>
-      <h1 v-else-if="pageMode === 'forgot'" class="headline ui6-s-mb-6">
-        {{ $t('auth.reissue') }}
-      </h1>
-
       <!-- Portal ID input -->
       <div class="input-id-wrapper">
         <input
