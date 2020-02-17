@@ -19,7 +19,6 @@
 </template>
 
 <script>
-import { CEM } from '~/modules/custom-event-manager'
 import HomeBgTile from '~/components/home/HomeBgTile'
 
 export default {
