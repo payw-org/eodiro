@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.1.0 Beta 22
+
+### Chore
+
+- Add hamlet icons and transition to the New Banner
+
+---
+
 ## v2.1.0 Beta 21
 
 ### Chore

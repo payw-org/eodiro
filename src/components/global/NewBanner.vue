@@ -1,11 +1,15 @@
 <template>
   <div id="eodiro-banner" :class="{ 'nav-mode': isNavMode }">
     <HomeBgTile v-if="!isNavMode && isHome" />
-    <!-- <div class="hamlet-icon" :class="hamletName" /> -->
     <transition v-if="!isNavMode" name="global-soft-fade">
-      <h1 class="header" :class="hamletName">
-        {{ header }}
-      </h1>
+      <div class="header-container" :class="{ animate: isLoaded }">
+        <h1 class="header" :class="hamletName">
+          {{ header }}
+        </h1>
+        <div class="hamlet-icon-wrapper">
+          <div class="hamlet-icon" :class="hamletName" />
+        </div>
+      </div>
     </transition>
     <transition name="global-soft-fade">
       <nav v-if="isNavMode" class="nav">
@@ -29,12 +33,15 @@ export default {
       hamletName: 'home',
       isHome: true,
       header: 'eodiro',
+      isLoaded: false,
     }
   },
   watch: {
     '$route.meta.hamletName'(value) {
+      this.isLoaded = false
       this.setHamletName(value)
       this.convertHamletToTitle(value)
+      this.animate()
     },
   },
   created() {
@@ -43,6 +50,7 @@ export default {
     this.convertHamletToTitle(this.hamletName)
   },
   mounted() {
+    this.animate()
     const sentinel = this.$el.querySelector('.sentinel')
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -107,9 +115,15 @@ export default {
       } else {
         this.isHome = true
       }
+
       setTimeout(() => {
         this.hamletName = hamletName
       }, 200)
+    },
+    animate() {
+      setTimeout(() => {
+        this.isLoaded = true
+      }, 1000)
     },
   },
 }
@@ -145,88 +159,176 @@ export default {
   top: calc(-45vh + #{$nav-height});
   overflow-x: hidden;
 
-  .header {
-    font-size: h(12);
-    @include text-color;
-    letter-spacing: -0.03em;
-    transition: color 300ms ease;
-    padding: 0 s(5);
-    text-align: center;
-    line-height: lh(1);
+  .header-container {
+    position: relative;
 
-    &.pepero-square {
-      color: #ff3e78;
-      @include dark-mode {
-        color: #ff79b9;
+    &.animate {
+      .header {
+        // transform: translateY(-1rem);
+        transform: scale(0.93);
+        opacity: 0;
+        transition: color 300ms ease, transform 200ms ease, opacity 300ms ease;
       }
-    }
-    &.me,
-    &.sign-in,
-    &.sign-up,
-    &.forgot {
-      color: #5f14be;
-      @include dark-mode {
-        color: #7b5aff;
-      }
-    }
-    &.lectures {
-      color: #02ba41;
-      @include dark-mode {
-        color: #6ccf2f;
-      }
-    }
-    &.opensource {
-      color: #b221f6;
-      @include dark-mode {
-        color: #e751ff;
-      }
-    }
-    &.inquiry {
-      color: #ff9922;
-      @include dark-mode {
-        color: #ffcf26;
-      }
-    }
-    &.cafeteria {
-      color: #305dff;
-      @include dark-mode {
-        color: #31a8ff;
-      }
-    }
-    &.preferences {
-      color: #636363;
-      @include dark-mode {
-        color: #939393;
-      }
-    }
-    &.privacy {
-      color: #04ab65;
-      @include dark-mode {
-        color: #33d9a7;
-      }
-    }
-  }
 
-  .hamlet-icon {
-    $icon-size: 5rem;
-    width: $icon-size;
-    height: $icon-size;
-
-    &.home {
-      @include bgImg('~assets/images/icons/eodiro-arrow.svg');
-
-      @include dark-mode {
-        @include bgImg('~assets/images/icons/eodiro-arrow-white.svg');
+      .hamlet-icon {
+        // transform: translateY(0rem) !important;
+        transform: scale(1) !important;
+        opacity: 1 !important;
+        transition: transform 300ms ease, opacity 300ms ease;
+        transition-delay: 150ms;
       }
     }
 
-    &.sign-in,
-    &.sign-up,
-    &.forgot {
-      @include bgImg('~assets/images/key.svg');
+    .header {
+      // transform: translateY(0%);
+      transform: scale(1);
+      opacity: 1;
+      font-size: h(12);
+      @include text-color;
+      letter-spacing: -0.03em;
+      padding: 0 s(5);
+      text-align: center;
+      line-height: lh(1);
 
-      @include dark-mode {
-        @include bgImg('~assets/images/key-white.svg');
+      &.pepero-square {
+        color: #ff3e78;
+        @include dark-mode {
+          color: #ff79b9;
+        }
+      }
+      &.me,
+      &.sign-in,
+      &.sign-up,
+      &.forgot {
+        color: #5f14be;
+        @include dark-mode {
+          color: #7b5aff;
+        }
+      }
+      &.lectures {
+        color: #02ba41;
+        @include dark-mode {
+          color: #6ccf2f;
+        }
+      }
+      &.opensource {
+        color: #b221f6;
+        @include dark-mode {
+          color: #e751ff;
+        }
+      }
+      &.inquiry {
+        color: #ff9922;
+        @include dark-mode {
+          color: #ffcf26;
+        }
+      }
+      &.cafeteria {
+        color: #305dff;
+        @include dark-mode {
+          color: #31a8ff;
+        }
+      }
+      &.preferences {
+        color: #636363;
+        @include dark-mode {
+          color: #939393;
+        }
+      }
+      &.privacy {
+        color: #04ab65;
+        @include dark-mode {
+          color: #33d9a7;
+        }
+      }
+    }
+
+    .hamlet-icon-wrapper {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translateY(-50%) translateX(-50%);
+
+      .hamlet-icon {
+        $icon-size: 5rem;
+        width: $icon-size;
+        height: $icon-size;
+        // transform: translateY(1rem);
+        transform: scale(0.9);
+        opacity: 0;
+
+        &.home {
+          @include bgImg('~assets/images/icons/eodiro-arrow.svg');
+
+          @include dark-mode {
+            @include bgImg('~assets/images/icons/eodiro-arrow-white.svg');
+          }
+        }
+        &.sign-in,
+        &.sign-up,
+        &.forgot {
+          @include bgImg('~assets/images/key.svg');
+
+          @include dark-mode {
+            @include bgImg('~assets/images/key-white.svg');
+          }
+        }
+        &.me {
+          @include bgImg('~assets/images/man.svg');
+
+          @include dark-mode {
+            @include bgImg('~assets/images/man-white.svg');
+          }
+        }
+        &.preferences {
+          @include bgImg('~assets/images/gear_black.svg');
+
+          @include dark-mode {
+            @include bgImg('~assets/images/gear_white.svg');
+          }
+        }
+        &.inquiry {
+          @include bgImg('~assets/images/inquiry_black.svg');
+
+          @include dark-mode {
+            @include bgImg('~assets/images/inquiry_white.svg');
+          }
+        }
+        &.opensource {
+          @include bgImg('~assets/images/heart_black.svg');
+
+          @include dark-mode {
+            @include bgImg('~assets/images/heart_white.svg');
+          }
+        }
+        &.lectures {
+          @include bgImg('~assets/images/magnifier-black.svg');
+
+          @include dark-mode {
+            @include bgImg('~assets/images/magnifier-white.svg');
+          }
+        }
+        &.pepero-square {
+          @include bgImg('~assets/images/community.svg');
+
+          @include dark-mode {
+            @include bgImg('~assets/images/community-white.svg');
+          }
+        }
+        &.cafeteria {
+          @include bgImg('~assets/images/fork_knife_black.svg');
+
+          @include dark-mode {
+            @include bgImg('~assets/images/fork_knife_white.svg');
+          }
+        }
+        &.privacy {
+          @include bgImg('~assets/images/shield.svg');
+
+          @include dark-mode {
+            @include bgImg('~assets/images/shield-white.svg');
+          }
+        }
       }
     }
   }
