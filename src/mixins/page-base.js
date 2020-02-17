@@ -1,4 +1,3 @@
-import disableScroll from 'disable-scroll'
 import { CEM } from '~/modules/custom-event-manager'
 
 /**
@@ -10,8 +9,8 @@ import { CEM } from '~/modules/custom-event-manager'
  */
 const mixinOptions = {
   transition: {
-    name: 'fade',
-    mode: 'out-in',
+    // name: 'fade',
+    // mode: 'out-in',
     beforeEnter() {
       // Dispatch event
       CEM.dispatchEvent('beforepageenter')
@@ -51,6 +50,17 @@ const mixinOptions = {
     this.hideTopbar()
 
     setTimeout(() => {
+      const eodiroBanner = document.getElementById('eodiro-banner')
+      eodiroBanner.style.transition = 'opacity 300ms ease, transform 300ms ease'
+      eodiroBanner.style.transform = 'translateY(0rem)'
+      eodiroBanner.style.opacity = '1'
+      const masterContent = document.getElementById('master-content-wrapper')
+      masterContent.style.transitionDelay = '100ms'
+      masterContent.style.transition =
+        'opacity 300ms ease, transform 300ms ease'
+      // masterContent.style.transform = 'translateY(0rem)'
+      masterContent.style.opacity = '1'
+
       // Restore scroll position
       if (this.$store.state.isFirstLoad) {
         return
