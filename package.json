@@ -1,6 +1,6 @@
 {
   "name": "eodiro",
-  "version": "2.1.0-beta.21",
+  "version": "2.1.0-beta.22",
   "description": "CAU Utility Service",
   "scripts": {
     "test": "mocha --require @babel/register",
