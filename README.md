@@ -1,3 +1,5 @@
+> v2 is now **deprecated**. The new [eodiro-next](https://github.com/paywteam/eodiro-next) is currently in development.
+
 ![banner](https://user-images.githubusercontent.com/19797697/73181225-d21c1b80-40e4-11ea-80b1-d84fa6bb3a0a.png)
 
 <p align="center"><b>eodiro</b> is an open source utility service for Chung-Ang university students.</p>
