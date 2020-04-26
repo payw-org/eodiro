@@ -1,0 +1,84 @@
+@function res-scale--1($val) {
+  $val: ceil($val / 85 * 100);
+  @if $val % 2 != 1 {
+    $val: $val + 1;
+  }
+
+  @return $val;
+}
+
+@function res-scale--2($val) {
+  $val: ceil($val / 85 * 115);
+  @if $val % 2 != 1 {
+    $val: $val + 1;
+  }
+
+  @return $val;
+}
+
+@function calculate($min, $max, $level) {
+  $interval: ($max - $min) / 11;
+  $result: $min + $interval * ($level - 1);
+
+  @return $result;
+}
+
+@function validate($level) {
+  $level: floor($level);
+
+  @if $level < 1 {
+    @return 1;
+  } @else if $level > 12 {
+    @return 12;
+  } @else {
+    @return $level;
+  }
+}
+
+@function r($level) {
+  $level: validate($level);
+  $min: 0.2rem;
+  $max: 1.5rem;
+
+  @return calculate($min, $max, $level);
+}
+
+@function s($level) {
+  $level: validate($level);
+  $min: 0.2rem;
+  $max: 3rem;
+
+  @return calculate($min, $max, $level);
+}
+
+@function ss($level) {
+  $level: validate($level);
+  $min: 3rem;
+  $max: 10rem;
+
+  @return calculate($min, $max, $level);
+}
+
+@function b($level) {
+  $level: validate($level);
+  $min: 0.9rem;
+  $max: 1.3rem;
+
+  @return calculate($min, $max, $level);
+}
+
+@function h($level) {
+  $level: validate($level);
+  $min: 1.3rem;
+  $max: 3rem;
+
+  @return calculate($min, $max, $level);
+}
+
+@function lh($level) {
+  $level: validate($level);
+  $min: 1em;
+  $max: 1.8em;
+
+  @return calculate($min, $max, $level);
+}

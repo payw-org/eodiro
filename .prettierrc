@@ -1,10 +1,8 @@
 {
-  "singleQuote": true,
+  "semi": false,
+  "arrowParens": "always",
+  "trailingComma": "es5",
   "tabWidth": 2,
   "useTabs": false,
-  "semi": false,
-  "bracketSpacing": true,
-  "arrowParens": "always",
-  "htmlWhitespaceSensitivity": "ignore",
-  "trailingComma": "es5"
+  "singleQuote": true
 }

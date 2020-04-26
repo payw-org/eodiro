@@ -1,0 +1,35 @@
+@use '@/assets/styles/main' as *;
+
+.eodiro-my {
+  .info-section {
+    .section-header {
+      font-weight: 600;
+      font-size: h(3);
+      @include resolve-optical-illusion;
+    }
+
+    .section-body {
+      margin-top: s(3);
+    }
+  }
+
+  .info-block {
+    text-align: center;
+    .ib-header {
+      font-size: b(8);
+      margin-bottom: s(3);
+    }
+  }
+
+  .signout-section {
+    margin-top: s(6);
+    padding-top: s(6);
+    @include separator('top');
+    display: flex;
+    justify-content: center;
+
+    .signout-btn {
+      margin-right: s(3);
+    }
+  }
+}

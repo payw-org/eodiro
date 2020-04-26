@@ -1,0 +1,103 @@
+@use '@/assets/styles/main' as *;
+
+.posts-container {
+  .post {
+    padding: 0.4rem 0.5rem;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 1rem;
+    @include border-radius-inner;
+    transition: background-color 200ms ease;
+
+    &:hover {
+      background-color: rgba($eodiro-secondary-color, 0.1);
+
+      .title {
+        color: $eodiro-primary-color;
+      }
+    }
+
+    &.new {
+      @keyframes yellowish {
+        0% {
+          background-color: $eodiro-yellow-1;
+        }
+        100% {
+          background-color: transparent;
+        }
+      }
+      animation-name: yellowish;
+      animation-duration: 2s;
+    }
+
+    .title {
+      font-size: 1rem;
+      transition: color 200ms ease;
+    }
+
+    .right {
+      flex: none;
+      text-align: right;
+      margin-left: 1rem;
+    }
+
+    .nick,
+    .time {
+      color: $base-gray;
+      font-size: 0.9rem;
+    }
+    .nick {
+      margin-bottom: 0.1rem;
+    }
+    .time {
+      font-size: 0.8rem;
+      white-space: nowrap;
+    }
+
+    .comments,
+    .likes {
+      position: relative;
+      top: 0.05em;
+      line-height: 1.5;
+      font-size: 0.9rem;
+      margin-left: 0.5rem;
+
+      .count {
+        margin-left: 0.3em;
+      }
+    }
+
+    .comments {
+      color: $eodiro-primary-color;
+
+      .icon {
+        position: relative;
+        top: 0.05rem;
+      }
+    }
+
+    .likes {
+      color: $eodiro-yellow-2;
+    }
+  }
+
+  &.mobile {
+    .post {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .right {
+      margin-left: 0;
+      margin-top: 0.2rem;
+      display: flex;
+      align-items: center;
+      text-align: left;
+
+      .time {
+        margin-left: 0.5rem;
+      }
+    }
+  }
+}

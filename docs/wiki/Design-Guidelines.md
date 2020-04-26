@@ -1,85 +1,105 @@
-## Import
+## Library
+
+### Sass
 
 ```scss
-@import '~/assets/styles/scss/main';
+@use '@/assets/styles/main' as *;
 ```
 
 ---
 
-- [UI 6](#UI-6)
+## Sections
+
+- [Units](#units)
 - [Layouts](#layouts)
 - [Responsive Design](#responsive-design)
 - [Typography](#typography)
 - [Colors](#colors)
-- [Borders](#borders)
-- [Spacing](#spacing)
+- [Dark Mode](#dark-mode)
+- [Utilities](#utilities)
 
 ---
 
-## UI 6
+## Units
 
-Build and design UI faster with carefully predefined 6 steps of every aspect. You can pass number from 1 to 6 to Sass functions.
+### Space
 
-### s()
-Returns proper gaps in `rem`.
+**Functions**
 
-### f()
-If you need more space than `s(6)`, use this function. f means far.
+- **`s()`**
 
-### r()
-Returns proper border-radius amount in `rem`.
+  It gives space. Returns proper gaps in `rem`.
 
-### b()
-Returns font size for body content in `rem`. It doesn't always have to be "body". Use this function where you want smaller font size for titles or headers.
+- **`ss()`**
 
-### h()
-Returns font size for head content in `rem`. Same as `body()`, use this function where you want larger font size for bodies or any other places.
+  Double space. If you need more space than `s(12)`, use this function. `ss(1)` equals to `s(12)`.
 
-### fw()
-Returns font-weight in `rem`. It reduces time for you from being thinking about what font weights are eligible. We properly assigned font weights to each number from 1 to 6. These options may be changed at some point.
+### Border Radius
 
-### lh()
-Returns line-height in `rem`.
+**Functions**
+
+- **`r()`**
+
+**Variables**
+
+- `$border-radius-outer`
+- `$border-radius-inner`
+
+**Mixins**
+
+- `@include border-radius-outer`
+- `@include border-radius-innter`
+
+### Font Size
+
+**Functions**
+
+- **`b()`**
+
+  Returns font size for body content in `rem`. It doesn't always have to be "body". Use this function where you want smaller font size for titles or headers.
+
+- **`h()`**
+
+  Returns font size for head content in `rem`. Like `b()`, use this function where you want larger font size for bodies or any other places. `h(1)` equals to `b(12)`.
 
 ## Layouts
 
-### default.vue
+### [BaseLayout](UI-Components.md/#baselayout)
 
-Nuxt.js has a notion of **_layouts_**. You can just consider it as an `App.vue` file on a traditional Vue app.
-
-![iPhone SE](https://user-images.githubusercontent.com/19797697/62354100-115b1c80-b547-11e9-9978-5b2059f9c9f7.png)
+![BaseLayout](https://user-images.githubusercontent.com/19797697/75721464-c17e4700-5d1b-11ea-8b4d-2fcff33c5cd4.png)
 
 Padding, margin, width, max-width and all other style attributes for the master content are already defined, so you don't have to think about them when you develop new pages. You can customize them by styling the root element of a component.
 
 **Variables**
 
-Name | Description
---|--
-`$master-content-max-width` | Max width of master content.
-`$master-content-top-gap` | Gap from the banner.
-`$master-content-bottom-gap` | Gap from the bottom.
+| Name                     | Description               |
+| ------------------------ | ------------------------- |
+| `$app-content-max-width` | Max width of app content. |
 
 ## Responsive Design
-Only use `rem` when you define a size. The `rem`ed size will automatically change based on devices' viewport width.
+
+Only use `rem` when you define a size. The `rem`ed size will automatically change based on the device's viewport width.
 
 **Variables**
 
-Name | Description
---|--
-`$width-step--1` | If the viewport width is smaller than this, consider it as mobile environment.
-`$width-step--2` | Larger screen needs larger UI.
+| Name             | Description                                                                    |
+| ---------------- | ------------------------------------------------------------------------------ |
+| `$width-step--1` | If the viewport width is smaller than this, consider it as mobile environment. |
+| `$width-step--2` | Larger screen needs larger UI.                                                 |
 
 **Mixins**
 
 > There are few useful/handy mixins when you design responsive layouts.
 
-Mixin | Description
---|--
-`@mixin smaller-than($width) { ... }` | Shortcut of `@media only screen and (max-width: $width) {}`.
-`@mixin larger-than($width) { ... }` | Shortcut of `@media only screen and (min-width: $width) {}`.
-`@mixin on-mobile { ... }` | When the viewport width is smaller than `$width-step--1`.
+| Mixin                                   | Description                                                                         |
+| --------------------------------------- | ----------------------------------------------------------------------------------- |
+| `@include smaller-than($width) { ... }` | Shortcut of `@media only screen and (max-width: $width) {}`.                        |
+| `@include larger-than($width) { ... }`  | Shortcut of `@media only screen and (min-width: $width) {}`.                        |
+| `@include on-mobile { ... }`            | When the viewport width is smaller than `$width-step--1`, we consider it as mobile. |
 
 ## Typography
+
+### Semantics
 
 **Headings**
 
@@ -99,104 +119,62 @@ Don't use `h4 ~ h6`. It also means that you should not make any circumstance tha
 <p>Paragraph</p>
 ```
 
-**Mixins**
+### Size
 
-> By default, tags have their own styles like font weight, font size or line height. But you can apply different styles of other types of typography with mixins.
+Basically and globally `h1 ~ h3, p` and also other tags have their own reasonably default sizes.
 
-Mixin | Description
---|--
-`@mixin heading1` | Applies `h1` style.
-`@mixin heading2` | Applies `h2` style.
-`@mixin heading3` | Applies `h3` style.
-`@mixin paragraph` | Applies `p` style.
-
-### 
+For detailed font sizes, check out [Units](#units).
 
 ## Colors
 
-> **_NOTE:_** Use mixins instead of using variables directly.
-
 ### White and Black
-Use `#fff` and `#000` for white and black. Don't use `white` or `black` directly on any other color properties.
 
-### Dark Mode
-Most of the time you won't need to define styles for dark mode since all mixins support it out of the box. However, if you wish to create your own styles for dark mode there is a simple way to achieve this. All the styles you wrote is for light mode as default.
-
-Mixin | Description
---|--
-`@mixin dark-mode { ... }` | Insert dark mode style inside the curly braces.
+Use `#fff` and `#000` hex shortcuts for white and black. Never use `white` or `black` directly.
 
 ### Chromatic Colors
 
 **Variables**
 
-Name | Description
---|--
-`$c-step--4` | A primary color across the entire system.
+- For Sass, see the `variables.scss`.
+- For TypeScript, see the `EodiroColors.ts`.
 
 ### Background Colors
 
-**Variables**
-
-Name | Description
---|--
-`$base-white-blue` | Slightly bluish white color for elements fill.
-`$base-black-soft` | Black color for elements fill.
-
 **Mixins**
 
-Mixin | Light Mode | Dark Mode
---|--|--
-`@mixin bg` | `#fff` | `#000`
-`@mixin bg-inverted` | `#000` | `#fff`
-`@mixin elm-fill` | `$base-white-blue` | `$base-black-soft`
-`@mixin elm-fill-inverted` | `$base-black-soft` | `$base-white-blue`
+- `@include bg`
+- `@include bg-inverted`
+- `@include elm-fill`
+- `@include elm-fill-inverted`
 
 ### Translucently Layered Colors
 
-> Use these colors to add distinctive areas onto another elements.
-
-**Variables**
-
-Name | Description
---|--
-`$t-white` | Translucent white for light mode.
-`$t-black` | Translucent black for dark mode.
+> Use these colors to add a distinctive area above an another element.
 
 **Mixins**
 
-Mixin | Light Mode | Dark Mode
---|--|--
-`@mixin overlay` | `$t-white` | `$t-black`
-`@mixin overlay-inverted` | `$t-black` | `$t-white`
+- `@include overlay`
+- `@include overlay-inverted`
 
 ### Text Colors
 
 **Variables**
 
-Name | Description
---|--
-`$base-black` | Softly dimmed black color for texts.
-`$base-white` | Softly dimmed white color for texts.
-`$base-gray` | Gray color that looks great on both light mode and dark mode.
+- `$base-gray`
+
+  The universal greyed color for both light mode and dark mode.
 
 **Mixins**
 
-Mixin | Light Mode | Dark Mode
---|--|--
-`@mixin text-color` | `$base-black` | `$base-white`
-`@mixin text-color-inverted` | `$base-white` | `$base-black`
+- `@include text-color`
+- `@include text-color-inverted`
 
-## Borders
+## Dark Mode
 
-Mixin | Description
---|--
-`@mixin separator` | Include this after defining a minimum requirements.
+Most of the time you won't need to define styles for dark mode on each situation since all the mixins support dark mode automatically out of the box. However, if you wish to create your own styles for dark mode there is a simple way to achieve this.
 
-**Examples**
-```scss
-.elm {
-  border-bottom: solid; // you can set minimum
-  @include separator; // it will override border width and color
-}
-```
+> All the styles you wrote is for light mode as default.
+
+| Mixin                      | Description                                     |
+| -------------------------- | ----------------------------------------------- |
+| `@mixin dark-mode { ... }` | Insert dark mode style inside the curly braces. |

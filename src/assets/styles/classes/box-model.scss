@@ -1,0 +1,86 @@
+// Positions
+.position-relative {
+  position: relative;
+}
+.position-absolute {
+  position: absolute;
+}
+.position-sticky {
+  position: sticky;
+}
+.position-fixed {
+  position: fixed;
+}
+
+// Whitespace
+.white-space-nowrap {
+  white-space: nowrap;
+}
+
+// Displays
+.display-block {
+  display: block;
+}
+.display-inline-block {
+  display: inline-block;
+}
+
+// Flexbox
+.display-flex {
+  display: flex;
+}
+.flex-none {
+  flex: none;
+}
+.flex-1 {
+  flex: 1;
+}
+// flex-direction
+.flex-direction-column {
+  flex-direction: column;
+}
+.flex-direction-row {
+  flex-direction: row;
+}
+// align-items
+.align-items-center {
+  align-items: center;
+}
+.align-items-flex-start {
+  align-items: flex-start;
+}
+.align-items-flex-end {
+  align-items: flex-end;
+}
+// justify-content
+.justify-content-center {
+  justify-content: center;
+}
+.justify-content-flex-start {
+  justify-content: flex-start;
+}
+.justify-content-end {
+  justify-content: end;
+}
+.justify-content-space-evenly {
+  justify-content: space-evenly;
+}
+.justify-content-space-around {
+  justify-content: space-around;
+}
+.justify-content-space-between {
+  justify-content: space-between;
+}
+// align-self
+.align-self-center {
+  align-self: center;
+}
+.align-self-flex-start {
+  align-self: flex-start;
+}
+.align-self-flex-end {
+  align-self: flex-end;
+}
+.align-self-stretch {
+  align-self: stretch;
+}

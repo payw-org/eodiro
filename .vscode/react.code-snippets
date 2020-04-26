@@ -1,0 +1,39 @@
+{
+  "TSX React Default Export Component": {
+    "scope": "typescriptreact",
+    "prefix": "comp",
+    "description": "Export default component",
+    "body": [
+      "export type $1Props = {$2}",
+      "",
+      "const ${1:Component}: React.FC<$1Props> = (props) => {",
+      "  return (",
+      "    $0",
+      "  )",
+      "}",
+      "",
+      "export default $1"
+    ]
+  },
+  "TSX Page": {
+    "scope": "typescriptreact",
+    "prefix": "page",
+    "description": "Export default component of page",
+    "body": [
+      "import { NextPage } from 'next'",
+      "",
+      "const Page: NextPage = () => {",
+      "  return (",
+      "    $0",
+      "  )",
+      "}",
+      "",
+      "export default Page"
+    ]
+  },
+  "Import style.scss": {
+    "scope": "typescriptreact",
+    "prefix": "styl",
+    "body": "import './style.scss'"
+  }
+}

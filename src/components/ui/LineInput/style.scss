@@ -1,0 +1,34 @@
+@use '@/assets/styles/main' as *;
+
+.eodiro-line-input {
+  display: flex;
+  width: 100%;
+  position: relative;
+
+  .li-field {
+    @include input-style;
+    width: 100%;
+
+    &.search {
+      padding-left: $btn-height;
+    }
+
+    &.center {
+      text-align: center;
+    }
+  }
+
+  .magnifier-icon-wrapper {
+    position: absolute;
+    width: $btn-height;
+    height: $btn-height;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .icon {
+      width: 2em;
+      height: 2rem;
+    }
+  }
+}

@@ -1,0 +1,9 @@
+@use '@/assets/styles/main' as *;
+
+.change-password-request {
+  max-width: 20rem !important;
+
+  .change-btn {
+    margin-top: s(5);
+  }
+}

@@ -1,12 +1,62 @@
 # Changelog
 
+## v3.5.0
+
+### Features
+
+- Post image viewer
+
+## v3.4.0
+
+### Features
+
+- You can now view the syllabus of each lecture (sign in required)
+
+## v3.0.0 ~ < v3.4.0
+
+### Highlights
+
+- All new design
+- Rewrite the entire source codes from the ground up using React and Next.js
+- Integrate popular and much stable modules instead of creating our owns
+
+### Features
+
+**API**
+
+- Remove eodiro API 1 and replace all of them with eodiro API 2
+- Use the One API
+
+**Components and Hooks**
+
+- Much easier infinite scrolling
+- `useAuth` gives the information about the authentication
+
+**Vacant**
+
+- Create new class time gauge UI
+
+**Lectures**
+
+- Search with anything (no fuzzy search)
+
+**Cafeteria Menus**
+
+- You can now move the date backward or forward
+
+**(Pepero) Square**
+
+- Write a post
+- Upload and view any files
+- You can leave comments
+
+---
+
 ## v2.1.0 Beta 22
 
 ### Chore
 
 - Add hamlet icons and transition to the New Banner
-
----
 
 ## v2.1.0 Beta 21
 
@@ -14,15 +64,11 @@
 
 - Set `min-height` of the App
 
----
-
 ## v2.1.0 Beta 20
 
 ### Bug Fixes
 
 - Resolve wrong background color in the adaptive color scheme mode
-
----
 
 ## v2.1.0 Beta 19
 
@@ -36,8 +82,6 @@
 - Replace `nuxt-link` with `EodiroLink` in Pepero Square 'sign in' requirement
 - Make the page transition twice as faster
 
----
-
 ## v2.1.0 Beta 18
 
 ### Highlights
@@ -49,8 +93,6 @@
 
 - Prevent zooming select element on iOS Safari
 
----
-
 ## v2.1.0 Beta 17
 
 ### Refactor
@@ -60,8 +102,6 @@
 ### Bug Fixes
 
 - Fix an issue where the lanuage changes unexpectedly when navigate to a post through my page - #260
-
----
 
 ## v2.1.0 Beta 16
 
@@ -85,8 +125,6 @@
 - Improve the stability of topbar progress
 - Now the GoBack button disappears when scroll over 100px distance, not immediately after scroll down
 
----
-
 ## v2.1.0 Beta 15
 
 ### Features
@@ -101,23 +139,17 @@
 
 - Create scripts for purely automated deployment
 
----
-
 ## v2.1.0 Beta 14
 
 ### Fix
 
 - Fix deploy scripts
 
----
-
 ## v2.1.0 Beta 13
 
 ### Fix
 
 - Add a component name to lecture page
-
----
 
 ## v2.1.0 Beta 12
 
@@ -137,8 +169,6 @@
 
 - Add a slight border around the element fills to make them more distinguishable
 
----
-
 ## v2.1.0 Beta 11
 
 ### Bug Fixes
@@ -153,8 +183,6 @@
 
 - Update year - #253
 
----
-
 ## v2.1.0 Beta 10
 
 ### Bug Fixes
@@ -165,8 +193,6 @@
 
 - Improve go back speed from post to pepero square page
 - Remove transforming page transition due to a Safari bug - #249
-
----
 
 ## v2.1.0 Beta 9
 
@@ -185,8 +211,6 @@
 - Improve my page design and layouts
 - Show the currently deployed version number in home
 - Enhance page transition
-
----
 
 ## v2.1.0 Beta 8
 

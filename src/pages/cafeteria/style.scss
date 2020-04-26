@@ -1,0 +1,89 @@
+@use '@/assets/styles/main' as *;
+
+#eodiro-cafeteria {
+  .page-app-title {
+    color: $eodiro-blue-1;
+  }
+
+  .date-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    margin-bottom: s(6);
+    max-width: 30rem;
+
+    .date {
+      font-size: b(6);
+      font-weight: 500;
+      line-height: 1;
+      margin: 0 s(5);
+      @include elm-fill;
+      height: 2.5rem;
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: s(3);
+      border-radius: r(4);
+    }
+
+    .date-change-btn {
+      @include elm-fill;
+      @include clickable;
+      $btn-size: 2.5rem;
+      font-size: 1.2rem;
+      width: $btn-size;
+      height: $btn-size;
+      @include border-radius-outer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+
+  .time {
+    @include resolve-optical-illusion($border-radius-outer);
+    margin-bottom: s(3);
+    font-size: h(3);
+    font-weight: 600;
+    margin-top: s(6);
+    &:first-child {
+      margin-top: 0;
+    }
+  }
+
+  .restaurant-name {
+    font-size: 1.2rem;
+    color: $eodiro-primary-color;
+  }
+
+  .meal {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    @include separator('top');
+
+    .meal-title {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .food-container {
+      font-size: b(3);
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 -#{s(2)};
+
+      .food-name {
+        padding: 0 s(2);
+        line-height: 1.4;
+      }
+    }
+  }
+
+  .no-menus {
+    font-size: b(3);
+    margin-top: s(3);
+    color: $base-gray;
+  }
+}

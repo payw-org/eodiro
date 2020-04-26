@@ -1,59 +1,59 @@
 module.exports = {
-  root: true,
-  parser: 'vue-eslint-parser',
+  parser: '@typescript-eslint/parser',
   parserOptions: {
-    parser: 'babel-eslint',
     ecmaVersion: 2018,
-    sourceType: 'module'
+    sourceType: 'module',
   },
   env: {
+    browser: true,
+    node: true,
     es6: true,
-    browser: true
   },
   extends: [
     'eslint:recommended',
-    'standard',
-    'plugin:vue/recommended',
-    'prettier/vue',
-    '@nuxtjs',
-    'plugin:prettier/recommended'
+    'plugin:@typescript-eslint/recommended',
+    'plugin:react/recommended',
   ],
+  plugins: ['react', 'react-hooks'],
   rules: {
-    'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off',
+    'react/display-name': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react-hooks/rules-of-hooks': 'error',
+    'react/prop-types': [0],
+    '@typescript-eslint/explicit-function-return-type': [0],
+    '@typescript-eslint/no-empty-function': [0],
+    '@typescript-eslint/no-var-requires': [0],
+    '@typescript-eslint/member-delimiter-style': [
+      'error',
+      {
+        multiline: {
+          delimiter: 'none',
+          requireLast: false,
+        },
+        singleline: {
+          delimiter: 'semi',
+          requireLast: false,
+        },
+      },
+    ],
+    '@typescript-eslint/no-explicit-any': [0],
+    '@typescript-eslint/camelcase': [0],
     'space-before-function-paren': [
       'error',
       {
-        anonymous: 'never',
+        anonymous: 'always',
         named: 'never',
-        asyncArrow: 'always'
-      }
+        asyncArrow: 'always',
+      },
     ],
-    'vue/name-property-casing': ['error', 'kebab-case'],
-    'vue/html-self-closing': [
+    'sort-imports': [
       'error',
       {
-        html: {
-          void: 'always',
-          normal: 'always',
-          component: 'always'
-        },
-        svg: 'always',
-        math: 'always'
-      }
+        ignoreCase: false,
+        ignoreDeclarationSort: false,
+        ignoreMemberSort: false,
+        memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+      },
     ],
-    // 'vue/max-attributes-per-line': [
-    //   2,
-    //   {
-    //     singleline: 20,
-    //     multiline: {
-    //       max: 1,
-    //       allowFirstLine: false
-    //     }
-    //   }
-    // ],
-    'no-extra-semi': [0],
-    'no-unused-vars': [1],
-    'vue/no-v-html': [0]
-  }
+  },
 }

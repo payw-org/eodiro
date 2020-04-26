@@ -1,0 +1,19 @@
+@use '@/assets/styles/main' as *;
+
+.comp-require-auth {
+  @include border-radius-outer;
+  @include elm-fill;
+  padding: 2rem 1.5rem;
+  text-align: center;
+
+  .icon {
+    font-size: 3rem;
+    color: $eodiro-primary-color;
+  }
+
+  .paragraph {
+    font-size: 1.2rem;
+    font-weight: 500;
+    margin-top: 1rem;
+  }
+}

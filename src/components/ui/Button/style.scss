@@ -1,0 +1,25 @@
+@use '@/assets/styles/main' as *;
+
+@mixin btn-style-generator($primary, $secondary) {
+  background-color: $secondary;
+  border: 1px solid darken($secondary, 5%);
+
+  &:focus {
+    box-shadow: 0 0 0 0.25rem rgba($primary, 0.4);
+  }
+}
+
+.eodiro-btn {
+  @include btn-style-generator($eodiro-secondary-color, $eodiro-primary-color);
+  color: #fff;
+  @include border-radius-outer;
+  padding: 0.8rem s(4);
+  font-size: b(3);
+  font-weight: 500;
+  line-height: 1;
+  @include clickable;
+
+  &.full {
+    width: 100%;
+  }
+}

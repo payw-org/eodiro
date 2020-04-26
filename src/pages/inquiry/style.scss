@@ -1,0 +1,38 @@
+@use '@/assets/styles/main' as *;
+#eodiro-inquiry {
+  .request-btn {
+    align-self: stretch;
+    .request-content {
+      text-align: center;
+      font-weight: 400;
+      color: $eodiro-yellow-2;
+    }
+  }
+  .inquiry-container {
+    margin-top: s(2);
+    .inquiry-content {
+      text-align: left;
+
+      .inquiry-item {
+        margin-top: s(5);
+      }
+      .inquiry-title {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        // white-space: nowrap;
+        word-break: break-all;
+        width: 100%;
+        font-size: b(6);
+        font-weight: 600;
+      }
+      .inquiry-uploaded-at {
+        font-size: b(1);
+      }
+      .inquiry-answer {
+        font-size: b(3);
+      }
+    }
+    .no-inquiries {
+    }
+  }
+}

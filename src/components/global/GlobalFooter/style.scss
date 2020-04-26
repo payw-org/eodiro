@@ -1,0 +1,27 @@
+@use '@/assets/styles/main' as *;
+
+#global-footer {
+  // @include elm-fill;
+  // @include separator('top');
+  height: $footer-height;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &,
+  & * {
+    color: $base-gray;
+    font-size: b(2);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+  }
+
+  .payw {
+    @include text-color;
+    font-weight: 600;
+  }
+
+  .inquiry {
+    color: $eodiro-primary-color;
+  }
+}

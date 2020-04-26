@@ -1,0 +1,62 @@
+@use '@/assets/styles/utilities/functions' as *;
+
+// background colors
+// #fff for over white, #000 over black
+$base-white-blue: #f0f0f3;
+$base-black-soft: #1f1f1f;
+
+// text colors
+$base-white: #fff;
+$base-black: #222;
+$base-gray: #9b9b9b;
+
+// eodiro Colors
+// Also you should update @/modules/styles/EodiroColor.ts
+$eodiro-primary-color: #ff3852;
+$eodiro-secondary-color: #ff7037;
+$eodiro-pink-1: #ff79b9;
+$eodiro-pink-2: #ff3e78;
+$eodiro-violet-1: #e751ff;
+$eodiro-violet-2: #b221f6;
+$eodiro-purple-1: #7b5aff;
+$eodiro-purple-2: #5f14be;
+$eodiro-blue-1: #31a8ff;
+$eodiro-blue-2: #305dff;
+$eodiro-sky-1: #00e3d6;
+$eodiro-sky-2: #00b5dd;
+$eodiro-grass-1: #33d9a7;
+$eodiro-grass-2: #04ab65;
+$eodiro-green-1: #6ccf2f;
+$eodiro-green-2: #02ba41;
+$eodiro-orange-1: #ffb986;
+$eodiro-orange-2: #ff7438;
+$eodiro-yellow-1: #ffcf26;
+$eodiro-yellow-2: #ff9922;
+
+// translucent colors
+$t-white: rgba($base-white-blue, 0.08);
+$t-black: rgba($base-black-soft, 0.04);
+
+// responsive width steps
+$width-step--1: 700px;
+$width-step--1_: 699px;
+$width-step--2: 1400px;
+$width-step--2_: 1401px;
+
+// master content sizes
+// check default.vue
+$app-content-max-width: 65rem;
+
+// Navigation
+$nav-height: 3.5rem;
+
+// Footer
+$footer-height: 7rem;
+
+// button
+$btn-height: 3rem;
+
+// fonts
+$ui-font: 'PAYW Pro', 'PAYW Pro KR', -apple-system, BlinkMacSystemFont,
+  'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue',
+  sans-serif;

@@ -1,0 +1,134 @@
+@use '@/assets/styles/main' as *;
+
+#eodiro-home {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  @keyframes float {
+    0% {
+      transform: translate3d(0, 200%, 0);
+    }
+    100% {
+      transform: translate3d(0, 0%, 0);
+    }
+  }
+
+  .header {
+    line-height: 1;
+    @include resolve-optical-illusion($border-radius-outer);
+    overflow-y: hidden;
+
+    .text-wrapper {
+      transform: translate3d(0, 200%, 0);
+
+      &.animate {
+        animation-name: float;
+        animation-duration: 800ms;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease;
+      }
+    }
+
+    .emoji {
+      display: inline-block;
+      margin-left: s(3);
+    }
+
+    .name {
+      $pink: #ffe6e6;
+      @include text-color;
+      font-weight: 700;
+      font-size: 7rem;
+      transition: color 400ms ease, text-shadow 400ms ease;
+
+      $shadow-distance: 0.25rem;
+      $shadow-far: $shadow-distance * 2;
+
+      &.shadowed {
+        text-shadow: $shadow-distance $shadow-distance $eodiro-primary-color,
+          $shadow-far $shadow-far #ffc14f;
+        color: $base-white;
+
+        @include dark-mode {
+          color: $pink;
+          text-shadow: $shadow-distance $shadow-distance $eodiro-primary-color,
+            $shadow-far $shadow-far #ff8e8e;
+        }
+      }
+
+      @include on-mobile {
+        font-size: 5rem;
+      }
+    }
+  }
+
+  .manifesto {
+    margin-top: s(3);
+    @include resolve-optical-illusion($border-radius-outer);
+    overflow-y: hidden;
+
+    .text {
+      color: $base-gray;
+      font-size: 2rem;
+      @include on-mobile {
+        font-size: 1.5rem;
+      }
+      font-weight: 600;
+      transform: translate3d(0, 100%, 0);
+      display: inline-block;
+
+      &.animate {
+        animation-name: float;
+        animation-duration: 1s;
+        animation-delay: 0.2s;
+        animation-fill-mode: forwards;
+        animation-timing-function: ease;
+      }
+    }
+  }
+
+  .features {
+    margin-top: s(12);
+
+    .feature-box {
+      position: relative;
+      flex: 1;
+      text-align: left;
+      @include block-style;
+      padding: 1.5rem;
+      @include clickable;
+
+      .wrapper {
+        width: 100%;
+      }
+
+      .icon {
+        $icon-size: 2.5rem;
+        width: $icon-size;
+        height: $icon-size;
+      }
+
+      .feature-name {
+        font-size: h(1);
+        font-weight: 600;
+        color: $base-gray;
+        margin-top: 1rem;
+      }
+
+      .label {
+        position: absolute;
+        right: 1.5rem;
+        top: 1.5rem;
+        background-color: $eodiro-sky-2;
+        border-radius: 0.3rem;
+        color: #fff;
+        padding: 0.4rem;
+        font-weight: 700;
+        font-size: 0.7rem;
+        letter-spacing: 0.09em;
+      }
+    }
+  }
+}

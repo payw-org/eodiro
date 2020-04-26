@@ -1,0 +1,36 @@
+@use '@/assets/styles/main' as *;
+
+.arrow-block {
+  @include block-style;
+
+  &.unflat {
+    @include clickable;
+  }
+
+  &.custom-padding {
+    padding: 0;
+  }
+
+  .ab-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    word-break: break-all;
+
+    & > * {
+      width: 100%;
+    }
+  }
+
+  .ab-arrow-container {
+    display: flex;
+    margin-left: 1rem;
+
+    .ab-arrow {
+      width: auto;
+      height: 0.8rem;
+    }
+  }
+}

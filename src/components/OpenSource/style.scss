@@ -1,0 +1,75 @@
+@use '@/assets/styles/main' as *;
+
+.component-open-source {
+  .manifesto {
+    margin-top: 4rem;
+  }
+
+  .paragraph {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-top: 1rem;
+
+    a {
+      font-size: inherit;
+      font-weight: inherit;
+      color: $eodiro-primary-color;
+
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  .contributors {
+    margin-top: 10rem;
+
+    .title {
+      font-size: 1.5rem;
+    }
+
+    .description {
+      font-size: 1.2rem;
+      color: $base-gray;
+      margin-top: 0.5rem;
+    }
+
+    .users {
+      --profile-size: 8rem;
+      @include on-mobile {
+        --profile-size: 6rem;
+      }
+      margin-top: 2rem;
+      display: grid;
+      grid-gap: 1.5rem;
+      grid-template-columns: repeat(
+        auto-fill,
+        minmax(var(--profile-size), 1fr)
+      );
+
+      .user {
+        display: grid;
+        grid-row-gap: 0.7rem;
+
+        .avatar {
+          width: 100%;
+          border-radius: 0.3rem;
+        }
+
+        .name {
+          font-size: 1rem;
+          text-align: center;
+          word-break: break-all;
+        }
+
+        .contributions {
+          font-size: 0.9rem;
+          font-weight: 600;
+          color: $eodiro-primary-color;
+          text-align: center;
+          border-radius: 9999px;
+        }
+      }
+    }
+  }
+}

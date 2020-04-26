@@ -1,0 +1,41 @@
+@use '@/assets/styles/main' as *;
+
+#eodiro-app-scaffold {
+  width: 100%;
+
+  #eodiro-app {
+    .body-content {
+      width: calc(100% - 2.5rem);
+      max-width: $app-content-max-width;
+      margin: auto;
+      padding: $nav-height 0 3rem 0;
+      min-height: calc(100vh - #{$footer-height});
+      position: relative;
+
+      &.top-gap {
+        padding-top: $nav-height + ss(2);
+      }
+
+      &.centered {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      &.hidden {
+        opacity: 0;
+      }
+
+      .body-content-bottom-sentinel {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 1px;
+        pointer-events: none;
+        opacity: 0;
+      }
+    }
+  }
+}

@@ -1,0 +1,21 @@
+@use '@/assets/styles/main' as *;
+
+.forced-api-enabled {
+  z-index: 6666;
+  position: fixed;
+  left: 1rem;
+  bottom: 1rem;
+  @include bg-inverted;
+  padding: 0.5rem 0.8rem;
+  display: none;
+  border-radius: 50px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  @include text-color-inverted;
+}
+
+[data-forced-api-enabled] {
+  .forced-api-enabled {
+    display: flex;
+  }
+}

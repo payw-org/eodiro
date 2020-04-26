@@ -1,0 +1,20 @@
+@use '@/assets/styles/main' as *;
+
+// Text color
+.scheme-text {
+  @include text-color;
+}
+.scheme-text-inverted {
+  @include text-color-inverted;
+}
+
+// Background
+.scheme-background {
+  @include bg;
+}
+.scheme-elm {
+  @include elm-fill;
+}
+.scheme-distinct {
+  @include elm-fill-distinct;
+}

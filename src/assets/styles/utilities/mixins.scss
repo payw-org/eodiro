@@ -1,0 +1,234 @@
+@use '@/assets/styles/utilities/variables' as *;
+@use '@/assets/styles/utilities/functions' as *;
+
+// dark mode
+@mixin dark-mode {
+  @media (prefers-color-scheme: dark) {
+    & {
+      @content;
+    }
+  }
+}
+
+@mixin on-lang($lang) {
+  [lang='#{$lang}'] & {
+    @content;
+  }
+}
+
+// body background color
+@mixin bg {
+  background-color: $base-white-blue;
+
+  @include dark-mode {
+    background-color: #000;
+  }
+}
+@mixin bg-inverted {
+  background-color: $base-black-soft;
+
+  @include dark-mode {
+    background-color: $base-white-blue;
+  }
+}
+
+@mixin bg-black-and-white {
+  background-color: #fff;
+  @include dark-mode {
+    background-color: #000;
+  }
+}
+
+// text color
+@mixin text-color {
+  color: $base-black;
+
+  @include dark-mode {
+    color: $base-white;
+  }
+}
+@mixin text-color-inverted {
+  color: $base-white;
+
+  @include dark-mode {
+    color: $base-black;
+  }
+}
+
+// element fill
+@mixin elm-fill {
+  background-color: #fff;
+
+  @include dark-mode {
+    background-color: $base-black-soft;
+  }
+}
+@mixin elm-fill-inverted {
+  background-color: $base-black-soft;
+
+  @include dark-mode {
+    background-color: $base-white-blue;
+  }
+}
+
+@mixin elm-fill-distinct {
+  background-color: $base-white-blue;
+
+  @include dark-mode {
+    background-color: $base-black-soft;
+  }
+}
+
+// layered fill
+@mixin overlay {
+  background-color: $t-white;
+
+  @include dark-mode {
+    background-color: $t-black;
+  }
+}
+@mixin overlay-inverted {
+  background-color: $t-black;
+
+  @include dark-mode {
+    background-color: $t-white;
+  }
+}
+
+// screen
+@mixin smaller-than($width) {
+  @media only screen and (max-width: $width) {
+    @content;
+  }
+}
+@mixin larger-than($width) {
+  @media only screen and (min-width: $width) {
+    @content;
+  }
+}
+@mixin on-mobile {
+  @include smaller-than($width-step--1) {
+    @content;
+  }
+}
+@mixin no-mobile {
+  @include larger-than($width-step--1 + 1px) {
+    @content;
+  }
+}
+
+// typography
+// headings
+@mixin paragraph {
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: lh(3);
+}
+
+@mixin input-text {
+  @include smaller-than($width-step--1) {
+    font-size: 16px !important;
+  }
+}
+
+// background image utils
+@mixin bgImg($url, $position: center, $size: 'contain') {
+  background-image: url($url);
+  background-repeat: no-repeat;
+  background-position: unquote($position);
+  background-size: unquote($size);
+}
+
+$border-color: rgba(#000, 0.1);
+$border-color-dark: rgba(#fff, 0.17);
+
+@mixin separator($direction: '') {
+  @if $direction == '' {
+    border-color: $border-color;
+    border-width: 1px;
+    @include dark-mode {
+      border-color: $border-color-dark;
+    }
+  } @else {
+    border-#{$direction}: 1px solid $border-color;
+    @include dark-mode {
+      border-color: $border-color-dark;
+    }
+  }
+}
+
+@mixin bordered {
+  border: 1px solid $border-color;
+
+  @include dark-mode {
+    border: 1px solid $border-color-dark;
+  }
+}
+
+$border-radius-outer: 0.7rem;
+@mixin border-radius-outer {
+  border-radius: $border-radius-outer;
+}
+
+$border-radius-inner: r(2);
+@mixin border-radius-inner {
+  border-radius: $border-radius-inner;
+}
+
+// @deprecated
+@mixin rounded {
+  @include border-radius-outer;
+}
+
+@mixin clickable {
+  transition: opacity 150ms ease;
+
+  & {
+    cursor: pointer;
+    user-select: none;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:active {
+    opacity: 0.5;
+  }
+}
+
+@mixin input-style {
+  @include border-radius-outer;
+  @include text-color;
+  @include elm-fill;
+  font-size: 1rem;
+  padding: s(3) s(4);
+  height: $btn-height;
+  appearance: none;
+  overflow: auto;
+  display: block;
+  width: 100%;
+  resize: none;
+
+  @include input-text;
+}
+
+@mixin resolve-optical-illusion($value: null) {
+  @if $value {
+    padding-left: $value / 3;
+  } @else {
+    // Default resolve to outer radius
+    padding-left: $border-radius-outer / 3;
+  }
+}
+
+@mixin resolve-optical-illusion-both($value: null) {
+  @if $value {
+    padding-left: $value / 3;
+    padding-right: $value / 3;
+  } @else {
+    // Default resolve to outer radius
+    padding-left: $border-radius-outer / 3;
+    padding-right: $border-radius-outer / 3;
+  }
+}

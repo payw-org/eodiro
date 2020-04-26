@@ -1,0 +1,35 @@
+@use '@/assets/styles/main' as *;
+
+.grid-layout {
+  display: grid;
+  grid-gap: s(5);
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+
+  &.proportion--extra-small {
+    grid-template-columns: repeat(auto-fill, minmax(7rem, 1fr));
+  }
+
+  &.proportion--small {
+    grid-template-columns: repeat(auto-fill, minmax(12rem, 1fr));
+
+    @include smaller-than(300px) {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
+  &.proportion--large {
+    grid-template-columns: repeat(auto-fill, minmax(20rem, 1fr));
+
+    @include smaller-than(400px) {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
+  &.gap--small {
+    grid-gap: s(3);
+  }
+
+  &.gap--large {
+    grid-gap: s(7);
+  }
+}

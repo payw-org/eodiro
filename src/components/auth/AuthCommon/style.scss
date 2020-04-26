@@ -1,0 +1,46 @@
+@use '@/assets/styles/main' as *;
+
+.eodiro-auth-common {
+  max-width: 18rem !important;
+}
+
+#eodiro-signin {
+  width: 100%;
+
+  .signin-box {
+    .field {
+      margin-top: s(3);
+    }
+
+    .error {
+      // @include resolve-optical-illusion;
+      text-align: center;
+      color: $eodiro-primary-color;
+      margin-top: s(1);
+    }
+
+    .btn {
+      margin-top: s(5);
+    }
+
+    .more {
+      margin-top: s(5);
+      padding-top: s(2);
+      @include separator('top');
+
+      p {
+        @include bordered;
+        @include border-radius-outer;
+        padding: s(3);
+        text-align: center;
+        margin-top: s(3);
+
+        a {
+          margin-left: s(1);
+          font-weight: 500;
+          color: $eodiro-primary-color;
+        }
+      }
+    }
+  }
+}

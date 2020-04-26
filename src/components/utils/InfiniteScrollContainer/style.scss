@@ -1,0 +1,41 @@
+@use '@/assets/styles/main' as *;
+
+.infinite-scroll-container {
+  .loading-indicator-wrapper {
+    position: fixed;
+    left: 0;
+    bottom: 2rem;
+    z-index: 8888;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+
+    .loading-indicator {
+      flex: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      @include elm-fill;
+      @include bordered;
+      border-radius: 50px;
+      padding: 1rem 1.5rem;
+      box-shadow: 0 0.7rem 4rem rgba(#000, 0.2);
+      transform: scale(0.95);
+      opacity: 0;
+      transition: transform 200ms ease, opacity 200ms ease;
+
+      p {
+        line-height: 1;
+        font-size: 1rem;
+        font-weight: 500;
+      }
+
+      &.processing {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+  }
+}

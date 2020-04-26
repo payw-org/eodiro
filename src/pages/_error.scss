@@ -1,0 +1,17 @@
+@use '@/assets/styles/main' as *;
+
+#error-page {
+  text-align: center;
+
+  .status-code {
+    font-size: 7rem;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+  }
+
+  .manifesto {
+    font-size: b(8);
+    margin-top: s(5);
+    color: $base-gray;
+  }
+}

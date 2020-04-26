@@ -1,95 +1,109 @@
-> v2 is now **deprecated**. The new [eodiro-next](https://github.com/paywteam/eodiro-next) is currently in development.
+# eodiro ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/paywteam/eodiro?include_prereleases)
 
-![banner](https://user-images.githubusercontent.com/19797697/73181225-d21c1b80-40e4-11ea-80b1-d84fa6bb3a0a.png)
-
-<p align="center"><b>eodiro</b> is an open source utility service for Chung-Ang university students.</p>
-<p align="center">
-  <a href="https://eodiro.com">https://eodiro.com</a>
-</p>
-
-<p align="center">
-  <img src="https://img.shields.io/github/license/paywteam/eodiro" />
-  <a href="https://github.com/paywteam/eodiro/actions">
-    <img src="https://github.com/paywteam/eodiro/workflows/ci/badge.svg" />
-  </a>
-  <img src="https://img.shields.io/github/v/release/paywteam/eodiro" />
-  <img src="https://img.shields.io/github/stars/paywteam/eodiro?style=social" />
-</p>
-
----
+The futuristically next major version of **eodiro.com** using React and Next.
 
 ## Documentation
 
-**Wiki**
+- [Changelog](docs/Changelog.md)
+- [Design Guidelines](docs/wiki/Design-Guidelines.md)
+- [UI Components](docs/wiki/UI-Components.md)
+- [ToDo](docs/ToDo.md)
 
-- [Terms](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Terms.md)
-- [Design Guidelines](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Design-Guidelines.md)
-- [UI Components](https://github.com/paywteam/eodiro/blob/master/docs/wiki/UI-Components.md)
-- [CustomEvents](https://github.com/paywteam/eodiro/blob/master/docs/wiki/CustomEvents.md)
-- [Modules](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Modules.md)
-- [Plugins](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Plugins.md)
-- Middleware
-- [Vuex Store](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Vuex-Store.md)
-- [Vue Mixins](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Vue-Mixins.md)
-- Components
-  - [Banner](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Banner.md)
-  - [Tiles](https://github.com/paywteam/eodiro/blob/master/docs/wiki/Tiles.md)
+## Development
 
-**[Changelog](https://github.com/paywteam/eodiro/blob/master/docs/Changelog.md)**
+### Using dev API locally
 
-**[ToDo](https://github.com/paywteam/eodiro/blob/master/docs/ToDo.md)**
-
-## Build Instructions
-
-1. You must install Node.js and Yarn before following the steps below.
-
-2. Download or clone the repository.
-
-3. Go to the project's root directory and install dependencies.
+You must clone and run [`eodiro-api2`](https://github.com/paywteam/eodiro-api2) on your local machine in dev mode.
 
 ```zsh
-% npm install
+npm run dev
 ```
 
-4. Happy developing
+### Using server API (https://eodiro.com)
+
+Also you can develop only the client application without cloning server repository `eodiro-api2`.
 
 ```zsh
-# Development
-% npm run dev
+npm run dev --useProdApi
 ```
+
+> Recent client application in the master branch may not match to the API distributed on https://eodiro.com. To develop using the recent APIs, download and run API repository locally.
+
+### Using dev API (localhost)
+
+By default, `npm run dev` connects to local dev API server and `npm start` tries to connect to the real server(https://eodiro.com). However, sometimes you need to test the production-ready, built version of client application with the dev API. To achieve this, simply pass an argument similar to the one above
 
 ```zsh
-# Build and start the server
-% npm run build
-% npm run start
+npm start --useDevApi
 ```
 
-## Contributing
+> `--useProdApi` and `--useDevApi` are only for the purpose of tests. Do not use them in production. For more information about API hosts, checkout the [source code](https://github.com/paywteam/eodiro/blob/master/src/modules/api-host.ts).
 
-Follow our [PAYW Contributing Guidelines](https://github.com/paywteam/contributing-guidelines).
+## Developers Guide
 
-You can also leave an issue/pull request here or send us an email to support@eodiro.com, or contact@payw.org for more general things about us.
+### Authentication
 
-## License
+**`getAuthState({ req, res })`**
 
-MIT License
+On server side, you can check the user's authentication status by using this method. It always returns the latest information by validating from the eodiro API server.
 
-Copyright (c) 2019-2020 PAYW
+**`useAuth()`**
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+Inside React components, you can retrieve the same auth information with this hook. Although either you can use `getAuthState` on client side, you should not use it because the `AuthContext` that `useAuth` returns is already set by the same function internally.
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+### JSX className
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
+**`mergeClassNames(...classNames)`**
+
+It is useful when you set multiple class names in a JSX syntax, especially for optional class names with a default class. It automatically appends spaces between class names and resolves nothing with falsy values.
+
+```tsx
+const [isAppeard] = useState(false)
+
+return <div classNames={mergeClassNames('bg', isAppeard && 'appear')} />
+```
+
+### Get the latest fresh state
+
+If your familiar with React and React hook APIs, you know there is a problem called **stale state**. It happens when you use React state inside a callback function. The state you just use is freezed inside the callback function at the time you register it. We recognize the problem and found a solution using [functional updates](https://reactjs.org/docs/hooks-reference.html#functional-updates).
+
+**`getState(dispatch)`**
+
+```tsx
+const [flag, setFlag] = useState(false)
+
+setTimeout(() => {
+  const flag = getState(setFlag) // It always return the latest state
+  setState(!flag)
+}, 1000)
+```
+
+### Components
+
+**`Spinner`**
+
+It displays an iOS-like spinner.
+
+**`InfiniteScrollContainer`**
+
+- Props
+  - `children`: A wrapper element.
+  - `strategy`: This method is being called when the bottom of the container reaches the end of a viewport. It returns `true` when there are more content to be loaded, `false` on the other hand.
+
+### String Utils
+
+**`camelToKebab(str)`**
+
+Transform a `camelCase` string to `kebab-case`.
+
+### Miscellaneous Modules
+
+Along with many node modules from npm, we create, manage and provide our own useful modules which are needed specifically for our project including the modules exposed above exclusively.
+
+**`wait(ms)`**
+
+Synchronously block the interpretation and wait for some milliseconds.
+
+**`getSemester()`**
+
+Returns current semester.

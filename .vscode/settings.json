@@ -1,13 +1,8 @@
 {
   "editor.formatOnSave": true,
-  "eslint.alwaysShowStatus": true,
-  "eslint.packageManager": "yarn",
-  "vetur.completion.tagCasing": "initial",
-  "vetur.format.defaultFormatter.html": "prettier",
-  "files.insertFinalNewline": true,
-  "javascript.suggest.completeJSDocs": false,
-  "typescript.suggest.completeJSDocs": false,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": true
-  }
+  // "emmet.excludeLanguages": ["typescriptreact"],
+  "editor.codeActionsOnSave": [
+    // "source.organizeImports"
+  ],
+  "typescript.tsdk": "node_modules/typescript/lib"
 }

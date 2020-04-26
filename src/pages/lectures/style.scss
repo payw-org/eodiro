@@ -1,0 +1,97 @@
+@use '@/assets/styles/main' as *;
+
+.lectures-body {
+  max-width: 80rem !important;
+}
+
+#eodiro-lectures {
+  .page-app-title {
+    color: $eodiro-primary-color;
+  }
+
+  .search-field {
+    // position: sticky;
+    // top: $nav-height;
+    z-index: 10;
+  }
+
+  .lecture-container {
+    margin-top: s(6);
+
+    .lecture-item {
+      .li-content {
+        text-align: left;
+
+        .info-item {
+          margin-top: s(2);
+        }
+
+        .name-and-code {
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          @include separator('bottom');
+          padding-bottom: s(3);
+
+          .name {
+            flex: 1;
+            font-size: b(6);
+            font-weight: 600;
+          }
+
+          .code {
+            margin-left: s(3);
+            color: $eodiro-primary-color;
+            font-size: b(1);
+            white-space: nowrap;
+          }
+        }
+
+        .major,
+        .credit {
+          line-height: 1;
+          padding: s(2);
+          @include bg;
+          @include border-radius-inner;
+          display: inline-block;
+          margin-right: s(3);
+          margin-top: s(2);
+        }
+
+        .note {
+          @include separator('top');
+          margin-top: s(2);
+
+          .data {
+            margin-top: s(3);
+
+            h3 {
+              font-size: b(3);
+              color: $eodiro-primary-color;
+              line-height: 1;
+            }
+
+            p {
+              margin-top: s(1);
+            }
+          }
+        }
+
+        .syllabus {
+          display: flex;
+          align-items: center;
+          @include separator('top');
+          padding-top: 0.7rem;
+          margin-top: 0.5rem;
+          justify-content: center;
+          @include clickable;
+          font-weight: 500;
+
+          .icon {
+            margin-right: 0.3rem;
+          }
+        }
+      }
+    }
+  }
+}

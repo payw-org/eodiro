@@ -1,0 +1,87 @@
+.post-image-viewer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 999999;
+
+  .background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(#000, 0.9);
+  }
+
+  .image-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .linker {
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+
+      img {
+        max-width: calc(100% - 5rem);
+        max-height: calc(100% - 2rem);
+        pointer-events: all;
+        transform: translate3d(0, 0, 0);
+        z-index: 200;
+      }
+    }
+
+    .img-link {
+      display: block;
+      z-index: 250;
+    }
+  }
+
+  .close-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 2rem;
+    z-index: 300;
+  }
+
+  .nav-btn {
+    $btn-size: 3.5rem;
+    width: $btn-size;
+    height: $btn-size;
+    position: absolute;
+    top: calc(50% - #{$btn-size / 2});
+    background-color: #fff;
+    border-radius: 9999px;
+    z-index: 300;
+    font-weight: bold;
+    font-size: 2rem;
+    box-shadow: 0 0.5rem 2rem rgba(#000, 0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    i {
+      position: relative;
+    }
+  }
+
+  .prev-btn {
+    left: 1rem;
+    i {
+      right: 0.1rem;
+    }
+  }
+
+  .next-btn {
+    right: 1rem;
+    i {
+      left: 0.1rem;
+    }
+  }
+}

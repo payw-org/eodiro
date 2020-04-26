@@ -1,0 +1,58 @@
+@use '@/assets/styles/main' as *;
+
+#post-viewer-file-container {
+  margin-top: 5rem;
+
+  .images {
+    display: block;
+    margin-bottom: 2rem;
+
+    .image-container {
+      box-shadow: 0 0.15rem 0.5rem rgba(#000, 0.2);
+      cursor: pointer;
+      display: inline-block;
+      width: calc(25% - 0.53rem);
+      position: relative;
+      border-radius: 0.5rem;
+      overflow: hidden;
+      margin-right: 0.7rem;
+      margin-bottom: 0.7rem;
+      @include smaller-than(699px) {
+        &:nth-child(4n) {
+          margin-right: 0;
+        }
+      }
+      @include larger-than(700px) {
+        width: calc(20% - 0.56rem);
+        &:nth-child(5n) {
+          margin-right: 0;
+        }
+      }
+
+      &::before {
+        content: '';
+        display: block;
+        padding-top: 100%;
+      }
+
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .file {
+    @include clickable;
+    margin-bottom: 0.5rem;
+
+    .icon {
+      margin-right: 0.5rem;
+      font-size: 1.3em;
+    }
+  }
+}

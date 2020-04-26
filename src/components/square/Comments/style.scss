@@ -1,0 +1,51 @@
+@use '@/assets/styles/main' as *;
+
+.eodiro-square-post-comments {
+  @include elm-fill-distinct;
+  @include border-radius-outer;
+  padding: 0.5rem 1rem 1rem;
+  margin-top: 3rem;
+
+  .no-comments-yet {
+    text-align: center;
+    margin: 1rem 0 2rem;
+  }
+
+  .comment-item {
+    padding: 0.6rem 0;
+    @include separator('bottom');
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    .first-row {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .nick-and-time {
+      font-size: 0.9rem;
+
+      .nick {
+        font-weight: 500;
+      }
+      .time {
+        color: $base-gray;
+        margin-left: 0.5rem;
+      }
+    }
+
+    .delete {
+      font-size: 1rem;
+      color: $eodiro-primary-color;
+      margin-left: 0.5rem;
+      display: flex;
+    }
+
+    .body {
+      font-size: 1rem;
+      margin-top: 0.3rem;
+    }
+  }
+}

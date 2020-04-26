@@ -5,7 +5,7 @@ It includes new features to be added, bug fixes, source code refactoring and any
 ## General
 
 - [ ] Add **Terms of Use** section and agreeing process
-- [ ] Set default color scheme to 'auto'
+- ~~[ ] Set default color scheme to 'auto'~~
 
 ## Performance
 
@@ -19,7 +19,7 @@ It includes new features to be added, bug fixes, source code refactoring and any
 
 ### Design
 
-- [ ] Unpaint the part above bottom navigation to prevent flashing on iOS devices due to the translucency
+- [x] Unpaint the part above bottom navigation to prevent flashing on iOS devices due to the translucency
 
 ## My Page
 
@@ -29,17 +29,21 @@ It includes new features to be added, bug fixes, source code refactoring and any
 
 ### Features
 
-- [ ] Reissue password
+- [x] Reissue password
 - [ ] Withdraw a membership
 - [ ] Show my posts and comments
 
 ## Pepero Square (Tentative Title)
 
+### UI
+
+- Pagination instead of infinite scroll
+
 ### Chore
 
 - Display 'need to sign in' component instead of `require-auth` mixin, popup and redirection
   - [x] Post
-  - [ ] New post
+  - [x] New post
 
 ### Bug Fixes
 
@@ -49,8 +53,8 @@ It includes new features to be added, bug fixes, source code refactoring and any
 ### Features
 
 - [x] Show the number of comments of each post
-- [ ] Upload images or files
-- [ ] Categories
+- [x] Upload images or files
+- [x] ~~Categories~~ Boards
 - [ ] Comments of a comment
 - [ ] 🔍 Search
 
@@ -65,8 +69,8 @@ It includes new features to be added, bug fixes, source code refactoring and any
 - Validation APIs should send 2xx status code with the result of validation
   - Currently the APIs respond with 4xx when the validations have been failed
   - [x] `isSignedIn`
-  - [ ] Sign up validation
-- [ ] Clear tokens from cookie when refreshing process fails
+  - [x] Sign up validation
+- ~~[ ] Clear tokens from cookie when refreshing process fails~~
 
 ## Modules
 
