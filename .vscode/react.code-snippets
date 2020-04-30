@@ -35,5 +35,10 @@
     "scope": "typescriptreact",
     "prefix": "styl",
     "body": "import './style.scss'"
+  },
+  "data-component attribute": {
+    "scope": "typescriptreact",
+    "prefix": "dc",
+    "body": "data-component=\"\""
   }
 }
