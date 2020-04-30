@@ -1,7 +1,8 @@
-import { ArrowIcon } from '@/components/global/icons'
-import mergeClassNames from '@/modules/merge-class-name'
-import React from 'react'
 import './style.scss'
+
+import { ArrowIcon } from '@/components/global/icons'
+import React from 'react'
+import mergeClassNames from '@/modules/merge-class-name'
 
 export interface ArrowBlockProps {
   className?: string
