@@ -1,5 +1,6 @@
-import { FillableIconProps } from '@/types'
 import React, { memo } from 'react'
+
+import { FillableIconProps } from '@/types'
 
 interface ArrowIconProps extends FillableIconProps {
   direction?: 'right' | 'down' | 'left' | 'up'

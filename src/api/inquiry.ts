@@ -1,6 +1,6 @@
 import ApiHost from '@/modules/api-host'
-import eodiroAxios from '@/modules/eodiro-axios'
 import { IncomingMessage } from 'http'
+import eodiroAxios from '@/modules/eodiro-axios'
 import queryString from 'query-string'
 
 export type InquiryData = {
@@ -45,7 +45,7 @@ export class InquiryApi {
     body: string,
     email: string
   ): Promise<boolean> {
-    const [err, data, status] = await eodiroAxios(
+    const [, , status] = await eodiroAxios(
       {
         method: 'post',
         url: ApiHost.getHost() + `/inquiry`,

@@ -1,5 +1,5 @@
-import React from 'react'
 import { FillableIcon } from '@/types'
+import React from 'react'
 
 const EodiroLogo: FillableIcon = ({ fill = '#000', className, appearance }) => {
   return (

@@ -1,8 +1,9 @@
-import ApiHost from '@/modules/api-host'
-import getSemester from '@/modules/get-semester'
-import useFetch from '@/modules/use-fetch'
 import { Campus, Semester, Year } from '@/types'
+
+import ApiHost from '@/modules/api-host'
 import dayjs from 'dayjs'
+import eodiroFetch from '@/modules/eodiro-fetch'
+import getSemester from '@/modules/get-semester'
 
 export type VacantBuildings = {
   building_number: number
@@ -10,16 +11,18 @@ export type VacantBuildings = {
   empty: number
 }[]
 
+export type Lecture = {
+  name: string
+  professor: string
+  start_h: number
+  start_m: number
+  end_h: number
+  end_m: number
+}
+
 export type VacantClassrooms = {
   classroom_number: string
-  lectures: {
-    name: string
-    professor: string
-    start_h: number
-    start_m: number
-    end_h: number
-    end_m: number
-  }[]
+  lectures: Lecture[]
 }[]
 
 export class VacantApi {
@@ -36,7 +39,7 @@ export class VacantApi {
     year = year || now.year()
     semester = semester || getSemester()
 
-    const [err, data] = await useFetch(
+    const [err, data] = await eodiroFetch(
       ApiHost.getHost() +
         `/vacant/${year}/${encodeURIComponent(semester)}/${encodeURIComponent(
           campus
@@ -66,7 +69,7 @@ export class VacantApi {
 
     // TODO: Rename `useFetch` because it's not a React hook
     // eslint-disable-next-line react-hooks/rules-of-hooks
-    const [err, data] = await useFetch(
+    const [err, data] = await eodiroFetch(
       ApiHost.getHost() +
         `/vacant/${year}/${encodeURIComponent(semester)}/${encodeURIComponent(
           campus

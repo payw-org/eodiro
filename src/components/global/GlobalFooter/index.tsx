@@ -1,6 +1,7 @@
-import dayjs from 'dayjs'
-import React from 'react'
 import './style.scss'
+
+import React from 'react'
+import dayjs from 'dayjs'
 
 const GlobalFooter: React.FC = () => {
   const now = dayjs()

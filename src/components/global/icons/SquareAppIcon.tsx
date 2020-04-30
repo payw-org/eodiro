@@ -1,5 +1,5 @@
-import React from 'react'
 import { ColorIcon } from '@/types'
+import React from 'react'
 
 export const SquareAppIcon: ColorIcon = ({ className }) => {
   return (

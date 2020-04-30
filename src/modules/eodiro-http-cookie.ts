@@ -1,6 +1,7 @@
-import nodeCookie from 'cookie'
 import { IncomingMessage, ServerResponse } from 'http'
+
 import eodiroAxios from './eodiro-axios'
+import nodeCookie from 'cookie'
 
 export type Cookie = {
   expires?: string // Expiry date in UTC time

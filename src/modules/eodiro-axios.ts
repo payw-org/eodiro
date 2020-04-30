@@ -5,9 +5,10 @@
  * @license MIT
  */
 
-import { Tokens } from '@/api'
 import axios, { AxiosRequestConfig } from 'axios'
+
 import { IncomingMessage } from 'http'
+import { Tokens } from '@/api'
 
 const moduleConsoleTag = '[eodiro-axios]'
 

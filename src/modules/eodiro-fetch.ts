@@ -7,7 +7,7 @@ import fetch from 'isomorphic-unfetch'
 type UseFetchError = any
 type UseFetchStatusCode = number
 
-async function useFetch<T = any>(
+async function eodiroFetch<T = any>(
   input: RequestInfo,
   init?: RequestInit
 ): Promise<[UseFetchError, T, UseFetchStatusCode]> {
@@ -30,4 +30,4 @@ async function useFetch<T = any>(
   }
 }
 
-export default useFetch
+export default eodiroFetch

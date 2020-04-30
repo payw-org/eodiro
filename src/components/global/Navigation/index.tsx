@@ -1,8 +1,5 @@
-import { VerticalThreeDotsIcon } from '@/components/global/icons'
-import EodiroLogo from '@/components/global/icons/EodiroLogo'
-import mergeClassNames from '@/modules/merge-class-name'
-import { AuthContext } from '@/pages/_app'
-import React, { useContext } from 'react'
+import './style.scss'
+
 import {
   NavHiddenStateContext,
   NavMenuOpenDispatchContext,
@@ -10,7 +7,12 @@ import {
   NavScrollStateContext,
   NavTitleStateContext,
 } from './navigation-context'
-import './style.scss'
+import React, { useContext } from 'react'
+
+import { AuthContext } from '@/pages/_app'
+import EodiroLogo from '@/components/global/icons/EodiroLogo'
+import { VerticalThreeDotsIcon } from '@/components/global/icons'
+import mergeClassNames from '@/modules/merge-class-name'
 
 export * from './navigation-context'
 

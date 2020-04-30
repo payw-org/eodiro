@@ -1,8 +1,9 @@
-import ApiHost from '@/modules/api-host'
-import getSemester from '@/modules/get-semester'
-import useFetch from '@/modules/use-fetch'
 import { Campus, LecturesWithMajorCode, Semester } from '@/types'
+
+import ApiHost from '@/modules/api-host'
 import dayjs from 'dayjs'
+import eodiroFetch from '@/modules/eodiro-fetch'
+import getSemester from '@/modules/get-semester'
 import queryString from 'query-string'
 
 export class LecturesApi {
@@ -20,7 +21,7 @@ export class LecturesApi {
     const amount = options.amount
     const offset = options.offset
 
-    const [err, data] = await useFetch<LecturesWithMajorCode>(
+    const [err, data] = await eodiroFetch<LecturesWithMajorCode>(
       ApiHost.getHost() +
         `/lectures/${year}/${semeseter}/${campus}/list?` +
         queryString.stringify({
@@ -50,7 +51,7 @@ export class LecturesApi {
     const amount = options.amount
     const offset = options.offset
 
-    const [err, data] = await useFetch<LecturesWithMajorCode>(
+    const [err, data] = await eodiroFetch<LecturesWithMajorCode>(
       ApiHost.getHost() +
         `/lectures/${year}/${semeseter}/${campus}/search?` +
         queryString.stringify({
