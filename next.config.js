@@ -12,6 +12,12 @@ module.exports = withSass({
       })
     )
 
+    config.module.rules.push({
+      test: /\.tsx?$/,
+      exclude: /node_modules/,
+      loader: 'eslint-loader',
+    })
+
     return config
   },
   // devIndicators: {

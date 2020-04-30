@@ -9,6 +9,11 @@ module.exports = {
     node: true,
     es6: true,
   },
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
