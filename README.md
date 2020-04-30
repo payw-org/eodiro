@@ -1,6 +1,6 @@
 # eodiro ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/paywteam/eodiro?include_prereleases)
 
-The futuristically next major version of **eodiro.com** using React and Next.
+The open source utility service for CAU students.
 
 ## Documentation
 
@@ -53,6 +53,8 @@ Inside React components, you can retrieve the same auth information with this ho
 
 ### JSX className
 
+> 🚨 Deprecate in favor of [classnames](https://github.com/JedWatson/classnames)
+
 **`mergeClassNames(...classNames)`**
 
 It is useful when you set multiple class names in a JSX syntax, especially for optional class names with a default class. It automatically appends spaces between class names and resolves nothing with falsy values.
@@ -65,15 +67,15 @@ return <div classNames={mergeClassNames('bg', isAppeard && 'appear')} />
 
 ### Get the latest fresh state
 
-If your familiar with React and React hook APIs, you know there is a problem called **stale state**. It happens when you use React state inside a callback function. The state you just use is freezed inside the callback function at the time you register it. We recognize the problem and found a solution using [functional updates](https://reactjs.org/docs/hooks-reference.html#functional-updates).
+If your familiar with React and React hook APIs, you know there is a problem called **stale state**. It happens when you use React state inside a callback function. The state you just use is freezed inside the callback function at the time you register it. We recognize the problem and found a solution using [functional updates](https://reactjs.org/docs/hooks-reference.html#functional-updates) asynchronously.
 
 **`getState(dispatch)`**
 
 ```tsx
 const [flag, setFlag] = useState(false)
 
-setTimeout(() => {
-  const flag = getState(setFlag) // It always return the latest state
+setTimeout(async () => {
+  const flag = await getState(setFlag) // It always return the latest state
   setState(!flag)
 }, 1000)
 ```
@@ -107,3 +109,27 @@ Synchronously block the interpretation and wait for some milliseconds.
 **`getSemester()`**
 
 Returns current semester.
+
+## [License](https://github.com/paywteam/eodiro/blob/master/LICENSE)
+
+MIT License
+
+Copyright (c) 2020 PAYW
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
