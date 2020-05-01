@@ -9,7 +9,7 @@
   </a>
 </p>
 
-<p align="center">The open source utility service for CAU students.</p>
+<p align="center">An open source utility service for CAU students</p>
 
 ## Documentation
 
