@@ -2,7 +2,6 @@ import { GetServerSideProps, NextPage } from 'next'
 import OpenSource, { OpenSourceProps } from '@/components/OpenSource'
 
 import { Contributor } from '@/types/github-api'
-import _ from 'lodash'
 import eodiroAxios from '@/modules/eodiro-axios'
 
 const Page: NextPage<OpenSourceProps> = ({ contributors }) => {

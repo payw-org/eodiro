@@ -26,7 +26,7 @@ const OpenSource: React.FC<OpenSourceProps> = ({ contributors }) => {
           &ldquo;어디로&rdquo;는 자유롭게 소스코드를 들여다보고 개발에 함께
           참여할 수 있는 공개 소프트웨어입니다. 모든 소스는{' '}
           <a
-            href="https://github.com/paywteam"
+            href="https://github.com/paywteam/eodiro"
             target="_blank"
             rel="noopener noreferrer"
           >
