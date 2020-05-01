@@ -1,4 +1,6 @@
-![github banner v3](https://user-images.githubusercontent.com/19797697/80788583-7621d100-8bc4-11ea-94cd-40acb4d9b0fd.png)
+<a href="https://eodiro.com">
+  <img src="https://user-images.githubusercontent.com/19797697/80788583-7621d100-8bc4-11ea-94cd-40acb4d9b0fd.png" />
+</a>
 
 <p align="center">
   <a href="https://github.com/paywteam/eodiro/blob/master/LICENSE">
