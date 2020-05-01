@@ -108,7 +108,7 @@ const HomePage: NextPage = () => {
               <HomeFeatureBox
                 title="빈 강의실"
                 to="/vacant"
-                Icon={<Door fill={EodiroColors.primary} className="icon" />}
+                Icon={<Door fill={EodiroColors.secondary} className="icon" />}
               />
               <HomeFeatureBox
                 title="강의 검색"
