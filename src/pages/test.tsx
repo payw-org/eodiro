@@ -1,7 +1,8 @@
 import { Button, LineInput } from '@/components/ui'
+import React, { createContext, useContext, useState } from 'react'
+
 import { Dispatcher } from '@/types/react-helper'
 import { NextPage } from 'next'
-import React, { createContext, useContext, useState } from 'react'
 
 const CountStateContext = createContext<number>(undefined)
 const CountDispatchContext = createContext<Dispatcher<number>>(undefined)

@@ -1,17 +1,17 @@
 @use '@/assets/styles/main' as *;
 
 .svg-bg {
-  fill: #fff;
+  fill: #000;
 
   @include dark-mode() {
-    fill: #000;
+    fill: #fff;
   }
 }
 
 .svg-bg-dark {
-  fill: #000;
+  fill: #fff;
 
   @include dark-mode {
-    fill: #fff;
+    fill: #000;
   }
 }

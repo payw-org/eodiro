@@ -1,8 +1,10 @@
+import './style.scss'
+
+import React, { useState } from 'react'
+
+import EodiroColors from '@/modules/styles/EodiroColors'
 import { Magnifier } from '@/components/global/icons'
 import mergeClassNames from '@/modules/merge-class-name'
-import EodiroColors from '@/modules/styles/EodiroColors'
-import React, { useState } from 'react'
-import './style.scss'
 
 export type LineInputOnChangeHook = (inputValue: string) => void
 
@@ -27,7 +29,7 @@ type LineInputProps = {
 const IconField = React.memo(() => {
   return (
     <div className="magnifier-icon-wrapper">
-      <Magnifier className="icon" fill={EodiroColors.primary} />
+      <Magnifier className="icon" fill={EodiroColors.primary} size={'2rem'} />
     </div>
   )
 })

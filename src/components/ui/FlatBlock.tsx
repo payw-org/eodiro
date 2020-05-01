@@ -1,5 +1,6 @@
-import React from 'react'
 import { ArrowBlock, ArrowBlockProps } from './ArrowBlock'
+
+import React from 'react'
 
 export const FlatBlock: React.FC<ArrowBlockProps> = (props) => {
   const flatBlockProps = { ...props }

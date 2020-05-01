@@ -1,11 +1,12 @@
-import { AuthApi } from '@/api'
-import { Button } from '@/components/ui'
-import Body from '@/layouts/BaseLayout/Body'
-import { redirect } from '@/modules/server/redirect'
-import { GetServerSideProps } from 'next'
-import { useEffect } from 'react'
-import { EodiroPage } from '../_app'
 import './style.scss'
+
+import { AuthApi } from '@/api'
+import Body from '@/layouts/BaseLayout/Body'
+import { Button } from '@/components/ui'
+import { EodiroPage } from '../_app'
+import { GetServerSideProps } from 'next'
+import { redirect } from '@/modules/server/redirect'
+import { useEffect } from 'react'
 
 type VerificationPageProps = {
   verified: boolean

@@ -27,7 +27,7 @@ const VerticalThreeDotsIcon: React.FC<VerticalThreeDotsIconProps> = ({
         fillRule="evenodd"
         className=""
       >
-        <g id="Group" fill={fill || ''} className="svg-bg-dark">
+        <g id="Group" fill={fill || ''} className="svg-bg">
           <circle id="Oval" cx="15" cy="15" r="15"></circle>
           <circle id="Oval" cx="15" cy="81" r="15"></circle>
           <circle id="Oval" cx="15" cy="147" r="15"></circle>

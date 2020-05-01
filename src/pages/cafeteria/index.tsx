@@ -1,16 +1,18 @@
+import './style.scss'
+
 import { CafeteriaApi, CafeteriaMenus } from '@/api'
-import Information from '@/components/global/Information'
-import ServerError from '@/components/global/ServerError'
+import React, { memo, useEffect, useMemo, useState } from 'react'
+
 import { ArrowBlock } from '@/components/ui'
 import Body from '@/layouts/BaseLayout/Body'
 import Grid from '@/layouts/Grid'
-import Time from '@/modules/time'
-import { Restaurant } from '@payw/cau-cafeteria-menus-scraper-types'
-import dayjs from 'dayjs'
-import _ from 'lodash'
+import Information from '@/components/global/Information'
 import { NextPage } from 'next'
-import React, { memo, useEffect, useMemo, useState } from 'react'
-import './style.scss'
+import { Restaurant } from '@payw/cau-cafeteria-menus-scraper-types'
+import ServerError from '@/components/global/ServerError'
+import Time from '@/modules/time'
+import _ from 'lodash'
+import dayjs from 'dayjs'
 
 type CafeteriaPageProps = {
   menus: CafeteriaMenus

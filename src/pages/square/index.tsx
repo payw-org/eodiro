@@ -1,12 +1,13 @@
-import { FlatBlock } from '@/components/ui'
-import Body from '@/layouts/BaseLayout/Body'
-import ApiHost from '@/modules/api-host'
-import { oneAPIClient } from '@payw/eodiro-one-api'
-import { GetPostsOfBoard } from '@payw/eodiro-one-api/api/one/scheme'
-import { OneApiPayloadData } from '@payw/eodiro-one-api/api/one/scheme/types/utils'
-import { GetServerSideProps } from 'next'
-import { EodiroPage } from '../_app'
 import './style.scss'
+
+import ApiHost from '@/modules/api-host'
+import Body from '@/layouts/BaseLayout/Body'
+import { EodiroPage } from '../_app'
+import { FlatBlock } from '@/components/ui'
+import { GetPostsOfBoard } from '@payw/eodiro-one-api/api/one/scheme'
+import { GetServerSideProps } from 'next'
+import { OneApiPayloadData } from '@payw/eodiro-one-api/api/one/scheme/types/utils'
+import { oneAPIClient } from '@payw/eodiro-one-api'
 
 type SquareMainPageProps = {
   freeBoardPosts: OneApiPayloadData<GetPostsOfBoard>

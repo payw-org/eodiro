@@ -1,9 +1,11 @@
-import ApiHost from '@/modules/api-host'
-import { GetPostById } from '@payw/eodiro-one-api/api/one/scheme'
+import './style.scss'
+
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 import { useRef, useState } from 'react'
+
+import ApiHost from '@/modules/api-host'
+import { GetPostById } from '@payw/eodiro-one-api/api/one/scheme'
 import ImageViewer from '../ImageViewer'
-import './style.scss'
 
 type PostViewerFileContainerProps = {
   files: GetPostById['payload']['data']['files']

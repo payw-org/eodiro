@@ -1,9 +1,9 @@
 import AuthCommon from '@/components/auth/AuthCommon'
-import { getAuthState } from '@/modules/server/get-auth-state'
-import { redirect } from '@/modules/server/redirect'
+import { EodiroPage } from '../_app'
 import { GetServerSideProps } from 'next'
 import Head from 'next/head'
-import { EodiroPage } from '../_app'
+import { getAuthState } from '@/modules/server/get-auth-state'
+import { redirect } from '@/modules/server/redirect'
 
 const SignInPage: EodiroPage = () => {
   return (

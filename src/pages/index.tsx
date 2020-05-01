@@ -1,27 +1,25 @@
 import './index.scss'
 
-// import ApolloClient, { gql } from 'apollo-boost'
-import {
-  CafeteriaAppIcon,
-  LecturesAppIcon,
-  OpensourceAppIcon,
-  SquareAppIcon,
-  VacantAppIcon,
-} from '@/components/global/icons'
 import React, { useEffect, useState } from 'react'
 
+import Blocks from '@/components/global/icons/Blocks'
 // import ApiHost from '@/modules/api-host'
 import Body from '@/layouts/BaseLayout/Body'
-import { ColorIcon } from '@/types'
+import Door from '@/components/global/icons/Door'
+import EodiroColors from '@/modules/styles/EodiroColors'
 import Grid from '@/layouts/Grid'
 import Head from 'next/head'
+import Heart from '@/components/global/icons/Heart'
+// import ApolloClient, { gql } from 'apollo-boost'
+import { Magnifier } from '@/components/global/icons'
 import { NextPage } from 'next'
+import Spoon from '@/components/global/icons/Spoon'
 import classNames from 'classnames'
 
 type HomeFeatureBoxProps = {
   title: string
   to: string
-  Icon: ColorIcon
+  Icon: JSX.Element
   label?: 'new' | 'update' | 'beta'
 }
 
@@ -32,9 +30,9 @@ const HomeFeatureBox: React.FC<HomeFeatureBoxProps> = ({
   label,
 }) => {
   return (
-    <button className="feature-box">
+    <button className="feature-box" data-component="">
       <div className="wrapper">
-        <Icon className="icon" />
+        {Icon}
         <h2 className="feature-name">{title}</h2>
         <a className="absolute-link" href={to} />
 
@@ -110,28 +108,28 @@ const HomePage: NextPage = () => {
               <HomeFeatureBox
                 title="빈 강의실"
                 to="/vacant"
-                Icon={VacantAppIcon}
+                Icon={<Door fill={EodiroColors.primary} className="icon" />}
               />
               <HomeFeatureBox
                 title="강의 검색"
                 to="/lectures"
-                Icon={LecturesAppIcon}
+                Icon={<Magnifier fill={EodiroColors.green1} className="icon" />}
               />
               <HomeFeatureBox
                 title="학식 메뉴"
                 to="/cafeteria"
-                Icon={CafeteriaAppIcon}
+                Icon={<Spoon fill={EodiroColors.blue1} className="icon" />}
               />
               <HomeFeatureBox
                 title="빼빼로 광장"
                 to="/square"
-                Icon={SquareAppIcon}
+                Icon={<Blocks fill={EodiroColors.pink1} className="icon" />}
                 label="beta"
               />
               <HomeFeatureBox
                 title="오픈 소스"
                 to="/opensource"
-                Icon={OpensourceAppIcon}
+                Icon={<Heart fill={EodiroColors.violet1} className="icon" />}
                 label="update"
               />
             </Grid>

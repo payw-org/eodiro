@@ -1,10 +1,12 @@
-import { InquiryApi } from '@/api'
+import './style.scss'
+
 import { Button, LineInput } from '@/components/ui'
+import { useEffect, useRef, useState } from 'react'
+
 import Body from '@/layouts/BaseLayout/Body'
 import { EodiroPage } from '@/pages/_app'
 import Head from 'next/head'
-import { useEffect, useRef, useState } from 'react'
-import './style.scss'
+import { InquiryApi } from '@/api'
 
 const InquiryRequestPage: EodiroPage<void> = () => {
   const [title, setTitle] = useState('')

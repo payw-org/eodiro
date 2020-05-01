@@ -1,9 +1,11 @@
-import { AuthApi } from '@/api'
+import './style.scss'
+
 import { Button, LineInput } from '@/components/ui'
+
+import { AuthApi } from '@/api'
 import Body from '@/layouts/BaseLayout/Body'
 import { EodiroPage } from '@/pages/_app'
 import { useState } from 'react'
-import './style.scss'
 
 type ChangePasswordRequestPageProps = {
   token: string

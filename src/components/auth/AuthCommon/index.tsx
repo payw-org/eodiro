@@ -1,8 +1,10 @@
+import './style.scss'
+
 import { AuthApi, Tokens } from '@/api'
 import { Button, LineInput } from '@/components/ui'
-import Body from '@/layouts/BaseLayout/Body'
 import React, { useEffect, useRef, useState } from 'react'
-import './style.scss'
+
+import Body from '@/layouts/BaseLayout/Body'
 
 type AuthCommonProps = {
   mode: 'signin' | 'join' | 'forgot'

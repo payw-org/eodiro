@@ -2,13 +2,14 @@ import './style.scss'
 
 import { ArrowIcon } from '@/components/global/icons'
 import React from 'react'
-import mergeClassNames from '@/modules/merge-class-name'
+import classNames from 'classnames'
 
 export interface ArrowBlockProps {
   className?: string
   noArrow?: boolean
   flat?: boolean
   customPadding?: boolean
+  onClick?: () => void
 }
 
 export const ArrowBlock: React.FC<ArrowBlockProps> = ({
@@ -17,15 +18,17 @@ export const ArrowBlock: React.FC<ArrowBlockProps> = ({
   flat = false,
   children,
   customPadding = false,
+  onClick,
 }) => {
   return (
     <div
-      className={mergeClassNames(
+      className={classNames(
         'arrow-block',
         className,
         !flat && 'unflat',
         customPadding && 'custom-padding'
       )}
+      onClick={onClick}
     >
       <div className="ab-body">{children}</div>
       {!noArrow && (

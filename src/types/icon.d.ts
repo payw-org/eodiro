@@ -1,5 +1,5 @@
-import React from 'react'
 import { AppearanceComponentProps } from './appearance-component'
+import React from 'react'
 
 export interface BasicIconProps {
   className?: string
@@ -11,6 +11,7 @@ export interface FillableIconProps
   extends BasicIconProps,
     AppearanceComponentProps {
   fill?: string
+  size?: string | number
 }
 
 export type FillableIcon = React.FC<FillableIconProps>

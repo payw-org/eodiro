@@ -1,12 +1,14 @@
 import './style.scss'
 
+import React, { useState } from 'react'
+
 import { ArrowBlock } from '@/components/ui'
 import Body from '@/layouts/BaseLayout/Body'
 import Grid from '@/layouts/Grid'
 import Head from 'next/head'
 import { NextPage } from 'next'
-import React from 'react'
 import ServerError from '@/components/global/ServerError'
+import Timetable from './Timetable'
 import { VacantClassrooms } from '@/api/vacant'
 import dayjs from 'dayjs'
 import mergeClassNames from '@/modules/merge-class-name'
@@ -23,6 +25,8 @@ const VacantClassroomsPage: NextPage<VacantClassroomsPageProps> = ({
   const now = dayjs()
   const nowAccumMin = now.hour() * 60 + now.minute()
   // const nowAccumMin = 720
+
+  const [isTimetableVisible, setIsTimetableVisible] = useState(false)
 
   return (
     <>
@@ -79,6 +83,9 @@ const VacantClassroomsPage: NextPage<VacantClassroomsPageProps> = ({
                       'classroom-info-container',
                       inClass ? 'in-class' : 'vacant'
                     )}
+                    onClick={() => {
+                      console.log(info.lectures)
+                    }}
                   >
                     <div>
                       <h1 className="classroom-number">

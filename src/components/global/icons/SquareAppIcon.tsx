@@ -22,7 +22,7 @@ export const SquareAppIcon: ColorIcon = ({ className }) => {
           width="51.1675"
           height="15.6104"
           rx="5"
-          className="svg-bg"
+          className="svg-bg-dark"
         />
         <rect
           x="47.3055"
@@ -30,7 +30,7 @@ export const SquareAppIcon: ColorIcon = ({ className }) => {
           width="52.0348"
           height="15.6104"
           rx="5"
-          className="svg-bg"
+          className="svg-bg-dark"
         />
         <rect
           x="35.5976"
@@ -38,7 +38,7 @@ export const SquareAppIcon: ColorIcon = ({ className }) => {
           width="51.1675"
           height="15.6104"
           rx="5"
-          className="svg-bg"
+          className="svg-bg-dark"
         />
       </g>
       <defs>

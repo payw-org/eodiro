@@ -1,7 +1,9 @@
-import { useEffect, useRef } from 'react'
-import Swiper from 'swiper'
 import 'swiper/swiper.scss'
 import './style.scss'
+
+import { useEffect, useRef } from 'react'
+
+import Swiper from 'swiper'
 
 type ImageViewerProps = {
   srcs: string[]

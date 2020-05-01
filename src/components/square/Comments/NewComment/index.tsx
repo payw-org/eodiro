@@ -1,12 +1,14 @@
-import { Tokens } from '@/api'
-import ApiHost from '@/modules/api-host'
-import { useAuth } from '@/pages/_app'
-import { oneAPIClient } from '@payw/eodiro-one-api'
-import _ from 'lodash'
-import { useRouter } from 'next/router'
-import React, { useContext, useRef, useState } from 'react'
-import CommentsContext from '../comments-context'
 import './style.scss'
+
+import React, { useContext, useRef, useState } from 'react'
+
+import ApiHost from '@/modules/api-host'
+import CommentsContext from '../comments-context'
+import { Tokens } from '@/api'
+import _ from 'lodash'
+import { oneAPIClient } from '@payw/eodiro-one-api'
+import { useAuth } from '@/pages/_app'
+import { useRouter } from 'next/router'
 
 const NewComment: React.FC = () => {
   const router = useRouter()

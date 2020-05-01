@@ -92,12 +92,12 @@
   .features {
     margin-top: s(12);
 
-    .feature-box {
+    .feature-box[data-component] {
       position: relative;
       flex: 1;
       text-align: left;
       @include block-style;
-      padding: 1.5rem;
+      padding: 24px;
       @include clickable;
 
       .wrapper {
@@ -105,9 +105,11 @@
       }
 
       .icon {
-        $icon-size: 2.5rem;
+        $icon-size: 60px;
         width: $icon-size;
         height: $icon-size;
+        margin-left: -10px;
+        margin-top: -5px;
       }
 
       .feature-name {
@@ -119,14 +121,19 @@
 
       .label {
         position: absolute;
-        right: 1.5rem;
-        top: 1.5rem;
-        background-color: $eodiro-sky-2;
-        border-radius: 0.3rem;
-        color: #fff;
-        padding: 0.4rem;
+        right: 24px;
+        top: 24px;
+        @include elm-fill;
+        border: 1px solid $eodiro-blue-2;
+        border-radius: 5px;
+        color: $eodiro-blue-2;
+        @include dark-mode {
+          border: 1px solid $eodiro-yellow-1;
+          color: $eodiro-yellow-1;
+        }
+        padding: 6px 8px;
         font-weight: 700;
-        font-size: 0.7rem;
+        font-size: 12px;
         letter-spacing: 0.09em;
       }
     }

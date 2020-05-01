@@ -1,10 +1,11 @@
-import Time from '@/modules/time'
-import { Unpacked } from '@/types/unpacked'
+import './style.scss'
+
 import { GetPostsOfBoard } from '@payw/eodiro-one-api/api/one/scheme'
 import { OneApiPayloadData } from '@payw/eodiro-one-api/api/one/scheme/types/utils'
-import classNames from 'classnames'
 import React from 'react'
-import './style.scss'
+import Time from '@/modules/time'
+import { Unpacked } from '@/types/unpacked'
+import classNames from 'classnames'
 
 // Post item component (memoized)
 const PostItem: React.FC<{
