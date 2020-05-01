@@ -11,7 +11,7 @@ The open source utility service for CAU students.
 
 ## Development
 
-### Using dev API locally
+### Using Dev API Locally
 
 You must clone and run [`eodiro-api2`](https://github.com/paywteam/eodiro-api2) on your local machine in dev mode.
 
@@ -19,7 +19,7 @@ You must clone and run [`eodiro-api2`](https://github.com/paywteam/eodiro-api2) 
 npm run dev
 ```
 
-### Using server API (https://eodiro.com)
+### Using Production API (https://api2.eodiro.com)
 
 Also you can develop only the client application without cloning server repository `eodiro-api2`.
 
@@ -29,7 +29,7 @@ npm run dev --useProdApi
 
 > Recent client application in the master branch may not match to the API distributed on https://eodiro.com. To develop using the recent APIs, download and run API repository locally.
 
-### Using dev API (localhost)
+### Production Client + Dev API (localhost)
 
 By default, `npm run dev` connects to local dev API server and `npm start` tries to connect to the real server(https://eodiro.com). However, sometimes you need to test the production-ready, built version of client application with the dev API. To achieve this, simply pass an argument similar to the one above
 
