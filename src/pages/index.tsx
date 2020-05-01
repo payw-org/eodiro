@@ -1,6 +1,6 @@
 import './index.scss'
 
-import ApolloClient, { gql } from 'apollo-boost'
+// import ApolloClient, { gql } from 'apollo-boost'
 import {
   CafeteriaAppIcon,
   LecturesAppIcon,
@@ -10,7 +10,7 @@ import {
 } from '@/components/global/icons'
 import React, { useEffect, useState } from 'react'
 
-import ApiHost from '@/modules/api-host'
+// import ApiHost from '@/modules/api-host'
 import Body from '@/layouts/BaseLayout/Body'
 import { ColorIcon } from '@/types'
 import Grid from '@/layouts/Grid'

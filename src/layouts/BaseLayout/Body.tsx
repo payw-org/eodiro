@@ -1,7 +1,8 @@
-import mergeClassNames from '@/modules/merge-class-name'
-import Head from 'next/head'
-import React, { FC } from 'react'
 import Header, { HeaderProps } from './Header'
+import React, { FC } from 'react'
+
+import Head from 'next/head'
+import mergeClassNames from '@/modules/merge-class-name'
 
 export type BodyProps = HeaderProps & {
   bodyClassName?: string

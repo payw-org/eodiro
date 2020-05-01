@@ -1,11 +1,13 @@
+import './style.scss'
+
 import {
   NavHiddenDispatchContext,
   NavScrollDispatchContext,
   NavTitleDispatchContext,
 } from '@/components/global/Navigation'
-import classNames from 'classnames'
 import React, { FC, useContext, useEffect, useRef } from 'react'
-import './style.scss'
+
+import classNames from 'classnames'
 
 export type HeaderProps = {
   titleAlign?: 'left' | 'center'
