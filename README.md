@@ -4,10 +4,10 @@
 
 <p align="center">
   <a href="https://github.com/paywteam/eodiro/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/paywteam/eodiro" />
+    <img src="https://img.shields.io/github/license/paywteam/eodiro?color=ff7037" />
   </a>
   <a href="https://github.com/paywteam/eodiro/releases">
-    <img src="https://img.shields.io/github/v/release/paywteam/eodiro?include_prereleases" />
+    <img src="https://img.shields.io/github/v/release/paywteam/eodiro?include_prereleases&sort=semver&label=version&color=ff006e" />
   </a>
 </p>
 
