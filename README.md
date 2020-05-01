@@ -1,5 +1,5 @@
 <a href="https://eodiro.com">
-  <img src="https://user-images.githubusercontent.com/19797697/80788583-7621d100-8bc4-11ea-94cd-40acb4d9b0fd.png" />
+  <img src="https://user-images.githubusercontent.com/19797697/80793919-71184e00-8bd3-11ea-9ad5-a54f64cac4fd.png" />
 </a>
 
 <p align="center">
