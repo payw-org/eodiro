@@ -21,8 +21,6 @@ export const getServerSideProps: GetServerSideProps<VacantClassroomsPageProps> =
     building: buildingNumber,
   })
 
-  console.log(JSON.stringify(data, null, 2))
-
   return {
     props: {
       buildingNumber,
