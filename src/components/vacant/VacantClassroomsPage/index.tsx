@@ -1,6 +1,8 @@
 import './style.scss'
 
-import React, { useState } from 'react'
+import { Lecture, VacantClassrooms } from '@/api/vacant'
+import React, { useEffect, useState } from 'react'
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 
 import { ArrowBlock } from '@/components/ui'
 import Body from '@/layouts/BaseLayout/Body'
@@ -9,7 +11,6 @@ import Head from 'next/head'
 import { NextPage } from 'next'
 import ServerError from '@/components/global/ServerError'
 import Timetable from './Timetable'
-import { VacantClassrooms } from '@/api/vacant'
 import dayjs from 'dayjs'
 import mergeClassNames from '@/modules/merge-class-name'
 
@@ -28,12 +29,38 @@ const VacantClassroomsPage: NextPage<VacantClassroomsPageProps> = ({
 
   const [isTimetableVisible, setIsTimetableVisible] = useState(false)
 
+  useEffect(() => {
+    isTimetableVisible &&
+      disableBodyScroll(
+        document.querySelector('.timetable[data-component] .panel')
+      )
+  }, [isTimetableVisible])
+
+  const [info, setInfo] = useState(
+    {} as {
+      classroomNumber: string
+      lectures: Lecture[]
+    }
+  )
+
   return (
     <>
       <Head>
         <title>빈 강의실 - 강의실</title>
       </Head>
       <Body pageTitle={buildingNumber}>
+        {isTimetableVisible && (
+          <Timetable
+            info={info}
+            close={() => {
+              enableBodyScroll(
+                document.querySelector('.timetable[data-component] .panel')
+              )
+              setIsTimetableVisible(false)
+            }}
+          />
+        )}
+
         <div id="eodiro-vacant-classrooms">
           {classroomsInfo ? (
             <Grid>
@@ -77,14 +104,17 @@ const VacantClassroomsPage: NextPage<VacantClassroomsPageProps> = ({
 
                 return (
                   <ArrowBlock
-                    noArrow
                     key={info.classroom_number}
                     className={mergeClassNames(
                       'classroom-info-container',
                       inClass ? 'in-class' : 'vacant'
                     )}
                     onClick={() => {
-                      console.log(info.lectures)
+                      setInfo({
+                        classroomNumber: info.classroom_number,
+                        lectures: info.lectures,
+                      })
+                      setIsTimetableVisible(true)
                     }}
                   >
                     <div>

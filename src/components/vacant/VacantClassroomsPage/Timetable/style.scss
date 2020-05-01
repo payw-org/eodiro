@@ -1,4 +1,93 @@
+@use '@/assets/styles/main' as *;
+
 .timetable[data-component] {
-  .classroom-number {
+  z-index: 99999;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .bg {
+    background-color: rgba($color: #000000, $alpha: 0.6);
+    @include dark-mode {
+      background-color: rgba($color: #000000, $alpha: 0.8);
+    }
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  .panel {
+    z-index: 1;
+    padding: 20px;
+    border-radius: 10px;
+    @include elm-fill;
+    width: calc(100% - 30px);
+    max-width: 500px;
+    max-height: 500px;
+    overflow: auto;
+    @include dark-mode {
+      @include bordered;
+    }
+
+    .classroom-number {
+      font-size: 40px;
+      margin-bottom: 10px;
+
+      .room {
+        font-size: 0.7em;
+        font-weight: 600;
+        margin-left: 3px;
+      }
+    }
+
+    .lecture {
+      display: flex;
+      align-items: flex-start;
+      @include separator('top');
+      margin-top: 15px;
+      padding-top: 15px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      .interval {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        color: $eodiro-primary-color;
+        font-variant-numeric: tabular-nums;
+        font-weight: 500;
+
+        .vertical-dash {
+          width: 2px;
+          height: 15px;
+          border-radius: 9999px;
+          background-color: $eodiro-primary-color;
+          margin: 3px 0;
+        }
+      }
+
+      .lecture-info {
+        flex: 1;
+        margin-left: 20px;
+
+        .name {
+          font-weight: 500;
+        }
+
+        .professor {
+          margin-top: 3px;
+          color: $base-gray;
+        }
+      }
+    }
   }
 }
