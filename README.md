@@ -1,6 +1,15 @@
-# eodiro ![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/paywteam/eodiro?include_prereleases)
+![github banner v3](https://user-images.githubusercontent.com/19797697/80788583-7621d100-8bc4-11ea-94cd-40acb4d9b0fd.png)
 
-The open source utility service for CAU students.
+<p align="center">
+  <a href="https://github.com/paywteam/eodiro/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/paywteam/eodiro" />
+  </a>
+  <a href="https://github.com/paywteam/eodiro/releases">
+    <img src="https://img.shields.io/github/v/release/paywteam/eodiro?include_prereleases" />
+  </a>
+</p>
+
+<p align="center">The open source utility service for CAU students.</p>
 
 ## Documentation
 
