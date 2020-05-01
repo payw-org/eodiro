@@ -31,6 +31,9 @@
     width: calc(100% - 30px);
     max-width: 500px;
     max-height: 500px;
+    @media only screen and (max-height: 500px) {
+      max-height: calc(100% - 30px);
+    }
     overflow: auto;
     @include dark-mode {
       @include bordered;
