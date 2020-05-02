@@ -5,6 +5,7 @@ import { Button, LineInput } from '@/components/ui'
 import React, { useEffect, useRef, useState } from 'react'
 
 import Body from '@/layouts/BaseLayout/Body'
+import Information from '@/components/global/Information'
 
 type AuthCommonProps = {
   mode: 'signin' | 'join' | 'forgot'
@@ -101,6 +102,12 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
 
   return (
     <div id="eodiro-signin">
+      <div className="warning">
+        <div>🚨</div>
+        서버 오류로 회원 정보가 유실되어 현재 데이터 복구중입니다. 당분간
+        회원가입/로그인 기능을 중단하고 2020년 4월 30일 이후 가입자는 데이터
+        복구 후 새로 가입해야할 수도 있습니다.
+      </div>
       <div className="signin-box">
         <LineInput
           ref={portalIdRef}
@@ -109,6 +116,8 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
           value={portalId}
           setValue={setPortalId}
           onEnter={(): void => {
+            return
+
             if (nicknameRef.current) {
               nicknameRef.current.focus()
             } else if (passwordRef.current) {
@@ -165,6 +174,8 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
             value={password}
             setValue={setPassword}
             onEnter={(): void => {
+              return
+
               if (mode === 'signin') {
                 signIn()
               } else if (mode === 'join') {
@@ -194,19 +205,23 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
         )}
 
         <Button
-          label={
-            mode === 'signin'
-              ? '로그인'
-              : mode === 'join'
-              ? '회원가입'
-              : mode === 'forgot'
-              ? '변경 이메일 발송'
-              : ''
-          }
+          // label={
+          //   mode === 'signin'
+          //     ? '로그인'
+          //     : mode === 'join'
+          //     ? '회원가입'
+          //     : mode === 'forgot'
+          //     ? '변경 이메일 발송'
+          //     : ''
+          // }
+          label="잠시 기능이 중단됩니다"
           full
           className="btn"
-          disabled={validating}
+          // disabled={validating}
+          disabled
           onClick={(): void => {
+            return
+
             if (mode === 'signin') {
               signIn()
             } else if (mode === 'join') {
