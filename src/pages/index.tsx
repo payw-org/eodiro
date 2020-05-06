@@ -13,6 +13,7 @@ import Heart from '@/components/global/icons/Heart'
 // import ApolloClient, { gql } from 'apollo-boost'
 import { Magnifier } from '@/components/global/icons'
 import { NextPage } from 'next'
+import Notice from '@/components/home/Notice'
 import Spoon from '@/components/global/icons/Spoon'
 import classNames from 'classnames'
 
@@ -103,6 +104,9 @@ const HomePage: NextPage = () => {
               중앙대 학생들만을 위한 특별한 서비스
             </span>
           </p>
+
+          <Notice />
+
           <div className="features">
             <Grid>
               <HomeFeatureBox

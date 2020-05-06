@@ -1,0 +1,15 @@
+@use '@/assets/styles/main' as *;
+
+.notice[data-component] {
+  margin-top: 40px;
+  background-color: $eodiro-yellow-1;
+  padding: 20px;
+  border-radius: 10px;
+  line-height: 1.4;
+
+  .headline {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+}
