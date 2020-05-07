@@ -13,14 +13,18 @@
 
 <p align="center">An open source utility service for CAU students</p>
 
-## Documentation
+## 🎨 Design Source
+
+[Figma](https://www.figma.com/file/HM2QqphdWZmxF66RYmnqUXki/System?node-id=125%3A0)
+
+## 📚 Documentation
 
 - [Changelog](docs/Changelog.md)
 - [Design Guidelines](docs/wiki/Design-Guidelines.md)
 - [UI Components](docs/wiki/UI-Components.md)
 - [ToDo](docs/ToDo.md)
 
-## Development
+## 🔥 Development
 
 ### Using Dev API Locally
 
@@ -50,7 +54,7 @@ npm start --useDevApi
 
 > `--useProdApi` and `--useDevApi` are only for the purpose of tests. Do not use them in production. For more information about API hosts, checkout the [source code](https://github.com/paywteam/eodiro/blob/master/src/modules/api-host.ts).
 
-## Developers Guide
+## 🧑‍💻 Developers Guide
 
 ### Authentication
 
