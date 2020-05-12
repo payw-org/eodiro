@@ -1,7 +1,7 @@
 import './style.scss'
 export type NoticeProps = {}
 
-const Notice: React.FC<NoticeProps> = (props) => {
+const Notice: React.FC<NoticeProps> = () => {
   return (
     <div className="notice" data-component="">
       <h3 className="headline">
