@@ -8,8 +8,25 @@ import { Tokens, TokensPack } from '@/api'
 
 import BaseLayout from '@/layouts/BaseLayout'
 import Head from 'next/head'
+import { Router } from 'next/router'
 import { getAuthState } from '@/modules/server/get-auth-state'
+import { isClient } from '@/modules/utils/is-client'
 import { isDev } from '@/modules/utils/is-dev'
+
+if (isClient()) {
+  const w = globalThis as any
+  const topbar = w.topbar
+  topbar.config({
+    barThickness: 2,
+    barColors: {
+      '0': '#ff3852',
+      '1': '#ff3852',
+    },
+  })
+  Router.events.on('routeChangeStart', topbar.show)
+  Router.events.on('routeChangeComplete', topbar.hide)
+  Router.events.on('routeChangeError', topbar.hide)
+}
 
 type AuthProps = {
   tokens: TokensPack
@@ -122,6 +139,7 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
             property="og:image"
             content="https://eodiro.com/open-graph/open_graph.png"
           />
+          <script src="/modules/topbar.min.js"></script>
 
           {/* Google Analytics */}
           {!isDev() && (
