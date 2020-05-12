@@ -66,12 +66,12 @@ export const getServerSideProps: GetServerSideProps<SquareMainPageProps> = async
   })
 
   // 취업 후기
-  const empReviews = await oneAPIClient(ApiHost.getHost(), {
-    action: 'getPostsOfBoard',
-    data: {
-      boardId: 3,
-    },
-  })
+  // const empReviews = await oneAPIClient(ApiHost.getHost(), {
+  //   action: 'getPostsOfBoard',
+  //   data: {
+  //     boardId: 3,
+  //   },
+  // })
 
   return {
     props: {
