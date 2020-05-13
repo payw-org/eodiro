@@ -83,6 +83,10 @@ const Header: FC<HeaderProps> = ({ pageTitle, titleAlign, titleHidden }) => {
 
     observer.observe(overlaySentinel)
     observer.observe(titleSentinel)
+
+    return () => {
+      observer.disconnect()
+    }
   }, [])
 
   return (
