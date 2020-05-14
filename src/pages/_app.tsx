@@ -15,26 +15,6 @@ import { getAuthState } from '@/modules/server/get-auth-state'
 import { isClient } from '@/modules/utils/is-client'
 import { isDev } from '@/modules/utils/is-dev'
 
-if (isClient()) {
-  const w = globalThis as any
-  const topbar = w.topbar
-  topbar.config({
-    barThickness: 2,
-    barColors: {
-      '0': '#ff3852',
-      '1': '#ff3852',
-    },
-    shadowBlur: 0,
-    shadowColor: 'rgba(0, 0, 0, 0)',
-    className: 'eodiro-topbar',
-  })
-  Router.events.on('routeChangeStart', topbar.show)
-  Router.events.on('routeChangeComplete', topbar.hide)
-  Router.events.on('routeChangeError', topbar.hide)
-
-  history.scrollRestoration = 'manual'
-}
-
 type AuthProps = {
   tokens: TokensPack
   isSigned: boolean
@@ -119,6 +99,24 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
   }
 
   componentDidMount(): void {
+    // Set topbar
+    const w = globalThis as any
+    const topbar = w.topbar
+    topbar.config({
+      barThickness: 2,
+      barColors: {
+        '0': '#ff3852',
+        '1': '#ff3852',
+      },
+      shadowBlur: 0,
+      shadowColor: 'rgba(0, 0, 0, 0)',
+      className: 'eodiro-topbar',
+    })
+    Router.events.on('routeChangeStart', topbar.show)
+    Router.events.on('routeChangeComplete', topbar.hide)
+    Router.events.on('routeChangeError', topbar.hide)
+
+    // Update current page and last page in session storage
     Router.events.on('routeChangeComplete', () => {
       const currentpage = sessionStorage.getItem('currentpage')
       if (currentpage) {
