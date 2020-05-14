@@ -99,6 +99,8 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
   }
 
   componentDidMount(): void {
+    history.scrollRestoration = 'manual'
+
     // Set topbar
     const w = globalThis as any
     const topbar = w.topbar
