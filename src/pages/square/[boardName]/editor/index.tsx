@@ -72,27 +72,37 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
 
     // Calculate proper height of title input field
     // by preset dummy data to the shadow input field
-    window.addEventListener('load', () => {
+    const loadHandler = () => {
       titleShadowRef.current.value = '제목'
       titleShadowRef.current.style.height =
         titleShadowRef.current.scrollHeight + 'px'
       titleRef.current.style.height = titleShadowRef.current.scrollHeight + 'px'
       titleShadowRef.current.value = title
-    })
+    }
+
+    window.addEventListener('load', loadHandler)
 
     // Auto resize the input fields' height when window is resized
     autoResize(titleRef, titleShadowRef)
     autoResize(bodyRef, bodyShadowRef)
-    window.addEventListener('resize', () => {
+
+    const resizeHandler = () => {
       autoResize(titleRef, titleShadowRef)
       autoResize(bodyRef, bodyShadowRef)
-    })
+    }
+
+    window.addEventListener('resize', resizeHandler)
 
     // Warn when try to leave the page
     window.onbeforeunload = function () {
       return '작성 중인 내용이 모두 사랍니다. 페이지를 나가시겠습니까?'
     }
-  })
+
+    return () => {
+      window.removeEventListener('load', loadHandler)
+      window.removeEventListener('resize', resizeHandler)
+    }
+  }, [])
 
   // Files
   const [filesState, setFilesState] = useState<
