@@ -95,7 +95,9 @@ setTimeout(async () => {
 }, 1000)
 ```
 
-### Components
+### 🔌 Components
+
+**Body**
 
 **`Spinner`**
 
@@ -103,9 +105,17 @@ It displays an iOS-like spinner.
 
 **`InfiniteScrollContainer`**
 
-- Props
+- **Props**
   - `children`: A wrapper element.
   - `strategy`: This method is being called when the bottom of the container reaches the end of a viewport. It returns `true` when there are more content to be loaded, `false` on the other hand.
+
+**`NoFooter`**
+
+By including this component inside render function, you can hide the `GlobalFooter` which will be appended to every page globally.
+
+**`WhiteBody`**
+
+Set body background to pure W/B(`#ffffff`, `#000000` on dark mode). Usually use this when the content is not displayed inside blocks.
 
 ### String Utils
 
@@ -115,7 +125,7 @@ Transform a `camelCase` string to `kebab-case`.
 
 ### Miscellaneous Modules
 
-Along with many node modules from npm, we create, manage and provide our own useful modules which are needed specifically for our project including the modules exposed above exclusively.
+Along with many node modules from npm, we create, manage and provide our own useful modules which are needed specifically for our project including the modules exposed above explicitly.
 
 **`wait(ms)`**
 
