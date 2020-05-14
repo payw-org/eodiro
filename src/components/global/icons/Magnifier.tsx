@@ -7,6 +7,7 @@ export const Magnifier: FillableIcon = ({ fill, size = 128, className }) => {
       <svg
         className={className}
         // TODO: inline width and height don't support CSS units like 'rem' or 'em'
+        // style them with custom class name and its own style sheets
         width={size}
         height={size}
         viewBox="0 0 128 128"
