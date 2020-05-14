@@ -23,9 +23,14 @@ type NavItemProps = {
 }
 
 const NavItem: React.FC<NavItemProps> = ({ to, title, className }) => {
+  const setMenuOpen = useContext(NavMenuOpenDispatchContext)
+
   return (
     <Link href={to}>
-      <a className={classNames($['en-menu-link'], className)}>
+      <a
+        className={classNames($['en-menu-link'], className)}
+        onClick={() => setMenuOpen(false)}
+      >
         <li className={$['en-menu-item']}>{title}</li>
       </a>
     </Link>
