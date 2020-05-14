@@ -26,18 +26,27 @@ const InfiniteScrollContainer: React.FC<InfiniteScrollContainerProps> = (
     if (isLoading) return
 
     setIsLoading(true)
-    document
-      .querySelector(`.${$['loading-indicator']}`)
-      .classList.add($['processing'])
+
+    const loadingIndicator = document.querySelector(
+      `.${$['loading-indicator']}`
+    )
+
+    if (!loadingIndicator) return
+
+    loadingIndicator.classList.add($['processing'])
 
     const shouldProcessAgain = await props.strategy()
 
     setIsLoading(false)
 
     setTimeout(() => {
-      document
-        .querySelector(`.${$['loading-indicator']}`)
-        .classList.remove($['processing'])
+      const loadingIndicator = document.querySelector(
+        `.${$['loading-indicator']}`
+      )
+
+      if (!loadingIndicator) return
+
+      loadingIndicator.classList.remove($['processing'])
     }, 700)
 
     if (shouldProcessAgain === false) {
