@@ -1,5 +1,10 @@
 # Changelog
 
+## v3.7.3
+
+- **[FIX]** Close navigation menus after select (mobile)
+- **[CHORE]** Set history scroll restoration strategy to 'manual'
+
 ## v3.7.2
 
 - **[FIX]** Remove event listeners after unmounted
