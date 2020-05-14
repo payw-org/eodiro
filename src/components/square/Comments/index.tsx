@@ -1,7 +1,7 @@
-import './style.scss'
-
 import React, { useState } from 'react'
 
+import $ from './style.module.scss'
+import $c from '@/components/square/Comments/style.module.scss'
 import ApiHost from '@/modules/api-host'
 import { CommentAttrs } from '@payw/eodiro-one-api/database/models/comment'
 import CommentsContext from './comments-context'
@@ -26,16 +26,16 @@ const CommentItem: React.FC<{
   const auth = useAuth()
 
   return (
-    <div className="comment-item">
-      <div className="first-row">
-        <div className="nick-and-time">
-          <span className="nick">{comment.random_nickname}</span>
-          <FriendlyTime time={comment.uploaded_at} className="time" />
+    <div className={$['comment-item']}>
+      <div className={$['first-row']}>
+        <div className={$['nick-and-time']}>
+          <span className={$['nick']}>{comment.random_nickname}</span>
+          <FriendlyTime time={comment.uploaded_at} className={$['time']} />
         </div>
         {auth.userId === comment.user_id && (
           <div>
             <button
-              className="delete"
+              className={$['delete']}
               onClick={async () => {
                 if (!confirm('정말 삭제하시겠습니까?')) return
 
@@ -59,7 +59,7 @@ const CommentItem: React.FC<{
           </div>
         )}
       </div>
-      <p className="body">{comment.body}</p>
+      <p className={$['body']}>{comment.body}</p>
     </div>
   )
 })
@@ -79,7 +79,7 @@ const Comments: React.FC<{
   if (!comments) {
     inner = <Information title="댓글을 가져올 수 없습니다." />
   } else if (comments && comments.length === 0) {
-    inner = <p className="no-comments-yet">아직 댓글이 없습니다.</p>
+    inner = <p className={$['no-comments-yet']}>아직 댓글이 없습니다.</p>
   } else {
     inner = (
       <div>
@@ -96,7 +96,7 @@ const Comments: React.FC<{
   }
 
   return (
-    <div className="eodiro-square-post-comments">
+    <div className={$c['eodiro-square-post-comments']}>
       {inner}
       <CommentsContext.Provider
         value={{

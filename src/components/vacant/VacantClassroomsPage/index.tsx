@@ -1,9 +1,8 @@
-import './style.scss'
-
 import { Lecture, VacantClassrooms } from '@/api/vacant'
 import React, { useEffect, useState } from 'react'
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 
+import $ from './style.module.scss'
 import { ArrowBlock } from '@/components/ui'
 import Body from '@/layouts/BaseLayout/Body'
 import Grid from '@/layouts/Grid'
@@ -32,7 +31,7 @@ const VacantClassroomsPage: NextPage<VacantClassroomsPageProps> = ({
   useEffect(() => {
     isTimetableVisible &&
       disableBodyScroll(
-        document.querySelector('.timetable[data-component] .panel')
+        document.querySelector(`.${$['timetable']} .${$['panel']}`)
       )
   }, [isTimetableVisible])
 
@@ -53,15 +52,16 @@ const VacantClassroomsPage: NextPage<VacantClassroomsPageProps> = ({
           <Timetable
             info={info}
             close={() => {
+              // TODO: use Ref
               enableBodyScroll(
-                document.querySelector('.timetable[data-component] .panel')
+                document.querySelector(`.${$['timetable']} .${$['panel']}`)
               )
               setIsTimetableVisible(false)
             }}
           />
         )}
 
-        <div id="eodiro-vacant-classrooms">
+        <div id={$['eodiro-vacant-classrooms']}>
           {classroomsInfo ? (
             <Grid>
               {classroomsInfo.map((info) => {
@@ -106,8 +106,8 @@ const VacantClassroomsPage: NextPage<VacantClassroomsPageProps> = ({
                   <ArrowBlock
                     key={info.classroom_number}
                     className={mergeClassNames(
-                      'classroom-info-container',
-                      inClass ? 'in-class' : 'vacant'
+                      $['classroom-info-container'],
+                      inClass ? $['in-class'] : $['vacant']
                     )}
                     onClick={() => {
                       setInfo({
@@ -118,18 +118,18 @@ const VacantClassroomsPage: NextPage<VacantClassroomsPageProps> = ({
                     }}
                   >
                     <div>
-                      <h1 className="classroom-number">
+                      <h1 className={$['classroom-number']}>
                         {info.classroom_number}
-                        <span className="unit">호</span>
+                        <span className={$['unit']}>호</span>
                       </h1>
                       {inClass ? (
                         <>
-                          <p className="current-lecture-name">
+                          <p className={$['current-lecture-name']}>
                             {currentLectureName}
                           </p>
-                          <div className="gauge-shell">
+                          <div className={$['gauge-shell']}>
                             <div
-                              className="gauge-value"
+                              className={$['gauge-value']}
                               style={{
                                 width: `${100 - percentage}%`,
                               }}
@@ -137,7 +137,7 @@ const VacantClassroomsPage: NextPage<VacantClassroomsPageProps> = ({
                           </div>
                         </>
                       ) : (
-                        <p className="remaining">
+                        <p className={$['remaining']}>
                           {remainingMin === Infinity
                             ? '더 이상 강의 없음'
                             : `${remainingHour ? `${remainingHour}시간` : ''}${

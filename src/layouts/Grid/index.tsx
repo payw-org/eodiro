@@ -1,7 +1,7 @@
-import './style.scss'
-
+import $ from './style.module.scss'
 import React from 'react'
 import { camelToKebab } from '@/modules/string-utils'
+import classNames from 'classnames'
 
 type GridProps = {
   proportion?: 'extraSmall' | 'small' | 'medium' | 'large'
@@ -17,12 +17,12 @@ const Grid: React.FC<GridProps> = ({
 }) => {
   return (
     <div
-      className={
-        `grid-layout` +
-        ` proportion--${camelToKebab(proportion)}` +
-        ` gap--${camelToKebab(gap)}` +
-        (className ? ` ${className}` : '')
-      }
+      className={classNames(
+        $['grid-layout'],
+        $[`proportion--${camelToKebab(proportion)}`],
+        $[`gap--${camelToKebab(gap)}`],
+        className
+      )}
     >
       {children}
     </div>

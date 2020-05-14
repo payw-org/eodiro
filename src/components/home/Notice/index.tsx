@@ -1,10 +1,10 @@
-import './style.scss'
+import $ from './style.module.scss'
 export type NoticeProps = {}
 
 const Notice: React.FC<NoticeProps> = () => {
   return (
-    <div className="notice" data-component="">
-      <h3 className="headline">
+    <div className={$['notice']}>
+      <h3 className={$['headline']}>
         ✅ 2020년 5월 6일 21시 40분 데이터 복구를 완료했습니다.
       </h3>
       <ul>

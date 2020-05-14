@@ -1,10 +1,10 @@
-import './style.scss'
-
+import $ from './style.module.scss'
 import { AuthApi } from '@/api'
 import Body from '@/layouts/BaseLayout/Body'
 import { Button } from '@/components/ui'
 import { EodiroPage } from '../_app'
 import { GetServerSideProps } from 'next'
+import classNames from 'classnames'
 import { redirect } from '@/modules/server/redirect'
 import { useEffect } from 'react'
 
@@ -25,8 +25,14 @@ const VerifiedComp: React.FC<{ verified: boolean }> = ({ verified }) => {
   }, [])
 
   return (
-    <div className="wrapper">
-      <h1 className="manifesto overlay-sentinel-spot title-sentinel-spot">
+    <div className={$['wrapper']}>
+      <h1
+        className={classNames(
+          $['manifesto'],
+          'overlay-sentinel-spot',
+          'title-sentinel-spot'
+        )}
+      >
         {paragraph}
       </h1>
       <a href={anchor.href}>
@@ -42,7 +48,7 @@ const VerificationPage: EodiroPage<VerificationPageProps> = ({ verified }) => {
       pageTitle="회원가입 인증"
       titleHidden
       centered
-      bodyClassName="eodiro-join-verification"
+      bodyClassName={$['eodiro-join-verification']}
     >
       <VerifiedComp verified={verified} />
     </Body>

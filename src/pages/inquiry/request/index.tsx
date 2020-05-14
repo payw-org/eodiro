@@ -1,8 +1,7 @@
-import './style.scss'
-
 import { Button, LineInput } from '@/components/ui'
 import { useEffect, useRef, useState } from 'react'
 
+import $ from './style.module.scss'
 import Body from '@/layouts/BaseLayout/Body'
 import { EodiroPage } from '@/pages/_app'
 import Head from 'next/head'
@@ -86,13 +85,13 @@ const InquiryRequestPage: EodiroPage<void> = () => {
       <Body
         hasTopGap
         pageTitle="문의하기"
-        bodyClassName="eodiro-inquiry-request-body"
+        bodyClassName={$['eodiro-inquiry-request-body']}
         centered
       >
-        <div id="eodiro-inquiry-request">
+        <div id={$['eodiro-inquiry-request']}>
           <LineInput
             ref={titleRef}
-            className="title-field"
+            className={$['title-field']}
             placeholder="제목"
             value={title}
             setValue={setTitle}
@@ -101,7 +100,7 @@ const InquiryRequestPage: EodiroPage<void> = () => {
           />
           <LineInput
             ref={emailRef}
-            className="email-field"
+            className={$['email-field']}
             placeholder="email"
             value={email}
             setValue={setEmail}
@@ -110,7 +109,7 @@ const InquiryRequestPage: EodiroPage<void> = () => {
           />
           <textarea
             ref={bodyRef}
-            className="body-field"
+            className={$['body-field']}
             name="body"
             placeholder="문의내용"
             value={body}
@@ -122,7 +121,7 @@ const InquiryRequestPage: EodiroPage<void> = () => {
           <Button
             full
             label={'제출'}
-            className="submit-button"
+            className={$['submit-button']}
             onClick={submit}
             disabled={isSubmitted}
             accent="yellow"

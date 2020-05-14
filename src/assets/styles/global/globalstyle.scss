@@ -180,8 +180,7 @@ a {
   color: inherit;
   -webkit-touch-callout: none !important;
 
-  &.absolute-link,
-  &.abs-link {
+  &.absolute-link {
     position: absolute;
     top: 0;
     left: 0;
@@ -208,33 +207,4 @@ img {
 ul,
 ol {
   list-style: none;
-}
-
-.eodiro-app {
-  position: fixed;
-  top: 0;
-  right: 0;
-  left: 0;
-
-  &:first-child {
-    z-index: 1;
-  }
-
-  $transition-time: 500ms;
-
-  &.trans-enter {
-    opacity: 0;
-  }
-  &.trans-enter.trans-enter-active {
-    opacity: 1;
-    transition: opacity $transition-time ease;
-  }
-  &.trans-exit {
-    opacity: 1;
-    filter: blur(0);
-  }
-  &.trans-exit.trans-exit-active {
-    opacity: 0;
-    transition: opacity $transition-time ease;
-  }
 }

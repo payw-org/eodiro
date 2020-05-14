@@ -1,10 +1,11 @@
-import './style.scss'
-
 import { AuthApi, Tokens } from '@/api'
 import { Button, LineInput } from '@/components/ui'
 import React, { useEffect, useRef, useState } from 'react'
 
+import $ from './style.module.scss'
 import Body from '@/layouts/BaseLayout/Body'
+import Link from 'next/link'
+import classNames from 'classnames'
 
 type AuthCommonProps = {
   mode: 'signin' | 'join' | 'forgot'
@@ -100,11 +101,11 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
   }
 
   return (
-    <div id="eodiro-signin">
-      <div className="signin-box">
+    <div id={$['eodiro-signin']}>
+      <div className={$['signin-box']}>
         <LineInput
           ref={portalIdRef}
-          className="field id"
+          className={classNames($['field'], $['id'])}
           placeholder="포탈 아이디"
           value={portalId}
           setValue={setPortalId}
@@ -131,13 +132,13 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
         />
 
         {mode === 'join' && !validPortalId && (
-          <p className="error">사용할 수 없습니다.</p>
+          <p className={$['error']}>사용할 수 없습니다.</p>
         )}
 
         {mode === 'join' && (
           <LineInput
             ref={nicknameRef}
-            className="field nickname"
+            className={classNames($['field'], $['nickname'])}
             placeholder="닉네임"
             value={nickname}
             setValue={setNickname}
@@ -153,13 +154,13 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
         )}
 
         {mode === 'join' && !validNickname && (
-          <p className="error">사용할 수 없습니다.</p>
+          <p className={$['error']}>사용할 수 없습니다.</p>
         )}
 
         {mode !== 'forgot' && (
           <LineInput
             ref={passwordRef}
-            className="field pw"
+            className={classNames($['field'], $['pw'])}
             type="password"
             placeholder="암호"
             value={password}
@@ -186,11 +187,11 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
         )}
 
         {mode === 'join' && !validPassword && (
-          <p className="error">암호는 8자 이상입니다.</p>
+          <p className={$['error']}>암호는 8자 이상입니다.</p>
         )}
 
         {signInFailed && (
-          <p className="error">아이디 또는 암호가 잘못되었습니다.</p>
+          <p className={$['error']}>아이디 또는 암호가 잘못되었습니다.</p>
         )}
 
         <Button
@@ -204,7 +205,7 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
               : ''
           }
           full
-          className="btn"
+          className={$['btn']}
           disabled={validating}
           onClick={(): void => {
             if (mode === 'signin') {
@@ -216,25 +217,28 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
             }
           }}
         />
-        <div className="more">
+        <div className={$['more']}>
           {mode !== 'signin' && (
             <p>
-              이미 가입했나요? <a href="/signin">로그인 →</a>
+              이미 가입했나요?{' '}
+              <Link href="/signin">
+                <a>로그인 →</a>
+              </Link>
             </p>
           )}
           {mode === 'signin' && (
             <>
-              <p className="new">
+              <p className={$['new']}>
                 <b style={{ fontWeight: 600 }}>어디로</b>는 처음인가요?{' '}
-                <a href="/join" className="join">
-                  회원가입 →
-                </a>
+                <Link href="/join">
+                  <a className={$['join']}>회원가입 →</a>
+                </Link>
               </p>
-              <p className="forgot">
+              <p className={$['forgot']}>
                 암호를 잊었나요?{' '}
-                <a href="/forgot" className="join">
-                  암호 변경 →
-                </a>
+                <Link href="/forgot">
+                  <a className={$['join']}>암호 변경 →</a>
+                </Link>
               </p>
             </>
           )}
@@ -249,7 +253,7 @@ const AuthCommon: React.FC<AuthCommonProps> = (props) => {
 
   return (
     <Body
-      bodyClassName="eodiro-auth-common"
+      bodyClassName={$['eodiro-auth-common']}
       centered
       pageTitle={
         mode === 'signin'

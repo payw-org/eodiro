@@ -1,14 +1,14 @@
-import './style.scss'
-
 import { EodiroPage, useAuth } from '@/pages/_app'
 import { GetComments, GetPostById } from '@payw/eodiro-one-api/api/one/scheme'
 
+import $ from './style.module.scss'
 import ApiHost from '@/modules/api-host'
 import Body from '@/layouts/BaseLayout/Body'
 import { CommentAttrs } from '@payw/eodiro-one-api/database/models/comment'
 import Comments from '@/components/square/Comments'
 import { GetServerSideProps } from 'next'
 import Information from '@/components/global/Information'
+import Link from 'next/link'
 import { OneApiPayload } from '@payw/eodiro-one-api/api/one/scheme/types/utils'
 import { PostAttrs } from '@payw/eodiro-one-api/database/models/post'
 import { PostViewerFileContainer } from '@/components/square/PostViewerFileContainer'
@@ -17,6 +17,7 @@ import Time from '@/modules/time'
 import { Tokens } from '@/api'
 import WhiteBody from '@/components/utils/WhiteBody'
 import _ from 'lodash'
+import classNames from 'classnames'
 import { oneAPIClient } from '@payw/eodiro-one-api'
 import { pathIds } from '@/config/paths'
 import { useRouter } from 'next/router'
@@ -69,31 +70,33 @@ const Content: React.FC<ContentProps> = ({ post, comments }) => {
   return (
     <div>
       <WhiteBody />
-      <a href={`/square/${boardName}`} className="to-list">
-        <span className="display-flex align-items-center overlay-sentinel-spot">
-          <i className="octicon octicon-chevron-left font-weight-bold" />
-          &nbsp;목록으로
-        </span>
-      </a>
+      <Link href="/square/[boardName]" as={`/square/${boardName}`}>
+        <a className={$['to-list']}>
+          <span className="display-flex align-items-center overlay-sentinel-spot">
+            <i className="octicon octicon-chevron-left font-weight-bold" />
+            &nbsp;목록으로
+          </span>
+        </a>
+      </Link>
 
-      <article className="post">
-        <div className="info">
-          <span className="author">{post.random_nickname}</span>
+      <article className={$['post']}>
+        <div className={$['info']}>
+          <span className={$['author']}>{post.random_nickname}</span>
 
-          <span className="time">
+          <span className={$['time']}>
             {Time.yyyymmddhhmmss(post.uploaded_at, true)}
           </span>
 
           {post.user_id === authInfo.userId && (
-            <span className="actions">
+            <span className={$['actions']}>
               <a
                 href={`/square/${boardName}/${pathIds.writePost}?post_id=${post.id}`}
               >
-                <button className="edit">
+                <button className={$['edit']}>
                   <i className="octicon octicon-pencil" />
                 </button>
               </a>
-              <button className="delete" onClick={deletePost}>
+              <button className={$['delete']} onClick={deletePost}>
                 <i className="octicon octicon-trashcan" />
               </button>
             </span>
@@ -101,7 +104,7 @@ const Content: React.FC<ContentProps> = ({ post, comments }) => {
         </div>
 
         {/* Post title */}
-        <h1 className="title">
+        <h1 className={$['title']}>
           <span className="title-sentinel-spot">{post.title}</span>
         </h1>
 
@@ -124,8 +127,10 @@ const Content: React.FC<ContentProps> = ({ post, comments }) => {
       </article>
 
       {/* Like */}
-      <div className="like-container display-flex justify-content-center">
-        <button className="like scheme-distinct">
+      <div
+        className={`${$['like-container']} display-flex justify-content-center`}
+      >
+        <button className={classNames($['like'], 'scheme-distinct')}>
           <i className="octicon octicon-thumbsup" />
         </button>
       </div>
@@ -145,7 +150,7 @@ const PostPage: EodiroPage<PostPageProps> = ({ post, comments, postErr }) => {
     <Body
       pageTitle={post?.title || '어디로 - 포스트'}
       titleHidden
-      bodyClassName="eodiro-post-view"
+      bodyClassName={$['eodiro-post-view']}
       hasTopGap={postErr ? true : false}
     >
       {post && <Content post={post} comments={comments} />}

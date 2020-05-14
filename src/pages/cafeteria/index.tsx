@@ -1,8 +1,7 @@
-import './style.scss'
-
 import { CafeteriaApi, CafeteriaMenus } from '@/api'
 import React, { memo, useEffect, useMemo, useState } from 'react'
 
+import $ from './style.module.scss'
 import { ArrowBlock } from '@/components/ui'
 import Body from '@/layouts/BaseLayout/Body'
 import Grid from '@/layouts/Grid'
@@ -12,6 +11,7 @@ import { Restaurant } from '@payw/cau-cafeteria-menus-scraper-types'
 import ServerError from '@/components/global/ServerError'
 import Time from '@/modules/time'
 import _ from 'lodash'
+import classNames from 'classnames'
 import dayjs from 'dayjs'
 
 type CafeteriaPageProps = {
@@ -28,16 +28,16 @@ const TimeGroup: React.FC<{
           return (
             <ArrowBlock flat noArrow key={restaurant.name}>
               <div>
-                <h2 className="restaurant-name">{restaurant.name}</h2>
+                <h2 className={$['restaurant-name']}>{restaurant.name}</h2>
                 {restaurant.meals.length > 0 ? (
                   restaurant.meals.map((meal) => {
                     return (
-                      <div className="meal" key={meal.title}>
-                        <h3 className="meal-title">{meal.title}</h3>
-                        <div className="food-container">
+                      <div className={$['meal']} key={meal.title}>
+                        <h3 className={$['meal-title']}>{meal.title}</h3>
+                        <div className={$['food-container']}>
                           {meal.menus.map((food) => {
                             return (
-                              <div className="food-name" key={food}>
+                              <div className={$['food-name']} key={food}>
                                 {food}
                               </div>
                             )
@@ -47,7 +47,7 @@ const TimeGroup: React.FC<{
                     )
                   })
                 ) : (
-                  <p className="no-menus">학식이 없습니다.</p>
+                  <p className={$['no-menus']}>학식이 없습니다.</p>
                 )}
               </div>
             </ArrowBlock>
@@ -77,22 +77,22 @@ const EodiroCafeteria: React.FC<{ menus: CafeteriaMenus }> = memo(
 
     return useMemo(
       () => (
-        <div id="eodiro-cafeteria">
+        <div id={$['eodiro-cafeteria']}>
           {todayMenus ? (
             <>
-              <div className="date-container">
+              <div className={$['date-container']}>
                 <button
-                  className="date-change-btn previous"
+                  className={classNames($['date-change-btn'], $['previous'])}
                   onClick={(): void => setNow(now.subtract(1, 'd'))}
                   onTouchStart={(e) => e.preventDefault()}
                 >
                   <i className="octicon octicon-chevron-left" />
                 </button>
-                <p className="date">
+                <p className={$['date']}>
                   {now.format('YYYY년 M월 D일')} ({Time.day(now.day())})
                 </p>
                 <button
-                  className="date-change-btn next"
+                  className={classNames($['date-change-btn'], $['next'])}
                   onClick={(): void => setNow(now.add(1, 'd'))}
                   onTouchStart={(e) => e.preventDefault()}
                 >
@@ -101,13 +101,13 @@ const EodiroCafeteria: React.FC<{ menus: CafeteriaMenus }> = memo(
               </div>
 
               <div>
-                <h1 className="time">조식</h1>
+                <h1 className={$['time']}>조식</h1>
                 <TimeGroup timeGroup={todayMenus.breakfast} />
 
-                <h1 className="time">중식</h1>
+                <h1 className={$['time']}>중식</h1>
                 <TimeGroup timeGroup={todayMenus.lunch} />
 
-                <h1 className="time">석식</h1>
+                <h1 className={$['time']}>석식</h1>
                 <TimeGroup timeGroup={todayMenus.supper} />
               </div>
             </>

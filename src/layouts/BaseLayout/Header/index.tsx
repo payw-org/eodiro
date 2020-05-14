@@ -1,5 +1,3 @@
-import './style.scss'
-
 import {
   NavHiddenDispatchContext,
   NavScrollDispatchContext,
@@ -7,6 +5,7 @@ import {
 } from '@/components/global/Navigation'
 import React, { FC, useContext, useEffect, useRef } from 'react'
 
+import $ from './style.module.scss'
 import classNames from 'classnames'
 
 export type HeaderProps = {
@@ -46,9 +45,9 @@ const Header: FC<HeaderProps> = ({ pageTitle, titleAlign, titleHidden }) => {
 
     // Create overlay sentinel
     const overlaySentinel = document.createElement('div')
-    overlaySentinel.className = 'overlay-sentinel'
+    overlaySentinel.className = $['overlay-sentinel']
     const titleSentinel = document.createElement('div')
-    titleSentinel.className = 'title-sentinel'
+    titleSentinel.className = $['title-sentinel']
 
     // Dynamically append sentinels
     overlaySentinelSpot.parentElement.insertBefore(
@@ -91,12 +90,13 @@ const Header: FC<HeaderProps> = ({ pageTitle, titleAlign, titleHidden }) => {
 
   return (
     <h1
-      className={classNames('base-layout-header', {
-        center: titleAlign === 'center',
-        hidden: titleHidden,
-      })}
+      className={classNames(
+        $['base-layout-header'],
+        titleAlign === 'center' && $['center'],
+        titleHidden && $['hidden']
+      )}
     >
-      <span ref={pageAppTitleRef} className="page-title">
+      <span ref={pageAppTitleRef} className={$['page-title']}>
         {pageTitle}
       </span>
     </h1>

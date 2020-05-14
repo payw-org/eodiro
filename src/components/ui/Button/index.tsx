@@ -1,6 +1,6 @@
-import './style.scss'
-
+import $ from './style.module.scss'
 import React from 'react'
+import classNames from 'classnames'
 import mergeClassNames from '@/modules/merge-class-name'
 
 type ButtonProps = {
@@ -27,10 +27,10 @@ type ButtonProps = {
 export const Button: React.FC<ButtonProps> = (props) => {
   return (
     <button
-      className={mergeClassNames(
-        'eodiro-btn',
+      className={classNames(
+        $['eodiro-btn'],
         props.className,
-        props.full && 'full'
+        props.full && $['full']
       )}
       data-accent={props.accent}
       onClick={props.onClick}

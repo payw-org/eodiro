@@ -1,6 +1,6 @@
 @use '@/assets/styles/main' as *;
 
-.timetable[data-component] {
+.timetable {
   z-index: 99999;
   position: fixed;
   top: 0;

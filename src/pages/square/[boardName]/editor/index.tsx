@@ -1,7 +1,5 @@
 // TODO Replace updload and edit with universal savePost One API
 
-import './style.scss'
-
 import { GetServerSideProps, NextPage } from 'next'
 import {
   MutableRefObject,
@@ -12,6 +10,7 @@ import {
 } from 'react'
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 
+import $ from './style.module.scss'
 import ApiHost from '@/modules/api-host'
 import Axios from 'axios'
 import Body from '@/layouts/BaseLayout/Body'
@@ -23,6 +22,7 @@ import { Tokens } from '@/api'
 import WhiteBody from '@/components/utils/WhiteBody'
 import _ from 'lodash'
 import { availableMimeTypes } from '@/config/available-mime-types'
+import classNames from 'classnames'
 import mergeClassNames from '@/modules/merge-class-name'
 import { oneAPIClient } from '@payw/eodiro-one-api'
 import { redirect } from '@/modules/server/redirect'
@@ -174,18 +174,25 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
       <Body
         pageTitle={title.length === 0 ? '새 포스트' : title}
         titleHidden
-        bodyClassName="eodiro-new-post"
+        bodyClassName={$['eodiro-new-post']}
       >
         <div className="display-flex flex-direction-row">
-          <section className="edit-section">
-            <div className="title-container">
+          <section className={$['edit-section']}>
+            <div className={$['title-container']}>
               {/* Shadow */}
-              <textarea ref={titleShadowRef} className="title shadow" />
+              <textarea
+                ref={titleShadowRef}
+                className={classNames($['title'], $['shadow'])}
+              />
               {/* Real title field */}
               <textarea
                 defaultValue={title}
                 ref={titleRef}
-                className="title overlay-sentinel-spot title-sentinel-spot"
+                className={classNames(
+                  $['title'],
+                  'overlay-sentinel-spot',
+                  'title-sentinel-spot'
+                )}
                 spellCheck={false}
                 placeholder="제목"
                 maxLength={100}
@@ -201,14 +208,17 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
                 }}
               />
             </div>
-            <div className="body-container">
+            <div className={$['body-container']}>
               {/* Shadow */}
-              <textarea ref={bodyShadowRef} className="body shadow" />
+              <textarea
+                ref={bodyShadowRef}
+                className={classNames($['title'], $['shadow'])}
+              />
               {/* Real body field */}
               <textarea
                 defaultValue={body}
                 ref={bodyRef}
-                className="body"
+                className={$['body']}
                 spellCheck={false}
                 placeholder="내용"
                 onChange={(): void => {
@@ -220,10 +230,10 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
 
           <section
             ref={uploadSection}
-            className="upload-section align-self-flex-start"
+            className={classNames($['upload-section'], 'align-self-flex-start')}
           >
             <button
-              className="close"
+              className={$['close']}
               onClick={() => {
                 uploadSection.current.classList.remove('opened')
                 enableBodyScroll(uploadSection.current)
@@ -231,12 +241,12 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
             >
               <i className="octicon octicon-triangle-down" />
             </button>
-            <h2 className="header">파일</h2>
+            <h2 className={$['header']}>파일</h2>
 
             {/* File input */}
             <input
               type="file"
-              className="input-file"
+              className={$['input-file']}
               id="file-upload"
               multiple={true}
               accept={availableMimeTypes.join(',')}
@@ -320,7 +330,7 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
             />
             <label
               htmlFor="file-upload"
-              className="file-upload-label line-height-1"
+              className={classNames($['file-upload-label'], 'line-height-1')}
             >
               <span
                 className="octicon octicon-plus"
@@ -331,7 +341,7 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
             </label>
 
             {/* File containers */}
-            <div className="files-container">
+            <div className={$['files-container']}>
               {filesState.length > 0 ? (
                 filesState
                   .slice(0)
@@ -340,13 +350,24 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
                     return (
                       // File
                       <div
-                        className="file display-flex align-items-center justify-content-space-between"
+                        className={classNames(
+                          $['file'],
+                          'display-flex',
+                          'align-items-center',
+                          'justify-content-space-between'
+                        )}
                         key={i}
                       >
                         <div className="display-flex align-items-center">
                           {/* Remove item btn */}
                           <button
-                            className="remove octicon octicon-x font-weight-bold flex-none"
+                            className={classNames(
+                              $['remove'],
+                              'octicon',
+                              'octicon-x',
+                              'font-weight-bold',
+                              'flex-none'
+                            )}
                             onClick={() => {
                               setFilesState((prevState) => {
                                 const newState = [...prevState]
@@ -371,13 +392,13 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
                                 />
                               )}
                             {fileState.errMsg && (
-                              <p className="err-msg">{fileState.errMsg}</p>
+                              <p className={$['err-msg']}>{fileState.errMsg}</p>
                             )}
                             {!fileState.mimeType.startsWith('image/') && (
                               <span
-                                className={mergeClassNames(
-                                  'file-name',
-                                  fileState.errMsg && 'failed'
+                                className={classNames(
+                                  $['file-name'],
+                                  fileState.errMsg && $['failed']
                                 )}
                               >
                                 {fileState.name}
@@ -402,11 +423,11 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
               ) : (
                 // Display file upload information
                 // when there is no file ready
-                <div className="information">
+                <div className={$['information']}>
                   <p>
                     이미지와 도큐멘트, 압축 파일 등을 업로드 할 수 있습니다.
                   </p>
-                  <button className="more text-align-left">
+                  <button className={classNames($['more'], 'text-align-left')}>
                     지원되는 파일 포맷 및 파일 업로드에 대해 자세히 보기
                   </button>
                 </div>
@@ -416,13 +437,13 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
         </div>
 
         {/* Upload or finish edit */}
-        <button className="upload-btn" onClick={uploadPost}>
+        <button className={$['upload-btn']} onClick={uploadPost}>
           <i className="octicon octicon-check" />
         </button>
 
         {/* File upload button on mobile */}
         <button
-          className="upload-file-btn"
+          className={$['upload-file-btn']}
           onClick={() => {
             disableBodyScroll(uploadSection.current)
             uploadSection.current.classList.add('opened')

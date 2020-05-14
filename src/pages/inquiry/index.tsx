@@ -1,16 +1,40 @@
-import './style.scss'
-
 import { AuthContext, EodiroPage } from '../_app'
 import { InquiryApi, InquiryData } from '@/api'
 import React, { useContext, useRef, useState } from 'react'
 
+import $ from './style.module.scss'
 import { ArrowBlock } from '@/components/ui'
 import Body from '@/layouts/BaseLayout/Body'
+import { GetServerSideProps } from 'next'
 import Grid from '@/layouts/Grid'
 import Head from 'next/head'
+import Link from 'next/link'
 import Time from '@/modules/time'
+import classNames from 'classnames'
 import dayjs from 'dayjs'
+import { getAuthState } from '@/modules/server/get-auth-state'
 import getState from '@/modules/get-state'
+import { redirect } from '@/modules/server/redirect'
+
+export const getServerSideProps: GetServerSideProps<InquiryProps> = async ({
+  req,
+  res,
+}) => {
+  const { isSigned } = await getAuthState({ req, res })
+
+  if (!isSigned) {
+    redirect(res, '/inquiry/request')
+  }
+
+  const inquiries = await InquiryApi.inquiries(0, null, req)
+
+  return {
+    props: {
+      inquiries,
+    },
+  }
+}
+
 type InquiryProps = {
   inquiries: InquiryData[]
 }
@@ -41,13 +65,15 @@ const InquiryPage: EodiroPage<InquiryProps> = ({ inquiries }) => {
       </Head>
       {inquiries === undefined ? null : (
         <Body hasTopGap pageTitle="문의">
-          <div id="eodiro-inquiry">
+          <div id={$['eodiro-inquiry']}>
             <div ref={inquiriesContainerRef}>
-              <Grid className="inquiry-container">
+              <Grid className={$['inquiry-container']}>
                 {authContext.isAdmin ? null : (
-                  <ArrowBlock noArrow className="request-btn">
-                    <a href={'/inquiry/request'} className="absolute-link" />
-                    <h1 className="request-content">+</h1>
+                  <ArrowBlock noArrow className={$['request-btn']}>
+                    <Link href={'/inquiry/request'}>
+                      <a className="absolute-link" />
+                    </Link>
+                    <h1 className={$['request-content']}>+</h1>
                   </ArrowBlock>
                 )}
 
@@ -55,12 +81,22 @@ const InquiryPage: EodiroPage<InquiryProps> = ({ inquiries }) => {
                   items.map((item) => {
                     return (
                       <ArrowBlock key={item.id}>
-                        <div className="inquiry-content">
-                          <h1 className="inquiry-title">{item.title}</h1>
-                          <p className="inquiry-uploaded-at inquiry-item">
+                        <div className={$['inquiry-content']}>
+                          <h1 className={$['']}>{item.title}</h1>
+                          <p
+                            className={classNames(
+                              $['inquiry-uploaded-at'],
+                              $['inquiry-item']
+                            )}
+                          >
                             {Time.friendly(item.uploaded_at)}
                           </p>
-                          <p className="inquiry-answer inquiry-item">
+                          <p
+                            className={classNames(
+                              $['inquiry-answer'],
+                              $['inquiry-item']
+                            )}
+                          >
                             {item.answer
                               ? '답변 완료(' +
                                 dayjs(item.answered_at).format(
@@ -74,7 +110,7 @@ const InquiryPage: EodiroPage<InquiryProps> = ({ inquiries }) => {
                     )
                   })
                 ) : (
-                  <p className="no-inquiries">문의 내역이 없습니다.</p>
+                  <p className={$['no-inquiries']}>문의 내역이 없습니다.</p>
                 )}
               </Grid>
             </div>
@@ -84,23 +120,5 @@ const InquiryPage: EodiroPage<InquiryProps> = ({ inquiries }) => {
     </>
   )
 }
-InquiryPage.getInitialProps = async ({
-  req,
-  res,
-  isSigned,
-}): Promise<InquiryProps> => {
-  if (!isSigned) {
-    res.writeHead(302, {
-      Location: '/inquiry/request',
-    })
-    res.end()
-    return
-  }
 
-  const inquiries = await InquiryApi.inquiries(0, null, req)
-
-  return {
-    inquiries,
-  }
-}
 export default InquiryPage

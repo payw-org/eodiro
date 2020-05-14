@@ -1,5 +1,3 @@
-import './style.scss'
-
 import {
   NavHiddenStateContext,
   NavMenuOpenDispatchContext,
@@ -9,10 +7,12 @@ import {
 } from './navigation-context'
 import React, { useContext } from 'react'
 
+import $ from './style.module.scss'
 import { AuthContext } from '@/pages/_app'
 import EodiroLogo from '@/components/global/icons/EodiroLogo'
+import Link from 'next/link'
 import { VerticalThreeDotsIcon } from '@/components/global/icons'
-import mergeClassNames from '@/modules/merge-class-name'
+import classNames from 'classnames'
 
 export * from './navigation-context'
 
@@ -24,9 +24,11 @@ type NavItemProps = {
 
 const NavItem: React.FC<NavItemProps> = ({ to, title, className }) => {
   return (
-    <a className={mergeClassNames('en-menu-link', className)} href={to}>
-      <li className="en-menu-item">{title}</li>
-    </a>
+    <Link href={to}>
+      <a className={classNames($['en-menu-link'], className)}>
+        <li className={$['en-menu-item']}>{title}</li>
+      </a>
+    </Link>
   )
 }
 
@@ -36,9 +38,9 @@ const BgBar: React.FC = () => {
 
   return (
     <div
-      className={mergeClassNames(
-        'en-bar',
-        (isScrolled || menuOpened) && 'scrolled'
+      className={classNames(
+        $['en-bar'],
+        (isScrolled || menuOpened) && $['scrolled']
       )}
     />
   )
@@ -49,7 +51,7 @@ const PageAppTitle: React.FC = () => {
   const title = useContext(NavTitleStateContext)
 
   return (
-    <h1 className={mergeClassNames('page-app-title', !hidden && 'show')}>
+    <h1 className={classNames($['page-app-title'], !hidden && $['show'])}>
       {title}
     </h1>
   )
@@ -61,9 +63,9 @@ const NavMenus: React.FC = () => {
 
   return (
     <ul
-      className={mergeClassNames(
-        'en-menus-container',
-        menuOpened ? 'opened' : ''
+      className={classNames(
+        $['en-menus-container'],
+        menuOpened ? $['opened'] : ''
       )}
     >
       <NavItem title="빈 강의실" to="/vacant" />
@@ -72,7 +74,7 @@ const NavMenus: React.FC = () => {
       <NavItem title="빼빼로 광장" to="/square" />
       <NavItem
         title={isSigned ? '마이페이지' : '로그인'}
-        className={isSigned ? 'my' : 'signin'}
+        className={isSigned ? $['my'] : $['signin']}
         to={isSigned ? '/my' : '/signin'}
       />
     </ul>
@@ -83,20 +85,22 @@ const Navigation: React.FC = () => {
   const setMenuOpen = useContext(NavMenuOpenDispatchContext)
 
   return (
-    <nav id="eodiro-navigation">
+    <nav id={$['eodiro-navigation']}>
       <BgBar />
 
-      <div className="en-wrapper">
-        <a className="home-link" href="/">
-          <EodiroLogo className="eodiro-logo" fill="#ff3852" />
-        </a>
+      <div className={$['en-wrapper']}>
+        <Link href="/">
+          <a className={$['home-link']}>
+            <EodiroLogo className={$['eodiro-logo']} fill="#ff3852" />
+          </a>
+        </Link>
 
         <PageAppTitle />
 
         <NavMenus />
 
         <div
-          className="more-tappable"
+          className={$['more-tappable']}
           onClick={(e): void => {
             e.preventDefault()
             setMenuOpen((open) => {
@@ -104,7 +108,7 @@ const Navigation: React.FC = () => {
             })
           }}
         >
-          <VerticalThreeDotsIcon className="more-icon" />
+          <VerticalThreeDotsIcon className={$['more-icon']} />
         </div>
       </div>
     </nav>

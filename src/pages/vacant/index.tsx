@@ -1,10 +1,10 @@
-import './style.scss'
-
+import $ from './style.module.scss'
 import { ArrowBlock } from '@/components/ui'
 import Body from '@/layouts/BaseLayout/Body'
 import Grid from '@/layouts/Grid'
 import Head from 'next/head'
 import Information from '@/components/global/Information'
+import Link from 'next/link'
 import { NextPage } from 'next'
 import React from 'react'
 import ServerError from '@/components/global/ServerError'
@@ -27,31 +27,33 @@ const VacantBuildingsPage: NextPage<VacantBuildingsPageProps> = ({
         <title>빈 강의실 - 건물</title>
       </Head>
       <Body pageTitle="빈 강의실">
-        <div id="eodiro-vacant">
+        <div id={$['eodiro-vacant']}>
           {buildingsInfo && buildingsInfo.length > 0 ? (
-            <Grid className="building-container">
+            <Grid className={$['building-container']}>
               {buildingsInfo.map((info, i) => {
                 return (
                   <ArrowBlock key={info.building_number + i}>
-                    <div className="building-info-wrapper">
-                      <a
-                        href={`/vacant/${info.building_number}`}
-                        className="absolute-link"
-                      />
-                      <div className="building-number-and-name">
-                        <h1 className="building-number">
+                    <div className={$['building-info-wrapper']}>
+                      <Link
+                        href={'/vacant/[buildingNumber]'}
+                        as={`/vacant/${info.building_number}`}
+                      >
+                        <a className="absolute-link" />
+                      </Link>
+                      <div className={$['building-number-and-name']}>
+                        <h1 className={$['building-number']}>
                           {info.building_number}
                         </h1>
                         {getBuildingName(info.building_number) && (
-                          <h2 className="building-name">
+                          <h2 className={$['building-name']}>
                             {getBuildingName(info.building_number)}
                           </h2>
                         )}
                       </div>
-                      <div className="building-count">
-                        <span className="empty">{info.empty}</span>
-                        <span className="of"> / </span>
-                        <span className="total">{info.total}</span>
+                      <div className={$['building-count']}>
+                        <span className={$['empty']}>{info.empty}</span>
+                        <span className={$['of']}> / </span>
+                        <span className={$['total']}>{info.total}</span>
                       </div>
                     </div>
                   </ArrowBlock>

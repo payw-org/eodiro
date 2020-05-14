@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react'
 
+import $ from '@/components/square/PostContainer/PostItem/style.module.scss'
 import ApiHost from '@/modules/api-host'
 import { GetPostsOfBoard } from '@payw/eodiro-one-api/api/one/scheme'
 import InfiniteScrollContainer from '@/components/utils/InfiniteScrollContainer'
@@ -8,6 +9,7 @@ import PostItem from './PostItem'
 import { ResizeSensor } from 'css-element-queries'
 import { Spinner } from '@/components/global/Spinner'
 import _ from 'lodash'
+import classNames from 'classnames'
 import getState from '@/modules/get-state'
 import mergeClassNames from '@/modules/merge-class-name'
 import { oneAPIClient } from '@payw/eodiro-one-api'
@@ -138,7 +140,7 @@ const PostContainer: React.FC<PostContainerProps> = ({ boardId }) => {
 
   return (
     <div
-      className={mergeClassNames('posts-container', isMobile && 'mobile')}
+      className={classNames($['posts-container'], isMobile && $['mobile'])}
       ref={postContainerRef}
     >
       <InfiniteScrollContainer strategy={loadMore}>

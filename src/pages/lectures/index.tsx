@@ -1,9 +1,8 @@
-import './style.scss'
-
 import { ArrowBlock, LineInput, LineInputOnChangeHook } from '@/components/ui'
 import { GetServerSideProps, NextPage } from 'next'
 import React, { useEffect, useRef, useState } from 'react'
 
+import $ from './style.module.scss'
 import Body from '@/layouts/BaseLayout/Body'
 import Grid from '@/layouts/Grid'
 import Head from 'next/head'
@@ -11,6 +10,7 @@ import InfiniteScrollContainer from '@/components/utils/InfiniteScrollContainer'
 import { LecturesApi } from '@/api'
 import { LecturesWithMajorCode } from '@/types'
 import ServerError from '@/components/global/ServerError'
+import classNames from 'classnames'
 import getState from '@/modules/get-state'
 import { getSyllabusUrl } from '@/modules/cau/get-syllabus-url'
 import { useAuth } from '../_app'
@@ -90,52 +90,67 @@ const LecturesContent: React.FC<LecturesPageProps> = ({ lectures }) => {
   }
 
   return (
-    <div id="eodiro-lectures">
+    <div id={$['eodiro-lectures']}>
       {displayLectures ? (
         <>
           <LineInput
             value={searchQuery}
             setValue={setSearchQuery}
-            className="search-field"
+            className={$['search-field']}
             placeholder="강의명, 학과, 교수, 강의실, 과목코드"
             type="search"
             onChangeHook={onChange}
           />
           <div ref={containerRef}>
             <InfiniteScrollContainer strategy={loadMore}>
-              <Grid className="lecture-container">
+              <Grid className={$['lecture-container']}>
                 {displayLectures.map((lecture, i) => {
                   return (
-                    <ArrowBlock noArrow flat key={i} className="lecture-item">
-                      <div className="li-content">
-                        <div className="name-and-code">
+                    <ArrowBlock
+                      noArrow
+                      flat
+                      key={i}
+                      className={$['lecture-item']}
+                    >
+                      <div className={$['li-content']}>
+                        <div className={$['name-and-code']}>
                           <div>
-                            <h1 className="name">{lecture.name}</h1>
+                            <h1 className={$['name']}>{lecture.name}</h1>
                             {lecture.professor && (
-                              <p className="professor info-item">
+                              <p
+                                className={classNames(
+                                  $['professor'],
+                                  $['info-item']
+                                )}
+                              >
                                 {lecture.professor}
                               </p>
                             )}
                           </div>
-                          <p className="code">{lecture.code}</p>
+                          <p className={$['code']}>{lecture.code}</p>
                         </div>
                         {(lecture.college || lecture.major) && (
-                          <p className="major">
+                          <p className={$['major']}>
                             {lecture.college + ' '}
                             {lecture.major}
                           </p>
                         )}
                         {lecture.credit && (
-                          <p className="credit">{lecture.credit}학점</p>
+                          <p className={$['credit']}>{lecture.credit}학점</p>
                         )}
                         {lecture.schedule && lecture.schedule !== '/' && (
-                          <p className="schedule info-item">
+                          <p
+                            className={classNames(
+                              $['schedule'],
+                              $['info-item']
+                            )}
+                          >
                             {lecture.schedule}
                           </p>
                         )}
                         {lecture.note && (
-                          <div className="note">
-                            <div className="data">
+                          <div className={$['note']}>
+                            <div className={$['data']}>
                               <h3>비고</h3>
                               <p>{lecture.note}</p>
                             </div>
@@ -146,7 +161,7 @@ const LecturesContent: React.FC<LecturesPageProps> = ({ lectures }) => {
                           href={isSigned ? getSyllabusUrl(lecture) : undefined}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="syllabus"
+                          className={$['syllabus']}
                           onClick={() => {
                             if (!isSigned) {
                               alert('로그인이 필요합니다.')
@@ -177,7 +192,7 @@ const LecturesPage: NextPage<LecturesPageProps> = (props) => {
       <Head>
         <title>강의 검색</title>
       </Head>
-      <Body pageTitle="강의 검색" bodyClassName="lectures-body">
+      <Body pageTitle="강의 검색" bodyClassName={$['lectures-body']}>
         <LecturesContent {...props} />
       </Body>
     </>

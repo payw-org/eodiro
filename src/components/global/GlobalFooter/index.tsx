@@ -1,29 +1,29 @@
-import './style.scss'
-
+import $ from './style.module.scss'
+import Link from 'next/link'
 import React from 'react'
 import dayjs from 'dayjs'
 
-const GlobalFooter: React.FC = () => {
+const Footer: React.FC = () => {
   const now = dayjs()
 
   return (
-    <footer id="global-footer">
+    <footer id={$['global-footer']}>
       Copyright © {now.year()}
       &nbsp;
       <a
         href="https://payw.org"
         target="_blank"
         rel="noopener noreferrer"
-        className="payw"
+        className={$['payw']}
       >
         PAYW
       </a>
       &nbsp;|&nbsp;
-      <a href="/inquiry" className="inquiry">
-        문의하기
-      </a>
+      <Link href="/inquiry">
+        <a className={$['inquiry']}>문의하기</a>
+      </Link>
     </footer>
   )
 }
 
-export default React.memo(GlobalFooter)
+export default React.memo(Footer)

@@ -1,9 +1,8 @@
-import 'swiper/swiper.scss'
-import './style.scss'
-
 import { useEffect, useRef } from 'react'
 
+import $ from './style.module.scss'
 import Swiper from 'swiper'
+import classNames from 'classnames'
 
 type ImageViewerProps = {
   srcs: string[]
@@ -33,19 +32,25 @@ const ImageViewer: React.FC<ImageViewerProps> = (props) => {
   }, [props.initialIndex])
 
   return (
-    <div className="post-image-viewer swiper-container" ref={swiperElm}>
-      <div className="background" />
+    <div
+      className={classNames($['post-image-viewer'], 'swiper-container')}
+      ref={swiperElm}
+    >
+      <div className={$['background']} />
       <div className="swiper-wrapper">
         {props.srcs.map((src, i) => {
           return (
-            <div key={i} className="image-wrapper swiper-slide">
-              <div className="linker">
+            <div
+              key={i}
+              className={classNames($['image-wrapper'], 'swiper-slide')}
+            >
+              <div className={$['linker']}>
                 <img src={src} alt={src} />
                 <a
                   href={src}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="img-link absolute-link"
+                  className={classNames($['img-link'], 'absolute-link')}
                 />
               </div>
             </div>
@@ -53,14 +58,14 @@ const ImageViewer: React.FC<ImageViewerProps> = (props) => {
         })}
       </div>
 
-      <button className="close-btn" onClick={() => props.close()}>
+      <button className={$['close-btn']} onClick={() => props.close()}>
         <i className="octicon octicon-x" />
       </button>
 
-      <button className="nav-btn prev-btn" ref={prevElm}>
+      <button className={classNames($['nav-btn'], $['prev-btn'])} ref={prevElm}>
         <i className="octicon octicon-chevron-left" />
       </button>
-      <button className="nav-btn next-btn" ref={nextElm}>
+      <button className={classNames($['nav-btn'], $['next-btn'])} ref={nextElm}>
         <i className="octicon octicon-chevron-right" />
       </button>
     </div>

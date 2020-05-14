@@ -1,10 +1,9 @@
-import './style.scss'
-
 import React, { useState } from 'react'
 
+import $ from './style.module.scss'
 import EodiroColors from '@/modules/styles/EodiroColors'
 import { Magnifier } from '@/components/global/icons'
-import mergeClassNames from '@/modules/merge-class-name'
+import classNames from 'classnames'
 
 export type LineInputOnChangeHook = (inputValue: string) => void
 
@@ -28,8 +27,12 @@ type LineInputProps = {
 
 const IconField = React.memo(() => {
   return (
-    <div className="magnifier-icon-wrapper">
-      <Magnifier className="icon" fill={EodiroColors.primary} size={'2rem'} />
+    <div className={$['magnifier-icon-wrapper']}>
+      <Magnifier
+        className={$['icon']}
+        fill={EodiroColors.primary}
+        size={'2rem'}
+      />
     </div>
   )
 })
@@ -59,7 +62,7 @@ export const LineInput = React.memo(
       const [throttleTimeout, setThrottleTimeout] = useState<number>(null)
 
       return (
-        <div className={mergeClassNames('eodiro-line-input', className)}>
+        <div className={classNames($['eodiro-line-input'], className)}>
           <input
             ref={ref}
             value={value}
@@ -67,10 +70,10 @@ export const LineInput = React.memo(
             type={type === 'search' ? 'text' : type}
             spellCheck="false"
             placeholder={placeholder}
-            className={mergeClassNames(
-              'li-field',
-              type === 'search' && 'search',
-              alignCenter && 'center'
+            className={classNames(
+              $['li-field'],
+              type === 'search' && $['search'],
+              alignCenter && $['center']
             )}
             onChange={(e): void => {
               e.persist()

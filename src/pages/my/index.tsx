@@ -1,8 +1,7 @@
-import './style.scss'
-
 import { AuthApi, Tokens, UserInfo } from '@/api'
 import { Button, FlatBlock } from '@/components/ui'
 
+import $ from './style.module.scss'
 import ApiHost from '@/modules/api-host'
 import Body from '@/layouts/BaseLayout/Body'
 import { GetMyPosts } from '@payw/eodiro-one-api/api/one/scheme'
@@ -10,6 +9,7 @@ import Grid from '@/layouts/Grid'
 import { NextPage } from 'next'
 import { OneApiPayload } from '@payw/eodiro-one-api/api/one/scheme/types/utils'
 import { Unpacked } from '@/types/unpacked'
+import classNames from 'classnames'
 import dayjs from 'dayjs'
 import { oneAPIClient } from '@payw/eodiro-one-api'
 import { redirect } from '@/modules/server/redirect'
@@ -19,7 +19,7 @@ type PostItemProps = {
 }
 const PostItem: React.FC<PostItemProps> = ({ postData }) => {
   return (
-    <div className="post-item">
+    <div className={$['post-item']}>
       <span>{postData.board_name}</span>
       <span>{postData.uploaded_at}</span>
       <h1>{postData.title}</h1>
@@ -34,25 +34,25 @@ type MyPageProps = {
 
 const MyPage: NextPage<MyPageProps> = ({ userInfo, myPosts }) => {
   return (
-    <Body pageTitle={userInfo.nickname} bodyClassName="eodiro-my">
-      <section className="info-section">
-        <h1 className="section-header">기본 정보</h1>
-        <Grid proportion="large" className="section-body">
+    <Body pageTitle={userInfo.nickname} bodyClassName={$['eodiro-my']}>
+      <section className={$['info-section']}>
+        <h1 className={$['section-header']}>기본 정보</h1>
+        <Grid proportion="large" className={$['section-body']}>
           <FlatBlock>
-            <div className="info-block">
-              <h2 className="ib-header">가입일</h2>
+            <div className={$['info-block']}>
+              <h2 className={$['ib-header']}>가입일</h2>
               <p>{dayjs(userInfo.registered_at).format('YYYY년 M월 D일')}</p>
             </div>
           </FlatBlock>
           <FlatBlock>
-            <div className="info-block">
-              <h2 className="ib-header">포탈 이메일</h2>
+            <div className={$['info-block']}>
+              <h2 className={$['ib-header']}>포탈 이메일</h2>
               <p>{userInfo.portal_id}</p>
             </div>
           </FlatBlock>
           <FlatBlock>
-            <div className="info-block random-nickname">
-              <h2 className="ib-header">오늘의 랜덤 닉네임</h2>
+            <div className={classNames($['info-block'], $['random-nickname'])}>
+              <h2 className={$['ib-header']}>오늘의 랜덤 닉네임</h2>
               <p>{userInfo.random_nickname}</p>
             </div>
           </FlatBlock>
@@ -60,16 +60,16 @@ const MyPage: NextPage<MyPageProps> = ({ userInfo, myPosts }) => {
       </section>
 
       {/* My Posts */}
-      <section className="my-posts">
+      <section className={$['my-posts']}>
         {myPosts.map((post, i) => {
           return <PostItem key={i} postData={post} />
         })}
       </section>
 
       {/* Sign out section */}
-      <section className="signout-section">
+      <section className={$['signout-section']}>
         <Button
-          className="signout-btn"
+          className={$['signout-btn']}
           label="로그아웃"
           accent="purple"
           onClick={async (): Promise<void> => {

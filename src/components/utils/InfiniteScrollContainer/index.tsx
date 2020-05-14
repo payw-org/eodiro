@@ -1,7 +1,6 @@
-import './style.scss'
-
 import React, { useEffect, useRef, useState } from 'react'
 
+import $ from './style.module.scss'
 import getState from '@/modules/get-state'
 
 type InfiniteScrollContainerProps = {
@@ -27,7 +26,9 @@ const InfiniteScrollContainer: React.FC<InfiniteScrollContainerProps> = (
     if (isLoading) return
 
     setIsLoading(true)
-    document.querySelector('.loading-indicator').classList.add('processing')
+    document
+      .querySelector(`.${$['loading-indicator']}`)
+      .classList.add($['processing'])
 
     const shouldProcessAgain = await props.strategy()
 
@@ -35,8 +36,8 @@ const InfiniteScrollContainer: React.FC<InfiniteScrollContainerProps> = (
 
     setTimeout(() => {
       document
-        .querySelector('.loading-indicator')
-        .classList.remove('processing')
+        .querySelector(`.${$['loading-indicator']}`)
+        .classList.remove($['processing'])
     }, 700)
 
     if (shouldProcessAgain === false) {
@@ -62,6 +63,10 @@ const InfiniteScrollContainer: React.FC<InfiniteScrollContainerProps> = (
     })
 
     observer.observe(bodyContentBottomRef.current)
+
+    return () => {
+      observer.disconnect()
+    }
   }, [])
 
   // Reset noMore flag when the strategy changes
@@ -70,14 +75,14 @@ const InfiniteScrollContainer: React.FC<InfiniteScrollContainerProps> = (
   }, [props.strategy])
 
   return (
-    <div className="infinite-scroll-container">
+    <div className={$['infinite-scroll-container']}>
       {props.children}
       <div
-        className="infinite-scroll-bottom-sentinel"
+        className={$['infinite-scroll-bottom-sentinel']}
         ref={bodyContentBottomRef}
       />
-      <div className="loading-indicator-wrapper">
-        <div className="loading-indicator">
+      <div className={$['loading-indicator-wrapper']}>
+        <div className={$['loading-indicator']}>
           <p>🚀 불러오는 중...</p>
         </div>
       </div>

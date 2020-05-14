@@ -1,5 +1,4 @@
-import './style.scss'
-
+import $ from './style.module.scss'
 import { ArrowIcon } from '@/components/global/icons'
 import React from 'react'
 import classNames from 'classnames'
@@ -23,17 +22,17 @@ export const ArrowBlock: React.FC<ArrowBlockProps> = ({
   return (
     <div
       className={classNames(
-        'arrow-block',
+        $['arrow-block'],
         className,
-        !flat && 'unflat',
-        customPadding && 'custom-padding'
+        !flat && $['unflat'],
+        customPadding && $['custom-padding']
       )}
       onClick={onClick}
     >
-      <div className="ab-body">{children}</div>
+      <div className={$['ab-body']}>{children}</div>
       {!noArrow && (
-        <div className="ab-arrow-container">
-          <ArrowIcon direction="right" className="ab-arrow" />
+        <div className={$['ab-arrow-container']}>
+          <ArrowIcon direction="right" className={$['ab-arrow']} />
         </div>
       )}
     </div>

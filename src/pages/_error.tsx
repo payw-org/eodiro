@@ -1,14 +1,15 @@
-import './_error.scss'
-
+import $ from './_error.module.scss'
 import Body from '@/layouts/BaseLayout/Body'
 import { NextPage } from 'next'
 import React from 'react'
+import classNames from 'classnames'
 
 type ErrorPageProps = {
   statusCode: number
 }
 
 const ErrorPage: NextPage<ErrorPageProps> = ({ statusCode }) => {
+  const pageTitle = statusCode === 999 ? 'Unknwon Error' : statusCode.toString()
   const msg =
     statusCode === 500
       ? '서버에 연결할 수 없습니다.'
@@ -17,12 +18,18 @@ const ErrorPage: NextPage<ErrorPageProps> = ({ statusCode }) => {
       : '페이지를 찾을 수 없습니다.'
 
   return (
-    <Body pageTitle={statusCode?.toString()} titleHidden centered>
-      <div id="error-page">
-        <h1 className="status-code overlay-sentinel-spot title-sentinel-spot">
+    <Body pageTitle={pageTitle} titleHidden centered>
+      <div id={$['error-page']}>
+        <h1
+          className={classNames(
+            $['status-code'],
+            'overlay-sentinel-spot',
+            'title-sentinel-spot'
+          )}
+        >
           {statusCode}
         </h1>
-        <p className="manifesto">{msg}</p>
+        <p className={$['manifesto']}>{msg}</p>
       </div>
     </Body>
   )

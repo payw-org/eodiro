@@ -1,11 +1,11 @@
-import './style.scss'
-
 import { Button, FlatBlock } from '@/components/ui'
 import { GetServerSideProps, NextPage } from 'next'
 
+import $ from './style.module.scss'
 import ApiHost from '@/modules/api-host'
 import Body from '@/layouts/BaseLayout/Body'
 import { GetBoardId } from '@payw/eodiro-one-api/api/one/scheme'
+import Link from 'next/link'
 import dynamic from 'next/dynamic'
 import { oneAPIClient } from '@payw/eodiro-one-api'
 import { pathIds } from '@/config/paths'
@@ -18,26 +18,48 @@ const PostContainer = dynamic(
   { ssr: false }
 )
 
+export const getServerSideProps: GetServerSideProps<BoardPageProps> = async ({
+  query,
+}) => {
+  const { err, data } = await oneAPIClient(ApiHost.getHost(), {
+    action: 'getBoardId',
+    data: {
+      boardName: query.boardName as string,
+    },
+  })
+
+  return {
+    props: {
+      err,
+      boardId: data,
+    },
+  }
+}
+
 // Side
 const SideContainer: React.FC<{ isSigned: boolean; boardName: string }> = ({
   isSigned,
   boardName,
 }) => {
   return (
-    <div className="side">
+    <div className={$['side']}>
       {isSigned && (
-        <a
-          href={`/square/${boardName}/${pathIds.writePost}`}
-          onClick={(): void => {
-            sessionStorage.setItem('sbsp', window.scrollY?.toString())
-          }}
+        <Link
+          href={`/square/[boardName]/${pathIds.writePost}`}
+          as={`/square/${boardName}/${pathIds.writePost}`}
         >
-          <div className="new-btn-wrapper">
-            <Button full label="새 포스트 작성" className="new-btn" />
-          </div>
-        </a>
+          <a
+            onClick={(): void => {
+              sessionStorage.setItem('sbsp', window.scrollY?.toString())
+            }}
+          >
+            <div className={$['new-btn-wrapper']}>
+              <Button full label="새 포스트 작성" className={$['new-btn']} />
+            </div>
+          </a>
+        </Link>
       )}
-      <div className="more">
+      <div className={$['more']}>
         <FlatBlock>
           <h3>다른 게시판</h3>
         </FlatBlock>
@@ -61,10 +83,14 @@ const BoardPage: NextPage<BoardPageProps> = ({ err, boardId }) => {
     )
   } else {
     return (
-      <Body pageTitle={boardName} bodyClassName="eodiro-board-page" hideOnLoad>
-        <div className="page-container">
+      <Body
+        pageTitle={boardName}
+        bodyClassName={$['eodiro-board-page']}
+        hideOnLoad
+      >
+        <div className={$['page-container']}>
           <SideContainer isSigned={isSigned} boardName={boardName} />
-          <FlatBlock className="content">
+          <FlatBlock className={$['content']}>
             <PostContainer boardId={boardId} />
           </FlatBlock>
         </div>
@@ -74,21 +100,3 @@ const BoardPage: NextPage<BoardPageProps> = ({ err, boardId }) => {
 }
 
 export default BoardPage
-
-export const getServerSideProps: GetServerSideProps<BoardPageProps> = async ({
-  query,
-}) => {
-  const { err, data } = await oneAPIClient(ApiHost.getHost(), {
-    action: 'getBoardId',
-    data: {
-      boardName: query.boardName as string,
-    },
-  })
-
-  return {
-    props: {
-      err,
-      boardId: data,
-    },
-  }
-}

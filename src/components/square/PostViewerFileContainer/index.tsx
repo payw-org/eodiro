@@ -1,11 +1,11 @@
-import './style.scss'
-
 import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 import { useRef, useState } from 'react'
 
+import $ from './style.module.scss'
 import ApiHost from '@/modules/api-host'
 import { GetPostById } from '@payw/eodiro-one-api/api/one/scheme'
 import ImageViewer from '../ImageViewer'
+import classNames from 'classnames'
 
 type PostViewerFileContainerProps = {
   files: GetPostById['payload']['data']['files']
@@ -27,13 +27,13 @@ export const PostViewerFileContainer: React.FC<PostViewerFileContainerProps> = (
   )
 
   return (
-    <div id="post-viewer-file-container">
+    <div id={$['post-viewer-file-container']}>
       {/* Images */}
-      <div className="images">
+      <div className={$['images']}>
         {imageFiles.map((image, i) => {
           return (
             <div
-              className="image-container"
+              className={$['image-container']}
               key={image.fileId}
               onClick={() => {
                 disableBodyScroll(imageViewerWrapper.current)
@@ -70,10 +70,14 @@ export const PostViewerFileContainer: React.FC<PostViewerFileContainerProps> = (
             href={ApiHost.getHost(true) + file.path}
             target="_blank"
             rel="noopener noreferrer"
-            className="file display-flex align-items-center"
+            className={classNames(
+              $['file'],
+              'display-flex',
+              'align-items-center'
+            )}
             key={file.fileId}
           >
-            <i className="icon octicon octicon-file" />
+            <i className={classNames($['icon'], 'octicon', 'octicon-file')} />
             {file.name}
           </a>
         )

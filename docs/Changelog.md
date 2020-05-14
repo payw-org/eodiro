@@ -1,5 +1,20 @@
 # Changelog
 
+## v3.7.0
+
+- **[FEAT]** Use Next.js' built-in Sass module feature instead of `next-sass` plugin
+- **[FEAT]** Use the dollar sign(`$`) as the default stylesheet import name since we don't use jQuery thing
+- **[FEAT]** Use `next/link` instead of anchors
+- **[FEAT]** Deprecate `abs-link` in favor of more verbose `absolute-link` and replace with it
+- **[FIX]** Too early scroll position restoration when navigating through browser's go/back
+- **[FIX]** Stop Intersection Observers observe after components have been completely unmounted
+- **[CHORE]** Replace most of deprecated `getInitialProps` with `getServerSideProps`
+
+## v3.6.0
+
+- Improve stability
+- Ready to be merged with the repository `eodiro`
+
 ## v3.5.0
 
 ### Features

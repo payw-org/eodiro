@@ -40,5 +40,10 @@
     "scope": "typescriptreact",
     "prefix": "dc",
     "body": "data-component=\"\""
+  },
+  "Style": {
+    "scope": "typescriptreact",
+    "prefix": "$",
+    "body": "$['$0']"
   }
 }

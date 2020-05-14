@@ -1,7 +1,6 @@
-import './style.scss'
-
 import { Button, LineInput } from '@/components/ui'
 
+import $ from './style.module.scss'
 import { AuthApi } from '@/api'
 import Body from '@/layouts/BaseLayout/Body'
 import { EodiroPage } from '@/pages/_app'
@@ -45,7 +44,7 @@ const ChangePasswordRequestPage: EodiroPage<ChangePasswordRequestPageProps> = ({
       pageTitle={valid ? '새 암호 입력' : '오류'}
       titleAlign="center"
       centered
-      bodyClassName="change-password-request"
+      bodyClassName={$['change-password-request']}
     >
       {valid && (
         <>
@@ -60,7 +59,7 @@ const ChangePasswordRequestPage: EodiroPage<ChangePasswordRequestPageProps> = ({
           <Button
             label="변경하기"
             full
-            className="change-btn"
+            className={$['change-btn']}
             disabled={validating}
             onClick={change}
           />

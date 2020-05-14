@@ -1,7 +1,6 @@
-import './style.scss'
-
 import React, { useContext, useRef, useState } from 'react'
 
+import $ from './style.module.scss'
 import ApiHost from '@/modules/api-host'
 import CommentsContext from '../comments-context'
 import { Tokens } from '@/api'
@@ -56,7 +55,7 @@ const NewComment: React.FC = () => {
   }
 
   return (
-    <div className="new-comment position-relative">
+    <div className={`${$['new-comment']} position-relative`}>
       <input
         tabIndex={-1}
         type="text"
@@ -69,7 +68,7 @@ const NewComment: React.FC = () => {
       <input
         maxLength={500}
         ref={inputRef}
-        className="nc-input"
+        className={$['nc-input']}
         type="text"
         placeholder="이 곳에 댓글을 입력하세요"
         spellCheck="false"
@@ -85,7 +84,7 @@ const NewComment: React.FC = () => {
         }}
       />
 
-      <button className="done position-absolute done" onClick={done}>
+      <button className={`${$['done']} position-absolute`} onClick={done}>
         완료
       </button>
     </div>

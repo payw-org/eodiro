@@ -1,5 +1,4 @@
-import './style.scss'
-
+import $ from './style.module.scss'
 import { Lecture } from '@/api'
 
 function formatTime(num: number): string {
@@ -20,31 +19,31 @@ export type TimetableProps = {
 
 const Timetable: React.FC<TimetableProps> = ({ info, close }) => {
   return (
-    <div className="timetable" data-component="">
-      <div className="bg" onClick={close} />
-      <div className="panel">
-        <h1 className="classroom-number">
+    <div className={$['timetable']}>
+      <div className={$['bg']} onClick={close} />
+      <div className={$['panel']}>
+        <h1 className={$['classroom-number']}>
           {info && info.classroomNumber}
-          <span className="room">호</span>
+          <span className={$['room']}>호</span>
         </h1>
         {info &&
           info.lectures &&
           info.lectures.map((lecture) => (
-            <div className="lecture" key={lectureKey(lecture)}>
-              <div className="interval">
+            <div className={$['lecture']} key={lectureKey(lecture)}>
+              <div className={$['interval']}>
                 <div>
                   {`${formatTime(lecture.start_h)}:${formatTime(
                     lecture.start_m
                   )}`}
                 </div>
-                <div className="vertical-dash" />
+                <div className={$['vertical-dash']} />
                 <div>
                   {`${formatTime(lecture.end_h)}:${formatTime(lecture.end_m)}`}
                 </div>
               </div>
-              <div className="lecture-info">
-                <div className="name">{lecture.name}</div>
-                <div className="professor">{lecture.professor}</div>
+              <div className={$['lecture-info']}>
+                <div className={$['name']}>{lecture.name}</div>
+                <div className={$['professor']}>{lecture.professor}</div>
               </div>
             </div>
           ))}

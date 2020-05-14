@@ -1,6 +1,7 @@
 import Header, { HeaderProps } from './Header'
 import React, { FC } from 'react'
 
+import $ from './style.module.scss'
 import Head from 'next/head'
 import mergeClassNames from '@/modules/merge-class-name'
 
@@ -27,11 +28,11 @@ const Body: FC<BodyProps> = (props) => {
       </Head>
       <div
         className={mergeClassNames(
-          'body-content',
+          $['body-content'],
           bodyClassName,
-          hasTopGap && 'top-gap',
-          centered && 'centered',
-          hideOnLoad && 'hidden'
+          hasTopGap && $['top-gap'],
+          centered && $['centered'],
+          hideOnLoad && $['hidden']
         )}
       >
         <Header {...props} />
@@ -44,7 +45,7 @@ const Body: FC<BodyProps> = (props) => {
 export default Body
 
 export function visualizeBody(): void {
-  ;(document.querySelector('.body-content') as HTMLElement).classList.remove(
-    'hidden'
-  )
+  document
+    .getElementsByClassName($['body-content'])[0]
+    .classList.remove($['hidden'])
 }

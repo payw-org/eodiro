@@ -17,11 +17,13 @@
       overflow: hidden;
       margin-right: 0.7rem;
       margin-bottom: 0.7rem;
+
       @include smaller-than(699px) {
         &:nth-child(4n) {
           margin-right: 0;
         }
       }
+
       @include larger-than(700px) {
         width: calc(20% - 0.56rem);
         &:nth-child(5n) {

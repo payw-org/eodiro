@@ -1,5 +1,6 @@
 import '@/assets/styles/global/globalstyle.scss'
 import './_document.scss'
+import 'swiper/swiper.scss'
 
 import App, { AppContext, AppInitialProps } from 'next/app'
 import { NextComponentType, NextPageContext } from 'next'
@@ -9,6 +10,7 @@ import { Tokens, TokensPack } from '@/api'
 import BaseLayout from '@/layouts/BaseLayout'
 import Head from 'next/head'
 import { Router } from 'next/router'
+import ScrollPositionProvider from '@/components/ScrollPositionProvider'
 import { getAuthState } from '@/modules/server/get-auth-state'
 import { isClient } from '@/modules/utils/is-client'
 import { isDev } from '@/modules/utils/is-dev'
@@ -22,10 +24,15 @@ if (isClient()) {
       '0': '#ff3852',
       '1': '#ff3852',
     },
+    shadowBlur: 0,
+    shadowColor: 'rgba(0, 0, 0, 0)',
+    className: 'eodiro-topbar',
   })
   Router.events.on('routeChangeStart', topbar.show)
   Router.events.on('routeChangeComplete', topbar.hide)
   Router.events.on('routeChangeError', topbar.hide)
+
+  history.scrollRestoration = 'manual'
 }
 
 type AuthProps = {
@@ -112,11 +119,13 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
   }
 
   componentDidMount(): void {
-    const currentpage = sessionStorage.getItem('currentpage')
-    if (currentpage) {
-      sessionStorage.setItem('lastpage', currentpage)
-    }
-    sessionStorage.setItem('currentpage', location.pathname)
+    Router.events.on('routeChangeComplete', () => {
+      const currentpage = sessionStorage.getItem('currentpage')
+      if (currentpage) {
+        sessionStorage.setItem('lastpage', currentpage)
+      }
+      sessionStorage.setItem('currentpage', location.pathname)
+    })
   }
 
   public render(): JSX.Element {
@@ -157,11 +166,13 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
             />
           )}
         </Head>
-        <AuthProvider {...authProps}>
-          <BaseLayout>
-            <Component {...pageProps} />
-          </BaseLayout>
-        </AuthProvider>
+        <ScrollPositionProvider>
+          <AuthProvider {...authProps}>
+            <BaseLayout>
+              <Component {...pageProps} />
+            </BaseLayout>
+          </AuthProvider>
+        </ScrollPositionProvider>
       </>
     )
   }
