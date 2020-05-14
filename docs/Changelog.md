@@ -1,5 +1,15 @@
 # Changelog
 
+## v3.7.2
+
+- **[FIX]** Remove event listeners after unmounted
+- **[FIX]** Deprecate customizable inline SVG `width`, `height` and remove them from where they're being used
+- **[CHORE]** Move all the client-side codes that running inside `_app.tsx` from global section to React mounted hook
+
+## v3.7.1
+
+- **[FIX]** Remove deprecated PAYW's next plugins
+
 ## v3.7.0
 
 - **[FEAT]** Use Next.js' built-in Sass module feature instead of `next-sass` plugin
