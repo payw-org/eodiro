@@ -101,6 +101,7 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
     return () => {
       window.removeEventListener('load', loadHandler)
       window.removeEventListener('resize', resizeHandler)
+      window.onbeforeunload = undefined
     }
   }, [])
 
