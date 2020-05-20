@@ -4,7 +4,7 @@
 export const reactNativeWebViewPostMessage = (
   message: any,
   /**
-   * @default `protocol://host`
+   * @default `location.origin`
    */
   targetOrigin?: string,
   transfer?: Transferable[]
@@ -14,7 +14,7 @@ export const reactNativeWebViewPostMessage = (
 
     reactNativeWebView.postMessage(
       message,
-      targetOrigin || location.protocol + '//' + location.host,
+      targetOrigin || location.origin,
       transfer
     )
   }
