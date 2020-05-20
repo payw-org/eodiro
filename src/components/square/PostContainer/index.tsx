@@ -97,7 +97,7 @@ const PostContainer: React.FC<PostContainerProps> = ({ boardId }) => {
     sessionStorage.setItem('sbpd', JSON.stringify(updatedPosts))
   }
 
-  const [isPostsExist, setIsPostsExist] = useState(false)
+  const [isPostsExist, setIsPostsExist] = useState(true)
 
   useEffect(() => {
     loadMore().then((exist) => setIsPostsExist(exist))
