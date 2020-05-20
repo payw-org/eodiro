@@ -19,9 +19,11 @@ const Footer: React.FC = () => {
         PAYW
       </a>
       &nbsp;|&nbsp;
-      <Link href="/inquiry">
-        <a className={$['inquiry']}>문의하기</a>
-      </Link>
+      {/* <Link href="/inquiry"> */}
+      <a href="/inquiry" className={$['inquiry']}>
+        문의하기
+      </a>
+      {/* </Link> */}
     </footer>
   )
 }
