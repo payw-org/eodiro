@@ -98,6 +98,7 @@ const MyPage: NextPage<MyPageProps> = ({ userInfo, myPosts }) => {
   )
 }
 
+// TODO: use `getServerSideProps`
 MyPage.getInitialProps = async ({ req, res }): Promise<MyPageProps> => {
   const userInfo = await AuthApi.info(req)
   const { data: myPosts } = await oneAPIClient(ApiHost.getHost(), {
