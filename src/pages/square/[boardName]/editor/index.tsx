@@ -95,7 +95,7 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
 
     // Warn when try to leave the page
     window.onbeforeunload = function () {
-      return '작성 중인 내용이 모두 사랍니다. 페이지를 나가시겠습니까?'
+      return '작성 중인 내용이 모두 사라집니다. 페이지를 나가시겠습니까?'
     }
 
     return () => {
