@@ -8,7 +8,11 @@ import {
   useRef,
   useState,
 } from 'react'
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
+import {
+  clearAllBodyScrollLocks,
+  disableBodyScroll,
+  enableBodyScroll,
+} from 'body-scroll-lock'
 
 import $ from './style.module.scss'
 import ApiHost from '@/modules/api-host'
@@ -102,6 +106,9 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
       window.removeEventListener('load', loadHandler)
       window.removeEventListener('resize', resizeHandler)
       window.onbeforeunload = undefined
+
+      // Enable all body scroll
+      clearAllBodyScrollLocks()
     }
   }, [])
 
@@ -163,6 +170,7 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
 
       // Detach preventing event before redirection
       window.onbeforeunload = undefined
+      // TODO: replace the location with Next Router
       location.replace(`/square/${router.query.boardName}/${postId || inserId}`)
       return
     }
@@ -246,7 +254,7 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
             <button
               className={$['close']}
               onClick={() => {
-                uploadSection.current.classList.remove('opened')
+                uploadSection.current.classList.remove($['opened'])
                 enableBodyScroll(uploadSection.current)
               }}
             >
@@ -457,7 +465,7 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
           className={$['upload-file-btn']}
           onClick={() => {
             disableBodyScroll(uploadSection.current)
-            uploadSection.current.classList.add('opened')
+            uploadSection.current.classList.add($['opened'])
           }}
         >
           <i className="octicon octicon-cloud-upload" />
