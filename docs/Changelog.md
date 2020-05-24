@@ -1,5 +1,9 @@
 # Changelog
 
+## v3.7.4
+
+- **FIX:** Resolve 999 unknown error
+
 ## v3.7.3
 
 - **[FIX]** Close navigation menus after select (mobile)
