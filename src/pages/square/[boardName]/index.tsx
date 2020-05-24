@@ -44,20 +44,16 @@ const SideContainer: React.FC<{ isSigned: boolean; boardName: string }> = ({
   return (
     <div className={$['side']}>
       {isSigned && (
-        <Link
-          href={`/square/[boardName]/${pathIds.writePost}`}
-          as={`/square/${boardName}/${pathIds.writePost}`}
+        <a
+          href={`/square/${boardName}/${pathIds.writePost}`}
+          onClick={(): void => {
+            sessionStorage.setItem('sbsp', window.scrollY?.toString())
+          }}
         >
-          <a
-            onClick={(): void => {
-              sessionStorage.setItem('sbsp', window.scrollY?.toString())
-            }}
-          >
-            <div className={$['new-btn-wrapper']}>
-              <Button full label="새 포스트 작성" className={$['new-btn']} />
-            </div>
-          </a>
-        </Link>
+          <div className={$['new-btn-wrapper']}>
+            <Button full label="새 포스트 작성" className={$['new-btn']} />
+          </div>
+        </a>
       )}
       <div className={$['more']}>
         <FlatBlock>
