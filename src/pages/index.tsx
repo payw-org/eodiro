@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 
 import $ from './index.module.scss'
 import Blocks from '@/components/global/icons/Blocks'
-// import ApiHost from '@/modules/api-host'
 import Body from '@/layouts/BaseLayout/Body'
 import Door from '@/components/global/icons/Door'
 import EodiroColors from '@/modules/styles/EodiroColors'
@@ -10,7 +9,6 @@ import Grid from '@/layouts/Grid'
 import Head from 'next/head'
 import Heart from '@/components/global/icons/Heart'
 import Link from 'next/link'
-// import ApolloClient, { gql } from 'apollo-boost'
 import { Magnifier } from '@/components/global/icons'
 import { NextPage } from 'next'
 import Notice from '@/components/home/Notice'
@@ -64,23 +62,6 @@ const HomePage: NextPage = () => {
       })
     }
   }, [])
-
-  // useEffect(() => {
-  //   const client = new ApolloClient({
-  //     uri: ApiHost.getHost() + '/graphql',
-  //   })
-  //   const query = gql`
-  //     query GET_USER {
-  //       users {
-  //         portalId
-  //         randomNickname
-  //       }
-  //     }
-  //   `
-  //   client.query({ query }).then((result) => {
-  //     console.log(result)
-  //   })
-  // }, [])
 
   return (
     <>
