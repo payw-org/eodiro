@@ -14,6 +14,7 @@ import ScrollPositionProvider from '@/components/ScrollPositionProvider'
 import { getAuthState } from '@/modules/server/get-auth-state'
 import { isClient } from '@/modules/utils/is-client'
 import { isDev } from '@/modules/utils/is-dev'
+import { reactNativeWebViewPostMessage } from '@/modules/native/react-native-webview'
 
 type AuthProps = {
   tokens: TokensPack
@@ -105,7 +106,7 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
     const w = globalThis as any
     const topbar = w.topbar
     topbar.config({
-      barThickness: 2,
+      barThickness: 3,
       barColors: {
         '0': '#ff3852',
         '1': '#ff3852',
@@ -125,6 +126,13 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
         sessionStorage.setItem('lastpage', currentpage)
       }
       sessionStorage.setItem('currentpage', location.pathname)
+    })
+
+    // Post an auth message to the WebView
+    // on the client side after mounted
+    reactNativeWebViewPostMessage({
+      key: 'auth',
+      authProps: this.props.authProps,
     })
   }
 

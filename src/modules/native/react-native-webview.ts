@@ -1,19 +1,24 @@
+import ApiHost from '../api-host'
+
 /**
  * Post a message to the React Native WebView
  */
 export const reactNativeWebViewPostMessage = (
-  message: any,
+  message: Record<string, unknown>,
   /**
    * @default `location.origin`
    */
   targetOrigin?: string,
   transfer?: Transferable[]
-) => {
-  if ('ReactNativeWebView' in window) {
+): void => {
+  if (typeof window !== undefined && 'ReactNativeWebView' in window) {
     const reactNativeWebView = (window as any).ReactNativeWebView as Window
 
     reactNativeWebView.postMessage(
-      message,
+      JSON.stringify({
+        apiHost: ApiHost.getHost(),
+        ...message,
+      }),
       targetOrigin || location.origin,
       transfer
     )
