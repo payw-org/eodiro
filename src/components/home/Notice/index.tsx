@@ -1,7 +1,6 @@
 import $ from './style.module.scss'
-export type NoticeProps = {}
 
-const Notice: React.FC<NoticeProps> = () => {
+const Notice: React.FC = () => {
   return (
     <div className={$['notice']}>
       <h3 className={$['headline']}>
