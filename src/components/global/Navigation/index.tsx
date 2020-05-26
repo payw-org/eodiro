@@ -68,10 +68,9 @@ const NavMenus: React.FC = () => {
 
   return (
     <ul
-      className={classNames(
-        $['en-menus-container'],
-        menuOpened ? $['opened'] : ''
-      )}
+      className={classNames($['en-menus-container'], {
+        [$['opened']]: menuOpened,
+      })}
     >
       <NavItem title="빈 강의실" to="/vacant" />
       <NavItem title="강의 검색" to="/lectures" />
