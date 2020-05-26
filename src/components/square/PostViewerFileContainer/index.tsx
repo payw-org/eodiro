@@ -1,4 +1,3 @@
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
 import { useRef, useState } from 'react'
 
 import $ from './style.module.scss'
@@ -36,7 +35,6 @@ export const PostViewerFileContainer: React.FC<PostViewerFileContainerProps> = (
               className={$['image-container']}
               key={image.fileId}
               onClick={() => {
-                disableBodyScroll(imageViewerWrapper.current)
                 setInitialImageIndex(i)
                 setIsImageViewerOpen(true)
               }}
@@ -57,7 +55,6 @@ export const PostViewerFileContainer: React.FC<PostViewerFileContainerProps> = (
           srcs={imageFiles.map((image) => ApiHost.getHost(true) + image.path)}
           close={() => {
             setIsImageViewerOpen(false)
-            enableBodyScroll(imageViewerWrapper.current)
           }}
           initialIndex={initialImageIndex}
         />

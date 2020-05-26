@@ -1,3 +1,4 @@
+import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock'
 import { useEffect, useRef } from 'react'
 
 import $ from './style.module.scss'
@@ -25,6 +26,14 @@ const ImageViewer: React.FC<ImageViewerProps> = (props) => {
       },
       initialSlide: props.initialIndex,
     })
+
+    // Prevent vertical scrolling
+    disableBodyScroll(swiperElm.current)
+
+    return () => {
+      // Clear all scroll locks
+      clearAllBodyScrollLocks()
+    }
   }, [])
 
   useEffect(() => {

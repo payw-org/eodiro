@@ -1,6 +1,6 @@
 import { Lecture, VacantClassrooms } from '@/api/vacant'
 import React, { useEffect, useState } from 'react'
-import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock'
+import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock'
 
 import $ from './style.module.scss'
 import { ArrowBlock } from '@/components/ui'
@@ -29,10 +29,17 @@ const VacantClassroomsPage: NextPage<VacantClassroomsPageProps> = ({
   const [isTimetableVisible, setIsTimetableVisible] = useState(false)
 
   useEffect(() => {
-    isTimetableVisible &&
-      disableBodyScroll(
-        document.querySelector(`.${$['timetable']} .${$['panel']}`)
-      )
+    setTimeout(() => {
+      if (isTimetableVisible) {
+        disableBodyScroll(
+          document.querySelector(`.${$['timetable']} .${$['panel']}`)
+        )
+      }
+    }, 0)
+
+    return () => {
+      clearAllBodyScrollLocks()
+    }
   }, [isTimetableVisible])
 
   const [info, setInfo] = useState(
@@ -52,10 +59,7 @@ const VacantClassroomsPage: NextPage<VacantClassroomsPageProps> = ({
           <Timetable
             info={info}
             close={() => {
-              // TODO: use Ref
-              enableBodyScroll(
-                document.querySelector(`.${$['timetable']} .${$['panel']}`)
-              )
+              clearAllBodyScrollLocks()
               setIsTimetableVisible(false)
             }}
           />
