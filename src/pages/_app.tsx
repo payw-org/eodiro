@@ -12,7 +12,6 @@ import Head from 'next/head'
 import { Router } from 'next/router'
 import ScrollPositionProvider from '@/components/ScrollPositionProvider'
 import { getAuthState } from '@/modules/server/get-auth-state'
-import { isClient } from '@/modules/utils/is-client'
 import { isDev } from '@/modules/utils/is-dev'
 import { reactNativeWebViewPostMessage } from '@/modules/native/react-native-webview'
 
@@ -64,7 +63,7 @@ interface EodiroAppContext extends AppContext {
   ctx: EodiroPageContext
 }
 
-export type EodiroPage<P = {}, IP = P> = NextComponentType<
+export type EodiroPage<P = Record<string, unknown>, IP = P> = NextComponentType<
   EodiroPageContext,
   IP,
   P & AuthProps
