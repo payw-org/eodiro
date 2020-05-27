@@ -6,7 +6,8 @@ export const ScrollPositionContext = React.createContext({
   triggerScroll: () => null,
 })
 
-export const useScrollPosition = () => useContext(ScrollPositionContext)
+export const useScrollPosition = (): { triggerScroll: () => null } =>
+  useContext(ScrollPositionContext)
 
 let routerBound = false
 let shouldScrollRestore = false
@@ -24,14 +25,13 @@ const cachedScrollPositions: {
  *
  * Inspired by https://github.com/zeit/next.js/issues/3303#issuecomment-562581796
  */
-const ScrollPositionProvider = ({ children }) => {
+const ScrollPositionProvider: React.FC = ({ children }) => {
   useEffect(() => {
     if (typeof window === 'undefined') return
 
-    // Commented out because I'm not sure if its necessary
-    // if (window?.history?.scrollRestoration) {
-    //   window.history.scrollRestoration = 'manual';
-    // }
+    if (window?.history?.scrollRestoration) {
+      window.history.scrollRestoration = 'manual'
+    }
 
     const handleChangeStart = () => {
       cachedScrollPositions[Router.asPath] = {

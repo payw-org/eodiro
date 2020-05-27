@@ -9,7 +9,7 @@ import { Tokens, TokensPack } from '@/api'
 
 import BaseLayout from '@/layouts/BaseLayout'
 import Head from 'next/head'
-import { Router } from 'next/router'
+import Router from 'next/router'
 import ScrollPositionProvider from '@/components/ScrollPositionProvider'
 import { getAuthState } from '@/modules/server/get-auth-state'
 import { isDev } from '@/modules/utils/is-dev'
@@ -99,8 +99,6 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
   }
 
   componentDidMount(): void {
-    history.scrollRestoration = 'manual'
-
     // Set topbar
     const w = globalThis as any
     const topbar = w.topbar
