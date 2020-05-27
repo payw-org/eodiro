@@ -60,12 +60,6 @@ const ScrollPositionProvider: React.FC = ({ children }) => {
       shouldScrollRestore = true
       return true
     })
-
-    // // Commented out because not sure if it works
-    // return () => {
-    //   router.events.off('routeChangeStart', handleChangeStart);
-    //   router.events.on('routeChangeComplete', handleChangeComplete);
-    // };
   })
 
   const triggerScroll = () => {
