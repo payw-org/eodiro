@@ -192,9 +192,9 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   return {
     props: {
-      post: postPayload.data,
-      comments: commentsPayload.data,
-      postErr: postPayload.err,
+      post: postPayload.data || null,
+      comments: commentsPayload.data || null,
+      postErr: postPayload.err || null,
     },
   }
 }
