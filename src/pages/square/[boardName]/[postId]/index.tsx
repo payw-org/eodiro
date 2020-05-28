@@ -1,5 +1,9 @@
 import { EodiroPage, useAuth } from '@/pages/_app'
 import { GetComments, GetPostById } from '@payw/eodiro-one-api/api/one/scheme'
+import {
+  OneApiError,
+  OneApiPayload,
+} from '@payw/eodiro-one-api/api/one/scheme/types/utils'
 
 import $ from './style.module.scss'
 import ApiHost from '@/modules/api-host'
@@ -9,7 +13,6 @@ import Comments from '@/components/square/Comments'
 import { GetServerSideProps } from 'next'
 import Information from '@/components/global/Information'
 import Link from 'next/link'
-import { OneApiPayload } from '@payw/eodiro-one-api/api/one/scheme/types/utils'
 import { PostAttrs } from '@payw/eodiro-one-api/database/models/post'
 import { PostViewerFileContainer } from '@/components/square/PostViewerFileContainer'
 import RequireAuth from '@/components/global/RequireAuth'
@@ -154,12 +157,12 @@ const PostPage: EodiroPage<PostPageProps> = ({ post, comments, postErr }) => {
       hasTopGap={postErr ? true : false}
     >
       {post && <Content post={post} comments={comments} />}
-      {postErr === 'Unauthorized' && (
+      {postErr === OneApiError.UNAUTHORIZED && (
         <div className="overlay-sentinel-spot title-sentinel-spot">
           <RequireAuth />
         </div>
       )}
-      {postErr === 'No Content' && (
+      {postErr === OneApiError.NO_CONTENT && (
         <div className="overlay-sentinel-spot title-sentinel-spot">
           <Information title="존재하지 않는 포스트입니다." />
         </div>
