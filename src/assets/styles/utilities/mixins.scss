@@ -58,6 +58,7 @@
 // element fill
 @mixin elm-fill {
   background-color: #fff;
+  // box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 
   @include dark-mode {
     background-color: $base-black-soft;
@@ -73,6 +74,7 @@
 
 @mixin elm-fill-distinct {
   background-color: $base-white-blue;
+  // box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 
   @include dark-mode {
     background-color: $base-black-soft;

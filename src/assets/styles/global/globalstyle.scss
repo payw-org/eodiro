@@ -107,6 +107,11 @@ body {
   // user-select: none;
   overflow-anchor: none; // prevent always scroll end
   @include bg;
+  // background-attachment: fixed;
+  // background-image: linear-gradient(#fff, $base-white-blue);
+  // @include dark-mode {
+  //   background-image: linear-gradient(#000, $base-black-soft);
+  // }
   @include text-color;
 }
 
