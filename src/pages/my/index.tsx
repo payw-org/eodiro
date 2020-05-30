@@ -1,11 +1,13 @@
+import { ArrowBlock, Button, FlatBlock } from '@/components/ui'
 import { AuthApi, Tokens, UserInfo } from '@/api'
-import { Button, FlatBlock } from '@/components/ui'
 
 import $ from './style.module.scss'
 import ApiHost from '@/modules/api-host'
 import Body from '@/layouts/BaseLayout/Body'
+import FriendlyTime from '@/components/utils/FriendlyTime'
 import { GetMyPosts } from '@payw/eodiro-one-api/api/one/scheme'
 import Grid from '@/layouts/Grid'
+import Link from 'next/link'
 import { NextPage } from 'next'
 import { OneApiPayload } from '@payw/eodiro-one-api/api/one/scheme/types/utils'
 import { Unpacked } from '@/types/unpacked'
@@ -20,8 +22,8 @@ type PostItemProps = {
 const PostItem: React.FC<PostItemProps> = ({ postData }) => {
   return (
     <div className={$['post-item']}>
-      <span>{postData.board_name}</span>
-      <span>{postData.uploaded_at}</span>
+      <span className={$['post-item-boardName']}>{postData.board_name}</span>
+      <FriendlyTime time={postData.uploaded_at} />
       <h1>{postData.title}</h1>
     </div>
   )
@@ -62,7 +64,19 @@ const MyPage: NextPage<MyPageProps> = ({ userInfo, myPosts }) => {
       {/* My Posts */}
       <section className={$['my-posts']}>
         {myPosts.map((post, i) => {
-          return <PostItem key={i} postData={post} />
+          return (
+            <Link
+              key={i}
+              href="/square/[boardName]/[postId]"
+              as={`/square/${post.board_name}/${post.id}`}
+            >
+              <a>
+                <ArrowBlock className={$['my-post-item']}>
+                  <PostItem postData={post} />
+                </ArrowBlock>
+              </a>
+            </Link>
+          )
         })}
       </section>
 
