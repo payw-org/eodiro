@@ -115,7 +115,7 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
     Router.events.on('routeChangeStart', topbar.show)
     Router.events.on('routeChangeComplete', () => {
       ;(document.activeElement as any)?.blur()
-      topbar.hide
+      topbar.hide()
     })
     Router.events.on('routeChangeError', topbar.hide)
 
