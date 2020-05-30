@@ -32,7 +32,7 @@ const CommentItem: React.FC<{
         <div className={$['nick-and-time']}>
           <span
             className={
-              comment.user_id === ownerId ? $['ownerNick'] : $['guestNick']
+              comment.user_id === ownerId ? $['owner-nick'] : $['guest-nick']
             }
           >
             {comment.random_nickname}
