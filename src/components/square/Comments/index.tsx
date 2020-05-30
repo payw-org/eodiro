@@ -21,15 +21,22 @@ const FriendlyTime = dynamic(() => import('@/components/utils/FriendlyTime'), {
 const CommentItem: React.FC<{
   comment: CommentAttrs
   index: number
+  ownerId: number
   deleteComment: (index: number) => void
-}> = React.memo(({ comment, index, deleteComment }) => {
+}> = React.memo(({ comment, index, ownerId, deleteComment }) => {
   const auth = useAuth()
 
   return (
     <div className={$['comment-item']}>
       <div className={$['first-row']}>
         <div className={$['nick-and-time']}>
-          <span className={$['nick']}>{comment.random_nickname}</span>
+          <span
+            className={
+              comment.user_id === ownerId ? $['ownerNick'] : $['guestNick']
+            }
+          >
+            {comment.random_nickname}
+          </span>
           <FriendlyTime time={comment.uploaded_at} className={$['time']} />
         </div>
         {auth.userId === comment.user_id && (
@@ -66,6 +73,7 @@ const CommentItem: React.FC<{
 
 const Comments: React.FC<{
   comments: CommentAttrs[]
+  ownerId: number
 }> = (props) => {
   const [comments, setComments] = useState(props.comments)
 
@@ -87,6 +95,7 @@ const Comments: React.FC<{
           <CommentItem
             key={comment.id}
             comment={comment}
+            ownerId={props.ownerId}
             index={i}
             deleteComment={deleteComment}
           />
