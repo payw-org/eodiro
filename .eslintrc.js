@@ -27,6 +27,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react/prop-types': [0],
+    '@typescript-eslint/no-extra-semi': [0],
     '@typescript-eslint/explicit-function-return-type': [0],
     '@typescript-eslint/no-empty-function': [0],
     '@typescript-eslint/no-var-requires': [0],

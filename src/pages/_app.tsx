@@ -113,7 +113,10 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
       className: 'eodiro-topbar',
     })
     Router.events.on('routeChangeStart', topbar.show)
-    Router.events.on('routeChangeComplete', topbar.hide)
+    Router.events.on('routeChangeComplete', () => {
+      ;(document.activeElement as any)?.blur()
+      topbar.hide
+    })
     Router.events.on('routeChangeError', topbar.hide)
 
     // Update current page and last page in session storage
