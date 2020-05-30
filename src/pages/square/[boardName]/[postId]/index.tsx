@@ -81,7 +81,6 @@ const Content: React.FC<ContentProps> = ({ post, comments }) => {
           </span>
         </a>
       </Link>
-
       <article className={$['post']}>
         <div className={$['info']}>
           <span className={$['author']}>{post.random_nickname}</span>
@@ -128,7 +127,6 @@ const Content: React.FC<ContentProps> = ({ post, comments }) => {
           <PostViewerFileContainer files={post.files} />
         )}
       </article>
-
       {/* Like */}
       <div
         className={`${$['like-container']} display-flex justify-content-center`}
@@ -138,7 +136,7 @@ const Content: React.FC<ContentProps> = ({ post, comments }) => {
         </button>
       </div>
 
-      <Comments comments={comments} />
+      <Comments comments={comments} ownerId={post.user_id} />
     </div>
   )
 }
