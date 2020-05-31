@@ -1,5 +1,6 @@
 import { ArrowBlock, Button, FlatBlock } from '@/components/ui'
 import { AuthApi, Tokens, UserInfo } from '@/api'
+import { GetServerSideProps, NextPage } from 'next'
 
 import $ from './style.module.scss'
 import ApiHost from '@/modules/api-host'
@@ -8,7 +9,6 @@ import FriendlyTime from '@/components/utils/FriendlyTime'
 import { GetMyPosts } from '@payw/eodiro-one-api/api/one/scheme'
 import Grid from '@/layouts/Grid'
 import Link from 'next/link'
-import { NextPage } from 'next'
 import { OneApiPayload } from '@payw/eodiro-one-api/api/one/scheme/types/utils'
 import { Unpacked } from '@/types/unpacked'
 import classNames from 'classnames'
@@ -112,9 +112,17 @@ const MyPage: NextPage<MyPageProps> = ({ userInfo, myPosts }) => {
   )
 }
 
-// TODO: use `getServerSideProps`
-MyPage.getInitialProps = async ({ req, res }): Promise<MyPageProps> => {
+export const getServerSideProps: GetServerSideProps<MyPageProps> = async ({
+  req,
+  res,
+}) => {
   const userInfo = await AuthApi.info(req)
+
+  if (!userInfo) {
+    redirect(res, '/')
+    return
+  }
+
   const { data: myPosts } = await oneAPIClient(ApiHost.getHost(), {
     action: 'getMyPosts',
     data: {
@@ -122,14 +130,11 @@ MyPage.getInitialProps = async ({ req, res }): Promise<MyPageProps> => {
     },
   })
 
-  if (!userInfo) {
-    redirect(res, '/')
-    return
-  }
-
   return {
-    userInfo,
-    myPosts,
+    props: {
+      userInfo,
+      myPosts,
+    },
   }
 }
 
