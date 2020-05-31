@@ -3,6 +3,7 @@ import Navigation, { NavContextProvider } from '@/components/global/Navigation'
 import $ from './style.module.scss'
 import GlobalFooter from '@/components/global/GlobalFooter'
 import React from 'react'
+import { isApp } from '@/modules/booleans/is-app'
 
 const BaseLayout: React.FC = (props) => {
   return (
@@ -11,7 +12,7 @@ const BaseLayout: React.FC = (props) => {
         <div id={$['eodiro-app']}>
           <Navigation />
           {props.children}
-          <GlobalFooter />
+          {!isApp() && <GlobalFooter />}
         </div>
       </div>
     </NavContextProvider>
