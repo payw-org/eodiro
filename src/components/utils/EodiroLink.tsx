@@ -7,6 +7,7 @@ export type EodiroLinkProps = {
   href: string
   absolute?: boolean
   className?: any
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void
 }
 
 const EodiroLink: React.FC<EodiroLinkProps> = ({
@@ -15,10 +16,11 @@ const EodiroLink: React.FC<EodiroLinkProps> = ({
   href,
   absolute,
   className,
+  onClick,
 }) => {
   return isApp() ? (
     <a
-      href={href}
+      href={as}
       className={cn(className, {
         'absolute-link': absolute,
       })}
@@ -31,6 +33,7 @@ const EodiroLink: React.FC<EodiroLinkProps> = ({
         className={cn(className, {
           'absolute-link': absolute,
         })}
+        onClick={onClick}
       >
         {children}
       </a>

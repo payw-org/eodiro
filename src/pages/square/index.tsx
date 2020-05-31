@@ -1,11 +1,11 @@
 import $ from './style.module.scss'
 import ApiHost from '@/modules/api-host'
 import Body from '@/layouts/BaseLayout/Body'
+import EodiroLink from '@/components/utils/EodiroLink'
 import { EodiroPage } from '../_app'
 import { FlatBlock } from '@/components/ui'
 import { GetPostsOfBoard } from '@payw/eodiro-one-api/api/one/scheme'
 import { GetServerSideProps } from 'next'
-import Link from 'next/link'
 import { OneApiPayloadData } from '@payw/eodiro-one-api/api/one/scheme/types/utils'
 import classNames from 'classnames'
 import { oneAPIClient } from '@payw/eodiro-one-api'
@@ -47,40 +47,39 @@ const SquareMainPage: EodiroPage<SquareMainPageProps> = (props) => {
         <FlatBlock className={$['board']}>
           <h1 className={classNames($['board-name'], 'position-relative')}>
             자유 게시판
-            <Link href="/square/[boardName]" as="/square/자유 게시판">
-              <a className="absolute-link" />
-            </Link>
+            <EodiroLink
+              href="/square/[boardName]"
+              as="/square/자유 게시판"
+              absolute
+            />
           </h1>
 
           <div>
             {props.freeBoardPosts &&
               props.freeBoardPosts.map((globalPost) => {
                 return (
-                  <Link
+                  <EodiroLink
                     key={globalPost.id}
                     href="/square/[boardName]/[postId]"
                     as={`/square/자유 게시판/${globalPost.id}`}
+                    className={classNames($['post-item'], 'display-flex')}
                   >
-                    <a className={classNames($['post-item'], 'display-flex')}>
-                      <div className="display-flex align-items-center">
+                    <div className="display-flex align-items-center">
+                      <span className={classNames($['title'], 'display-block')}>
+                        {globalPost.title}
+                      </span>
+                      {globalPost.comment_count > 0 && (
                         <span
-                          className={classNames($['title'], 'display-block')}
+                          className={classNames(
+                            $['comments-count'],
+                            'line-height-1'
+                          )}
                         >
-                          {globalPost.title}
+                          {globalPost.comment_count}
                         </span>
-                        {globalPost.comment_count > 0 && (
-                          <span
-                            className={classNames(
-                              $['comments-count'],
-                              'line-height-1'
-                            )}
-                          >
-                            {globalPost.comment_count}
-                          </span>
-                        )}
-                      </div>
-                    </a>
-                  </Link>
+                      )}
+                    </div>
+                  </EodiroLink>
                 )
               })}
           </div>
