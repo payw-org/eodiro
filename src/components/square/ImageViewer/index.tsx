@@ -26,14 +26,6 @@ const ImageViewer: React.FC<ImageViewerProps> = (props) => {
       },
       initialSlide: props.initialIndex,
     })
-
-    // Prevent vertical scrolling
-    disableBodyScroll(swiperElm.current)
-
-    return () => {
-      // Clear all scroll locks
-      clearAllBodyScrollLocks()
-    }
   }, [])
 
   useEffect(() => {

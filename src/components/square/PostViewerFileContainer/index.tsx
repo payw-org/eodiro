@@ -1,4 +1,5 @@
-import { useRef, useState } from 'react'
+import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock'
+import { useEffect, useRef, useState } from 'react'
 
 import $ from './style.module.scss'
 import ApiHost from '@/modules/api-host'
@@ -16,6 +17,14 @@ export const PostViewerFileContainer: React.FC<PostViewerFileContainerProps> = (
   const [isImageViewerOpen, setIsImageViewerOpen] = useState(false)
   const [initialImageIndex, setInitialImageIndex] = useState(0)
   const imageViewerWrapper = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (isImageViewerOpen) {
+      disableBodyScroll(imageViewerWrapper.current)
+    } else {
+      clearAllBodyScrollLocks()
+    }
+  }, [isImageViewerOpen])
 
   const imageFiles = props.files.filter((file) =>
     file.mimeType.startsWith('image/')
