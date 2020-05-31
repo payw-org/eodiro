@@ -12,6 +12,7 @@ import Head from 'next/head'
 import Router from 'next/router'
 import ScrollPositionProvider from '@/components/ScrollPositionProvider'
 import { getAuthState } from '@/modules/server/get-auth-state'
+import { isApp } from '@/modules/booleans/is-app'
 import { isDev } from '@/modules/utils/is-dev'
 import { reactNativeWebViewPostMessage } from '@/modules/native/react-native-webview'
 
@@ -99,41 +100,64 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
   }
 
   componentDidMount(): void {
-    // Set topbar
-    const w = globalThis as any
-    const topbar = w.topbar
-    topbar.config({
-      barThickness: 3,
-      barColors: {
-        '0': '#ff3852',
-        '1': '#ff3852',
-      },
-      shadowBlur: 0,
-      shadowColor: 'rgba(0, 0, 0, 0)',
-      className: 'eodiro-topbar',
-    })
-    Router.events.on('routeChangeStart', topbar.show)
-    Router.events.on('routeChangeComplete', () => {
-      ;(document.activeElement as any)?.blur()
-      topbar.hide
-    })
-    Router.events.on('routeChangeError', topbar.hide)
+    if (!isApp()) {
+      // Set topbar
+      const w = globalThis as any
+      const topbar = w.topbar
+      topbar.config({
+        barThickness: 3,
+        barColors: {
+          '0': '#ff3852',
+          '1': '#ff3852',
+        },
+        shadowBlur: 0,
+        shadowColor: 'rgba(0, 0, 0, 0)',
+        className: 'eodiro-topbar',
+      })
+      Router.events.on('routeChangeStart', topbar.show)
+      Router.events.on('routeChangeComplete', () => {
+        ;(document.activeElement as any)?.blur()
+        topbar.hide()
+      })
+      Router.events.on('routeChangeError', () => {
+        ;(document.activeElement as any)?.blur()
+        topbar.hide()
+      })
 
-    // Update current page and last page in session storage
-    Router.events.on('routeChangeComplete', () => {
-      const currentpage = sessionStorage.getItem('currentpage')
-      if (currentpage) {
-        sessionStorage.setItem('lastpage', currentpage)
+      // Update current page and last page in session storage
+      Router.events.on('routeChangeComplete', () => {
+        const currentpage = sessionStorage.getItem('currentpage')
+        if (currentpage) {
+          sessionStorage.setItem('lastpage', currentpage)
+        }
+        sessionStorage.setItem('currentpage', location.pathname)
+      })
+    } else {
+      document.body.classList.add('is-app')
+
+      const documentFonts = (document as any).fonts
+
+      if (!documentFonts) {
+        setTimeout(() => {
+          reactNativeWebViewPostMessage({
+            key: 'fontsReady',
+          })
+        }, 200)
+      } else {
+        documentFonts.ready.then(() => {
+          reactNativeWebViewPostMessage({
+            key: 'fontsReady',
+          })
+        })
       }
-      sessionStorage.setItem('currentpage', location.pathname)
-    })
 
-    // Post an auth message to the WebView
-    // on the client side after mounted
-    reactNativeWebViewPostMessage({
-      key: 'auth',
-      authProps: this.props.authProps,
-    })
+      // Post an auth message to the WebView
+      // on the client side after mounted
+      reactNativeWebViewPostMessage({
+        key: 'auth',
+        authProps: this.props.authProps,
+      })
+    }
   }
 
   public render(): JSX.Element {
@@ -144,7 +168,7 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
         <Head>
           <meta
             name="viewport"
-            content="width=device-width, initial-scale=1.0"
+            content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
           />
           <title>어디로</title>
           <meta
@@ -174,13 +198,21 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
             />
           )}
         </Head>
-        <ScrollPositionProvider>
+        {!isApp() ? (
+          <ScrollPositionProvider>
+            <AuthProvider {...authProps}>
+              <BaseLayout>
+                <Component {...pageProps} />
+              </BaseLayout>
+            </AuthProvider>
+          </ScrollPositionProvider>
+        ) : (
           <AuthProvider {...authProps}>
             <BaseLayout>
               <Component {...pageProps} />
             </BaseLayout>
           </AuthProvider>
-        </ScrollPositionProvider>
+        )}
       </>
     )
   }
