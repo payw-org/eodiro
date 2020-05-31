@@ -5,13 +5,11 @@ import Blocks from '@/components/global/icons/Blocks'
 import Body from '@/layouts/BaseLayout/Body'
 import Door from '@/components/global/icons/Door'
 import EodiroColors from '@/modules/styles/EodiroColors'
+import EodiroLink from '@/components/utils/EodiroLink'
 import Grid from '@/layouts/Grid'
 import Head from 'next/head'
 import Heart from '@/components/global/icons/Heart'
-import Link from 'next/link'
 import { Magnifier } from '@/components/global/icons'
-import { NextPage } from 'next'
-import Notice from '@/components/home/Notice'
 import Spoon from '@/components/global/icons/Spoon'
 import classNames from 'classnames'
 
@@ -33,9 +31,7 @@ const HomeFeatureBox: React.FC<HomeFeatureBoxProps> = ({
       <div className={$['wrapper']}>
         {Icon}
         <h2 className={$['feature-name']}>{title}</h2>
-        <Link href={to}>
-          <a className="absolute-link" />
-        </Link>
+        <EodiroLink href={to} absolute />
 
         {label !== undefined && (
           <span className={$['label']}>{label.toUpperCase()}</span>
