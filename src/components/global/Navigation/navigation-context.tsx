@@ -1,6 +1,7 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useEffect, useState } from 'react'
 
 import { Dispatcher } from '@/types/react-helper'
+import { reactNativeWebViewPostMessage } from '@/modules/native/react-native-webview'
 
 // Nav hidden context
 export const NavHiddenStateContext = createContext<boolean>(undefined)
@@ -26,6 +27,13 @@ export const NavScrollDispatchContext = createContext<Dispatcher<boolean>>(
 )
 export const NavScrollContextProvider: React.FC = ({ children }) => {
   const [scroll, setScroll] = useState(false)
+
+  useEffect(() => {
+    reactNativeWebViewPostMessage({
+      key: 'navScroll',
+      value: scroll,
+    })
+  }, [scroll])
 
   return (
     <NavScrollDispatchContext.Provider value={setScroll}>

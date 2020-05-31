@@ -9,10 +9,13 @@ import React, { useContext } from 'react'
 
 import $ from './style.module.scss'
 import { AuthContext } from '@/pages/_app'
+import EodiroLink from '@/components/utils/EodiroLink'
 import EodiroLogo from '@/components/global/icons/EodiroLogo'
 import Link from 'next/link'
 import { VerticalThreeDotsIcon } from '@/components/global/icons'
 import classNames from 'classnames'
+import { isApp } from '@/modules/booleans/is-app'
+import { reactNativeWebViewPostMessage } from '@/modules/native/react-native-webview'
 
 export * from './navigation-context'
 
@@ -44,6 +47,7 @@ const BgBar: React.FC = () => {
   return (
     <div
       className={classNames(
+        'en-bar',
         $['en-bar'],
         (isScrolled || menuOpened) && $['scrolled']
       )}
@@ -93,27 +97,46 @@ const Navigation: React.FC = () => {
       <BgBar />
 
       <div className={$['en-wrapper']}>
-        <Link href="/">
-          <a className={$['home-link']}>
+        {isApp() && location.pathname === '/' ? (
+          <div className={$['spacer']} />
+        ) : isApp() ? (
+          <button
+            className={$['go-back']}
+            onClick={() => {
+              reactNativeWebViewPostMessage({
+                key: 'goBack',
+              })
+            }}
+          >
+            <i className="f7-icons">chevron_left_circle_fill</i>
+          </button>
+        ) : (
+          <EodiroLink href="/" className={$['home-link']}>
             <EodiroLogo className={$['eodiro-logo']} fill="#ff3852" />
-          </a>
-        </Link>
+          </EodiroLink>
+        )}
 
         <PageAppTitle />
 
         <NavMenus />
 
-        <div
-          className={$['more-tappable']}
-          onClick={(e): void => {
-            e.preventDefault()
-            setMenuOpen((open) => {
-              return !open
-            })
-          }}
-        >
-          <VerticalThreeDotsIcon className={$['more-icon']} />
-        </div>
+        {isApp() ? (
+          <div className={$['app-nav-right-button']}>
+            <i className="f7-icons">person_crop_circle</i>
+          </div>
+        ) : (
+          <div
+            className={$['more-tappable']}
+            onClick={(e): void => {
+              e.preventDefault()
+              setMenuOpen((open) => {
+                return !open
+              })
+            }}
+          >
+            <VerticalThreeDotsIcon className={$['more-icon']} />
+          </div>
+        )}
       </div>
     </nav>
   )
