@@ -4,9 +4,9 @@
     "prefix": "comp",
     "description": "Export default component",
     "body": [
-      "export type $1Props = {$2}",
+      "export type $1Props = ${2:unknown}",
       "",
-      "const ${1:Component}: React.FC<$1Props> = (props) => {",
+      "const ${1:Component}: React.FC<$1Props> = (${3:props}) => {",
       "  return (",
       "    $0",
       "  )",
