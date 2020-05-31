@@ -72,6 +72,7 @@
     .text {
       color: $base-gray;
       font-size: 2rem;
+      margin-top: 10px;
       @include on-mobile {
         font-size: 1.5rem;
       }
