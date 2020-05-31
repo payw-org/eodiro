@@ -27,9 +27,15 @@
     .nick-and-time {
       font-size: 0.9rem;
 
-      .nick {
+      .owner-nick {
+        color: $eodiro-blue-1;
+        font-weight: 600;
+      }
+
+      .guest-nick {
         font-weight: 500;
       }
+
       .time {
         color: $base-gray;
         margin-left: 0.5rem;
