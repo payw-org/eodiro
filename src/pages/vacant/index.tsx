@@ -1,6 +1,7 @@
 import $ from './style.module.scss'
 import { ArrowBlock } from '@/components/ui'
 import Body from '@/layouts/BaseLayout/Body'
+import EodiroLink from '@/components/utils/EodiroLink'
 import Grid from '@/layouts/Grid'
 import Head from 'next/head'
 import Information from '@/components/global/Information'
@@ -34,12 +35,11 @@ const VacantBuildingsPage: NextPage<VacantBuildingsPageProps> = ({
                 return (
                   <ArrowBlock key={info.building_number + i}>
                     <div className={$['building-info-wrapper']}>
-                      <Link
+                      <EodiroLink
                         href={'/vacant/[buildingNumber]'}
                         as={`/vacant/${info.building_number}`}
-                      >
-                        <a className="absolute-link" />
-                      </Link>
+                        absolute
+                      />
                       <div className={$['building-number-and-name']}>
                         <h1 className={$['building-number']}>
                           {info.building_number}
