@@ -47,6 +47,10 @@
       color: $eodiro-primary-color;
       margin-left: 0.5rem;
       display: flex;
+
+      .trash {
+        font-size: 18px;
+      }
     }
 
     .body {

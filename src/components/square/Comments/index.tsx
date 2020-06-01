@@ -10,6 +10,7 @@ import NewComment from './NewComment'
 import { OneApiError } from '@payw/eodiro-one-api/api/one/scheme/types/utils'
 import { Tokens } from '@/api'
 import _ from 'lodash'
+import classNames from 'classnames'
 import dynamic from 'next/dynamic'
 import { oneAPIClient } from '@payw/eodiro-one-api'
 import { useAuth } from '@/pages/_app'
@@ -61,7 +62,7 @@ const CommentItem: React.FC<{
                 }
               }}
             >
-              <i className="octicon octicon-trashcan" />
+              <i className={classNames('f7-icons', $['trash'])}>trash</i>
             </button>
           </div>
         )}
