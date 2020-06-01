@@ -4,7 +4,7 @@
   "eodiro-api-version": "2.0.x",
   "author": "PAYW",
   "license": "MIT",
-  "repository": "https://github.com/paywteam/eodiro-next.git",
+  "repository": "https://github.com/payw-org/eodiro-next.git",
   "main": "src/server/index.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development node --harmony src/server/index.js",
