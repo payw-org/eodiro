@@ -87,7 +87,7 @@ const Main: React.FC = () => {
           </h1>
           <p className={$['manifesto']}>
             <span className={classNames($['text'], animate && $['animate'])}>
-              중앙대 학생들만을 위한 특별한 서비스
+              중앙대 학생들만을 위한 길잡이 서비스
             </span>
           </p>
 
