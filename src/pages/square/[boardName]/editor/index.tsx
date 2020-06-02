@@ -202,6 +202,7 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
               <textarea
                 ref={titleShadowRef}
                 className={classNames($['title'], $['shadow'])}
+                tabIndex={-1}
               />
               {/* Real title field */}
               <textarea
@@ -232,6 +233,7 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
               <textarea
                 ref={bodyShadowRef}
                 className={classNames($['title'], $['shadow'])}
+                tabIndex={-1}
               />
               {/* Real body field */}
               <textarea
