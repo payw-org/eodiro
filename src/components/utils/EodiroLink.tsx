@@ -18,27 +18,38 @@ const EodiroLink: React.FC<EodiroLinkProps> = ({
   className,
   onClick,
 }) => {
-  return isApp() ? (
+  return (
     <a
-      href={as}
+      href={as || href}
       className={cn(className, {
         'absolute-link': absolute,
       })}
+      onClick={onClick}
     >
       {children}
     </a>
-  ) : (
-    <Link as={as} href={href}>
-      <a
-        className={cn(className, {
-          'absolute-link': absolute,
-        })}
-        onClick={onClick}
-      >
-        {children}
-      </a>
-    </Link>
   )
+  // return isApp() ? (
+  //   <a
+  //     href={as || href}
+  //     className={cn(className, {
+  //       'absolute-link': absolute,
+  //     })}
+  //   >
+  //     {children}
+  //   </a>
+  // ) : (
+  //   <Link as={as} href={href}>
+  //     <a
+  //       className={cn(className, {
+  //         'absolute-link': absolute,
+  //       })}
+  //       onClick={onClick}
+  //     >
+  //       {children}
+  //     </a>
+  //   </Link>
+  // )
 }
 
 export default EodiroLink

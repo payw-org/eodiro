@@ -5,10 +5,10 @@ import { GetServerSideProps, NextPage } from 'next'
 import $ from './style.module.scss'
 import ApiHost from '@/modules/api-host'
 import Body from '@/layouts/BaseLayout/Body'
+import EodiroLink from '@/components/utils/EodiroLink'
 import FriendlyTime from '@/components/utils/FriendlyTime'
 import { GetMyPosts } from '@payw/eodiro-one-api/api/one/scheme'
 import Grid from '@/layouts/Grid'
-import Link from 'next/link'
 import { OneApiPayload } from '@payw/eodiro-one-api/api/one/scheme/types/utils'
 import { Unpacked } from '@/types/unpacked'
 import classNames from 'classnames'
@@ -65,17 +65,15 @@ const MyPage: NextPage<MyPageProps> = ({ userInfo, myPosts }) => {
       <section className={$['my-posts']}>
         {myPosts.map((post, i) => {
           return (
-            <Link
+            <EodiroLink
               key={i}
               href="/square/[boardName]/[postId]"
               as={`/square/${post.board_name}/${post.id}`}
             >
-              <a>
-                <ArrowBlock className={$['my-post-item']}>
-                  <PostItem postData={post} />
-                </ArrowBlock>
-              </a>
-            </Link>
+              <ArrowBlock className={$['my-post-item']}>
+                <PostItem postData={post} />
+              </ArrowBlock>
+            </EodiroLink>
           )
         })}
       </section>

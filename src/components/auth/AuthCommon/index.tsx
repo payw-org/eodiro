@@ -4,7 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import $ from './style.module.scss'
 import Body from '@/layouts/BaseLayout/Body'
-import Link from 'next/link'
+import EodiroLink from '@/components/utils/EodiroLink'
 import classNames from 'classnames'
 
 type AuthCommonProps = {
@@ -220,25 +220,22 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
         <div className={$['more']}>
           {mode !== 'signin' && (
             <p>
-              이미 가입했나요?{' '}
-              <Link href="/signin">
-                <a>로그인 →</a>
-              </Link>
+              이미 가입했나요? <EodiroLink href="/signin">로그인 →</EodiroLink>
             </p>
           )}
           {mode === 'signin' && (
             <>
               <p className={$['new']}>
                 <b style={{ fontWeight: 600 }}>어디로</b>는 처음인가요?{' '}
-                <Link href="/join">
-                  <a className={$['join']}>회원가입 →</a>
-                </Link>
+                <EodiroLink href="/join" className={$['join']}>
+                  회원가입 →
+                </EodiroLink>
               </p>
               <p className={$['forgot']}>
                 암호를 잊었나요?{' '}
-                <Link href="/forgot">
-                  <a className={$['join']}>암호 변경 →</a>
-                </Link>
+                <EodiroLink href="/forgot" className={$['join']}>
+                  암호 변경 →
+                </EodiroLink>
               </p>
             </>
           )}

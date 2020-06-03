@@ -101,6 +101,12 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
 
   componentDidMount(): void {
     if (!isApp()) {
+      const currentpage = sessionStorage.getItem('currentpage')
+      if (currentpage) {
+        sessionStorage.setItem('lastpage', currentpage)
+      }
+      sessionStorage.setItem('currentpage', location.pathname)
+
       // Set topbar
       const w = globalThis as any
       const topbar = w.topbar
@@ -198,21 +204,11 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
             />
           )}
         </Head>
-        {!isApp() ? (
-          <ScrollPositionProvider>
-            <AuthProvider {...authProps}>
-              <BaseLayout>
-                <Component {...pageProps} />
-              </BaseLayout>
-            </AuthProvider>
-          </ScrollPositionProvider>
-        ) : (
-          <AuthProvider {...authProps}>
-            <BaseLayout>
-              <Component {...pageProps} />
-            </BaseLayout>
-          </AuthProvider>
-        )}
+        <AuthProvider {...authProps}>
+          <BaseLayout>
+            <Component {...pageProps} />
+          </BaseLayout>
+        </AuthProvider>
       </>
     )
   }

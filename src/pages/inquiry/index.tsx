@@ -5,10 +5,10 @@ import React, { useContext, useRef, useState } from 'react'
 import $ from './style.module.scss'
 import { ArrowBlock } from '@/components/ui'
 import Body from '@/layouts/BaseLayout/Body'
+import EodiroLink from '@/components/utils/EodiroLink'
 import { GetServerSideProps } from 'next'
 import Grid from '@/layouts/Grid'
 import Head from 'next/head'
-import Link from 'next/link'
 import Time from '@/modules/time'
 import classNames from 'classnames'
 import dayjs from 'dayjs'
@@ -70,9 +70,7 @@ const InquiryPage: EodiroPage<InquiryProps> = ({ inquiries }) => {
               <Grid className={$['inquiry-container']}>
                 {authContext.isAdmin ? null : (
                   <ArrowBlock noArrow className={$['request-btn']}>
-                    <Link href={'/inquiry/request'}>
-                      <a className="absolute-link" />
-                    </Link>
+                    <EodiroLink href={'/inquiry/request'} absolute />
                     <h1 className={$['request-content']}>+</h1>
                   </ArrowBlock>
                 )}

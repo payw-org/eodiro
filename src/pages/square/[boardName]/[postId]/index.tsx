@@ -10,9 +10,9 @@ import ApiHost from '@/modules/api-host'
 import Body from '@/layouts/BaseLayout/Body'
 import { CommentAttrs } from '@payw/eodiro-one-api/database/models/comment'
 import Comments from '@/components/square/Comments'
+import EodiroLink from '@/components/utils/EodiroLink'
 import { GetServerSideProps } from 'next'
 import Information from '@/components/global/Information'
-import Link from 'next/link'
 import { PostAttrs } from '@payw/eodiro-one-api/database/models/post'
 import { PostViewerFileContainer } from '@/components/square/PostViewerFileContainer'
 import RequireAuth from '@/components/global/RequireAuth'
@@ -73,14 +73,16 @@ const Content: React.FC<ContentProps> = ({ post, comments }) => {
   return (
     <div>
       <WhiteBody />
-      <Link href="/square/[boardName]" as={`/square/${boardName}`}>
-        <a className={$['to-list']}>
-          <span className="display-flex align-items-center overlay-sentinel-spot">
-            <i className="octicon octicon-chevron-left font-weight-bold" />
-            &nbsp;목록으로
-          </span>
-        </a>
-      </Link>
+      <EodiroLink
+        href="/square/[boardName]"
+        as={`/square/${boardName}`}
+        className={$['to-list']}
+      >
+        <span className="display-flex align-items-center overlay-sentinel-spot">
+          <i className="octicon octicon-chevron-left font-weight-bold" />
+          &nbsp;목록으로
+        </span>
+      </EodiroLink>
       <article className={$['post']}>
         <div className={$['info']}>
           <span className={$['author']}>{post.random_nickname}</span>
