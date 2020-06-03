@@ -12,6 +12,7 @@ export type HeaderProps = {
   titleAlign?: 'left' | 'center'
   titleHidden?: boolean
   pageTitle: string
+  browserTitle?: string
 }
 
 const Header: FC<HeaderProps> = ({ pageTitle, titleAlign, titleHidden }) => {

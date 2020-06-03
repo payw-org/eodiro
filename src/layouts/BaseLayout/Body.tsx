@@ -24,7 +24,7 @@ const Body: FC<BodyProps> = (props) => {
   return (
     <>
       <Head>
-        <title>{props.pageTitle}</title>
+        <title>{props.browserTitle || props.pageTitle}</title>
       </Head>
       <div
         className={mergeClassNames(
