@@ -97,7 +97,7 @@ setTimeout(async () => {
 
 ### 🔌 Components
 
-**Body**
+**`Body`**
 
 **`Spinner`**
 
@@ -105,9 +105,10 @@ It displays an iOS-like spinner.
 
 **`InfiniteScrollContainer`**
 
-- **Props**
-  - `children`: A wrapper element.
-  - `strategy`: This method is being called when the bottom of the container reaches the end of a viewport. It returns `true` when there are more content to be loaded, `false` on the other hand.
+**Props**
+
+- `children`: A wrapper element.
+- `strategy`: This method is being called when the bottom of the container reaches the end of a viewport. It returns `true` when there are more content to be loaded, `false` on the other hand.
 
 **`NoFooter`**
 
@@ -116,6 +117,8 @@ By including this component inside render function, you can hide the `GlobalFoot
 **`WhiteBody`**
 
 Set body background to pure W/B(`#ffffff`, `#000000` on dark mode). Usually use this when the content is not displayed inside blocks.
+
+**`EodiroLink`**
 
 ### String Utils
 
