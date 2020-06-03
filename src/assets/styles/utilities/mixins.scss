@@ -97,6 +97,11 @@
   }
 }
 
+// Box Shadow
+@mixin shadowed {
+  box-shadow: 0 2px 5px rgba($color: #000000, $alpha: 0.12);
+}
+
 // screen
 @mixin smaller-than($width) {
   @media only screen and (max-width: $width) {
@@ -203,6 +208,7 @@ $border-radius-inner: r(2);
   @include border-radius-outer;
   @include text-color;
   @include elm-fill;
+  @include shadowed;
   font-size: 1rem;
   padding: s(3) s(4);
   height: $btn-height;

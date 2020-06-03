@@ -1,7 +1,7 @@
 @use '@/assets/styles/main' as *;
 
 .information {
-  @include elm-fill;
+  @include block-style;
   @include rounded;
   padding: s(6);
 

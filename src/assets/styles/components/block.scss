@@ -5,6 +5,7 @@
 @mixin block-style {
   @include elm-fill;
   @include rounded;
+  @include shadowed;
   position: relative;
   display: flex;
   align-items: center;
