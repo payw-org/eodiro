@@ -12,7 +12,7 @@ const OpenSource: React.FC<OpenSourceProps> = ({ contributors }) => {
   return (
     <Body pageTitle="오픈소스" bodyClassName={$['component-open-source']}>
       <Head>
-        <title>어디로 - 오픈소스</title>
+        <title>어디로 | 오픈소스</title>
         <meta
           key="description"
           property="description"
@@ -22,8 +22,8 @@ const OpenSource: React.FC<OpenSourceProps> = ({ contributors }) => {
       <WhiteBody />
       <div className={$['manifesto']}>
         <p className={$['paragraph']}>
-          &ldquo;어디로&rdquo;는 자유롭게 소스코드를 들여다보고 개발에 함께
-          참여할 수 있는 공개 소프트웨어입니다. 모든 소스는{' '}
+          &ldquo;어디로&rdquo;는 누구나 자유롭게 소스코드를 들여다보고 함께
+          발전시킬 수 있는 오픈소스 프로젝트입니다. 모든 소스는{' '}
           <a
             href="https://github.com/paywteam/eodiro"
             target="_blank"
@@ -31,12 +31,12 @@ const OpenSource: React.FC<OpenSourceProps> = ({ contributors }) => {
           >
             GitHub
           </a>
-          에서 확인할 수 있습니다.
+          에 공개되어있습니다.
         </p>
       </div>
 
       <section className={$['contributors']}>
-        <h2 className={$['title']}>개발자를 소개합니다.</h2>
+        <h2 className={$['title']}>참여자를 소개합니다.</h2>
         <p className={$['description']}>
           클릭하여 각 개발자의 프로필로 이동할 수 있습니다. GitHub에서
           &ldquo;어디로&rdquo; 개발에 참여하시면 자동으로 이 페이지에
