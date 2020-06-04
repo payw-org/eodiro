@@ -21,7 +21,7 @@
     "update": "git reset --hard && git fetch --prune && npm run checkout-latest && npm install && npm run pm2:reboot"
   },
   "dependencies": {
-    "@payw/eodiro-one-api": "^2.0.3",
+    "@payw/eodiro-one-api": "^2.0.4",
     "@popmotion/popcorn": "^0.4.4",
     "@types/body-scroll-lock": "^2.6.1",
     "axios": "^0.19.2",
