@@ -19,11 +19,9 @@ const Footer: React.FC = () => {
         PAYW
       </a>
       &nbsp;|&nbsp;
-      {/* <Link href="/inquiry"> */}
-      <a href="/inquiry" className={$['inquiry']}>
+      <a href="mailto:support@eodiro.com" className={$['inquiry']}>
         문의하기
       </a>
-      {/* </Link> */}
     </footer>
   )
 }
