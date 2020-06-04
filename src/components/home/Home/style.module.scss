@@ -41,9 +41,9 @@
       @include text-color;
       font-weight: 700;
       font-size: 7rem;
-      transition: color 400ms ease, text-shadow 400ms ease;
+      transition: color 400ms ease, text-shadow 500ms ease;
 
-      $shadow-distance: 0.25rem;
+      $shadow-distance: 0.2rem;
       $shadow-far: $shadow-distance * 2;
 
       &.shadowed {

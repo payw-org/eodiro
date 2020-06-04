@@ -1,8 +1,8 @@
-import Main from '@/components/home/Main'
+import Home from '@/components/home/Home'
 import { NextPage } from 'next'
 
 const Page: NextPage = () => {
-  return <Main />
+  return <Home />
 }
 
 export default Page

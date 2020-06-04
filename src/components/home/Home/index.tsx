@@ -1,16 +1,10 @@
 import React, { useEffect, useState } from 'react'
 
 import $ from './style.module.scss'
-import Blocks from '@/components/global/icons/Blocks'
 import Body from '@/layouts/BaseLayout/Body'
-import Door from '@/components/global/icons/Door'
-import EodiroColors from '@/modules/styles/EodiroColors'
 import EodiroLink from '@/components/utils/EodiroLink'
 import Grid from '@/layouts/Grid'
 import Head from 'next/head'
-import Heart from '@/components/global/icons/Heart'
-import { Magnifier } from '@/components/global/icons'
-import Spoon from '@/components/global/icons/Spoon'
 import classNames from 'classnames'
 
 type HomeFeatureBoxProps = {
@@ -97,19 +91,23 @@ const Main: React.FC = () => {
                 title="빈 강의실"
                 to="/vacant"
                 Icon={
-                  <i className={classNames('f7-icons', $['icon'])}>moon_fill</i>
+                  <i className={classNames('f7-icons', $['icon'])}>
+                    squares_below_rectangle
+                  </i>
                 }
               />
               <HomeFeatureBox
                 title="강의 검색"
                 to="/lectures"
                 Icon={
-                  <i className={classNames('f7-icons', $['icon'])}>search</i>
+                  <i className={classNames('f7-icons', $['icon'])}>
+                    doc_text_search
+                  </i>
                 }
               />
               <HomeFeatureBox
                 title="학교 공지사항 알림"
-                to="/notice-watcher"
+                to="/notice-notifications"
                 Icon={
                   <i className={classNames('f7-icons', $['icon'])}>app_badge</i>
                 }
@@ -129,7 +127,7 @@ const Main: React.FC = () => {
                 to="/square"
                 Icon={
                   <i className={classNames('f7-icons', $['icon'])}>
-                    rectangle_grid_1x2
+                    square_pencil
                   </i>
                 }
                 label="beta"
@@ -138,9 +136,7 @@ const Main: React.FC = () => {
                 title="오픈 소스"
                 to="/opensource"
                 Icon={
-                  <i className={classNames('f7-icons', $['icon'])}>
-                    heart_fill
-                  </i>
+                  <i className={classNames('f7-icons', $['icon'])}>heart</i>
                 }
                 label="update"
               />
