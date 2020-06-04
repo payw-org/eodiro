@@ -182,6 +182,13 @@ input[type='password'],
 input[type='search'],
 textarea {
   @include input-style;
+
+  &:focus {
+    border: 1px solid #d8d8d8;
+    @include dark-mode {
+      border: 1px solid #4e4e4e;
+    }
+  }
 }
 
 [disabled] {
@@ -220,6 +227,16 @@ img {
 ul,
 ol {
   list-style: none;
+}
+
+hr {
+  appearance: none;
+  border: none;
+  background-color: rgba(#000, 0.15);
+  @include dark-mode {
+    background-color: rgba(#fff, 0.2);
+  }
+  height: 1px;
 }
 
 // Navigation overwrite
