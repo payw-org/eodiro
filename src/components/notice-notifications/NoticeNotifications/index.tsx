@@ -57,7 +57,11 @@ const NoticeWatcher: React.FC<NoticeNotificationsProps> = ({
   }, [])
 
   return (
-    <Body pageTitle="공지사항 알림" bodyClassName={$['app-body']}>
+    <Body
+      pageTitle="공지사항 알림"
+      browserTitle="어디로 | 공지사항 알림"
+      bodyClassName={$['app-body']}
+    >
       {!isApp() && (
         <div className={$['not-app-tip']}>
           이 기능은 앱에서만 이용할 수 있습니다.
