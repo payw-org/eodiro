@@ -18,6 +18,7 @@
   font-weight: 500;
   line-height: 1;
   @include clickable;
+  @include shadowed;
 
   &.full {
     width: 100%;
