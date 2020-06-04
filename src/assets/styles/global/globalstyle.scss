@@ -210,6 +210,18 @@ a {
   }
 }
 
+span,
+p,
+h1,
+h2,
+h3 {
+  a {
+    font-size: 1em;
+    font-weight: inherit;
+    color: $eodiro-primary-color;
+  }
+}
+
 button {
   cursor: pointer;
   border: none;
