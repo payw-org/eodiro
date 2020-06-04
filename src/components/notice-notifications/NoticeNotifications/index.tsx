@@ -29,6 +29,8 @@ const NoticeWatcher: React.FC<NoticeNotificationsProps> = ({
 
   useEffect(() => {
     async function init() {
+      if (!isSigned) return
+
       const { data } = await oneAPIClient(ApiHost.getHost(), {
         action: 'getMySubscriptions',
         data: {
@@ -74,7 +76,15 @@ const NoticeWatcher: React.FC<NoticeNotificationsProps> = ({
       <h2 className={$['subtitle']}></h2>
 
       <div className={$['config-box']}>
-        <h2 className={$['subtitle']}>알림 설정</h2>
+        <h2 className={$['subtitle']}>
+          알림 설정
+          {!isSigned && (
+            <span>
+              (<i className="f7-icons">lock_fill</i>
+              <a href="/signin">로그인</a> 필요)
+            </span>
+          )}
+        </h2>
 
         {subscriptions.map((noticeItem, index) => (
           <div key={noticeItem.key} className={$['notice-item']}>
@@ -84,6 +94,8 @@ const NoticeWatcher: React.FC<NoticeNotificationsProps> = ({
               disabled={isSyncing || !isSigned}
               checked={noticeItem.isSubscribed}
               onChange={async () => {
+                if (!isSigned) return
+
                 setIsSyncing(true)
 
                 const { err, data: subscriptionResult } = await oneAPIClient(
@@ -131,9 +143,9 @@ const NoticeWatcher: React.FC<NoticeNotificationsProps> = ({
 
       <h2 className={classNames($['subtitle'], $['more'])}>개발자이신가요?</h2>
       <p className={$['paragraph']}>
-        JavaScript와 TypeScript에 대한 약간의 지식만 있으면 가이드를 따라
-        중앙대학교의 다양한 공지사항 알림을 손쉽게 직접 개발할 수 있습니다. 다른
-        과의 공지사항 알림을 추가하고 친구에게 뽐내세요!
+        JavaScript와 TypeScript, 그리고 HTML에 대한 약간의 지식만 있으면
+        가이드를 따라 중앙대학교의 다양한 공지사항 알림을 손쉽게 직접 구축할 수
+        있습니다. 다른 과의 공지사항 알림을 추가하고 친구들에게 뽐내세요!
       </p>
     </Body>
   )
