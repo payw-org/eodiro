@@ -97,26 +97,40 @@ const Main: React.FC = () => {
                 title="빈 강의실"
                 to="/vacant"
                 Icon={
-                  <Door fill={EodiroColors.secondary} className={$['icon']} />
+                  <i className={classNames('f7-icons', $['icon'])}>moon_fill</i>
                 }
               />
               <HomeFeatureBox
                 title="강의 검색"
                 to="/lectures"
                 Icon={
-                  <Magnifier fill={EodiroColors.green1} className={$['icon']} />
+                  <i className={classNames('f7-icons', $['icon'])}>search</i>
                 }
+              />
+              <HomeFeatureBox
+                title="학교 공지사항 알림"
+                to="/notice-watcher"
+                Icon={
+                  <i className={classNames('f7-icons', $['icon'])}>app_badge</i>
+                }
+                label="beta"
               />
               <HomeFeatureBox
                 title="학식 메뉴"
                 to="/cafeteria"
-                Icon={<Spoon fill={EodiroColors.blue1} className={$['icon']} />}
+                Icon={
+                  <i className={classNames('f7-icons', $['icon'])}>
+                    square_list
+                  </i>
+                }
               />
               <HomeFeatureBox
                 title="빼빼로 광장"
                 to="/square"
                 Icon={
-                  <Blocks fill={EodiroColors.pink1} className={$['icon']} />
+                  <i className={classNames('f7-icons', $['icon'])}>
+                    rectangle_grid_1x2
+                  </i>
                 }
                 label="beta"
               />
@@ -124,7 +138,9 @@ const Main: React.FC = () => {
                 title="오픈 소스"
                 to="/opensource"
                 Icon={
-                  <Heart fill={EodiroColors.violet1} className={$['icon']} />
+                  <i className={classNames('f7-icons', $['icon'])}>
+                    heart_fill
+                  </i>
                 }
                 label="update"
               />
