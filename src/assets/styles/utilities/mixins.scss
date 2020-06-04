@@ -216,10 +216,7 @@ $border-radius-inner: r(2);
   @include text-color;
   @include elm-fill;
   @include shadowed;
-  border: 1px solid #d8d8d8;
-  @include dark-mode {
-    border: 1px solid #4e4e4e;
-  }
+  border: 1px solid transparent;
   font-size: 1rem;
   padding: s(3) s(4);
   height: $btn-height;
