@@ -186,7 +186,7 @@ textarea {
   &:focus {
     border: 1px solid #d8d8d8;
     @include dark-mode {
-      border: 1px solid #4e4e4e;
+      border: 1px solid transparent;
     }
   }
 }
