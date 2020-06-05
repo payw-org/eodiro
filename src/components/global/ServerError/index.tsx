@@ -9,7 +9,7 @@ const ServerError: React.FC<{ raw?: boolean }> = ({ raw }) => {
       <p className={$['info']}>
         문제가 지속될 시,{' '}
         <a href="mailto:support@eodiro.com" className={$['email-address']}>
-          contact@payw.org
+          support@eodiro.com
         </a>
         로 문의 바랍니다.
       </p>
