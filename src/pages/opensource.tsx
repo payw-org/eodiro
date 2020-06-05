@@ -2,6 +2,7 @@ import { GetServerSideProps, NextPage } from 'next'
 import OpenSource, { OpenSourceProps } from '@/components/OpenSource'
 
 import { Contributor } from '@/types/github-api'
+import { config } from '@/config'
 import eodiroAxios from '@/modules/eodiro-axios'
 
 const Page: NextPage<OpenSourceProps> = ({ contributors }) => {
@@ -14,18 +15,34 @@ export const getServerSideProps: GetServerSideProps<OpenSourceProps> = async () 
   const [eodiroContErr, eodiroContributors] = await eodiroAxios<Contributor[]>({
     method: 'get',
     url: 'https://api.github.com/repos/paywteam/eodiro/contributors',
+    auth: {
+      username: 'jhaemin',
+      password: config.GITHUB_OAUTH_TOKEN,
+    },
   })
   const [nextContErr, nextContributors] = await eodiroAxios<Contributor[]>({
     method: 'get',
     url: 'https://api.github.com/repos/paywteam/eodiro-next/contributors',
+    auth: {
+      username: 'jhaemin',
+      password: config.GITHUB_OAUTH_TOKEN,
+    },
   })
   const [api1ContErr, api1Contributors] = await eodiroAxios<Contributor[]>({
     method: 'get',
     url: 'https://api.github.com/repos/paywteam/eodiro-api/contributors',
+    auth: {
+      username: 'jhaemin',
+      password: config.GITHUB_OAUTH_TOKEN,
+    },
   })
   const [api2ContErr, api2Contributors] = await eodiroAxios<Contributor[]>({
     method: 'get',
     url: 'https://api.github.com/repos/paywteam/eodiro-api2/contributors',
+    auth: {
+      username: 'jhaemin',
+      password: config.GITHUB_OAUTH_TOKEN,
+    },
   })
 
   const contributors = eodiroContributors || []

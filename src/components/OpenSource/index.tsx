@@ -2,7 +2,6 @@ import $ from './style.module.scss'
 import Body from '@/layouts/BaseLayout/Body'
 import { Contributor } from '@/types/github-api'
 import Head from 'next/head'
-import WhiteBody from '@/components/utils/WhiteBody'
 
 export type OpenSourceProps = {
   contributors: Contributor[]
@@ -19,7 +18,6 @@ const OpenSource: React.FC<OpenSourceProps> = ({ contributors }) => {
           content="어디로는 자유 공개 소프트웨어입니다."
         />
       </Head>
-      <WhiteBody />
       <div className={$['manifesto']}>
         <p className={$['paragraph']}>
           &ldquo;어디로&rdquo;는 누구나 자유롭게 소스코드를 들여다보고 함께
