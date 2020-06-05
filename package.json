@@ -21,7 +21,7 @@
     "update": "git reset --hard && git fetch --prune && npm run checkout-latest && npm install && npm run pm2:reboot"
   },
   "dependencies": {
-    "@payw/eodiro-one-api": "^2.0.4",
+    "@payw/eodiro-one-api": "^2.0.5",
     "@popmotion/popcorn": "^0.4.4",
     "@types/body-scroll-lock": "^2.6.1",
     "axios": "^0.19.2",
@@ -48,7 +48,7 @@
     "@types/classnames": "^2.2.10",
     "@types/express": "^4.17.6",
     "@types/lodash": "^4.14.155",
-    "@types/node": "^14.0.10",
+    "@types/node": "^14.0.11",
     "@types/react": "^16.9.35",
     "@types/swiper": "^5.3.1",
     "@typescript-eslint/eslint-plugin": "^3.1.0",
@@ -65,8 +65,8 @@
     "postcss-pixels-to-rem": "^0.8.0",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.0.5",
-    "sass": "^1.26.7",
-    "typescript": "^3.9.3",
+    "sass": "^1.26.8",
+    "typescript": "^3.9.5",
     "webpack-filter-warnings-plugin": "^1.2.1"
   },
   "browserslist": [
