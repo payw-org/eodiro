@@ -1,3 +1,4 @@
+import { AuthContext, useAuth } from '@/pages/_app'
 import {
   NavHiddenStateContext,
   NavMenuOpenDispatchContext,
@@ -8,10 +9,8 @@ import {
 import React, { useContext } from 'react'
 
 import $ from './style.module.scss'
-import { AuthContext } from '@/pages/_app'
 import EodiroLink from '@/components/utils/EodiroLink'
 import EodiroLogo from '@/components/global/icons/EodiroLogo'
-import Link from 'next/link'
 import { VerticalThreeDotsIcon } from '@/components/global/icons'
 import classNames from 'classnames'
 import { isApp } from '@/modules/booleans/is-app'
@@ -90,6 +89,7 @@ const NavMenus: React.FC = () => {
 
 const Navigation: React.FC = () => {
   const setMenuOpen = useContext(NavMenuOpenDispatchContext)
+  const { isSigned } = useAuth()
 
   return (
     <nav id={$['eodiro-navigation']}>
@@ -107,7 +107,14 @@ const Navigation: React.FC = () => {
               })
             }}
           >
-            <i className="f7-icons">chevron_left_circle_fill</i>
+            <i
+              className="f7-icons"
+              style={{
+                fontSize: 25,
+              }}
+            >
+              arrow_left
+            </i>
           </button>
         ) : (
           <EodiroLink href="/" className={$['home-link']}>
@@ -120,9 +127,20 @@ const Navigation: React.FC = () => {
         <NavMenus />
 
         {isApp() ? (
-          <div className={$['app-nav-right-button']}>
-            <i className="f7-icons">person_crop_circle</i>
-          </div>
+          <EodiroLink href={isSigned ? '/my' : '/signin'}>
+            <div className={$['app-nav-right-button']}>
+              {window.location.pathname !== '/signin' && (
+                <i
+                  className="f7-icons"
+                  style={{
+                    fontSize: 25,
+                  }}
+                >
+                  person_crop_circle
+                </i>
+              )}
+            </div>
+          </EodiroLink>
         ) : (
           <div
             className={$['more-tappable']}
