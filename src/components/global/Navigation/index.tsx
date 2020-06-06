@@ -129,7 +129,7 @@ const Navigation: React.FC = () => {
         {isApp() ? (
           <EodiroLink href={isSigned ? '/my' : '/signin'}>
             <div className={$['app-nav-right-button']}>
-              {window.location.pathname !== '/signin' && (
+              {location.pathname !== '/signin' && location.pathname !== '/my' && (
                 <i
                   className="f7-icons"
                   style={{
