@@ -3,6 +3,7 @@
 .server-error {
   @include elm-fill;
   @include rounded;
+  @include shadowed;
   padding: s(6);
 
   &.raw {
