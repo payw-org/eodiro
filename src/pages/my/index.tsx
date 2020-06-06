@@ -117,7 +117,7 @@ export const getServerSideProps: GetServerSideProps<MyPageProps> = async ({
   const userInfo = await AuthApi.info(req)
 
   if (!userInfo) {
-    redirect(res, '/')
+    redirect(res, '/signin')
     return
   }
 
