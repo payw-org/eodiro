@@ -14,7 +14,7 @@ export default Page
 export const getServerSideProps: GetServerSideProps<OpenSourceProps> = async () => {
   const [eodiroContErr, eodiroContributors] = await eodiroAxios<Contributor[]>({
     method: 'get',
-    url: 'https://api.github.com/repos/paywteam/eodiro/contributors',
+    url: 'https://api.github.com/repos/payw-org/eodiro/contributors',
     auth: {
       username: 'jhaemin',
       password: config.GITHUB_OAUTH_TOKEN,
@@ -22,7 +22,7 @@ export const getServerSideProps: GetServerSideProps<OpenSourceProps> = async () 
   })
   const [nextContErr, nextContributors] = await eodiroAxios<Contributor[]>({
     method: 'get',
-    url: 'https://api.github.com/repos/paywteam/eodiro-next/contributors',
+    url: 'https://api.github.com/repos/payw-org/eodiro-next/contributors',
     auth: {
       username: 'jhaemin',
       password: config.GITHUB_OAUTH_TOKEN,
@@ -30,7 +30,7 @@ export const getServerSideProps: GetServerSideProps<OpenSourceProps> = async () 
   })
   const [api1ContErr, api1Contributors] = await eodiroAxios<Contributor[]>({
     method: 'get',
-    url: 'https://api.github.com/repos/paywteam/eodiro-api/contributors',
+    url: 'https://api.github.com/repos/payw-org/eodiro-api/contributors',
     auth: {
       username: 'jhaemin',
       password: config.GITHUB_OAUTH_TOKEN,
@@ -38,7 +38,7 @@ export const getServerSideProps: GetServerSideProps<OpenSourceProps> = async () 
   })
   const [api2ContErr, api2Contributors] = await eodiroAxios<Contributor[]>({
     method: 'get',
-    url: 'https://api.github.com/repos/paywteam/eodiro-api2/contributors',
+    url: 'https://api.github.com/repos/payw-org/eodiro-api2/contributors',
     auth: {
       username: 'jhaemin',
       password: config.GITHUB_OAUTH_TOKEN,

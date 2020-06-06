@@ -265,4 +265,4 @@
 
 ---
 
-Check out [release notes](https://github.com/paywteam/eodiro/releases) for the previous updates.
+Check out [release notes](https://github.com/payw-org/eodiro/releases) for the previous updates.

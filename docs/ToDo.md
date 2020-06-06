@@ -64,7 +64,7 @@ It includes new features to be added, bug fixes, source code refactoring and any
 
 ## Auth
 
-> Related to [eodiro API 2](https://github.com/paywteam/eodiro-api2)
+> Related to [eodiro API 2](https://github.com/payw-org/eodiro-api2)
 
 - Validation APIs should send 2xx status code with the result of validation
   - Currently the APIs respond with 4xx when the validations have been failed

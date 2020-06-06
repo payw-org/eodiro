@@ -3,11 +3,11 @@
 </a>
 
 <p align="center">
-  <a href="https://github.com/paywteam/eodiro/blob/master/LICENSE">
-    <img src="https://img.shields.io/github/license/paywteam/eodiro?color=ff7037" />
+  <a href="https://github.com/payw-org/eodiro/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/payw-org/eodiro?color=ff7037" />
   </a>
-  <a href="https://github.com/paywteam/eodiro/releases">
-    <img src="https://img.shields.io/github/v/release/paywteam/eodiro?include_prereleases&sort=semver&label=version&color=ff006e" />
+  <a href="https://github.com/payw-org/eodiro/releases">
+    <img src="https://img.shields.io/github/v/release/payw-org/eodiro?include_prereleases&sort=semver&label=version&color=ff006e" />
   </a>
 </p>
 
@@ -28,7 +28,7 @@
 
 ### Using Dev API Locally
 
-You must clone and run [`eodiro-api2`](https://github.com/paywteam/eodiro-api2) on your local machine in dev mode.
+You must clone and run [`eodiro-api2`](https://github.com/payw-org/eodiro-api2) on your local machine in dev mode.
 
 ```zsh
 npm run dev
@@ -52,7 +52,7 @@ By default, `npm run dev` connects to local dev API server and `npm start` tries
 npm start --useDevApi
 ```
 
-> `--useProdApi` and `--useDevApi` are only for the purpose of tests. Do not use them in production. For more information about API hosts, checkout the [source code](https://github.com/paywteam/eodiro/blob/master/src/modules/api-host.ts).
+> `--useProdApi` and `--useDevApi` are only for the purpose of tests. Do not use them in production. For more information about API hosts, checkout the [source code](https://github.com/payw-org/eodiro/blob/master/src/modules/api-host.ts).
 
 ## 🧑‍💻 Developers Guide
 
@@ -138,7 +138,7 @@ Synchronously block the interpretation and wait for some milliseconds.
 
 Returns current semester.
 
-## [License](https://github.com/paywteam/eodiro/blob/master/LICENSE)
+## [License](https://github.com/payw-org/eodiro/blob/master/LICENSE)
 
 MIT License
 
