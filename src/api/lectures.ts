@@ -15,8 +15,8 @@ export class LecturesApi {
     offset: number
   }): Promise<LecturesWithMajorCode> {
     const now = dayjs()
-    const year = options?.year || now.year()
-    const semeseter = encodeURIComponent(options?.semeseter || getSemester())
+    const year = options?.year ?? now.year()
+    const semeseter = encodeURIComponent(options?.semeseter ?? getSemester())
     const campus = encodeURIComponent(options.campus)
     const amount = options.amount
     const offset = options.offset
@@ -44,8 +44,8 @@ export class LecturesApi {
     }
   ): Promise<LecturesWithMajorCode> {
     const now = dayjs()
-    const year = options?.year || now.year()
-    const semeseter = encodeURIComponent(options?.semeseter || getSemester())
+    const year = options?.year ?? now.year()
+    const semeseter = encodeURIComponent(options?.semeseter ?? getSemester())
     const campus = encodeURIComponent(options.campus)
     const q = query
     const amount = options.amount
