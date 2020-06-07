@@ -3,6 +3,7 @@
 .information {
   @include block-style;
   @include rounded;
+  @include shadowed;
   padding: s(6);
 
   .information-subtitle {
