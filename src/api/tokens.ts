@@ -4,8 +4,8 @@ import EodiroHttpCookie from '@/modules/eodiro-http-cookie'
 import dayjs from 'dayjs'
 
 export type TokensPack = {
-  accessToken: string
-  refreshToken: string
+  accessToken: string | null
+  refreshToken: string | null
 }
 
 export class Tokens {
@@ -13,8 +13,8 @@ export class Tokens {
     const cookies = await EodiroHttpCookie.get(req)
 
     return {
-      accessToken: cookies?.accessToken as string,
-      refreshToken: cookies?.refreshToken as string,
+      accessToken: (cookies?.accessToken as string) ?? null,
+      refreshToken: (cookies?.refreshToken as string) ?? null,
     }
   }
 
