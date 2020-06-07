@@ -76,6 +76,7 @@ const NavMenus: React.FC = () => {
     >
       <NavItem title="빈 강의실" to="/vacant" />
       <NavItem title="강의 검색" to="/lectures" />
+      <NavItem title="공지사항 알림" to="/notice-notifications" />
       <NavItem title="학식 메뉴" to="/cafeteria" />
       <NavItem title="빼빼로 광장" to="/square" />
       <NavItem
