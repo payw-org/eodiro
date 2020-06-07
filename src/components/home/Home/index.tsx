@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 
 import $ from './style.module.scss'
 import Body from '@/layouts/BaseLayout/Body'
+import EodiroColors from '@/modules/styles/EodiroColors'
 import EodiroLink from '@/components/utils/EodiroLink'
 import Grid from '@/layouts/Grid'
 import Head from 'next/head'
@@ -91,7 +92,12 @@ const Main: React.FC = () => {
                 title="빈 강의실"
                 to="/vacant"
                 Icon={
-                  <i className={classNames('f7-icons', $['icon'])}>
+                  <i
+                    className={classNames('f7-icons', $['icon'])}
+                    style={{
+                      color: EodiroColors.primary,
+                    }}
+                  >
                     squares_below_rectangle
                   </i>
                 }
@@ -100,7 +106,12 @@ const Main: React.FC = () => {
                 title="강의 검색"
                 to="/lectures"
                 Icon={
-                  <i className={classNames('f7-icons', $['icon'])}>
+                  <i
+                    className={classNames('f7-icons', $['icon'])}
+                    style={{
+                      color: EodiroColors.grass1,
+                    }}
+                  >
                     doc_text_search
                   </i>
                 }
@@ -109,7 +120,14 @@ const Main: React.FC = () => {
                 title="학교 공지사항 알림"
                 to="/notice-notifications"
                 Icon={
-                  <i className={classNames('f7-icons', $['icon'])}>app_badge</i>
+                  <i
+                    className={classNames('f7-icons', $['icon'])}
+                    style={{
+                      color: EodiroColors.yellow2,
+                    }}
+                  >
+                    app_badge
+                  </i>
                 }
                 label="beta"
               />
@@ -117,7 +135,12 @@ const Main: React.FC = () => {
                 title="학식 메뉴"
                 to="/cafeteria"
                 Icon={
-                  <i className={classNames('f7-icons', $['icon'])}>
+                  <i
+                    className={classNames('f7-icons', $['icon'])}
+                    style={{
+                      color: EodiroColors.blue1,
+                    }}
+                  >
                     square_list
                   </i>
                 }
@@ -126,7 +149,12 @@ const Main: React.FC = () => {
                 title="빼빼로 광장"
                 to="/square"
                 Icon={
-                  <i className={classNames('f7-icons', $['icon'])}>
+                  <i
+                    className={classNames('f7-icons', $['icon'])}
+                    style={{
+                      color: EodiroColors.pink1,
+                    }}
+                  >
                     square_pencil
                   </i>
                 }
@@ -136,7 +164,14 @@ const Main: React.FC = () => {
                 title="오픈 소스"
                 to="/opensource"
                 Icon={
-                  <i className={classNames('f7-icons', $['icon'])}>heart</i>
+                  <i
+                    className={classNames('f7-icons', $['icon'])}
+                    style={{
+                      color: EodiroColors.purple1,
+                    }}
+                  >
+                    heart
+                  </i>
                 }
                 label="update"
               />
