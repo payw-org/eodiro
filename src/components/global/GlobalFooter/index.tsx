@@ -1,5 +1,5 @@
 import $ from './style.module.scss'
-import Link from 'next/link'
+import EodiroLink from '@/components/utils/EodiroLink'
 import React from 'react'
 import dayjs from 'dayjs'
 
@@ -18,10 +18,14 @@ const Footer: React.FC = () => {
       >
         PAYW
       </a>
-      &nbsp;|&nbsp;
+      &nbsp;•&nbsp;
       <a href="mailto:support@eodiro.com" className={$['inquiry']}>
         문의하기
       </a>
+      &nbsp;•&nbsp;
+      <EodiroLink href="/privacy" className={$['privacy']}>
+        개인정보 처리방침
+      </EodiroLink>
     </footer>
   )
 }
