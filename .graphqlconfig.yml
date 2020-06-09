@@ -1,4 +1,0 @@
-schema: http://localhost:4020/graphql
-extensions:
-  endpoints:
-    dev: http://localhost:4020/graphql
