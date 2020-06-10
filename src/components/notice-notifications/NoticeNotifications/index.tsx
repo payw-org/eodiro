@@ -148,7 +148,11 @@ const NoticeWatcher: React.FC<NoticeNotificationsProps> = ({
       <h2 className={classNames($['subtitle'], $['more'])}>개발자이신가요?</h2>
       <p className={$['paragraph']}>
         JavaScript와 TypeScript, 그리고 HTML에 대한 약간의 지식만 있으면{' '}
-        <a href="https://github.com/payw-org/eodiro-server/tree/master/src/modules/cau-notice-watcher">
+        <a
+          href="https://github.com/payw-org/eodiro-server/tree/master/src/modules/cau-notice-watcher"
+          target="_blank"
+          rel="noreferrer"
+        >
           개발 가이드
         </a>
         를 따라 중앙대학교의 다양한 공지사항 알림을 손쉽게 직접 구축할 수
