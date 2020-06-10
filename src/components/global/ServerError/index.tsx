@@ -5,7 +5,10 @@ import classNames from 'classnames'
 const ServerError: React.FC<{ raw?: boolean }> = ({ raw }) => {
   return (
     <div className={classNames($['server-error'], raw && $['raw'])}>
-      <h3 className={$['header']}>⚠️ 서버에 문제가 발생했습니다.</h3>
+      <h3 className={$['header']}>
+        <i className="f7-icons">exclamationmark_triangle</i> 서버에 문제가
+        발생했습니다.
+      </h3>
       <p className={$['info']}>
         문제가 지속될 시,{' '}
         <a href="mailto:support@eodiro.com" className={$['email-address']}>
