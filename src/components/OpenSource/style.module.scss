@@ -22,7 +22,9 @@
   }
 
   .contributors {
-    margin-top: 10rem;
+    margin-top: 100px;
+    padding: 25px;
+    @include block-style-raw;
 
     .title {
       font-size: 1.5rem;
@@ -49,7 +51,7 @@
 
       .user {
         display: grid;
-        grid-row-gap: 0.7rem;
+        grid-row-gap: 5px;
 
         .avatar {
           width: 100%;
@@ -58,12 +60,14 @@
 
         .name {
           font-size: 1rem;
+          line-height: 1;
           text-align: center;
           word-break: break-all;
         }
 
         .contributions {
-          font-size: 0.9rem;
+          line-height: 1;
+          font-size: 13px;
           font-weight: 600;
           color: $eodiro-primary-color;
           text-align: center;
