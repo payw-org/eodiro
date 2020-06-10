@@ -1,0 +1,11 @@
+@use '@/assets/styles/main' as *;
+
+.eodiro-illustration {
+  .light-area {
+    fill: #e6e6e6;
+
+    @include dark-mode {
+      fill: #333;
+    }
+  }
+}
