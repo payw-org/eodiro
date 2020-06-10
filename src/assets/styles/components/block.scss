@@ -4,7 +4,7 @@
 
 @mixin block-style {
   @include elm-fill;
-  @include rounded;
+  @include border-radius-outer;
   @include shadowed;
   position: relative;
   display: flex;
@@ -13,4 +13,10 @@
   align-self: flex-start;
   min-height: 5.5rem;
   padding: s(4);
+}
+
+@mixin block-style-raw {
+  @include elm-fill;
+  @include border-radius-outer;
+  @include shadowed;
 }
