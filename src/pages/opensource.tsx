@@ -38,7 +38,7 @@ export const getServerSideProps: GetServerSideProps<OpenSourceProps> = async () 
   })
   const [api2ContErr, api2Contributors] = await eodiroAxios<Contributor[]>({
     method: 'get',
-    url: 'https://api.github.com/repos/payw-org/eodiro-api2/contributors',
+    url: 'https://api.github.com/repos/payw-org/eodiro-server/contributors',
     auth: {
       username: 'jhaemin',
       password: config.GITHUB_OAUTH_TOKEN,
