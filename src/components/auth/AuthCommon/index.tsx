@@ -239,6 +239,9 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
               </p>
             </>
           )}
+          <p>
+            <EodiroLink href="/privacy">개인정보 처리방침</EodiroLink>
+          </p>
         </div>
       </div>
     </div>

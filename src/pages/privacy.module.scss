@@ -1,0 +1,42 @@
+@use '@/assets/styles/main' as *;
+
+.privacy-page {
+  max-width: 700px !important;
+}
+
+.head-2 {
+  font-size: 27px;
+
+  & + * {
+    margin-top: 20px;
+  }
+
+  & + .paragraph {
+    margin-top: 15px;
+  }
+}
+
+.head-3 {
+  font-size: 18px;
+
+  & + .paragraph {
+    margin-top: 7px;
+  }
+}
+
+.paragraph {
+  font-size: 16px;
+  line-height: 1.5;
+
+  & + * {
+    margin-top: 20px;
+  }
+
+  & + p {
+    margin-top: 10px;
+  }
+
+  & + .head-2 {
+    margin-top: 30px;
+  }
+}
