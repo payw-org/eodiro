@@ -146,8 +146,8 @@ const Main: React.FC = () => {
                 }
               />
               <HomeFeatureBox
-                title="빼빼로 광장"
-                to="/square"
+                title="꿀팁"
+                to="/tips"
                 Icon={
                   <i
                     className={classNames('f7-icons', $['icon'])}
@@ -155,7 +155,7 @@ const Main: React.FC = () => {
                       color: EodiroColors.pink1,
                     }}
                   >
-                    square_pencil
+                    lightbulb
                   </i>
                 }
                 label="beta"
