@@ -40,5 +40,15 @@
     "scope": "typescriptreact",
     "prefix": "$",
     "body": "$['$0']"
+  },
+  "classNames": {
+    "scope": "typescriptreact",
+    "prefix": "cn",
+    "body": "classNames($0)"
+  },
+  "className={classNames()}": {
+    "scope": "typescriptreact",
+    "prefix": "cnn",
+    "body": "className={classNames($0)}"
   }
 }
