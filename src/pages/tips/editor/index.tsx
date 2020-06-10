@@ -43,11 +43,10 @@ type NewPostPageProps = {
     name: string
     status: 'uploaded'
   }[]
-  boardId: number
   postId: number
 }
 const NewPostPage: NextPage<NewPostPageProps> = (props) => {
-  const { title, body, boardId, postId } = props
+  const { title, body, postId } = props
   const mode = title.length === 0 ? 'new' : 'edit'
   const isEditMode = mode === 'edit'
   const router = useRouter()
@@ -128,60 +127,60 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
   // Upload or edit post
   async function uploadPost(): Promise<void> {
     // Upload post first
-    const { err, data: inserId } = await oneAPIClient(ApiHost.getHost(), {
-      action: 'savePost',
-      data: {
-        accessToken: auth.tokens.accessToken,
-        boardId: boardId,
-        title: titleRef.current.value,
-        body: bodyRef.current.value,
-        fileIds: filesState
-          .filter((fileState) => {
-            return fileState.status === 'uploaded'
-          })
-          .map((fileState) => fileState.fileId),
-        update: mode === 'edit',
-        postId,
-      },
-    })
+    // const { err, data: inserId } = await oneAPIClient(ApiHost.getHost(), {
+    //   action: 'savePost',
+    //   data: {
+    //     accessToken: auth.tokens.accessToken,
+    //     boardId: boardId,
+    //     title: titleRef.current.value,
+    //     body: bodyRef.current.value,
+    //     fileIds: filesState
+    //       .filter((fileState) => {
+    //         return fileState.status === 'uploaded'
+    //       })
+    //       .map((fileState) => fileState.fileId),
+    //     update: mode === 'edit',
+    //     postId,
+    //   },
+    // })
 
-    if (!err) {
-      alert(mode === 'edit' ? '수정되었습니다.' : '업로드되었습니다.')
+    // if (!err) {
+    //   alert(mode === 'edit' ? '수정되었습니다.' : '업로드되었습니다.')
 
-      // If edit mode, update the cached posts
-      if (mode === 'edit') {
-        const cached: PostAttrs[] = JSON.parse(sessionStorage.getItem('sbpd'))
-        // If no cached data, no update
-        if (cached) {
-          const index = cached.findIndex(
-            (cachedPost) => cachedPost.id === postId
-          )
+    //   // If edit mode, update the cached posts
+    //   if (mode === 'edit') {
+    //     const cached: PostAttrs[] = JSON.parse(sessionStorage.getItem('sbpd'))
+    //     // If no cached data, no update
+    //     if (cached) {
+    //       const index = cached.findIndex(
+    //         (cachedPost) => cachedPost.id === postId
+    //       )
 
-          if (index !== -1) {
-            // Only if it exists in the cache
-            const newOne = cached[index]
-            newOne.title = titleRef.current.value
-            newOne.body = bodyRef.current.value
-            cached.splice(index, 1, newOne)
-            sessionStorage.setItem('sbpd', JSON.stringify(cached))
-          }
-        }
-      }
+    //       if (index !== -1) {
+    //         // Only if it exists in the cache
+    //         const newOne = cached[index]
+    //         newOne.title = titleRef.current.value
+    //         newOne.body = bodyRef.current.value
+    //         cached.splice(index, 1, newOne)
+    //         sessionStorage.setItem('sbpd', JSON.stringify(cached))
+    //       }
+    //     }
+    //   }
 
-      // Detach preventing event before redirection
-      window.onbeforeunload = undefined
-      // TODO: replace the location with Next Router
-      location.replace(`/square/${router.query.boardName}/${postId || inserId}`)
-      return
-    }
+    //   // Detach preventing event before redirection
+    //   window.onbeforeunload = undefined
+    //   // TODO: replace the location with Next Router
+    //   location.replace(`/square/${router.query.boardName}/${postId || inserId}`)
+    //   return
+    // }
 
-    if (err === 'No Title') {
-      alert('제목을 입력해주세요.')
-      titleRef.current.focus()
-    } else if (err === 'No Body') {
-      alert('내용을 입력해주세요.')
-      bodyRef.current.focus()
-    }
+    // if (err === 'No Title') {
+    //   alert('제목을 입력해주세요.')
+    //   titleRef.current.focus()
+    // } else if (err === 'No Body') {
+    //   alert('내용을 입력해주세요.')
+    //   bodyRef.current.focus()
+    // }
 
     return
   }
@@ -518,24 +517,10 @@ export const getServerSideProps: GetServerSideProps<NewPostPageProps> = async ({
       : null
   }
 
-  // Get board ID
-  const { err, data: boardId } = await oneAPIClient(ApiHost.getHost(), {
-    action: 'getBoardId',
-    data: {
-      boardName: query.boardName as string,
-    },
-  })
-
-  if (err) {
-    redirect(res)
-    return
-  }
-
   return {
     props: {
       title,
       body,
-      boardId,
       postId,
       files,
     },
