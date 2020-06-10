@@ -34,7 +34,7 @@
   "Import style.scss": {
     "scope": "typescriptreact",
     "prefix": "styl",
-    "body": "import $ from './style.module.scss'"
+    "body": "import $ from './${1:style}.module.scss'"
   },
   "Style": {
     "scope": "typescriptreact",
