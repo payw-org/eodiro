@@ -1,0 +1,54 @@
+@use '@/assets/styles/main' as *;
+
+.tip-item {
+  margin-top: 20px;
+
+  .information {
+    font-size: 15px;
+    margin-bottom: 10px;
+    color: $base-gray;
+    line-height: 1;
+
+    .author {
+      font-weight: 500;
+      margin-right: 10px;
+    }
+
+    .uploaded-at {
+      font-size: 0.9em;
+    }
+  }
+
+  .title {
+    font-weight: 600;
+    font-size: 20px;
+  }
+
+  .responses {
+    font-size: 14px;
+    margin-top: 13px;
+
+    $icon-right-margin: 3px;
+
+    .likes {
+      color: $eodiro-primary-color;
+    }
+
+    .scraps {
+      color: $eodiro-yellow-2;
+    }
+
+    .thumsup {
+      margin-right: $icon-right-margin;
+    }
+
+    .star {
+      margin-left: 12px;
+      margin-right: $icon-right-margin;
+    }
+
+    .quantity {
+      font-weight: 500;
+    }
+  }
+}
