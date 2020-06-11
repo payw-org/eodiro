@@ -240,7 +240,7 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
                 ref={bodyRef}
                 className={$['body']}
                 spellCheck={false}
-                placeholder="내용"
+                placeholder="이 곳에 내용을 입력해 주세요.&#13;&#10;플랫폼 성격에 부적절한 내용 작성 시 서비스 이용이 제한될 수 있습니다."
                 onChange={(): void => {
                   autoResize(bodyRef, bodyShadowRef)
                 }}
@@ -259,7 +259,7 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
                 enableBodyScroll(uploadSection.current)
               }}
             >
-              <i className="octicon octicon-triangle-down" />
+              <i className="f7-icons">chevron_compact_down</i>
             </button>
             <h2 className={$['header']}>파일</h2>
 
@@ -352,12 +352,7 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
               htmlFor="file-upload"
               className={classNames($['file-upload-label'], 'line-height-1')}
             >
-              <span
-                className="octicon octicon-plus"
-                style={{
-                  marginRight: '0.3rem',
-                }}
-              />
+              <i className="f7-icons">plus</i>
             </label>
 
             {/* File containers */}
@@ -458,7 +453,7 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
 
         {/* Upload or finish edit */}
         <button className={$['upload-btn']} onClick={uploadPost}>
-          <i className="octicon octicon-check" />
+          <i className="f7-icons">checkmark</i>
         </button>
 
         {/* File upload button on mobile */}
@@ -469,7 +464,7 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
             uploadSection.current.classList.add($['opened'])
           }}
         >
-          <i className="octicon octicon-cloud-upload" />
+          <i className="f7-icons">cloud_upload</i>
         </button>
       </Body>
     </>

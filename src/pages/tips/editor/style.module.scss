@@ -58,6 +58,7 @@
 
   .upload-btn {
     background-color: $eodiro-green-2;
+    @include shadowed;
     color: #fff;
     border-radius: 50px;
     width: 3.8rem;
@@ -68,7 +69,7 @@
     position: fixed;
     left: 1.5rem;
     bottom: 1.5rem;
-    font-size: 1.5rem;
+    font-size: 25px;
     @include clickable;
   }
 }
@@ -93,6 +94,10 @@
       z-index: 10;
       @include no-mobile {
         display: none;
+      }
+
+      i {
+        font-size: 1em;
       }
     }
 
@@ -122,7 +127,8 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: $eodiro-blue-1;
+      background-color: $eodiro-primary-color;
+      @include shadowed;
       font-weight: 400;
       @include border-radius-outer;
       padding: 0.8rem;
@@ -171,7 +177,7 @@
         @include separator('top');
         margin-top: 1rem;
         padding-top: 1rem;
-        color: $eodiro-blue-1;
+        color: $eodiro-primary-color;
         width: 100%;
       }
     }
@@ -198,9 +204,10 @@
   }
 
   .upload-file-btn {
-    background-color: $eodiro-blue-1;
+    border-radius: 9999px;
+    background-color: $eodiro-primary-color;
+    @include shadowed;
     color: #fff;
-    border-radius: 50px;
     width: 3.8rem;
     height: 3.8rem;
     display: flex;
@@ -209,7 +216,7 @@
     position: fixed;
     right: 1.5rem;
     bottom: 1.5rem;
-    font-size: 1.8rem;
+    font-size: 25px;
     @include clickable;
     display: none;
 
