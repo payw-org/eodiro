@@ -240,7 +240,7 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
                 ref={bodyRef}
                 className={$['body']}
                 spellCheck={false}
-                placeholder="이 곳에 내용을 입력해 주세요.&#13;&#10;플랫폼 성격에 부적절한 내용 작성 시 서비스 이용이 제한될 수 있습니다."
+                placeholder="이 곳에 내용을 입력해 주세요. 플랫폼 성격에 부적절한 내용 작성 시 서비스 이용이 제한될 수 있습니다."
                 onChange={(): void => {
                   autoResize(bodyRef, bodyShadowRef)
                 }}
