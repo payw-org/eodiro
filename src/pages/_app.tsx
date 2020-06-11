@@ -99,6 +99,18 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
   }
 
   componentDidMount(): void {
+    const documentFonts = (document as any).fonts
+    function removeDimmedClassFromBody() {
+      document.body.classList.remove('dimmed')
+    }
+    documentFonts
+      ? documentFonts.ready.then(() => {
+          removeDimmedClassFromBody()
+        })
+      : setTimeout(() => {
+          removeDimmedClassFromBody()
+        }, 200)
+
     if (!isApp()) {
       const currentpage = sessionStorage.getItem('currentpage')
       if (currentpage) {

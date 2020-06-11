@@ -24,7 +24,7 @@ class MyDocument extends Document {
     return (
       <Html lang="ko" {...devOptions}>
         <Head />
-        <body>
+        <body className="dimmed">
           <Main />
           {(useProdApi || useDevApi) && (
             <div className="forced-api-enabled">
