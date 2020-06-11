@@ -35,12 +35,13 @@ const Header: FC<HeaderProps> = ({ pageTitle, titleAlign, titleHidden }) => {
 
     if (!overlaySentinelSpot) {
       throw new Error(
-        `The navigation sentinel spot is not set. Set class name 'overlay-sentinel-spot'.`
+        `The navigation Overlay Sentinel Spot is not set. Set class name 'overlay-sentinel-spot'.`
       )
     }
+
     if (!titleSentinelSpot) {
       throw new Error(
-        `The navigation sentinel spot is not set. Set class name 'title-sentinel-spot'.`
+        `The navigation Title Sentinel Spot is not set. Set class name 'title-sentinel-spot'.`
       )
     }
 
@@ -51,11 +52,11 @@ const Header: FC<HeaderProps> = ({ pageTitle, titleAlign, titleHidden }) => {
     titleSentinel.className = $['title-sentinel']
 
     // Dynamically append sentinels
-    overlaySentinelSpot.parentElement.insertBefore(
+    overlaySentinelSpot?.parentElement.insertBefore(
       overlaySentinel,
       overlaySentinelSpot
     )
-    titleSentinelSpot.parentElement.insertBefore(
+    titleSentinelSpot?.parentElement.insertBefore(
       titleSentinel,
       titleSentinelSpot.nextSibling
     )
