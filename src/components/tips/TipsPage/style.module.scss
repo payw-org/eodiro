@@ -63,7 +63,7 @@
     width: 100%;
     position: sticky;
     // top: $nav-height;
-    padding-top: 9px;
+    padding-top: 10px;
     padding-bottom: 27px;
     overflow-x: auto;
     overflow-y: hidden;
@@ -141,5 +141,25 @@
     width: calc(100% - 50px);
     max-width: 400px;
     margin: auto;
+  }
+}
+
+.new-wrapper {
+  text-align: center;
+  margin-top: 30px;
+  position: sticky;
+  bottom: 20px;
+
+  .pencil {
+    margin-right: 10px;
+  }
+
+  .new {
+    @include shadowed;
+    border-radius: 9999px;
+    background-color: $eodiro-primary-color;
+    color: $base-white;
+    padding: 15px 20px;
+    font-weight: 500;
   }
 }
