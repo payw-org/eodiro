@@ -106,7 +106,7 @@ const TipsPage: React.FC<TipsPageProps> = () => {
         <div className={$['new-wrapper']}>
           <button className={$['new']}>
             <i className={classNames('f7-icons', $['pencil'])}>square_pencil</i>
-            새로운 꿀팁 업로드
+            새 꿀팁 작성
           </button>
         </div>
       </EodiroLink>
