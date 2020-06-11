@@ -102,14 +102,13 @@ const TipsPage: React.FC<TipsPageProps> = () => {
         <TipsList tipsData={tipsData} />
       </section>
 
-      <EodiroLink href="tips/editor">
-        <div className={$['new-wrapper']}>
-          <button className={$['new']}>
-            <i className={classNames('f7-icons', $['pencil'])}>square_pencil</i>
-            새 꿀팁 작성
-          </button>
-        </div>
-      </EodiroLink>
+      <div className={$['new-wrapper']}>
+        <button className={$['new']}>
+          <EodiroLink href="tips/editor" absolute />
+          <i className={classNames('f7-icons', $['pencil'])}>square_pencil</i>새
+          꿀팁 작성
+        </button>
+      </div>
 
       <div className={$['illustration-wrapper']}>
         <LyingDownIllust className={$['illustration']} />

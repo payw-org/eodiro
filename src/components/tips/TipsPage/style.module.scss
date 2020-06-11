@@ -149,6 +149,7 @@
   margin-top: 30px;
   position: sticky;
   bottom: 20px;
+  z-index: 90;
 
   .pencil {
     margin-right: 10px;
@@ -161,5 +162,6 @@
     color: $base-white;
     padding: 15px 20px;
     font-weight: 500;
+    position: relative;
   }
 }
