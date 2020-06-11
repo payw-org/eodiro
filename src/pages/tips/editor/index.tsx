@@ -464,7 +464,7 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
             uploadSection.current.classList.add($['opened'])
           }}
         >
-          <i className="f7-icons">cloud_upload</i>
+          <i className="f7-icons">paperclip</i>
         </button>
       </Body>
     </>
