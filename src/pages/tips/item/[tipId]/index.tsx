@@ -151,7 +151,7 @@ type PostPageProps = {
 const PostPage: EodiroPage<PostPageProps> = ({ post, comments, postErr }) => {
   return (
     <Body
-      pageTitle={post?.title || '어디로 - 포스트'}
+      pageTitle={post?.title ?? '어디로 | 포스트'}
       titleHidden
       bodyClassName={$['eodiro-post-view']}
       hasTopGap={postErr ? true : false}
@@ -162,9 +162,13 @@ const PostPage: EodiroPage<PostPageProps> = ({ post, comments, postErr }) => {
           <RequireAuth />
         </div>
       )}
-      {postErr === OneApiError.NO_CONTENT && (
+      {postErr === OneApiError.NO_CONTENT ? (
         <div className="overlay-sentinel-spot title-sentinel-spot">
           <Information title="존재하지 않는 포스트입니다." />
+        </div>
+      ) : (
+        <div className="overlay-sentinel-spot title-sentinel-spot">
+          <Information title="에러가 발생했습니다." />
         </div>
       )}
     </Body>
