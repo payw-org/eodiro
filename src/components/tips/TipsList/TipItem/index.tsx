@@ -1,5 +1,6 @@
 import $ from './style.module.scss'
 import { ArrowBlock } from '@/components/ui'
+import EodiroLink from '@/components/utils/EodiroLink'
 import { Tip } from '../../types'
 import classNames from 'classnames'
 
@@ -10,6 +11,8 @@ export type TipItemProps = {
 const TipItem: React.FC<TipItemProps> = ({ tipData }) => {
   return (
     <ArrowBlock className={$['tip-item']}>
+      <EodiroLink absolute href={`tips/item/${tipData.tipId}`} />
+
       <span className={$['information']}>
         <span className={$['author']}>{tipData.author}</span>
         <span className={$['uploaded-at']}>{tipData.uploadedAt}</span>
