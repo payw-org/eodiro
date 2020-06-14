@@ -13,10 +13,13 @@ import NoFooter from '@/components/utils/NoFooter'
 import { Tokens } from '@/api'
 import classNames from 'classnames'
 import io from 'socket.io-client'
+import { useAuth } from '@/pages/_app'
 
 export type LivePageProps = unknown
 
 function sendMsg(msg: string, socket: SocketIOClient.Socket) {
+  if (msg.trim().length === 0 || !socket) return
+
   socket.emit('send_live_chat', {
     text: msg,
   })
@@ -39,6 +42,8 @@ const LivePage: React.FC<LivePageProps> = () => {
   const setNavHidden = useContext(NavHiddenDispatchContext)
   const setNavScrolled = useContext(NavScrollDispatchContext)
 
+  const { isSigned } = useAuth()
+
   useEffect(() => {
     async function init() {
       const htmlAndBody = [document.documentElement, document.body]
@@ -52,6 +57,8 @@ const LivePage: React.FC<LivePageProps> = () => {
         setNavHidden(false)
         setNavScrolled(true)
       }, 500)
+
+      if (!isSigned) return
 
       socket.current = io.connect(ApiHost.getHost(), {
         query: {
@@ -93,7 +100,7 @@ const LivePage: React.FC<LivePageProps> = () => {
     init()
 
     return () => {
-      socket.current.disconnect()
+      socket.current && socket.current.disconnect()
     }
   }, [])
 
@@ -175,7 +182,8 @@ const LivePage: React.FC<LivePageProps> = () => {
         <input
           ref={chatMsgInput}
           type="text"
-          disabled={isChatLocked}
+          placeholder={isSigned ? '내용을 입력하세요' : '로그인이 필요합니다'}
+          disabled={isChatLocked || !isSigned}
           className={classNames($['chat-input'])}
           value={chatMsg}
           onChange={(e) => {
