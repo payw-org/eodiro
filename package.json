@@ -22,7 +22,7 @@
     "generate": "prisma generate --schema=node_modules/@payw/eodiro-one-api/prisma/schema.prisma"
   },
   "dependencies": {
-    "@payw/eodiro-one-api": "^2.0.6",
+    "@payw/eodiro-one-api": "^2.0.7",
     "@popmotion/popcorn": "^0.4.4",
     "@types/body-scroll-lock": "^2.6.1",
     "axios": "^0.19.2",
