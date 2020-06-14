@@ -48,7 +48,8 @@ input.chat-input {
   right: 10px;
   top: 50%;
   transform: translateY(-50%);
-  font-size: 40px;
+  font-size: 35px;
+  @include clickable;
 }
 
 .chat-bubble-wrapper {
