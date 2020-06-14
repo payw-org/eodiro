@@ -62,12 +62,6 @@ const LivePage: React.FC<LivePageProps> = () => {
 
   useEffect(() => {
     function updateMsgs(data, isMine: boolean) {
-      console.log(
-        msgScrollWrapper.current.scrollHeight,
-        msgScrollWrapper.current.scrollTop,
-        msgScrollWrapper.current.offsetHeight
-      )
-
       const isBottommed = isNearBottom()
 
       setMsgs((msgs) => [
@@ -78,7 +72,7 @@ const LivePage: React.FC<LivePageProps> = () => {
         },
       ])
 
-      if (isBottommed) {
+      if (isBottommed || isMine) {
         scrollToBottom()
       }
     }
