@@ -1,3 +1,5 @@
+// TODO: Scroll to bottom on focus
+
 import {
   NavHiddenDispatchContext,
   NavScrollDispatchContext,
@@ -42,9 +44,46 @@ const LivePage: React.FC<LivePageProps> = () => {
   const setNavHidden = useContext(NavHiddenDispatchContext)
   const setNavScrolled = useContext(NavScrollDispatchContext)
 
+  const [totalUsersNum, setTotalUsersNum] = useState(0)
+
   const { isSigned } = useAuth()
 
+  function scrollToBottom() {
+    msgScrollWrapper.current.scrollTo(0, msgScrollWrapper.current.scrollHeight)
+  }
+
   useEffect(() => {
+    function updateMsgs(data, isMine: boolean) {
+      console.log(
+        msgScrollWrapper.current.scrollHeight,
+        msgScrollWrapper.current.scrollTop,
+        msgScrollWrapper.current.offsetHeight
+      )
+
+      let isBottommed = false
+
+      const { scrollHeight, scrollTop, offsetHeight } = msgScrollWrapper.current
+
+      console.log(scrollHeight - scrollTop - offsetHeight)
+
+      if (scrollHeight - scrollTop - offsetHeight < 10) {
+        console.log('바닥에 닿음')
+        isBottommed = true
+      }
+
+      setMsgs((msgs) => [
+        ...msgs,
+        {
+          ...data,
+          isMine,
+        },
+      ])
+
+      if (isBottommed) {
+        scrollToBottom()
+      }
+    }
+
     async function init() {
       const htmlAndBody = [document.documentElement, document.body]
       htmlAndBody.forEach((elm) => {
@@ -53,10 +92,10 @@ const LivePage: React.FC<LivePageProps> = () => {
         elm.style.width = '100%'
       })
 
-      setTimeout(() => {
-        setNavHidden(false)
-        setNavScrolled(true)
-      }, 500)
+      // setTimeout(() => {
+      //   setNavHidden(false)
+      //   setNavScrolled(true)
+      // }, 500)
 
       if (!isSigned) return
 
@@ -66,34 +105,11 @@ const LivePage: React.FC<LivePageProps> = () => {
         },
       })
 
-      socket.current.on('new_live_chat', (data) => {
-        setMsgs((msgs) => [
-          ...msgs,
-          {
-            ...data,
-            isMine: false,
-          },
-        ])
+      socket.current.on('new_live_chat', (data) => updateMsgs(data, false))
+      socket.current.on('new_live_chat_mine', (data) => updateMsgs(data, true))
 
-        msgScrollWrapper.current.scrollTo(
-          0,
-          msgScrollWrapper.current.scrollHeight
-        )
-      })
-
-      socket.current.on('new_live_chat_mine', (data) => {
-        setMsgs((msgs) => [
-          ...msgs,
-          {
-            ...data,
-            isMine: true,
-          },
-        ])
-
-        msgScrollWrapper.current.scrollTo(
-          0,
-          msgScrollWrapper.current.scrollHeight
-        )
+      socket.current.on('user_num_changed', (data) => {
+        setTotalUsersNum(data)
       })
     }
 
@@ -129,6 +145,46 @@ const LivePage: React.FC<LivePageProps> = () => {
     setMsgs([...msgs].slice(msgs.length - MAX_DISPLAY_NUM))
   }, [msgs])
 
+  useEffect(() => {
+    if (isChatLocked) {
+      chatMsgInput.current.blur()
+    }
+  }, [isChatLocked])
+
+  function processSend() {
+    if (fastSendCount > 3) {
+      const afterSec = 5000
+
+      setIsChatLocked(true)
+
+      alert(
+        `한 번에 너무 많은 메시지를 보낼 수 없습니다. ${
+          afterSec / 1000
+        }초 후에 다시 시도해 주세요.`
+      )
+
+      setTimeout(() => {
+        setIsChatLocked(false)
+        fastSendCount = 0
+      }, afterSec)
+      return
+    }
+
+    if (sendTimeout !== null) {
+      fastSendCount += 1
+    } else {
+      fastSendCount = 0
+    }
+
+    clearTimeout(sendTimeout)
+    sendTimeout = setTimeout(() => {
+      sendTimeout = null
+    }, 500)
+
+    sendMsg(chatMsg, socket.current)
+    setChatMsg('')
+  }
+
   return (
     <Body pageTitle="LIVE" titleHidden bodyClassName={$['eodiro-live-page']}>
       <NoFooter />
@@ -136,6 +192,8 @@ const LivePage: React.FC<LivePageProps> = () => {
       <div
         className={classNames('overlay-sentinel-spot', 'title-sentinel-spot')}
       />
+
+      <div className={$['total-users-num']}>{totalUsersNum}명 접속 중</div>
 
       <div ref={msgScrollWrapper} className={$['messages-scroll-wrapper']}>
         <div className={$['information']}>
@@ -195,41 +253,17 @@ const LivePage: React.FC<LivePageProps> = () => {
 
             e.preventDefault()
 
-            if (fastSendCount > 3) {
-              const afterSec = 5000
-
-              setIsChatLocked(true)
-
-              alert(
-                `한 번에 너무 많은 메시지를 보낼 수 없습니다. ${
-                  afterSec / 1000
-                }초 후에 다시 시도해 주세요.`
-              )
-
-              setTimeout(() => {
-                setIsChatLocked(false)
-                fastSendCount = 0
-              }, afterSec)
-              return
-            }
-
-            if (sendTimeout !== null) {
-              fastSendCount += 1
-            } else {
-              fastSendCount = 0
-            }
-
-            clearTimeout(sendTimeout)
-            sendTimeout = setTimeout(() => {
-              sendTimeout = null
-            }, 500)
-
-            sendMsg(chatMsg, socket.current)
-            setChatMsg('')
+            processSend()
           }}
         />
 
-        <i className={classNames('f7-icons', $['send-icon'])}>
+        <i
+          className={classNames('f7-icons', $['send-icon'])}
+          onClick={() => {
+            processSend()
+            chatMsgInput.current.focus()
+          }}
+        >
           arrow_up_circle_fill
         </i>
       </div>

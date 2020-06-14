@@ -1,6 +1,6 @@
 @use '@/assets/styles/main' as *;
 
-$random-nickname-gap: 7px;
+$random-nickname-gap: 2px;
 
 .chat-bubble-box {
   display: flex;
@@ -16,7 +16,7 @@ $random-nickname-gap: 7px;
 
     .chat-bubble {
       align-self: flex-end;
-      background-color: $eodiro-primary-color;
+      background-color: darken(desaturate($eodiro-primary-color, 15), 5);
       color: $base-white;
     }
   }
@@ -24,15 +24,17 @@ $random-nickname-gap: 7px;
 
 .random-nickname {
   margin-left: $random-nickname-gap;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
   font-size: 14px;
+  font-weight: 500;
   color: $base-gray;
 }
 
 .chat-bubble {
   @include block-style-raw;
-  padding: 8px 15px;
-  border-radius: 9999px;
+  padding: 7px 12px;
+  border-radius: 10px;
   display: inline-block;
   align-self: flex-start;
+  max-width: 70%;
 }

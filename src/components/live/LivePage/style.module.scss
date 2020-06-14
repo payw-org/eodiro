@@ -9,7 +9,7 @@
   --horizontal-padding: calc(50% - 400px);
 
   position: fixed;
-  top: $nav-height;
+  top: 0;
   bottom: 0;
   left: 0;
   width: 100%;
@@ -55,7 +55,7 @@ input.chat-input {
 .chat-bubble-wrapper {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 7px;
 
   &:first-child {
     margin-top: 20px;
@@ -65,7 +65,7 @@ input.chat-input {
 .information {
   height: 100vh;
   position: relative;
-  top: -150px;
+  top: -100px;
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -83,4 +83,17 @@ input.chat-input {
   .description {
     margin-top: 20px;
   }
+}
+
+.total-users-num {
+  position: fixed;
+  top: $nav-height;
+  left: 50%;
+  transform: translateX(-50%);
+  @include block-style-raw;
+  border-radius: 9999px;
+  padding: 5px 10px;
+  font-size: 14px;
+  font-weight: 500;
+  z-index: 90;
 }
