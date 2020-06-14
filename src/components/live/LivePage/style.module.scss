@@ -1,0 +1,85 @@
+@use '@/assets/styles/main' as *;
+
+.eodiro-live-page {
+  max-width: 800px !important;
+  padding-bottom: 0 !important;
+}
+
+.messages-scroll-wrapper {
+  --horizontal-padding: calc(50% - 400px);
+
+  position: fixed;
+  top: $nav-height;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 var(--horizontal-padding) 60px;
+  overflow-y: auto;
+
+  @include smaller-than(800px) {
+    --horizontal-padding: 15px;
+  }
+
+  .messages-container {
+  }
+}
+
+.chat-input-wrapper {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  width: 100%;
+  max-width: 800px;
+  transform: translateX(-50%);
+  height: 55px;
+}
+
+input.chat-input {
+  @include elm-fill;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  border: none;
+  border-radius: 8px 8px 0 0;
+  height: 100%;
+  padding-right: 60px;
+}
+
+.send-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 40px;
+}
+
+.chat-bubble-wrapper {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
+  &:first-child {
+    margin-top: 20px;
+  }
+}
+
+.information {
+  height: 100vh;
+  position: relative;
+  top: -150px;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+  justify-content: center;
+
+  .title {
+    color: $eodiro-primary-color;
+  }
+
+  .bubble-icon {
+    margin-right: 7px;
+  }
+
+  .description {
+    margin-top: 20px;
+  }
+}

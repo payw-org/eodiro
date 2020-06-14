@@ -1,0 +1,49 @@
+@use '@/assets/styles/main' as *;
+
+.live-entrance {
+  @include block-style-raw;
+  @include border-radius-outer;
+  @include clickable;
+
+  padding: 20px;
+  margin-top: 50px;
+
+  display: flex;
+  align-items: center;
+
+  border: 2px solid $eodiro-primary-color;
+}
+
+.blink {
+  $size: 13px;
+  width: $size;
+  height: $size;
+  border-radius: 9999px;
+  background-color: red;
+  margin-right: $size;
+  animation-name: blinking;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: steps(1);
+
+  $dimmed-opacity: 0.1;
+  opacity: $dimmed-opacity;
+
+  @keyframes blinking {
+    0% {
+      opacity: $dimmed-opacity;
+    }
+    50% {
+      opacity: 1;
+    }
+    100% {
+      opacity: $dimmed-opacity;
+    }
+  }
+}
+
+.label {
+  font-weight: 700;
+  font-size: 25px;
+  color: $eodiro-primary-color;
+}

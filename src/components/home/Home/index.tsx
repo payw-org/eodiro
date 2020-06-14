@@ -6,6 +6,7 @@ import EodiroColors from '@/modules/styles/EodiroColors'
 import EodiroLink from '@/components/utils/EodiroLink'
 import Grid from '@/layouts/Grid'
 import Head from 'next/head'
+import LiveEntrance from './LiveEntrance'
 import classNames from 'classnames'
 
 type HomeFeatureBoxProps = {
@@ -85,6 +86,8 @@ const Main: React.FC = () => {
               중앙대 학생들만을 위한 길잡이 서비스
             </span>
           </p>
+
+          <LiveEntrance />
 
           <div className={$['features']}>
             <Grid>

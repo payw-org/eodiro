@@ -1,0 +1,38 @@
+@use '@/assets/styles/main' as *;
+
+$random-nickname-gap: 7px;
+
+.chat-bubble-box {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  &.mine {
+    align-items: flex-end;
+
+    .random-nickname {
+      display: none;
+    }
+
+    .chat-bubble {
+      align-self: flex-end;
+      background-color: $eodiro-primary-color;
+      color: $base-white;
+    }
+  }
+}
+
+.random-nickname {
+  margin-left: $random-nickname-gap;
+  margin-bottom: 4px;
+  font-size: 14px;
+  color: $base-gray;
+}
+
+.chat-bubble {
+  @include block-style-raw;
+  padding: 8px 15px;
+  border-radius: 9999px;
+  display: inline-block;
+  align-self: flex-start;
+}
