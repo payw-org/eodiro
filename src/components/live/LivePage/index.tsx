@@ -52,6 +52,14 @@ const LivePage: React.FC<LivePageProps> = () => {
     msgScrollWrapper.current.scrollTo(0, msgScrollWrapper.current.scrollHeight)
   }
 
+  function isNearBottom() {
+    const { scrollHeight, scrollTop, offsetHeight } = msgScrollWrapper.current
+
+    console.log(scrollHeight - scrollTop - offsetHeight)
+
+    return scrollHeight - scrollTop - offsetHeight < 10
+  }
+
   useEffect(() => {
     function updateMsgs(data, isMine: boolean) {
       console.log(
@@ -60,16 +68,7 @@ const LivePage: React.FC<LivePageProps> = () => {
         msgScrollWrapper.current.offsetHeight
       )
 
-      let isBottommed = false
-
-      const { scrollHeight, scrollTop, offsetHeight } = msgScrollWrapper.current
-
-      console.log(scrollHeight - scrollTop - offsetHeight)
-
-      if (scrollHeight - scrollTop - offsetHeight < 10) {
-        console.log('바닥에 닿음')
-        isBottommed = true
-      }
+      const isBottommed = isNearBottom()
 
       setMsgs((msgs) => [
         ...msgs,
@@ -125,6 +124,11 @@ const LivePage: React.FC<LivePageProps> = () => {
 
     const focusHandler = () => {
       disableBodyScroll(msgScrollWrapper.current)
+      if (isNearBottom()) {
+        setTimeout(() => {
+          scrollToBottom()
+        }, 0)
+      }
     }
     const blurHanlder = () => {
       clearAllBodyScrollLocks()
