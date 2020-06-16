@@ -20,7 +20,6 @@ html {
   -webkit-text-size-adjust: 100%;
   -webkit-font-smoothing: antialiased;
   font-size: 85%;
-  overflow: auto;
   @include bg;
 
   &.dark-mode {
