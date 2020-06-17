@@ -10,6 +10,7 @@ import { Tokens, TokensPack } from '@/api'
 
 import BaseLayout from '@/layouts/BaseLayout'
 import Head from 'next/head'
+import { RecoilRoot } from 'recoil'
 import Router from 'next/router'
 import { getAuthState } from '@/modules/server/get-auth-state'
 import { isApp } from '@/modules/booleans/is-app'
@@ -216,11 +217,13 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
             />
           )}
         </Head>
-        <AuthProvider {...authProps}>
-          <BaseLayout>
-            <Component {...pageProps} />
-          </BaseLayout>
-        </AuthProvider>
+        <RecoilRoot>
+          <AuthProvider {...authProps}>
+            <BaseLayout>
+              <Component {...pageProps} />
+            </BaseLayout>
+          </AuthProvider>
+        </RecoilRoot>
       </>
     )
   }
