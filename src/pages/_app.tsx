@@ -133,15 +133,15 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
         shadowColor: 'rgba(0, 0, 0, 0)',
         className: 'eodiro-topbar',
       })
-      Router.events.on('routeChangeStart', topbar.show)
-      Router.events.on('routeChangeComplete', () => {
-        ;(document.activeElement as any)?.blur()
-        topbar.hide()
-      })
-      Router.events.on('routeChangeError', () => {
-        ;(document.activeElement as any)?.blur()
-        topbar.hide()
-      })
+      // Router.events.on('routeChangeStart', topbar.show)
+      // Router.events.on('routeChangeComplete', () => {
+      //   ;(document.activeElement as any)?.blur()
+      //   topbar.hide()
+      // })
+      // Router.events.on('routeChangeError', () => {
+      //   ;(document.activeElement as any)?.blur()
+      //   topbar.hide()
+      // })
 
       // Update current page and last page in session storage
       Router.events.on('routeChangeComplete', () => {
