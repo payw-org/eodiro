@@ -20,15 +20,13 @@ import Axios from 'axios'
 import Body from '@/layouts/BaseLayout/Body'
 import { NavTitleDispatchContext } from '@/components/global/Navigation'
 import NoFooter from '@/components/utils/NoFooter'
-import { PostAttrs } from '@payw/eodiro-one-api/database/models/post'
 import { Spinner } from '@/components/global/Spinner'
 import { Tokens } from '@/api'
 import WhiteBody from '@/components/utils/WhiteBody'
 import _ from 'lodash'
 import { availableMimeTypes } from '@/config/available-mime-types'
 import classNames from 'classnames'
-import mergeClassNames from '@/modules/merge-class-name'
-import { oneAPIClient } from '@payw/eodiro-one-api'
+import { oneApiClient } from '@payw/eodiro-one-api'
 import { redirect } from '@/modules/server/redirect'
 import { useAuth } from '@/pages/_app'
 import { useRouter } from 'next/router'
@@ -127,7 +125,7 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
   // Upload or edit post
   async function uploadPost(): Promise<void> {
     // Upload post first
-    // const { err, data: inserId } = await oneAPIClient(ApiHost.getHost(), {
+    // const { err, data: inserId } = await oneApiClient(ApiHost.getHost(), {
     //   action: 'savePost',
     //   data: {
     //     accessToken: auth.tokens.accessToken,
@@ -488,7 +486,7 @@ export const getServerSideProps: GetServerSideProps<NewPostPageProps> = async ({
   // Edit mode when post ID is given as URL query
   const postId = Number(query['post_id']) || null
   if (postId) {
-    const { err, data } = await oneAPIClient(ApiHost.getHost(), {
+    const { err, data } = await oneApiClient(ApiHost.getHost(), {
       action: 'getPostById',
       data: {
         postId: postId,

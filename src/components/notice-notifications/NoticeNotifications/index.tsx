@@ -7,7 +7,7 @@ import { NoticeItem } from '@payw/eodiro-one-api/api/one/scheme/notice/get-notic
 import { Tokens } from '@/api'
 import classNames from 'classnames'
 import { isApp } from '@/modules/booleans/is-app'
-import { oneAPIClient } from '@payw/eodiro-one-api'
+import { oneApiClient } from '@payw/eodiro-one-api'
 import { useAuth } from '@/pages/_app'
 
 export type NoticeNotificationsProps = {
@@ -31,7 +31,7 @@ const NoticeWatcher: React.FC<NoticeNotificationsProps> = ({
     async function init() {
       if (!isSigned) return
 
-      const { data } = await oneAPIClient(ApiHost.getHost(), {
+      const { data } = await oneApiClient(ApiHost.getHost(), {
         action: 'getMySubscriptions',
         data: {
           accessToken: (await Tokens.get()).accessToken,
@@ -102,7 +102,7 @@ const NoticeWatcher: React.FC<NoticeNotificationsProps> = ({
 
                 setIsSyncing(true)
 
-                const { err, data: subscriptionResult } = await oneAPIClient(
+                const { err, data: subscriptionResult } = await oneApiClient(
                   ApiHost.getHost(),
                   {
                     action: 'updateNoticeSubscription',

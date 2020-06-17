@@ -4,10 +4,10 @@ import NoticeNotifications, {
 } from '@/components/notice-notifications/NoticeNotifications'
 
 import ApiHost from '@/modules/api-host'
-import { oneAPIClient } from '@payw/eodiro-one-api'
+import { oneApiClient } from '@payw/eodiro-one-api'
 
 export const getServerSideProps: GetServerSideProps<NoticeNotificationsProps> = async () => {
-  const { data } = await oneAPIClient(ApiHost.getHost(), {
+  const { data } = await oneApiClient(ApiHost.getHost(), {
     action: 'getNoticeCatalog',
     data: undefined,
   })

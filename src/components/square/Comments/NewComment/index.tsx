@@ -5,7 +5,7 @@ import ApiHost from '@/modules/api-host'
 import CommentsContext from '../comments-context'
 import { Tokens } from '@/api'
 import _ from 'lodash'
-import { oneAPIClient } from '@payw/eodiro-one-api'
+import { oneApiClient } from '@payw/eodiro-one-api'
 import { useAuth } from '@/pages/_app'
 import { useRouter } from 'next/router'
 
@@ -20,7 +20,7 @@ const NewComment: React.FC = () => {
     // Blur input
     inputRef.current.blur()
 
-    const uploadPayload = await oneAPIClient(ApiHost.getHost(), {
+    const uploadPayload = await oneApiClient(ApiHost.getHost(), {
       action: 'uploadComment',
       data: {
         postId: Number(router.query.postId),
@@ -42,7 +42,7 @@ const NewComment: React.FC = () => {
     setValue('')
 
     // Refresh recent comments
-    const newCommentsPyld = await oneAPIClient(ApiHost.getHost(), {
+    const newCommentsPyld = await oneApiClient(ApiHost.getHost(), {
       action: 'getComments',
       data: {
         accessToken: auth.tokens.accessToken,

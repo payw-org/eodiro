@@ -6,13 +6,13 @@ import { EodiroPage } from '../_app'
 import { FlatBlock } from '@/components/ui'
 import { GetPostsOfBoard } from '@payw/eodiro-one-api/api/one/scheme'
 import { GetServerSideProps } from 'next'
-import { OneApiPayloadData } from '@payw/eodiro-one-api/api/one/scheme/types/utils'
+import { OneApiPayloadData } from '@payw/eodiro-one-api/api/one/types'
 import classNames from 'classnames'
-import { oneAPIClient } from '@payw/eodiro-one-api'
+import { oneApiClient } from '@payw/eodiro-one-api'
 
 export const getServerSideProps: GetServerSideProps<SquareMainPageProps> = async () => {
   // Fetch 자유 게시판 data
-  const { data: freeBoardPosts } = await oneAPIClient(ApiHost.getHost(), {
+  const { data: freeBoardPosts } = await oneApiClient(ApiHost.getHost(), {
     action: 'getPostsOfBoard',
     data: {
       boardId: 1, // 자유 게시판
@@ -23,7 +23,7 @@ export const getServerSideProps: GetServerSideProps<SquareMainPageProps> = async
   })
 
   // 취업 후기
-  // const empReviews = await oneAPIClient(ApiHost.getHost(), {
+  // const empReviews = await oneApiClient(ApiHost.getHost(), {
   //   action: 'getPostsOfBoard',
   //   data: {
   //     boardId: 3,

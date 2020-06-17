@@ -9,11 +9,11 @@ import EodiroLink from '@/components/utils/EodiroLink'
 import FriendlyTime from '@/components/utils/FriendlyTime'
 import { GetMyPosts } from '@payw/eodiro-one-api/api/one/scheme'
 import Grid from '@/layouts/Grid'
-import { OneApiPayload } from '@payw/eodiro-one-api/api/one/scheme/types/utils'
+import { OneApiPayload } from '@payw/eodiro-one-api/api/one/types'
 import { Unpacked } from '@/types/unpacked'
 import classNames from 'classnames'
 import dayjs from 'dayjs'
-import { oneAPIClient } from '@payw/eodiro-one-api'
+import { oneApiClient } from '@payw/eodiro-one-api'
 import { redirect } from '@/modules/server/redirect'
 
 type PostItemProps = {
@@ -121,7 +121,7 @@ export const getServerSideProps: GetServerSideProps<MyPageProps> = async ({
     return
   }
 
-  const { data: myPosts } = await oneAPIClient(ApiHost.getHost(), {
+  const { data: myPosts } = await oneApiClient(ApiHost.getHost(), {
     action: 'getMyPosts',
     data: {
       accessToken: (await Tokens.get(req)).accessToken,

@@ -7,12 +7,12 @@ import { CommentAttrs } from '@payw/eodiro-one-api/database/models/comment'
 import CommentsContext from './comments-context'
 import Information from '@/components/global/Information'
 import NewComment from './NewComment'
-import { OneApiError } from '@payw/eodiro-one-api/api/one/scheme/types/utils'
+import { OneApiError } from '@payw/eodiro-one-api/api/one/types'
 import { Tokens } from '@/api'
 import _ from 'lodash'
 import classNames from 'classnames'
 import dynamic from 'next/dynamic'
-import { oneAPIClient } from '@payw/eodiro-one-api'
+import { oneApiClient } from '@payw/eodiro-one-api'
 import { useAuth } from '@/pages/_app'
 
 const FriendlyTime = dynamic(() => import('@/components/utils/FriendlyTime'), {
@@ -47,7 +47,7 @@ const CommentItem: React.FC<{
               onClick={async () => {
                 if (!confirm('정말 삭제하시겠습니까?')) return
 
-                const payload = await oneAPIClient(ApiHost.getHost(), {
+                const payload = await oneApiClient(ApiHost.getHost(), {
                   action: 'deleteComment',
                   data: {
                     accessToken: (await Tokens.get()).accessToken,

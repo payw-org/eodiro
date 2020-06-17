@@ -5,9 +5,8 @@ import $ from './style.module.scss'
 import ApiHost from '@/modules/api-host'
 import Body from '@/layouts/BaseLayout/Body'
 import { GetBoardId } from '@payw/eodiro-one-api/api/one/scheme'
-import Link from 'next/link'
 import dynamic from 'next/dynamic'
-import { oneAPIClient } from '@payw/eodiro-one-api'
+import { oneApiClient } from '@payw/eodiro-one-api'
 import { pathIds } from '@/config/paths'
 import { useAuth } from '@/pages/_app'
 import { useRouter } from 'next/router'
@@ -21,7 +20,7 @@ const PostContainer = dynamic(
 export const getServerSideProps: GetServerSideProps<BoardPageProps> = async ({
   query,
 }) => {
-  const { err, data } = await oneAPIClient(ApiHost.getHost(), {
+  const { err, data } = await oneApiClient(ApiHost.getHost(), {
     action: 'getBoardId',
     data: {
       boardName: query.boardName as string,

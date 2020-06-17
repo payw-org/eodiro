@@ -4,15 +4,14 @@ import $ from '@/components/square/PostContainer/PostItem/style.module.scss'
 import ApiHost from '@/modules/api-host'
 import { GetPostsOfBoard } from '@payw/eodiro-one-api/api/one/scheme'
 import InfiniteScrollContainer from '@/components/utils/InfiniteScrollContainer'
-import { OneApiPayloadData } from '@payw/eodiro-one-api/api/one/scheme/types/utils'
+import { OneApiPayloadData } from '@payw/eodiro-one-api/api/one/types'
 import PostItem from './PostItem'
 import { ResizeSensor } from 'css-element-queries'
 import { Spinner } from '@/components/global/Spinner'
 import _ from 'lodash'
 import classNames from 'classnames'
 import getState from '@/modules/get-state'
-import mergeClassNames from '@/modules/merge-class-name'
-import { oneAPIClient } from '@payw/eodiro-one-api'
+import { oneApiClient } from '@payw/eodiro-one-api'
 import { pathIds } from '@/config/paths'
 import { useRouter } from 'next/router'
 import { visualizeBody } from '@/layouts/BaseLayout/Body'
@@ -79,7 +78,7 @@ const PostContainer: React.FC<PostContainerProps> = ({ boardId }) => {
 
   async function loadMore(): Promise<boolean> {
     const posts = await getState(setPosts)
-    const { data: newPosts } = await oneAPIClient(ApiHost.getHost(), {
+    const { data: newPosts } = await oneApiClient(ApiHost.getHost(), {
       action: 'getPostsOfBoard',
       data: {
         boardId,
@@ -107,7 +106,7 @@ const PostContainer: React.FC<PostContainerProps> = ({ boardId }) => {
     const posts = await getState(setPosts)
 
     if (posts && posts.length > 0) {
-      const { data: recentPosts } = await oneAPIClient(ApiHost.getHost(), {
+      const { data: recentPosts } = await oneApiClient(ApiHost.getHost(), {
         action: 'getRecentPostsOfBoard',
         data: {
           boardId,

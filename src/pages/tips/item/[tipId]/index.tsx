@@ -1,9 +1,6 @@
 import { EodiroPage, useAuth } from '@/pages/_app'
 import { GetComments, GetPostById } from '@payw/eodiro-one-api/api/one/scheme'
-import {
-  OneApiError,
-  OneApiPayload,
-} from '@payw/eodiro-one-api/api/one/scheme/types/utils'
+import { OneApiError, OneApiPayload } from '@payw/eodiro-one-api/api/one/types'
 
 import $ from './style.module.scss'
 import ApiHost from '@/modules/api-host'
@@ -21,7 +18,7 @@ import { Tokens } from '@/api'
 import WhiteBody from '@/components/utils/WhiteBody'
 import _ from 'lodash'
 import classNames from 'classnames'
-import { oneAPIClient } from '@payw/eodiro-one-api'
+import { oneApiClient } from '@payw/eodiro-one-api'
 import { pathIds } from '@/config/paths'
 import { useRouter } from 'next/router'
 
@@ -43,7 +40,7 @@ const Content: React.FC<ContentProps> = ({ post, comments }) => {
     if (!confirmation) return
 
     // Delete
-    await oneAPIClient(ApiHost.getHost(), {
+    await oneApiClient(ApiHost.getHost(), {
       action: 'deletePost',
       data: {
         accessToken: (await Tokens.get()).accessToken,
@@ -181,7 +178,7 @@ export const getServerSideProps: GetServerSideProps = async ({
   query,
   req,
 }) => {
-  const postPayload = await oneAPIClient(ApiHost.getHost(), {
+  const postPayload = await oneApiClient(ApiHost.getHost(), {
     action: 'getPostById',
     data: {
       postId: Number(query.postId),
@@ -189,7 +186,7 @@ export const getServerSideProps: GetServerSideProps = async ({
     },
   })
 
-  const commentsPayload = await oneAPIClient(ApiHost.getHost(), {
+  const commentsPayload = await oneApiClient(ApiHost.getHost(), {
     action: 'getComments',
     data: {
       postId: Number(query.postId),
