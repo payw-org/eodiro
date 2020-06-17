@@ -1,3 +1,4 @@
+import 'intersection-observer'
 import '@/assets/styles/global/globalstyle.scss'
 import 'swiper/swiper.scss'
 import './_document.scss'
