@@ -65,3 +65,9 @@ export class Tokens {
     return succeeded
   }
 }
+
+/**
+ * Shortcut function for `(await Tokens.get(req?)).accessToken`
+ */
+export const getAccessToken = async (req?: IncomingMessage) =>
+  (await Tokens.get(req)).accessToken
