@@ -21,11 +21,12 @@ import Body from '@/layouts/BaseLayout/Body'
 import { NavTitleDispatchContext } from '@/components/global/Navigation'
 import NoFooter from '@/components/utils/NoFooter'
 import { Spinner } from '@/components/global/Spinner'
-import { Tokens } from '@/api'
+import { TipTopic } from '@prisma/client'
 import WhiteBody from '@/components/utils/WhiteBody'
 import _ from 'lodash'
 import { availableMimeTypes } from '@/config/available-mime-types'
 import classNames from 'classnames'
+import { getAccessToken } from '@/api'
 import { oneApiClient } from '@payw/eodiro-one-api'
 import { redirect } from '@/modules/server/redirect'
 import { useAuth } from '@/pages/_app'
@@ -41,10 +42,11 @@ type NewPostPageProps = {
     name: string
     status: 'uploaded'
   }[]
-  postId: number
+  tipId: number
+  topic: TipTopic
 }
 const NewPostPage: NextPage<NewPostPageProps> = (props) => {
-  const { title, body, postId } = props
+  const { title, body, tipId, topic } = props
   const mode = title.length === 0 ? 'new' : 'edit'
   const isEditMode = mode === 'edit'
   const router = useRouter()
@@ -124,6 +126,39 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
 
   // Upload or edit post
   async function uploadPost(): Promise<void> {
+    const title = titleRef.current.value
+    const body = bodyRef.current.value
+
+    if (tipId) {
+      const response = await oneApiClient(ApiHost.getHost(), {
+        action: 'updateTip',
+        data: {
+          accessToken: await getAccessToken(),
+          tipId,
+          title,
+          body,
+        },
+      })
+
+      if (!response.err) {
+        location.replace(`/tips/item/${tipId}`)
+      }
+    } else {
+      const response = await oneApiClient(ApiHost.getHost(), {
+        action: 'createTip',
+        data: {
+          accessToken: await getAccessToken(),
+          title,
+          topic,
+          body,
+        },
+      })
+
+      if (!response.err) {
+        location.replace(`/tips/item/${response.data.tipId}`)
+      }
+    }
+
     // Upload post first
     // const { err, data: inserId } = await oneApiClient(ApiHost.getHost(), {
     //   action: 'savePost',
@@ -188,7 +223,7 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
       <WhiteBody />
       <NoFooter />
       <Body
-        pageTitle={title.length === 0 ? '새 포스트' : title}
+        pageTitle={title.length === 0 ? '새 꿀팁 작성' : title}
         titleHidden
         bodyClassName={$['eodiro-new-post']}
       >
@@ -475,47 +510,42 @@ export default NewPostPage
 export const getServerSideProps: GetServerSideProps<NewPostPageProps> = async ({
   query,
   req,
-  res,
 }) => {
   let title = ''
   let body = ''
-  let files = null
+  // let files = null
 
   // Check if there is auto saved version
 
   // Edit mode when post ID is given as URL query
-  const postId = Number(query['post_id']) || null
-  if (postId) {
+  const tipId = parseInt(query['tipId'] as string) || null
+
+  if (tipId) {
     const { err, data } = await oneApiClient(ApiHost.getHost(), {
-      action: 'getPostById',
+      action: 'getTipDetail',
       data: {
-        postId: postId,
-        edit: true,
-        accessToken: (await Tokens.get(req)).accessToken,
+        accessToken: await getAccessToken(req),
+        tipId,
       },
     })
 
-    if (err) {
-      redirect(res, `/square/${encodeURIComponent(query.boardName as string)}`)
-      return
-    }
-
     title = data.title
     body = data.body
-    files = data.files
-      ? data.files.map((file) => {
-          file['status'] = 'uploaded'
-          return file
-        })
-      : null
+    // files = data.files
+    //   ? data.files.map((file) => {
+    //       file['status'] = 'uploaded'
+    //       return file
+    //     })
+    //   : null
   }
 
   return {
     props: {
       title,
       body,
-      postId,
-      files,
+      tipId,
+      files: null,
+      topic: 'interview',
     },
   }
 }

@@ -1,26 +1,85 @@
-export type TipsPageProps = unknown
+import { useEffect, useState } from 'react'
 
 import $ from './style.module.scss'
+import ApiHost from '@/modules/api-host'
 import { ArrowBlock } from '../../ui'
 import Body from '@/layouts/BaseLayout/Body'
 import EodiroLink from '@/components/utils/EodiroLink'
 import { LyingDownIllust } from '../../illustrations'
-import Time from '@/modules/time'
-import { Tip } from '../types'
+import { TipListResponse } from '@payw/eodiro-one-api/database/models/tip'
+import { TipTopic } from '@prisma/client'
 import TipsList from '../TipsList'
 import classNames from 'classnames'
-import dayjs from 'dayjs'
-import { useState } from 'react'
+import { getAccessToken } from '@/api'
+import { oneApiClient } from '@payw/eodiro-one-api'
+import { useRouter } from 'next/router'
 
-const TipsPage: React.FC<TipsPageProps> = () => {
-  const [tipsData, setTipsData] = useState<Tip[]>(
-    [...new Array(10)].fill({
-      tipId: 0,
-      title: '나만 알고 있는 중앙대 꿀팁',
-      author: 'Garden Lee',
-      uploadedAt: Time.friendly(dayjs().toDate()),
+type TipsPageQuery = {
+  topic?: TipTopic
+  page?: number
+}
+
+export type TipsPageProps = {
+  topics: Record<string, string>
+}
+
+const TipsPage: React.FC<TipsPageProps> = ({ topics }) => {
+  const [tipsData, setTipsData] = useState<TipListResponse[]>([])
+
+  const [pageState, setPageState] = useState<TipsPageQuery>({
+    topic: undefined,
+    page: undefined,
+  })
+
+  useEffect(() => {
+    const { topic, page } = pageState
+
+    async function fetchNewData() {
+      const response = await oneApiClient(ApiHost.getHost(), {
+        action: 'getTips',
+        data: {
+          accessToken: await getAccessToken(),
+          topic,
+          page,
+        },
+      })
+
+      setTipsData(response.data.tips)
+    }
+
+    fetchNewData()
+
+    router.replace({
+      pathname: router.pathname,
+      query: {
+        topic,
+        page,
+      },
     })
-  )
+  }, [pageState])
+
+  const router = useRouter()
+
+  useEffect(() => {
+    const { topic, page: pageInQuery } = router.query as {
+      topic: TipTopic
+      page: string
+    }
+    const page = parseInt(pageInQuery as string) || 1
+
+    router.replace({
+      pathname: router.pathname,
+      query: {
+        topic,
+        page,
+      },
+    })
+
+    setPageState({
+      topic,
+      page,
+    })
+  }, [])
 
   return (
     <Body
@@ -58,44 +117,38 @@ const TipsPage: React.FC<TipsPageProps> = () => {
 
           <div className={$['topics']}>
             <div className={$['topic-wrapper']}>
-              <div className={classNames($['topic'], $['chosen'])}>전체</div>
+              <div
+                className={classNames($['topic'], {
+                  [$['chosen']]: !pageState.topic,
+                })}
+                onClick={() => {
+                  setPageState({
+                    ...pageState,
+                    topic: undefined,
+                  })
+                }}
+              >
+                전체
+              </div>
             </div>
-            <div className={$['topic-wrapper']}>
-              <div className={$['topic']}>새내기</div>
-            </div>
-            <div className={$['topic-wrapper']}>
-              <div className={$['topic']}>대학생활</div>
-            </div>
-            <div className={$['topic-wrapper']}>
-              <div className={$['topic']}>면접</div>
-            </div>
-            <div className={$['topic-wrapper']}>
-              <div className={$['topic']}>인턴</div>
-            </div>
-            <div className={$['topic-wrapper']}>
-              <div className={$['topic']}>취업</div>
-            </div>
-            <div className={$['topic-wrapper']}>
-              <div className={$['topic']}>동아리</div>
-            </div>
-            <div className={$['topic-wrapper']}>
-              <div className={$['topic']}>맛집</div>
-            </div>
-            <div className={$['topic-wrapper']}>
-              <div className={$['topic']}>팀플</div>
-            </div>
-            <div className={$['topic-wrapper']}>
-              <div className={$['topic']}>강의평가</div>
-            </div>
-            <div className={$['topic-wrapper']}>
-              <div className={$['topic']}>벌꿀</div>
-            </div>
-            <div className={$['topic-wrapper']}>
-              <div className={$['topic']}>오소리</div>
-            </div>
-            <div className={$['topic-wrapper']}>
-              <div className={$['topic']}>리얼후라이</div>
-            </div>
+
+            {Object.keys(topics).map((topicKey) => (
+              <div className={$['topic-wrapper']} key={topicKey}>
+                <div
+                  className={classNames($['topic'], {
+                    [$['chosen']]: pageState.topic === topicKey,
+                  })}
+                  onClick={() => {
+                    setPageState({
+                      ...pageState,
+                      topic: topicKey as TipTopic,
+                    })
+                  }}
+                >
+                  {topics[topicKey]}
+                </div>
+              </div>
+            ))}
           </div>
         </div>
 

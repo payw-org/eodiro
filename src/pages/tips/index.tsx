@@ -1,8 +1,25 @@
-import { NextPage } from 'next'
-import TipsPage from '@/components/tips/TipsPage'
+import { GetServerSideProps, NextPage } from 'next'
+import TipsPage, { TipsPageProps } from '@/components/tips/TipsPage'
 
-const Page: NextPage = () => {
-  return <TipsPage />
+import ApiHost from '@/modules/api-host'
+import { oneApiClient } from '@payw/eodiro-one-api'
+
+export const getServerSideProps: GetServerSideProps<TipsPageProps> = async () => {
+  const { data } = await oneApiClient(ApiHost.getHost(), {
+    action: 'getTopics',
+  })
+
+  console.log(data)
+
+  return {
+    props: {
+      topics: data,
+    },
+  }
+}
+
+const Page: NextPage<TipsPageProps> = ({ topics }) => {
+  return <TipsPage topics={topics} />
 }
 
 export default Page
