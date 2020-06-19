@@ -1,21 +1,21 @@
 import $ from './style.module.scss'
 import { ArrowBlock } from '@/components/ui'
 import EodiroLink from '@/components/utils/EodiroLink'
-import { Tip } from '../../types'
+import { TipListResponse } from '@payw/eodiro-one-api/database/models/tip'
 import classNames from 'classnames'
 
 export type TipItemProps = {
-  tipData: Tip
+  tipData: TipListResponse
 }
 
 const TipItem: React.FC<TipItemProps> = ({ tipData }) => {
   return (
     <ArrowBlock className={$['tip-item']}>
-      <EodiroLink absolute href={`tips/item/${tipData.tipId}`} />
+      <EodiroLink absolute href={`tips/item/${tipData.id}`} />
 
       <span className={$['information']}>
-        <span className={$['author']}>{tipData.author}</span>
-        <span className={$['uploaded-at']}>{tipData.uploadedAt}</span>
+        <span className={$['author']}>{tipData.randomNickname}</span>
+        <span className={$['uploaded-at']}>{tipData.createdAt}</span>
       </span>
       <h1 className={$['title']}>{tipData.title}</h1>
       <span className={$['responses']}>

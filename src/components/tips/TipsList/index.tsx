@@ -1,9 +1,9 @@
 import $ from './style.module.scss'
-import { Tip } from '../types'
 import TipItem from './TipItem'
+import { TipListResponse } from '@payw/eodiro-one-api/database/models/tip'
 
 export type TipsListProps = {
-  tipsData: Tip[]
+  tipsData: TipListResponse[]
 }
 
 const TipsList: React.FC<TipsListProps> = ({ tipsData: tips }) => {
