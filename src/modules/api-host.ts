@@ -13,7 +13,26 @@ import { isDev } from './utils/is-dev'
 
 // TODO: refactor the class name for universal usage
 export default class ApiHost {
-  public static getHost(cdn?: boolean): string {
+  static apiHost: string
+  static cdnHost: string
+
+  private static setHost(host: string, cdn = false): string {
+    if (cdn) {
+      this.cdnHost = host
+    } else {
+      this.apiHost = host
+    }
+
+    return host
+  }
+
+  public static getHost(cdn = false): string {
+    if (cdn && this.cdnHost) {
+      return this.cdnHost
+    } else if (this.apiHost) {
+      return this.apiHost
+    }
+
     const port = cdn ? 5020 : 4020
     const sub = cdn ? 'cdn' : 'api2'
 
@@ -23,7 +42,7 @@ export default class ApiHost {
       process.env.npm_config_useProdApi ||
       (isClient() && document.documentElement.hasAttribute('data-use-prod-api'))
     ) {
-      return `https://${sub}.eodiro.com`
+      return this.setHost(`https://${sub}.eodiro.com`, cdn)
     }
 
     // Forced to use dev API
@@ -32,16 +51,16 @@ export default class ApiHost {
       (isClient() && document.documentElement.hasAttribute('data-use-dev-api'))
     ) {
       if (isClient()) {
-        return `http://${location.hostname}:${port}`
+        return this.setHost(`http://${location.hostname}:${port}`, cdn)
       } else {
-        return `http://localhost:${port}`
+        return this.setHost(`http://localhost:${port}`, cdn)
       }
     }
 
     // Dev mode
     // Use local machine's IP address
     if (isDev() && isClient()) {
-      return `http://${location.hostname}:${port}`
+      return this.setHost(`http://${location.hostname}:${port}`, cdn)
     }
 
     // General, including server side call
@@ -50,6 +69,6 @@ export default class ApiHost {
         ? `http://localhost:${port}`
         : `https://${sub}.eodiro.com`
 
-    return host
+    return this.setHost(host, cdn)
   }
 }
