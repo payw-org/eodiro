@@ -32,7 +32,11 @@ const TipsPage: React.FC<TipsPageProps> = ({ topics }) => {
   })
 
   useEffect(() => {
-    const { topic, page } = pageState
+    let { topic, page } = pageState
+
+    // Set default values
+    topic = topic || null
+    page = page || 1
 
     async function fetchNewData() {
       const response = await oneApiClient(ApiHost.getHost(), {
@@ -43,7 +47,6 @@ const TipsPage: React.FC<TipsPageProps> = ({ topics }) => {
           page,
         },
       })
-
       setTipsData(response.data.tips)
     }
 
@@ -124,7 +127,7 @@ const TipsPage: React.FC<TipsPageProps> = ({ topics }) => {
                 onClick={() => {
                   setPageState({
                     ...pageState,
-                    topic: undefined,
+                    topic: null,
                   })
                 }}
               >
