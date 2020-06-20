@@ -9,8 +9,6 @@ export const getServerSideProps: GetServerSideProps<TipsPageProps> = async () =>
     action: 'getTopics',
   })
 
-  console.log(data)
-
   return {
     props: {
       topics: data,
