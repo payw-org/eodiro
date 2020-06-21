@@ -29,7 +29,7 @@ export default class ApiHost {
   public static getHost(cdn = false): string {
     if (cdn && this.cdnHost) {
       return this.cdnHost
-    } else if (this.apiHost) {
+    } else if (!cdn && this.apiHost) {
       return this.apiHost
     }
 
