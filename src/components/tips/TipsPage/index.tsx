@@ -6,12 +6,14 @@ import { ArrowBlock } from '../../ui'
 import Body from '@/layouts/BaseLayout/Body'
 import EodiroLink from '@/components/utils/EodiroLink'
 import { LyingDownIllust } from '../../illustrations'
+import RequireAuth from '@/components/global/RequireAuth'
 import { TipListResponse } from '@payw/eodiro-one-api/database/models/tip'
 import { TipTopic } from '@prisma/client'
 import TipsList from '../TipsList'
 import classNames from 'classnames'
 import { getAccessToken } from '@/api'
 import { oneApiClient } from '@payw/eodiro-one-api'
+import { useAuth } from '@/pages/_app'
 import { useRouter } from 'next/router'
 
 type TipsPageQuery = {
@@ -24,6 +26,7 @@ export type TipsPageProps = {
 }
 
 const TipsPage: React.FC<TipsPageProps> = ({ topics }) => {
+  const { isSigned } = useAuth()
   const [isLoading, setIsLoading] = useState(true)
   const [tipsData, setTipsData] = useState<TipListResponse[]>([])
 
@@ -33,6 +36,8 @@ const TipsPage: React.FC<TipsPageProps> = ({ topics }) => {
   })
 
   useEffect(() => {
+    if (!isSigned) return
+
     let { topic, page } = pageState
 
     // Set default values
@@ -163,16 +168,22 @@ const TipsPage: React.FC<TipsPageProps> = ({ topics }) => {
           </div>
         </div>
 
-        <TipsList tipsData={tipsData} isLoading={isLoading} />
+        {isSigned ? (
+          <TipsList tipsData={tipsData} isLoading={isLoading} />
+        ) : (
+          <RequireAuth className={$['auth']} />
+        )}
       </section>
 
-      <div className={$['new-wrapper']}>
-        <button className={$['new']}>
-          <EodiroLink href="tips/editor" absolute />
-          <i className={classNames('f7-icons', $['pencil'])}>square_pencil</i>새
-          꿀팁 작성
-        </button>
-      </div>
+      {isSigned && (
+        <div className={$['new-wrapper']}>
+          <button className={$['new']}>
+            <EodiroLink href="tips/editor" absolute />
+            <i className={classNames('f7-icons', $['pencil'])}>square_pencil</i>
+            새 꿀팁 작성
+          </button>
+        </div>
+      )}
 
       <div className={$['illustration-wrapper']}>
         <LyingDownIllust className={$['illustration']} />
