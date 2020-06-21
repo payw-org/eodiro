@@ -2,15 +2,13 @@ type AvailableEventNames = 'scrollends'
 
 // CustomEventManager
 export class Cem {
-  private static storage:
-    | Record<
-        AvailableEventNames,
-        {
-          target: HTMLElement | Element
-          listener: EventListenerOrEventListenerObject
-        }[]
-      >
-    | {} = {}
+  private static storage: Record<
+    AvailableEventNames,
+    {
+      target: HTMLElement | Element
+      listener: EventListenerOrEventListenerObject
+    }[]
+  > = {} as any
 
   /**
    * If the array with a key of event name is not set, create one
