@@ -1,8 +1,10 @@
 import $ from './style.module.scss'
 import { ArrowBlock } from '@/components/ui'
 import EodiroLink from '@/components/utils/EodiroLink'
+import Time from '@/modules/time'
 import { TipListResponse } from '@payw/eodiro-one-api/database/models/tip'
 import classNames from 'classnames'
+import dayjs from 'dayjs'
 
 export type TipItemProps = {
   tipData: TipListResponse
@@ -15,7 +17,9 @@ const TipItem: React.FC<TipItemProps> = ({ tipData }) => {
 
       <span className={$['information']}>
         <span className={$['author']}>{tipData.randomNickname}</span>
-        <span className={$['uploaded-at']}>{tipData.createdAt}</span>
+        <span className={$['uploaded-at']}>
+          {Time.friendly(tipData.createdAt)}
+        </span>
       </span>
       <h1 className={$['title']}>{tipData.title}</h1>
       <span className={$['responses']}>
