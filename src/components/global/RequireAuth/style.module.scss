@@ -4,8 +4,11 @@
   @include border-radius-outer;
   @include elm-fill;
   @include shadowed;
+  @include clickable;
   padding: 2rem 1.5rem;
   text-align: center;
+
+  position: relative;
 
   .icon {
     font-size: 3rem;
