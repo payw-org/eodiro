@@ -15,6 +15,10 @@
 // Classes
 @use '@/assets/styles/classes/index';
 
+:root {
+  color-scheme: light dark;
+}
+
 html {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
