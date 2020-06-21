@@ -176,7 +176,6 @@ const Main: React.FC = () => {
                     heart
                   </i>
                 }
-                label="update"
               />
             </Grid>
           </div>
