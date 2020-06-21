@@ -27,6 +27,7 @@ import _ from 'lodash'
 import { availableMimeTypes } from '@/config/available-mime-types'
 import classNames from 'classnames'
 import { getAccessToken } from '@/api'
+import { getAuthState } from '@/modules/server/get-auth-state'
 import { oneApiClient } from '@payw/eodiro-one-api'
 import { redirect } from '@/modules/server/redirect'
 import { useAuth } from '@/pages/_app'
@@ -510,7 +511,14 @@ export default NewPostPage
 export const getServerSideProps: GetServerSideProps<NewPostPageProps> = async ({
   query,
   req,
+  res,
 }) => {
+  const { isSigned } = await getAuthState({ req, res })
+
+  if (!isSigned) {
+    redirect(res, '/')
+  }
+
   let title = ''
   let body = ''
   // let files = null
