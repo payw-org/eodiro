@@ -24,6 +24,7 @@ export type TipsPageProps = {
 }
 
 const TipsPage: React.FC<TipsPageProps> = ({ topics }) => {
+  const [isLoading, setIsLoading] = useState(true)
   const [tipsData, setTipsData] = useState<TipListResponse[]>([])
 
   const [pageState, setPageState] = useState<TipsPageQuery>({
@@ -39,6 +40,8 @@ const TipsPage: React.FC<TipsPageProps> = ({ topics }) => {
     page = page || 1
 
     async function fetchNewData() {
+      setIsLoading(true)
+
       const response = await oneApiClient(ApiHost.getHost(), {
         action: 'getTips',
         data: {
@@ -47,7 +50,12 @@ const TipsPage: React.FC<TipsPageProps> = ({ topics }) => {
           page,
         },
       })
+
       setTipsData(response.data.tips)
+
+      setTimeout(() => {
+        setIsLoading(false)
+      }, 500)
     }
 
     fetchNewData()
@@ -155,7 +163,7 @@ const TipsPage: React.FC<TipsPageProps> = ({ topics }) => {
           </div>
         </div>
 
-        <TipsList tipsData={tipsData} />
+        <TipsList tipsData={tipsData} isLoading={isLoading} />
       </section>
 
       <div className={$['new-wrapper']}>
