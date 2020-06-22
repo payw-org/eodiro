@@ -5,10 +5,10 @@ import React, { useEffect, useRef, useState } from 'react'
 import $ from './style.module.scss'
 import Body from '@/layouts/BaseLayout/Body'
 import Grid from '@/layouts/Grid'
-import Head from 'next/head'
 import InfiniteScrollContainer from '@/components/utils/InfiniteScrollContainer'
 import { LecturesApi } from '@/api'
 import { LecturesWithMajorCode } from '@/types'
+import PageInfo from '@/components/utils/PageInfo'
 import ServerError from '@/components/global/ServerError'
 import classNames from 'classnames'
 import getState from '@/modules/get-state'
@@ -189,10 +189,13 @@ const LecturesContent: React.FC<LecturesPageProps> = ({ lectures }) => {
 const LecturesPage: NextPage<LecturesPageProps> = (props) => {
   return (
     <>
-      <Head>
-        <title>강의 검색</title>
-      </Head>
       <Body pageTitle="강의 검색" bodyClassName={$['lectures-body']}>
+        <PageInfo
+          title={{
+            subject: '강의 검색',
+          }}
+          description="포탈보다 100배 빠른 강의 검색"
+        />
         <LecturesContent {...props} />
       </Body>
     </>
