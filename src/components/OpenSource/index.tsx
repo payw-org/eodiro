@@ -1,7 +1,7 @@
 import $ from './style.module.scss'
 import Body from '@/layouts/BaseLayout/Body'
 import { Contributor } from '@/types/github-api'
-import Head from 'next/head'
+import PageInfo from '../utils/PageInfo'
 
 export type OpenSourceProps = {
   contributors: Contributor[]
@@ -10,18 +10,19 @@ export type OpenSourceProps = {
 const OpenSource: React.FC<OpenSourceProps> = ({ contributors }) => {
   return (
     <Body pageTitle="오픈소스" bodyClassName={$['component-open-source']}>
-      <Head>
-        <title>어디로 | 오픈소스</title>
-        <meta
-          key="description"
-          property="description"
-          content="어디로는 자유 공개 소프트웨어입니다."
-        />
-      </Head>
+      <PageInfo
+        title={{
+          subject: '오픈소스',
+        }}
+        description="어디로는 자유 공개 소프트웨어입니다."
+      />
+
       <div className={$['manifesto']}>
         <p className={$['paragraph']}>
-          &ldquo;어디로&rdquo;는 누구나 자유롭게 소스코드를 들여다보고 함께
-          성장시키는 오픈소스 프로젝트입니다. 모든 소스는{' '}
+          &ldquo;어디로&rdquo;는 모든 소스코드가 공개되어 있는 자유 공개
+          소프트웨어입니다. 서비스를 이용하는 학우분들에겐 더 나은 신뢰감을
+          드리고, 개발자 꿈나무 여러분에겐 좋은 공부 자료가 될 거라 믿습니다.
+          자세한 내용은{' '}
           <a
             href="https://github.com/payw-org/eodiro"
             target="_blank"
@@ -29,15 +30,18 @@ const OpenSource: React.FC<OpenSourceProps> = ({ contributors }) => {
           >
             GitHub
           </a>
-          에 공개되어있습니다.
+          에서 확인할 수 있습니다.
         </p>
       </div>
 
       <section className={$['contributors']}>
-        <h2 className={$['title']}>함께한 개발자를 소개합니다.</h2>
+        <h2 className={$['title']}>
+          &ldquo;어디로&rdquo;를 함께 만드는 사람들
+        </h2>
         <p className={$['description']}>
           클릭하여 각 개발자의 GitHub 프로필로 이동할 수 있습니다. GitHub에서
           &ldquo;어디로&rdquo; 개발에 참여하면 자동으로 이 페이지에 노출됩니다.
+          개발자 이름 하단에 표시되는 숫자는 총 기여(contribution) 회수입니다.
         </p>
 
         <div className={$['users']}>
