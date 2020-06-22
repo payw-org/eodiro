@@ -2,7 +2,6 @@ import Header, { HeaderProps } from './Header'
 import React, { FC } from 'react'
 
 import $ from './style.module.scss'
-import Head from 'next/head'
 import mergeClassNames from '@/modules/merge-class-name'
 
 export type BodyProps = HeaderProps & {
@@ -23,9 +22,6 @@ const Body: FC<BodyProps> = (props) => {
 
   return (
     <>
-      <Head>
-        <title>{props.browserTitle || props.pageTitle}</title>
-      </Head>
       <div
         className={mergeClassNames(
           $['body-content'],

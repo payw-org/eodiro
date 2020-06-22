@@ -6,8 +6,8 @@ import $ from './style.module.scss'
 import { ArrowBlock } from '@/components/ui'
 import Body from '@/layouts/BaseLayout/Body'
 import Grid from '@/layouts/Grid'
-import Head from 'next/head'
 import { NextPage } from 'next'
+import PageInfo from '@/components/utils/PageInfo'
 import ServerError from '@/components/global/ServerError'
 import Timetable from './Timetable'
 import dayjs from 'dayjs'
@@ -51,10 +51,15 @@ const VacantClassroomsPage: NextPage<VacantClassroomsPageProps> = ({
 
   return (
     <>
-      <Head>
-        <title>빈 강의실 - 강의실</title>
-      </Head>
       <Body pageTitle={buildingNumber}>
+        <PageInfo
+          title={{
+            subject: `${buildingNumber}관`,
+            feature: '빈 강의실',
+          }}
+          description={`현재 ${buildingNumber}관의 빈 강의실 현황입니다.`}
+        />
+
         {isTimetableVisible && (
           <Timetable
             info={info}

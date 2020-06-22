@@ -4,6 +4,7 @@ import $ from './style.module.scss'
 import ApiHost from '@/modules/api-host'
 import Body from '@/layouts/BaseLayout/Body'
 import { NoticeItem } from '@payw/eodiro-one-api/api/one/scheme/notice/get-notice-catalog.action/interface'
+import PageInfo from '@/components/utils/PageInfo'
 import { Tokens } from '@/api'
 import classNames from 'classnames'
 import { isApp } from '@/modules/booleans/is-app'
@@ -57,11 +58,14 @@ const NoticeWatcher: React.FC<NoticeNotificationsProps> = ({
   }, [])
 
   return (
-    <Body
-      pageTitle="공지사항 알림"
-      browserTitle="어디로 | 공지사항 알림"
-      bodyClassName={$['app-body']}
-    >
+    <Body pageTitle="공지사항 알림" bodyClassName={$['app-body']}>
+      <PageInfo
+        title={{
+          subject: '공지사항 알림',
+        }}
+        description="이제 더 이상 학교 공지사항을 놓치지 마세요."
+      />
+
       {!isApp() && (
         <div className={$['not-app-tip']}>
           이 기능은 앱에서만 이용할 수 있습니다.

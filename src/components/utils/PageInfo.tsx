@@ -1,16 +1,29 @@
 import Head from 'next/head'
 
 export type PageInfoProps = {
-  title: string
-  description: string
+  title: {
+    subject: string
+    onlySubject?: boolean
+    feature?: string
+  }
+  description?: string
   ogImage?: string
 }
 
-const PageInfo: React.FC<PageInfoProps> = ({ title, description, ogImage }) => {
+const PageInfo: React.FC<PageInfoProps> = ({
+  title,
+  description = '',
+  ogImage,
+}) => {
+  const { onlySubject = false } = title
+  const builtTitle = onlySubject
+    ? `${title.subject}`
+    : `${title.subject} | 어디로${title.feature ? ` - ${title.feature}` : ''}`
+
   return (
     <Head>
-      <title>{title}</title>
-      <meta property="og:title" content="My page title" key="og-title" />
+      <title>{builtTitle}</title>
+      <meta property="og:title" content={builtTitle} key="og-title" />
       <meta property="desciption" content={description} key="description" />
       <meta
         property="og:desciption"

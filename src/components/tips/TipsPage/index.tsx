@@ -6,6 +6,7 @@ import { ArrowBlock } from '../../ui'
 import Body from '@/layouts/BaseLayout/Body'
 import EodiroLink from '@/components/utils/EodiroLink'
 import { LyingDownIllust } from '../../illustrations'
+import PageInfo from '@/components/utils/PageInfo'
 import RequireAuth from '@/components/global/RequireAuth'
 import { TipListResponse } from '@payw/eodiro-one-api/database/models/tip'
 import { TipTopic } from '@prisma/client'
@@ -101,9 +102,14 @@ const TipsPage: React.FC<TipsPageProps> = ({ topics }) => {
     <Body
       pageTitle="꿀팁"
       titleAlign="center"
-      browserTitle="어디로 | 꿀팁"
       bodyClassName={$['archive-page']}
     >
+      <PageInfo
+        title={{
+          subject: '꿀팁',
+        }}
+        description="중앙대 학생들을 위한 유용하고 유익한 정보 보관소."
+      />
       <h2 className={$['description']}>
         어디로 꿀팁은 중앙대 학생들을 위한 유용하고 유익한 정보를 서로 공유하는
         곳입니다.

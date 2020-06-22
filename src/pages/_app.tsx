@@ -210,7 +210,10 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
           )}
         </Head>
         <PageInfo
-          title="어디로"
+          title={{
+            subject: '어디로',
+            onlySubject: true,
+          }}
           description="중앙대 학생들만을 위한 길잡이 서비스"
           ogImage="https://eodiro.com/open-graph/open_graph.png"
         />

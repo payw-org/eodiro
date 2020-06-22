@@ -3,10 +3,9 @@ import { ArrowBlock } from '@/components/ui'
 import Body from '@/layouts/BaseLayout/Body'
 import EodiroLink from '@/components/utils/EodiroLink'
 import Grid from '@/layouts/Grid'
-import Head from 'next/head'
 import Information from '@/components/global/Information'
-import Link from 'next/link'
 import { NextPage } from 'next'
+import PageInfo from '@/components/utils/PageInfo'
 import React from 'react'
 import ServerError from '@/components/global/ServerError'
 import { VacantApi } from '@/api'
@@ -24,9 +23,13 @@ const VacantBuildingsPage: NextPage<VacantBuildingsPageProps> = ({
 }) => {
   return (
     <>
-      <Head>
-        <title>빈 강의실 - 건물</title>
-      </Head>
+      <PageInfo
+        title={{
+          subject: '건물 선택',
+          feature: '빈 강의실',
+        }}
+        description="빈 강의실을 백번 활용해요!"
+      />
       <Body pageTitle="빈 강의실">
         <div id={$['eodiro-vacant']}>
           {buildingsInfo && buildingsInfo.length > 0 ? (

@@ -1,6 +1,7 @@
 import $ from './privacy.module.scss'
 import Body from '@/layouts/BaseLayout/Body'
 import { NextPage } from 'next'
+import PageInfo from '@/components/utils/PageInfo'
 
 const EodiroName = () => {
   return <span>&lsquo;어디로&rsquo;</span>
@@ -8,11 +9,13 @@ const EodiroName = () => {
 
 const Page: NextPage = () => {
   return (
-    <Body
-      pageTitle="개인정보 처리방침"
-      browserTitle="어디로 | 개인정보 처리방침"
-      bodyClassName={$['privacy-page']}
-    >
+    <Body pageTitle="개인정보 처리방침" bodyClassName={$['privacy-page']}>
+      <PageInfo
+        title={{
+          subject: '개인정보 처리방침',
+        }}
+      />
+
       <p className={$['paragraph']}>
         우리는 중앙대학교 학생 여러분의 개인 정보를 중요하게 생각합니다. 이에
         정보를 수집, 사용, 공개, 이전, 저장하는 것과 관련된 사항을 규정하는
