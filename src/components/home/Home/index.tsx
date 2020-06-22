@@ -57,9 +57,6 @@ const Main: React.FC = () => {
 
   return (
     <>
-      <Head>
-        <title>어디로</title>
-      </Head>
       <Body pageTitle="어디로" titleHidden centered>
         <div id={$['eodiro-home']}>
           <h1

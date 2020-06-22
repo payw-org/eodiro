@@ -10,6 +10,7 @@ import { Tokens, TokensPack } from '@/api'
 
 import BaseLayout from '@/layouts/BaseLayout'
 import Head from 'next/head'
+import PageInfo from '@/components/utils/PageInfo'
 import { RecoilRoot } from 'recoil'
 import Router from 'next/router'
 import { getAuthState } from '@/modules/server/get-auth-state'
@@ -189,16 +190,7 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
             name="viewport"
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
           />
-          <title>어디로</title>
-          <meta
-            key="description"
-            property="desciption"
-            content="중앙대 학생들만을 위한 특별한 서비스"
-          />
-          <meta
-            property="og:image"
-            content="https://eodiro.com/open-graph/open_graph.png"
-          />
+          {/* @deprecated */}
           <script src="/modules/topbar.min.js"></script>
 
           {/* Google Analytics */}
@@ -217,6 +209,11 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
             />
           )}
         </Head>
+        <PageInfo
+          title="어디로"
+          description="중앙대 학생들만을 위한 길잡이 서비스"
+          ogImage="https://eodiro.com/open-graph/open_graph.png"
+        />
         <RecoilRoot>
           <AuthProvider {...authProps}>
             <BaseLayout>
