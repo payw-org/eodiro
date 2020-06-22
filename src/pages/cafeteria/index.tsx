@@ -7,6 +7,7 @@ import Body from '@/layouts/BaseLayout/Body'
 import Grid from '@/layouts/Grid'
 import Information from '@/components/global/Information'
 import { NextPage } from 'next'
+import PageInfo from '@/components/utils/PageInfo'
 import { Restaurant } from '@payw/cau-cafeteria-menus-scraper-types'
 import ServerError from '@/components/global/ServerError'
 import Time from '@/modules/time'
@@ -30,10 +31,13 @@ const TimeGroup: React.FC<{
               <div>
                 <h2 className={$['restaurant-name']}>{restaurant.name}</h2>
                 {restaurant.meals.length > 0 ? (
-                  restaurant.meals.map((meal) => {
+                  restaurant.meals.map((meal, i) => {
                     return (
-                      <div className={$['meal']} key={meal.title}>
-                        <h3 className={$['meal-title']}>{meal.title}</h3>
+                      <div className={$['meal']} key={meal.title + i}>
+                        <div className={$['title-and-price']}>
+                          <h3 className={$['meal-title']}>{meal.title}</h3>
+                          <span className={$['price']}>{meal.price}</span>
+                        </div>
                         <div className={$['food-container']}>
                           {meal.menus.map((food) => {
                             return (
@@ -124,6 +128,12 @@ const EodiroCafeteria: React.FC<{ menus: CafeteriaMenus }> = memo(
 const CafeteriaPage: NextPage<CafeteriaPageProps> = (props) => {
   return (
     <Body pageTitle="학식 메뉴">
+      <PageInfo
+        title={{
+          subject: '학식 메뉴',
+        }}
+        description="오늘의 학식은 과연 무엇일까요?"
+      />
       <EodiroCafeteria {...props} />
     </Body>
   )

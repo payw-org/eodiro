@@ -63,9 +63,21 @@
     padding-top: 1rem;
     @include separator('top');
 
+    .title-and-price {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 11px;
+
+      .price {
+        color: $base-gray;
+        font-size: 15px;
+        font-weight: 500;
+      }
+    }
+
     .meal-title {
       font-size: 1rem;
-      margin-bottom: 0.5rem;
     }
 
     .food-container {
