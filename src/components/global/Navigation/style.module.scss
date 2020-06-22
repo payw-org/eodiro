@@ -77,6 +77,8 @@
       overflow: hidden;
       text-overflow: ellipsis;
       flex: 1;
+      user-select: none;
+      pointer-events: none;
 
       @include on-mobile {
         text-align: center;
