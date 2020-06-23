@@ -10,27 +10,29 @@
     appearance: none;
     background: none;
     border: none;
-    @include elm-fill;
-    font-size: b(1);
+    @include block-style-raw;
+    font-size: 1rem;
     margin: 0;
-    padding: s(2) s(3);
+    padding: 0 s(3);
+    height: 35px;
     padding-right: s(3) * 1.5 + 1rem;
     @include text-color;
     font-family: $ui-font;
-    @include input-text;
+    line-height: 1;
   }
 
   &::after {
-    content: '▼';
-    color: $base-gray;
-    font-size: 0.6rem;
+    content: 'chevron_down';
+    font-family: 'Framework7 Icons';
+    font-size: 15px;
+    font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
     position: absolute;
-    top: 50%;
-    right: s(3);
+    top: calc(50% + 1px);
     transform: translateY(-50%);
+    right: 8px;
     pointer-events: none;
   }
 }
