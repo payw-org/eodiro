@@ -1,7 +1,7 @@
 @use '@/assets/styles/main' as *;
 
 .eodiro-post-view {
-  max-width: 50rem !important;
+  max-width: 800px !important;
   padding-top: $nav-height + 1.5rem !important;
 
   .to-list {
@@ -16,7 +16,9 @@
   }
 
   .post {
-    @include resolve-optical-illusion-both;
+    @include block-style-raw;
+
+    padding: 15px;
 
     .info {
       line-height: 2;
@@ -51,8 +53,8 @@
     }
 
     .title {
-      margin-top: 1.5rem;
-      margin-bottom: 2.5rem;
+      margin-top: 20px;
+      margin-bottom: 12px;
 
       span {
         font-size: 2rem;
@@ -68,17 +70,6 @@
       & + p {
         margin-top: 0.5rem;
       }
-    }
-  }
-
-  .like-container {
-    margin-top: 2rem;
-
-    .like {
-      color: $eodiro-orange-2;
-      font-size: 1.2rem;
-      padding: 0.5rem 0.7rem;
-      @include border-radius-inner;
     }
   }
 }
