@@ -19,7 +19,7 @@
     border-bottom: 1px solid transparent;
     backdrop-filter: blur(30px) saturate(1.7);
     opacity: 0;
-    // transition: opacity 150ms ease;
+    transition: opacity 150ms ease;
     @include separator('bottom');
     background-color: rgba(#fff, 0.8);
     @include dark-mode {
