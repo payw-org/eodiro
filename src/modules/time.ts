@@ -43,7 +43,7 @@ export default class Time {
     }
   }
 
-  static yyyymmddhhmmss(date: string, pretty?: boolean): string {
+  static yyyymmddhhmmss(date: string | Date, pretty?: boolean): string {
     if (pretty) {
       return dayjs(date).format('YYYY년 M월 D일 HH:mm:ss')
     } else {
