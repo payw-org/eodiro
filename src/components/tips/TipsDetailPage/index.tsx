@@ -6,6 +6,7 @@ import Body from '@/layouts/BaseLayout/Body'
 import { Constants } from '@/constants'
 import { GetTipDetail } from '@payw/eodiro-one-api/api/one/scheme'
 import Information from '@/components/global/Information'
+import LikeAndBookmark from './LikeAndBookmark'
 import { OneApiError } from '@payw/eodiro-one-api/api/one/types'
 import RequireAuth from '@/components/global/RequireAuth'
 import Time from '@/modules/time'
@@ -14,14 +15,20 @@ import classNames from 'classnames'
 import { getAccessToken } from '@/api'
 import { oneApiClient } from '@payw/eodiro-one-api'
 import { pathIds } from '@/config/paths'
-import { redirect } from '@/modules/server/redirect'
 import { useAuth } from '@/pages/_app'
 import { useRouter } from 'next/router'
+import { useState } from 'react'
 
 type ContentProps = {
   tip: TipResponse
 }
+
 const Content: React.FC<ContentProps> = ({ tip }) => {
+  const [likeInfo, setLikeInfo] = useState({
+    isLiked: tip.isLiked,
+    likes: tip.tipLikes,
+  })
+
   const authInfo = useAuth()
   const router = useRouter()
   const boardName = router.query.boardName
@@ -93,16 +100,17 @@ const Content: React.FC<ContentProps> = ({ tip }) => {
             )
           })}
 
-        {/* Like & Scrap */}
-        <div className={$['like-and-scrap']}>
-          <button className={$['like']}>
-            <i className="f7-icons">hand_thumbsup</i>
-            <span></span>
-          </button>
-          <button className={$['scrap']}>
-            <i className="f7-icons">star</i>
-          </button>
-        </div>
+        <LikeAndBookmark
+          likeInfo={{
+            isLiked: tip.isLiked,
+            likes: tip.tipLikes,
+          }}
+          bookmarkInfo={{
+            isBookmarked: tip.isBookmarked,
+            bookmarks: tip.tipBookmarks,
+          }}
+          tipId={tip.id}
+        />
 
         {/* Files list */}
         {/* {post.files && post.files.length > 0 && (
@@ -121,7 +129,6 @@ export type TipsDetailPageProps = {
 }
 
 const TipDetailPage: NextPage<TipsDetailPageProps> = ({ tip, tipErr }) => {
-  console.log(tipErr)
   return (
     <Body
       pageTitle={tip?.title ?? '어디로 | 포스트'}
