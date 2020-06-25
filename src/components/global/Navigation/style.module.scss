@@ -2,6 +2,7 @@
 
 #eodiro-navigation {
   position: fixed;
+  top: 10px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -9,11 +10,8 @@
   height: $nav-height;
   z-index: 9999;
   transform: translateY(0px);
-  transition: transform 200ms ease;
 
   &.scrolled {
-    transform: translateY(10px);
-
     .en-bar {
       opacity: 1;
       box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
@@ -31,24 +29,24 @@
     top: 0;
     left: 50%;
     transform: translateX(-50%);
-    width: calc(100% - 10px);
+    width: calc(100% - 20px);
     max-width: $app-content-max-width;
     height: 100%;
     // border-bottom: 1px solid transparent;
-    // backdrop-filter: blur(30px) saturate(1.7);
+    backdrop-filter: blur(30px) saturate(1.7);
     opacity: 0;
     transition: all 300ms ease;
     // @include separator('bottom');
-    background-color: #fff;
+    background-color: rgba(#fff, 0.8);
     border-radius: 10px;
 
     @include dark-mode {
-      background-color: lighten($base-black-soft, 5);
+      background-color: rgba(lighten($base-black-soft, 10), 0.7);
     }
   }
 
   .en-wrapper {
-    width: 100%;
+    width: calc(100% - 10px);
     max-width: $app-content-max-width;
     height: 100%;
     margin: auto;
@@ -85,7 +83,7 @@
       display: inline-block;
       font-size: 1.1rem;
       font-weight: 500;
-      line-height: initial;
+      line-height: 1;
       opacity: 0;
       transform: translate3d(0, 15%, 0);
       transition: opacity 250ms ease, transform 250ms ease;
@@ -154,18 +152,19 @@
         display: none;
         flex-direction: column;
         position: absolute;
-        top: $nav-height + 0.3rem;
+        top: $nav-height + 0.5rem;
         left: 50%;
         transform: translateX(-50%);
         margin: 0;
-        width: calc(100% - 10px);
+        width: calc(100% - 20px);
         padding: 1.5rem;
-        background-color: #fff;
         border-radius: 10px;
         box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
+        border-radius: 10px;
+        backdrop-filter: blur(30px) saturate(1.7);
 
         @include dark-mode {
-          background-color: lighten($base-black-soft, 5);
+          background-color: rgba(lighten($base-black-soft, 10), 0.7);
         }
 
         &.opened {

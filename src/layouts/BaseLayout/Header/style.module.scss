@@ -31,12 +31,12 @@
   position: relative;
   width: 100%;
   height: 1px;
-  top: -$nav-height;
+  top: -$nav-height - 0.625rem;
 }
 
 .title-sentinel {
   position: relative;
   width: 100%;
   height: 1px;
-  top: -$nav-height - 0.5rem;
+  top: -$nav-height - 0.5rem - 0.625rem;
 }

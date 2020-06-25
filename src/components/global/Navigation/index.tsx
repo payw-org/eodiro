@@ -86,7 +86,7 @@ const Navigation: React.FC = () => {
   return (
     <nav
       id={$['eodiro-navigation']}
-      className={classNames((isScrolled || menuOpened) && $['scrolled'])}
+      className={classNames(isScrolled && $['scrolled'])}
     >
       <BgBar />
 
