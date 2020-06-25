@@ -51,8 +51,10 @@
   margin-left: -$topic-margin;
   margin-right: -$topic-margin;
 
-  position: sticky;
-  top: calc(#{$nav-height} - 1px);
+  position: relative;
+
+  // position: sticky;
+  // top: calc(#{$nav-height} - 1px);
   z-index: 10;
 
   @include bg;
