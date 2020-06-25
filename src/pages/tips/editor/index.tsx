@@ -138,13 +138,21 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
           tipId,
           title,
           body,
+          fileIds: filesState
+            .filter((fileState) => {
+              return fileState.status === 'uploaded'
+            })
+            .map((fileState) => fileState.fileId),
         },
       })
 
       if (!response.err) {
+        window.onbeforeunload = undefined
         location.replace(`/tips/item/${tipId}`)
       }
     } else {
+      // Create a tip
+
       const response = await oneApiClient(ApiHost.getHost(), {
         action: 'createTip',
         data: {
@@ -152,69 +160,32 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
           title,
           topic,
           body,
+          fileIds: filesState
+            .filter((fileState) => {
+              return fileState.status === 'uploaded'
+            })
+            .map((fileState) => fileState.fileId),
         },
       })
 
       if (!response.err) {
+        window.onbeforeunload = undefined
         location.replace(`/tips/item/${response.data.tipId}`)
+      } else {
+        switch (response.err) {
+          case 'No Title':
+            alert('제목을 입력해주세요.')
+            titleRef.current.focus()
+            break
+          case 'No Body':
+            alert('내용을 입력해주세요.')
+            bodyRef.current.focus()
+            break
+          default:
+            break
+        }
       }
     }
-
-    // Upload post first
-    // const { err, data: inserId } = await oneApiClient(ApiHost.getHost(), {
-    //   action: 'savePost',
-    //   data: {
-    //     accessToken: auth.tokens.accessToken,
-    //     boardId: boardId,
-    //     title: titleRef.current.value,
-    //     body: bodyRef.current.value,
-    //     fileIds: filesState
-    //       .filter((fileState) => {
-    //         return fileState.status === 'uploaded'
-    //       })
-    //       .map((fileState) => fileState.fileId),
-    //     update: mode === 'edit',
-    //     postId,
-    //   },
-    // })
-
-    // if (!err) {
-    //   alert(mode === 'edit' ? '수정되었습니다.' : '업로드되었습니다.')
-
-    //   // If edit mode, update the cached posts
-    //   if (mode === 'edit') {
-    //     const cached: PostAttrs[] = JSON.parse(sessionStorage.getItem('sbpd'))
-    //     // If no cached data, no update
-    //     if (cached) {
-    //       const index = cached.findIndex(
-    //         (cachedPost) => cachedPost.id === postId
-    //       )
-
-    //       if (index !== -1) {
-    //         // Only if it exists in the cache
-    //         const newOne = cached[index]
-    //         newOne.title = titleRef.current.value
-    //         newOne.body = bodyRef.current.value
-    //         cached.splice(index, 1, newOne)
-    //         sessionStorage.setItem('sbpd', JSON.stringify(cached))
-    //       }
-    //     }
-    //   }
-
-    //   // Detach preventing event before redirection
-    //   window.onbeforeunload = undefined
-    //   // TODO: replace the location with Next Router
-    //   location.replace(`/square/${router.query.boardName}/${postId || inserId}`)
-    //   return
-    // }
-
-    // if (err === 'No Title') {
-    //   alert('제목을 입력해주세요.')
-    //   titleRef.current.focus()
-    // } else if (err === 'No Body') {
-    //   alert('내용을 입력해주세요.')
-    //   bodyRef.current.focus()
-    // }
 
     return
   }
@@ -521,7 +492,7 @@ export const getServerSideProps: GetServerSideProps<NewPostPageProps> = async ({
 
   let title = ''
   let body = ''
-  // let files = null
+  let files = null
 
   // Check if there is auto saved version
 
@@ -539,12 +510,12 @@ export const getServerSideProps: GetServerSideProps<NewPostPageProps> = async ({
 
     title = data.title
     body = data.body
-    // files = data.files
-    //   ? data.files.map((file) => {
-    //       file['status'] = 'uploaded'
-    //       return file
-    //     })
-    //   : null
+    files = data.tipFiles
+      ? data.tipFiles.map((file) => {
+          file['status'] = 'uploaded'
+          return file
+        })
+      : null
   }
 
   return {
@@ -552,8 +523,8 @@ export const getServerSideProps: GetServerSideProps<NewPostPageProps> = async ({
       title,
       body,
       tipId,
-      files: null,
-      topic: 'interview',
+      files,
+      topic: 'etc',
     },
   }
 }
