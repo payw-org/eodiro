@@ -33,13 +33,13 @@ const Header: FC<HeaderProps> = ({ pageTitle, titleAlign, titleHidden }) => {
       : pageAppTitleRef.current
 
     if (!overlaySentinelSpot) {
-      throw new Error(
+      alert(
         `The navigation Overlay Sentinel Spot is not set. Set class name 'overlay-sentinel-spot'.`
       )
     }
 
     if (!titleSentinelSpot) {
-      throw new Error(
+      alert(
         `The navigation Title Sentinel Spot is not set. Set class name 'title-sentinel-spot'.`
       )
     }
