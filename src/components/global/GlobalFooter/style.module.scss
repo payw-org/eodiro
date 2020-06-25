@@ -3,8 +3,10 @@
 #global-footer {
   // @include elm-fill;
   // @include separator('top');
-  height: $footer-height;
+  // height: $footer-height;
+  padding: $footer-height / 2 0;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   justify-content: center;
 
