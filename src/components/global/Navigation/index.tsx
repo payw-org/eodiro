@@ -39,18 +39,7 @@ const NavItem: React.FC<NavItemProps> = ({ to, title, className }) => {
 }
 
 const BgBar: React.FC = () => {
-  const isScrolled = useContext(NavScrollStateContext)
-  const menuOpened = useContext(NavMenuOpenStateContext)
-
-  return (
-    <div
-      className={classNames(
-        'en-bar',
-        $['en-bar'],
-        (isScrolled || menuOpened) && $['scrolled']
-      )}
-    />
-  )
+  return <div className={classNames('en-bar', $['en-bar'])} />
 }
 
 const PageAppTitle: React.FC = () => {
@@ -89,11 +78,16 @@ const NavMenus: React.FC = () => {
 }
 
 const Navigation: React.FC = () => {
+  const isScrolled = useContext(NavScrollStateContext)
+  const menuOpened = useContext(NavMenuOpenStateContext)
   const setMenuOpen = useContext(NavMenuOpenDispatchContext)
   const { isSigned } = useAuth()
 
   return (
-    <nav id={$['eodiro-navigation']}>
+    <nav
+      id={$['eodiro-navigation']}
+      className={classNames((isScrolled || menuOpened) && $['scrolled'])}
+    >
       <BgBar />
 
       <div className={$['en-wrapper']}>
