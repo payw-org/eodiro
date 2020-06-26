@@ -263,12 +263,3 @@ hr {
   }
   height: 1px;
 }
-
-// Navigation overwrite
-body.is-app .en-bar {
-  backdrop-filter: none !important;
-  background-color: #fff !important;
-  @include dark-mode {
-    background-color: $base-black-soft !important;
-  }
-}
