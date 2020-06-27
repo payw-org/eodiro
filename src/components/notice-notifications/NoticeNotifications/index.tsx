@@ -70,7 +70,7 @@ const NoticeWatcher: React.FC<NoticeNotificationsProps> = ({
         <div className={$['not-app-tip']}>
           이 기능은 앱에서만 이용할 수 있습니다.
           <br />
-          iOS 앱이 현재 베타 테스트 중입니다.
+          iOS는 현재 베타 테스트 중이며, Android는 준비 중입니다.
         </div>
       )}
 
