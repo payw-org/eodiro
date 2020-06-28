@@ -83,7 +83,7 @@ export const PostViewerFileContainer: React.FC<PostViewerFileContainerProps> = (
             )}
             key={file.fileId}
           >
-            <i className={classNames($['icon'], 'octicon', 'octicon-file')} />
+            <i className={classNames($['icon'], 'f7-icons')}>doc</i>
             {file.name}
           </a>
         )
