@@ -27,6 +27,11 @@
   }
 }
 
+.overlay-sentinel,
+.title-sentinel {
+  pointer-events: none;
+}
+
 .overlay-sentinel {
   position: relative;
   width: 100%;
