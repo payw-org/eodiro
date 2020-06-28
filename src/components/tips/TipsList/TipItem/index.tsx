@@ -4,7 +4,6 @@ import EodiroLink from '@/components/utils/EodiroLink'
 import Time from '@/modules/time'
 import { TipListResponse } from '@payw/eodiro-one-api/database/models/tip'
 import classNames from 'classnames'
-import dayjs from 'dayjs'
 
 export type TipItemProps = {
   tipData: TipListResponse
@@ -25,12 +24,7 @@ const TipItem: React.FC<TipItemProps> = ({ tipData }) => {
       <span className={$['responses']}>
         <span className={$['likes']}>
           <i className={classNames('f7-icons', $['thumsup'])}>hand_thumbsup</i>
-          <span className={$['quantity']}>3</span>
-        </span>
-
-        <span className={$['scraps']}>
-          <i className={classNames('f7-icons', $['star'])}>star</i>
-          <span className={$['quantity']}>5</span>
+          <span className={$['quantity']}>{tipData.tipLikes}</span>
         </span>
       </span>
     </ArrowBlock>

@@ -61,7 +61,7 @@ const TipsPage: React.FC<TipsPageProps> = ({ topics }) => {
 
       setTimeout(() => {
         setIsLoading(false)
-      }, 500)
+      }, 200)
     }
 
     fetchNewData()
@@ -184,7 +184,12 @@ const TipsPage: React.FC<TipsPageProps> = ({ topics }) => {
       {isSigned && (
         <div className={$['new-wrapper']}>
           <button className={$['new']}>
-            <EodiroLink href="tips/editor" absolute />
+            <EodiroLink
+              href={`tips/editor?topic=${
+                pageState.topic ? pageState.topic : 'etc'
+              }`}
+              absolute
+            />
             <i className={classNames('f7-icons', $['pencil'])}>square_pencil</i>
             새 꿀팁 작성
           </button>

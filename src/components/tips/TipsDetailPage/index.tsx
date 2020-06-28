@@ -4,10 +4,12 @@ import $ from './style.module.scss'
 import ApiHost from '@/modules/api-host'
 import Body from '@/layouts/BaseLayout/Body'
 import { Constants } from '@/constants'
+import EodiroLink from '@/components/utils/EodiroLink'
 import { GetTipDetail } from '@payw/eodiro-one-api/api/one/scheme'
 import Information from '@/components/global/Information'
 import LikeAndBookmark from './LikeAndBookmark'
 import { OneApiError } from '@payw/eodiro-one-api/api/one/types'
+import { PostViewerFileContainer } from '@/components/square/PostViewerFileContainer'
 import RequireAuth from '@/components/global/RequireAuth'
 import Time from '@/modules/time'
 import { TipResponse } from '@payw/eodiro-one-api/database/models/tip'
@@ -24,11 +26,6 @@ type ContentProps = {
 }
 
 const Content: React.FC<ContentProps> = ({ tip }) => {
-  const [likeInfo, setLikeInfo] = useState({
-    isLiked: tip.isLiked,
-    likes: tip.tipLikes,
-  })
-
   const authInfo = useAuth()
   const router = useRouter()
   const boardName = router.query.boardName
@@ -37,7 +34,7 @@ const Content: React.FC<ContentProps> = ({ tip }) => {
     // Confirm
     if (
       !confirm(
-        '삭제된 포스트는 되돌릴 수 없으며 모든 댓글도 함께 삭제됩니다.\n정말 삭제하시겠습니까?'
+        '삭제된 팁은 되돌릴 수 없으며 모든 댓글도 함께 삭제됩니다.\n정말 삭제하시겠습니까?'
       )
     )
       return
@@ -69,13 +66,10 @@ const Content: React.FC<ContentProps> = ({ tip }) => {
 
           {tip.userId === authInfo.userId && (
             <span className={$['actions']}>
-              <a
-                href={`/square/${boardName}/${pathIds.writePost}?post_id=${tip.id}`}
-              >
-                <button className={$['edit']}>
-                  <i className="f7-icons">pencil_outline</i>
-                </button>
-              </a>
+              <button className={$['edit']}>
+                <EodiroLink absolute href={`/tips/editor?tipId=${tip.id}`} />
+                <i className="f7-icons">pencil_outline</i>
+              </button>
               <button className={$['delete']} onClick={deletePost}>
                 <i className="f7-icons">trash</i>
               </button>
@@ -100,22 +94,18 @@ const Content: React.FC<ContentProps> = ({ tip }) => {
             )
           })}
 
+        {/* Files list */}
+        {tip.tipFiles && tip.tipFiles.length > 0 && (
+          <PostViewerFileContainer files={tip.tipFiles} />
+        )}
+
         <LikeAndBookmark
           likeInfo={{
             isLiked: tip.isLiked,
             likes: tip.tipLikes,
           }}
-          bookmarkInfo={{
-            isBookmarked: tip.isBookmarked,
-            bookmarks: tip.tipBookmarks,
-          }}
           tipId={tip.id}
         />
-
-        {/* Files list */}
-        {/* {post.files && post.files.length > 0 && (
-          <PostViewerFileContainer files={post.files} />
-        )} */}
       </div>
 
       {/* <Comments comments={comments} ownerId={post.user_id} /> */}

@@ -1,5 +1,3 @@
-// TODO Replace updload and edit with universal savePost One API
-
 import { GetServerSideProps, NextPage } from 'next'
 import {
   MutableRefObject,
@@ -46,6 +44,7 @@ type NewPostPageProps = {
   tipId: number
   topic: TipTopic
 }
+
 const NewPostPage: NextPage<NewPostPageProps> = (props) => {
   const { title, body, tipId, topic } = props
   const mode = title.length === 0 ? 'new' : 'edit'
@@ -127,8 +126,24 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
 
   // Upload or edit post
   async function uploadPost(): Promise<void> {
-    const title = titleRef.current.value
-    const body = bodyRef.current.value
+    const title = titleRef.current.value.trim()
+    const body = bodyRef.current.value.trim()
+
+    if (title.length === 0) {
+      alert('제목을 입력해주세요.')
+      titleRef.current.focus()
+      return
+    } else if (body.length === 0) {
+      alert('내용을 입력해주세요.')
+      bodyRef.current.focus()
+      return
+    }
+
+    const fileIds = filesState
+      .filter((fileState) => {
+        return fileState.status === 'uploaded'
+      })
+      .map((fileState) => fileState.fileId)
 
     if (tipId) {
       const response = await oneApiClient(ApiHost.getHost(), {
@@ -138,11 +153,7 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
           tipId,
           title,
           body,
-          fileIds: filesState
-            .filter((fileState) => {
-              return fileState.status === 'uploaded'
-            })
-            .map((fileState) => fileState.fileId),
+          fileIds,
         },
       })
 
@@ -160,11 +171,7 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
           title,
           topic,
           body,
-          fileIds: filesState
-            .filter((fileState) => {
-              return fileState.status === 'uploaded'
-            })
-            .map((fileState) => fileState.fileId),
+          fileIds,
         },
       })
 
@@ -201,6 +208,8 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
       >
         <div className="display-flex flex-direction-row">
           <section className={$['edit-section']}>
+            <div>{topic}</div>
+
             <div className={$['title-container']}>
               {/* Shadow */}
               <textarea
@@ -281,6 +290,18 @@ const NewPostPage: NextPage<NewPostPageProps> = (props) => {
 
                 for (let i = 0; i < files.length; i += 1) {
                   const file = files[i]
+
+                  const fileSize = parseInt(
+                    (file.size / 1024 / 1024).toFixed(4)
+                  ) // MB
+
+                  if (fileSize >= 3) {
+                    alert(
+                      '파일이 너무 큽니다. 3MB 이하의 파일만 업로드할 수 있습니다.'
+                    )
+                    return
+                  }
+
                   const formData = new FormData()
                   formData.append('file', file)
 
@@ -484,7 +505,7 @@ export const getServerSideProps: GetServerSideProps<NewPostPageProps> = async ({
   req,
   res,
 }) => {
-  const { isSigned } = await getAuthState({ req, res })
+  const { isSigned, userId } = await getAuthState({ req, res })
 
   if (!isSigned) {
     redirect(res, '/')
@@ -498,6 +519,7 @@ export const getServerSideProps: GetServerSideProps<NewPostPageProps> = async ({
 
   // Edit mode when post ID is given as URL query
   const tipId = parseInt(query['tipId'] as string) || null
+  let topic = query['topic'] as TipTopic
 
   if (tipId) {
     const { err, data } = await oneApiClient(ApiHost.getHost(), {
@@ -508,6 +530,16 @@ export const getServerSideProps: GetServerSideProps<NewPostPageProps> = async ({
       },
     })
 
+    if (err) {
+      redirect(res, '/')
+      return
+    }
+
+    if (data.userId !== userId) {
+      redirect(res, '/')
+      return
+    }
+
     title = data.title
     body = data.body
     files = data.tipFiles
@@ -516,6 +548,7 @@ export const getServerSideProps: GetServerSideProps<NewPostPageProps> = async ({
           return file
         })
       : null
+    topic = data.topic
   }
 
   return {
@@ -524,7 +557,7 @@ export const getServerSideProps: GetServerSideProps<NewPostPageProps> = async ({
       body,
       tipId,
       files,
-      topic: 'etc',
+      topic,
     },
   }
 }
