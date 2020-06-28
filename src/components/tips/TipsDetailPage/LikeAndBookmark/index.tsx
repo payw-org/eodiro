@@ -11,16 +11,11 @@ export type LikeAndBookmarkProps = {
     isLiked: boolean
     likes: number
   }
-  bookmarkInfo: {
-    isBookmarked: boolean
-    bookmarks: number
-  }
 }
 
 const LikeAndBookmark: React.FC<LikeAndBookmarkProps> = (props) => {
   const { tipId } = props
   const [likeInfo, setLikeInfo] = useState(props.likeInfo)
-  const [bookmarkInfo, setBookmarkInfo] = useState(props.bookmarkInfo)
 
   return (
     <div className={$['like-and-bookmark']}>
@@ -50,35 +45,6 @@ const LikeAndBookmark: React.FC<LikeAndBookmarkProps> = (props) => {
           {likeInfo.isLiked ? 'hand_thumbsup_fill' : 'hand_thumbsup'}
         </i>
         <span className={$['count']}>{likeInfo.likes}</span>
-      </button>
-
-      <button
-        className={classNames($['bookmark'], {
-          [$['is-bookmarked']]: bookmarkInfo.isBookmarked,
-        })}
-        onClick={async () => {
-          const { err, data } = await oneApiClient(ApiHost.getHost(), {
-            action: 'bookmarkTip',
-            data: {
-              accessToken: await getAccessToken(),
-              tipId,
-            },
-          })
-
-          if (!err) {
-            const { isBookmarked, bookmarks } = data
-
-            setBookmarkInfo({
-              isBookmarked,
-              bookmarks,
-            })
-          }
-        }}
-      >
-        <i className="f7-icons">
-          {bookmarkInfo.isBookmarked ? 'star_fill' : 'star'}
-        </i>
-        <span className={$['count']}>{bookmarkInfo.bookmarks}</span>
       </button>
     </div>
   )
