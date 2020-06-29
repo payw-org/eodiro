@@ -43,7 +43,7 @@
 
 .scroll-wrapper {
   $topic-item-height: 37px;
-  $topic-margin: 7px;
+  $topic-margin: 5px;
 
   overflow-y: hidden;
   height: $topic-item-height + 20px;
@@ -77,7 +77,6 @@
 
     .topic {
       @include block-style-raw;
-      @include border-radius-inner;
       @include clickable;
       height: $topic-item-height;
       display: flex;
@@ -152,7 +151,7 @@
 
 .new-wrapper {
   text-align: center;
-  margin-top: 30px;
+  margin-top: 50px;
   position: sticky;
   bottom: 20px;
   z-index: 90;
