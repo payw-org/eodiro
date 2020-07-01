@@ -87,7 +87,7 @@ input.chat-input {
 
 .total-users-num {
   position: fixed;
-  top: $nav-height;
+  top: $nav-height + 0.8rem;
   left: 50%;
   transform: translateX(-50%);
   @include block-style-raw;
