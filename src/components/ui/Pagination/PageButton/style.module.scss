@@ -1,0 +1,27 @@
+@use '@/assets/styles/main' as *;
+
+.button {
+  $button-size: 35px;
+
+  @include block-style-raw;
+  @include clickable;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 17px;
+  font-weight: 500;
+  line-height: 1;
+
+  min-width: $button-size;
+  padding: 0 7px;
+  height: $button-size;
+
+  margin-right: 7px;
+
+  &.selected {
+    background-color: $eodiro-primary-color;
+    color: $base-white;
+  }
+}

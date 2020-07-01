@@ -7,12 +7,14 @@ import Body from '@/layouts/BaseLayout/Body'
 import EodiroLink from '@/components/utils/EodiroLink'
 import { LyingDownIllust } from '../../illustrations'
 import PageInfo from '@/components/utils/PageInfo'
+import Pagination from '@/components/ui/Pagination'
 import RequireAuth from '@/components/global/RequireAuth'
 import { TipListResponse } from '@payw/eodiro-one-api/database/models/tip'
 import { TipTopic } from '@prisma/client'
 import TipsList from '../TipsList'
 import classNames from 'classnames'
 import { getAccessToken } from '@/api'
+import getState from '@/modules/get-state'
 import { oneApiClient } from '@payw/eodiro-one-api'
 import { useAuth } from '@/pages/_app'
 import { useRouter } from 'next/router'
@@ -24,77 +26,67 @@ type TipsPageQuery = {
 
 export type TipsPageProps = {
   topics: Record<string, string>
+  topic: TipTopic
+  page: number
 }
 
-const TipsPage: React.FC<TipsPageProps> = ({ topics }) => {
+const TipsPage: React.FC<TipsPageProps> = ({ topics, topic, page }) => {
   const { isSigned } = useAuth()
   const [isLoading, setIsLoading] = useState(true)
   const [tipsData, setTipsData] = useState<TipListResponse[]>([])
+  const [totalPage, setTotalPage] = useState<number>(0)
 
   const [pageState, setPageState] = useState<TipsPageQuery>({
-    topic: undefined,
-    page: undefined,
+    topic,
+    page,
   })
-
-  useEffect(() => {
-    if (!isSigned) return
-
-    let { topic, page } = pageState
-
-    // Set default values
-    topic = topic || null
-    page = page || 1
-
-    async function fetchNewData() {
-      setIsLoading(true)
-
-      const response = await oneApiClient(ApiHost.getHost(), {
-        action: 'getTips',
-        data: {
-          accessToken: await getAccessToken(),
-          topic,
-          page,
-        },
-      })
-
-      setTipsData(response.data.tips)
-
-      setTimeout(() => {
-        setIsLoading(false)
-      }, 200)
-    }
-
-    fetchNewData()
-
-    router.replace({
-      pathname: router.pathname,
-      query: {
-        topic,
-        page,
-      },
-    })
-  }, [pageState])
 
   const router = useRouter()
 
-  useEffect(() => {
-    const { topic, page: pageInQuery } = router.query as {
-      topic: TipTopic
-      page: string
-    }
-    const page = parseInt(pageInQuery as string) || 1
-
-    router.replace({
+  function movePage(topic: string, page: number) {
+    router.push({
       pathname: router.pathname,
       query: {
         topic,
         page,
       },
     })
+  }
 
-    setPageState({
-      topic,
-      page,
+  async function fetchNewData(topic: TipTopic, page: number) {
+    setIsLoading(true)
+
+    const { data } = await oneApiClient(ApiHost.getHost(), {
+      action: 'getTips',
+      data: {
+        accessToken: await getAccessToken(),
+        topic,
+        page,
+      },
+    })
+
+    setTipsData(data.tips)
+    setTotalPage(9)
+
+    setTimeout(() => {
+      setIsLoading(false)
+    }, 100)
+  }
+
+  useEffect(() => {
+    fetchNewData(topic, page)
+
+    router.events.on('routeChangeComplete', async () => {
+      const parsed = new URLSearchParams(window.location.search)
+      const topic = (parsed.get('topic') as TipTopic) || null
+      const page = parseInt(parsed.get('page') as string) || 1
+
+      fetchNewData(topic, page)
+
+      setPageState({
+        topic,
+        page,
+      })
     })
   }, [])
 
@@ -144,10 +136,7 @@ const TipsPage: React.FC<TipsPageProps> = ({ topics }) => {
                   [$['chosen']]: !pageState.topic,
                 })}
                 onClick={() => {
-                  setPageState({
-                    ...pageState,
-                    topic: null,
-                  })
+                  movePage(null, 1)
                 }}
               >
                 전체
@@ -161,10 +150,7 @@ const TipsPage: React.FC<TipsPageProps> = ({ topics }) => {
                     [$['chosen']]: pageState.topic === topicKey,
                   })}
                   onClick={() => {
-                    setPageState({
-                      ...pageState,
-                      topic: topicKey as TipTopic,
-                    })
+                    movePage(topicKey, 1)
                   }}
                 >
                   {topics[topicKey]}
@@ -175,7 +161,16 @@ const TipsPage: React.FC<TipsPageProps> = ({ topics }) => {
         </div>
 
         {isSigned ? (
-          <TipsList tipsData={tipsData} isLoading={isLoading} />
+          <>
+            <TipsList tipsData={tipsData} isLoading={isLoading} />
+            <Pagination
+              currentPage={pageState.page}
+              totalPage={totalPage}
+              onPressPage={(page) => {
+                movePage(pageState.topic, page)
+              }}
+            />
+          </>
         ) : (
           <RequireAuth className={$['auth']} />
         )}
