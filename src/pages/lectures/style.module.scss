@@ -95,3 +95,12 @@
     }
   }
 }
+
+.options {
+  display: flex;
+  margin-top: 12px;
+
+  .select {
+    margin-right: 10px;
+  }
+}

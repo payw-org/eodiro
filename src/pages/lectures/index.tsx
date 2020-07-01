@@ -101,6 +101,27 @@ const LecturesContent: React.FC<LecturesPageProps> = ({ lectures }) => {
             type="search"
             onChangeHook={onChange}
           />
+
+          <div className={classNames($['options'])}>
+            {/* Year */}
+            <div className={classNames('select-wrapper', $['select'])}>
+              <select>
+                {[2020, 2019, 2018].map((year) => (
+                  <option key={year}>{year}</option>
+                ))}
+              </select>
+            </div>
+
+            {/* Semester */}
+            <div className={classNames('select-wrapper')}>
+              <select>
+                {['1학기', '하계', '2학기', '동계'].map((semester) => (
+                  <option key={semester}>{semester}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
           <div ref={containerRef}>
             <InfiniteScrollContainer strategy={loadMore}>
               <Grid className={$['lecture-container']}>
