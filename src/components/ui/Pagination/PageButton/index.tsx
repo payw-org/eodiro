@@ -4,14 +4,22 @@ import classNames from 'classnames'
 type PageButtonProps = {
   page: number
   isSelected: boolean
+  onPressPage: (page: number) => void
 }
 
-const PageButton: React.FC<PageButtonProps> = ({ page, isSelected }) => {
+const PageButton: React.FC<PageButtonProps> = ({
+  page,
+  isSelected,
+  onPressPage,
+}) => {
   return (
     <div
       className={classNames($['button'], {
         [$['selected']]: isSelected,
       })}
+      onClick={() => {
+        onPressPage(page)
+      }}
     >
       {page}
     </div>
