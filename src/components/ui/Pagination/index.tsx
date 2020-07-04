@@ -23,8 +23,10 @@ const Buttons: React.FC<PaginationProps> = ({
   const isMobile = useRecoilValue(isMobileState)
   const pageUnit = isMobile ? 5 : 10
   const pageLevel = Math.ceil(currentPage / pageUnit)
-  const firstPage = (pageLevel - 1) * (pageUnit - 1) + 1
+  const firstPage = (pageLevel - 1) * pageUnit + 1
   const lastPage = Math.min(firstPage + (pageUnit - 1), totalPage)
+  const isPreviousAvailable = firstPage !== 1
+  const isNextAvailable = lastPage < totalPage
 
   const pages = []
 
@@ -34,6 +36,16 @@ const Buttons: React.FC<PaginationProps> = ({
 
   return (
     <>
+      {isPreviousAvailable && (
+        <>
+          <PageButton page={1} type="begin" onPressPage={onPressPage} />
+          <PageButton
+            page={firstPage - 1}
+            type="previous"
+            onPressPage={onPressPage}
+          />
+        </>
+      )}
       {pages.map((pageNum) => (
         <PageButton
           key={pageNum}
@@ -42,6 +54,16 @@ const Buttons: React.FC<PaginationProps> = ({
           onPressPage={onPressPage}
         />
       ))}
+      {isNextAvailable && (
+        <>
+          <PageButton
+            page={lastPage + 1}
+            type="next"
+            onPressPage={onPressPage}
+          />
+          <PageButton page={totalPage} type="end" onPressPage={onPressPage} />
+        </>
+      )}
     </>
   )
 }
