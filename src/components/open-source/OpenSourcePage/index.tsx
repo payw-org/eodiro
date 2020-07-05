@@ -1,13 +1,13 @@
 import $ from './style.module.scss'
 import Body from '@/layouts/BaseLayout/Body'
 import { Contributor } from '@/types/github-api'
-import PageInfo from '../utils/PageInfo'
+import PageInfo from '../../utils/PageInfo'
 
-export type OpenSourceProps = {
+export type OpenSourcePageProps = {
   contributors: Contributor[]
 }
 
-const OpenSource: React.FC<OpenSourceProps> = ({ contributors }) => {
+const OpenSourcePage: React.FC<OpenSourcePageProps> = ({ contributors }) => {
   return (
     <Body pageTitle="오픈소스" bodyClassName={$['component-open-source']}>
       <PageInfo
@@ -70,4 +70,4 @@ const OpenSource: React.FC<OpenSourceProps> = ({ contributors }) => {
   )
 }
 
-export default OpenSource
+export default OpenSourcePage
