@@ -55,8 +55,6 @@ const LivePage: React.FC<LivePageProps> = () => {
   function isNearBottom() {
     const { scrollHeight, scrollTop, offsetHeight } = msgScrollWrapper.current
 
-    console.log(scrollHeight - scrollTop - offsetHeight)
-
     return scrollHeight - scrollTop - offsetHeight < 10
   }
 
