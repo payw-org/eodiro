@@ -73,6 +73,8 @@ const TipsPage: React.FC<TipsPageProps> = ({ topics, topic, page }) => {
   }
 
   useEffect(() => {
+    if (!isSigned) return
+
     fetchNewData(topic, page)
 
     router.events.on('routeChangeComplete', async () => {
