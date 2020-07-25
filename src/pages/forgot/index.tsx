@@ -13,7 +13,7 @@ const ForgotPage: EodiroPage = () => {
   )
 }
 
-ForgotPage.getInitialProps = ({ res, isSigned }): {} => {
+ForgotPage.getInitialProps = ({ res, isSigned }): Record<string, unknown> => {
   if (isSigned) {
     res.writeHead(302, {
       Location: '/',

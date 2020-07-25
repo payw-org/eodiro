@@ -1,17 +1,19 @@
 import { GetServerSideProps, NextPage } from 'next'
-import OpenSource, { OpenSourceProps } from '@/components/OpenSource'
+import OpenSourcePage, {
+  OpenSourcePageProps,
+} from '@/components/open-source/OpenSourcePage'
 
 import { Contributor } from '@/types/github-api'
 import { config } from '@/config'
 import eodiroAxios from '@/modules/eodiro-axios'
 
-const Page: NextPage<OpenSourceProps> = ({ contributors }) => {
-  return <OpenSource contributors={contributors} />
+const Page: NextPage<OpenSourcePageProps> = ({ contributors }) => {
+  return <OpenSourcePage contributors={contributors} />
 }
 
 export default Page
 
-export const getServerSideProps: GetServerSideProps<OpenSourceProps> = async () => {
+export const getServerSideProps: GetServerSideProps<OpenSourcePageProps> = async () => {
   const [eodiroContErr, eodiroContributors] = await eodiroAxios<Contributor[]>({
     method: 'get',
     url: 'https://api.github.com/repos/payw-org/eodiro/contributors',

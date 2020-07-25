@@ -14,7 +14,6 @@ import { TipTopic } from '@prisma/client'
 import TipsList from '../TipsList'
 import classNames from 'classnames'
 import { getAccessToken } from '@/api'
-import getState from '@/modules/get-state'
 import { oneApiClient } from '@payw/eodiro-one-api'
 import { useAuth } from '@/pages/_app'
 import { useRouter } from 'next/router'
@@ -66,7 +65,7 @@ const TipsPage: React.FC<TipsPageProps> = ({ topics, topic, page }) => {
     })
 
     setTipsData(data.tips)
-    setTotalPage(9)
+    setTotalPage(data.totalPage)
 
     setTimeout(() => {
       setIsLoading(false)
@@ -74,6 +73,8 @@ const TipsPage: React.FC<TipsPageProps> = ({ topics, topic, page }) => {
   }
 
   useEffect(() => {
+    if (!isSigned) return
+
     fetchNewData(topic, page)
 
     router.events.on('routeChangeComplete', async () => {

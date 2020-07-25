@@ -87,8 +87,10 @@ const EodiroCafeteria: React.FC<{ menus: CafeteriaMenus }> = memo(
               <div className={$['date-container']}>
                 <button
                   className={classNames($['date-change-btn'], $['previous'])}
-                  onClick={(): void => setNow(now.subtract(1, 'd'))}
-                  onTouchStart={(e) => e.preventDefault()}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    setNow(now.subtract(1, 'd'))
+                  }}
                 >
                   <i className="octicon octicon-chevron-left" />
                 </button>
@@ -97,8 +99,10 @@ const EodiroCafeteria: React.FC<{ menus: CafeteriaMenus }> = memo(
                 </p>
                 <button
                   className={classNames($['date-change-btn'], $['next'])}
-                  onClick={(): void => setNow(now.add(1, 'd'))}
-                  onTouchStart={(e) => e.preventDefault()}
+                  onClick={(e) => {
+                    e.preventDefault()
+                    setNow(now.add(1, 'd'))
+                  }}
                 >
                   <i className="octicon octicon-chevron-right" />
                 </button>

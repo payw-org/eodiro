@@ -1,3 +1,4 @@
+import { atom, useRecoilValue, useSetRecoilState } from 'recoil'
 import { useEffect, useRef } from 'react'
 
 import $ from './style.module.scss'
@@ -9,38 +10,74 @@ export type PaginationProps = {
   onPressPage: (page: number) => void
 }
 
-const Pagination: React.FC<PaginationProps> = ({
-  totalPage,
+const isMobileState = atom({
+  key: 'isMobileState',
+  default: false,
+})
+
+const Buttons: React.FC<PaginationProps> = ({
   currentPage,
+  totalPage,
   onPressPage,
 }) => {
-  function Buttons() {
-    if (totalPage < 10) {
-      return (
-        <>
-          {Array.from(Array(totalPage).keys()).map((index) => (
-            <PageButton
-              key={index}
-              page={index + 1}
-              isSelected={currentPage === index + 1}
-            />
-          ))}
-        </>
-      )
-    } else {
-      return <div></div>
-    }
+  const isMobile = useRecoilValue(isMobileState)
+  const pageUnit = isMobile ? 5 : 10
+  const pageLevel = Math.ceil(currentPage / pageUnit)
+  const firstPage = (pageLevel - 1) * pageUnit + 1
+  const lastPage = Math.min(firstPage + (pageUnit - 1), totalPage)
+  const isPreviousAvailable = firstPage !== 1
+  const isNextAvailable = lastPage < totalPage
+
+  const pages = []
+
+  for (let pageNum = firstPage; pageNum <= lastPage; pageNum += 1) {
+    pages.push(pageNum)
   }
 
+  return (
+    <>
+      {isPreviousAvailable && (
+        <>
+          <PageButton page={1} type="begin" onPressPage={onPressPage} />
+          <PageButton
+            page={firstPage - 1}
+            type="previous"
+            onPressPage={onPressPage}
+          />
+        </>
+      )}
+      {pages.map((pageNum) => (
+        <PageButton
+          key={pageNum}
+          page={pageNum}
+          isSelected={pageNum === currentPage}
+          onPressPage={onPressPage}
+        />
+      ))}
+      {isNextAvailable && (
+        <>
+          <PageButton
+            page={lastPage + 1}
+            type="next"
+            onPressPage={onPressPage}
+          />
+          <PageButton page={totalPage} type="end" onPressPage={onPressPage} />
+        </>
+      )}
+    </>
+  )
+}
+
+const Pagination: React.FC<PaginationProps> = (props) => {
   const paginationRef = useRef<HTMLDivElement>(null)
+  const setIsMobile = useSetRecoilState(isMobileState)
 
   useEffect(() => {
     const resizeObserver = new ResizeObserver(() => {
-      const width = paginationRef.current.clientWidth
-      if (width < 600) {
-        console.log('mobile')
+      if (paginationRef.current.clientWidth <= 600) {
+        setIsMobile(true)
       } else {
-        console.log('desktop')
+        setIsMobile(false)
       }
     })
 
@@ -49,7 +86,7 @@ const Pagination: React.FC<PaginationProps> = ({
 
   return (
     <div ref={paginationRef} className={$['pagination']}>
-      <Buttons />
+      <Buttons {...props} />
     </div>
   )
 }

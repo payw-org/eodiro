@@ -1,6 +1,4 @@
-import Link from 'next/link'
 import cn from 'classnames'
-import { isApp } from '@/modules/booleans/is-app'
 
 export type EodiroLinkProps = {
   as?: string

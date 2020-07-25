@@ -8,11 +8,11 @@ module.exports = {
       })
     )
 
-    // config.module.rules.push({
-    //   test: /\.tsx?$/,
-    //   exclude: /node_modules/,
-    //   loader: 'eslint-loader',
-    // })
+    config.module.rules.push({
+      test: /\.tsx?$/,
+      exclude: /node_modules/,
+      loader: 'eslint-loader',
+    })
 
     return config
   },
