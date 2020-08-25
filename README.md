@@ -28,7 +28,7 @@
 
 ### Using Dev API Locally
 
-You must clone and run [`eodiro-api2`](https://github.com/payw-org/eodiro-api2) on your local machine in dev mode.
+You must clone and run [`eodiro-server`](https://github.com/payw-org/eodiro-server) on your local machine in dev mode.
 
 ```zsh
 npm run dev
