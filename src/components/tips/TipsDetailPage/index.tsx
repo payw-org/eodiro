@@ -47,6 +47,21 @@ const Content: React.FC<ContentProps> = ({ tip }) => {
     //     postId: tip.id,
     //   },
     // })
+    // const { data: deletionData, err: deletionErr } = await oneApiClient(
+    //   ApiHost.getHost(),
+    //   {
+    //     action: 'deleteTip',
+    //     data: {
+    //       accessToken: await getAccessToken(),
+    //       tipId: tip.id,
+    //     },
+    //   }
+    // )
+
+    // if (deletionErr) {
+    //   alert(`에러가 발생했습니다. ${deletionErr}`)
+    // } else {
+    // }
 
     alert('삭제되었습니다.')
 
