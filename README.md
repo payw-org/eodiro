@@ -22,7 +22,7 @@
 - [Changelog](docs/Changelog.md)
 - [Design Guidelines](docs/wiki/Design-Guidelines.md)
 - [UI Components](docs/wiki/UI-Components.md)
-- [ToDo](docs/ToDo.md)
+- [ToDo](docs/ToDo.md)`
 
 ## 🔥 Development
 
@@ -36,7 +36,7 @@ npm run dev
 
 ### Using Production API (https://api2.eodiro.com)
 
-Also you can develop only the client application without cloning server repository `eodiro-api2`.
+Also you can develop only the client application without cloning server repository `eodiro-server`.
 
 ```zsh
 npm run dev --useProdApi
