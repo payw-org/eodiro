@@ -22,13 +22,13 @@
 - [Changelog](docs/Changelog.md)
 - [Design Guidelines](docs/wiki/Design-Guidelines.md)
 - [UI Components](docs/wiki/UI-Components.md)
-- [ToDo](docs/ToDo.md)
+- [ToDo](docs/ToDo.md)`
 
 ## 🔥 Development
 
 ### Using Dev API Locally
 
-You must clone and run [`eodiro-api2`](https://github.com/payw-org/eodiro-api2) on your local machine in dev mode.
+You must clone and run [`eodiro-server`](https://github.com/payw-org/eodiro-server) on your local machine in dev mode.
 
 ```zsh
 npm run dev
@@ -36,7 +36,7 @@ npm run dev
 
 ### Using Production API (https://api2.eodiro.com)
 
-Also you can develop only the client application without cloning server repository `eodiro-api2`.
+Also you can develop only the client application without cloning server repository `eodiro-server`.
 
 ```zsh
 npm run dev --useProdApi
