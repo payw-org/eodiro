@@ -1,8 +1,8 @@
 /**
- * Pass --useProdApi to use stable production API version
+ * Pass --use-prod-api to use stable production API version
  * published on the server
  *
- * Pass --useDevApi to use dev version of API
+ * Pass --use-dev-api to use dev version of API
  * It requires local API server running
  *
  * Use these arguments only for the purpose of tests
