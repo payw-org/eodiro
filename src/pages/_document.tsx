@@ -8,8 +8,8 @@ class MyDocument extends Document {
 
   render() {
     const devOptions = {}
-    const useProdApi = process.env.npm_config_useProdApi === 'true'
-    const useDevApi = process.env.npm_config_useDevApi === 'true'
+    const useProdApi = process.env.npm_config_use_prod_api === 'true'
+    const useDevApi = process.env.npm_config_use_dev_api === 'true'
 
     if (useProdApi || useDevApi) {
       devOptions['data-forced-api-enabled'] = ''

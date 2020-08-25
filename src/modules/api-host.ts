@@ -39,7 +39,7 @@ export default class ApiHost {
     // Forced to use production API
     // distributed on eodiro.com server
     if (
-      process.env.npm_config_useProdApi ||
+      process.env.npm_config_use_prod_api ||
       (isClient() && document.documentElement.hasAttribute('data-use-prod-api'))
     ) {
       return this.setHost(`https://${sub}.eodiro.com`, cdn)
@@ -47,7 +47,7 @@ export default class ApiHost {
 
     // Forced to use dev API
     if (
-      process.env.npm_config_useDevApi ||
+      process.env.npm_config_use_dev_api ||
       (isClient() && document.documentElement.hasAttribute('data-use-dev-api'))
     ) {
       if (isClient()) {
