@@ -39,7 +39,7 @@ npm run dev
 Also you can develop only the client application without cloning server repository `eodiro-server`.
 
 ```zsh
-npm run dev --useProdApi
+npm run dev --use-prod-api
 ```
 
 > Recent client application in the master branch may not match to the API distributed on https://eodiro.com. To develop using the recent APIs, download and run API repository locally.
@@ -49,10 +49,10 @@ npm run dev --useProdApi
 By default, `npm run dev` connects to local dev API server and `npm start` tries to connect to the real server(https://eodiro.com). However, sometimes you need to test the production-ready, built version of client application with the dev API. To achieve this, simply pass an argument similar to the one above
 
 ```zsh
-npm start --useDevApi
+npm start --use-dev-api
 ```
 
-> `--useProdApi` and `--useDevApi` are only for the purpose of tests. Do not use them in production. For more information about API hosts, checkout the [source code](https://github.com/payw-org/eodiro/blob/master/src/modules/api-host.ts).
+> `--use-prod-api` and `--use-dev-api` are only for the purpose of tests. Do not use them in production. For more information about API hosts, checkout the [source code](https://github.com/payw-org/eodiro/blob/master/src/modules/api-host.ts).
 
 ## 🧑‍💻 Developers Guide
 
