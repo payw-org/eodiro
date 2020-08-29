@@ -24,14 +24,14 @@ type TipsPageQuery = {
 }
 
 export type TipsPageProps = {
-  topics: Record<string, string>
+  topics: Record<TipTopic, string>
   topic: TipTopic
   page: number
 }
 
 const TipsPage: React.FC<TipsPageProps> = ({ topics, topic, page }) => {
   const { isSigned } = useAuth()
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [tipsData, setTipsData] = useState<TipListResponse[]>([])
   const [totalPage, setTotalPage] = useState<number>(0)
 
@@ -43,7 +43,7 @@ const TipsPage: React.FC<TipsPageProps> = ({ topics, topic, page }) => {
   const router = useRouter()
 
   function movePage(topic: string, page: number) {
-    router.push({
+    router.replace({
       pathname: router.pathname,
       query: {
         topic,
@@ -53,6 +53,8 @@ const TipsPage: React.FC<TipsPageProps> = ({ topics, topic, page }) => {
   }
 
   async function fetchNewData(topic: TipTopic, page: number) {
+    if (isLoading) return
+
     setIsLoading(true)
 
     const { data } = await oneApiClient(ApiHost.getHost(), {
@@ -144,7 +146,7 @@ const TipsPage: React.FC<TipsPageProps> = ({ topics, topic, page }) => {
               </div>
             </div>
 
-            {Object.keys(topics).map((topicKey) => (
+            {Object.keys(topics).map((topicKey: TipTopic) => (
               <div className={$['topic-wrapper']} key={topicKey}>
                 <div
                   className={classNames($['topic'], {

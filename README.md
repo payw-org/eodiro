@@ -13,18 +13,18 @@
 
 <p align="center">An open source utility service for CAU students</p>
 
-## 🎨 Design Source
+## Design Source
 
 [Figma](https://www.figma.com/file/HM2QqphdWZmxF66RYmnqUXki/System?node-id=125%3A0)
 
-## 📚 Documentation
+## Documentation
 
 - [Changelog](docs/Changelog.md)
 - [Design Guidelines](docs/wiki/Design-Guidelines.md)
 - [UI Components](docs/wiki/UI-Components.md)
 - [ToDo](docs/ToDo.md)`
 
-## 🔥 Development
+## Development
 
 ### Using Dev API Locally
 
@@ -54,7 +54,7 @@ npm start --use-dev-api
 
 > `--use-prod-api` and `--use-dev-api` are only for the purpose of tests. Do not use them in production. For more information about API hosts, checkout the [source code](https://github.com/payw-org/eodiro/blob/master/src/modules/api-host.ts).
 
-## 🧑‍💻 Developers Guide
+## Developers Guide
 
 ### Authentication
 
@@ -68,7 +68,7 @@ Inside React components, you can retrieve the same auth information with this ho
 
 ### JSX className
 
-> 🚨 Deprecate in favor of [classnames](https://github.com/JedWatson/classnames)
+> **Deprecated** in favor of [classnames](https://github.com/JedWatson/classnames)
 
 **`mergeClassNames(...classNames)`**
 
