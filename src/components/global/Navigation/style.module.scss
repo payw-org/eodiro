@@ -53,7 +53,6 @@
       box-shadow: none;
       background-color: rgba(#fff, 0);
       backdrop-filter: blur(30px) saturate(1.7);
-      transition: background-color 200ms ease;
 
       @include dark-mode {
         background-color: rgba(lighten($base-black-soft, 10), 0);
