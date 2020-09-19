@@ -87,20 +87,6 @@ const Main: React.FC = () => {
         <div className={$['features']}>
           <Grid>
             <HomeFeatureBox
-              title="빈 강의실"
-              to="/vacant"
-              Icon={
-                <i
-                  className={classNames('f7-icons', $['icon'])}
-                  style={{
-                    color: EodiroColors.primary,
-                  }}
-                >
-                  squares_below_rectangle
-                </i>
-              }
-            />
-            <HomeFeatureBox
               title="강의 검색"
               to="/lectures"
               Icon={
@@ -157,6 +143,20 @@ const Main: React.FC = () => {
                 </i>
               }
               label="beta"
+            />
+            <HomeFeatureBox
+              title="빈 강의실"
+              to="/vacant"
+              Icon={
+                <i
+                  className={classNames('f7-icons', $['icon'])}
+                  style={{
+                    color: EodiroColors.primary,
+                  }}
+                >
+                  squares_below_rectangle
+                </i>
+              }
             />
             <HomeFeatureBox
               title="오픈 소스"
