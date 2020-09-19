@@ -43,7 +43,7 @@
       font-size: 7rem;
       transition: color 400ms ease, text-shadow 500ms ease;
 
-      $shadow-distance: 0.2rem;
+      $shadow-distance: 0.3rem;
       $shadow-far: $shadow-distance * 2;
 
       &.shadowed {
