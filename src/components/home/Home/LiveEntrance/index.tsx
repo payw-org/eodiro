@@ -4,7 +4,7 @@ import classNames from 'classnames'
 
 export type LiveEntranceProps = unknown
 
-const LiveEntrance: React.FC<LiveEntranceProps> = (props) => {
+const LiveEntrance: React.FC<LiveEntranceProps> = () => {
   return (
     <div className={classNames($['live-entrance'], 'position-relative')}>
       <EodiroLink absolute href="/live" />
