@@ -79,7 +79,6 @@ const NavMenus: React.FC = () => {
 
 const Navigation: React.FC = () => {
   const isScrolled = useContext(NavScrollStateContext)
-  const menuOpened = useContext(NavMenuOpenStateContext)
   const setMenuOpen = useContext(NavMenuOpenDispatchContext)
   const { isSigned } = useAuth()
 
