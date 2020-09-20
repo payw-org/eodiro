@@ -55,14 +55,14 @@ module.exports = {
         asyncArrow: 'always',
       },
     ],
-    'sort-imports': [
-      'error',
-      {
-        ignoreCase: false,
-        ignoreDeclarationSort: false,
-        ignoreMemberSort: false,
-        memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
-      },
-    ],
+    // 'sort-imports': [
+    //   'error',
+    //   {
+    //     ignoreCase: false,
+    //     ignoreDeclarationSort: false,
+    //     ignoreMemberSort: false,
+    //     memberSyntaxSortOrder: ['none', 'all', 'multiple', 'single'],
+    //   },
+    // ],
   },
 }
