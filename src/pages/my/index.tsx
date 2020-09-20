@@ -1,40 +1,18 @@
-import { ArrowBlock, Button, FlatBlock } from '@/components/ui'
 import { AuthApi, Tokens, UserInfo } from '@/api'
-import { GetServerSideProps, NextPage } from 'next'
-
-import $ from './style.module.scss'
-import ApiHost from '@/modules/api-host'
+import { Button, FlatBlock } from '@/components/ui'
 import Body from '@/layouts/BaseLayout/Body'
-import EodiroLink from '@/components/utils/EodiroLink'
-import FriendlyTime from '@/components/utils/FriendlyTime'
-import { GetMyPosts } from '@payw/eodiro-one-api/api/one/scheme'
 import Grid from '@/layouts/Grid'
-import { OneApiPayload } from '@payw/eodiro-one-api/api/one/types'
-import { Unpacked } from '@/types/unpacked'
+import { redirect } from '@/modules/server/redirect'
 import classNames from 'classnames'
 import dayjs from 'dayjs'
-import { oneApiClient } from '@payw/eodiro-one-api'
-import { redirect } from '@/modules/server/redirect'
-
-type PostItemProps = {
-  postData: Unpacked<OneApiPayload<GetMyPosts>['data']>
-}
-const PostItem: React.FC<PostItemProps> = ({ postData }) => {
-  return (
-    <div className={$['post-item']}>
-      <span className={$['post-item-boardName']}>{postData.board_name}</span>
-      <FriendlyTime time={postData.uploaded_at} />
-      <h1>{postData.title}</h1>
-    </div>
-  )
-}
+import { GetServerSideProps, NextPage } from 'next'
+import $ from './style.module.scss'
 
 type MyPageProps = {
   userInfo: UserInfo
-  myPosts: OneApiPayload<GetMyPosts>['data']
 }
 
-const MyPage: NextPage<MyPageProps> = ({ userInfo, myPosts }) => {
+const MyPage: NextPage<MyPageProps> = ({ userInfo }) => {
   return (
     <Body pageTitle={userInfo.nickname} bodyClassName={$['eodiro-my']}>
       <section className={$['info-section']}>
@@ -59,23 +37,6 @@ const MyPage: NextPage<MyPageProps> = ({ userInfo, myPosts }) => {
             </div>
           </FlatBlock>
         </Grid>
-      </section>
-
-      {/* My Posts */}
-      <section className={$['my-posts']}>
-        {myPosts.map((post, i) => {
-          return (
-            <EodiroLink
-              key={i}
-              href="/square/[boardName]/[postId]"
-              as={`/square/${post.board_name}/${post.id}`}
-            >
-              <ArrowBlock className={$['my-post-item']}>
-                <PostItem postData={post} />
-              </ArrowBlock>
-            </EodiroLink>
-          )
-        })}
       </section>
 
       {/* Sign out section */}
@@ -121,17 +82,9 @@ export const getServerSideProps: GetServerSideProps<MyPageProps> = async ({
     return
   }
 
-  const { data: myPosts } = await oneApiClient(ApiHost.getHost(), {
-    action: 'getMyPosts',
-    data: {
-      accessToken: (await Tokens.get(req)).accessToken,
-    },
-  })
-
   return {
     props: {
       userInfo,
-      myPosts,
     },
   }
 }
