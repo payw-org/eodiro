@@ -24,7 +24,7 @@ const PageInfo: React.FC<PageInfoProps> = ({
     <Head>
       <title>{builtTitle}</title>
       <meta property="og:title" content={builtTitle} key="og-title" />
-      <meta property="description" content={description} key="description" />
+      <meta name="description" content={description} key="description" />
       <meta
         property="og:description"
         content={description}
