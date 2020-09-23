@@ -1,19 +1,19 @@
 import { CafeteriaApi, CafeteriaMenus } from '@/api'
-import React, { memo, useEffect, useMemo, useState } from 'react'
-
-import $ from './style.module.scss'
+import Information from '@/components/global/Information'
 import { ArrowBlock } from '@/components/ui'
+import PageInfo from '@/components/utils/PageInfo'
 import Body from '@/layouts/BaseLayout/Body'
 import Grid from '@/layouts/Grid'
-import Information from '@/components/global/Information'
-import { NextPage } from 'next'
-import PageInfo from '@/components/utils/PageInfo'
-import { Restaurant } from '@payw/cau-cafeteria-menus-scraper-types'
-import ServerError from '@/components/global/ServerError'
+import ApiHost from '@/modules/api-host'
 import Time from '@/modules/time'
-import _ from 'lodash'
+import { Restaurant } from '@payw/cau-cafeteria-menus-scraper-types'
 import classNames from 'classnames'
 import dayjs from 'dayjs'
+import _ from 'lodash'
+import { GetServerSideProps, NextPage } from 'next'
+import React, { memo, useState } from 'react'
+import useSWR from 'swr'
+import $ from './style.module.scss'
 
 type CafeteriaPageProps = {
   menus: CafeteriaMenus
@@ -64,70 +64,56 @@ const TimeGroup: React.FC<{
   )
 }, _.isEqual)
 
-const EodiroCafeteria: React.FC<{ menus: CafeteriaMenus }> = memo(
-  ({ menus }) => {
-    const [now, setNow] = useState(dayjs())
-    const [todayMenus, setTodayMenus] = useState(menus)
+const EodiroCafeteria: React.FC<{ menus: CafeteriaMenus }> = ({ menus }) => {
+  const [now, setNow] = useState(dayjs())
+  const { data: todayMenus } = useSWR(
+    ApiHost.getHost() +
+      `/cafeteria/${now.format('YYYY-MM-DD')}/${encodeURIComponent(
+        '서울'
+      )}/menus`
+  )
 
-    useEffect(() => {
-      ;(async (): Promise<void> => {
-        const newMenus = await CafeteriaApi.menus({
-          date: now.format('YYYY-MM-DD'),
-        })
+  return (
+    <div id={$['eodiro-cafeteria']}>
+      <div className={$['date-container']}>
+        <button
+          className={classNames($['date-change-btn'], $['previous'])}
+          onClick={(e) => {
+            e.preventDefault()
+            setNow(now.subtract(1, 'd'))
+          }}
+        >
+          <i className="octicon octicon-chevron-left" />
+        </button>
+        <p className={$['date']}>
+          {now.format('YYYY년 M월 D일')} ({Time.day(now.day())})
+        </p>
+        <button
+          className={classNames($['date-change-btn'], $['next'])}
+          onClick={(e) => {
+            e.preventDefault()
+            setNow(now.add(1, 'd'))
+          }}
+        >
+          <i className="octicon octicon-chevron-right" />
+        </button>
+      </div>
 
-        setTodayMenus(newMenus)
-      })()
-    }, [now])
+      <div>
+        <h1 className={$['time']}>조식</h1>
+        {todayMenus?.breakfast && (
+          <TimeGroup timeGroup={todayMenus.breakfast} />
+        )}
 
-    return useMemo(
-      () => (
-        <div id={$['eodiro-cafeteria']}>
-          {todayMenus ? (
-            <>
-              <div className={$['date-container']}>
-                <button
-                  className={classNames($['date-change-btn'], $['previous'])}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    setNow(now.subtract(1, 'd'))
-                  }}
-                >
-                  <i className="octicon octicon-chevron-left" />
-                </button>
-                <p className={$['date']}>
-                  {now.format('YYYY년 M월 D일')} ({Time.day(now.day())})
-                </p>
-                <button
-                  className={classNames($['date-change-btn'], $['next'])}
-                  onClick={(e) => {
-                    e.preventDefault()
-                    setNow(now.add(1, 'd'))
-                  }}
-                >
-                  <i className="octicon octicon-chevron-right" />
-                </button>
-              </div>
+        <h1 className={$['time']}>중식</h1>
+        {todayMenus?.lunch && <TimeGroup timeGroup={todayMenus.lunch} />}
 
-              <div>
-                <h1 className={$['time']}>조식</h1>
-                <TimeGroup timeGroup={todayMenus.breakfast} />
-
-                <h1 className={$['time']}>중식</h1>
-                <TimeGroup timeGroup={todayMenus.lunch} />
-
-                <h1 className={$['time']}>석식</h1>
-                <TimeGroup timeGroup={todayMenus.supper} />
-              </div>
-            </>
-          ) : (
-            <ServerError />
-          )}
-        </div>
-      ),
-      [todayMenus]
-    )
-  }
-)
+        <h1 className={$['time']}>석식</h1>
+        {todayMenus?.supper && <TimeGroup timeGroup={todayMenus.supper} />}
+      </div>
+    </div>
+  )
+}
 
 const CafeteriaPage: NextPage<CafeteriaPageProps> = (props) => {
   return (
@@ -143,11 +129,13 @@ const CafeteriaPage: NextPage<CafeteriaPageProps> = (props) => {
   )
 }
 
-CafeteriaPage.getInitialProps = async (): Promise<CafeteriaPageProps> => {
+export const getServerSideProps: GetServerSideProps<CafeteriaPageProps> = async () => {
   const menus = await CafeteriaApi.menus({})
 
   return {
-    menus,
+    props: {
+      menus,
+    },
   }
 }
 
