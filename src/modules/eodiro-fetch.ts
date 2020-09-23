@@ -1,12 +1,11 @@
-/**
- * @deprecated
- */
-
 import fetch from 'isomorphic-unfetch'
 
 type UseFetchError = any
 type UseFetchStatusCode = number
 
+/**
+ * @deprecated
+ */
 async function eodiroFetch<T = any>(
   input: RequestInfo,
   init?: RequestInit
