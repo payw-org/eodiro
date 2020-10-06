@@ -1,8 +1,7 @@
-import Header, { HeaderProps } from './Header'
+import $$ from 'classnames'
 import React, { FC } from 'react'
-
+import Header, { HeaderProps } from './Header'
 import $ from './style.module.scss'
-import mergeClassNames from '@/modules/merge-class-name'
 
 export type BodyProps = HeaderProps & {
   bodyClassName?: string
@@ -23,7 +22,7 @@ const Body: FC<BodyProps> = (props) => {
   return (
     <>
       <div
-        className={mergeClassNames(
+        className={$$(
           $['body-content'],
           bodyClassName,
           hasTopGap && $['top-gap'],
