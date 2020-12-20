@@ -1,7 +1,7 @@
 import type { Cookie, Cookies } from '@/modules/eodiro-http-cookie'
 import { nextApi } from '@/modules/next-api-routes-helpers'
 import nodeCookie from 'cookie'
-import type { NextApiRequest } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next'
 
 function buildCookieString(cookie: Cookie, req: NextApiRequest) {
   let cookieString = `${cookie.name}=${cookie.value};`
@@ -21,6 +21,24 @@ function buildCookieString(cookie: Cookie, req: NextApiRequest) {
   return cookieString
 }
 
+export function setCookies(
+  req: NextApiRequest,
+  res: NextApiResponse,
+  cookieData: Cookie | Cookies
+) {
+  const cookieStrings = [] as string[]
+
+  if (Array.isArray(cookieData)) {
+    cookieData.forEach((cookie) => {
+      cookieStrings.push(buildCookieString(cookie, req))
+    })
+  } else {
+    cookieStrings.push(buildCookieString(cookieData, req))
+  }
+
+  res.setHeader('Set-Cookie', cookieStrings)
+}
+
 export default nextApi({
   get: ({ req, res }) => {
     const cookies = req.headers.cookie
@@ -31,17 +49,9 @@ export default nextApi({
   },
   post: ({ req, res }) => {
     const cookieData = req.body as Cookie | Cookies
-    const cookieStrings = [] as string[]
 
-    if (Array.isArray(cookieData)) {
-      cookieData.forEach((cookie) => {
-        cookieStrings.push(buildCookieString(cookie, req))
-      })
-    } else {
-      cookieStrings.push(buildCookieString(cookieData, req))
-    }
+    setCookies(req, res, cookieData)
 
-    res.setHeader('Set-Cookie', cookieStrings)
-    res.send(null)
+    res.end()
   },
 })
