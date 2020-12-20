@@ -15,12 +15,13 @@
 
 # misc
 .DS_Store
-.env*
+.env
 
 # debug
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# eodiro config
+# eodiro config/env
 **/config/index.ts
+**/env/index.ts
