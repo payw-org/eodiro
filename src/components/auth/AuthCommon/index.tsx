@@ -1,11 +1,16 @@
 import { AuthApi, Tokens } from '@/api'
 import { Button, LineInput } from '@/components/ui'
-import React, { useEffect, useRef, useState } from 'react'
-
-import $ from './style.module.scss'
-import Body from '@/layouts/BaseLayout/Body'
 import EodiroLink from '@/components/utils/EodiroLink'
+import Body from '@/layouts/BaseLayout/Body'
+import { ApiAuthJoinRequestBody } from '@/pages/api/auth/join'
+import {
+  ApiAuthValidateRequestBody,
+  ApiAuthValidateResponseData,
+} from '@/pages/api/auth/validate'
+import Axios from 'axios'
 import classNames from 'classnames'
+import React, { useEffect, useRef, useState } from 'react'
+import $ from './style.module.scss'
 
 type AuthCommonProps = {
   mode: 'signin' | 'join' | 'forgot'
@@ -16,7 +21,8 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
   const [signInFailed, setSignInFailed] = useState(false)
 
   const [portalId, setPortalId] = useState('')
-  const [validPortalId, setValidPortalId] = useState(true)
+  const [isPortalIdValid, setIsPortalIdValid] = useState(true)
+  const [portalIdErrorMessage, setPortalIdErrorMessage] = useState('')
   const portalIdRef = useRef<HTMLInputElement>(null)
   function focusPortalId(): void {
     if (!portalIdRef.current) return
@@ -63,23 +69,31 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
   async function join(): Promise<void> {
     setValidating(true)
 
-    const result = await AuthApi.signUp(portalId, nickname, password)
-    if (!result) {
-      alert('서버와 연결할 수 없습니다.')
-    } else {
-      if (result.portalId && result.nickname && result.password) {
-        alert(
-          '중앙대학교 포탈로 인증 이메일이 발송되었습니다. 인증 후 로그인하세요.'
-        )
-        location.href = '/signin'
-      } else {
-        setValidPortalId(result.portalId)
-        setValidNickname(result.nickname)
-        setValidPassword(result.password)
+    // const result = await AuthApi.signUp(portalId, nickname, password)
+    // if (!result) {
+    //   alert('서버와 연결할 수 없습니다.')
+    // } else {
+    //   if (result.portalId && result.nickname && result.password) {
+    //     alert(
+    //       '중앙대학교 포탈로 인증 이메일이 발송되었습니다. 인증 후 로그인하세요.'
+    //     )
+    //     location.href = '/signin'
+    //   } else {
+    //     setValidPortalId(result.portalId)
+    //     setValidNickname(result.nickname)
+    //     setValidPassword(result.password)
 
-        setValidating(false)
-      }
-    }
+    //     setValidating(false)
+    //   }
+    // }
+
+    const response = await Axios.post<{ what: string }>('/api/auth/sign-up', {
+      portalId,
+      nickname,
+      password,
+    } as ApiAuthJoinRequestBody)
+
+    console.log(response.data)
   }
 
   async function forgot(): Promise<void> {
@@ -123,7 +137,18 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
             async (value): Promise<void> => {
               if (mode !== 'join') return
 
-              setValidPortalId(await AuthApi.validatePortalId(value))
+              const response = await Axios.post<ApiAuthValidateResponseData>(
+                '/api/auth/validate',
+                {
+                  portalId: value,
+                } as ApiAuthValidateRequestBody
+              )
+
+              setIsPortalIdValid(response.data.portalId.isValid)
+
+              if (response.data.portalId.error?.message) {
+                setPortalIdErrorMessage(response.data.portalId.error.message)
+              }
             },
           ]}
           onFocus={(): void => {
@@ -131,8 +156,8 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
           }}
         />
 
-        {mode === 'join' && !validPortalId && (
-          <p className={$['error']}>사용할 수 없습니다.</p>
+        {mode === 'join' && !isPortalIdValid && (
+          <p className={$['error']}>{portalIdErrorMessage}</p>
         )}
 
         {mode === 'join' && (
