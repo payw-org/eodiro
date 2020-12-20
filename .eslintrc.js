@@ -1,8 +1,9 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    ecmaVersion: 2018,
+    ecmaVersion: 2020,
     sourceType: 'module',
+    project: './tsconfig.json',
   },
   env: {
     browser: true,
@@ -15,18 +16,23 @@ module.exports = {
     },
   },
   extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
+    'airbnb-typescript',
+    'airbnb/hooks',
     'plugin:@typescript-eslint/recommended',
-    'plugin:react/recommended',
+    'prettier',
+    'prettier/react',
+    'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
   ],
-  plugins: ['react', 'react-hooks'],
+  plugins: ['react', 'react-hooks', '@typescript-eslint'],
   rules: {
+    'no-alert': 'off',
+    'react/jsx-props-no-spreading': 'off',
     'react/display-name': 'off',
     'react/react-in-jsx-scope': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react/prop-types': [0],
+    '@typescript-eslint/dot-notation': 'off',
     '@typescript-eslint/no-extra-semi': [0],
     '@typescript-eslint/explicit-function-return-type': [0],
     '@typescript-eslint/no-empty-function': [0],
