@@ -3,7 +3,7 @@ import jwt, { JsonWebTokenError } from 'jsonwebtoken'
 import { prisma } from './prisma'
 
 export type AuthData = {
-  userID: number
+  userId: number
 }
 
 export type DecodedAuthData = AuthData & {
@@ -27,7 +27,7 @@ export const revokeRefreshToken = async (authData: AuthData) => {
       refreshToken,
     },
     where: {
-      id: authData.userID,
+      id: authData.userId,
     },
   })
 
@@ -44,19 +44,19 @@ export type JWTError = JsonWebTokenError & {
 export const verifyToken = (
   token: string | null | undefined,
   type: 'access' | 'refresh'
-): Promise<[Error | null, DecodedAuthData | undefined]> => {
-  return new Promise((resolve) => {
+): Promise<[Error | null, DecodedAuthData | undefined]> =>
+  new Promise((resolve) => {
     const secret =
       type === 'access' ? env.ACCESS_TOKEN_SECRET : env.REFRESH_TOKEN_SECRET
 
-    jwt.verify(token ?? '', secret, async (err, decoded) => {
+    jwt.verify(token ?? '', secret, async (jwtErr, decoded) => {
       const authData = decoded as DecodedAuthData | undefined
 
       // Check DB and compare the refresh token
-      if (authData?.userID && type === 'refresh') {
+      if (authData?.userId && type === 'refresh') {
         const user = await prisma.user.findUnique({
           where: {
-            id: authData.userID,
+            id: authData.userId,
           },
         })
 
@@ -70,7 +70,6 @@ export const verifyToken = (
         }
       }
 
-      resolve([err, decoded as DecodedAuthData | undefined])
+      resolve([jwtErr, decoded as DecodedAuthData | undefined])
     })
   })
-}
