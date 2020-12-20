@@ -18,7 +18,10 @@
     "pm2:reboot": "npm install && npm run build && npm run pm2:stop && npm run pm2:delete && npm run pm2:start",
     "checkout-latest": "git reset --hard && git checkout $(git describe --tags `git rev-list --tags --max-count=1`)",
     "update": "git reset --hard && git fetch --prune && npm run checkout-latest && npm install && npm run pm2:reboot",
-    "generate": "prisma generate --schema=node_modules/@payw/eodiro-one-api/prisma/schema.prisma"
+    "introspect:dev": "prisma introspect --schema prisma/schema.dev.prisma",
+    "generate:dev": "prisma generate --schema prisma/schema.dev.prisma",
+    "introspect:prod": "prisma introspect --schema prisma/schema.prod.prisma",
+    "generate:prod": "prisma generate --schema prisma/schema.prod.prisma"
   },
   "dependencies": {
     "@payw/eodiro-one-api": "^2.5.0",
