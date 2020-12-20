@@ -8,6 +8,6 @@ export default class EodiroEncrypt {
   }
 
   static async isSame(password: string, hash: string): Promise<boolean> {
-    return await bcrypt.compare(password, hash)
+    return bcrypt.compare(password, hash)
   }
 }

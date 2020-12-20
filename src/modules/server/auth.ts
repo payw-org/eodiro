@@ -38,7 +38,7 @@ export default class Auth {
    * Returns an encrypted password
    */
   static async encryptPw(password: string): Promise<string> {
-    return await EodiroEncrypt.hash(password)
+    return EodiroEncrypt.hash(password)
   }
 
   /**
