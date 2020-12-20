@@ -3,7 +3,7 @@ import { GetServerSideProps, NextPage } from 'next'
 import $ from './style.module.scss'
 import ApiHost from '@/modules/api-host'
 import Body from '@/layouts/BaseLayout/Body'
-import { Constants } from '@/constants'
+import { constants } from '@/constants'
 import EodiroLink from '@/components/utils/EodiroLink'
 import { GetTipDetail } from '@payw/eodiro-one-api/api/one/scheme'
 import Information from '@/components/global/Information'
@@ -71,7 +71,7 @@ const Content: React.FC<ContentProps> = ({ tip }) => {
 
   return (
     <div>
-      <div className={classNames($['post'], Constants.OVERLAY_SENTINEL_SPOT)}>
+      <div className={classNames($['post'], constants.OVERLAY_SENTINEL_SPOT)}>
         <div className={$['info']}>
           <span className={$['author']}>{tip.randomNickname}</span>
 
