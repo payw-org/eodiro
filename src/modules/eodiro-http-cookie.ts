@@ -1,7 +1,6 @@
-import { IncomingMessage, ServerResponse } from 'http'
-
-import eodiroAxios from './eodiro-axios'
 import nodeCookie from 'cookie'
+import { IncomingMessage, ServerResponse } from 'http'
+import eodiroAxios from './eodiro-axios'
 
 export type Cookie = {
   expires?: string // Expiry date in UTC time
@@ -62,7 +61,7 @@ export default class EodiroHttpCookie {
     }
 
     const [err] = await eodiroAxios({
-      url: '/cookie',
+      url: '/api/cookies',
       method: 'POST',
       data: cookieData,
     })
@@ -87,7 +86,7 @@ export default class EodiroHttpCookie {
     }
 
     const [err, data] = await eodiroAxios({
-      url: '/cookie',
+      url: '/api/cookies',
       method: 'GET',
     })
 
