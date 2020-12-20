@@ -1,21 +1,19 @@
 import AuthCommon from '@/components/auth/AuthCommon'
-import { EodiroPage } from '../_app'
-import { GetServerSideProps } from 'next'
-import Head from 'next/head'
 import { getAuthState } from '@/modules/server/get-auth-state'
 import { redirect } from '@/modules/server/redirect'
+import { GetServerSideProps } from 'next'
+import Head from 'next/head'
+import { EodiroPage } from '../_app'
 
-const SignInPage: EodiroPage = () => {
-  return (
-    <>
-      <Head>
-        <title>로그인</title>
-      </Head>
+const SignInPage: EodiroPage = () => (
+  <>
+    <Head>
+      <title>로그인</title>
+    </Head>
 
-      <AuthCommon mode="signin" />
-    </>
-  )
-}
+    <AuthCommon mode="signin" />
+  </>
+)
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const { isSigned } = await getAuthState({ req, res })
