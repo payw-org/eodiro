@@ -1,8 +1,15 @@
-import { AuthApi, Tokens } from '@/api'
+import { AuthApi } from '@/api'
 import { Button, LineInput } from '@/components/ui'
 import EodiroLink from '@/components/utils/EodiroLink'
 import Body from '@/layouts/BaseLayout/Body'
-import { ApiAuthJoinRequestBody } from '@/pages/api/auth/join'
+import {
+  ApiAuthJoinRequestBody,
+  ApiAuthJoinResponseData,
+} from '@/pages/api/auth/join'
+import {
+  ApiAuthLoginReqBody,
+  ApiAuthLoginResData,
+} from '@/pages/api/auth/login'
 import {
   ApiAuthValidateRequestBody,
   ApiAuthValidateResponseData,
@@ -21,7 +28,7 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
   const [signInFailed, setSignInFailed] = useState(false)
 
   const [portalId, setPortalId] = useState('')
-  const [isPortalIdValid, setIsPortalIdValid] = useState(true)
+  const [isValidPortalId, setIsValidPortalId] = useState(true)
   const [portalIdErrorMessage, setPortalIdErrorMessage] = useState('')
   const portalIdRef = useRef<HTMLInputElement>(null)
   function focusPortalId(): void {
@@ -33,67 +40,65 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
   }, [])
 
   const [nickname, setNickname] = useState('')
-  const [validNickname, setValidNickname] = useState(true)
+  const [isValidNickname, setIsValidNickname] = useState(true)
+  const [nicknameErrorMessage, setNicknameErrorMessage] = useState('')
   const nicknameRef = useRef<HTMLInputElement>(null)
 
   const [password, setPassword] = useState('')
-  const [validPassword, setValidPassword] = useState(true)
+  const [isValidPassword, setIsValidPassword] = useState(true)
+  const [passwordErrorMessage, setPasswordErrorMessage] = useState('')
   const passwordRef = useRef<HTMLInputElement>(null)
   function focusPassword(): void {
     passwordRef.current.focus()
   }
 
-  async function signIn(): Promise<void> {
+  async function login(): Promise<void> {
     setValidating(true)
 
-    const tokens = await AuthApi.signIn(
-      portalId.includes('@') ? portalId : portalId + '@cau.ac.kr',
-      password
+    const loginData: ApiAuthLoginReqBody = {
+      portalId,
+      password,
+    }
+    const res = await Axios.post<ApiAuthLoginResData>(
+      '/api/auth/login',
+      loginData
     )
 
-    if (tokens) {
-      // Successfully signed in
-      // and fetch tokens, store it to cookie
-      await Tokens.set(tokens)
+    setValidating(false)
 
-      // TODO: alert a greeting message before redirection
-
-      location.href = '/'
+    if (res.data.isSigned) {
+      window.location.href = '/'
     } else {
-      // Sign in failed
       setSignInFailed(true)
-      setValidating(false)
     }
   }
 
   async function join(): Promise<void> {
     setValidating(true)
 
-    // const result = await AuthApi.signUp(portalId, nickname, password)
-    // if (!result) {
-    //   alert('서버와 연결할 수 없습니다.')
-    // } else {
-    //   if (result.portalId && result.nickname && result.password) {
-    //     alert(
-    //       '중앙대학교 포탈로 인증 이메일이 발송되었습니다. 인증 후 로그인하세요.'
-    //     )
-    //     location.href = '/signin'
-    //   } else {
-    //     setValidPortalId(result.portalId)
-    //     setValidNickname(result.nickname)
-    //     setValidPassword(result.password)
+    const joinData: ApiAuthJoinRequestBody = { portalId, nickname, password }
+    const response = await Axios.post<ApiAuthJoinResponseData>(
+      '/api/auth/join',
+      joinData
+    )
 
-    //     setValidating(false)
-    //   }
-    // }
+    setValidating(false)
 
-    const response = await Axios.post<{ what: string }>('/api/auth/sign-up', {
-      portalId,
-      nickname,
-      password,
-    } as ApiAuthJoinRequestBody)
+    if (response.data.hasJoined) {
+      alert(
+        '중앙대학교 포탈로 인증 이메일이 발송되었습니다. 인증 후 로그인하세요.'
+      )
+      window.location.href = '/signin'
+    } else {
+      const { validations } = response.data
 
-    console.log(response.data)
+      setIsValidPortalId(validations.portalId.isValid)
+      setPortalIdErrorMessage(validations.portalId.error?.message ?? '')
+      setIsValidNickname(validations.nickname.isValid)
+      setNicknameErrorMessage(validations.nickname.error?.message ?? '')
+      setIsValidPassword(validations.password.isValid)
+      setPasswordErrorMessage(validations.password.error?.message ?? '')
+    }
   }
 
   async function forgot(): Promise<void> {
@@ -112,6 +117,12 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
       }
       setValidating(false)
     }
+  }
+
+  const buttonLabelsMap: Record<typeof mode, string> = {
+    signin: '로그인',
+    join: '회원가입',
+    forgot: '변경 이메일 발송',
   }
 
   return (
@@ -137,17 +148,20 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
             async (value): Promise<void> => {
               if (mode !== 'join') return
 
+              const validatingData: ApiAuthValidateRequestBody = {
+                portalId: value,
+              }
               const response = await Axios.post<ApiAuthValidateResponseData>(
                 '/api/auth/validate',
-                {
-                  portalId: value,
-                } as ApiAuthValidateRequestBody
+                validatingData
               )
 
-              setIsPortalIdValid(response.data.portalId.isValid)
+              setIsValidPortalId(response.data.portalId?.isValid ?? false)
 
-              if (response.data.portalId.error?.message) {
-                setPortalIdErrorMessage(response.data.portalId.error.message)
+              if (!response.data.portalId?.isValid) {
+                setPortalIdErrorMessage(
+                  response.data.portalId?.error?.message ?? ''
+                )
               }
             },
           ]}
@@ -156,7 +170,7 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
           }}
         />
 
-        {mode === 'join' && !isPortalIdValid && (
+        {mode === 'join' && !isValidPortalId && (
           <p className={$['error']}>{portalIdErrorMessage}</p>
         )}
 
@@ -169,8 +183,21 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
             setValue={setNickname}
             disabled={validating}
             onChangeThrottle={[
-              async (nickname): Promise<void> => {
-                setValidNickname(await AuthApi.validateNickname(nickname))
+              async (value): Promise<void> => {
+                const response = await Axios.post<ApiAuthValidateResponseData>(
+                  '/api/auth/validate',
+                  {
+                    nickname: value,
+                  } as ApiAuthJoinRequestBody
+                )
+
+                setIsValidNickname(response.data.nickname?.isValid ?? false)
+
+                if (!response.data.nickname?.isValid) {
+                  setNicknameErrorMessage(
+                    response.data.nickname?.error?.message ?? ''
+                  )
+                }
               },
             ]}
             onEnter={focusPassword}
@@ -178,8 +205,8 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
           />
         )}
 
-        {mode === 'join' && !validNickname && (
-          <p className={$['error']}>사용할 수 없습니다.</p>
+        {mode === 'join' && !isValidNickname && (
+          <p className={$['error']}>{nicknameErrorMessage}</p>
         )}
 
         {mode !== 'forgot' && (
@@ -192,16 +219,29 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
             setValue={setPassword}
             onEnter={(): void => {
               if (mode === 'signin') {
-                signIn()
+                login()
               } else if (mode === 'join') {
                 join()
               }
             }}
             disabled={validating}
             onChangeThrottle={[
-              async (password): Promise<void> => {
+              async (value): Promise<void> => {
                 if (mode === 'join') {
-                  setValidPassword(await AuthApi.validatePassword(password))
+                  const response = await Axios.post<ApiAuthValidateResponseData>(
+                    '/api/auth/validate',
+                    {
+                      password: value,
+                    } as ApiAuthJoinRequestBody
+                  )
+
+                  setIsValidPassword(response.data.password?.isValid ?? false)
+
+                  if (!response.data.password?.isValid) {
+                    setPasswordErrorMessage(
+                      response.data.password?.error?.message ?? ''
+                    )
+                  }
                 }
               },
             ]}
@@ -211,8 +251,8 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
           />
         )}
 
-        {mode === 'join' && !validPassword && (
-          <p className={$['error']}>암호는 8자 이상입니다.</p>
+        {mode === 'join' && !isValidPassword && (
+          <p className={$['error']}>{passwordErrorMessage}</p>
         )}
 
         {signInFailed && (
@@ -220,21 +260,13 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
         )}
 
         <Button
-          label={
-            mode === 'signin'
-              ? '로그인'
-              : mode === 'join'
-              ? '회원가입'
-              : mode === 'forgot'
-              ? '변경 이메일 발송'
-              : ''
-          }
+          label={buttonLabelsMap[mode]}
           full
           className={$['btn']}
           disabled={validating}
           onClick={(): void => {
             if (mode === 'signin') {
-              signIn()
+              login()
             } else if (mode === 'join') {
               join()
             } else if (mode === 'forgot') {
@@ -275,20 +307,17 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
 
 const AuthCommon: React.FC<AuthCommonProps> = (props) => {
   const { mode } = props
+  const pageTitlesMap: Record<typeof mode, string> = {
+    signin: '로그인',
+    join: '회원가입',
+    forgot: '암호 변경',
+  }
 
   return (
     <Body
       bodyClassName={$['eodiro-auth-common']}
       centered
-      pageTitle={
-        mode === 'signin'
-          ? '로그인'
-          : mode === 'join'
-          ? '회원가입'
-          : mode === 'forgot'
-          ? '암호 변경'
-          : ''
-      }
+      pageTitle={pageTitlesMap[mode]}
       titleAlign="center"
     >
       <AuthCommonContent {...props} />
