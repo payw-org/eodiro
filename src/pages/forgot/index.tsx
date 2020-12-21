@@ -1,6 +1,6 @@
 import AuthCommon from '@/components/auth/AuthCommon'
-import { EodiroPage } from '../_app'
 import Head from 'next/head'
+import { EodiroPage } from '../_app'
 
 const ForgotPage: EodiroPage = () => {
   return (
@@ -14,7 +14,7 @@ const ForgotPage: EodiroPage = () => {
 }
 
 ForgotPage.getInitialProps = ({ res, isSigned }): Record<string, unknown> => {
-  if (isSigned) {
+  if (isSigned && res) {
     res.writeHead(302, {
       Location: '/',
     })

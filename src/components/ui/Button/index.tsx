@@ -1,6 +1,6 @@
-import $ from './style.module.scss'
-import React from 'react'
 import classNames from 'classnames'
+import React from 'react'
+import $ from './style.module.scss'
 
 type ButtonProps = {
   className?: string
@@ -23,20 +23,25 @@ type ButtonProps = {
     | 'violet'
 }
 
-export const Button: React.FC<ButtonProps> = (props) => {
+export const Button: React.FC<ButtonProps> = ({
+  className,
+  full,
+  accent,
+  onClick,
+  disabled,
+  label,
+  children,
+}) => {
   return (
     <button
-      className={classNames(
-        $['eodiro-btn'],
-        props.className,
-        props.full && $['full']
-      )}
-      data-accent={props.accent}
-      onClick={props.onClick}
-      disabled={props.disabled}
+      type="button"
+      className={classNames($['eodiro-btn'], className, full && $['full'])}
+      data-accent={accent}
+      onClick={onClick}
+      disabled={disabled}
     >
-      {props.label}
-      {props.children}
+      {label}
+      {children}
     </button>
   )
 }

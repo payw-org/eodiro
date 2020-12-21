@@ -1,7 +1,7 @@
-import $ from './style.module.scss'
 import { ArrowIcon } from '@/components/global/icons'
-import React from 'react'
 import classNames from 'classnames'
+import React from 'react'
+import $ from './style.module.scss'
 
 export interface ArrowBlockProps {
   className?: string
@@ -20,7 +20,8 @@ export const ArrowBlock: React.FC<ArrowBlockProps> = ({
   onClick,
 }) => {
   return (
-    <div
+    <button
+      type="button"
       className={classNames(
         $['arrow-block'],
         className,
@@ -35,6 +36,6 @@ export const ArrowBlock: React.FC<ArrowBlockProps> = ({
           <ArrowIcon direction="right" className={$['ab-arrow']} />
         </div>
       )}
-    </div>
+    </button>
   )
 }

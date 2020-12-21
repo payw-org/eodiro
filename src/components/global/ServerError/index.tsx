@@ -1,6 +1,6 @@
-import $ from './style.module.scss'
-import React from 'react'
 import classNames from 'classnames'
+import React from 'react'
+import $ from './style.module.scss'
 
 const ServerError: React.FC<{ raw?: boolean }> = ({ raw }) => {
   return (

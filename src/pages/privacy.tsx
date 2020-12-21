@@ -1,7 +1,7 @@
-import $ from './privacy.module.scss'
+import PageInfo from '@/components/utils/PageInfo'
 import Body from '@/layouts/BaseLayout/Body'
 import { NextPage } from 'next'
-import PageInfo from '@/components/utils/PageInfo'
+import $ from './privacy.module.scss'
 
 const EodiroName = () => {
   return <span>&lsquo;어디로&rsquo;</span>

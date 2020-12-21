@@ -1,19 +1,18 @@
+import { LecturesApi } from '@/api'
+import ServerError from '@/components/global/ServerError'
 import { ArrowBlock, LineInput, LineInputOnChangeHook } from '@/components/ui'
-import { GetServerSideProps, NextPage } from 'next'
-import React, { useEffect, useRef, useState } from 'react'
-
-import $ from './style.module.scss'
+import InfiniteScrollContainer from '@/components/utils/InfiniteScrollContainer'
+import PageInfo from '@/components/utils/PageInfo'
 import Body from '@/layouts/BaseLayout/Body'
 import Grid from '@/layouts/Grid'
-import InfiniteScrollContainer from '@/components/utils/InfiniteScrollContainer'
-import { LecturesApi } from '@/api'
-import { LecturesWithMajorCode } from '@/types'
-import PageInfo from '@/components/utils/PageInfo'
-import ServerError from '@/components/global/ServerError'
-import classNames from 'classnames'
-import getState from '@/modules/get-state'
 import { getSyllabusUrl } from '@/modules/cau/get-syllabus-url'
+import getState from '@/modules/get-state'
+import { LecturesWithMajorCode } from '@/types'
+import classNames from 'classnames'
+import { GetServerSideProps, NextPage } from 'next'
+import React, { useEffect, useRef, useState } from 'react'
 import { useAuth } from '../_app'
+import $ from './style.module.scss'
 
 interface LecturesPageProps {
   lectures: LecturesWithMajorCode
@@ -24,7 +23,9 @@ const LecturesContent: React.FC<LecturesPageProps> = ({ lectures }) => {
   const [defaultLectures, setDefaultLectures] = useState(lectures)
   const [displayLectures, setDisplayLectures] = useState(lectures)
 
-  const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout>(null)
+  const [searchTimeout, setSearchTimeout] = useState<NodeJS.Timeout | null>(
+    null
+  )
 
   const { isSigned } = useAuth()
 
@@ -46,7 +47,10 @@ const LecturesContent: React.FC<LecturesPageProps> = ({ lectures }) => {
           campus: '서울',
           offset: 0,
         })
-        setDisplayLectures(searched)
+
+        if (searched) {
+          setDisplayLectures(searched)
+        }
       }
     }, 300)
     setSearchTimeout(timeout)
@@ -59,30 +63,34 @@ const LecturesContent: React.FC<LecturesPageProps> = ({ lectures }) => {
       return false
     }
 
-    const searchQuery = await getState(setSearchQuery)
-    const defaultLectures = await getState(setDefaultLectures)
-    const displayLectures = await getState(setDisplayLectures)
+    const searchQueryFresh = await getState(setSearchQuery)
+    const defaultLecturesFresh = await getState(setDefaultLectures)
+    const displayLecturesFresh = await getState(setDisplayLectures)
 
-    let moreLectures: LecturesWithMajorCode
+    let moreLectures: LecturesWithMajorCode | null
 
-    if (searchQuery.length === 0) {
+    if (searchQueryFresh.length === 0) {
       // Load more default lectures
       moreLectures = await LecturesApi.lectures({
         campus: '서울',
-        offset: defaultLectures.length,
+        offset: defaultLecturesFresh.length,
       })
 
-      setDefaultLectures([...defaultLectures, ...moreLectures])
+      if (moreLectures) {
+        setDefaultLectures([...defaultLecturesFresh, ...moreLectures])
+      }
     } else {
-      moreLectures = await LecturesApi.search(searchQuery, {
+      moreLectures = await LecturesApi.search(searchQueryFresh, {
         campus: '서울',
-        offset: displayLectures.length,
+        offset: displayLecturesFresh.length,
       })
 
-      setDisplayLectures([...displayLectures, ...moreLectures])
+      if (moreLectures) {
+        setDisplayLectures([...displayLecturesFresh, ...moreLectures])
+      }
     }
 
-    if (moreLectures.length === 0) {
+    if (moreLectures && moreLectures.length === 0) {
       return false
     }
 
@@ -130,7 +138,7 @@ const LecturesContent: React.FC<LecturesPageProps> = ({ lectures }) => {
                     <ArrowBlock
                       noArrow
                       flat
-                      key={i}
+                      key={lecture.code}
                       className={$['lecture-item']}
                     >
                       <div className={$['li-content']}>
@@ -152,7 +160,7 @@ const LecturesContent: React.FC<LecturesPageProps> = ({ lectures }) => {
                         </div>
                         {(lecture.college || lecture.major) && (
                           <p className={$['major']}>
-                            {lecture.college + ' '}
+                            {`${lecture.college} `}
                             {lecture.major}
                           </p>
                         )}

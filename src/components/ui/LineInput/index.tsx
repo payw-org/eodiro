@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
-
-import $ from './style.module.scss'
-import EodiroColors from '@/modules/styles/EodiroColors'
 import { Magnifier } from '@/components/global/icons'
+import EodiroColors from '@/modules/styles/EodiroColors'
 import classNames from 'classnames'
+import React, { useState } from 'react'
+import $ from './style.module.scss'
 
 export type LineInputOnChangeHook = (inputValue: string) => void
 
@@ -55,7 +54,9 @@ export const LineInput = React.memo(
       },
       ref
     ) => {
-      const [throttleTimeout, setThrottleTimeout] = useState<number>(null)
+      const [throttleTimeout, setThrottleTimeout] = useState<number | null>(
+        null
+      )
 
       return (
         <div className={classNames($['eodiro-line-input'], className)}>
@@ -73,13 +74,13 @@ export const LineInput = React.memo(
             )}
             onChange={(e): void => {
               e.persist()
-              const value = e.target.value
-              setValue(value)
-              onChangeHook(value)
+              const { value: targetValue } = e.target
+              setValue(targetValue)
+              onChangeHook(targetValue)
 
               // No Hangul in password field
               if (type === 'password') {
-                if (value.match(/[ㄱ-힣]/)) {
+                if (targetValue.match(/[ㄱ-힣]/)) {
                   alert('암호에 한글을 사용할 수 없습니다.')
                   setValue('')
                 }
@@ -95,7 +96,7 @@ export const LineInput = React.memo(
               }
               setThrottleTimeout(
                 window.setTimeout(() => {
-                  throttleHook(value)
+                  throttleHook(targetValue)
                 }, throttle)
               )
             }}

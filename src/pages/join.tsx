@@ -1,7 +1,7 @@
 import AuthCommon from '@/components/auth/AuthCommon'
-import { EodiroPage } from './_app'
-import Head from 'next/head'
 import { getAuthState } from '@/modules/server/get-auth-state'
+import Head from 'next/head'
+import { EodiroPage } from './_app'
 
 const JoinPage: EodiroPage = () => {
   return (
@@ -16,7 +16,7 @@ const JoinPage: EodiroPage = () => {
 
 JoinPage.getInitialProps = async ({ req, res }) => {
   const { isSigned } = await getAuthState({ req, res })
-  if (isSigned) {
+  if (isSigned && res) {
     res.writeHead(302, {
       Location: '/',
     })

@@ -1,7 +1,7 @@
-import $ from './style.module.scss'
 import Body from '@/layouts/BaseLayout/Body'
 import { Contributor } from '@/types/github-api'
 import PageInfo from '../../utils/PageInfo'
+import $ from './style.module.scss'
 
 export type OpenSourcePageProps = {
   contributors: Contributor[]

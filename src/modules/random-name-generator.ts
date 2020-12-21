@@ -414,9 +414,9 @@ const nouns = [
 ]
 
 function getRandomInt(min: number, max: number): number {
-  min = Math.ceil(min)
-  max = Math.floor(max)
-  return Math.floor(Math.random() * (max - min + 1)) + min
+  const intMin = Math.ceil(min)
+  const intMax = Math.floor(max)
+  return Math.floor(Math.random() * (intMax - intMin + 1)) + intMin
 }
 
 export function rng(): string {
