@@ -6,11 +6,6 @@ export type AuthData = {
   userId: number
 }
 
-export type DecodedAuthData = AuthData & {
-  iat: number
-  exp: number
-}
-
 export const signAccessToken = (authData: AuthData) =>
   jwt.sign(authData, env.ACCESS_TOKEN_SECRET, {
     expiresIn: env.ACCESS_TOKEN_LIFETIME,
@@ -44,32 +39,39 @@ export type JWTError = JsonWebTokenError & {
 export const verifyToken = (
   token: string | null | undefined,
   type: 'access' | 'refresh'
-): Promise<[Error | null, DecodedAuthData | undefined]> =>
+): Promise<[Error | null, AuthData | undefined]> =>
   new Promise((resolve) => {
     const secret =
       type === 'access' ? env.ACCESS_TOKEN_SECRET : env.REFRESH_TOKEN_SECRET
 
     jwt.verify(token ?? '', secret, async (jwtErr, decoded) => {
-      const authData = decoded as DecodedAuthData | undefined
+      if (decoded) {
+        const authData = decoded as AuthData & { iat?: number; exp?: number }
 
-      // Check DB and compare the refresh token
-      if (authData?.userId && type === 'refresh') {
-        const user = await prisma.user.findUnique({
-          where: {
-            id: authData.userId,
-          },
-        })
+        delete authData.iat
+        delete authData.exp
 
-        if (user?.refreshToken !== token) {
-          const err = new Error('Revoked Refresh Token')
+        // Check DB and compare the refresh token
+        if (authData?.userId && type === 'refresh') {
+          const user = await prisma.user.findUnique({
+            where: {
+              id: authData.userId,
+            },
+          })
 
-          err.name = 'RevokedRefreshToken'
+          if (user?.refreshToken !== token) {
+            const err = new Error('Revoked Refresh Token')
 
-          resolve([err, undefined])
-          return
+            err.name = 'RevokedRefreshToken'
+
+            resolve([err, undefined])
+            return
+          }
         }
-      }
 
-      resolve([jwtErr, decoded as DecodedAuthData | undefined])
+        resolve([jwtErr, authData as AuthData])
+      } else {
+        resolve([jwtErr, decoded as undefined])
+      }
     })
   })
