@@ -69,7 +69,7 @@ const NavMenus: React.FC = () => {
       <NavItem
         title={isSigned ? '마이페이지' : '로그인'}
         className={isSigned ? $['my'] : $['signin']}
-        to={isSigned ? '/my' : '/signin'}
+        to={isSigned ? '/my' : '/login'}
       />
     </ul>
   )
