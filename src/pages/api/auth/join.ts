@@ -7,7 +7,6 @@ export type ApiAuthJoinResponseData = SignUpResult
 export default nextApi({
   post: async ({ req, res }) => {
     const signUpInfo = req.body as ApiAuthJoinRequestBody
-
     const signUpResult = await Auth.signUp(signUpInfo)
 
     res.json(signUpResult)

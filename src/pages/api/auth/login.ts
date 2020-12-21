@@ -9,6 +9,8 @@ import { setCookies } from '../cookies'
 export type ApiAuthLoginReqBody = SignInInfo
 export type ApiAuthLoginResData = {
   isSigned: boolean
+  refreshToken?: string
+  accessToken?: string
 }
 
 export default nextApi({
@@ -40,8 +42,25 @@ export default nextApi({
 
     if (isPasswordMatched) {
       const authData: AuthData = { userId: user.id }
-      const refreshToken = signRefreshToken(authData)
+      let refreshToken = ''
+
+      if (user.refreshToken) {
+        refreshToken = user.refreshToken
+      } else {
+        refreshToken = signRefreshToken(authData)
+
+        await prisma.user.update({
+          where: { id: user.id },
+          data: { refreshToken },
+        })
+      }
+
       const accessToken = signAccessToken(authData)
+
+      resData.refreshToken = refreshToken
+      resData.accessToken = accessToken
+
+      // Login in website
       setCookies(req, res, [
         {
           name: constants.EDR_ACCESS_TOKEN_NAME,

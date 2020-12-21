@@ -74,42 +74,10 @@ export default class Auth {
     return err ? false : decodedAuthData
   }
 
-  static async signIn(info: SignInInfo): Promise<[number, boolean]> {
-    let portalId = info?.portalId
-    let password = info?.password
-
-    // Refine information
-    portalId = portalId ? portalId.trim().toLowerCase() : portalId
-    password = password ? password.trim() : password
-
-    if (!portalId || !password) {
-      return [undefined, false]
-    }
-
-    // const User = await getUser()
-    // const user = await User.findWithPortalId(portalId, true)
-    const user = await prisma.user.findUnique({ where: { portalId } })
-
-    // TODO: Remove the legacy password matching process
-    if (
-      user &&
-      ((await EodiroEncrypt.isSame(password, user.password)) ||
-        user.password === Auth.encryptPwLegacy(password))
-    ) {
-      return [user.id, true]
-    }
-
-    return [undefined, false]
-  }
-
   static async signUp(info: SignUpInfo): Promise<SignUpResult> {
     const { portalId, nickname, password } = info
 
-    const completePortalId = portalId.endsWith('@cau.ac.kr')
-      ? portalId
-      : `${portalId}@cau.ac.kr`
-
-    const portalIdValidation = await validatePortalId(completePortalId)
+    const portalIdValidation = await validatePortalId(portalId)
     const nicknameValidation = await validateNickname(nickname)
     const passwordValidation = await validatePassword(password)
 
