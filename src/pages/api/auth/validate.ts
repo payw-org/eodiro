@@ -7,9 +7,9 @@ import {
 } from '@/modules/server/auth/validation'
 
 export type ApiAuthValidateRequestBody = {
-  portalId: string
-  nickname: string
-  password: string
+  portalId?: string
+  nickname?: string
+  password?: string
 }
 
 export type ApiAuthValidateResponseData = {
@@ -18,23 +18,19 @@ export type ApiAuthValidateResponseData = {
 
 export default nextApi({
   post: async ({ req, res }) => {
-    const {
-      portalId,
-      nickname,
-      password,
-    } = req.body as ApiAuthValidateRequestBody
+    const body = req.body as ApiAuthValidateRequestBody
     const responseData: ApiAuthValidateResponseData = {}
 
-    if (portalId) {
-      responseData.portalId = await validatePortalId(portalId)
+    if ('portalId' in body && body.portalId) {
+      responseData.portalId = await validatePortalId(body.portalId)
     }
 
-    if (nickname) {
-      responseData.nickname = await validateNickname(nickname)
+    if ('nickname' in body && body.nickname) {
+      responseData.nickname = await validateNickname(body.nickname)
     }
 
-    if (password) {
-      responseData.password = await validatePassword(password)
+    if ('password' in body && body.password) {
+      responseData.password = await validatePassword(body.password)
     }
 
     res.json(responseData)
