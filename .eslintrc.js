@@ -28,6 +28,7 @@ module.exports = {
   rules: {
     'jsx-a11y/click-events-have-key-events': 'off',
     'consistent-return': 'off',
+    'no-restricted-syntax': 'off',
     'no-alert': 'off',
     'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
     'react/jsx-props-no-spreading': 'off',
