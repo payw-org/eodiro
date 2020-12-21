@@ -2,7 +2,7 @@ import { env } from '@/env'
 import chalk from 'chalk'
 import NodeMailer from 'nodemailer'
 
-const log = console.log
+const { log } = console
 
 interface MailOption {
   /**
@@ -54,6 +54,12 @@ export default class EodiroMailer {
   static async sendMail(options: MailOption): Promise<any> {
     if (!this.isReady) {
       log(`[ ${chalk.yellow('email')} ] not connected to an email server`)
+      log(
+        `[ ${chalk.yellow(
+          'email'
+        )} ] connecing to the email server for the first time`
+      )
+      await this.verify()
     }
 
     const defaultFrom = this.createFrom('어디로', 'no-reply')
@@ -65,6 +71,6 @@ export default class EodiroMailer {
         : defaultFrom,
     }
 
-    return await this.transporter.sendMail(sendOptions)
+    return this.transporter.sendMail(sendOptions)
   }
 }
