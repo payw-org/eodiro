@@ -1,6 +1,5 @@
-import React, { memo } from 'react'
-
 import { FillableIconProps } from '@/types'
+import React, { memo } from 'react'
 
 interface ArrowIconProps extends FillableIconProps {
   direction?: 'right' | 'down' | 'left' | 'up'
@@ -8,6 +7,18 @@ interface ArrowIconProps extends FillableIconProps {
 
 export const ArrowIcon: React.FC<ArrowIconProps> = memo(
   ({ fill = '#9b9b9b', className, appearance, direction = 'right' }) => {
+    let transform = ''
+
+    if (direction === 'down') {
+      transform = 'rotate(90deg)'
+    } else if (direction === 'left') {
+      transform = 'rotate(180deg)'
+    } else if (direction === 'up') {
+      transform = 'rotate(270deg)'
+    } else {
+      transform = ''
+    }
+
     return (
       <svg
         data-appearance={appearance}
@@ -17,16 +28,7 @@ export const ArrowIcon: React.FC<ArrowIconProps> = memo(
         viewBox="0 0 8 11"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        style={{
-          transform:
-            direction === 'down'
-              ? 'rotate(90deg)'
-              : direction === 'left'
-              ? 'rotate(180deg)'
-              : direction === 'up'
-              ? 'rotate(270deg)'
-              : '',
-        }}
+        style={{ transform }}
       >
         <path
           fillRule="evenodd"

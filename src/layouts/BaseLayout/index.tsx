@@ -1,17 +1,16 @@
-import Navigation, { NavContextProvider } from '@/components/global/Navigation'
-
-import $ from './style.module.scss'
 import GlobalFooter from '@/components/global/GlobalFooter'
-import React from 'react'
+import Navigation, { NavContextProvider } from '@/components/global/Navigation'
 import { isApp } from '@/modules/booleans/is-app'
+import React from 'react'
+import $ from './style.module.scss'
 
-const BaseLayout: React.FC = (props) => {
+const BaseLayout: React.FC = ({ children }) => {
   return (
     <NavContextProvider>
       <div id={$['eodiro-app-scaffold']}>
         <div id={$['eodiro-app']}>
           <Navigation />
-          {props.children}
+          {children}
           {!isApp() && <GlobalFooter />}
         </div>
       </div>

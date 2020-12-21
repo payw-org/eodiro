@@ -66,17 +66,17 @@ export default class EodiroHttpCookie {
       data: cookieData,
     })
 
-    return err ? false : true
+    return !!err
   }
 
   static async get(
-    req?: IncomingMessage
-  ): Promise<Record<string, string | number>> {
+    req?: IncomingMessage | null
+  ): Promise<Record<string, string | number> | undefined> {
     if (req) {
       const cookies =
         req && req.headers?.cookie && nodeCookie.parse(req.headers?.cookie)
 
-      return cookies
+      return cookies as Record<string, string | number>
     }
 
     if (typeof window === 'undefined') {

@@ -1,6 +1,6 @@
-import $ from './style.module.scss'
 import EodiroLink from '@/components/utils/EodiroLink'
 import classNames from 'classnames'
+import $ from './style.module.scss'
 
 export type LiveEntranceProps = unknown
 

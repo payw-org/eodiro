@@ -1,6 +1,6 @@
 import ApiHost from '@/modules/api-host'
-import { IncomingMessage } from 'http'
 import eodiroAxios from '@/modules/eodiro-axios'
+import { IncomingMessage } from 'http'
 import queryString from 'query-string'
 
 export type InquiryData = {
@@ -18,28 +18,26 @@ export class InquiryApi {
     offset: number,
     amount?: number,
     req?: IncomingMessage
-  ): Promise<InquiryData[] | null> {
+  ): Promise<InquiryData[] | null | void> {
     const [err, data, status] = await eodiroAxios<InquiryData[]>(
       {
         method: 'get',
-        url:
-          ApiHost.getHost() +
-          `/inquiry?` +
-          queryString.stringify({ amount, offset }),
+        url: `${ApiHost.getHost()}/inquiry?${queryString.stringify({
+          amount,
+          offset,
+        })}`,
       },
       {
         access: true,
         req,
       }
     )
-    return err
-      ? null
-      : status === 401
-      ? undefined
-      : status === 500
-      ? null
-      : data
+
+    if (err || status === 500) return null
+    if (status === 401) return undefined
+    return data
   }
+
   static async post(
     title: string,
     body: string,
@@ -48,7 +46,7 @@ export class InquiryApi {
     const [, , status] = await eodiroAxios(
       {
         method: 'post',
-        url: ApiHost.getHost() + `/inquiry`,
+        url: `${ApiHost.getHost()}/inquiry`,
         data: {
           title,
           body,

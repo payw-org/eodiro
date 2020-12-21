@@ -1,6 +1,5 @@
 export * from './ArrowIcon'
 export * from './CafeteriaAppIcon'
-export * from './EodiroLogo'
 export * from './LecturesAppIcon'
 export * from './Magnifier'
 export * from './OpensourceAppIcon'

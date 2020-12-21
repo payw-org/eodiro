@@ -1,7 +1,7 @@
-import $ from './style.module.scss'
 import EodiroLink from '@/components/utils/EodiroLink'
-import React from 'react'
 import dayjs from 'dayjs'
+import React from 'react'
+import $ from './style.module.scss'
 
 const Footer: React.FC = () => {
   const now = dayjs()

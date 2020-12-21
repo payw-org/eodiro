@@ -1,22 +1,20 @@
-import 'intersection-observer'
+import { Tokens, TokensPack } from '@/api'
 import '@/assets/styles/global/globalstyle.scss'
+import PageInfo from '@/components/utils/PageInfo'
+import BaseLayout from '@/layouts/BaseLayout'
+import { isApp } from '@/modules/booleans/is-app'
+import { reactNativeWebViewPostMessage } from '@/modules/native/react-native-webview'
+import { getAuthState } from '@/modules/server/get-auth-state'
+import { isDev } from '@/modules/utils/is-dev'
+import 'intersection-observer'
+import { NextComponentType, NextPageContext } from 'next'
+import App, { AppContext, AppInitialProps } from 'next/app'
+import Head from 'next/head'
+import Router from 'next/router'
+import React, { createContext, useContext, useState } from 'react'
+import { RecoilRoot } from 'recoil'
 import 'swiper/swiper.scss'
 import './_document.scss'
-
-import App, { AppContext, AppInitialProps } from 'next/app'
-import { NextComponentType, NextPageContext } from 'next'
-import React, { createContext, useContext, useState } from 'react'
-import { Tokens, TokensPack } from '@/api'
-
-import BaseLayout from '@/layouts/BaseLayout'
-import Head from 'next/head'
-import PageInfo from '@/components/utils/PageInfo'
-import { RecoilRoot } from 'recoil'
-import Router from 'next/router'
-import { getAuthState } from '@/modules/server/get-auth-state'
-import { isApp } from '@/modules/booleans/is-app'
-import { isDev } from '@/modules/utils/is-dev'
-import { reactNativeWebViewPostMessage } from '@/modules/native/react-native-webview'
 
 type AuthProps = {
   tokens: TokensPack
@@ -31,24 +29,30 @@ export const useAuth = (): AuthProps => {
   return authContext
 }
 
-export const AuthProvider: React.FC<AuthProps> = (props) => {
-  const [tokens] = useState(
-    props.tokens || { accessToken: undefined, refreshToken: undefined }
+export const AuthProvider: React.FC<AuthProps> = ({
+  tokens,
+  isSigned,
+  isAdmin,
+  userId,
+  children,
+}) => {
+  const [tokensState] = useState(
+    tokens || { accessToken: undefined, refreshToken: undefined }
   )
-  const [isSigned] = useState(props.isSigned)
-  const [isAdmin] = useState(props.isAdmin)
-  const [userId] = useState(props.userId)
+  const [isSignedState] = useState(isSigned)
+  const [isAdminState] = useState(isAdmin)
+  const [userIdState] = useState(userId)
 
   return (
     <AuthContext.Provider
       value={{
-        tokens,
-        isSigned,
-        isAdmin,
-        userId,
+        tokens: tokensState,
+        isSigned: isSignedState,
+        isAdmin: isAdminState,
+        userId: userIdState,
       }}
     >
-      {props.children}
+      {children}
     </AuthContext.Provider>
   )
 }
@@ -76,7 +80,7 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
   static async getInitialProps({
     Component,
     ctx,
-  }: EodiroAppContext): Promise<EodiroAppInitialProps> {
+  }: AppContext): Promise<EodiroAppInitialProps> {
     const { req, res } = ctx
 
     const tokens = await Tokens.get(ctx.req)
@@ -84,7 +88,7 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
       tokens,
       isSigned: false,
       isAdmin: false,
-      userId: null,
+      userId: 0,
     }
 
     const authState = await getAuthState({ req, res })
@@ -106,24 +110,26 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
     function removeDimmedClassFromBody() {
       document.body.classList.remove('dimmed')
     }
-    documentFonts
-      ? documentFonts.ready.then(() => {
-          removeDimmedClassFromBody()
-        })
-      : setTimeout(() => {
-          removeDimmedClassFromBody()
-        }, 200)
+    if (documentFonts) {
+      documentFonts.ready.then(() => {
+        removeDimmedClassFromBody()
+      })
+    } else {
+      setTimeout(() => {
+        removeDimmedClassFromBody()
+      }, 200)
+    }
 
     if (!isApp()) {
       const currentpage = sessionStorage.getItem('currentpage')
       if (currentpage) {
         sessionStorage.setItem('lastpage', currentpage)
       }
-      sessionStorage.setItem('currentpage', location.pathname)
+      sessionStorage.setItem('currentpage', window.location.pathname)
 
       // Set topbar
       const w = globalThis as any
-      const topbar = w.topbar
+      const { topbar } = w
       topbar.config({
         barThickness: 3,
         barColors: {
@@ -146,16 +152,13 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
 
       // Update current page and last page in session storage
       Router.events.on('routeChangeComplete', () => {
-        const currentpage = sessionStorage.getItem('currentpage')
         if (currentpage) {
           sessionStorage.setItem('lastpage', currentpage)
         }
-        sessionStorage.setItem('currentpage', location.pathname)
+        sessionStorage.setItem('currentpage', window.location.pathname)
       })
     } else {
       document.body.classList.add('is-app')
-
-      const documentFonts = (document as any).fonts
 
       if (!documentFonts) {
         setTimeout(() => {
@@ -191,11 +194,12 @@ export default class EodiroApp extends App<EodiroAppInitialProps> {
             content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
           />
           {/* @deprecated */}
-          <script src="/modules/topbar.min.js"></script>
+          <script src="/modules/topbar.min.js" />
 
           {/* Google Analytics */}
           {!isDev() && (
             <script
+              // eslint-disable-next-line react/no-danger
               dangerouslySetInnerHTML={{
                 __html: `
                 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){

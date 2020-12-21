@@ -1,4 +1,10 @@
+import { VerticalThreeDotsIcon } from '@/components/global/icons'
+import EodiroLogo from '@/components/global/icons/EodiroLogo'
+import EodiroLink from '@/components/utils/EodiroLink'
+import { isApp } from '@/modules/booleans/is-app'
 import { AuthContext, useAuth } from '@/pages/_app'
+import classNames from 'classnames'
+import React, { useContext } from 'react'
 import {
   NavHiddenStateContext,
   NavMenuOpenDispatchContext,
@@ -6,15 +12,7 @@ import {
   NavScrollStateContext,
   NavTitleStateContext,
 } from './navigation-context'
-import React, { useContext } from 'react'
-
 import $ from './style.module.scss'
-import EodiroLink from '@/components/utils/EodiroLink'
-import EodiroLogo from '@/components/global/icons/EodiroLogo'
-import { VerticalThreeDotsIcon } from '@/components/global/icons'
-import classNames from 'classnames'
-import { isApp } from '@/modules/booleans/is-app'
-import { reactNativeWebViewPostMessage } from '@/modules/native/react-native-webview'
 
 export * from './navigation-context'
 
@@ -54,7 +52,7 @@ const PageAppTitle: React.FC = () => {
 }
 
 const NavMenus: React.FC = () => {
-  const isSigned = useContext(AuthContext).isSigned
+  const { isSigned } = useContext(AuthContext)
   const menuOpened = useContext(NavMenuOpenStateContext)
 
   return (
@@ -90,26 +88,8 @@ const Navigation: React.FC = () => {
       <BgBar />
 
       <div className={$['en-wrapper']}>
-        {isApp() && location.pathname === '/' ? (
+        {isApp() && window.location.pathname === '/' ? (
           <div className={$['spacer']} />
-        ) : isApp() ? (
-          <button
-            className={$['go-back']}
-            onClick={() => {
-              reactNativeWebViewPostMessage({
-                key: 'goBack',
-              })
-            }}
-          >
-            <i
-              className="f7-icons"
-              style={{
-                fontSize: 25,
-              }}
-            >
-              arrow_left
-            </i>
-          </button>
         ) : (
           <EodiroLink href="/" className={$['home-link']}>
             <EodiroLogo className={$['eodiro-logo']} fill="#ff3852" />
@@ -123,20 +103,22 @@ const Navigation: React.FC = () => {
         {isApp() ? (
           <EodiroLink href={isSigned ? '/my' : '/signin'}>
             <div className={$['app-nav-right-button']}>
-              {location.pathname !== '/signin' && location.pathname !== '/my' && (
-                <i
-                  className="f7-icons"
-                  style={{
-                    fontSize: 25,
-                  }}
-                >
-                  person_crop_circle
-                </i>
-              )}
+              {window.location.pathname !== '/signin' &&
+                window.location.pathname !== '/my' && (
+                  <i
+                    className="f7-icons"
+                    style={{
+                      fontSize: 25,
+                    }}
+                  >
+                    person_crop_circle
+                  </i>
+                )}
             </div>
           </EodiroLink>
         ) : (
-          <div
+          <button
+            type="button"
             className={$['more-tappable']}
             onClick={(e): void => {
               e.preventDefault()
@@ -146,7 +128,7 @@ const Navigation: React.FC = () => {
             }}
           >
             <VerticalThreeDotsIcon className={$['more-icon']} />
-          </div>
+          </button>
         )}
       </div>
     </nav>

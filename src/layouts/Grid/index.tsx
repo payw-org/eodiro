@@ -1,7 +1,7 @@
-import $ from './style.module.scss'
-import React from 'react'
 import { camelToKebab } from '@/modules/string-utils'
 import classNames from 'classnames'
+import React from 'react'
+import $ from './style.module.scss'
 
 type GridProps = {
   proportion?: 'extraSmall' | 'small' | 'medium' | 'large'

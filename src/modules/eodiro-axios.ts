@@ -5,10 +5,9 @@
  * @license MIT
  */
 
-import axios, { AxiosRequestConfig } from 'axios'
-
-import { IncomingMessage } from 'http'
 import { Tokens } from '@/api'
+import axios, { AxiosRequestConfig } from 'axios'
+import { IncomingMessage } from 'http'
 
 const moduleConsoleTag = '[eodiro-axios]'
 
@@ -20,7 +19,7 @@ export default async function eodiroAxios<T = any>(
     req?: IncomingMessage
     accessIfExist?: boolean
   }
-): Promise<[any, T, number]> {
+): Promise<[any, T | null, number | null]> {
   if (eodiroAxiosConfig && typeof eodiroAxiosConfig !== 'object') {
     console.error(
       `${moduleConsoleTag} Wrong type of parameter eodiroAxiosConfig`
@@ -28,6 +27,8 @@ export default async function eodiroAxios<T = any>(
 
     return [true, null, null]
   }
+
+  const customConfig = config
 
   if (eodiroAxiosConfig) {
     const {
@@ -48,34 +49,32 @@ export default async function eodiroAxios<T = any>(
       const cookies = await Tokens.get(req)
       const { accessToken, refreshToken } = cookies
 
-      if (!config.headers) {
-        config.headers = {}
+      if (!customConfig.headers) {
+        customConfig.headers = {}
       }
 
       if (access) {
         if (!accessToken) {
           return [true, null, 401]
-        } else {
-          config.headers.accessToken = accessToken
         }
+        customConfig.headers.accessToken = accessToken
       }
 
       if (accessIfExist && accessToken !== undefined) {
-        config.headers.accessToken = accessToken
+        customConfig.headers.accessToken = accessToken
       }
 
       if (refresh) {
         if (!refreshToken) {
           return [true, null, 401]
-        } else {
-          config.headers.refreshToken = refreshToken
         }
+        customConfig.headers.refreshToken = refreshToken
       }
     }
   }
 
   try {
-    const res = await axios(config)
+    const res = await axios(customConfig)
     return [null, res.data, res.status]
   } catch (err) {
     console.warn(moduleConsoleTag, err)
@@ -88,7 +87,8 @@ export default async function eodiroAxios<T = any>(
         alert('서버에 연결할 수 없습니다.')
       }
       return [err, null, null]
-    } else if (
+    }
+    if (
       Math.floor(err?.response?.status / 100) === 5 &&
       typeof window !== 'undefined'
     ) {

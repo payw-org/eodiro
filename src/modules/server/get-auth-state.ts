@@ -17,17 +17,17 @@ export type AuthState = {
  */
 export async function getAuthState(
   ctx: {
-    req: IncomingMessage
-    res: ServerResponse
-  } = { req: undefined, res: undefined }
+    req: IncomingMessage | null | undefined
+    res: ServerResponse | null | undefined
+  } = { req: null, res: null }
 ): Promise<AuthState> {
   const { req, res } = ctx
   const tokens = await Tokens.get(req)
   let authState: AuthState = {
     isSigned: false,
     isAdmin: false,
-    userId: null,
-    accessToken: null,
+    userId: 0,
+    accessToken: '',
   }
 
   async function refresh() {
@@ -36,7 +36,7 @@ export async function getAuthState(
     if (newTokens) {
       const [err, authCheck] = await eodiroAxios({
         method: 'POST',
-        url: ApiHost.getHost() + `/auth/is-signed-in`,
+        url: `${ApiHost.getHost()}/auth/is-signed-in`,
         headers: {
           accessToken: newTokens.accessToken,
         },

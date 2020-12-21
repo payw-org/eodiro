@@ -1,8 +1,8 @@
-import $ from './_error.module.scss'
 import Body from '@/layouts/BaseLayout/Body'
+import classNames from 'classnames'
 import { NextPage } from 'next'
 import React from 'react'
-import classNames from 'classnames'
+import $ from './_error.module.scss'
 
 type ErrorPageProps = {
   statusCode: number
@@ -10,12 +10,16 @@ type ErrorPageProps = {
 
 const ErrorPage: NextPage<ErrorPageProps> = ({ statusCode }) => {
   const pageTitle = statusCode === 999 ? 'Unknwon Error' : statusCode.toString()
-  const msg =
-    statusCode === 500
-      ? '서버에 연결할 수 없습니다.'
-      : statusCode === 999
-      ? '알 수 없는 오류입니다.'
-      : '페이지를 찾을 수 없습니다.'
+
+  let msg = ''
+
+  if (statusCode === 500) {
+    msg = '서버에 연결할 수 없습니다.'
+  } else if (statusCode === 999) {
+    msg = '알 수 없는 오류입니다.'
+  } else {
+    msg = '페이지를 찾을 수 없습니다.'
+  }
 
   return (
     <Body pageTitle={pageTitle} titleHidden centered>
@@ -36,12 +40,13 @@ const ErrorPage: NextPage<ErrorPageProps> = ({ statusCode }) => {
 }
 
 ErrorPage.getInitialProps = async ({ res, err }): Promise<ErrorPageProps> => {
-  const statusCode =
-    res && res.statusCode
-      ? res.statusCode
-      : err && err.statusCode
-      ? err.statusCode
-      : 999
+  let statusCode = 999
+
+  if (res && res.statusCode) {
+    statusCode = res.statusCode
+  } else if (err && err.statusCode) {
+    statusCode = err.statusCode
+  }
 
   return {
     statusCode,

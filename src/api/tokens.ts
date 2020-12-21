@@ -1,7 +1,6 @@
-import { IncomingMessage, ServerResponse } from 'http'
-
 import EodiroHttpCookie from '@/modules/eodiro-http-cookie'
 import dayjs from 'dayjs'
+import { IncomingMessage, ServerResponse } from 'http'
 
 export type TokensPack = {
   accessToken: string | null
@@ -9,7 +8,7 @@ export type TokensPack = {
 }
 
 export class Tokens {
-  static async get(req?: IncomingMessage): Promise<TokensPack> {
+  static async get(req?: IncomingMessage | null): Promise<TokensPack> {
     const cookies = await EodiroHttpCookie.get(req)
 
     return {
@@ -26,6 +25,10 @@ export class Tokens {
     }
   ): Promise<boolean> {
     const { accessToken, refreshToken } = tokens
+    if (!accessToken || !refreshToken) {
+      return false
+    }
+
     const succeeded = await EodiroHttpCookie.set(
       [
         {

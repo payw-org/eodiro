@@ -3,10 +3,9 @@ import {
   NavScrollDispatchContext,
   NavTitleDispatchContext,
 } from '@/components/global/Navigation'
-import React, { FC, useContext, useEffect, useRef } from 'react'
-
-import $ from './style.module.scss'
 import classNames from 'classnames'
+import React, { FC, useContext, useEffect, useRef } from 'react'
+import $ from './style.module.scss'
 
 export type HeaderProps = {
   titleAlign?: 'left' | 'center'
@@ -51,11 +50,11 @@ const Header: FC<HeaderProps> = ({ pageTitle, titleAlign, titleHidden }) => {
     titleSentinel.className = $['title-sentinel']
 
     // Dynamically append sentinels
-    overlaySentinelSpot?.parentElement.insertBefore(
+    overlaySentinelSpot?.parentElement?.insertBefore(
       overlaySentinel,
       overlaySentinelSpot
     )
-    titleSentinelSpot?.parentElement.insertBefore(
+    titleSentinelSpot?.parentElement?.insertBefore(
       titleSentinel,
       titleSentinelSpot.nextSibling
     )
@@ -87,7 +86,7 @@ const Header: FC<HeaderProps> = ({ pageTitle, titleAlign, titleHidden }) => {
     return () => {
       observer.disconnect()
     }
-  }, [])
+  }, [pageTitle, setNavHidden, setNavScrolled, setNavTitle, titleHidden])
 
   return (
     <h1

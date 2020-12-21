@@ -14,6 +14,7 @@ import { isDev } from './utils/is-dev'
 // TODO: refactor the class name for universal usage
 export default class ApiHost {
   static apiHost: string
+
   static cdnHost: string
 
   private static setHost(host: string, cdn = false): string {
@@ -29,7 +30,8 @@ export default class ApiHost {
   public static getHost(cdn = false): string {
     if (cdn && this.cdnHost) {
       return this.cdnHost
-    } else if (!cdn && this.apiHost) {
+    }
+    if (!cdn && this.apiHost) {
       return this.apiHost
     }
 
@@ -51,16 +53,15 @@ export default class ApiHost {
       (isClient() && document.documentElement.hasAttribute('data-use-dev-api'))
     ) {
       if (isClient()) {
-        return this.setHost(`http://${location.hostname}:${port}`, cdn)
-      } else {
-        return this.setHost(`http://localhost:${port}`, cdn)
+        return this.setHost(`http://${window.location.hostname}:${port}`, cdn)
       }
+      return this.setHost(`http://localhost:${port}`, cdn)
     }
 
     // Dev mode
     // Use local machine's IP address
     if (isDev() && isClient()) {
-      return this.setHost(`http://${location.hostname}:${port}`, cdn)
+      return this.setHost(`http://${window.location.hostname}:${port}`, cdn)
     }
 
     // General, including server side call

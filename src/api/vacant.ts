@@ -1,9 +1,8 @@
-import { Campus, Semester, Year } from '@/types'
-
 import ApiHost from '@/modules/api-host'
-import dayjs from 'dayjs'
 import eodiroFetch from '@/modules/eodiro-fetch'
 import getSemester from '@/modules/get-semester'
+import { Campus, Semester, Year } from '@/types'
+import dayjs from 'dayjs'
 
 export type VacantBuildings = {
   building_number: number
@@ -36,14 +35,13 @@ export class VacantApi {
     campus: Campus
   }): Promise<VacantBuildings | null> {
     const now = dayjs()
-    year = year || now.year()
-    semester = semester || getSemester()
+    const sanitizedYear = year || now.year()
+    const sanitizedSemester = semester || getSemester()
 
     const [err, data] = await eodiroFetch(
-      ApiHost.getHost() +
-        `/vacant/${year}/${encodeURIComponent(semester)}/${encodeURIComponent(
-          campus
-        )}/buildings`,
+      `${ApiHost.getHost()}/vacant/${sanitizedYear}/${encodeURIComponent(
+        sanitizedSemester
+      )}/${encodeURIComponent(campus)}/buildings`,
       {
         method: 'get',
       }
@@ -64,16 +62,15 @@ export class VacantApi {
     building: string
   }): Promise<VacantClassrooms | null> {
     const now = dayjs()
-    year = year || now.year()
-    semester = semester || getSemester()
+    const sanitizedYear = year || now.year()
+    const sanitizedSemester = semester || getSemester()
 
     // TODO: Rename `useFetch` because it's not a React hook
     // eslint-disable-next-line react-hooks/rules-of-hooks
     const [err, data] = await eodiroFetch(
-      ApiHost.getHost() +
-        `/vacant/${year}/${encodeURIComponent(semester)}/${encodeURIComponent(
-          campus
-        )}/buildings/${building}/classrooms`,
+      `${ApiHost.getHost()}/vacant/${sanitizedYear}/${encodeURIComponent(
+        sanitizedSemester
+      )}/${encodeURIComponent(campus)}/buildings/${building}/classrooms`,
       {
         method: 'get',
       }

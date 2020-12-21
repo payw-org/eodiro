@@ -1,8 +1,7 @@
-import { Tokens, TokensPack } from './tokens'
-
 import ApiHost from '@/modules/api-host'
-import { IncomingMessage } from 'http'
 import eodiroAxios from '@/modules/eodiro-axios'
+import { IncomingMessage } from 'http'
+import { Tokens, TokensPack } from './tokens'
 
 export type UserInfo = {
   id: number
@@ -26,7 +25,7 @@ export class AuthApi {
       userId?: number
     }>(
       {
-        url: ApiHost.getHost() + `/auth/is-signed-in`,
+        url: `${ApiHost.getHost()}/auth/is-signed-in`,
         method: 'POST',
       },
       {
@@ -48,7 +47,7 @@ export class AuthApi {
   ): Promise<false | TokensPack> {
     const [err, data] = await eodiroAxios({
       method: 'POST',
-      url: ApiHost.getHost() + `/auth/sign-in`,
+      url: `${ApiHost.getHost()}/auth/sign-in`,
       data: {
         portalId,
         password,
@@ -62,7 +61,7 @@ export class AuthApi {
     const [err] = await eodiroAxios(
       {
         method: 'DELETE',
-        url: ApiHost.getHost() + `/auth/refresh-token`,
+        url: `${ApiHost.getHost()}/auth/refresh-token`,
       },
       {
         access: true,
@@ -88,11 +87,13 @@ export class AuthApi {
       }
     | false
   > {
-    portalId = portalId.toLowerCase().trim()
+    let completePortalId = portalId.toLowerCase().trim()
+
     if (!portalId.includes('@')) {
-      portalId += '@cau.ac.kr'
+      completePortalId += '@cau.ac.kr'
     }
-    nickname = nickname.trim().replace(' ', '')
+
+    const trimmedNickname = nickname.trim().replace(' ', '')
 
     const [err, data] = await eodiroAxios<{
       portalId: boolean
@@ -100,10 +101,10 @@ export class AuthApi {
       password: boolean
     }>({
       method: 'POST',
-      url: ApiHost.getHost() + `/auth/sign-up`,
+      url: `${ApiHost.getHost()}/auth/sign-up`,
       data: {
-        portalId,
-        nickname,
+        portalId: completePortalId,
+        nickname: trimmedNickname,
         password,
       },
     })
@@ -114,7 +115,7 @@ export class AuthApi {
   static async verify(token: string): Promise<boolean> {
     const [err] = await eodiroAxios({
       method: 'POST',
-      url: ApiHost.getHost() + `/auth/verify`,
+      url: `${ApiHost.getHost()}/auth/verify`,
       data: {
         token,
       },
@@ -128,7 +129,7 @@ export class AuthApi {
     const [err, data] = await eodiroAxios<TokensPack>(
       {
         method: 'POST',
-        url: ApiHost.getHost() + `/auth/refresh-token`,
+        url: `${ApiHost.getHost()}/auth/refresh-token`,
       },
       {
         refresh: true,
@@ -149,7 +150,7 @@ export class AuthApi {
   ): Promise<boolean> {
     const [err, data] = await eodiroAxios<boolean>({
       method: 'POST',
-      url: ApiHost.getHost() + `/auth/validate/portal-id`,
+      url: `${ApiHost.getHost()}/auth/validate/portal-id`,
       data: {
         portalId,
         existence,
@@ -162,7 +163,7 @@ export class AuthApi {
   static async validateNickname(nickname: string): Promise<boolean> {
     const [err, data] = await eodiroAxios<boolean>({
       method: 'POST',
-      url: ApiHost.getHost() + `/auth/validate/nickname`,
+      url: `${ApiHost.getHost()}/auth/validate/nickname`,
       data: {
         nickname,
       },
@@ -174,7 +175,7 @@ export class AuthApi {
   static async validatePassword(password: string): Promise<boolean> {
     const [err, data] = await eodiroAxios<boolean>({
       method: 'POST',
-      url: ApiHost.getHost() + `/auth/validate/password`,
+      url: `${ApiHost.getHost()}/auth/validate/password`,
       data: {
         password,
       },
@@ -187,7 +188,7 @@ export class AuthApi {
     const [err, data] = await eodiroAxios<UserInfo>(
       {
         method: 'GET',
-        url: ApiHost.getHost() + `/auth/information`,
+        url: `${ApiHost.getHost()}/auth/information`,
       },
       {
         access: true,
@@ -207,19 +208,19 @@ export class AuthApi {
   static async requestPasswordChange(portalId: string): Promise<boolean> {
     const [err] = await eodiroAxios({
       method: 'POST',
-      url: ApiHost.getHost() + `/auth/change-password`,
+      url: `${ApiHost.getHost()}/auth/change-password`,
       data: {
         portalId,
       },
     })
 
-    return err ? false : true
+    return !!err
   }
 
   static async checkPasswordChange(token: string): Promise<boolean> {
     const [err, data] = await eodiroAxios<boolean>({
       method: 'GET',
-      url: ApiHost.getHost() + `/auth/change-password`,
+      url: `${ApiHost.getHost()}/auth/change-password`,
       data: {
         token,
       },
@@ -234,7 +235,7 @@ export class AuthApi {
   ): Promise<boolean> {
     const [err, data] = await eodiroAxios<boolean>({
       method: 'PATCH',
-      url: ApiHost.getHost() + `/auth/change-password`,
+      url: `${ApiHost.getHost()}/auth/change-password`,
       data: {
         token,
         newPassword,

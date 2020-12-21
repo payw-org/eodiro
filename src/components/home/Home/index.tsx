@@ -1,12 +1,11 @@
-import React, { useEffect, useState } from 'react'
-
-import $ from './style.module.scss'
-import Body from '@/layouts/BaseLayout/Body'
-import EodiroColors from '@/modules/styles/EodiroColors'
 import EodiroLink from '@/components/utils/EodiroLink'
+import Body from '@/layouts/BaseLayout/Body'
 import Grid from '@/layouts/Grid'
-import LiveEntrance from './LiveEntrance'
+import EodiroColors from '@/modules/styles/EodiroColors'
 import classNames from 'classnames'
+import React, { useEffect, useState } from 'react'
+import LiveEntrance from './LiveEntrance'
+import $ from './style.module.scss'
 
 type HomeFeatureBoxProps = {
   title: string
@@ -22,7 +21,7 @@ const HomeFeatureBox: React.FC<HomeFeatureBoxProps> = ({
   label,
 }) => {
   return (
-    <button className={$['feature-box']}>
+    <button className={$['feature-box']} type="button">
       <div className={$['wrapper']}>
         {Icon}
         <h2 className={$['feature-name']}>{title}</h2>
