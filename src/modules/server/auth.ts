@@ -59,40 +59,6 @@ export default class Auth {
   }
 
   /**
-   * Verifies the email verification with the given token
-   */
-  static async verifyPendingUser(token: string): Promise<boolean> {
-    if (!token || typeof token !== 'string') {
-      return false
-    }
-
-    const user = await prisma.pendingUser.findUnique({
-      where: {
-        token,
-      },
-    })
-
-    if (!user) {
-      return false
-    }
-
-    const removePending = prisma.pendingUser.delete({
-      where: {
-        token,
-      },
-    })
-    const createUser = prisma.user.create({
-      data: {
-        ...user,
-      },
-    })
-
-    await prisma.$transaction([removePending, createUser])
-
-    return true
-  }
-
-  /**
    * Verifies the given access token and returns user ID if it is valid.
    * Otherwise returns false.
    */
@@ -139,7 +105,11 @@ export default class Auth {
   static async signUp(info: SignUpInfo): Promise<SignUpResult> {
     const { portalId, nickname, password } = info
 
-    const portalIdValidation = await validatePortalId(portalId)
+    const completePortalId = portalId.endsWith('@cau.ac.kr')
+      ? portalId
+      : `${portalId}@cau.ac.kr`
+
+    const portalIdValidation = await validatePortalId(completePortalId)
     const nicknameValidation = await validateNickname(nickname)
     const passwordValidation = await validatePassword(password)
 
@@ -163,7 +133,7 @@ export default class Auth {
     const pendingToken = Auth.generateToken()
     await prisma.pendingUser.create({
       data: {
-        portalId,
+        portalId: completePortalId,
         password: await Auth.encryptPw(password),
         nickname,
         token: pendingToken,
@@ -178,7 +148,7 @@ export default class Auth {
     const html = Mustache.render(joinEmailTemplate, { token: pendingToken })
 
     EodiroMailer.sendMail({
-      to: portalId,
+      to: completePortalId,
       subject: '[회원가입] 인증 이메일',
       html,
     })

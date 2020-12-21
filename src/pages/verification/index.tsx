@@ -1,12 +1,12 @@
-import $ from './style.module.scss'
-import { AuthApi } from '@/api'
-import Body from '@/layouts/BaseLayout/Body'
 import { Button } from '@/components/ui'
-import { EodiroPage } from '../_app'
-import { GetServerSideProps } from 'next'
-import classNames from 'classnames'
+import Body from '@/layouts/BaseLayout/Body'
+import { prisma } from '@/modules/prisma'
 import { redirect } from '@/modules/server/redirect'
+import classNames from 'classnames'
+import { GetServerSideProps } from 'next'
 import { useEffect } from 'react'
+import { EodiroPage } from '../_app'
+import $ from './style.module.scss'
 
 type VerificationPageProps = {
   verified: boolean
@@ -21,7 +21,7 @@ const VerifiedComp: React.FC<{ verified: boolean }> = ({ verified }) => {
 
   // Clear verification code after load
   useEffect(() => {
-    history.pushState({}, null, '/verification')
+    window.history.pushState({}, null, '/verification')
   }, [])
 
   return (
@@ -36,39 +36,63 @@ const VerifiedComp: React.FC<{ verified: boolean }> = ({ verified }) => {
         {paragraph}
       </h1>
       <a href={anchor.href}>
-        <Button label={anchor.text} className="btn" />
+        <Button label={anchor.text} className={$['btn']} />
       </a>
     </div>
   )
 }
 
-const VerificationPage: EodiroPage<VerificationPageProps> = ({ verified }) => {
-  return (
-    <Body
-      pageTitle="회원가입 인증"
-      titleHidden
-      centered
-      bodyClassName={$['eodiro-join-verification']}
-    >
-      <VerifiedComp verified={verified} />
-    </Body>
-  )
-}
+const VerificationPage: EodiroPage<VerificationPageProps> = ({ verified }) => (
+  <Body
+    pageTitle="회원가입 인증"
+    titleHidden
+    centered
+    bodyClassName={$['eodiro-join-verification']}
+  >
+    <VerifiedComp verified={verified} />
+  </Body>
+)
 
 export default VerificationPage
 
-export const getServerSideProps: GetServerSideProps = async (ctx) => {
+export const getServerSideProps: GetServerSideProps<VerificationPageProps> = async (
+  ctx
+) => {
   const { t } = ctx.query
+  const token = t as string
 
-  if (!t) {
+  if (!token) {
     redirect(ctx.res)
   }
 
-  const verified = await AuthApi.verify(t as string)
+  // const verified = await AuthApi.verify(t as string)
+  const pendingUser = await prisma.pendingUser.findUnique({
+    where: { token },
+  })
+
+  if (pendingUser) {
+    const clearPendingUser = prisma.pendingUser.delete({
+      where: { token },
+    })
+    const {
+      portalId,
+      nickname,
+      password,
+      randomNickname,
+      registeredAt,
+    } = pendingUser
+    const createUser = prisma.user.create({
+      data: { portalId, nickname, password, randomNickname, registeredAt },
+    })
+
+    await prisma.$transaction([clearPendingUser, createUser])
+
+    return {
+      props: { verified: true },
+    }
+  }
 
   return {
-    props: {
-      verified,
-    },
+    props: { verified: false },
   }
 }
