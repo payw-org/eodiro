@@ -89,7 +89,7 @@ export async function validateNickname(
       isValid: false,
       error: {
         message:
-          '한글, 영문(소문자), 숫자, 특수문자 _(연속, 앞/뒤 제외)만 사용 가능합니다',
+          '한글(완성형), 영문(소문자), 숫자, _(연속, 앞/뒤 제외)만 사용할 수 있습니다.',
       },
     }
   }
