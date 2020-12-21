@@ -12,20 +12,32 @@ export type AuthValidationResult = {
 export async function validatePortalId(
   portalId: string
 ): Promise<AuthValidationResult> {
-  if (!portalId || typeof portalId !== 'string') {
+  if (!portalId || typeof portalId !== 'string' || !portalId.trim()) {
     return {
       isValid: false,
       error: { message: '포탈 아이디를 입력하세요.' },
     }
   }
 
-  portalId = portalId.trim()
+  const trimmedPortalId = portalId.trim()
+  const sanitizedPortalId = trimmedPortalId.endsWith('@cau.ac.kr')
+    ? trimmedPortalId
+    : `${trimmedPortalId}@cau.ac.kr`
 
-  if (!portalId.endsWith('@cau.ac.kr')) {
-    portalId += '@cau.ac.kr'
+  if (sanitizedPortalId.includes(' ')) {
+    return {
+      isValid: false,
+      error: { message: '공백을 포함할 수 없습니다.' },
+    }
   }
 
-  const user = await prisma.user.findUnique({ where: { portalId } })
+  const user =
+    (await prisma.user.findUnique({
+      where: { portalId: sanitizedPortalId },
+    })) ||
+    (await prisma.pendingUser.findUnique({
+      where: { portalId: sanitizedPortalId },
+    }))
 
   if (user) {
     return {
