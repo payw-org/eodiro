@@ -2,9 +2,9 @@ import EodiroEncrypt from '@/modules/server/eodiro-encrypt'
 import EodiroMailer from '@/modules/server/eodiro-mailer'
 import crypto from 'crypto'
 import Mustache from 'mustache'
-import { DecodedAuthData, verifyToken } from '../jwt'
 import { prisma } from '../prisma'
 import { rng } from '../random-name-generator'
+import { sanitizePoralId } from '../sanitize-portal-id'
 import {
   AuthValidationResult,
   validateNickname,
@@ -58,22 +58,6 @@ export default class Auth {
     return crypto.randomBytes(20).toString('hex')
   }
 
-  /**
-   * Verifies the given access token and returns user ID if it is valid.
-   * Otherwise returns false.
-   */
-  static async isSignedUser(
-    accessToken: string
-  ): Promise<DecodedAuthData | false> {
-    if (!accessToken || accessToken === 'null' || accessToken === 'undefined') {
-      return false
-    }
-
-    const [err, decodedAuthData] = await verifyToken(accessToken, 'access')
-
-    return err ? false : decodedAuthData
-  }
-
   static async signUp(info: SignUpInfo): Promise<SignUpResult> {
     const { portalId, nickname, password } = info
 
@@ -95,13 +79,15 @@ export default class Auth {
       return { hasJoined: false, validations }
     }
 
+    const sanitizedPortalId = sanitizePoralId(portalId)
+
     // Available
     // There's no user with this portal ID yet
     // Generate hash and send a verification email
     const pendingToken = Auth.generateToken()
     await prisma.pendingUser.create({
       data: {
-        portalId: completePortalId,
+        portalId: sanitizedPortalId,
         password: await Auth.encryptPw(password),
         nickname,
         token: pendingToken,
@@ -116,7 +102,7 @@ export default class Auth {
     const html = Mustache.render(joinEmailTemplate, { token: pendingToken })
 
     EodiroMailer.sendMail({
-      to: completePortalId,
+      to: sanitizedPortalId,
       subject: '[회원가입] 인증 이메일',
       html,
     })
