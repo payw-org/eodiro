@@ -1,5 +1,10 @@
 # Changelog
 
+## v4.0.0
+
+- Merge eodiro server into eodiro client
+- Deprecated legacy password check is now removed
+
 ## v3.7.4
 
 - **FIX:** Resolve 999 unknown error
