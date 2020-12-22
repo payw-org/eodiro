@@ -39,6 +39,12 @@ export function setCookies(
   res.setHeader('Set-Cookie', cookieStrings)
 }
 
+export function getCookies(req: NextApiRequest) {
+  const cookies = req.headers.cookie ? nodeCookie.parse(req.headers.cookie) : {}
+
+  return cookies
+}
+
 export default nextApi({
   get: ({ req, res }) => {
     const cookies = req.headers.cookie
