@@ -1,5 +1,6 @@
 import { constants } from '@/constants'
 import { prisma } from '@/modules/prisma'
+import { sanitizePoralId } from '@/modules/sanitize-portal-id'
 
 export type AuthValidationResult = {
   isValid: boolean
@@ -19,10 +20,7 @@ export async function validatePortalId(
     }
   }
 
-  const trimmedPortalId = portalId.trim()
-  const sanitizedPortalId = trimmedPortalId.endsWith('@cau.ac.kr')
-    ? trimmedPortalId
-    : `${trimmedPortalId}@cau.ac.kr`
+  const sanitizedPortalId = sanitizePoralId(portalId)
 
   if (sanitizedPortalId.includes(' ')) {
     return {
