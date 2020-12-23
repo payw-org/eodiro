@@ -1,9 +1,10 @@
 import { AuthData, signAccessToken, verifyToken } from '@/modules/jwt'
-import { extractToken, nextApi } from '@/modules/next-api-routes-helpers'
+import { nextApi } from '@/modules/next-api-routes-helpers'
+import { extractToken } from '@/modules/server/extract-token'
 
 export default nextApi({
   post: async ({ req, res }) => {
-    const refreshToken = extractToken(req, res)
+    const refreshToken = extractToken(req, res, 'refresh')
 
     if (!refreshToken) return
 
