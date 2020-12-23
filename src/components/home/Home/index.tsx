@@ -4,7 +4,7 @@ import Grid from '@/layouts/Grid'
 import EodiroColors from '@/modules/styles/EodiroColors'
 import classNames from 'classnames'
 import React, { useEffect, useState } from 'react'
-import LiveEntrance from './LiveEntrance'
+// import LiveEntrance from './LiveEntrance'
 import $ from './style.module.scss'
 
 type HomeFeatureBoxProps = {
@@ -35,7 +35,7 @@ const HomeFeatureBox: React.FC<HomeFeatureBoxProps> = ({
   )
 }
 
-const Main: React.FC = () => {
+const Home: React.FC = () => {
   const [isAnimated, setIsAnimated] = useState(false)
   const [animate, setAnimate] = useState(false)
 
@@ -81,7 +81,7 @@ const Main: React.FC = () => {
           </span>
         </p>
 
-        <LiveEntrance />
+        {/* <LiveEntrance /> */}
 
         <div className={$['features']}>
           <Grid>
@@ -259,4 +259,4 @@ const Main: React.FC = () => {
   )
 }
 
-export default Main
+export default Home

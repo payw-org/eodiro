@@ -1,5 +1,5 @@
-import $ from './style.module.scss'
 import classNames from 'classnames'
+import $ from './style.module.scss'
 
 export type ChatBubbleProps = {
   msg: string

@@ -1,21 +1,20 @@
 // TODO: Scroll to bottom on focus
 
+import { Tokens } from '@/api'
 import {
   NavHiddenDispatchContext,
   NavScrollDispatchContext,
 } from '@/components/global/Navigation'
-import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock'
-import { useContext, useEffect, useRef, useState } from 'react'
-
-import $ from './style.module.scss'
-import ApiHost from '@/modules/api-host'
-import Body from '@/layouts/BaseLayout/Body'
-import ChatBubble from '../ChatBubble'
 import NoFooter from '@/components/utils/NoFooter'
-import { Tokens } from '@/api'
-import classNames from 'classnames'
-import io from 'socket.io-client'
+import Body from '@/layouts/BaseLayout/Body'
+import ApiHost from '@/modules/api-host'
 import { useAuth } from '@/pages/_app'
+import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock'
+import classNames from 'classnames'
+import { useContext, useEffect, useRef, useState } from 'react'
+import io from 'socket.io-client'
+import ChatBubble from '../ChatBubble'
+import $ from './style.module.scss'
 
 export type LivePageProps = unknown
 
@@ -28,7 +27,7 @@ function sendMsg(msg: string, socket: SocketIOClient.Socket) {
 }
 
 const MAX_DISPLAY_NUM = 500
-let sendTimeout = null
+let sendTimeout: number | null = null
 let fastSendCount = 0
 
 const LivePage: React.FC<LivePageProps> = () => {
@@ -49,21 +48,23 @@ const LivePage: React.FC<LivePageProps> = () => {
   const { isSigned } = useAuth()
 
   function scrollToBottom() {
-    msgScrollWrapper.current.scrollTo(0, msgScrollWrapper.current.scrollHeight)
+    msgScrollWrapper.current?.scrollTo(0, msgScrollWrapper.current.scrollHeight)
   }
 
   function isNearBottom() {
+    if (!msgScrollWrapper.current) return false
+
     const { scrollHeight, scrollTop, offsetHeight } = msgScrollWrapper.current
 
     return scrollHeight - scrollTop - offsetHeight < 10
   }
 
   useEffect(() => {
-    function updateMsgs(data, isMine: boolean) {
+    function updateMsgs(data: any, isMine: boolean) {
       const isBottommed = isNearBottom()
 
-      setMsgs((msgs) => [
-        ...msgs,
+      setMsgs((prevMsgs) => [
+        ...prevMsgs,
         {
           ...data,
           isMine,
