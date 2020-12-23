@@ -2,6 +2,7 @@ import { constants } from '@/constants'
 import { AuthData, signAccessToken, signRefreshToken } from '@/modules/jwt'
 import { nextApi } from '@/modules/next-api-routes-helpers'
 import { prisma } from '@/modules/prisma'
+import { sanitizePoralId } from '@/modules/sanitize-portal-id'
 import { SignInInfo } from '@/modules/server/auth'
 import EodiroEncrypt from '@/modules/server/eodiro-encrypt'
 import { setCookies } from '../cookies'
@@ -23,11 +24,9 @@ export default nextApi({
       return
     }
 
-    const completePortalId = portalId.endsWith('@cau.ac.kr')
-      ? portalId
-      : `${portalId}@cau.ac.kr`
+    const sanitizedPortalId = sanitizePoralId(portalId)
     const user = await prisma.user.findUnique({
-      where: { portalId: completePortalId },
+      where: { portalId: sanitizedPortalId },
     })
 
     if (!user) {
@@ -60,15 +59,18 @@ export default nextApi({
       resData.refreshToken = refreshToken
       resData.accessToken = accessToken
 
-      // Login in website
+      const expires = new Date('2038-01-01').toUTCString()
+
       setCookies(req, res, [
         {
           name: constants.EDR_ACCESS_TOKEN_NAME,
           value: accessToken,
+          expires,
         },
         {
           name: constants.EDR_REFRESH_TOKEN_NAME,
           value: refreshToken,
+          expires,
         },
       ])
     }
