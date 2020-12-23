@@ -1,8 +1,6 @@
 export const sanitizePoralId = (portalId: string) => {
-  const trimmedPortalId = portalId.trim()
-
   if (portalId.endsWith('@cau.ac.kr')) {
-    return trimmedPortalId
+    return portalId
   }
-  return `${trimmedPortalId}@cau.ac.kr`
+  return `${portalId}@cau.ac.kr`
 }
