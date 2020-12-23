@@ -1,5 +1,5 @@
 import { env } from '@/env'
-import jwt, { JsonWebTokenError } from 'jsonwebtoken'
+import jwt from 'jsonwebtoken'
 import { prisma } from './prisma'
 
 export type AuthData = {
@@ -29,8 +29,13 @@ export const revokeRefreshToken = async (authData: AuthData) => {
   return refreshToken
 }
 
-export type JWTError = JsonWebTokenError & {
-  name: 'TokenExpiredError' | 'JsonWebTokenError' | 'NotBeforeError'
+export type JwtError = {
+  name:
+    | 'TokenExpiredError'
+    | 'JsonWebTokenError'
+    | 'NotBeforeError'
+    | 'RefreshTokenRevokedError'
+  message: string
 }
 
 /**
@@ -39,7 +44,7 @@ export type JWTError = JsonWebTokenError & {
 export const verifyToken = (
   token: string | null | undefined,
   type: 'access' | 'refresh'
-): Promise<[Error | null, AuthData | undefined]> =>
+): Promise<[JwtError | null, AuthData | undefined]> =>
   new Promise((resolve) => {
     const secret =
       type === 'access' ? env.ACCESS_TOKEN_SECRET : env.REFRESH_TOKEN_SECRET
@@ -60,18 +65,18 @@ export const verifyToken = (
           })
 
           if (user?.refreshToken !== token) {
-            const err = new Error('Revoked Refresh Token')
+            const err = new Error('Revoked Refresh Token') as JwtError
 
-            err.name = 'RevokedRefreshToken'
+            err.name = 'RefreshTokenRevokedError'
 
             resolve([err, undefined])
             return
           }
         }
 
-        resolve([jwtErr, authData as AuthData])
+        resolve([jwtErr as JwtError, authData as AuthData])
       } else {
-        resolve([jwtErr, decoded as undefined])
+        resolve([jwtErr as JwtError, decoded as undefined])
       }
     })
   })
