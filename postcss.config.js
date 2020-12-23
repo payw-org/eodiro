@@ -10,8 +10,9 @@ module.exports = {
         'custom-properties': false,
       },
     },
-    'postcss-pixels-to-rem': {
-      mediaQueries: false,
+    'postcss-pxtorem': {
+      propList: ['*'],
+      mediaQuery: false,
     },
   },
 }
