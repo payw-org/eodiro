@@ -1,10 +1,11 @@
+import { authState } from '@/atoms/auth'
 import { VerticalThreeDotsIcon } from '@/components/global/icons'
 import EodiroLogo from '@/components/global/icons/EodiroLogo'
 import EodiroLink from '@/components/utils/EodiroLink'
 import { isApp } from '@/modules/booleans/is-app'
-import { AuthContext, useAuth } from '@/pages/_app'
 import classNames from 'classnames'
 import React, { useContext } from 'react'
+import { useRecoilValue } from 'recoil'
 import {
   NavHiddenStateContext,
   NavMenuOpenDispatchContext,
@@ -52,7 +53,7 @@ const PageAppTitle: React.FC = () => {
 }
 
 const NavMenus: React.FC = () => {
-  const { isSigned } = useContext(AuthContext)
+  const { userId } = useRecoilValue(authState)
   const menuOpened = useContext(NavMenuOpenStateContext)
 
   return (
@@ -67,9 +68,9 @@ const NavMenus: React.FC = () => {
       <NavItem title="학식 메뉴" to="/cafeteria" />
       <NavItem title="꿀팁" to="/tips" />
       <NavItem
-        title={isSigned ? '마이페이지' : '로그인'}
-        className={isSigned ? $['my'] : $['signin']}
-        to={isSigned ? '/my' : '/login'}
+        title={userId ? '마이페이지' : '로그인'}
+        className={userId ? $['my'] : $['signin']}
+        to={userId ? '/my' : '/login'}
       />
     </ul>
   )
@@ -78,7 +79,7 @@ const NavMenus: React.FC = () => {
 const Navigation: React.FC = () => {
   const isScrolled = useContext(NavScrollStateContext)
   const setMenuOpen = useContext(NavMenuOpenDispatchContext)
-  const { isSigned } = useAuth()
+  const { userId } = useRecoilValue(authState)
 
   return (
     <nav
@@ -101,7 +102,7 @@ const Navigation: React.FC = () => {
         <NavMenus />
 
         {isApp() ? (
-          <EodiroLink href={isSigned ? '/my' : '/signin'}>
+          <EodiroLink href={userId ? '/my' : '/signin'}>
             <div className={$['app-nav-right-button']}>
               {window.location.pathname !== '/signin' &&
                 window.location.pathname !== '/my' && (
