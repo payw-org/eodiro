@@ -6,10 +6,15 @@ export type Cookie = {
   expires?: string // Expiry date in UTC time
   name: string
   value: string | number
+  /** @default "/" */
+  path?: string
 }
 
 export type Cookies = Cookie[]
 
+/**
+ * @deprecated
+ */
 function buildCookieString(cookie: Cookie, req?: IncomingMessage): string {
   let cookieString = `${cookie.name}=${cookie.value};`
 
@@ -28,6 +33,9 @@ function buildCookieString(cookie: Cookie, req?: IncomingMessage): string {
   return cookieString
 }
 
+/**
+ * @deprecated
+ */
 export default class EodiroHttpCookie {
   static async set(
     cookieData: Cookie | Cookies,

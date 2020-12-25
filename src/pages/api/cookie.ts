@@ -1,8 +1,17 @@
-import type { Cookie, Cookies } from '@/modules/eodiro-http-cookie'
 import { nextApi } from '@/modules/next-api-routes-helpers'
 import nodeCookie from 'cookie'
 import { IncomingMessage, ServerResponse } from 'http'
 import type { NextApiRequest, NextApiResponse } from 'next'
+
+export type Cookie = {
+  expires?: string // Expiry date in UTC time
+  name: string
+  value: string | number
+  /** @default "/" */
+  path?: string
+}
+
+export type Cookies = Cookie[]
 
 function buildCookieString(
   cookie: Cookie,
@@ -20,7 +29,7 @@ function buildCookieString(
     cookieString += 'Secure;'
   }
 
-  cookieString += 'path=/;'
+  cookieString += `;Path=${cookie.path ?? '/'};`
 
   return cookieString
 }
