@@ -1,4 +1,4 @@
-import { constants } from '@/constants'
+import { eodiroConsts } from '@/constants'
 import { prisma } from '@/modules/prisma'
 import { sanitizePoralId } from '@/modules/sanitize-portal-id'
 
@@ -69,14 +69,14 @@ export async function validateNickname(
     }
   }
 
-  if (nickname.length < constants.MIN_NICKNAME_LENGTH) {
+  if (nickname.length < eodiroConsts.MIN_NICKNAME_LENGTH) {
     return {
       isValid: false,
       error: { message: '닉네임은 두 자 이상입니다.' },
     }
   }
 
-  if (nickname.length > constants.MAX_NICKNAME_LENGTH) {
+  if (nickname.length > eodiroConsts.MAX_NICKNAME_LENGTH) {
     return {
       isValid: false,
       error: { message: '닉네임은 20자 이하입니다.' },
@@ -120,7 +120,7 @@ export async function validatePassword(
     }
   }
 
-  if (password.length < constants.MIN_PASSWORD_LENGTH) {
+  if (password.length < eodiroConsts.MIN_PASSWORD_LENGTH) {
     return {
       isValid: false,
       error: { message: '패스워드는 최소 8자입니다.' },

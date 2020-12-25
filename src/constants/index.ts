@@ -1,4 +1,4 @@
-export const constants = {
+export const eodiroConsts = {
   OVERLAY_SENTINEL_SPOT: 'overlay-sentinel-spot',
   MIN_NICKNAME_LENGTH: 2,
   MAX_NICKNAME_LENGTH: 20,
