@@ -10,7 +10,7 @@ export type ApiAuthForgotReqBody = {
 }
 
 export default nextApi({
-  post: async ({ req, res }) => {
+  post: async (req, res) => {
     const validated = validateRequiredBody(req, res, {
       portalId: 'string',
     })

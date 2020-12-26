@@ -4,7 +4,7 @@ import { prisma } from '@/modules/prisma'
 import { extractToken } from '@/modules/server/extract-token'
 
 export default nextApi({
-  post: async ({ req, res }) => {
+  post: async (req, res) => {
     const refreshToken = extractToken(req, res, 'refresh')
 
     if (!refreshToken) return

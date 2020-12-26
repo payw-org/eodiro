@@ -1,9 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 
-type HandlerFunction = (ctx: {
-  req: NextApiRequest
+type HandlerFunction = (
+  req: NextApiRequest,
   res: NextApiResponse
-}) => void | Promise<void>
+) => void | Promise<void>
 
 export const nextApi = (handler: {
   get?: HandlerFunction

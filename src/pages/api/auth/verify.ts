@@ -3,7 +3,7 @@ import { nextApi } from '@/modules/next-api-routes-helpers'
 import { extractToken } from '@/modules/server/extract-token'
 
 export default nextApi({
-  post: async ({ req, res }) => {
+  post: async (req, res) => {
     const accessToken = extractToken(req, res, 'access')
 
     if (!accessToken) return

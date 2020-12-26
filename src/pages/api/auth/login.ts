@@ -15,7 +15,7 @@ export type ApiAuthLoginResData = {
 }
 
 export default nextApi({
-  post: async ({ req, res }) => {
+  post: async (req, res) => {
     const { portalId, password } = req.body as SignInInfo
     const resData: ApiAuthLoginResData = { isSigned: false }
 

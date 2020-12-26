@@ -17,7 +17,7 @@ export type ApiAuthValidateResponseData = {
 }
 
 export default nextApi({
-  post: async ({ req, res }) => {
+  post: async (req, res) => {
     const body = req.body as ApiAuthValidateRequestBody
     const responseData: ApiAuthValidateResponseData = {}
 
