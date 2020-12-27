@@ -1,11 +1,11 @@
-import { constants } from '@/constants'
+import { eodiroConsts } from '@/constants'
 import { AuthData, signAccessToken, signRefreshToken } from '@/modules/jwt'
 import { nextApi } from '@/modules/next-api-routes-helpers'
 import { prisma } from '@/modules/prisma'
 import { sanitizePoralId } from '@/modules/sanitize-portal-id'
 import { SignInInfo } from '@/modules/server/auth'
 import EodiroEncrypt from '@/modules/server/eodiro-encrypt'
-import { setCookies } from '../cookies'
+import { setCookie } from '../cookie'
 
 export type ApiAuthLoginReqBody = SignInInfo
 export type ApiAuthLoginResData = {
@@ -60,18 +60,20 @@ export default nextApi({
       resData.accessToken = accessToken
 
       const expires = new Date('2038-01-01').toUTCString()
+      const refreshTokenPaths = ['/api/auth/refresh', '/api/auth/revoke']
 
-      setCookies(req, res, [
+      setCookie(req, res, [
         {
-          name: constants.EDR_ACCESS_TOKEN_NAME,
+          name: eodiroConsts.EDR_ACCESS_TOKEN_NAME,
           value: accessToken,
           expires,
         },
-        {
-          name: constants.EDR_REFRESH_TOKEN_NAME,
+        ...refreshTokenPaths.map((path) => ({
+          name: eodiroConsts.EDR_REFRESH_TOKEN_NAME,
           value: refreshToken,
           expires,
-        },
+          path,
+        })),
       ])
     }
 
