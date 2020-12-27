@@ -1,5 +1,5 @@
-import $ from './style.module.scss'
 import React from 'react'
+import $ from './style.module.scss'
 
 type InformationProps = {
   title: string | JSX.Element
