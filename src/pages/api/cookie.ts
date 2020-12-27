@@ -9,6 +9,8 @@ export type Cookie = {
   value: string | number
   /** @default "/" */
   path?: string
+  /** @default true */
+  httpOnly?: boolean
 }
 
 export type Cookies = Cookie[]
@@ -19,7 +21,9 @@ function buildCookieString(
 ) {
   let cookieString = `${cookie.name}=${cookie.value};`
 
-  cookieString += 'HttpOnly;'
+  if (cookie.httpOnly !== false) {
+    cookieString += 'HttpOnly;'
+  }
 
   if (cookie.expires) {
     cookieString += `Expires=${cookie.expires};`
@@ -52,21 +56,35 @@ export function setCookie(
   res.setHeader('Set-Cookie', cookieStrings)
 }
 
-export function getCookie(req: NextApiRequest | IncomingMessage) {
+export function getCookie(
+  req: NextApiRequest | IncomingMessage
+): Record<string, string>
+export function getCookie(
+  req: NextApiRequest | IncomingMessage,
+  cookieName: string
+): string
+export function getCookie(
+  req: NextApiRequest | IncomingMessage,
+  cookieName?: string
+) {
   const cookie = req.headers.cookie ? nodeCookie.parse(req.headers.cookie) : {}
+
+  if (cookieName) {
+    return cookie[cookieName]
+  }
 
   return cookie
 }
 
 export default nextApi({
-  get: ({ req, res }) => {
+  get: (req, res) => {
     const cookie = req.headers.cookie
       ? nodeCookie.parse(req.headers.cookie)
       : {}
 
     res.json(cookie)
   },
-  post: ({ req, res }) => {
+  post: (req, res) => {
     const cookieData = req.body as Cookie | Cookies
 
     setCookie(req, res, cookieData)
