@@ -9,6 +9,7 @@ export type AuthData = {
 export const signAccessToken = (authData: AuthData) =>
   jwt.sign(authData, env.ACCESS_TOKEN_SECRET, {
     expiresIn: env.ACCESS_TOKEN_LIFETIME,
+    // expiresIn: '10s',
   })
 
 export const signRefreshToken = (authData: AuthData) =>
@@ -29,12 +30,15 @@ export const revokeRefreshToken = async (authData: AuthData) => {
   return refreshToken
 }
 
+export enum JwtErrorName {
+  TokenExpiredError = 'TokenExpiredError',
+  JsonWebTokenError = 'JsonWebTokenError',
+  NotBeforeError = 'NotBeforeError',
+  RefreshTokenRevokedError = 'RefreshTokenRevokedError',
+}
+
 export type JwtError = {
-  name:
-    | 'TokenExpiredError'
-    | 'JsonWebTokenError'
-    | 'NotBeforeError'
-    | 'RefreshTokenRevokedError'
+  name: JwtErrorName
   message: string
 }
 
@@ -67,7 +71,7 @@ export const verifyToken = (
           if (user?.refreshToken !== token) {
             const err = new Error('Revoked Refresh Token') as JwtError
 
-            err.name = 'RefreshTokenRevokedError'
+            err.name = JwtErrorName.RefreshTokenRevokedError
 
             resolve([err, undefined])
             return
