@@ -1,10 +1,13 @@
-import cn from 'classnames'
+import classNames from 'classnames'
+import Link from 'next/link'
 
 export type EodiroLinkProps = {
+  /** @deprecated */
   as?: string
   href: string
   absolute?: boolean
   className?: any
+  /** @deprecated */
   onClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void
 }
 
@@ -17,15 +20,17 @@ const EodiroLink: React.FC<EodiroLinkProps> = ({
   onClick,
 }) => {
   return (
-    <a
-      href={as || href}
-      className={cn(className, {
-        'absolute-link': absolute,
-      })}
-      onClick={onClick}
-    >
-      {children}
-    </a>
+    <Link href={href} as={as}>
+      <a
+        href={href}
+        className={classNames(className, {
+          'absolute-link': absolute,
+        })}
+        onClick={onClick}
+      >
+        {children}
+      </a>
+    </Link>
   )
   // return isApp() ? (
   //   <a
