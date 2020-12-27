@@ -2,14 +2,17 @@ import '@/assets/styles/global/globalstyle.scss'
 import PageInfo from '@/components/utils/PageInfo'
 import { eodiroConsts } from '@/constants'
 import BaseLayout from '@/layouts/BaseLayout'
+import { eodiroRequest } from '@/modules/eodiro-request'
 import { isDev } from '@/modules/utils/is-dev'
 import 'intersection-observer'
 import { AppProps } from 'next/app'
 import { AppContextType } from 'next/dist/next-server/lib/utils'
 import Head from 'next/head'
-import React from 'react'
+import { Router } from 'next/router'
+import React, { useEffect } from 'react'
 import { RecoilRoot } from 'recoil'
 import 'swiper/swiper.scss'
+import { SWRConfig } from 'swr'
 import { getCookie } from './api/cookie'
 import './_document.scss'
 
@@ -300,9 +303,22 @@ export default function EdrApp({
         ogImage="https://eodiro.com/open-graph/open_graph.png"
       />
       <RecoilRoot>
-        <BaseLayout shouldCheckAuth={shouldCheckAuth}>
-          <Component {...pageProps} />
-        </BaseLayout>
+        <SWRConfig
+          value={{
+            fetcher: async (url) => {
+              const data = await eodiroRequest({
+                method: 'GET',
+                url,
+              })
+
+              return data
+            },
+          }}
+        >
+          <BaseLayout shouldCheckAuth={shouldCheckAuth}>
+            <Component {...pageProps} />
+          </BaseLayout>
+        </SWRConfig>
       </RecoilRoot>
     </>
   )
