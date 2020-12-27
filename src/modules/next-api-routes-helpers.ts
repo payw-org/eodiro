@@ -81,16 +81,33 @@ export function validateRequiredBody(
   return true
 }
 
+type MiddlewareNodeRequestTypes = {
+  nodeApi: IncomingMessage
+  nextApi: NextApiRequest
+}
+
+type MiddlewareNextRequestTypes = {
+  nodeApi: ServerResponse
+  nextApi: NextApiResponse
+}
+
+type NodeApi = 'nodeApi'
+export type NextApi = 'nextApi'
+type ApiType = NodeApi | NextApi
+
 // Helper method to wait for a middleware to execute before continuing
 // And to throw an error when an error happens in a middleware
-export default function initMiddleware(
+export default function initMiddleware<T extends ApiType>(
   middleware: (
-    req: IncomingMessage,
-    res: ServerResponse,
+    req: MiddlewareNodeRequestTypes[T],
+    res: MiddlewareNextRequestTypes[T],
     next: (err?: any) => any
   ) => void
 ) {
-  return (req: IncomingMessage, res: ServerResponse) =>
+  return (
+    req: MiddlewareNodeRequestTypes[T],
+    res: MiddlewareNextRequestTypes[T]
+  ) =>
     new Promise((resolve, reject) => {
       middleware(req, res, (result) => {
         if (result instanceof Error) {
