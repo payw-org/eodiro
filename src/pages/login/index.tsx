@@ -1,11 +1,10 @@
 import AuthCommon from '@/components/auth/AuthCommon'
 import { getAuthState } from '@/modules/server/get-auth-state'
 import { redirect } from '@/modules/server/redirect'
-import { GetServerSideProps } from 'next'
+import { GetServerSideProps, NextPage } from 'next'
 import Head from 'next/head'
-import { EodiroPage } from '../_app'
 
-const SignInPage: EodiroPage = () => (
+const SignInPage: NextPage = () => (
   <>
     <Head>
       <title>로그인</title>
