@@ -33,7 +33,10 @@ const TimeGroup: React.FC<{
                 {restaurant.meals.length > 0 ? (
                   restaurant.meals.map((meal, i) => {
                     return (
-                      <div className={$['meal']} key={meal.title + i}>
+                      <div
+                        className={$['meal']}
+                        key={meal.title + meal.menus.join('')}
+                      >
                         <div className={$['title-and-price']}>
                           <h3 className={$['meal-title']}>{meal.title}</h3>
                           <span className={$['price']}>{meal.price}</span>
@@ -67,16 +70,16 @@ const TimeGroup: React.FC<{
 const EodiroCafeteria: React.FC<{ menus: CafeteriaMenus }> = ({ menus }) => {
   const [now, setNow] = useState(dayjs())
   const { data: todayMenus } = useSWR(
-    ApiHost.getHost() +
-      `/cafeteria/${now.format('YYYY-MM-DD')}/${encodeURIComponent(
-        '서울'
-      )}/menus`
+    `${ApiHost.getHost()}/cafeteria/${now.format(
+      'YYYY-MM-DD'
+    )}/${encodeURIComponent('서울')}/menus`
   )
 
   return (
     <div id={$['eodiro-cafeteria']}>
       <div className={$['date-container']}>
         <button
+          type="button"
           className={classNames($['date-change-btn'], $['previous'])}
           onClick={(e) => {
             e.preventDefault()
@@ -89,6 +92,7 @@ const EodiroCafeteria: React.FC<{ menus: CafeteriaMenus }> = ({ menus }) => {
           {now.format('YYYY년 M월 D일')} ({Time.day(now.day())})
         </p>
         <button
+          type="button"
           className={classNames($['date-change-btn'], $['next'])}
           onClick={(e) => {
             e.preventDefault()
@@ -130,7 +134,7 @@ const CafeteriaPage: NextPage<CafeteriaPageProps> = (props) => {
 }
 
 export const getServerSideProps: GetServerSideProps<CafeteriaPageProps> = async () => {
-  const menus = await CafeteriaApi.menus({})
+  const menus = (await CafeteriaApi.menus({})) as CafeteriaMenus
 
   return {
     props: {
