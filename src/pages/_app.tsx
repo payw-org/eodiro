@@ -239,6 +239,31 @@ export default function EdrApp({
   pageProps,
   shouldCheckAuth,
 }: EdrAppProps) {
+  useEffect(() => {
+    //       // Set topbar
+    const w = globalThis as any
+    const { topbar } = w
+    topbar.config({
+      barThickness: 3,
+      barColors: {
+        '0': '#ff3852',
+        '1': '#ff3852',
+      },
+      shadowBlur: 0,
+      shadowColor: 'rgba(0, 0, 0, 0)',
+      className: 'eodiro-topbar',
+    })
+    Router.events.on('routeChangeStart', topbar.show)
+    Router.events.on('routeChangeComplete', () => {
+      ;(document.activeElement as any)?.blur()
+      topbar.hide()
+    })
+    Router.events.on('routeChangeError', () => {
+      ;(document.activeElement as any)?.blur()
+      topbar.hide()
+    })
+  }, [])
+
   return (
     <>
       <Head>
