@@ -5,4 +5,5 @@ export const eodiroConsts = {
   MIN_PASSWORD_LENGTH: 8,
   EDR_ACCESS_TOKEN_NAME: 'EDR_ACC',
   EDR_REFRESH_TOKEN_NAME: 'EDR_REF',
+  LAST_PATH: 'LAST_PATH',
 }
