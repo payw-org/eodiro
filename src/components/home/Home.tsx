@@ -1,17 +1,18 @@
-import EodiroLink from '@/components/utils/EodiroLink'
+import { eodiroConsts } from '@/constants'
 import Body from '@/layouts/BaseLayout/Body'
 import Grid from '@/layouts/Grid'
 import EodiroColors from '@/modules/styles/EodiroColors'
 import classNames from 'classnames'
 import React, { useEffect, useState } from 'react'
-// import LiveEntrance from './LiveEntrance'
-import $ from './style.module.scss'
+import EodiroLink from '../utils/EodiroLink'
+import $ from './Home.module.scss'
 
 type HomeFeatureBoxProps = {
   title: string
   to: string
   Icon: JSX.Element
   label?: 'new' | 'update' | 'beta'
+  disabled?: boolean
 }
 
 const HomeFeatureBox: React.FC<HomeFeatureBoxProps> = ({
@@ -19,9 +20,15 @@ const HomeFeatureBox: React.FC<HomeFeatureBoxProps> = ({
   to,
   Icon,
   label,
+  disabled = false,
 }) => {
   return (
-    <button className={$['feature-box']} type="button">
+    <button
+      className={classNames($['feature-box'], {
+        [$['disabled']]: disabled,
+      })}
+      type="button"
+    >
       <div className={$['wrapper']}>
         {Icon}
         <h2 className={$['feature-name']}>{title}</h2>
@@ -59,7 +66,7 @@ const Home: React.FC = () => {
         <h1
           className={classNames(
             $['header'],
-            `overlay-sentinel-spot title-sentinel-spot`
+            `${eodiroConsts.OVERLAY_SENTINEL_SPOT} ${eodiroConsts.TITLE_SENTINEL_SPOT}`
           )}
         >
           <div
@@ -85,31 +92,32 @@ const Home: React.FC = () => {
 
         <div className={$['features']}>
           <Grid>
-            <HomeFeatureBox
-              title="강의 검색"
-              to="/lectures"
+            {/* <HomeFeatureBox
+              title="꿀팁"
+              to="/tips"
               Icon={
                 <i
                   className={classNames('f7-icons', $['icon'])}
                   style={{
-                    color: EodiroColors.grass1,
+                    color: EodiroColors.pink1,
                   }}
                 >
-                  doc_text_search
+                  lightbulb
                 </i>
               }
-            />
+              label="beta"
+            /> */}
             <HomeFeatureBox
-              title="학교 공지사항 알림"
-              to="/notice-notifications"
+              title="커뮤니티"
+              to="/community"
               Icon={
                 <i
                   className={classNames('f7-icons', $['icon'])}
                   style={{
-                    color: EodiroColors.yellow2,
+                    color: EodiroColors.pink2,
                   }}
                 >
-                  app_badge
+                  square_favorites_alt
                 </i>
               }
               label="beta"
@@ -129,21 +137,21 @@ const Home: React.FC = () => {
               }
             />
             <HomeFeatureBox
-              title="꿀팁"
-              to="/tips"
+              title="오픈 소스"
+              to="/opensource"
               Icon={
                 <i
                   className={classNames('f7-icons', $['icon'])}
                   style={{
-                    color: EodiroColors.pink1,
+                    color: EodiroColors.purple1,
                   }}
                 >
-                  lightbulb
+                  heart
                 </i>
               }
-              label="beta"
             />
             <HomeFeatureBox
+              disabled
               title="빈 강의실"
               to="/vacant"
               Icon={
@@ -158,18 +166,35 @@ const Home: React.FC = () => {
               }
             />
             <HomeFeatureBox
-              title="오픈 소스"
-              to="/opensource"
+              disabled
+              title="강의 검색"
+              to="/lectures"
               Icon={
                 <i
                   className={classNames('f7-icons', $['icon'])}
                   style={{
-                    color: EodiroColors.purple1,
+                    color: EodiroColors.grass1,
                   }}
                 >
-                  heart
+                  doc_text_search
                 </i>
               }
+            />
+            <HomeFeatureBox
+              disabled
+              title="학교 공지사항 알림"
+              to="/notice-notifications"
+              Icon={
+                <i
+                  className={classNames('f7-icons', $['icon'])}
+                  style={{
+                    color: EodiroColors.yellow2,
+                  }}
+                >
+                  app_badge
+                </i>
+              }
+              label="beta"
             />
           </Grid>
         </div>
