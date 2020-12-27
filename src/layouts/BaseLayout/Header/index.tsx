@@ -3,6 +3,7 @@ import {
   NavScrollDispatchContext,
   NavTitleDispatchContext,
 } from '@/components/global/Navigation'
+import { eodiroConsts } from '@/constants'
 import classNames from 'classnames'
 import React, { FC, useContext, useEffect, useRef } from 'react'
 import $ from './style.module.scss'
@@ -25,21 +26,21 @@ const Header: FC<HeaderProps> = ({ pageTitle, titleAlign, titleHidden }) => {
 
     // Sentinel spots
     const overlaySentinelSpot = titleHidden
-      ? document.querySelector('.overlay-sentinel-spot')
+      ? document.querySelector(`.${eodiroConsts.OVERLAY_SENTINEL_SPOT}`)
       : pageAppTitleRef.current
     const titleSentinelSpot = titleHidden
-      ? document.querySelector('.title-sentinel-spot')
+      ? document.querySelector(`.${eodiroConsts.TITLE_SENTINEL_SPOT}`)
       : pageAppTitleRef.current
 
     if (!overlaySentinelSpot) {
-      alert(
-        `The navigation Overlay Sentinel Spot is not set. Set class name 'overlay-sentinel-spot'.`
+      console.error(
+        `The navigation Overlay Sentinel Spot is not set. Set class name '${eodiroConsts.OVERLAY_SENTINEL_SPOT}'.`
       )
     }
 
     if (!titleSentinelSpot) {
-      alert(
-        `The navigation Title Sentinel Spot is not set. Set class name 'title-sentinel-spot'.`
+      console.error(
+        `The navigation Title Sentinel Spot is not set. Set class name '${eodiroConsts.TITLE_SENTINEL_SPOT}'.`
       )
     }
 
