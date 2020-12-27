@@ -19,8 +19,6 @@ export const nextRequireAuthMiddleware = initMiddleware(
     const [err, authData] = await verifyToken(accessToken, 'access')
 
     if (err?.name === JwtErrorName.TokenExpiredError) {
-      console.log('next middleware - access jwt expired')
-
       // Access token has expired
 
       redirect(res, '/api/auth/refresh')
@@ -35,7 +33,6 @@ export const nextRequireAuthMiddleware = initMiddleware(
     }
 
     if (authData) {
-      console.log('next middleware - access authenticated')
       next()
     }
   }
