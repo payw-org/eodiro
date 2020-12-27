@@ -26,8 +26,13 @@ module.exports = {
   ],
   plugins: ['react', 'react-hooks', '@typescript-eslint'],
   rules: {
+    'jsx-a11y/anchor-is-valid': 'off',
     'jsx-a11y/click-events-have-key-events': 'off',
     'consistent-return': 'off',
+    'no-param-reassign': [
+      'error',
+      { props: true, ignorePropertyModificationsForRegex: ['^draft'] },
+    ],
     'no-restricted-syntax': 'off',
     'no-alert': 'off',
     'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
