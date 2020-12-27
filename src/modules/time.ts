@@ -1,5 +1,8 @@
 import dayjs from 'dayjs'
 
+/**
+ * @deprecated
+ */
 export default class Time {
   static friendly(time: Date | string): string {
     if (!time) return ''
@@ -13,23 +16,23 @@ export default class Time {
     if (secDiff < 10) {
       postedAt = '방금'
       return postedAt
-    } else if (secDiff < 60) {
+    }
+    if (secDiff < 60) {
       postedAt = `${secDiff}초 전`
       return postedAt
-    } else {
-      const minDiff = now.diff(atObj, 'minute')
-      if (minDiff > 0 && minDiff < 60) {
-        postedAt = `${minDiff}분 전`
-        return postedAt
-      } else {
-        const hourDiff = now.diff(atObj, 'hour')
-        if (hourDiff > 0 && hourDiff < 24) {
-          postedAt = `${hourDiff}시간 전`
-          return postedAt
-        } else if (now.year() === atObj.year()) {
-          return dayjs(time).format('MM/DD HH:mm')
-        }
-      }
+    }
+    const minDiff = now.diff(atObj, 'minute')
+    if (minDiff > 0 && minDiff < 60) {
+      postedAt = `${minDiff}분 전`
+      return postedAt
+    }
+    const hourDiff = now.diff(atObj, 'hour')
+    if (hourDiff > 0 && hourDiff < 24) {
+      postedAt = `${hourDiff}시간 전`
+      return postedAt
+    }
+    if (now.year() === atObj.year()) {
+      return dayjs(time).format('MM/DD HH:mm')
     }
 
     return postedAt
@@ -38,17 +41,15 @@ export default class Time {
   static yyyymmdd(date: string, pretty?: boolean): string {
     if (pretty) {
       return dayjs(date).format('YYYY년 M월 D일')
-    } else {
-      return dayjs(date).format('YYYY-MM-DD')
     }
+    return dayjs(date).format('YYYY-MM-DD')
   }
 
   static yyyymmddhhmmss(date: string | Date, pretty?: boolean): string {
     if (pretty) {
       return dayjs(date).format('YYYY년 M월 D일 HH:mm:ss')
-    } else {
-      return dayjs(date).format('YYYY-MM-DD HH:mm:ss')
     }
+    return dayjs(date).format('YYYY-MM-DD HH:mm:ss')
   }
 
   static day(indexOrTime: string): string

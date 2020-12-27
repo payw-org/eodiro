@@ -21,7 +21,7 @@ const VerifiedComp: React.FC<{ verified: boolean }> = ({ verified }) => {
 
   // Clear verification code after load
   useEffect(() => {
-    window.history.pushState({}, null, '/verification')
+    window.history.pushState({}, '', '/verification')
   }, [])
 
   return (

@@ -9,10 +9,15 @@ import { GetServerSideProps, NextPage } from 'next'
 import $ from './style.module.scss'
 
 type MyPageProps = {
-  userInfo: UserInfo
+  userInfo: UserInfo | null
 }
 
 const MyPage: NextPage<MyPageProps> = ({ userInfo }) => {
+  if (!userInfo) {
+    window.location.href = '/'
+    return null
+  }
+
   return (
     <Body pageTitle={userInfo.nickname} bodyClassName={$['eodiro-my']}>
       <section className={$['info-section']}>
@@ -48,7 +53,7 @@ const MyPage: NextPage<MyPageProps> = ({ userInfo }) => {
           onClick={async (): Promise<void> => {
             const signedOut = await Tokens.clear()
             if (signedOut) {
-              location.href = '/'
+              window.location.href = '/'
             }
           }}
         />
@@ -60,7 +65,7 @@ const MyPage: NextPage<MyPageProps> = ({ userInfo }) => {
 
             if (signedOutFromAll) {
               alert('모든 기기에서 로그아웃 되었습니다. 다시 로그인해주세요.')
-              location.href = '/'
+              window.location.href = '/'
             } else {
               alert('문제가 발생하여 모든 기기에서 로그아웃하지 못했습니다.')
             }
@@ -79,7 +84,11 @@ export const getServerSideProps: GetServerSideProps<MyPageProps> = async ({
 
   if (!userInfo) {
     redirect(res, '/signin')
-    return
+    return {
+      props: {
+        userInfo: null,
+      },
+    }
   }
 
   return {
