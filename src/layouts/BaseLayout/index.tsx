@@ -2,7 +2,7 @@ import { authState } from '@/atoms/auth'
 import GlobalFooter from '@/components/global/GlobalFooter'
 import Navigation, { NavContextProvider } from '@/components/global/Navigation'
 import { isApp } from '@/modules/booleans/is-app'
-import { eodiroAxios } from '@/modules/client/eodiro-axios'
+import { eodiroRequest } from '@/modules/eodiro-request'
 import { AuthData } from '@/modules/jwt'
 import { ApiAuthVerifyResData } from '@/pages/api/auth/verify'
 import React, { useEffect } from 'react'
@@ -17,7 +17,7 @@ const BaseLayout: React.FC<{ shouldCheckAuth: boolean }> = ({
 
   useEffect(() => {
     async function init() {
-      const responseData = await eodiroAxios<ApiAuthVerifyResData>({
+      const responseData = await eodiroRequest<ApiAuthVerifyResData>({
         url: '/api/auth/verify',
         method: 'POST',
       })
