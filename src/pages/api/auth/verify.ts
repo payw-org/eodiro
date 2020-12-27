@@ -1,19 +1,30 @@
-import { verifyToken } from '@/modules/jwt'
+import { AuthData, JwtError, verifyToken } from '@/modules/jwt'
 import { nextApi } from '@/modules/next-api-routes-helpers'
 import { extractToken } from '@/modules/server/extract-token'
+
+export type ApiAuthGeneralErrResData = {
+  error: JwtError | null
+}
+
+export type ApiAuthVerifyResData = ApiAuthGeneralErrResData & {
+  authData?: AuthData
+}
 
 export default nextApi({
   post: async (req, res) => {
     const accessToken = extractToken(req, res, 'access')
 
-    if (!accessToken) return
+    const [error, authData] = await verifyToken(accessToken, 'access')
 
-    const [err, authData] = await verifyToken(accessToken, 'access')
-
-    if (err) {
-      res.status(401).json({ error: err })
-    } else {
-      res.json({ ...authData })
+    if (error) {
+      res.status(401)
     }
+
+    const resData: ApiAuthVerifyResData = {
+      authData,
+      error,
+    }
+
+    res.json(resData)
   },
 })

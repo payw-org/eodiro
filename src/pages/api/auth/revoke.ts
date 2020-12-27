@@ -7,7 +7,10 @@ export default nextApi({
   post: async (req, res) => {
     const refreshToken = extractToken(req, res, 'refresh')
 
-    if (!refreshToken) return
+    if (!refreshToken) {
+      res.status(401).end()
+      return
+    }
 
     const [err, authData] = await verifyToken(refreshToken, 'refresh')
 
