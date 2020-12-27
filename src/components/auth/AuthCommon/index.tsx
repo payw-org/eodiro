@@ -1,6 +1,7 @@
 import { AuthApi } from '@/api'
 import { Button, LineInput } from '@/components/ui'
 import EodiroLink from '@/components/utils/EodiroLink'
+import { eodiroConsts } from '@/constants'
 import Body from '@/layouts/BaseLayout/Body'
 import {
   ApiAuthJoinRequestBody,
@@ -16,6 +17,7 @@ import {
 } from '@/pages/api/auth/validate'
 import Axios from 'axios'
 import classNames from 'classnames'
+import Cookie from 'js-cookie'
 import React, { useEffect, useRef, useState } from 'react'
 import $ from './style.module.scss'
 
@@ -70,7 +72,7 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
     setValidating(false)
 
     if (res.data.isSigned) {
-      window.location.href = '/'
+      window.location.href = Cookie.get(eodiroConsts.LAST_PATH) ?? '/'
     } else {
       setSignInFailed(true)
     }
