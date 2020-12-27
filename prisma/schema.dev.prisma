@@ -325,6 +325,7 @@ model User {
   admins                           Admin?
   changePasswords                  ChangePassword?
   comments                         Comment[]
+  communityPosts                   CommunityPost[]                   @relation("community_postTouser")
   devices                          Device[]
   inquiries                        Inquiry[]
   liveChats                        LiveChat[]
@@ -350,6 +351,34 @@ model tip_bookmark {
   @@id([id, user_id, tip_id])
   @@index([tip_id], name: "tip_id")
   @@index([user_id], name: "user_id")
+}
+
+model CommunityBoard {
+  id             Int             @id @default(autoincrement())
+  name           String          @default("")
+  isDeleted      Boolean?        @map("is_deleted")
+  createdAt      DateTime        @map("created_at")
+  communityPosts CommunityPost[]
+
+  @@map("community_board")
+}
+
+model CommunityPost {
+  id             Int             @id @default(autoincrement())
+  boardId        Int?            @map("board_id")
+  title          String
+  body           String
+  userId         Int?            @map("user_id")
+  randomNickname String          @map("random_nickname")
+  uploadedAt     DateTime        @map("uploaded_at")
+  editedAt       DateTime?       @map("edited_at")
+  isDeleted      Boolean?        @default(false) @map("is_deleted")
+  communityBoard CommunityBoard? @relation(fields: [boardId], references: [id])
+  user           User?           @relation("community_postTouser", fields: [userId], references: [id])
+
+  @@index([boardId], name: "board_id")
+  @@index([userId], name: "user_id")
+  @@map("community_post")
 }
 
 enum TipTopic {
