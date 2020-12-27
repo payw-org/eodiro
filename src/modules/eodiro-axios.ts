@@ -11,6 +11,9 @@ import { IncomingMessage } from 'http'
 
 const moduleConsoleTag = '[eodiro-axios]'
 
+/**
+ * @deprecated
+ */
 export default async function eodiroAxios<T = any>(
   config: AxiosRequestConfig,
   eodiroAxiosConfig?: {
