@@ -68,3 +68,62 @@ export default class Time {
     return daysKr[index]
   }
 }
+
+export const dbNow = () => dayjs().add(9, 'hour').toDate()
+
+function isPrimitive(test: any) {
+  return test !== Object(test)
+}
+
+function subtract9Hours(obj: Record<string, unknown>) {
+  if (!obj) return
+
+  for (const key of Object.keys(obj)) {
+    const val = obj[key]
+    if (val instanceof Date) {
+      // eslint-disable-next-line no-param-reassign
+      obj[key] = dayjs(val).subtract(9, 'hour').toDate()
+    } else if (!isPrimitive(val)) {
+      subtract9Hours(val as any)
+    }
+  }
+}
+
+// Subtract 9 hours from all the Date objects
+export const prismaTimeMode = <T>(value: T): T => {
+  if (value instanceof Date) {
+    return dayjs(value).subtract(9, 'hour').toDate() as any
+  }
+  if (isPrimitive(value)) {
+    return value
+  }
+  subtract9Hours(value as any)
+
+  return value
+}
+
+function flattenTime(obj: Record<string, unknown>) {
+  if (!obj) return
+
+  for (const key of Object.keys(obj)) {
+    const val = obj[key]
+    if (val instanceof Date) {
+      // eslint-disable-next-line no-param-reassign
+      obj[key] = val.toUTCString()
+    } else if (!isPrimitive(val)) {
+      flattenTime(val as any)
+    }
+  }
+}
+
+export const stringifyTime = <T>(value: T): T => {
+  if (value instanceof Date) {
+    return value.toUTCString() as any
+  }
+  if (isPrimitive(value)) {
+    return value
+  }
+  flattenTime(value as any)
+
+  return value
+}
