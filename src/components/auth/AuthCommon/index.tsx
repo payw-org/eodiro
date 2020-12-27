@@ -48,8 +48,11 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
   const [isValidPassword, setIsValidPassword] = useState(true)
   const [passwordErrorMessage, setPasswordErrorMessage] = useState('')
   const passwordRef = useRef<HTMLInputElement>(null)
+
   function focusPassword(): void {
-    passwordRef.current.focus()
+    if (passwordRef.current) {
+      passwordRef.current.focus()
+    }
   }
 
   async function login(): Promise<void> {
