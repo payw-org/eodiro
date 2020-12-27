@@ -13,12 +13,12 @@ import {
 } from './auth/validation'
 import joinEmailTemplate from './eodiro-mailer/templates/join'
 
-export interface SignInInfo {
+export type SignInInfo = {
   portalId: string
   password: string
 }
 
-export interface SignUpInfo {
+export type SignUpInfo = {
   portalId: string
   password: string
   nickname: string
