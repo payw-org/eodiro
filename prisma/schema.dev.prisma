@@ -391,7 +391,7 @@ model CommunityComment {
   body           String
   commentedAt    DateTime      @map("commented_at")
   isDeleted      Boolean?      @map("is_deleted")
-  communityPosts CommunityPost @relation("community_commentTocommunity_post", fields: [postId], references: [id])
+  communityPost  CommunityPost @relation("community_commentTocommunity_post", fields: [postId], references: [id])
   user           User          @relation("community_commentTouser", fields: [userId], references: [id])
 
   @@index([postId], name: "post_id")
