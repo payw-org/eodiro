@@ -113,6 +113,7 @@ body {
   word-wrap: break-word;
   word-break: keep-all;
   font-size: 16px;
+  min-height: calc(100vh + 1px);
   // user-select: none;
   overflow-anchor: none; // prevent always scroll end
   @include bg;
