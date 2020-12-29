@@ -1,6 +1,6 @@
 import { JwtError, verifyToken } from '@/modules/jwt'
 import initMiddleware from '@/modules/next-api-routes-helpers'
-import { NextApiResponse } from 'next'
+import { EodiroApiRequest, EodiroApiResponse } from '@/types/next'
 import { extractToken } from '../extract-token'
 
 export type MiddlewareRequireAuthResData = {
@@ -9,12 +9,14 @@ export type MiddlewareRequireAuthResData = {
 
 export const requireAuthMiddleware = initMiddleware(async (req, res, next) => {
   const accessToken = extractToken(req, res, 'access')
-  const [err] = await verifyToken(accessToken, 'access')
+  const [err, authData] = await verifyToken(accessToken, 'access')
   const resData: MiddlewareRequireAuthResData = { error: err }
 
   if (err) {
-    ;(res as NextApiResponse).status(401).json(resData)
-  } else {
+    ;(res as EodiroApiResponse).status(401).json(resData)
+  } else if (authData) {
+    // eslint-disable-next-line no-param-reassign
+    ;(req as EodiroApiRequest).authData = authData
     next()
   }
 })

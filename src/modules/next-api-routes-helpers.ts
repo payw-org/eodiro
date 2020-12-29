@@ -1,15 +1,15 @@
+import { EodiroApiRequest, EodiroApiResponse } from '@/types/next'
 import { IncomingMessage, ServerResponse } from 'http'
-import type { NextApiRequest, NextApiResponse } from 'next'
 
 type HandlerFunction = (
-  req: NextApiRequest,
-  res: NextApiResponse
+  req: EodiroApiRequest,
+  res: EodiroApiResponse
 ) => void | Promise<void>
 
 export const nextApi = (handler: {
   get?: HandlerFunction
   post?: HandlerFunction
-}) => async (req: NextApiRequest, res: NextApiResponse) => {
+}) => async (req: EodiroApiRequest, res: EodiroApiResponse) => {
   const method = req.method?.toUpperCase()
 
   try {
@@ -38,8 +38,8 @@ export const nextApi = (handler: {
 
 export const createHandler = <T = any>(
   handler: (
-    req: NextApiRequest,
-    res: NextApiResponse<T>
+    req: EodiroApiRequest,
+    res: EodiroApiResponse<T>
   ) => Promise<void> | void
 ) => handler
 
@@ -54,8 +54,8 @@ type DataType =
   | 'function'
 
 export function validateRequiredBody(
-  req: NextApiRequest,
-  res: NextApiResponse,
+  req: EodiroApiRequest,
+  res: EodiroApiResponse,
   requiredBodyStructure: Record<string, DataType>
 ) {
   const actualBody = req.body
@@ -83,12 +83,12 @@ export function validateRequiredBody(
 
 type MiddlewareNodeRequestTypes = {
   nodeApi: IncomingMessage
-  nextApi: NextApiRequest
+  nextApi: EodiroApiRequest
 }
 
 type MiddlewareNextRequestTypes = {
   nodeApi: ServerResponse
-  nextApi: NextApiResponse
+  nextApi: EodiroApiResponse
 }
 
 type NodeApi = 'nodeApi'
@@ -117,3 +117,5 @@ export default function initMiddleware<T extends ApiType>(
       })
     })
 }
+
+export const typeQuery = <T = any>(query: any): T => query as T

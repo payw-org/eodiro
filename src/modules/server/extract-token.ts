@@ -1,15 +1,15 @@
 import { eodiroConsts } from '@/constants'
 import { getCookie } from '@/pages/api/cookie'
+import { EodiroApiRequest, EodiroApiResponse } from '@/types/next'
 import { IncomingMessage, ServerResponse } from 'http'
-import { NextApiRequest, NextApiResponse } from 'next'
 
 /**
  * Extract a single token(access/refresh) from cookie first,
  * then Authorization Bearer header.
  */
 export const extractToken = (
-  req: NextApiRequest | IncomingMessage,
-  res: NextApiResponse | ServerResponse,
+  req: EodiroApiRequest | IncomingMessage,
+  res: EodiroApiResponse | ServerResponse,
   type: 'access' | 'refresh'
 ): null | string => {
   const cookie = getCookie(req)

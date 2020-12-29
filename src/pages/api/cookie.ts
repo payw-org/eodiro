@@ -1,7 +1,7 @@
 import { nextApi } from '@/modules/next-api-routes-helpers'
+import { EodiroApiRequest, EodiroApiResponse } from '@/types/next'
 import nodeCookie from 'cookie'
 import { IncomingMessage, ServerResponse } from 'http'
-import type { NextApiRequest, NextApiResponse } from 'next'
 
 export type Cookie = {
   expires?: string // Expiry date in UTC time
@@ -17,7 +17,7 @@ export type Cookies = Cookie[]
 
 function buildCookieString(
   cookie: Cookie,
-  req: NextApiRequest | IncomingMessage
+  req: EodiroApiRequest | IncomingMessage
 ) {
   let cookieString = `${cookie.name}=${cookie.value};`
 
@@ -39,8 +39,8 @@ function buildCookieString(
 }
 
 export function setCookie(
-  req: NextApiRequest | IncomingMessage,
-  res: NextApiResponse | ServerResponse,
+  req: EodiroApiRequest | IncomingMessage,
+  res: EodiroApiResponse | ServerResponse,
   cookieData: Cookie | Cookies
 ) {
   const cookieStrings = [] as string[]
@@ -57,14 +57,14 @@ export function setCookie(
 }
 
 export function getCookie(
-  req: NextApiRequest | IncomingMessage
+  req: EodiroApiRequest | IncomingMessage
 ): Record<string, string>
 export function getCookie(
-  req: NextApiRequest | IncomingMessage,
+  req: EodiroApiRequest | IncomingMessage,
   cookieName: string
 ): string
 export function getCookie(
-  req: NextApiRequest | IncomingMessage,
+  req: EodiroApiRequest | IncomingMessage,
   cookieName?: string
 ) {
   const cookie = req.headers.cookie ? nodeCookie.parse(req.headers.cookie) : {}
