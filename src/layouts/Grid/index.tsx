@@ -4,7 +4,7 @@ import React from 'react'
 import $ from './style.module.scss'
 
 type GridProps = {
-  proportion?: 'extraSmall' | 'small' | 'medium' | 'large'
+  proportion?: 'extraSmall' | 'small' | 'medium' | 'large' | 'extraLarge'
   gap?: 'small' | 'medium' | 'large'
   className?: string
 }

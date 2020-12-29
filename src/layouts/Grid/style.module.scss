@@ -25,6 +25,14 @@
     }
   }
 
+  &.proportion--extra-large {
+    grid-template-columns: repeat(auto-fill, minmax(25rem, 1fr));
+
+    @include smaller-than(600px) {
+      grid-template-columns: 1fr !important;
+    }
+  }
+
   &.gap--small {
     grid-gap: s(3);
   }
