@@ -325,6 +325,7 @@ model User {
   admins                           Admin?
   changePasswords                  ChangePassword?
   comments                         Comment[]
+  communityComments                CommunityComment[]                @relation("community_commentTouser")
   communityPosts                   CommunityPost[]                   @relation("community_postTouser")
   devices                          Device[]
   inquiries                        Inquiry[]
@@ -364,21 +365,38 @@ model CommunityBoard {
 }
 
 model CommunityPost {
-  id             Int             @id @default(autoincrement())
-  boardId        Int?            @map("board_id")
-  title          String
-  body           String
-  userId         Int?            @map("user_id")
-  randomNickname String          @map("random_nickname")
-  uploadedAt     DateTime        @map("uploaded_at")
-  editedAt       DateTime?       @map("edited_at")
-  isDeleted      Boolean?        @default(false) @map("is_deleted")
-  communityBoard CommunityBoard? @relation(fields: [boardId], references: [id])
-  user           User?           @relation("community_postTouser", fields: [userId], references: [id])
+  id                Int                @id @default(autoincrement())
+  boardId           Int                @map("board_id")
+  title             String
+  body              String
+  userId            Int                @map("user_id")
+  randomNickname    String             @map("random_nickname")
+  postedAt          DateTime           @map("posted_at")
+  editedAt          DateTime?          @map("edited_at")
+  isDeleted         Boolean?           @default(false) @map("is_deleted")
+  communityBoard    CommunityBoard     @relation(fields: [boardId], references: [id])
+  user              User               @relation("community_postTouser", fields: [userId], references: [id])
+  communityComments CommunityComment[] @relation("community_commentTocommunity_post")
 
   @@index([boardId], name: "board_id")
   @@index([userId], name: "user_id")
   @@map("community_post")
+}
+
+model CommunityComment {
+  id             Int           @id @default(autoincrement())
+  postId         Int           @map("post_id")
+  userId         Int           @map("user_id")
+  randomNickname String        @default("") @map("random_nickname")
+  body           String
+  commentedAt    DateTime      @map("commented_at")
+  isDeleted      Boolean?      @map("is_deleted")
+  communityPosts CommunityPost @relation("community_commentTocommunity_post", fields: [postId], references: [id])
+  user           User          @relation("community_commentTouser", fields: [userId], references: [id])
+
+  @@index([postId], name: "post_id")
+  @@index([userId], name: "user_id")
+  @@map("community_comment")
 }
 
 enum TipTopic {
@@ -391,5 +409,5 @@ enum TipTopic {
   contest
   etc
 
-   @@map("tip_topic")
+  @@map("tip_topic")
 }
