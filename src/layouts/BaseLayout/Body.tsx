@@ -7,6 +7,11 @@ export type BodyProps = HeaderProps & {
   bodyClassName?: string
   hasTopGap?: boolean
   centered?: boolean
+  /**
+   * First hide body, then
+   * you should run `visualizeBody()`
+   * to make body visible.
+   */
   hideOnLoad?: boolean
 }
 
