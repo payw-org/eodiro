@@ -45,7 +45,7 @@ export async function eodiroRequest<RQD = any, RSD = any>(
         try {
           await Axios.post<ApiAuthRefreshResData>('/api/auth/refresh')
 
-          return await eodiroRequest<T>(sanitiedReqeuestConfig)
+          return await eodiroRequest<RQD, RSD>(sanitiedReqeuestConfig)
         } catch (refreshErr) {
           const refereshUnauthorized = refreshErr.response
             ?.data as ApiAuthGeneralErrResData
