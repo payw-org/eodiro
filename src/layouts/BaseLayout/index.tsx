@@ -17,7 +17,7 @@ const BaseLayout: React.FC<{ shouldCheckAuth: boolean }> = ({
 
   useEffect(() => {
     async function init() {
-      const responseData = await eodiroRequest<ApiAuthVerifyResData>({
+      const responseData = await eodiroRequest<null, ApiAuthVerifyResData>({
         url: '/api/auth/verify',
         method: 'POST',
       })

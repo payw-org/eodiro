@@ -4,22 +4,25 @@ import Axios, { AxiosRequestConfig } from 'axios'
 import produce from 'immer'
 import { eodiroHost } from './eodiro-host'
 import { JwtErrorName } from './jwt'
-import { isClient } from './utils/is-client'
+
+export enum UnauthorizedError {
+  Unauthorized = 'Unauthorized',
+}
 
 const createUnauthorizedError = () => {
-  if (isClient()) {
-    alert('로그인 필요한 작업입니다.')
-  }
-
   const error = new Error()
-  error.name = 'Unauthorized'
+  error.name = UnauthorizedError.Unauthorized
 
   return error
 }
 
-export async function eodiroRequest<T = any>(
-  axiosReqeustConfig: AxiosRequestConfig
-): Promise<T> {
+export type EodiroRequestConfig<T = any> = Omit<AxiosRequestConfig, 'data'> & {
+  data?: T
+}
+
+export async function eodiroRequest<RQD = any, RSD = any>(
+  axiosReqeustConfig: EodiroRequestConfig<RQD>
+): Promise<RSD> {
   const sanitiedReqeuestConfig = produce(axiosReqeustConfig, (draftConfig) => {
     if (draftConfig.url?.startsWith('/')) {
       draftConfig.url = eodiroHost + draftConfig.url
@@ -29,7 +32,7 @@ export async function eodiroRequest<T = any>(
   try {
     const response = await Axios(sanitiedReqeuestConfig)
 
-    return response.data as T
+    return response.data as RSD
   } catch (firstTryErr) {
     const status = firstTryErr.response?.status as number
 
@@ -58,9 +61,7 @@ export async function eodiroRequest<T = any>(
       }
     }
 
-    if (isClient()) {
-      alert('서버에 연결할 수 없습니다.')
-    }
+    console.error(firstTryErr)
 
     throw firstTryErr
   }
