@@ -1,8 +1,7 @@
-import { atom, useRecoilValue, useSetRecoilState } from 'recoil'
 import { useEffect, useRef } from 'react'
-
-import $ from './style.module.scss'
+import { atom, useRecoilValue, useSetRecoilState } from 'recoil'
 import PageButton from './PageButton'
+import $ from './style.module.scss'
 
 export type PaginationProps = {
   totalPage: number
@@ -48,6 +47,7 @@ const Buttons: React.FC<PaginationProps> = ({
       )}
       {pages.map((pageNum) => (
         <PageButton
+          type="default"
           key={pageNum}
           page={pageNum}
           isSelected={pageNum === currentPage}
@@ -73,16 +73,20 @@ const Pagination: React.FC<PaginationProps> = (props) => {
   const setIsMobile = useSetRecoilState(isMobileState)
 
   useEffect(() => {
+    const paginationElm = paginationRef.current
+
+    if (!paginationElm) return
+
     const resizeObserver = new ResizeObserver(() => {
-      if (paginationRef.current.clientWidth <= 600) {
+      if (paginationElm.clientWidth <= 600) {
         setIsMobile(true)
       } else {
         setIsMobile(false)
       }
     })
 
-    resizeObserver.observe(paginationRef.current)
-  }, [])
+    resizeObserver.observe(paginationElm)
+  }, [setIsMobile])
 
   return (
     <div ref={paginationRef} className={$['pagination']}>

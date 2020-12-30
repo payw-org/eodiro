@@ -20,6 +20,10 @@
 
   margin-right: 7px;
 
+  &:last-child {
+    margin-right: 0;
+  }
+
   &.selected {
     background-color: $eodiro-primary-color;
     color: $base-white;
