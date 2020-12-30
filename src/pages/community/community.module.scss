@@ -1,0 +1,65 @@
+@use '@/assets/styles/main' as *;
+
+.community-page {
+  max-width: 80rem !important;
+}
+
+.board-section {
+  padding: 20px;
+  padding-bottom: 10px;
+}
+
+.board-header {
+  @include separator('bottom');
+  padding-bottom: 20px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.board-more {
+  color: $eodiro-primary-color;
+  margin-left: 20px;
+}
+
+.board-name {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.post-item {
+  padding: 10px 0;
+  border-radius: $border-radius-inner;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .post-title {
+    font-size: 16px;
+    font-weight: 400;
+    transition: color 100ms ease;
+  }
+
+  &:hover {
+    .post-title {
+      color: $eodiro-primary-color;
+    }
+  }
+
+  .post-time {
+    color: $base-gray;
+    font-size: 14px;
+    margin-left: 20px;
+  }
+}
+
+.no-post-yet {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  font-size: 17px;
+  font-weight: 400;
+  color: $base-gray;
+}
