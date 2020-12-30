@@ -6,6 +6,7 @@ import $ from './style.module.scss'
 export interface ArrowBlockProps {
   className?: string
   noArrow?: boolean
+  /** If `true`, no effect on hover. */
   flat?: boolean
   customPadding?: boolean
   onClick?: () => void
@@ -20,22 +21,23 @@ export const ArrowBlock: React.FC<ArrowBlockProps> = ({
   onClick,
 }) => {
   return (
-    <button
-      type="button"
+    <div
       className={classNames(
         $['arrow-block'],
         className,
         !flat && $['unflat'],
         customPadding && $['custom-padding']
       )}
+      tabIndex={0}
+      role="menu"
       onClick={onClick}
     >
       <div className={$['ab-body']}>{children}</div>
-      {!noArrow && (
+      {!noArrow && !flat && (
         <div className={$['ab-arrow-container']}>
           <ArrowIcon direction="right" className={$['ab-arrow']} />
         </div>
       )}
-    </button>
+    </div>
   )
 }
