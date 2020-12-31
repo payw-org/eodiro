@@ -2,19 +2,21 @@ import { createHandler, nextApi } from '@/modules/next-api-routes-helpers'
 import { prisma } from '@/modules/prisma'
 import { requireAuthMiddleware } from '@/modules/server/middlewares/require-auth'
 import { validateRequiredReqDataMiddleware } from '@/modules/server/middlewares/validate-required-req-data'
-import { CommunityBoard, CommunityPost } from '@prisma/client'
+import { CommunityBoard, CommunityComment, CommunityPost } from '@prisma/client'
 import queryString from 'query-string'
+import { CommunityPostWithCommentsCount } from '../types'
 
 export type ApiCommunityBoardReqData = {
   boardId: number
   page: number
 }
+
 export type ApiCommunityBoardResData = {
   totalPage: number
   page: number
   board:
     | (CommunityBoard & {
-        communityPosts: CommunityPost[]
+        communityPosts: CommunityPostWithCommentsCount[]
       })
     | null
 }
@@ -42,11 +44,34 @@ export const apiCommunityBoard = async (
         orderBy: { id: 'desc' },
         skip,
         take,
+        include: {
+          communityComments: true,
+        },
       },
     },
   })
 
-  return { totalPage, board, page }
+  const commentsCountedBoard: ApiCommunityBoardResData['board'] = board
+    ? {
+        ...board,
+        communityPosts: board.communityPosts.map((post) => {
+          const communityCommentsCount = post.communityComments.length
+
+          // Delete comments data
+          // eslint-disable-next-line no-param-reassign
+          delete (post as CommunityPost & {
+            communityComments?: CommunityComment[]
+          }).communityComments
+
+          return {
+            ...post,
+            communityCommentsCount,
+          }
+        }),
+      }
+    : null
+
+  return { totalPage, board: commentsCountedBoard, page }
 }
 
 export default nextApi({

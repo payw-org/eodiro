@@ -14,6 +14,9 @@ export type ApiCommunityPostReqData = {
 }
 export type ApiCommunityPostResData =
   | (CommunityPost & {
+      communityBoard: {
+        id: number
+      }
       communityComments: CommunityComment[]
     })
   | null
@@ -25,6 +28,11 @@ export const apiCommunityPost = async ({ postId }: ApiCommunityPostReqData) => {
   const data = await prisma.communityPost.findUnique({
     where: { id: postId },
     include: {
+      communityBoard: {
+        select: {
+          id: true,
+        },
+      },
       communityComments: {
         orderBy: { id: 'asc' },
       },
@@ -35,6 +43,9 @@ export const apiCommunityPost = async ({ postId }: ApiCommunityPostReqData) => {
 }
 
 export default nextApi({
+  /**
+   * Fetch a post data with comments
+   */
   get: createHandler<ApiCommunityPostResData>(async (req, res) => {
     await requireAuthMiddleware(req, res)
     await validateRequiredReqDataMiddleware<ApiCommunityPostReqData>({
@@ -47,6 +58,16 @@ export default nextApi({
       typeQuery<ApiCommunityPostReqData>(req.query)
     )
 
+    if (!data) {
+      // Not Found
+      res.status(404).end()
+      return
+    }
+
     res.json(data)
   }),
+  /**
+   * Upload a new post
+   */
+  post: createHandler(async (req, res) => {}),
 })
