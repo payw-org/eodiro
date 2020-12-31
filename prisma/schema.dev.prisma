@@ -359,6 +359,7 @@ model CommunityBoard {
   name           String          @default("")
   isDeleted      Boolean?        @map("is_deleted")
   createdAt      DateTime        @map("created_at")
+  active_at      DateTime?
   communityPosts CommunityPost[]
 
   @@map("community_board")
@@ -409,5 +410,5 @@ enum TipTopic {
   contest
   etc
 
-  @@map("tip_topic")
+   @@map("tip_topic")
 }
