@@ -1,7 +1,7 @@
+import { PostsList } from '@/components/community/PostsList'
 import Information from '@/components/global/Information'
 import { ArrowBlock } from '@/components/ui'
 import Pagination from '@/components/ui/Pagination'
-import FriendlyTime from '@/components/utils/FriendlyTime'
 import Body from '@/layouts/BaseLayout/Body'
 import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next-require-auth'
 import {
@@ -10,11 +10,9 @@ import {
   apiCommunityBoardUrl,
 } from '@/pages/api/community/board'
 import { GetServerSideProps, NextPage } from 'next'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import $ from './board.module.scss'
-import { postPageUrl } from './post/[postId]'
 
 const PostsPage: React.FC<{
   totalPage: ApiCommunityBoardResData['totalPage']
@@ -27,21 +25,12 @@ const PostsPage: React.FC<{
     initialData,
   })
 
+  if (!data) return null
+
   return (
-    // <div className={$['']}>
     <ArrowBlock flat className={$['posts-container']}>
-      {data?.board?.communityPosts.map((post) => (
-        <Link href={postPageUrl(board.id, post.id)} key={post.id}>
-          <a>
-            <div key={post.id} className={$['post-item']}>
-              <p className={$['post-title']}>{post.title}</p>
-              <FriendlyTime time={post.postedAt} className={$['post-time']} />
-            </div>
-          </a>
-        </Link>
-      ))}
+      <PostsList boardId={board.id} posts={data.board.communityPosts} />
     </ArrowBlock>
-    // </div>
   )
 }
 

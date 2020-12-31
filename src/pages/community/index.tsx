@@ -1,5 +1,5 @@
+import { PostsList } from '@/components/community/PostsList'
 import { ArrowBlock } from '@/components/ui'
-import FriendlyTime from '@/components/utils/FriendlyTime'
 import { IfExists } from '@/components/utils/IfExists'
 import Body from '@/layouts/BaseLayout/Body'
 import Grid from '@/layouts/Grid'
@@ -13,7 +13,6 @@ import {
   ApiCommunityHomeResData,
   apiCommunityHomeUrl,
 } from '../api/community/home'
-import { postPageUrl } from './board/[boardId]/post/[postId]'
 import $ from './community.module.scss'
 
 const BoardSection: React.FC<{
@@ -33,19 +32,7 @@ const BoardSection: React.FC<{
       </div>
       <div className={$['posts-container']}>
         {board.communityPosts.length > 0 ? (
-          board.communityPosts.map((post) => (
-            <Link href={postPageUrl(board.id, post.id)} key={post.id}>
-              <a>
-                <div className={$['post-item']}>
-                  <h2 className={$['post-title']}>{post.title}</h2>
-                  <FriendlyTime
-                    time={post.postedAt}
-                    className={$['post-time']}
-                  />
-                </div>
-              </a>
-            </Link>
-          ))
+          <PostsList boardId={board.id} posts={board.communityPosts} />
         ) : (
           <div className={$['no-post-yet']}>아직 포스트가 없습니다.</div>
         )}
