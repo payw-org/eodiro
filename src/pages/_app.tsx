@@ -8,7 +8,7 @@ import 'intersection-observer'
 import { AppProps } from 'next/app'
 import { AppContextType } from 'next/dist/next-server/lib/utils'
 import Head from 'next/head'
-import { Router } from 'next/router'
+import Router from 'next/router'
 import React, { useEffect } from 'react'
 import { RecoilRoot } from 'recoil'
 import 'swiper/swiper.scss'
@@ -237,13 +237,15 @@ type EdrAppProps = AppProps & {
   shouldCheckAuth: boolean
 }
 
+const cachedScrollPositions: [x: number, y: number][] = []
+
 export default function EdrApp({
   Component,
   pageProps,
   shouldCheckAuth,
 }: EdrAppProps) {
   useEffect(() => {
-    //       // Set topbar
+    // Set topbar
     const w = globalThis as any
     const { topbar } = w
     topbar.config({
@@ -265,6 +267,36 @@ export default function EdrApp({
       ;(document.activeElement as any)?.blur()
       topbar.hide()
     })
+
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual'
+      let shouldScrollRestore: { x: number; y: number } | false = false
+
+      Router.events.on('routeChangeStart', () => {
+        if (!shouldScrollRestore) {
+          cachedScrollPositions.push([window.scrollX, window.scrollY])
+        }
+      })
+
+      Router.events.on('routeChangeComplete', () => {
+        if (shouldScrollRestore) {
+          const { x, y } = shouldScrollRestore
+          window.scrollTo(x, y)
+          shouldScrollRestore = false
+        } else {
+          window.scrollTo(0, 0)
+        }
+      })
+
+      Router.beforePopState(() => {
+        if (cachedScrollPositions.length > 0) {
+          const [x, y] = cachedScrollPositions.pop() as [number, number]
+          shouldScrollRestore = { x, y }
+        }
+
+        return true
+      })
+    }
   }, [])
 
   return (
