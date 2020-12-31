@@ -57,23 +57,23 @@ model Comment {
 }
 
 model CoverageMajor {
-  coverageCollege        String?                @map("coverage_college")
-  name                   String
-  code                   String                 @id
-  coverage_major_lecture CoverageMajorLecture[] @relation("coverage_majorTocoverage_major_lecture")
+  coverageCollege       String?                @map("coverage_college")
+  name                  String
+  code                  String                 @id
+  coverageMajorLectures CoverageMajorLecture[] @relation("coverage_majorTocoverage_major_lecture")
 
   @@map("coverage_major")
 }
 
 model CoverageMajorLecture {
-  lectureId      String        @map("lecture_id")
-  major_code     String
-  lecture        Lecture       @relation(fields: [lectureId], references: [id])
-  coverage_major CoverageMajor @relation("coverage_majorTocoverage_major_lecture", fields: [major_code], references: [code])
+  lectureId     String        @map("lecture_id")
+  majorCode     String        @map(name: "major_code")
+  lecture       Lecture       @relation(fields: [lectureId], references: [id])
+  coverageMajor CoverageMajor @relation("coverage_majorTocoverage_major_lecture", fields: [majorCode], references: [code])
 
-  @@id([lectureId, major_code])
+  @@id([lectureId, majorCode])
   @@index([lectureId], name: "coverage_major_lecture_lecture_id")
-  @@index([major_code], name: "coverage_major_lecture_major_code")
+  @@index([majorCode], name: "coverage_major_lecture_major_code")
   @@map("coverage_major_lecture")
 }
 
@@ -237,18 +237,18 @@ model PostLike {
 }
 
 model Tip {
-  id             Int            @id @default(autoincrement())
+  id             Int           @id @default(autoincrement())
   topic          TipTopic?
-  userId         Int            @map("user_id")
+  userId         Int           @map("user_id")
   title          String
   body           String
-  randomNickname String         @map("random_nickname")
-  isArchived     Boolean?       @default(false) @map("is_archived")
-  isRemoved      Boolean?       @default(false) @map("is_removed")
-  createdAt      DateTime?      @map("created_at")
-  editedAt       DateTime?      @map("edited_at")
-  user           User           @relation(fields: [userId], references: [id])
-  tip_bookmark   tip_bookmark[] @relation("tipTotip_bookmark")
+  randomNickname String        @map("random_nickname")
+  isArchived     Boolean?      @default(false) @map("is_archived")
+  isRemoved      Boolean?      @default(false) @map("is_removed")
+  createdAt      DateTime?     @map("created_at")
+  editedAt       DateTime?     @map("edited_at")
+  user           User          @relation(fields: [userId], references: [id])
+  tipBookmarks   TipBookmark[] @relation("tipTotip_bookmark")
   tipComments    TipComment[]
   tipFiles       TipFile[]
   tipLikes       TipLike[]
@@ -334,7 +334,7 @@ model User {
   posts                            Post[]
   postLikes                        PostLike[]
   tips                             Tip[]
-  tip_bookmark                     tip_bookmark[]                    @relation("tip_bookmarkTouser")
+  tipBookmarks                     TipBookmark[]                     @relation("tip_bookmarkTouser")
   tipComments                      TipComment[]
   tipLikes                         TipLike[]
   tipViews                         TipView[]
@@ -342,16 +342,17 @@ model User {
   @@map("user")
 }
 
-model tip_bookmark {
-  id      Int  @default(autoincrement())
-  user_id Int
-  tip_id  Int
-  tip     Tip  @relation("tipTotip_bookmark", fields: [tip_id], references: [id])
-  user    User @relation("tip_bookmarkTouser", fields: [user_id], references: [id])
+model TipBookmark {
+  id     Int  @default(autoincrement())
+  userId Int  @map(name: "user_id")
+  tipId  Int  @map(name: "tip_id")
+  tip    Tip  @relation("tipTotip_bookmark", fields: [tipId], references: [id])
+  user   User @relation("tip_bookmarkTouser", fields: [userId], references: [id])
 
-  @@id([id, user_id, tip_id])
-  @@index([tip_id], name: "tip_id")
-  @@index([user_id], name: "user_id")
+  @@id([id, userId, tipId])
+  @@index([tipId], name: "tip_id")
+  @@index([userId], name: "user_id")
+  @@map(name: "tip_bookmark")
 }
 
 model CommunityBoard {
@@ -359,7 +360,7 @@ model CommunityBoard {
   name           String          @default("")
   isDeleted      Boolean?        @map("is_deleted")
   createdAt      DateTime        @map("created_at")
-  active_at      DateTime?
+  activeAt       DateTime?       @map(name: "active_at")
   communityPosts CommunityPost[]
 
   @@map("community_board")
@@ -410,5 +411,5 @@ enum TipTopic {
   contest
   etc
 
-   @@map("tip_topic")
+  @@map("tip_topic")
 }

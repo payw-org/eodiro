@@ -1,6 +1,6 @@
 const fs = require('fs')
 const appRoot = require('app-root-path')
-const prismaSchemaPath = appRoot.resolve('/prisma/schema.prisma')
+const prismaSchemaPath = appRoot.resolve('/prisma/schema.dev.prisma')
 
 module.exports = {
   prismaSchemaPath,
