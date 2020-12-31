@@ -1,0 +1,49 @@
+@use '@/assets/styles/main' as *;
+
+.comments-section {
+  margin-top: 40px;
+}
+
+.comments-headline {
+  font-size: 22px;
+  font-weight: 600;
+  margin-bottom: 15px;
+  @include resolve-optical-illusion();
+}
+
+.comments {
+  padding: 20px;
+}
+
+.no-comments-yet {
+  font-size: 17px;
+  font-weight: 500;
+  text-align: center;
+}
+
+.comment-item {
+  padding-top: 15px;
+  margin-top: 15px;
+  @include separator('top');
+
+  &:first-child {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+
+  .author {
+    font-size: 15px;
+    font-weight: 400;
+    color: $base-gray;
+    margin-bottom: 7px;
+  }
+
+  .body {
+    font-size: 16px;
+  }
+}
+
+.new-comment {
+  margin-top: 20px;
+}
