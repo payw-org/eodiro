@@ -14,14 +14,6 @@ model Admin {
   @@map("admin")
 }
 
-model Board {
-  id        Int    @id @default(autoincrement())
-  boardName String @unique @map("board_name")
-  posts     Post[]
-
-  @@map("board")
-}
-
 model CafeteriaMenu {
   campus   String
   servedAt DateTime @map("served_at")
@@ -39,21 +31,6 @@ model ChangePassword {
 
   @@index([token], name: "change_password_token")
   @@map("change_password")
-}
-
-model Comment {
-  id             Int      @id @default(autoincrement())
-  body           String
-  uploadedAt     DateTime @map("uploaded_at")
-  userId         Int      @map("user_id")
-  postId         Int      @map("post_id")
-  randomNickname String   @map("random_nickname")
-  post           Post     @relation(fields: [postId], references: [id])
-  user           User     @relation(fields: [userId], references: [id])
-
-  @@index([postId], name: "post_id")
-  @@index([userId], name: "user_id")
-  @@map("comment")
 }
 
 model CoverageMajor {
@@ -91,13 +68,11 @@ model Device {
 }
 
 model File {
-  id         Int        @id @default(autoincrement())
-  uuid       String     @unique
-  fileName   String     @map("file_name")
+  id         Int      @id @default(autoincrement())
+  uuid       String   @unique
+  fileName   String   @map("file_name")
   mime       String
-  uploadedAt DateTime   @map("uploaded_at")
-  postFiles  PostFile[]
-  tipFiles   TipFile[]
+  uploadedAt DateTime @map("uploaded_at")
 
   @@map("file")
 }
@@ -192,128 +167,6 @@ model Period {
   @@map("period")
 }
 
-model Post {
-  id             Int        @id @default(autoincrement())
-  boardId        Int        @map("board_id")
-  title          String
-  body           String
-  userId         Int        @map("user_id")
-  randomNickname String     @map("random_nickname")
-  uploadedAt     DateTime   @map("uploaded_at")
-  editedAt       DateTime?  @map("edited_at")
-  isDeleted      Boolean?   @default(false) @map("is_deleted")
-  board          Board      @relation(fields: [boardId], references: [id])
-  user           User       @relation(fields: [userId], references: [id])
-  comments       Comment[]
-  postFiles      PostFile[]
-  postLikes      PostLike[]
-
-  @@index([boardId], name: "board_id")
-  @@index([userId], name: "user_id")
-  @@map("post")
-}
-
-model PostFile {
-  id     Int  @id @default(autoincrement())
-  postId Int  @map("post_id")
-  fileId Int  @map("file_id")
-  file   File @relation(fields: [fileId], references: [id])
-  post   Post @relation(fields: [postId], references: [id])
-
-  @@index([fileId], name: "file_id")
-  @@index([postId], name: "post_id")
-  @@map("post_file")
-}
-
-model PostLike {
-  userId Int  @map("user_id")
-  postId Int  @map("post_id")
-  post   Post @relation(fields: [postId], references: [id])
-  user   User @relation(fields: [userId], references: [id])
-
-  @@id([userId, postId])
-  @@index([postId], name: "post_id")
-  @@map("post_like")
-}
-
-model Tip {
-  id             Int           @id @default(autoincrement())
-  topic          TipTopic?
-  userId         Int           @map("user_id")
-  title          String
-  body           String
-  randomNickname String        @map("random_nickname")
-  isArchived     Boolean?      @default(false) @map("is_archived")
-  isRemoved      Boolean?      @default(false) @map("is_removed")
-  createdAt      DateTime?     @map("created_at")
-  editedAt       DateTime?     @map("edited_at")
-  user           User          @relation(fields: [userId], references: [id])
-  tipBookmarks   TipBookmark[] @relation("tipTotip_bookmark")
-  tipComments    TipComment[]
-  tipFiles       TipFile[]
-  tipLikes       TipLike[]
-  tipViews       TipView[]
-
-  @@index([userId], name: "user_id")
-  @@map("tip")
-}
-
-model TipComment {
-  id             Int       @id @default(autoincrement())
-  userId         Int?      @map("user_id")
-  tipId          Int?      @map("tip_id")
-  body           String
-  randomNickname String    @map("random_nickname")
-  isRemoved      Boolean?  @default(false) @map("is_removed")
-  createdAt      DateTime? @map("created_at")
-  editedAt       DateTime? @map("edited_at")
-  tip            Tip?      @relation(fields: [tipId], references: [id])
-  user           User?     @relation(fields: [userId], references: [id])
-
-  @@index([tipId], name: "tip_id")
-  @@index([userId], name: "user_id")
-  @@map("tip_comment")
-}
-
-model TipFile {
-  id        Int       @id @default(autoincrement())
-  tipId     Int       @map("tip_id")
-  fileId    Int       @map("file_id")
-  createdAt DateTime? @map("created_at")
-  file      File      @relation(fields: [fileId], references: [id])
-  tip       Tip       @relation(fields: [tipId], references: [id])
-
-  @@index([fileId], name: "file_id")
-  @@index([tipId], name: "tip_id")
-  @@map("tip_file")
-}
-
-model TipLike {
-  id     Int  @default(autoincrement())
-  userId Int  @map("user_id")
-  tipId  Int  @map("tip_id")
-  tip    Tip  @relation(fields: [tipId], references: [id])
-  user   User @relation(fields: [userId], references: [id])
-
-  @@id([id, userId, tipId])
-  @@index([tipId], name: "tip_id")
-  @@index([userId], name: "user_id")
-  @@map("tip_like")
-}
-
-model TipView {
-  id     Int  @default(autoincrement())
-  userId Int  @map("user_id")
-  tipId  Int  @map("tip_id")
-  tip    Tip  @relation(fields: [tipId], references: [id])
-  user   User @relation(fields: [userId], references: [id])
-
-  @@id([id, userId, tipId])
-  @@index([tipId], name: "tip_id")
-  @@index([userId], name: "user_id")
-  @@map("tip_view")
-}
-
 model User {
   id                               Int                               @id @default(autoincrement())
   portalId                         String                            @unique @map("portal_id")
@@ -324,35 +177,14 @@ model User {
   refreshToken                     String?                           @map("refresh_token")
   admins                           Admin?
   changePasswords                  ChangePassword?
-  comments                         Comment[]
   communityComments                CommunityComment[]                @relation("community_commentTouser")
   communityPosts                   CommunityPost[]                   @relation("community_postTouser")
   devices                          Device[]
   inquiries                        Inquiry[]
   liveChats                        LiveChat[]
   noticeNotificationsSubscriptions NoticeNotificationsSubscription[]
-  posts                            Post[]
-  postLikes                        PostLike[]
-  tips                             Tip[]
-  tipBookmarks                     TipBookmark[]                     @relation("tip_bookmarkTouser")
-  tipComments                      TipComment[]
-  tipLikes                         TipLike[]
-  tipViews                         TipView[]
 
   @@map("user")
-}
-
-model TipBookmark {
-  id     Int  @default(autoincrement())
-  userId Int  @map("user_id")
-  tipId  Int  @map("tip_id")
-  tip    Tip  @relation("tipTotip_bookmark", fields: [tipId], references: [id])
-  user   User @relation("tip_bookmarkTouser", fields: [userId], references: [id])
-
-  @@id([id, userId, tipId])
-  @@index([tipId], name: "tip_id")
-  @@index([userId], name: "user_id")
-  @@map("tip_bookmark")
 }
 
 model CommunityBoard {
@@ -400,17 +232,4 @@ model CommunityComment {
   @@index([postId], name: "post_id")
   @@index([userId], name: "user_id")
   @@map("community_comment")
-}
-
-enum TipTopic {
-  university
-  employment
-  newbie
-  certificate
-  exam
-  club
-  contest
-  etc
-
-  @@map("tip_topic")
 }
