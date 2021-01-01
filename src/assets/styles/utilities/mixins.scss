@@ -10,6 +10,21 @@
   }
 }
 
+// Safe area
+@mixin support-safe-area {
+  @supports (bottom: env(safe-area-inset-bottom)) {
+    @content;
+  }
+}
+
+@mixin hover {
+  @media (hover: hover) {
+    &:hover {
+      @content;
+    }
+  }
+}
+
 @mixin on-lang($lang) {
   [lang='#{$lang}'] & {
     @content;
@@ -205,7 +220,7 @@ $border-radius-inner: r(2);
     user-select: none;
   }
 
-  &:hover {
+  @include hover {
     opacity: 0.8;
   }
 
