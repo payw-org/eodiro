@@ -1,7 +1,19 @@
+import { isClient } from './utils/is-client'
+
 /**
- * http://localhost:3020 when dev, https://eodiro.com when prod
+ * Browser location when dev, https://eodiro.com when prod.
+ * Only use on the client side.
  */
-export const eodiroHost =
-  process.env.NODE_ENV === 'development'
-    ? 'http://localhost:3020'
-    : 'https://eodiro.com'
+let eodiroHost: string
+
+if (process.env.NODE_ENV === 'development') {
+  if (isClient()) {
+    eodiroHost = `${window.location.protocol}//${window.location.host}`
+  } else {
+    eodiroHost = 'http://localhost:3020'
+  }
+} else {
+  eodiroHost = 'https://eodiro.com'
+}
+
+export { eodiroHost }
