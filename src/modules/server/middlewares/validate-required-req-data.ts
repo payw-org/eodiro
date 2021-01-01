@@ -10,52 +10,26 @@ type DataType =
   | 'object'
   | 'function'
 
-type QueryTestDetailOption = {
-  required: boolean
-  dataType: 'number' | 'string'
-}
-
-function isQueryTestDetailOption(
-  value: string | QueryTestDetailOption
-): value is QueryTestDetailOption {
-  if (
-    typeof value === 'object' &&
-    typeof value.required === 'boolean' &&
-    typeof value.dataType === 'string'
-  ) {
-    return true
-  }
-
-  return false
-}
-
 export const validateRequiredReqDataMiddleware = <
   T extends Record<string, unknown>
 >({
-  body: bodyTest,
-  query: queryTest,
+  body: testBody,
+  query: testQuery,
 }: {
-  body?: { [K in keyof T]: DataType }
-  query?: Record<keyof T, 'number' | 'string' | QueryTestDetailOption>
+  body?: Record<keyof T, DataType>
+  query?: Record<keyof T, 'number' | 'string'>
 }) =>
   initMiddleware<NextApi>(async (req, res, next) => {
-    if (queryTest) {
-      const actualQuery = req.query
+    if (testQuery) {
+      const requestQuery = req.query
 
-      for (const key in queryTest) {
-        if (Object.prototype.hasOwnProperty.call(queryTest, key)) {
-          const value = queryTest[key]
-          let required = true
-          let dataType = value
+      for (const key in testQuery) {
+        if (Object.prototype.hasOwnProperty.call(testQuery, key)) {
+          const exist = key in requestQuery
+          const dataType = testQuery[key]
+          const queryValue = requestQuery[key] as string
 
-          if (isQueryTestDetailOption(value)) {
-            required = value.required
-            dataType = value.dataType
-          }
-
-          const queryValue = actualQuery[key] as string
-
-          if (required && queryValue === undefined) {
+          if (exist && queryValue === undefined) {
             res
               .status(400)
               .json({ error: { message: `Query field '${key}' is missing` } })
@@ -67,8 +41,8 @@ export const validateRequiredReqDataMiddleware = <
             const parsed = parseInt(queryValue, 10)
 
             if (queryValue === parsed.toString()) {
-              actualQuery[key] = (parsed as unknown) as string
-            } else if (required) {
+              requestQuery[key] = (parsed as unknown) as string
+            } else if (exist) {
               res.status(400).json({
                 error: {
                   message: `Data type of query field '${key}' is wrong`,
@@ -78,8 +52,8 @@ export const validateRequiredReqDataMiddleware = <
               return
             }
           } else if (
-            required &&
-            (queryValue === null || typeof actualQuery[key] !== dataType)
+            exist &&
+            (queryValue === null || typeof queryValue !== dataType)
           ) {
             res.status(400).json({
               error: {
@@ -93,15 +67,16 @@ export const validateRequiredReqDataMiddleware = <
       }
     }
 
-    if (bodyTest) {
-      const actualBody = req.body
+    if (testBody) {
+      const requestBody = req.body
 
-      for (const key in bodyTest) {
-        if (Object.prototype.hasOwnProperty.call(bodyTest, key)) {
-          const dataType = bodyTest[key]
-          const bodyValue = actualBody[key]
+      for (const key in testBody) {
+        if (Object.prototype.hasOwnProperty.call(testBody, key)) {
+          const exist = key in requestBody
+          const dataType = testBody[key]
+          const bodyValue = requestBody[key]
 
-          if (bodyValue === undefined) {
+          if (exist && bodyValue === undefined) {
             res
               .status(400)
               .json({ error: { message: `Body field '${key}' is missing` } })
@@ -109,7 +84,7 @@ export const validateRequiredReqDataMiddleware = <
             return
           }
 
-          if (bodyValue === null || typeof actualBody[key] !== dataType) {
+          if (exist && (bodyValue === null || typeof bodyValue !== dataType)) {
             res.status(400).json({
               error: { message: `Data type of body field '${key}' is wrong` },
             })
