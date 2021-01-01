@@ -1,0 +1,17 @@
+.center {
+  display: flex;
+  min-width: 0;
+
+  &.column {
+    flex-direction: column;
+  }
+
+  &.row {
+    flex-direction: row;
+  }
+
+  &.center {
+    align-items: center;
+    justify-content: center;
+  }
+}
