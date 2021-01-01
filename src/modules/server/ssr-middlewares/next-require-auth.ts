@@ -1,6 +1,7 @@
 import { eodiroConsts } from '@/constants'
 import { JwtErrorName, verifyToken } from '@/modules/jwt'
 import initMiddleware from '@/modules/next-api-routes-helpers'
+import { prisma } from '@/modules/prisma'
 import { setCookie } from '@/pages/api/cookie'
 import { IncomingMessage, ServerResponse } from 'http'
 import { extractToken } from '../extract-token'
@@ -33,7 +34,14 @@ export const nextRequireAuthMiddleware = initMiddleware(
     }
 
     if (authData) {
-      next()
+      const user = await prisma.user.findUnique({
+        where: { id: authData.userId },
+      })
+
+      if (user) {
+        req.user = user
+        next()
+      }
     }
   }
 )

@@ -1,6 +1,7 @@
 import { JwtError, verifyToken } from '@/modules/jwt'
 import initMiddleware from '@/modules/next-api-routes-helpers'
-import { EodiroApiRequest, EodiroApiResponse } from '@/types/next'
+import { prisma } from '@/modules/prisma'
+import { NextApiRequest, NextApiResponse } from 'next'
 import { extractToken } from '../extract-token'
 
 export type MiddlewareRequireAuthResData = {
@@ -13,10 +14,21 @@ export const requireAuthMiddleware = initMiddleware(async (req, res, next) => {
   const resData: MiddlewareRequireAuthResData = { error: err }
 
   if (err) {
-    ;(res as EodiroApiResponse).status(401).json(resData)
+    ;(res as NextApiResponse).status(401).json(resData)
   } else if (authData) {
+    // Find user
+    const user = await prisma.user.findUnique({
+      where: { id: authData.userId },
+    })
+
+    if (!user) {
+      res.statusCode = 401
+      res.end()
+      return
+    }
+
     // eslint-disable-next-line no-param-reassign
-    ;(req as EodiroApiRequest).authData = authData
+    ;(req as NextApiRequest).user = user
     next()
   }
 })
