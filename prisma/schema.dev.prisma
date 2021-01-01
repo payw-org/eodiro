@@ -67,7 +67,7 @@ model CoverageMajor {
 
 model CoverageMajorLecture {
   lectureId     String        @map("lecture_id")
-  majorCode     String        @map(name: "major_code")
+  majorCode     String        @map("major_code")
   lecture       Lecture       @relation(fields: [lectureId], references: [id])
   coverageMajor CoverageMajor @relation("coverage_majorTocoverage_major_lecture", fields: [majorCode], references: [code])
 
@@ -344,23 +344,24 @@ model User {
 
 model TipBookmark {
   id     Int  @default(autoincrement())
-  userId Int  @map(name: "user_id")
-  tipId  Int  @map(name: "tip_id")
+  userId Int  @map("user_id")
+  tipId  Int  @map("tip_id")
   tip    Tip  @relation("tipTotip_bookmark", fields: [tipId], references: [id])
   user   User @relation("tip_bookmarkTouser", fields: [userId], references: [id])
 
   @@id([id, userId, tipId])
   @@index([tipId], name: "tip_id")
   @@index([userId], name: "user_id")
-  @@map(name: "tip_bookmark")
+  @@map("tip_bookmark")
 }
 
 model CommunityBoard {
   id             Int             @id @default(autoincrement())
   name           String          @default("")
+  priotiry       Int             @default(0)
   isDeleted      Boolean?        @map("is_deleted")
   createdAt      DateTime        @map("created_at")
-  activeAt       DateTime?       @map(name: "active_at")
+  activeAt       DateTime?       @map("active_at")
   communityPosts CommunityPost[]
 
   @@map("community_board")
