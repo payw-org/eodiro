@@ -6,10 +6,9 @@ module.exports = {
     if (!isServer) {
       // Noop resolution of @prisma/client in the browser
       // since setting an alias to false does not work
-      config.resolve.alias['@prisma/client'] = path.join(
-        __dirname,
-        'prisma/noop.js'
-      )
+      config.resolve.alias['@prisma/client'] = path.join(__dirname, 'noop.js')
+      config.resolve.alias['nodemailer'] = path.join(__dirname, 'noop.js')
+      config.resolve.alias['bcrypt'] = path.join(__dirname, 'noop.js')
     }
 
     config.plugins.push(
