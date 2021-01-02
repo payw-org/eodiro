@@ -1,7 +1,7 @@
-import { User } from '@prisma/client'
+import { RefinedUser } from '@/modules/server/middlewares/require-auth'
 
 declare module 'http' {
   interface IncomingMessage {
-    user: User
+    user: RefinedUser
   }
 }
