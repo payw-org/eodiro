@@ -36,6 +36,13 @@ export const nextRequireAuthMiddleware = initMiddleware(
     if (authData) {
       const user = await prisma.user.findUnique({
         where: { id: authData.userId },
+        select: {
+          id: true,
+          portalId: true,
+          nickname: true,
+          randomNickname: true,
+          registeredAt: true,
+        },
       })
 
       if (user) {

@@ -1,8 +1,11 @@
 import { JwtError, verifyToken } from '@/modules/jwt'
 import initMiddleware from '@/modules/next-api-routes-helpers'
 import { prisma } from '@/modules/prisma'
+import { User } from '@prisma/client'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { extractToken } from '../extract-token'
+
+export type RefinedUser = Omit<User, 'refreshToken' | 'password'>
 
 export type MiddlewareRequireAuthResData = {
   error: JwtError | null
@@ -19,6 +22,13 @@ export const requireAuthMiddleware = initMiddleware(async (req, res, next) => {
     // Find user
     const user = await prisma.user.findUnique({
       where: { id: authData.userId },
+      select: {
+        id: true,
+        portalId: true,
+        nickname: true,
+        randomNickname: true,
+        registeredAt: true,
+      },
     })
 
     if (!user) {
