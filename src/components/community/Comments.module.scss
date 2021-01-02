@@ -32,11 +32,31 @@
     border-top: none;
   }
 
+  .comment-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 7px;
+
+    .right-side {
+      margin-left: 10px;
+    }
+
+    .delete {
+      color: $eodiro-primary-color;
+      margin-right: 10px;
+    }
+
+    .commented-at {
+      font-size: 14px;
+      color: $base-gray;
+    }
+  }
+
   .author {
     font-size: 15px;
     font-weight: 400;
     color: $base-gray;
-    margin-bottom: 7px;
   }
 
   .body {
