@@ -9,12 +9,14 @@ import { redirect } from '../redirect'
 
 export const nextRequireAuthMiddleware = initMiddleware(
   async (req: IncomingMessage, res: ServerResponse, next) => {
-    // Store last path
-    setCookie(req, res, {
-      name: eodiroConsts.LAST_PATH,
-      value: req.url as string,
-      httpOnly: false,
-    })
+    if (!req.url?.includes('_next')) {
+      // Store last path
+      setCookie(req, res, {
+        name: eodiroConsts.LAST_PATH,
+        value: req.url as string,
+        httpOnly: false,
+      })
+    }
 
     const accessToken = extractToken(req, res, 'access')
     const [err, authData] = await verifyToken(accessToken, 'access')
