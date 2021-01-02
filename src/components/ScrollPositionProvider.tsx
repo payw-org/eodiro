@@ -1,12 +1,11 @@
+import Router from 'next/router'
 import React, { useContext, useEffect } from 'react'
 
-import Router from 'next/router'
-
 export const ScrollPositionContext = React.createContext({
-  triggerScroll: () => null,
+  triggerScroll: () => {},
 })
 
-export const useScrollPosition = (): { triggerScroll: () => null } =>
+export const useScrollPosition = (): { triggerScroll: () => void } =>
   useContext(ScrollPositionContext)
 
 let routerBound = false

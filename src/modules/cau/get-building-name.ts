@@ -1,5 +1,5 @@
 export default function getBuildingName(buildingNumber: number): string {
-  const buildingInfo = {
+  const buildingInfo: Record<number, string> = {
     102: '약학대학 및 R&D센터',
     103: '파이퍼홀',
     104: '수림과학관',

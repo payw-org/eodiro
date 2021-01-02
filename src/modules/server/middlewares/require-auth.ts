@@ -27,7 +27,7 @@ export const requireAuthMiddleware = initMiddleware(async (req, res, next) => {
         portalId: true,
         nickname: true,
         randomNickname: true,
-        registeredAt: true,
+        joinedAt: true,
       },
     })
 

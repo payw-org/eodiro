@@ -1,10 +1,12 @@
 import EodiroEncrypt from '@/modules/server/eodiro-encrypt'
 import EodiroMailer from '@/modules/server/eodiro-mailer'
+import changePasswordEmailTemplate from '@/modules/server/eodiro-mailer/templates/change-password'
 import crypto from 'crypto'
 import Mustache from 'mustache'
 import { prisma } from '../prisma'
 import { rng } from '../random-name-generator'
 import { sanitizePoralId } from '../sanitize-portal-id'
+import { dbNow } from '../time'
 import {
   AuthValidationResult,
   validateNickname,
@@ -50,9 +52,8 @@ export default class Auth {
   }
 
   /**
-   * Generates a random token which will be
-   * stored in DB and will be used later
-   * for email verification
+   * Generates a 40-length random token
+   * for email verification and password change
    */
   static generateToken(): string {
     return crypto.randomBytes(20).toString('hex')
@@ -115,5 +116,46 @@ export default class Auth {
     // })
 
     return { hasJoined: true, validations }
+  }
+
+  static async changePassword(portalId: string): Promise<boolean> {
+    const sanitizedPortalId = sanitizePoralId(portalId)
+    const user = await prisma.user.findUnique({
+      where: { portalId: sanitizedPortalId },
+    })
+
+    if (!user) {
+      return false
+    }
+
+    const token = Auth.generateToken()
+    const now = dbNow()
+
+    await prisma.changePassword.upsert({
+      where: {
+        userId: user.id,
+      },
+      create: {
+        user: {
+          connect: { id: user.id },
+        },
+        token,
+        requestedAt: now,
+      },
+      update: {
+        token,
+        requestedAt: now,
+      },
+    })
+
+    const html = Mustache.render(changePasswordEmailTemplate, { token })
+
+    EodiroMailer.sendMail({
+      to: user.portalId,
+      subject: '어디로 암호 변경',
+      html,
+    })
+
+    return true
   }
 }

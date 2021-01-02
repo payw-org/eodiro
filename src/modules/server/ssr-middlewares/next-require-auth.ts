@@ -7,29 +7,33 @@ import { IncomingMessage, ServerResponse } from 'http'
 import { extractToken } from '../extract-token'
 import { redirect } from '../redirect'
 
+function storeLastPath(req: IncomingMessage, res: ServerResponse) {
+  if (!req.url?.includes('_next')) {
+    // Store last path
+    setCookie(req, res, {
+      name: eodiroConsts.LAST_PATH,
+      value: req.url as string,
+      httpOnly: false,
+    })
+  }
+}
+
 export const nextRequireAuthMiddleware = initMiddleware(
   async (req: IncomingMessage, res: ServerResponse, next) => {
-    if (!req.url?.includes('_next')) {
-      // Store last path
-      setCookie(req, res, {
-        name: eodiroConsts.LAST_PATH,
-        value: req.url as string,
-        httpOnly: false,
-      })
-    }
-
     const accessToken = extractToken(req, res, 'access')
     const [err, authData] = await verifyToken(accessToken, 'access')
 
     if (err?.name === JwtErrorName.TokenExpiredError) {
       // Access token has expired
 
+      storeLastPath(req, res)
       redirect(res, '/api/auth/refresh')
 
       return
     }
 
     if (err) {
+      storeLastPath(req, res)
       redirect(res, '/login-please')
 
       return
@@ -43,7 +47,7 @@ export const nextRequireAuthMiddleware = initMiddleware(
           portalId: true,
           nickname: true,
           randomNickname: true,
-          registeredAt: true,
+          joinedAt: true,
         },
       })
 
@@ -51,6 +55,8 @@ export const nextRequireAuthMiddleware = initMiddleware(
         req.user = user
         next()
       }
+    } else {
+      redirect(res, '/login-please')
     }
   }
 )

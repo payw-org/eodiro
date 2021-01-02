@@ -1,9 +1,9 @@
 import { authState } from '@/atoms/auth'
 import { VerticalThreeDotsIcon } from '@/components/global/icons'
 import EodiroLogo from '@/components/global/icons/EodiroLogo'
-import EodiroLink from '@/components/utils/EodiroLink'
 import { isApp } from '@/modules/booleans/is-app'
 import classNames from 'classnames'
+import Link from 'next/link'
 import React, { useContext } from 'react'
 import { useRecoilValue } from 'recoil'
 import {
@@ -27,13 +27,15 @@ const NavItem: React.FC<NavItemProps> = ({ to, title, className }) => {
   const setMenuOpen = useContext(NavMenuOpenDispatchContext)
 
   return (
-    <EodiroLink
-      href={to}
-      className={classNames($['en-menu-link'], className)}
-      onClick={() => setMenuOpen(false)}
-    >
-      <li className={$['en-menu-item']}>{title}</li>
-    </EodiroLink>
+    <Link href={to}>
+      <button
+        type="button"
+        className={classNames($['en-menu-link'], className)}
+        onClick={() => setMenuOpen(false)}
+      >
+        <li className={$['en-menu-item']}>{title}</li>
+      </button>
+    </Link>
   )
 }
 
@@ -94,9 +96,11 @@ const Navigation: React.FC = () => {
         {isApp() && window.location.pathname === '/' ? (
           <div className={$['spacer']} />
         ) : (
-          <EodiroLink href="/" className={$['home-link']}>
-            <EodiroLogo className={$['eodiro-logo']} fill="#ff3852" />
-          </EodiroLink>
+          <Link href="/">
+            <a className={$['home-link']}>
+              <EodiroLogo className={$['eodiro-logo']} fill="#ff3852" />
+            </a>
+          </Link>
         )}
 
         <PageAppTitle />
@@ -104,9 +108,9 @@ const Navigation: React.FC = () => {
         <NavMenus />
 
         {isApp() ? (
-          <EodiroLink href={userId ? '/my' : '/signin'}>
+          <Link href={userId ? '/my' : '/login'}>
             <div className={$['app-nav-right-button']}>
-              {window.location.pathname !== '/signin' &&
+              {window.location.pathname !== '/login' &&
                 window.location.pathname !== '/my' && (
                   <i
                     className="f7-icons"
@@ -118,7 +122,7 @@ const Navigation: React.FC = () => {
                   </i>
                 )}
             </div>
-          </EodiroLink>
+          </Link>
         ) : (
           <button
             type="button"

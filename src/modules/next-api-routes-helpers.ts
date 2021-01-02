@@ -59,6 +59,9 @@ type DataType =
   | 'object'
   | 'function'
 
+/**
+ * @deprecated Use `validate-required-req-data` middleware instead.
+ */
 export function validateRequiredBody(
   req: NextApiRequest,
   res: NextApiResponse,

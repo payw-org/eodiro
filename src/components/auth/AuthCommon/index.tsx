@@ -1,8 +1,8 @@
-import { AuthApi } from '@/api'
 import { Button, LineInput } from '@/components/ui'
-import EodiroLink from '@/components/utils/EodiroLink'
 import { eodiroConsts } from '@/constants'
 import Body from '@/layouts/BaseLayout/Body'
+import { eodiroRequest } from '@/modules/eodiro-request'
+import { ApiAuthForgotReqBody, apiAuthForgotUrl } from '@/pages/api/auth/forgot'
 import {
   ApiAuthJoinRequestBody,
   ApiAuthJoinResponseData,
@@ -18,6 +18,8 @@ import {
 import Axios from 'axios'
 import classNames from 'classnames'
 import Cookie from 'js-cookie'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
 import $ from './style.module.scss'
 
@@ -26,6 +28,8 @@ type AuthCommonProps = {
 }
 
 const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
+  const router = useRouter()
+
   const [validating, setValidating] = useState(false)
   const [signInFailed, setSignInFailed] = useState(false)
 
@@ -72,7 +76,7 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
     setValidating(false)
 
     if (res.data.isSigned) {
-      window.location.href = Cookie.get(eodiroConsts.LAST_PATH) ?? '/'
+      router.replace(Cookie.get(eodiroConsts.LAST_PATH) ?? '/')
     } else {
       setSignInFailed(true)
     }
@@ -91,9 +95,9 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
 
     if (response.data.hasJoined) {
       alert(
-        '중앙대학교 포탈로 인증 이메일이 발송되었습니다. 인증 후 로그인하세요.'
+        '중앙대학교 포탈로 인증 이메일이 발송되었습니다. 인증 후 로그인 해주세요.'
       )
-      window.location.href = '/signin'
+      router.push('/login')
     } else {
       const { validations } = response.data
 
@@ -106,21 +110,30 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
     }
   }
 
+  // TODO: Forgot
   async function forgot(): Promise<void> {
     setValidating(true)
 
-    const available = await AuthApi.validatePortalId(portalId, true)
-    if (!available) {
-      alert('등록되지 않은 포탈 아이디입니다.')
+    try {
+      await eodiroRequest<ApiAuthForgotReqBody>({
+        url: apiAuthForgotUrl,
+        method: 'post',
+        data: {
+          portalId,
+        },
+      })
+
+      window.alert('포탈 이메일로 암호 변경 요청 이메일을 발송했습니다.')
+
+      router.push('/')
+    } catch (error) {
       setValidating(false)
-      focusPortalId()
-    } else {
-      const changed = await AuthApi.requestPasswordChange(portalId)
-      if (changed) {
-        alert('암호 변경 이메일을 발송했습니다.')
-        setPortalId('')
+
+      if (error.response?.status === 404) {
+        window.alert('가입되어 있지 않은 포탈 아이디입니다.')
+      } else {
+        window.alert('서버에 문제가 발생했습니다.')
       }
-      setValidating(false)
     }
   }
 
@@ -282,27 +295,27 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
         <div className={$['more']}>
           {mode !== 'signin' && (
             <p>
-              이미 가입했나요? <EodiroLink href="/signin">로그인 →</EodiroLink>
+              이미 가입했나요? <Link href="/login">로그인 →</Link>
             </p>
           )}
           {mode === 'signin' && (
             <>
               <p className={$['new']}>
                 <b style={{ fontWeight: 600 }}>어디로</b>는 처음인가요?{' '}
-                <EodiroLink href="/join" className={$['join']}>
-                  회원가입 →
-                </EodiroLink>
+                <Link href="/join">
+                  <a className={$['join']}>회원가입 →</a>
+                </Link>
               </p>
               <p className={$['forgot']}>
                 암호를 잊었나요?{' '}
-                <EodiroLink href="/forgot" className={$['join']}>
-                  암호 변경 →
-                </EodiroLink>
+                <Link href="/forgot">
+                  <a className={$['join']}>암호 변경 →</a>
+                </Link>
               </p>
             </>
           )}
           <p>
-            <EodiroLink href="/privacy">개인정보 처리방침</EodiroLink>
+            <Link href="/privacy">개인정보 처리방침</Link>
           </p>
         </div>
       </div>

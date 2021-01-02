@@ -11,6 +11,9 @@ export type EodiroLinkProps = {
   onClick?: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => void
 }
 
+/**
+ * @deprecated
+ */
 const EodiroLink: React.FC<EodiroLinkProps> = ({
   children,
   as,

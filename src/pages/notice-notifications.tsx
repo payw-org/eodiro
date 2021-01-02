@@ -1,28 +1,32 @@
-import { GetServerSideProps, NextPage } from 'next'
-import NoticeNotifications, {
-  NoticeNotificationsProps,
-} from '@/components/notice-notifications/NoticeNotifications'
+// import { GetServerSideProps, NextPage } from 'next'
+// import NoticeNotifications, {
+//   NoticeNotificationsProps,
+// } from '@/components/notice-notifications/NoticeNotifications'
 
-import ApiHost from '@/modules/api-host'
-import { oneApiClient } from '@payw/eodiro-one-api'
+// import ApiHost from '@/modules/api-host'
+// import { oneApiClient } from '@payw/eodiro-one-api'
 
-export const getServerSideProps: GetServerSideProps<NoticeNotificationsProps> = async () => {
-  const { data } = await oneApiClient(ApiHost.getHost(), {
-    action: 'getNoticeCatalog',
-    data: undefined,
-  })
+// export const getServerSideProps: GetServerSideProps<NoticeNotificationsProps> = async () => {
+//   const { data } = await oneApiClient(ApiHost.getHost(), {
+//     action: 'getNoticeCatalog',
+//     data: undefined,
+//   })
 
-  const { noticeCatalog } = data
+//   const { noticeCatalog } = data
 
-  return {
-    props: {
-      noticeCatalog,
-    },
-  }
+//   return {
+//     props: {
+//       noticeCatalog,
+//     },
+//   }
+// }
+
+// const Page: NextPage<NoticeNotificationsProps> = ({ noticeCatalog }) => {
+//   return <NoticeNotifications noticeCatalog={noticeCatalog} />
+// }
+
+// export default Page
+
+export default function Page() {
+  return null
 }
-
-const Page: NextPage<NoticeNotificationsProps> = ({ noticeCatalog }) => {
-  return <NoticeNotifications noticeCatalog={noticeCatalog} />
-}
-
-export default Page

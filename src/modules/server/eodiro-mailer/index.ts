@@ -18,7 +18,7 @@ interface MailOption {
 }
 
 export default class EodiroMailer {
-  private static transporter = NodeMailer.createTransport({
+  private static transporter = NodeMailer?.createTransport({
     service: env.MAIL_SERVICE,
     host: env.MAIL_HOST,
     port: env.MAIL_PORT,

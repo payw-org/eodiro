@@ -48,7 +48,6 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
   const userId = useUserId()
   const router = useRouter()
   const [comments, setComments] = useRecoilState(commentsState)
-  console.log(post)
   const [likesCount, setLikesCount] = useState(
     post?.communityPostLikesCount ?? 0
   )

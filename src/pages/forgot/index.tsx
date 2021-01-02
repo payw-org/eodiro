@@ -1,8 +1,8 @@
 import AuthCommon from '@/components/auth/AuthCommon'
+import { NextPage } from 'next'
 import Head from 'next/head'
-import { EodiroPage } from '../_app'
 
-const ForgotPage: EodiroPage = () => {
+const ForgotPage: NextPage = () => {
   return (
     <>
       <Head>
@@ -11,17 +11,6 @@ const ForgotPage: EodiroPage = () => {
       <AuthCommon mode="forgot" />
     </>
   )
-}
-
-ForgotPage.getInitialProps = ({ res, isSigned }): Record<string, unknown> => {
-  if (isSigned && res) {
-    res.writeHead(302, {
-      Location: '/',
-    })
-    res.end()
-  }
-
-  return {}
 }
 
 export default ForgotPage

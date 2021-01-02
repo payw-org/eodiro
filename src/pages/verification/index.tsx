@@ -4,6 +4,7 @@ import { prisma } from '@/modules/prisma'
 import { redirect } from '@/modules/server/redirect'
 import classNames from 'classnames'
 import { GetServerSideProps, NextPage } from 'next'
+import Link from 'next/link'
 import { useEffect } from 'react'
 import $ from './style.module.scss'
 
@@ -14,7 +15,7 @@ type VerificationPageProps = {
 const VerifiedComp: React.FC<{ verified: boolean }> = ({ verified }) => {
   const paragraph = verified ? '환영합니다!' : '없거나 만료된 인증 코드입니다.'
   const anchor = {
-    href: verified ? '/signin' : '/join',
+    href: verified ? '/login' : '/join',
     text: verified ? '로그인' : '회원가입',
   }
 
@@ -34,9 +35,11 @@ const VerifiedComp: React.FC<{ verified: boolean }> = ({ verified }) => {
       >
         {paragraph}
       </h1>
-      <a href={anchor.href}>
-        <Button label={anchor.text} className={$['btn']} />
-      </a>
+      <Link href={anchor.href}>
+        <a>
+          <Button label={anchor.text} className={$['btn']} />
+        </a>
+      </Link>
     </div>
   )
 }
@@ -62,6 +65,7 @@ export const getServerSideProps: GetServerSideProps<VerificationPageProps> = asy
 
   if (!token) {
     redirect(ctx.res)
+    return { props: { verified: false } }
   }
 
   // const verified = await AuthApi.verify(t as string)
@@ -78,10 +82,10 @@ export const getServerSideProps: GetServerSideProps<VerificationPageProps> = asy
       nickname,
       password,
       randomNickname,
-      registeredAt,
+      joinedAt,
     } = pendingUser
     const createUser = prisma.user.create({
-      data: { portalId, nickname, password, randomNickname, registeredAt },
+      data: { portalId, nickname, password, randomNickname, joinedAt },
     })
 
     await prisma.$transaction([clearPendingUser, createUser])

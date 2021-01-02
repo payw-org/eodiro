@@ -125,6 +125,9 @@
       flex: none;
 
       .en-menu-link {
+        font-weight: 500;
+        @include text-color;
+
         &.signin,
         &.my {
           font-weight: 600;

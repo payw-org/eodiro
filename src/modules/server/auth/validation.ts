@@ -116,14 +116,14 @@ export async function validatePassword(
   if (!password || typeof password !== 'string') {
     return {
       isValid: false,
-      error: { message: '패스워드를 입력하세요.' },
+      error: { message: '암호를 입력하세요.' },
     }
   }
 
   if (password.length < eodiroConsts.MIN_PASSWORD_LENGTH) {
     return {
       isValid: false,
-      error: { message: '패스워드는 최소 8자입니다.' },
+      error: { message: '암호는 최소 8자입니다.' },
     }
   }
 

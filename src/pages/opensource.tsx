@@ -2,8 +2,8 @@ import OpenSourcePage, {
   OpenSourcePageProps,
 } from '@/components/open-source/OpenSourcePage'
 import { config } from '@/config'
-import eodiroAxios from '@/modules/eodiro-axios'
 import { Contributor } from '@/types/github-api'
+import Axios from 'axios'
 import { GetServerSideProps, NextPage } from 'next'
 
 const Page: NextPage<OpenSourcePageProps> = ({ contributors }) => {
@@ -13,42 +13,46 @@ const Page: NextPage<OpenSourcePageProps> = ({ contributors }) => {
 export default Page
 
 export const getServerSideProps: GetServerSideProps<OpenSourcePageProps> = async () => {
-  const [eodiroContErr, eodiroContributors] = await eodiroAxios<Contributor[]>({
-    method: 'get',
-    url: 'https://api.github.com/repos/payw-org/eodiro/contributors',
-    auth: {
-      username: 'jhaemin',
-      password: config.GITHUB_OAUTH_TOKEN,
-    },
-  })
-  const [nextContErr, nextContributors] = await eodiroAxios<Contributor[]>({
-    method: 'get',
-    url: 'https://api.github.com/repos/payw-org/eodiro-next/contributors',
-    auth: {
-      username: 'jhaemin',
-      password: config.GITHUB_OAUTH_TOKEN,
-    },
-  })
-  const [api1ContErr, api1Contributors] = await eodiroAxios<Contributor[]>({
-    method: 'get',
-    url: 'https://api.github.com/repos/payw-org/eodiro-api/contributors',
-    auth: {
-      username: 'jhaemin',
-      password: config.GITHUB_OAUTH_TOKEN,
-    },
-  })
-  const [api2ContErr, api2Contributors] = await eodiroAxios<Contributor[]>({
-    method: 'get',
-    url: 'https://api.github.com/repos/payw-org/eodiro-server/contributors',
-    auth: {
-      username: 'jhaemin',
-      password: config.GITHUB_OAUTH_TOKEN,
-    },
-  })
+  const { data: eodiroContributors } = await Axios.get<Contributor[]>(
+    'https://api.github.com/repos/payw-org/eodiro/contributors',
+    {
+      auth: {
+        username: 'jhaemin',
+        password: config.GITHUB_OAUTH_TOKEN,
+      },
+    }
+  )
+  const { data: nextContributors } = await Axios.get<Contributor[]>(
+    'https://api.github.com/repos/payw-org/eodiro-next/contributors',
+    {
+      auth: {
+        username: 'jhaemin',
+        password: config.GITHUB_OAUTH_TOKEN,
+      },
+    }
+  )
+  const { data: api1Contributors } = await Axios.get<Contributor[]>(
+    'https://api.github.com/repos/payw-org/eodiro-api/contributors',
+    {
+      auth: {
+        username: 'jhaemin',
+        password: config.GITHUB_OAUTH_TOKEN,
+      },
+    }
+  )
+  const { data: api2Contributors } = await Axios.get<Contributor[]>(
+    'https://api.github.com/repos/payw-org/eodiro-server/contributors',
+    {
+      auth: {
+        username: 'jhaemin',
+        password: config.GITHUB_OAUTH_TOKEN,
+      },
+    }
+  )
 
   const contributors = eodiroContributors || []
 
-  if (!nextContErr && nextContributors) {
+  if (nextContributors) {
     for (const nextUser of nextContributors) {
       const index = contributors.findIndex(
         (user) => user.login === nextUser.login
@@ -62,7 +66,7 @@ export const getServerSideProps: GetServerSideProps<OpenSourcePageProps> = async
     }
   }
 
-  if (!api1ContErr && api1Contributors) {
+  if (api1Contributors) {
     for (const api1User of api1Contributors) {
       const index = contributors.findIndex(
         (user) => user.login === api1User.login
@@ -76,7 +80,7 @@ export const getServerSideProps: GetServerSideProps<OpenSourcePageProps> = async
     }
   }
 
-  if (!api2ContErr && api2Contributors) {
+  if (api2Contributors) {
     for (const api2User of api2Contributors) {
       const index = contributors.findIndex(
         (user) => user.login === api2User.login

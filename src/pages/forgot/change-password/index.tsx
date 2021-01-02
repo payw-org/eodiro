@@ -1,38 +1,46 @@
 import { Button, LineInput } from '@/components/ui'
-
-import $ from './style.module.scss'
-import { AuthApi } from '@/api'
 import Body from '@/layouts/BaseLayout/Body'
-import { EodiroPage } from '@/pages/_app'
+import { prisma } from '@/modules/prisma'
+import { ApiAuthJoinRequestBody } from '@/pages/api/auth/join'
+import Axios from 'axios'
+import { GetServerSideProps, NextPage } from 'next'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
+import $ from './style.module.scss'
 
 type ChangePasswordRequestPageProps = {
-  token: string
+  userId: number
   valid: boolean
 }
 
-const ChangePasswordRequestPage: EodiroPage<ChangePasswordRequestPageProps> = ({
-  token,
+const ChangePasswordRequestPage: NextPage<ChangePasswordRequestPageProps> = ({
+  userId,
   valid,
 }) => {
+  const router = useRouter()
   const [password, setPassword] = useState('')
   const [validating, setValidating] = useState(false)
 
   async function change(): Promise<void> {
     setValidating(true)
 
-    const valid = await AuthApi.validatePassword(password)
+    const { data } = await Axios.post('/api/auth/validate', {
+      password,
+    } as ApiAuthJoinRequestBody)
 
-    if (!valid) {
-      alert('사용할 수 없는 암호입니다. 최소 8자 이상 입력해주세요.')
+    if (!data.password?.isValid) {
+      window.alert(data.password?.error?.message)
     } else {
-      const changed = await AuthApi.changePassword(token, password)
+      try {
+        await Axios.post('/api/auth/change-password', {
+          userId,
+          password,
+        })
 
-      if (changed) {
-        alert('변경되었습니다.')
-        location.href = '/signin'
-      } else {
-        alert('변경에 실패했습니다.')
+        window.alert('변경되었습니다. 다시 로그인 해주세요.')
+        router.push('/login')
+      } catch (error) {
+        window.alert('암호 변경에 실패했습니다. 반복 시 문의해주세요.')
       }
     }
 
@@ -70,15 +78,30 @@ const ChangePasswordRequestPage: EodiroPage<ChangePasswordRequestPageProps> = ({
   )
 }
 
-ChangePasswordRequestPage.getInitialProps = async (
-  ctx
-): Promise<ChangePasswordRequestPageProps> => {
-  const token = ctx.query.t as string
-  const valid = await AuthApi.checkPasswordChange(token)
+export const getServerSideProps: GetServerSideProps<ChangePasswordRequestPageProps> = async ({
+  query,
+}) => {
+  const token = query.t as string
+
+  const changeRequest = await prisma.changePassword.findUnique({
+    where: { token },
+    include: { user: { select: { id: true } } },
+  })
+
+  if (!changeRequest) {
+    return {
+      props: {
+        userId: 0,
+        valid: false,
+      },
+    }
+  }
 
   return {
-    token,
-    valid,
+    props: {
+      userId: changeRequest.user.id,
+      valid: true,
+    },
   }
 }
 

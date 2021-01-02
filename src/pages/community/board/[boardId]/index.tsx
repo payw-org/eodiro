@@ -144,7 +144,7 @@ export const getServerSideProps: GetServerSideProps<BoardPageProps> = async ({
   })
 
   const boardsList = await prisma.communityBoard.findMany({
-    orderBy: [{ priotiry: 'desc' }, { activeAt: 'desc' }],
+    orderBy: [{ priority: 'desc' }, { activeAt: 'desc' }],
     select: { id: true, name: true },
   })
 

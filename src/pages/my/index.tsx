@@ -47,15 +47,16 @@ const MyPage: NextPage<MyPageProps> = ({ user }) => {
     router.replace('/')
   }
 
-  async function revoke() {
-    await eodiroRequest({
-      url: '/api/auth/revoke',
-      method: 'POST',
-    })
+  // TODO: withdrawl
+  // async function revoke() {
+  //   await eodiroRequest({
+  //     url: '/api/auth/revoke',
+  //     method: 'POST',
+  //   })
 
-    setAuthState({ userId: 0 })
-    router.replace('/')
-  }
+  //   setAuthState({ userId: 0 })
+  //   router.replace('/')
+  // }
 
   return (
     <Body pageTitle={`${user.nickname}님`} bodyClassName={$['eodiro-my']}>
@@ -65,7 +66,7 @@ const MyPage: NextPage<MyPageProps> = ({ user }) => {
           <FlatBlock>
             <div className={$['info-block']}>
               <h2 className={$['ib-header']}>가입일</h2>
-              <p>{dayjs(user.registeredAt).format('YYYY년 M월 D일')}</p>
+              <p>{dayjs(user.joinedAt).format('YYYY년 M월 D일')}</p>
             </div>
           </FlatBlock>
           <FlatBlock>

@@ -7,7 +7,7 @@ const getSemester = (date: Date = new Date()): Semester => {
   const nowDate = now.date()
   const nextSemesterThresholdDate = 20
 
-  let semester: Semester
+  let semester: Semester = '1'
 
   if (
     (month === 12 && nowDate > nextSemesterThresholdDate) ||

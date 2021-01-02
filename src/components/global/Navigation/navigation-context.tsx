@@ -1,12 +1,11 @@
+import { reactNativeWebViewPostMessage } from '@/modules/native/react-native-webview'
+import { Dispatcher } from '@/types/react-helper'
 import React, { createContext, useEffect, useState } from 'react'
 
-import { Dispatcher } from '@/types/react-helper'
-import { reactNativeWebViewPostMessage } from '@/modules/native/react-native-webview'
-
 // Nav hidden context
-export const NavHiddenStateContext = createContext<boolean>(undefined)
+export const NavHiddenStateContext = createContext<boolean>(false)
 export const NavHiddenDispatchContext = createContext<Dispatcher<boolean>>(
-  undefined
+  () => {}
 )
 export const NavHiddenContextProvider: React.FC = ({ children }) => {
   const [hidden, setHidden] = useState(true)
@@ -21,9 +20,9 @@ export const NavHiddenContextProvider: React.FC = ({ children }) => {
 }
 
 // Nav scroll context
-export const NavScrollStateContext = createContext<boolean>(undefined)
+export const NavScrollStateContext = createContext<boolean>(false)
 export const NavScrollDispatchContext = createContext<Dispatcher<boolean>>(
-  undefined
+  () => {}
 )
 export const NavScrollContextProvider: React.FC = ({ children }) => {
   const [scroll, setScroll] = useState(false)
@@ -45,9 +44,9 @@ export const NavScrollContextProvider: React.FC = ({ children }) => {
 }
 
 // Nav title context
-export const NavTitleStateContext = createContext<string>(undefined)
+export const NavTitleStateContext = createContext<string>('')
 export const NavTitleDispatchContext = createContext<Dispatcher<string>>(
-  undefined
+  () => {}
 )
 export const NavTitleContextProvider: React.FC = ({ children }) => {
   const [title, setTitle] = useState('')
@@ -62,9 +61,9 @@ export const NavTitleContextProvider: React.FC = ({ children }) => {
 }
 
 // Nav menu open context
-export const NavMenuOpenStateContext = createContext<boolean>(undefined)
+export const NavMenuOpenStateContext = createContext<boolean>(false)
 export const NavMenuOpenDispatchContext = createContext<Dispatcher<boolean>>(
-  undefined
+  () => {}
 )
 export const NavMenuOpenContextProvider: React.FC = ({ children }) => {
   const [menuOpen, setMenuOpen] = useState(false)
