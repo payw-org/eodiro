@@ -1,6 +1,9 @@
 import React from 'react'
 import { ArrowBlock, ArrowBlockProps } from './ArrowBlock'
 
+/**
+ * @deprecated
+ */
 export const FlatBlock: React.FC<ArrowBlockProps> = (props) => {
   const flatBlockProps = { ...props }
 
