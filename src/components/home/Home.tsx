@@ -22,6 +22,10 @@ const HomeFeatureBox: React.FC<HomeFeatureBoxProps> = ({
   label,
   disabled = false,
 }) => {
+  if (disabled) {
+    label = 'update'
+  }
+
   return (
     <button
       className={classNames($['feature-box'], {
@@ -34,8 +38,10 @@ const HomeFeatureBox: React.FC<HomeFeatureBoxProps> = ({
         <h2 className={$['feature-name']}>{title}</h2>
         <EodiroLink href={to} absolute />
 
-        {label !== undefined && (
-          <span className={$['label']}>{label.toUpperCase()}</span>
+        {label && (
+          <span className={$['label']}>
+            {disabled ? '일시중지' : label.toUpperCase()}
+          </span>
         )}
       </div>
     </button>
@@ -123,20 +129,6 @@ const Home: React.FC = () => {
               label="beta"
             />
             <HomeFeatureBox
-              title="학식 메뉴"
-              to="/cafeteria"
-              Icon={
-                <i
-                  className={classNames('f7-icons', $['icon'])}
-                  style={{
-                    color: EodiroColors.blue1,
-                  }}
-                >
-                  square_list
-                </i>
-              }
-            />
-            <HomeFeatureBox
               title="오픈 소스"
               to="/opensource"
               Icon={
@@ -147,6 +139,21 @@ const Home: React.FC = () => {
                   }}
                 >
                   heart
+                </i>
+              }
+            />
+            <HomeFeatureBox
+              disabled
+              title="학식 메뉴"
+              to="/cafeteria"
+              Icon={
+                <i
+                  className={classNames('f7-icons', $['icon'])}
+                  style={{
+                    color: EodiroColors.blue1,
+                  }}
+                >
+                  square_list
                 </i>
               }
             />
