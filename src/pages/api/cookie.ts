@@ -7,7 +7,7 @@ export type Cookie = {
   expires?: string // Expiry date in UTC time
   name: string
   value: string | number
-  /** @default "/" */
+  /** @default / */
   path?: string
   /** @default true */
   httpOnly?: boolean
@@ -57,14 +57,14 @@ export function setCookie(
 }
 
 export function getCookie(
-  req: EodiroApiRequest | IncomingMessage
+  req: NextApiRequest | IncomingMessage
 ): Record<string, string>
 export function getCookie(
-  req: EodiroApiRequest | IncomingMessage,
+  req: NextApiRequest | IncomingMessage,
   cookieName: string
 ): string
 export function getCookie(
-  req: EodiroApiRequest | IncomingMessage,
+  req: NextApiRequest | IncomingMessage,
   cookieName?: string
 ) {
   const cookie = req.headers.cookie ? nodeCookie.parse(req.headers.cookie) : {}
