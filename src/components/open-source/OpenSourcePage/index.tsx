@@ -21,8 +21,8 @@ const OpenSourcePage: React.FC<OpenSourcePageProps> = ({ contributors }) => {
         <p className={$['paragraph']}>
           &ldquo;어디로&rdquo;는 모든 소스코드가 공개되어 있는 자유 공개
           소프트웨어입니다. 서비스를 이용하는 학우분들에겐 더 나은 신뢰감을
-          드리고, 개발자 꿈나무 여러분에겐 좋은 공부 자료가 될 거라 믿습니다.
-          자세한 내용은{' '}
+          드리고, 개발자 꿈나무에겐 공부 자료이자 오픈소스에 기여할 수 있는
+          기회가 될 것입니다. 자세한 내용은{' '}
           <a
             href="https://github.com/payw-org/eodiro"
             target="_blank"
