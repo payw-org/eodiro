@@ -1,3 +1,4 @@
+import { authState } from '@/atoms/auth'
 import { Button, LineInput } from '@/components/ui'
 import { eodiroConsts } from '@/constants'
 import Body from '@/layouts/BaseLayout/Body'
@@ -21,6 +22,7 @@ import Cookie from 'js-cookie'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
+import { useSetRecoilState } from 'recoil'
 import $ from './style.module.scss'
 
 type AuthCommonProps = {
@@ -29,6 +31,8 @@ type AuthCommonProps = {
 
 const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
   const router = useRouter()
+
+  const setAuthData = useSetRecoilState(authState)
 
   const [validating, setValidating] = useState(false)
   const [signInFailed, setSignInFailed] = useState(false)
@@ -76,6 +80,7 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
     setValidating(false)
 
     if (res.data.isSigned) {
+      setAuthData({ userId: res.data.userId })
       router.replace(Cookie.get(eodiroConsts.LAST_PATH) ?? '/')
     } else {
       setSignInFailed(true)
