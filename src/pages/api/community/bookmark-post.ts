@@ -44,9 +44,9 @@ export default nextApi({
       await prisma.communityPostBookmark.delete({
         where: { id: alreadyBookmarked.id },
       })
-      const { count } = await prisma.communityPostBookmark.aggregate({
-        where: { userId, postId },
-        count: true,
+
+      const count = await prisma.communityPostBookmark.count({
+        where: { postId },
       })
 
       res.json({ isBookmarkedByMe: false, count })
@@ -61,9 +61,9 @@ export default nextApi({
           },
         },
       })
-      const { count } = await prisma.communityPostBookmark.aggregate({
-        where: { userId, postId },
-        count: true,
+
+      const count = await prisma.communityPostBookmark.count({
+        where: { postId },
       })
 
       res.json({ isBookmarkedByMe: true, count })

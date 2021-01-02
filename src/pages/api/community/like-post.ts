@@ -42,9 +42,9 @@ export default nextApi({
 
     if (alreadyLiked) {
       await prisma.communityPostLike.delete({ where: { id: alreadyLiked.id } })
-      const { count } = await prisma.communityPostLike.aggregate({
-        where: { userId, postId },
-        count: true,
+
+      const count = await prisma.communityPostLike.count({
+        where: { postId },
       })
 
       res.json({ isLikedByMe: false, count })
@@ -59,9 +59,9 @@ export default nextApi({
           },
         },
       })
-      const { count } = await prisma.communityPostLike.aggregate({
-        where: { userId, postId },
-        count: true,
+
+      const count = await prisma.communityPostLike.count({
+        where: { postId },
       })
 
       res.json({ isLikedByMe: true, count })
