@@ -101,6 +101,10 @@
       padding: 24px;
       @include clickable;
 
+      .box-container {
+        width: 100%;
+      }
+
       &.disabled {
         pointer-events: none;
         opacity: 0.5;
