@@ -5,6 +5,7 @@ import EodiroColors from '@/modules/styles/EodiroColors'
 import classNames from 'classnames'
 import Link from 'next/link'
 import React, { useEffect, useState } from 'react'
+import { Flex } from '../ui/layouts/Flex'
 import $ from './Home.module.scss'
 
 type HomeFeatureBoxProps = {
@@ -27,25 +28,26 @@ const HomeFeatureBox: React.FC<HomeFeatureBoxProps> = ({
   }
 
   return (
-    <button
-      className={classNames($['feature-box'], {
-        [$['disabled']]: disabled,
-      })}
-      type="button"
-    >
-      <Link href={to}>
-        <div className={$['wrapper']}>
-          {Icon}
-          <h2 className={$['feature-name']}>{title}</h2>
+    <Link href={to}>
+      <a
+        className={classNames($['feature-box'], {
+          [$['disabled']]: disabled,
+        })}
+      >
+        <Flex alignStart className={$['box-container']}>
+          <div className={$['wrapper']}>
+            {Icon}
+            <h2 className={$['feature-name']}>{title}</h2>
 
-          {label && (
-            <span className={$['label']}>
-              {disabled ? '일시중지' : label.toUpperCase()}
-            </span>
-          )}
-        </div>
-      </Link>
-    </button>
+            {label && (
+              <span className={$['label']}>
+                {disabled ? '일시중지' : label.toUpperCase()}
+              </span>
+            )}
+          </div>
+        </Flex>
+      </a>
+    </Link>
   )
 }
 
