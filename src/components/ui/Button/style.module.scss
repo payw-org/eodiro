@@ -13,8 +13,8 @@
   @include btn-style-generator($eodiro-secondary-color, $eodiro-primary-color);
   color: #fff;
   @include border-radius-outer;
-  padding: 0.8rem s(4);
-  font-size: b(3);
+  padding: 14px;
+  font-size: 18px;
   font-weight: 500;
   line-height: 1;
   @include clickable;
