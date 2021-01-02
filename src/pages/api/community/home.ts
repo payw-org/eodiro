@@ -3,10 +3,10 @@ import { createHandler, nextApi } from '@/modules/next-api-routes-helpers'
 import { prisma } from '@/modules/prisma'
 import { requireAuthMiddleware } from '@/modules/server/middlewares/require-auth'
 import { CommunityBoard } from '@prisma/client'
-import { CommunityPostWithCommentsAndLikesCount } from '../types'
+import { CommunityPostWithCounts } from '../types'
 
 export type ApiCommunityHomeResData = (CommunityBoard & {
-  communityPosts: CommunityPostWithCommentsAndLikesCount[]
+  communityPosts: CommunityPostWithCounts[]
 })[]
 
 export const apiCommunityHomeUrl = '/api/community/home'

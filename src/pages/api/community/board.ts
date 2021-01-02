@@ -5,7 +5,7 @@ import { requireAuthMiddleware } from '@/modules/server/middlewares/require-auth
 import { validateRequiredReqDataMiddleware } from '@/modules/server/middlewares/validate-required-req-data'
 import { CommunityBoard } from '@prisma/client'
 import queryString from 'query-string'
-import { CommunityPostWithCommentsAndLikesCount } from '../types'
+import { CommunityPostWithCounts } from '../types'
 
 export type ApiCommunityBoardReqData = {
   boardId: number
@@ -17,7 +17,7 @@ export type ApiCommunityBoardResData = {
   page: number
   board:
     | (CommunityBoard & {
-        communityPosts: CommunityPostWithCommentsAndLikesCount[]
+        communityPosts: CommunityPostWithCounts[]
       })
     | null
 }

@@ -3,9 +3,8 @@ import Body from '@/layouts/BaseLayout/Body'
 import { prisma } from '@/modules/prisma'
 import { redirect } from '@/modules/server/redirect'
 import classNames from 'classnames'
-import { GetServerSideProps } from 'next'
+import { GetServerSideProps, NextPage } from 'next'
 import { useEffect } from 'react'
-import { EodiroPage } from '../_app'
 import $ from './style.module.scss'
 
 type VerificationPageProps = {
@@ -42,7 +41,7 @@ const VerifiedComp: React.FC<{ verified: boolean }> = ({ verified }) => {
   )
 }
 
-const VerificationPage: EodiroPage<VerificationPageProps> = ({ verified }) => (
+const VerificationPage: NextPage<VerificationPageProps> = ({ verified }) => (
   <Body
     pageTitle="회원가입 인증"
     titleHidden

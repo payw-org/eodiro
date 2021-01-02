@@ -1,46 +1,113 @@
-import { AuthApi, Tokens, UserInfo } from '@/api'
-import { Button, FlatBlock } from '@/components/ui'
+import { authState } from '@/atoms/auth'
+import { ArrowBlock, Button, FlatBlock } from '@/components/ui'
+import { eodiroConsts } from '@/constants'
 import Body from '@/layouts/BaseLayout/Body'
 import Grid from '@/layouts/Grid'
-import { redirect } from '@/modules/server/redirect'
+import { eodiroRequest } from '@/modules/eodiro-request'
+import { RefinedUser } from '@/modules/server/middlewares/require-auth'
+import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next-require-auth'
+import { Cookies } from '@/pages/api/cookie'
 import classNames from 'classnames'
 import dayjs from 'dayjs'
 import { GetServerSideProps, NextPage } from 'next'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useSetRecoilState } from 'recoil'
 import $ from './style.module.scss'
 
 type MyPageProps = {
-  userInfo: UserInfo | null
+  user: RefinedUser
 }
 
-const MyPage: NextPage<MyPageProps> = ({ userInfo }) => {
-  if (!userInfo) {
-    window.location.href = '/'
-    return null
+const MyPage: NextPage<MyPageProps> = ({ user }) => {
+  const router = useRouter()
+  const setAuthState = useSetRecoilState(authState)
+
+  async function signOut() {
+    const cookies: Cookies = [
+      {
+        name: eodiroConsts.EDR_ACCESS_TOKEN_NAME,
+        expires: new Date('1997-01-01').toUTCString(),
+        value: '',
+      },
+      {
+        name: eodiroConsts.EDR_REFRESH_TOKEN_NAME,
+        expires: new Date('1997-01-01').toUTCString(),
+        value: '',
+      },
+    ]
+
+    await eodiroRequest({
+      url: '/api/cookie',
+      method: 'POST',
+      data: cookies,
+    })
+
+    setAuthState({ userId: 0 })
+    router.replace('/')
+  }
+
+  async function revoke() {
+    await eodiroRequest({
+      url: '/api/auth/revoke',
+      method: 'POST',
+    })
+
+    setAuthState({ userId: 0 })
+    router.replace('/')
   }
 
   return (
-    <Body pageTitle={userInfo.nickname} bodyClassName={$['eodiro-my']}>
+    <Body pageTitle={`${user.nickname}님`} bodyClassName={$['eodiro-my']}>
       <section className={$['info-section']}>
         <h1 className={$['section-header']}>기본 정보</h1>
         <Grid proportion="large" className={$['section-body']}>
           <FlatBlock>
             <div className={$['info-block']}>
               <h2 className={$['ib-header']}>가입일</h2>
-              <p>{dayjs(userInfo.registered_at).format('YYYY년 M월 D일')}</p>
+              <p>{dayjs(user.registeredAt).format('YYYY년 M월 D일')}</p>
             </div>
           </FlatBlock>
           <FlatBlock>
             <div className={$['info-block']}>
               <h2 className={$['ib-header']}>포탈 이메일</h2>
-              <p>{userInfo.portal_id}</p>
+              <p>{user.portalId}</p>
             </div>
           </FlatBlock>
           <FlatBlock>
             <div className={classNames($['info-block'], $['random-nickname'])}>
               <h2 className={$['ib-header']}>오늘의 랜덤 닉네임</h2>
-              <p>{userInfo.random_nickname}</p>
+              <p>{user.randomNickname}</p>
             </div>
           </FlatBlock>
+
+          <Link href="/my/posts">
+            <a>
+              <ArrowBlock>
+                <div className={$['info-block']}>
+                  <h2 className={$['ib-header']}>나의 포스트</h2>
+                </div>
+              </ArrowBlock>
+            </a>
+          </Link>
+          <Link href="/my/comments">
+            <a>
+              <ArrowBlock>
+                <div className={$['info-block']}>
+                  <h2 className={$['ib-header']}>나의 댓글</h2>
+                </div>
+              </ArrowBlock>
+            </a>
+          </Link>
+          <Link href="/my/bookmarks">
+            <a>
+              <ArrowBlock>
+                <div className={$['info-block']}>
+                  <h2 className={$['ib-header']}>나의 북마크</h2>
+                </div>
+              </ArrowBlock>
+            </a>
+          </Link>
         </Grid>
       </section>
 
@@ -49,28 +116,9 @@ const MyPage: NextPage<MyPageProps> = ({ userInfo }) => {
         <Button
           className={$['signout-btn']}
           label="로그아웃"
-          accent="purple"
-          onClick={async (): Promise<void> => {
-            const signedOut = await Tokens.clear()
-            if (signedOut) {
-              window.location.href = '/'
-            }
-          }}
+          onClick={signOut}
         />
-        <Button
-          label="모든 기기에서 로그아웃"
-          accent="purple"
-          onClick={async (): Promise<void> => {
-            const signedOutFromAll = await AuthApi.signOutFromAll()
-
-            if (signedOutFromAll) {
-              alert('모든 기기에서 로그아웃 되었습니다. 다시 로그인해주세요.')
-              window.location.href = '/'
-            } else {
-              alert('문제가 발생하여 모든 기기에서 로그아웃하지 못했습니다.')
-            }
-          }}
-        />
+        {/* <Button label="모든 기기에서 로그아웃" onClick={revoke} /> */}
       </section>
     </Body>
   )
@@ -80,20 +128,13 @@ export const getServerSideProps: GetServerSideProps<MyPageProps> = async ({
   req,
   res,
 }) => {
-  const userInfo = await AuthApi.info(req)
+  await nextRequireAuthMiddleware(req, res)
 
-  if (!userInfo) {
-    redirect(res, '/signin')
-    return {
-      props: {
-        userInfo: null,
-      },
-    }
-  }
+  const { user } = req
 
   return {
     props: {
-      userInfo,
+      user,
     },
   }
 }

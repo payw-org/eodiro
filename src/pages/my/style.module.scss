@@ -30,7 +30,10 @@
 
     .ib-header {
       font-size: b(8);
-      margin-bottom: s(3);
+
+      & + * {
+        margin-top: 12px;
+      }
     }
   }
 

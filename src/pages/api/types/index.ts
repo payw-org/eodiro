@@ -1,6 +1,6 @@
 import { CommunityPost } from '@prisma/client'
 
-export type CommunityPostWithCommentsAndLikesCount = CommunityPost & {
+export type CommunityPostWithCounts = CommunityPost & {
   communityCommentsCount: number
   communityPostLikesCount: number
   communityPostBookmarksCount: number

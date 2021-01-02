@@ -32,7 +32,7 @@ const BoardSection: React.FC<{
       </div>
       <div className={$['posts-container']}>
         {board.communityPosts.length > 0 ? (
-          <PostsList boardId={board.id} posts={board.communityPosts} />
+          <PostsList posts={board.communityPosts} />
         ) : (
           <div className={$['no-post-yet']}>아직 포스트가 없습니다.</div>
         )}

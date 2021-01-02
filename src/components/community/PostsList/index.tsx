@@ -1,18 +1,17 @@
 import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
 import { friendlyTime } from '@/modules/time'
-import { CommunityPostWithCommentsAndLikesCount } from '@/pages/api/types'
+import { CommunityPostWithCounts } from '@/pages/api/types'
 import { communityPostPageUrl } from '@/utils/page-urls'
 import classNames from 'classnames'
 import Link from 'next/link'
 import $ from './style.module.scss'
 
 const PostItem: React.FC<{
-  boardId: number
-  post: CommunityPostWithCommentsAndLikesCount
-}> = ({ boardId, post }) => {
+  post: CommunityPostWithCounts
+}> = ({ post }) => {
   return (
-    <Link href={communityPostPageUrl(boardId, post.id)}>
+    <Link href={communityPostPageUrl(post.boardId, post.id)}>
       <div key={post.id} className={$['post-item']}>
         <Flex column alignStart>
           <p className={$['post-title']}>{post.title}</p>
@@ -47,13 +46,12 @@ const PostItem: React.FC<{
 }
 
 export const PostsList: React.FC<{
-  boardId: number
-  posts: CommunityPostWithCommentsAndLikesCount[]
-}> = ({ boardId, posts }) => {
+  posts: CommunityPostWithCounts[]
+}> = ({ posts }) => {
   return (
     <div className={$['posts-list']}>
       {posts.map((post) => (
-        <PostItem key={post.id} boardId={boardId} post={post} />
+        <PostItem key={post.id} post={post} />
       ))}
     </div>
   )
