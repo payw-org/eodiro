@@ -23,7 +23,9 @@ const Header: FC<HeaderProps> = ({ pageTitle, titleAlign, titleHidden }) => {
 
   useEffect(() => {
     setNavTitle(pageTitle)
+  }, [setNavTitle, pageTitle])
 
+  useEffect(() => {
     // Sentinel spots
     const overlaySentinelSpot = titleHidden
       ? document.querySelector(`.${eodiroConsts.OVERLAY_SENTINEL_SPOT}`)
@@ -87,7 +89,7 @@ const Header: FC<HeaderProps> = ({ pageTitle, titleAlign, titleHidden }) => {
     return () => {
       observer.disconnect()
     }
-  }, [pageTitle, setNavHidden, setNavScrolled, setNavTitle, titleHidden])
+  }, [setNavHidden, setNavScrolled, setNavTitle, titleHidden])
 
   return (
     <h1
