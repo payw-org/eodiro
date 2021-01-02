@@ -71,8 +71,45 @@ export default class Time {
 
 export const dbNow = () => dayjs().add(9, 'hour').toDate()
 
-function isPrimitive(test: any) {
-  return test !== Object(test)
+const isPrimitive = (test: any) => test !== Object(test)
+
+export function friendlyTime(time: Date | string): string {
+  if (!time) return ''
+
+  let postedAt = dayjs(time).format('YYYY. MM. DD.')
+
+  const now = dayjs()
+  const atObj = dayjs(time)
+
+  const secDiff = now.diff(atObj, 'second')
+  if (secDiff < 60) {
+    postedAt = `방금`
+    return postedAt
+  }
+  const minDiff = now.diff(atObj, 'minute')
+  if (minDiff > 0 && minDiff < 60) {
+    postedAt = `${minDiff}분 전`
+    return postedAt
+  }
+  const hourDiff = now.diff(atObj, 'hour')
+  if (hourDiff > 0 && hourDiff < 24) {
+    postedAt = `${hourDiff}시간 전`
+    return postedAt
+  }
+  const yearDiff = now.diff(atObj, 'year')
+  if (yearDiff < 1) {
+    postedAt = dayjs(time).format('MM/DD HH:mm')
+    return postedAt
+  }
+
+  return postedAt
+}
+
+export function yyyymmddhhmm(date: string | Date, pretty?: boolean): string {
+  if (pretty) {
+    return dayjs(date).format('YYYY년 M월 D일 HH:mm')
+  }
+  return dayjs(date).format('YYYY-MM-DD HH:mm')
 }
 
 function subtract9Hours(obj: Record<string, unknown>) {
@@ -90,13 +127,15 @@ function subtract9Hours(obj: Record<string, unknown>) {
 }
 
 // Subtract 9 hours from all the Date objects
-export const prismaTimeMode = <T>(value: T): T => {
+export function prismaTimeMod<T>(value: T): T {
   if (value instanceof Date) {
     return dayjs(value).subtract(9, 'hour').toDate() as any
   }
+
   if (isPrimitive(value)) {
     return value
   }
+
   subtract9Hours(value as any)
 
   return value
