@@ -4,7 +4,11 @@
   // @include elm-fill;
   // @include separator('top');
   // height: $footer-height;
-  padding: $footer-height / 2 0;
+  padding-top: $footer-height / 2;
+  padding-bottom: 20px;
+  @include support-safe-area {
+    padding-bottom: calc(20px + env(safe-area-inset-bottom));
+  }
   display: flex;
   flex-wrap: wrap;
   align-items: center;
