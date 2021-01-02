@@ -1,0 +1,69 @@
+@use '@/assets/styles/main' as *;
+
+.posts-list {
+}
+
+.post-item {
+  padding: 12px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  @include separator('bottom');
+
+  &:first-child {
+    padding-top: 0;
+  }
+
+  &:last-child {
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+
+  @include hover {
+    .post-title {
+      color: $base-gray;
+    }
+  }
+
+  .post-title {
+    font-size: 18px;
+    font-weight: 400;
+    transition: color 100ms ease;
+  }
+
+  .post-time {
+    font-size: 15px;
+    margin-left: 20px;
+    color: $base-gray;
+  }
+
+  .counts {
+    margin-top: 10px;
+
+    i {
+      margin-right: 4px;
+    }
+
+    .count-item {
+      margin-right: 10px;
+      font-size: 14px;
+
+      &:last-child {
+        margin-right: unset;
+      }
+    }
+
+    .likes-count {
+      color: $eodiro-primary-color;
+    }
+
+    .bookmarks-count {
+      color: $eodiro-yellow-2;
+    }
+
+    .comments-count {
+      color: $eodiro-green-2;
+    }
+  }
+}
