@@ -7,9 +7,9 @@
   "repository": "https://github.com/payw-org/eodiro.git",
   "main": "src/server/index.js",
   "scripts": {
-    "dev": "next --port 3020",
+    "dev": "npm run generate:dev && next --port 3020",
     "lint": "eslint . --ext .ts,.tsx",
-    "build": "npm run generate:prod && next build",
+    "build": "npm run generate && next build",
     "start": "next start --port 3000",
     "pm2:start": "if pm2 show eodiro ; then npm run pm2:stop && npm run pm2:delete && npm run pm2:start ; else pm2 start npm --name 'eodiro' -- run start ; fi",
     "pm2:restart": "if pm2 show eodiro ; then pm2 restart eodiro ; else echo 'No pm2 instance for eodiro client' ; fi",
@@ -20,8 +20,8 @@
     "update": "git reset --hard && git fetch --prune && npm run checkout-latest && npm install && npm run pm2:reboot",
     "introspect:dev": "prisma introspect --schema prisma/schema.dev.prisma",
     "generate:dev": "prisma generate --schema prisma/schema.dev.prisma",
-    "introspect:prod": "prisma introspect --schema prisma/schema.prod.prisma",
-    "generate:prod": "prisma generate --schema prisma/schema.prod.prisma"
+    "introspect": "prisma introspect --schema prisma/schema.prisma",
+    "generate": "prisma generate --schema prisma/schema.prisma"
   },
   "dependencies": {
     "@payw/eodiro-one-api": "^2.5.0",
