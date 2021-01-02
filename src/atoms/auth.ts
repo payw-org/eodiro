@@ -1,5 +1,5 @@
 import { AuthData } from '@/modules/jwt'
-import { atom } from 'recoil'
+import { atom, useRecoilValue } from 'recoil'
 
 export const authState = atom<AuthData>({
   key: 'authState',
@@ -7,3 +7,9 @@ export const authState = atom<AuthData>({
     userId: 0,
   },
 })
+
+export function useUserId() {
+  const { userId } = useRecoilValue(authState)
+
+  return userId
+}
