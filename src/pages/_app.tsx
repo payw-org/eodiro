@@ -8,6 +8,7 @@ import 'intersection-observer'
 import { AppProps } from 'next/app'
 import { AppContextType } from 'next/dist/next-server/lib/utils'
 import Head from 'next/head'
+import Router from 'next/router'
 import React, { useEffect } from 'react'
 import { RecoilRoot } from 'recoil'
 import 'swiper/swiper.scss'
@@ -28,50 +29,57 @@ export default function EdrApp({
 }: EdrAppProps) {
   useEffect(() => {
     // Set topbar
-    // const w = globalThis as any
-    // const { topbar } = w
-    // topbar.config({
-    //   barThickness: 3,
-    //   barColors: {
-    //     '0': '#ff3852',
-    //     '1': '#ff3852',
-    //   },
-    //   shadowBlur: 0,
-    //   shadowColor: 'rgba(0, 0, 0, 0)',
-    //   className: 'eodiro-topbar',
-    // })
-    // Router.events.on('routeChangeStart', topbar.show)
-    // Router.events.on('routeChangeComplete', () => {
-    //   topbar.hide()
-    // })
-    // Router.events.on('routeChangeError', () => {
-    //   topbar.hide()
-    // })
-    // if ('scrollRestoration' in window.history) {
-    //   window.history.scrollRestoration = 'manual'
-    //   let shouldScrollRestore: { x: number; y: number } | false = false
-    //   Router.events.on('routeChangeStart', () => {
-    //     if (!shouldScrollRestore) {
-    //       cachedScrollPositions.push([window.scrollX, window.scrollY])
-    //     }
-    //   })
-    //   Router.events.on('routeChangeComplete', () => {
-    //     if (shouldScrollRestore) {
-    //       const { x, y } = shouldScrollRestore
-    //       window.scrollTo(x, y)
-    //       shouldScrollRestore = false
-    //     } else {
-    //       window.scrollTo(0, 0)
-    //     }
-    //   })
-    //   Router.beforePopState(() => {
-    //     if (cachedScrollPositions.length > 0) {
-    //       const [x, y] = cachedScrollPositions.pop() as [number, number]
-    //       shouldScrollRestore = { x, y }
-    //     }
-    //     return true
-    //   })
-    // }
+    const w = globalThis as any
+    const { topbar } = w
+    topbar.config({
+      barThickness: 3,
+      barColors: {
+        '0': '#ff3852',
+        '1': '#ff3852',
+      },
+      shadowBlur: 0,
+      shadowColor: 'rgba(0, 0, 0, 0)',
+      className: 'eodiro-topbar',
+    })
+    Router.events.on('routeChangeStart', topbar.show)
+    Router.events.on('routeChangeComplete', () => {
+      ;(document.activeElement as any)?.blur()
+      topbar.hide()
+    })
+    Router.events.on('routeChangeError', () => {
+      ;(document.activeElement as any)?.blur()
+      topbar.hide()
+    })
+
+    if ('scrollRestoration' in window.history) {
+      window.history.scrollRestoration = 'manual'
+      let shouldScrollRestore: { x: number; y: number } | false = false
+
+      Router.events.on('routeChangeStart', () => {
+        if (!shouldScrollRestore) {
+          cachedScrollPositions.push([window.scrollX, window.scrollY])
+        }
+      })
+
+      Router.events.on('routeChangeComplete', () => {
+        if (shouldScrollRestore) {
+          const { x, y } = shouldScrollRestore
+          window.scrollTo(x, y)
+          shouldScrollRestore = false
+        } else {
+          window.scrollTo(0, 0)
+        }
+      })
+
+      Router.beforePopState(() => {
+        if (cachedScrollPositions.length > 0) {
+          const [x, y] = cachedScrollPositions.pop() as [number, number]
+          shouldScrollRestore = { x, y }
+        }
+
+        return true
+      })
+    }
   }, [])
 
   return (
