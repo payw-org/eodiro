@@ -102,13 +102,17 @@ const BoardPage: NextPage<BoardPageProps> = ({
                 totalPage={totalPage ?? 0}
                 currentPage={page ?? 0}
                 onPressPage={(pressedPage) => {
-                  router.push({
-                    pathname: '/community/board/[boardId]',
-                    query: {
-                      boardId,
-                      page: pressedPage,
-                    },
-                  })
+                  router
+                    .push({
+                      pathname: '/community/board/[boardId]',
+                      query: {
+                        boardId,
+                        page: pressedPage,
+                      },
+                    })
+                    .then(() => {
+                      window.scrollTo(0, 0)
+                    })
                 }}
               />
             </div>
