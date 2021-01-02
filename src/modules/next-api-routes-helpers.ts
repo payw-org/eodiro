@@ -9,6 +9,7 @@ type HandlerFunction = (
 export const nextApi = (handler: {
   get?: HandlerFunction
   post?: HandlerFunction
+  delete?: HandlerFunction
 }) => async (req: NextApiRequest, res: NextApiResponse) => {
   const method = req.method?.toUpperCase()
 
@@ -26,6 +27,11 @@ export const nextApi = (handler: {
       case 'POST':
         if (handler.post) {
           await handler.post(req, res)
+        }
+        break
+      case 'DELETE':
+        if (handler.delete) {
+          await handler.delete(req, res)
         }
         break
       default:
