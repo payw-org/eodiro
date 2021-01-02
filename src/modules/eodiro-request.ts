@@ -1,5 +1,7 @@
+import { eodiroConsts } from '@/constants'
 import { ApiAuthRefreshResData } from '@/pages/api/auth/refresh'
 import { ApiAuthGeneralErrResData } from '@/pages/api/auth/verify'
+import { Cookies } from '@/pages/api/cookie'
 import Axios, { AxiosRequestConfig } from 'axios'
 import produce from 'immer'
 import { eodiroHost } from './eodiro-host'
@@ -9,15 +11,29 @@ export enum UnauthorizedError {
   Unauthorized = 'Unauthorized',
 }
 
-const createUnauthorizedError = () => {
-  const error = new Error()
-  error.name = UnauthorizedError.Unauthorized
-
-  return error
-}
-
 export type EodiroRequestConfig<T = any> = Omit<AxiosRequestConfig, 'data'> & {
   data?: T
+}
+
+async function clearAuthCookie() {
+  const cookies: Cookies = [
+    {
+      name: eodiroConsts.EDR_ACCESS_TOKEN_NAME,
+      expires: new Date('1997-01-01').toUTCString(),
+      value: '',
+    },
+    {
+      name: eodiroConsts.EDR_REFRESH_TOKEN_NAME,
+      expires: new Date('1997-01-01').toUTCString(),
+      value: '',
+    },
+  ]
+
+  await Axios({
+    url: '/api/cookie',
+    method: 'POST',
+    data: cookies,
+  })
 }
 
 export async function eodiroRequest<RQD = any, RSD = any>(
@@ -47,18 +63,11 @@ export async function eodiroRequest<RQD = any, RSD = any>(
 
           return await eodiroRequest<RQD, RSD>(sanitiedReqeuestConfig)
         } catch (refreshErr) {
-          const refereshUnauthorized = refreshErr.response
-            ?.data as ApiAuthGeneralErrResData
-
-          if (refereshUnauthorized.error?.name) {
-            throw createUnauthorizedError()
-          }
-
-          throw refreshErr
+          await clearAuthCookie()
         }
-      } else if (accessUnauthorized.error) {
-        throw createUnauthorizedError()
       }
+
+      await clearAuthCookie()
     }
 
     console.error(firstTryErr)
