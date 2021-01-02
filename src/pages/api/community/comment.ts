@@ -11,6 +11,14 @@ export type ApiCommunityCreateCommentReqData = {
   postId: number
 }
 
+// DELETE
+export const apiCommunityDeleteCommentUrl = `/api/community/comment`
+
+export type ApiCommunityDeleteCommentReqData = {
+  commentId: number
+}
+// DELETE
+
 export default nextApi({
   post: createHandler(async (req, res) => {
     await requireAuthMiddleware(req, res)
@@ -21,7 +29,7 @@ export default nextApi({
       },
     })(req, res)
 
-    const { authData } = req
+    const { user } = req
     const { body, postId } = req.body as ApiCommunityCreateCommentReqData
 
     const post = await prisma.communityPost.findUnique({
@@ -29,15 +37,17 @@ export default nextApi({
     })
 
     if (!post) {
-      res.status(400)
+      res.status(404).end()
 
       return
     }
 
-    // Find user information
-    const user = await prisma.user.findUnique({
-      where: { id: authData.userId },
-    })
+    const trimmedBody = body.trim()
+
+    if (trimmedBody.length === 0) {
+      res.status(400).end()
+      return
+    }
 
     // Create a comment
     await prisma.communityComment.create({
@@ -45,11 +55,46 @@ export default nextApi({
         user: { connect: { id: user?.id } },
         commentedAt: dbNow(),
         randomNickname: user?.randomNickname,
-        body,
+        body: trimmedBody,
         communityPost: { connect: { id: postId } },
       },
     })
 
     res.status(200).end()
   }),
+  delete: async (req, res) => {
+    await requireAuthMiddleware(req, res)
+    await validateRequiredReqDataMiddleware<ApiCommunityDeleteCommentReqData>({
+      body: {
+        commentId: 'number',
+      },
+    })(req, res)
+
+    const { user } = req
+
+    const { commentId } = req.body as ApiCommunityDeleteCommentReqData
+    const comment = await prisma.communityComment.findUnique({
+      where: { id: commentId },
+    })
+
+    if (!comment) {
+      res.status(404).end()
+      return
+    }
+
+    if (comment.userId !== user.id) {
+      res.status(403).end()
+      return
+    }
+
+    // Delete
+    await prisma.communityComment.update({
+      where: { id: commentId },
+      data: {
+        isDeleted: true,
+      },
+    })
+
+    res.status(200).end()
+  },
 })

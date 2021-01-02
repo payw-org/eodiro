@@ -1,11 +1,12 @@
+import { eodiroConsts } from '@/constants'
 import { createHandler, nextApi } from '@/modules/next-api-routes-helpers'
 import { prisma } from '@/modules/prisma'
 import { requireAuthMiddleware } from '@/modules/server/middlewares/require-auth'
 import { CommunityBoard } from '@prisma/client'
-import { CommunityPostWithCommentsCount } from '../types'
+import { CommunityPostWithCommentsAndLikesCount } from '../types'
 
 export type ApiCommunityHomeResData = (CommunityBoard & {
-  communityPosts: CommunityPostWithCommentsCount[]
+  communityPosts: CommunityPostWithCommentsAndLikesCount[]
 })[]
 
 export const apiCommunityHomeUrl = '/api/community/home'
@@ -16,8 +17,13 @@ export const apiCommunityHome = async (): Promise<ApiCommunityHomeResData> => {
       communityPosts: {
         orderBy: { id: 'desc' },
         take: 8,
+        where: {
+          isDeleted: false,
+        },
         include: {
-          communityComments: true,
+          communityComments: { where: { isDeleted: false } },
+          communityPostLikes: true,
+          communityPostBookmarks: true,
         },
       },
     },
@@ -28,13 +34,20 @@ export const apiCommunityHome = async (): Promise<ApiCommunityHomeResData> => {
       return {
         ...board,
         communityPosts: board.communityPosts.map((post) => {
-          const communityCommentsCount = post.communityComments.length
-
-          delete (post as any)['communityComments']
+          const {
+            communityComments,
+            communityPostLikes,
+            communityPostBookmarks,
+            ...rest
+          } = post
 
           return {
-            ...post,
-            communityCommentsCount,
+            ...rest,
+            title: rest.title.slice(0, eodiroConsts.POST_LIST_SLICE_LENGTH),
+            body: rest.body.slice(0, eodiroConsts.POST_LIST_SLICE_LENGTH),
+            communityCommentsCount: communityComments.length,
+            communityPostLikesCount: communityPostLikes.length,
+            communityPostBookmarksCount: communityPostBookmarks.length,
           }
         }),
       }

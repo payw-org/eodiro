@@ -1,37 +1,122 @@
+import { useUserId } from '@/atoms/auth'
 import { Comments } from '@/components/community/Comments'
 import Information from '@/components/global/Information'
 import { ArrowBlock } from '@/components/ui'
+import { Icon } from '@/components/ui/Icon'
+import { Flex } from '@/components/ui/layouts/Flex'
 import { eodiroConsts } from '@/constants'
 import Body from '@/layouts/BaseLayout/Body'
+import { eodiroRequest } from '@/modules/eodiro-request'
 import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next-require-auth'
-import { yyyymmddhhmmss } from '@/modules/time'
+import { yyyymmddhhmm } from '@/modules/time'
 import {
+  ApiCommunityBookmarkPostReqData,
+  ApiCommunityBookmarkPostResData,
+  apiCommunityBookmarkPostUrl,
+} from '@/pages/api/community/bookmark-post'
+import {
+  ApiCommunityLikePostReqData,
+  ApiCommunityLikePostResData,
+  apiCommunityLikePostUrl,
+} from '@/pages/api/community/like-post'
+import {
+  ApiCommunityDeletePostReqData,
   apiCommunityPost,
   ApiCommunityPostResData,
-  apiCommunityPostUrl,
+  apiCommunityUpsertDeleteUrl,
 } from '@/pages/api/community/post'
+import { communityBoardPageUrl, postEditorPageUrl } from '@/utils/page-urls'
 import { CommunityComment } from '@prisma/client'
 import classNames from 'classnames'
 import { GetServerSideProps, NextPage } from 'next'
-import { useState } from 'react'
-import useSWR from 'swr'
-import $ from './post.module.scss'
-
-export const postPageUrl = (boardId: number, postId: number) =>
-  `/community/board/${boardId}/post/${postId}`
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
+import { atom, useRecoilState } from 'recoil'
+import $ from './post-page.module.scss'
 
 type PostPageProps = {
   post: ApiCommunityPostResData
 }
 
-const PostPage: NextPage<PostPageProps> = ({ post: initialPost }) => {
-  const { error: postError, data: post } = useSWR(
-    apiCommunityPostUrl({ postId: initialPost?.id as number }),
-    { initialData: initialPost }
+export const commentsState = atom<CommunityComment[]>({
+  key: 'commentsState',
+  default: [],
+})
+
+const PostPage: NextPage<PostPageProps> = ({ post }) => {
+  const userId = useUserId()
+  const router = useRouter()
+  const [comments, setComments] = useRecoilState(commentsState)
+  console.log(post)
+  const [likesCount, setLikesCount] = useState(
+    post?.communityPostLikesCount ?? 0
   )
-  const [comments, setComments] = useState(
-    initialPost?.communityComments as CommunityComment[]
+  const [bookmarksCount, setBookmarksCount] = useState(
+    post?.communityPostBookmarksCount ?? 0
   )
+  const [likedByMe, setLikedByMe] = useState(post?.likedByMe)
+  const [bookmarkedByMe, setBookmarkedByMe] = useState(post?.bookmarkedByMe)
+
+  /**
+   * https://github.com/facebookexperimental/Recoil/issues/12
+   */
+  useEffect(() => {
+    setComments(post?.communityComments as CommunityComment[])
+  }, [setComments, post?.communityComments])
+
+  async function deletePost() {
+    if (!post || !window.confirm('정말 삭제하시겠습니까?')) return
+
+    await eodiroRequest<ApiCommunityDeletePostReqData>({
+      url: apiCommunityUpsertDeleteUrl,
+      method: 'DELETE',
+      data: { postId: post.id },
+    })
+
+    alert('삭제되었습니다.')
+    router.replace(communityBoardPageUrl(post.boardId))
+  }
+
+  async function likePost() {
+    if (!post) return
+
+    const result = await eodiroRequest<
+      ApiCommunityLikePostReqData,
+      ApiCommunityLikePostResData
+    >({
+      url: apiCommunityLikePostUrl,
+      method: 'POST',
+      data: {
+        postId: post.id,
+      },
+    })
+
+    if (result) {
+      setLikedByMe(result.isLikedByMe)
+      setLikesCount(result.count)
+    }
+  }
+
+  async function bookmarkPost() {
+    if (!post) return
+
+    const result = await eodiroRequest<
+      ApiCommunityBookmarkPostReqData,
+      ApiCommunityBookmarkPostResData
+    >({
+      url: apiCommunityBookmarkPostUrl,
+      method: 'POST',
+      data: {
+        postId: post.id,
+      },
+    })
+
+    if (result) {
+      setBookmarkedByMe(result.isBookmarkedByMe)
+      setBookmarksCount(result.count)
+    }
+  }
 
   return (
     <Body
@@ -50,10 +135,31 @@ const PostPage: NextPage<PostPageProps> = ({ post: initialPost }) => {
           >
             <div className={$['header']}>
               <span className={$['author']}>{post.randomNickname}</span>
-              <span className={$['time']}>
-                {yyyymmddhhmmss(post.postedAt, true)}
-              </span>
+              <Flex className={$['right-side']}>
+                {post.userId === userId && (
+                  // Show delete and edit buttons when the post is mine
+                  <div className={$['its-mine']}>
+                    <button
+                      type="button"
+                      className={$['delete']}
+                      onClick={deletePost}
+                    >
+                      <i className="f7-icons">trash</i>
+                    </button>
+                    <Link href={postEditorPageUrl(post.boardId, post.id)}>
+                      <button type="button" className={$['edit']}>
+                        <i className="f7-icons">pencil_outline</i>
+                      </button>
+                    </Link>
+                  </div>
+                )}
+                <span className={$['time']}>
+                  {yyyymmddhhmm(post.postedAt, true)}
+                </span>
+              </Flex>
             </div>
+
+            {/* Post title and body */}
             <article>
               <h1
                 className={classNames(
@@ -75,6 +181,28 @@ const PostPage: NextPage<PostPageProps> = ({ post: initialPost }) => {
                 })}
               </div>
             </article>
+
+            {/* Likes and bookmarks */}
+            <Flex row justifyCenter className={$['likes-and-bookmarks']}>
+              <Flex
+                className={classNames($['action-btn'], $['likes'], {
+                  [$['active']]: likedByMe,
+                })}
+                onClick={likePost}
+              >
+                <Icon name="hand_thumbsup_fill" />
+                <span>{likesCount}</span>
+              </Flex>
+              <Flex
+                className={classNames($['action-btn'], $['bookmarks'], {
+                  [$['active']]: bookmarkedByMe,
+                })}
+                onClick={bookmarkPost}
+              >
+                <Icon name="bookmark_fill" />
+                <span>{bookmarksCount}</span>
+              </Flex>
+            </Flex>
           </ArrowBlock>
 
           <Comments
@@ -106,8 +234,11 @@ export const getServerSideProps: GetServerSideProps<PostPageProps> = async ({
 }) => {
   await nextRequireAuthMiddleware(req, res)
 
+  const { user } = req
+
   const post = await apiCommunityPost({
     postId: Number(query.postId),
+    userId: user.id,
   })
 
   return {

@@ -1,0 +1,100 @@
+@use '@/assets/styles/main' as *;
+
+.post-page-body {
+  max-width: 700px !important;
+}
+
+.post-container {
+  padding: 20px;
+
+  .header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 25px;
+
+    .right-side {
+      .its-mine {
+        margin-right: 15px;
+
+        button {
+          font-size: 18px;
+
+          &.delete {
+            color: $eodiro-primary-color;
+            margin-right: 7px;
+          }
+
+          &.edit {
+            color: $eodiro-blue-1;
+          }
+        }
+      }
+    }
+
+    .author {
+      font-weight: 600;
+      font-size: 17px;
+      margin-right: 15px;
+    }
+
+    .time {
+      color: $base-gray;
+      font-size: 16px;
+    }
+  }
+
+  // Article
+  .title {
+    font-weight: 700;
+    font-size: 25px;
+    margin-bottom: 20px;
+  }
+
+  .body {
+    br,
+    p {
+      font-size: 17px;
+    }
+  }
+
+  // Likes and bookmarks
+  .likes-and-bookmarks {
+    margin-top: 40px;
+
+    .action-btn {
+      font-size: 20px;
+      @include bg;
+      padding: 10px 15px;
+      border-radius: 50px;
+      font-variant-numeric: tabular-nums;
+
+      i {
+        margin-right: 5px;
+      }
+
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+
+      &.likes {
+        color: $eodiro-primary-color;
+
+        &.active {
+          background-color: $eodiro-primary-color;
+          color: #fff;
+        }
+      }
+
+      &.bookmarks {
+        color: $eodiro-yellow-2;
+
+        &.active {
+          background-color: $eodiro-yellow-2;
+          color: #fff;
+        }
+      }
+    }
+  }
+}

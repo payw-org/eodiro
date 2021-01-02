@@ -37,7 +37,7 @@ export default nextApi({
     } = (req.query as unknown) as ApiCommunityCommentsReqData
 
     const args: Prisma.FindManyCommunityCommentArgs = {
-      where: { postId },
+      where: { postId, isDeleted: false },
       orderBy: { id: 'asc' },
     }
 

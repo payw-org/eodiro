@@ -1,10 +1,11 @@
+import { eodiroConsts } from '@/constants'
 import { createHandler, nextApi } from '@/modules/next-api-routes-helpers'
 import { prisma } from '@/modules/prisma'
 import { requireAuthMiddleware } from '@/modules/server/middlewares/require-auth'
 import { validateRequiredReqDataMiddleware } from '@/modules/server/middlewares/validate-required-req-data'
-import { CommunityBoard, CommunityComment, CommunityPost } from '@prisma/client'
+import { CommunityBoard } from '@prisma/client'
 import queryString from 'query-string'
-import { CommunityPostWithCommentsCount } from '../types'
+import { CommunityPostWithCommentsAndLikesCount } from '../types'
 
 export type ApiCommunityBoardReqData = {
   boardId: number
@@ -16,7 +17,7 @@ export type ApiCommunityBoardResData = {
   page: number
   board:
     | (CommunityBoard & {
-        communityPosts: CommunityPostWithCommentsCount[]
+        communityPosts: CommunityPostWithCommentsAndLikesCount[]
       })
     | null
 }
@@ -29,7 +30,7 @@ export const apiCommunityBoard = async (
 ): Promise<ApiCommunityBoardResData> => {
   const { boardId, page } = data
 
-  const take = 15
+  const take = 30
   const skip = Math.max(page - 1, 0) * take
   const totalPage = Math.ceil(
     (await prisma.communityPost.count({
@@ -44,8 +45,11 @@ export const apiCommunityBoard = async (
         orderBy: { id: 'desc' },
         skip,
         take,
+        where: { isDeleted: false },
         include: {
-          communityComments: true,
+          communityComments: { where: { isDeleted: false } },
+          communityPostLikes: true,
+          communityPostBookmarks: true,
         },
       },
     },
@@ -55,17 +59,20 @@ export const apiCommunityBoard = async (
     ? {
         ...board,
         communityPosts: board.communityPosts.map((post) => {
-          const communityCommentsCount = post.communityComments.length
-
-          // Delete comments data
-          // eslint-disable-next-line no-param-reassign
-          delete (post as CommunityPost & {
-            communityComments?: CommunityComment[]
-          }).communityComments
+          const {
+            communityComments,
+            communityPostLikes,
+            communityPostBookmarks,
+            ...rest
+          } = post
 
           return {
-            ...post,
-            communityCommentsCount,
+            ...rest,
+            title: rest.title.slice(0, eodiroConsts.POST_LIST_SLICE_LENGTH),
+            body: rest.body.slice(0, eodiroConsts.POST_LIST_SLICE_LENGTH),
+            communityCommentsCount: communityComments.length,
+            communityPostLikesCount: communityPostLikes.length,
+            communityPostBookmarksCount: communityPostBookmarks.length,
           }
         }),
       }
@@ -87,6 +94,11 @@ export default nextApi({
     const data = await apiCommunityBoard(
       (req.query as unknown) as ApiCommunityBoardReqData
     )
+
+    if (!data) {
+      res.status(404).end()
+      return
+    }
 
     res.json(data)
   }),

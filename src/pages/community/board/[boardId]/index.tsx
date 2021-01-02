@@ -1,20 +1,26 @@
 import { PostsList } from '@/components/community/PostsList'
 import Information from '@/components/global/Information'
 import { ArrowBlock } from '@/components/ui'
+import { Flex } from '@/components/ui/layouts/Flex'
 import Pagination from '@/components/ui/Pagination'
 import Body from '@/layouts/BaseLayout/Body'
+import { prisma } from '@/modules/prisma'
 import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next-require-auth'
 import {
   apiCommunityBoard,
   ApiCommunityBoardResData,
   apiCommunityBoardUrl,
 } from '@/pages/api/community/board'
+import { communityBoardPageUrl, postEditorPageUrl } from '@/utils/page-urls'
+import { CommunityBoard } from '@prisma/client'
+import classNames from 'classnames'
 import { GetServerSideProps, NextPage } from 'next'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
-import $ from './board.module.scss'
+import $ from './board-page.module.scss'
 
-const PostsPage: React.FC<{
+const BoardPosts: React.FC<{
   totalPage: ApiCommunityBoardResData['totalPage']
   page: ApiCommunityBoardResData['page']
   board: Exclude<ApiCommunityBoardResData['board'], null>
@@ -29,39 +35,93 @@ const PostsPage: React.FC<{
 
   return (
     <ArrowBlock flat className={$['posts-container']}>
-      <PostsList boardId={board.id} posts={data.board.communityPosts} />
+      {data.board.communityPosts.length > 0 ? (
+        <PostsList boardId={board.id} posts={data.board.communityPosts} />
+      ) : (
+        <Flex center column>
+          <span className={$['no-posts-icon']}>
+            <i className="f7-icons">bin_xmark</i>
+          </span>
+          <p className={$['no-posts-label']}>아직 포스트가 없습니다.</p>
+        </Flex>
+      )}
     </ArrowBlock>
   )
 }
 
-const BoardPage: NextPage<ApiCommunityBoardResData> = (initialData) => {
+type BoardPageProps = {
+  boardsList: Pick<CommunityBoard, 'id' | 'name'>[]
+  boardInformation: ApiCommunityBoardResData
+}
+
+const BoardPage: NextPage<BoardPageProps> = ({
+  boardsList,
+  boardInformation,
+}) => {
   const router = useRouter()
-  const { board, page, totalPage } = initialData
+  const { board, page, totalPage } = boardInformation
   const boardId = board?.id
 
   return (
-    <Body pageTitle={board?.name ?? '없는 게시판'}>
+    <Body pageTitle={board?.name ?? '없는 게시판'} titleAlign="center">
       {!board ? (
         <Information title="다른 게시판을 이용해주세요." />
       ) : (
         <>
-          <PostsPage board={board} totalPage={totalPage} page={page} />
-          <div style={{ display: 'none' }}>
-            <PostsPage board={board} totalPage={totalPage} page={page + 1} />
+          <div className={$['board-page']}>
+            <div className={$['sidebar']}>
+              <ArrowBlock className={$['boards-list']} flat>
+                <h2 className={$['boards-list-header']}>다른 게시판</h2>
+                {boardsList.map((boardInfo) => (
+                  <Link
+                    href={communityBoardPageUrl(boardInfo.id)}
+                    key={boardInfo.id}
+                  >
+                    <div
+                      className={classNames($['boards-list-item'], {
+                        [$['current']]: boardInfo.id === boardId,
+                      })}
+                    >
+                      {boardInfo.name}
+                    </div>
+                  </Link>
+                ))}
+              </ArrowBlock>
+            </div>
+
+            <div className={$['column-posts']}>
+              <BoardPosts board={board} totalPage={totalPage} page={page} />
+              <div style={{ display: 'none' }}>
+                <BoardPosts
+                  board={board}
+                  totalPage={totalPage}
+                  page={page + 1}
+                />
+              </div>
+              <Pagination
+                totalPage={totalPage ?? 0}
+                currentPage={page ?? 0}
+                onPressPage={(pressedPage) => {
+                  router.push({
+                    pathname: '/community/board/[boardId]',
+                    query: {
+                      boardId,
+                      page: pressedPage,
+                    },
+                  })
+                }}
+              />
+            </div>
           </div>
-          <Pagination
-            totalPage={totalPage ?? 0}
-            currentPage={page ?? 0}
-            onPressPage={(pressedPage) => {
-              router.push({
-                pathname: '/community/board/[boardId]',
-                query: {
-                  boardId,
-                  page: pressedPage,
-                },
-              })
-            }}
-          />
+          <Flex className={$['new-post-btn-wrapper']}>
+            <Link href={postEditorPageUrl(board.id)}>
+              <a>
+                <button type="button" className={$['new-post-btn']}>
+                  <i className="f7-icons">square_pencil</i>새 포스트 작성
+                </button>
+              </a>
+            </Link>
+          </Flex>
         </>
       )}
     </Body>
@@ -70,7 +130,7 @@ const BoardPage: NextPage<ApiCommunityBoardResData> = (initialData) => {
 
 export default BoardPage
 
-export const getServerSideProps: GetServerSideProps<ApiCommunityBoardResData> = async ({
+export const getServerSideProps: GetServerSideProps<BoardPageProps> = async ({
   req,
   res,
   query,
@@ -78,11 +138,20 @@ export const getServerSideProps: GetServerSideProps<ApiCommunityBoardResData> = 
 }) => {
   await nextRequireAuthMiddleware(req, res)
 
-  const data = await apiCommunityBoard({
+  const boardInformation = await apiCommunityBoard({
     boardId: Number(params?.boardId),
     page: query.page ? Number(query.page) : 1,
   })
+
+  const boardsList = await prisma.communityBoard.findMany({
+    orderBy: [{ priotiry: 'desc' }, { activeAt: 'desc' }],
+    select: { id: true, name: true },
+  })
+
   return {
-    props: data,
+    props: {
+      boardsList,
+      boardInformation,
+    },
   }
 }
