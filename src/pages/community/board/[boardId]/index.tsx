@@ -144,7 +144,7 @@ export const getServerSideProps: GetServerSideProps<BoardPageProps> = async ({
 
   const boardInformation = await apiCommunityBoard({
     boardId: Number(params?.boardId),
-    page: query.page ? Number(query.page) : 1,
+    page: query.page ? Math.max(Number(query.page), 1) : 1,
   })
 
   const boardsList = await prisma.communityBoard.findMany({
