@@ -10,6 +10,7 @@ import { setCookie } from '../cookie'
 export type ApiAuthLoginReqBody = SignInInfo
 export type ApiAuthLoginResData = {
   isSigned: boolean
+  userId: number
   refreshToken?: string
   accessToken?: string
 }
@@ -17,7 +18,7 @@ export type ApiAuthLoginResData = {
 export default nextApi({
   post: async (req, res) => {
     const { portalId, password } = req.body as SignInInfo
-    const resData: ApiAuthLoginResData = { isSigned: false }
+    const resData: ApiAuthLoginResData = { isSigned: false, userId: 0 }
 
     if (!portalId || !password) {
       res.json(resData)
@@ -40,6 +41,8 @@ export default nextApi({
     )
 
     if (isPasswordMatched) {
+      resData.userId = user.id
+
       const authData: AuthData = { userId: user.id }
       let refreshToken = ''
 
