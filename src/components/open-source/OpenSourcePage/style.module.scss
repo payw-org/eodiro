@@ -38,10 +38,7 @@
     }
 
     .users {
-      --profile-size: 8rem;
-      @include on-mobile {
-        --profile-size: 6rem;
-      }
+      --profile-size: 120px;
       margin-top: 2rem;
       display: grid;
       grid-gap: 1.5rem;
@@ -56,11 +53,13 @@
 
         .avatar {
           width: 100%;
-          border-radius: 0.3rem;
+          border-radius: 8px;
+          @include shadowed;
+          margin-bottom: 5px;
         }
 
         .name {
-          font-size: 1rem;
+          font-size: 15px;
           line-height: 1;
           text-align: center;
           word-break: break-all;
@@ -68,7 +67,7 @@
 
         .contributions {
           line-height: 1;
-          font-size: 13px;
+          font-size: 14px;
           font-weight: 600;
           color: $eodiro-primary-color;
           text-align: center;

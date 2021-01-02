@@ -1,11 +1,10 @@
-import { GetServerSideProps, NextPage } from 'next'
 import OpenSourcePage, {
   OpenSourcePageProps,
 } from '@/components/open-source/OpenSourcePage'
-
-import { Contributor } from '@/types/github-api'
 import { config } from '@/config'
 import eodiroAxios from '@/modules/eodiro-axios'
+import { Contributor } from '@/types/github-api'
+import { GetServerSideProps, NextPage } from 'next'
 
 const Page: NextPage<OpenSourcePageProps> = ({ contributors }) => {
   return <OpenSourcePage contributors={contributors} />
@@ -91,11 +90,15 @@ export const getServerSideProps: GetServerSideProps<OpenSourcePageProps> = async
     }
   }
 
-  contributors.sort((a, b) => b.contributions - a.contributions)
+  const filteredContributors = contributors.filter(
+    (contributor) => !contributor.login.startsWith('dependabot')
+  )
+
+  filteredContributors.sort((a, b) => b.contributions - a.contributions)
 
   return {
     props: {
-      contributors,
+      contributors: filteredContributors,
     },
   }
 }

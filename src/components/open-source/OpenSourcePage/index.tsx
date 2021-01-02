@@ -41,7 +41,7 @@ const OpenSourcePage: React.FC<OpenSourcePageProps> = ({ contributors }) => {
         <p className={$['description']}>
           클릭하여 각 개발자의 GitHub 프로필로 이동할 수 있습니다. GitHub에서
           &ldquo;어디로&rdquo; 개발에 참여하면 자동으로 이 페이지에 노출됩니다.
-          개발자 이름 하단에 표시되는 숫자는 총 기여(contribution) 회수입니다.
+          개발자 이름 하단에 표시되는 숫자는 총 기여(contribution) 횟수입니다.
         </p>
 
         <div className={$['users']}>
