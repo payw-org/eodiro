@@ -19,8 +19,6 @@ export type EodiroRequestConfig<T = any> = Omit<AxiosRequestConfig, 'data'> & {
 export async function registerPush() {
   if (isClient() && window.isApp && window.expoPushToken) {
     try {
-      window.alert(`isApp: ${window.isApp}`)
-      window.alert(`expoPushToken: ${window.expoPushToken}`)
       await Axios.post('/api/push', {
         expoPushToken: window.expoPushToken,
       })
