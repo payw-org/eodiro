@@ -12,6 +12,7 @@ async function updateRandomNicknames() {
 
   await prisma.$transaction(updateQueries)
 
+  await prisma.$disconnect()
   process.exit()
 }
 

@@ -20,6 +20,7 @@ async function clearPendingUsers() {
 
   await Promise.all(deletions)
 
+  await prisma.$disconnect()
   process.exit()
 }
 

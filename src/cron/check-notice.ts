@@ -1,3 +1,4 @@
+import { prisma } from '@/modules/prisma'
 import { CauNoticeWatcher } from '@/modules/server/cau-notice-watcher'
 import * as Vendors from '@/modules/server/cau-notice-watcher/vendors'
 
@@ -15,6 +16,7 @@ async function run() {
     console.error(error)
   }
 
+  await prisma.$disconnect()
   process.exit()
 }
 
