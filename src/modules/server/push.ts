@@ -9,12 +9,20 @@ export type PushInformation = {
   to: string | string[]
   title: string
   body: string
-  data?: Record<string, unknown>
-  sound?: 'default'
-  /**
-   * @default true
-   */
-  _displayInForeground?: boolean
+  data?:
+    | {
+        type: 'notice'
+        url: string
+      }
+    | {
+        type: 'comment'
+        comment: string
+        boardId: number
+        postId: number
+      }
+    | Record<string, unknown>
+  sound: 'default'
+  _displayInForeground: boolean
 }
 
 type PushOk = { status: 'ok'; id: string }
