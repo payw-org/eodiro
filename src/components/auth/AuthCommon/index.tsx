@@ -72,18 +72,18 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
       portalId,
       password,
     }
+
     const res = await Axios.post<ApiAuthLoginResData>(
       '/api/auth/login',
       loginData
     )
-
-    await registerPush()
 
     setValidating(false)
 
     if (res.data.isSigned) {
       setAuthData({ userId: res.data.userId })
       router.replace(Cookie.get(eodiroConsts.LAST_PATH) ?? '/')
+      await registerPush()
     } else {
       setSignInFailed(true)
     }

@@ -18,9 +18,15 @@ export type EodiroRequestConfig<T = any> = Omit<AxiosRequestConfig, 'data'> & {
 
 export async function registerPush() {
   if (isClient() && window.isApp && window.expoPushToken) {
-    await Axios.post('/api/push', {
-      expoPushToken: window.expoPushToken,
-    })
+    try {
+      window.alert(`isApp: ${window.isApp}`)
+      window.alert(`expoPushToken: ${window.expoPushToken}`)
+      await Axios.post('/api/push', {
+        expoPushToken: window.expoPushToken,
+      })
+    } catch (error) {
+      window.alert(error)
+    }
   }
 }
 
@@ -81,6 +87,10 @@ export async function eodiroRequest<RQD = any, RSD = any>(
     }
 
     console.error(firstTryErr)
+
+    if (isClient()) {
+      window.alert(firstTryErr)
+    }
 
     throw firstTryErr
   }
