@@ -206,6 +206,8 @@ export class CauNoticeWatcher {
               type: 'notice',
               url: notice.noticeItemUrl,
             },
+            sound: 'default',
+            _displayInForeground: true,
           }
 
           pushes.push(pushInformation)
