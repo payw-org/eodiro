@@ -8,7 +8,9 @@ export type PushInformation = {
    */
   to: string | string[]
   title: string
+  subtitle?: string
   body: string
+  badge?: number
   data?:
     | {
         type: 'notice'
@@ -16,13 +18,12 @@ export type PushInformation = {
       }
     | {
         type: 'comment'
-        comment: string
         boardId: number
         postId: number
       }
     | Record<string, unknown>
-  sound: 'default'
-  _displayInForeground: boolean
+  sound?: 'default'
+  _displayInForeground?: boolean
 }
 
 type PushOk = { status: 'ok'; id: string }

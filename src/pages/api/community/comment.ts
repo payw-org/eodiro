@@ -2,6 +2,7 @@ import { createHandler, nextApi } from '@/modules/next-api-routes-helpers'
 import { prisma } from '@/modules/prisma'
 import { requireAuthMiddleware } from '@/modules/server/middlewares/require-auth'
 import { validateRequiredReqDataMiddleware } from '@/modules/server/middlewares/validate-required-req-data'
+import Push from '@/modules/server/push'
 import { dbNow } from '@/modules/time'
 
 export const apiCommunityCreateCommentUrl = `/api/community/comment`
@@ -20,6 +21,7 @@ export type ApiCommunityDeleteCommentReqData = {
 // DELETE
 
 export default nextApi({
+  // Write a comment
   post: createHandler(async (req, res) => {
     await requireAuthMiddleware(req, res)
     await validateRequiredReqDataMiddleware<ApiCommunityCreateCommentReqData>({
@@ -36,7 +38,9 @@ export default nextApi({
       where: { id: postId },
     })
 
-    if (!post) {
+    // If the post doesn't exist or is deleted
+    // respond with NOT FOUND (404)
+    if (!post || post.isDeleted) {
       res.status(404).end()
 
       return
@@ -60,8 +64,34 @@ export default nextApi({
       },
     })
 
+    // Push notification to the post author
+    if (post.userId !== user.id) {
+      const pushes = await prisma.push.findMany({
+        where: {
+          userId: post.userId,
+        },
+      })
+
+      if (pushes.length > 0) {
+        Push.notify({
+          to: pushes.map((push) => push.expoPushToken),
+          title: '회원님의 포스트에 새로운 댓글이 등록되었습니다.',
+          body: trimmedBody,
+          data: {
+            type: 'comment',
+            boardId: post.boardId,
+            postId: post.id,
+          },
+          sound: 'default',
+        }).catch((error) => {
+          console.error(error)
+        })
+      }
+    }
+
     res.status(200).end()
   }),
+  // Delete a comment
   delete: async (req, res) => {
     await requireAuthMiddleware(req, res)
     await validateRequiredReqDataMiddleware<ApiCommunityDeleteCommentReqData>({
