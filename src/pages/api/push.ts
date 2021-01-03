@@ -32,6 +32,7 @@ export default nextApi({
         activeAt: now,
       },
       update: {
+        user: { connect: { id: user.id } },
         activeAt: now,
       },
     })
