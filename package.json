@@ -10,7 +10,7 @@
     "ts-node": "ts-node --project ./tsconfig.node.json -r tsconfig-paths/register",
     "dev": "npm run generate:dev && next --port 3020",
     "lint": "eslint . --ext .ts,.tsx",
-    "build": "npm run generate && next build",
+    "build": "npm run generate && npm run build:cron && next build",
     "build:cron": "npx ttsc --project tsconfig.cron.json",
     "start": "next start --port 3000",
     "pm2:start": "if pm2 show eodiro ; then npm run pm2:stop && npm run pm2:delete && npm run pm2:start ; else pm2 start npm --name 'eodiro' -- run start ; fi",
