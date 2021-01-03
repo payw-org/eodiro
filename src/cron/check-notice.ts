@@ -1,5 +1,5 @@
-import { CauNoticeWatcher } from '../src/modules/server/cau-notice-watcher'
-import * as Vendors from '../src/modules/server/cau-notice-watcher/vendors'
+import { CauNoticeWatcher } from '@/modules/server/cau-notice-watcher'
+import * as Vendors from '@/modules/server/cau-notice-watcher/vendors'
 
 async function run() {
   const feed = new CauNoticeWatcher()

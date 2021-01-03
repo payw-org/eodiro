@@ -1,5 +1,5 @@
+import { prisma } from '@/modules/prisma'
 import { rng } from '@/modules/random-name-generator'
-import { prisma } from '../src/modules/prisma'
 
 async function updateRandomNicknames() {
   const users = await prisma.user.findMany()

@@ -1,5 +1,5 @@
+import { prisma } from '@/modules/prisma'
 import dayjs from 'dayjs'
-import { prisma } from '../src/modules/prisma'
 
 async function clearPendingUsers() {
   const pendingUsers = await prisma.pendingUser.findMany()
