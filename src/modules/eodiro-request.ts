@@ -6,6 +6,7 @@ import Axios, { AxiosRequestConfig } from 'axios'
 import produce from 'immer'
 import { eodiroHost } from './eodiro-host'
 import { JwtErrorName } from './jwt'
+import { isClient } from './utils/is-client'
 
 export enum UnauthorizedError {
   Unauthorized = 'Unauthorized',
@@ -13,6 +14,14 @@ export enum UnauthorizedError {
 
 export type EodiroRequestConfig<T = any> = Omit<AxiosRequestConfig, 'data'> & {
   data?: T
+}
+
+export async function registerPush() {
+  if (isClient() && window.isApp && window.expoPushToken) {
+    await Axios.post('/api/push', {
+      expoPushToken: window.expoPushToken,
+    })
+  }
 }
 
 async function clearAuthCookie() {
@@ -60,6 +69,7 @@ export async function eodiroRequest<RQD = any, RSD = any>(
       if (accessUnauthorized.error?.name === JwtErrorName.TokenExpiredError) {
         try {
           await Axios.post<ApiAuthRefreshResData>('/api/auth/refresh')
+          await registerPush()
 
           return await eodiroRequest<RQD, RSD>(sanitiedReqeuestConfig)
         } catch (refreshErr) {

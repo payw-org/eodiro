@@ -9,10 +9,9 @@ import React, { useEffect } from 'react'
 import { useSetRecoilState } from 'recoil'
 import $ from './style.module.scss'
 
-const BaseLayout: React.FC<{ shouldCheckAuth: boolean }> = ({
-  children,
-  shouldCheckAuth,
-}) => {
+const BaseLayout: React.FC<{
+  shouldCheckAuth: boolean
+}> = ({ children, shouldCheckAuth }) => {
   const setAuthData = useSetRecoilState(authState)
 
   useEffect(() => {

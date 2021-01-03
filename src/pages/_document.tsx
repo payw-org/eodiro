@@ -7,50 +7,25 @@ import Document, {
 } from 'next/document'
 
 class MyDocument extends Document {
+  static isDevice = false
+
   static async getInitialProps(ctx: DocumentContext) {
+    if (ctx.req?.headers['eodiro-agent']) {
+      MyDocument.isDevice = true
+    } else {
+      MyDocument.isDevice = false
+    }
+
     const initialProps = await Document.getInitialProps(ctx)
     return { ...initialProps }
   }
 
   render() {
-    const devOptions: {
-      'data-forced-api-enabled'?: string
-      'data-use-prod-api'?: string
-      'data-use-dev-api'?: string
-    } = {}
-    const useProdApi = process.env.npm_config_use_prod_api === 'true'
-    const useDevApi = process.env.npm_config_use_dev_api === 'true'
-
-    if (useProdApi || useDevApi) {
-      devOptions['data-forced-api-enabled'] = ''
-    }
-    if (useProdApi) {
-      devOptions['data-use-prod-api'] = ''
-    }
-    if (useDevApi) {
-      devOptions['data-use-dev-api'] = ''
-    }
-
-    let modeLabel = ''
-
-    if (useProdApi) {
-      modeLabel = 'Prod API'
-    } else if (useDevApi) {
-      modeLabel = 'Dev API'
-    } else {
-      modeLabel = ''
-    }
-
     return (
-      <Html lang="ko" {...devOptions}>
+      <Html lang="ko" className={MyDocument.isDevice ? 'is-device' : ''}>
         <Head />
-        <body className="dimmed">
-          <Main />
-          {(useProdApi || useDevApi) && (
-            <div className="forced-api-enabled">{modeLabel}</div>
-          )}
-          <NextScript />
-        </body>
+        <Main />
+        <NextScript />
       </Html>
     )
   }

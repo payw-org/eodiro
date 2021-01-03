@@ -140,10 +140,12 @@ export default function EdrApp({
 }
 
 EdrApp.getInitialProps = async ({ ctx }: AppContextType) => {
+  const { req } = ctx
+
   let shouldCheckAuth = false
 
-  if (ctx.req) {
-    const cookie = getCookie(ctx.req)
+  if (req) {
+    const cookie = getCookie(req)
 
     if (
       cookie[eodiroConsts.EDR_ACCESS_TOKEN_NAME] ||

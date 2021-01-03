@@ -132,6 +132,21 @@ const Home: React.FC = () => {
               label="beta"
             />
             <HomeFeatureBox
+              title="학교 공지사항 알림"
+              to="/notice-notifications"
+              Icon={
+                <i
+                  className={classNames('f7-icons', $['icon'])}
+                  style={{
+                    color: EodiroColors.yellow2,
+                  }}
+                >
+                  app_badge
+                </i>
+              }
+              label="beta"
+            />
+            <HomeFeatureBox
               title="오픈 소스"
               to="/opensource"
               Icon={
@@ -189,22 +204,6 @@ const Home: React.FC = () => {
                   doc_text_search
                 </i>
               }
-            />
-            <HomeFeatureBox
-              disabled
-              title="학교 공지사항 알림"
-              to="/notice-notifications"
-              Icon={
-                <i
-                  className={classNames('f7-icons', $['icon'])}
-                  style={{
-                    color: EodiroColors.yellow2,
-                  }}
-                >
-                  app_badge
-                </i>
-              }
-              label="beta"
             />
           </Grid>
         </div>

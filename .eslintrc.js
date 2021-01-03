@@ -36,7 +36,7 @@ module.exports = {
     'no-param-reassign': 'off',
     'no-restricted-syntax': 'off',
     'no-alert': 'off',
-    'no-console': ['warn', { allow: ['warn', 'error', 'info'] }],
+    'no-console': ['warn', { allow: ['warn', 'error', 'info', 'table'] }],
     'react/jsx-key': ['error', { checkFragmentShorthand: true }],
     'react/jsx-props-no-spreading': 'off',
     'react/display-name': 'off',

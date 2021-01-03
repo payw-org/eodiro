@@ -1,7 +1,6 @@
 import { authState } from '@/atoms/auth'
 import { VerticalThreeDotsIcon } from '@/components/global/icons'
 import EodiroLogo from '@/components/global/icons/EodiroLogo'
-import { isApp } from '@/modules/booleans/is-app'
 import classNames from 'classnames'
 import Link from 'next/link'
 import React, { useContext } from 'react'
@@ -93,50 +92,28 @@ const Navigation: React.FC = () => {
       <BgBar />
 
       <div className={$['en-wrapper']}>
-        {isApp() && window.location.pathname === '/' ? (
-          <div className={$['spacer']} />
-        ) : (
-          <Link href="/">
-            <a className={$['home-link']}>
-              <EodiroLogo className={$['eodiro-logo']} fill="#ff3852" />
-            </a>
-          </Link>
-        )}
+        <Link href="/">
+          <a className={$['home-link']}>
+            <EodiroLogo className={$['eodiro-logo']} fill="#ff3852" />
+          </a>
+        </Link>
 
         <PageAppTitle />
 
         <NavMenus />
 
-        {isApp() ? (
-          <Link href={userId ? '/my' : '/login'}>
-            <div className={$['app-nav-right-button']}>
-              {window.location.pathname !== '/login' &&
-                window.location.pathname !== '/my' && (
-                  <i
-                    className="f7-icons"
-                    style={{
-                      fontSize: 25,
-                    }}
-                  >
-                    person_crop_circle
-                  </i>
-                )}
-            </div>
-          </Link>
-        ) : (
-          <button
-            type="button"
-            className={$['more-tappable']}
-            onClick={(e): void => {
-              e.preventDefault()
-              setMenuOpen((open) => {
-                return !open
-              })
-            }}
-          >
-            <VerticalThreeDotsIcon className={$['more-icon']} />
-          </button>
-        )}
+        <button
+          type="button"
+          className={$['more-tappable']}
+          onClick={(e): void => {
+            e.preventDefault()
+            setMenuOpen((open) => {
+              return !open
+            })
+          }}
+        >
+          <VerticalThreeDotsIcon className={$['more-icon']} />
+        </button>
       </div>
     </nav>
   )

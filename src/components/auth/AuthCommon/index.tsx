@@ -2,7 +2,7 @@ import { authState } from '@/atoms/auth'
 import { Button, LineInput } from '@/components/ui'
 import { eodiroConsts } from '@/constants'
 import Body from '@/layouts/BaseLayout/Body'
-import { eodiroRequest } from '@/modules/eodiro-request'
+import { eodiroRequest, registerPush } from '@/modules/eodiro-request'
 import { ApiAuthForgotReqBody, apiAuthForgotUrl } from '@/pages/api/auth/forgot'
 import {
   ApiAuthJoinRequestBody,
@@ -76,6 +76,8 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
       '/api/auth/login',
       loginData
     )
+
+    await registerPush()
 
     setValidating(false)
 
@@ -306,13 +308,13 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
           {mode === 'signin' && (
             <>
               <p className={$['new']}>
-                <b style={{ fontWeight: 600 }}>어디로</b>는 처음인가요?{' '}
+                <b style={{ fontWeight: 600 }}>어디로</b>에 처음이신가요?{' '}
                 <Link href="/join">
                   <a className={$['join']}>회원가입 →</a>
                 </Link>
               </p>
               <p className={$['forgot']}>
-                암호를 잊었나요?{' '}
+                암호를 잊으셨나요?{' '}
                 <Link href="/forgot">
                   <a className={$['join']}>암호 변경 →</a>
                 </Link>
