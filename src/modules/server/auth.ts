@@ -93,6 +93,7 @@ export default class Auth {
         nickname,
         token: pendingToken,
         randomNickname: rng(),
+        joinedAt: dbNow(),
       },
     })
 

@@ -36,12 +36,14 @@ export default nextApi({
       return
     }
 
-    const alreadyLiked = await prisma.communityPostLike.findFirst({
-      where: { userId, postId },
+    const alreadyLiked = await prisma.communityPostLike.findUnique({
+      where: { userId_postId: { userId, postId } },
     })
 
     if (alreadyLiked) {
-      await prisma.communityPostLike.delete({ where: { id: alreadyLiked.id } })
+      await prisma.communityPostLike.delete({
+        where: { userId_postId: { userId, postId } },
+      })
 
       const count = await prisma.communityPostLike.count({
         where: { postId },

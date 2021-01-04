@@ -36,13 +36,13 @@ export default nextApi({
       return
     }
 
-    const alreadyBookmarked = await prisma.communityPostBookmark.findFirst({
-      where: { userId, postId },
+    const alreadyBookmarked = await prisma.communityPostBookmark.findUnique({
+      where: { userId_postId: { userId, postId } },
     })
 
     if (alreadyBookmarked) {
       await prisma.communityPostBookmark.delete({
-        where: { id: alreadyBookmarked.id },
+        where: { userId_postId: { userId, postId } },
       })
 
       const count = await prisma.communityPostBookmark.count({
