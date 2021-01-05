@@ -1,7 +1,7 @@
 import { useUserId } from '@/atoms/auth'
 import PageInfo from '@/components/utils/PageInfo'
 import Body from '@/layouts/BaseLayout/Body'
-import { isApp } from '@/modules/booleans/is-app'
+import { isInApp } from '@/modules/booleans/is-in-app'
 import { eodiroRequest } from '@/modules/eodiro-request'
 import { availableVendors } from '@/modules/server/cau-notice-watcher/vendors'
 import {
@@ -90,7 +90,7 @@ const NoticeWatcher: React.FC = () => {
         description="이제 더 이상 학교 공지사항을 놓치지 마세요."
       />
 
-      {!isApp() && (
+      {!isInApp() && (
         <p className={$['not-app-tip']}>
           이 기능은 앱에서만 이용할 수 있습니다.
         </p>

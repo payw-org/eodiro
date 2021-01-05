@@ -4,8 +4,10 @@ import { ApiAuthGeneralErrResData } from '@/pages/api/auth/verify'
 import { Cookies } from '@/pages/api/cookie'
 import Axios, { AxiosRequestConfig } from 'axios'
 import produce from 'immer'
+import { isInApp } from './booleans/is-in-app'
 import { eodiroHost } from './eodiro-host'
 import { JwtErrorName } from './jwt'
+import { reactNativeWebViewPostMessage } from './native/react-native-webview'
 import { isClient } from './utils/is-client'
 
 export enum UnauthorizedError {
@@ -17,15 +19,38 @@ export type EodiroRequestConfig<T = any> = Omit<AxiosRequestConfig, 'data'> & {
 }
 
 export async function registerPush() {
-  if (isClient() && window.isApp && window.expoPushToken) {
-    try {
-      await Axios.post('/api/push', {
-        expoPushToken: window.expoPushToken,
-      })
-    } catch (error) {
-      window.alert(error)
+  return new Promise((resolve) => {
+    if (!isInApp()) {
+      resolve(null)
+      return
     }
-  }
+
+    async function onMessageHandler(e: MessageEvent) {
+      const expoPushToken = e.data
+
+      if (!expoPushToken) {
+        resolve(null)
+        return
+      }
+
+      try {
+        await Axios.post('/api/push', {
+          expoPushToken,
+        })
+      } catch (error) {
+        window.alert(error)
+      }
+
+      resolve(expoPushToken)
+      window.removeEventListener('message', onMessageHandler)
+    }
+
+    window.addEventListener('message', onMessageHandler)
+
+    reactNativeWebViewPostMessage({
+      requestExpoPushToken: true,
+    })
+  })
 }
 
 async function clearAuthCookie() {
@@ -47,6 +72,8 @@ async function clearAuthCookie() {
     method: 'POST',
     data: cookies,
   })
+
+  window.location.reload()
 }
 
 export async function eodiroRequest<RQD = any, RSD = any>(

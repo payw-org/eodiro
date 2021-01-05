@@ -1,8 +1,12 @@
 import '@/assets/styles/global/globalstyle.scss'
+import { authState } from '@/atoms/auth'
 import PageInfo from '@/components/utils/PageInfo'
 import { eodiroConsts } from '@/constants'
+import { phrases } from '@/constants/phrases'
 import BaseLayout from '@/layouts/BaseLayout'
-import { eodiroRequest } from '@/modules/eodiro-request'
+import { eodiroRequest, registerPush } from '@/modules/eodiro-request'
+import { AuthData } from '@/modules/jwt'
+import { reactNativeWebViewPostMessage } from '@/modules/native/react-native-webview'
 import { isDev } from '@/modules/utils/is-dev'
 import 'intersection-observer'
 import { AppProps } from 'next/app'
@@ -10,9 +14,10 @@ import { AppContextType } from 'next/dist/next-server/lib/utils'
 import Head from 'next/head'
 import Router from 'next/router'
 import React, { useEffect } from 'react'
-import { RecoilRoot } from 'recoil'
+import { RecoilRoot, useSetRecoilState } from 'recoil'
 import 'swiper/swiper.scss'
 import { SWRConfig } from 'swr'
+import { ApiAuthVerifyResData } from './api/auth/verify'
 import { getCookie } from './api/cookie'
 import './_document.scss'
 
@@ -80,6 +85,35 @@ export default function EdrApp({
         return true
       })
     }
+
+    reactNativeWebViewPostMessage({
+      isLoaded: true,
+    })
+  }, [])
+
+  const setAuthData = useSetRecoilState(authState)
+
+  useEffect(() => {
+    async function init() {
+      try {
+        const responseData = await eodiroRequest<null, ApiAuthVerifyResData>({
+          url: '/api/auth/verify',
+          method: 'POST',
+        })
+
+        await registerPush()
+
+        setAuthData(responseData.authData as AuthData)
+      } catch (error) {
+        // JWT verification error
+        window.alert(error)
+      }
+    }
+
+    if (shouldCheckAuth) {
+      init()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -130,7 +164,7 @@ export default function EdrApp({
             },
           }}
         >
-          <BaseLayout shouldCheckAuth={shouldCheckAuth}>
+          <BaseLayout>
             <Component {...pageProps} />
           </BaseLayout>
         </SWRConfig>
