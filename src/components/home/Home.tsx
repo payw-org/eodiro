@@ -1,4 +1,5 @@
 import { eodiroConsts } from '@/constants'
+import { phrases } from '@/constants/phrases'
 import Body from '@/layouts/BaseLayout/Body'
 import Grid from '@/layouts/Grid'
 import EodiroColors from '@/modules/styles/EodiroColors'
@@ -93,7 +94,7 @@ const Home: React.FC = () => {
         </h1>
         <p className={$['manifesto']}>
           <span className={classNames($['text'], animate && $['animate'])}>
-            중앙대 학생들만을 위한 길잡이 서비스
+            {phrases.SLOGAN}
           </span>
         </p>
 

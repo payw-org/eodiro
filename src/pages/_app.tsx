@@ -114,7 +114,7 @@ export default function EdrApp({
           subject: '어디로',
           onlySubject: true,
         }}
-        description="중앙대 학생들만을 위한 길잡이 서비스"
+        description={phrases.SLOGAN}
         ogImage="https://eodiro.com/open-graph/open_graph.png"
       />
       <RecoilRoot>
