@@ -20,6 +20,8 @@ export type PushInformation = {
         type: 'comment'
         boardId: number
         postId: number
+        commentId?: number
+        subcommentId?: number
       }
     | Record<string, unknown>
   sound?: 'default'
