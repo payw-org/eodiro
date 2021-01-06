@@ -10,7 +10,7 @@ import 'intersection-observer'
 import { AppProps } from 'next/app'
 import { AppContextType } from 'next/dist/next-server/lib/utils'
 import Head from 'next/head'
-import Router from 'next/router'
+import Router, { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { RecoilRoot } from 'recoil'
 import 'swiper/swiper.scss'
@@ -29,6 +29,26 @@ export default function EdrApp({
   pageProps,
   shouldCheckAuth,
 }: EdrAppProps) {
+  const router = useRouter()
+
+  useEffect(() => {
+    let f: (e: MessageEvent) => void
+    window.addEventListener(
+      'message',
+      (f = (e: MessageEvent) => {
+        if (e.data === 'reload') {
+          router.reload()
+        }
+      })
+    )
+
+    return () => {
+      window.removeEventListener('message', f)
+    }
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   useEffect(() => {
     // Set topbar
     const w = globalThis as any
