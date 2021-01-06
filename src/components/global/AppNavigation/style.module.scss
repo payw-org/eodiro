@@ -1,0 +1,27 @@
+@use '@/assets/styles/main' as *;
+
+.app-navigation {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba($base-white-blue, 0.8);
+  backdrop-filter: blur(20px) saturate(1.7);
+
+  .controllers-container {
+    height: 60px;
+
+    button {
+      font-size: 30px;
+      width: 60px;
+    }
+  }
+
+  @include dark-mode {
+    background-color: rgba(#000, 0.7);
+  }
+
+  @include support-safe-area {
+    padding-bottom: $safe-bottom;
+  }
+}

@@ -1,7 +1,7 @@
 import { authState } from '@/atoms/auth'
 import GlobalFooter from '@/components/global/GlobalFooter'
 import Navigation, { NavContextProvider } from '@/components/global/Navigation'
-import { isInApp } from '@/modules/booleans/is-in-app'
+import { isInApp as checkIsInApp } from '@/modules/booleans/is-in-app'
 import { eodiroRequest, registerPush } from '@/modules/eodiro-request'
 import { AuthData } from '@/modules/jwt'
 import { ApiAuthVerifyResData } from '@/pages/api/auth/verify'
@@ -13,6 +13,7 @@ const BaseLayout: React.FC<{
   shouldCheckAuth: boolean
 }> = ({ children, shouldCheckAuth }) => {
   const setAuthData = useSetRecoilState(authState)
+  const isInApp = checkIsInApp()
 
   useEffect(() => {
     async function init() {
@@ -34,6 +35,7 @@ const BaseLayout: React.FC<{
     if (shouldCheckAuth) {
       init()
     }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -43,7 +45,8 @@ const BaseLayout: React.FC<{
         <div id={$['eodiro-app']}>
           <Navigation />
           {children}
-          {!isInApp() && <GlobalFooter />}
+          {!isInApp && <GlobalFooter />}
+          {/* {isInApp ? <AppNavigation /> : <GlobalFooter />} */}
         </div>
       </div>
     </NavContextProvider>

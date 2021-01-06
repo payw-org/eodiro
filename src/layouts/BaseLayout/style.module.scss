@@ -3,6 +3,14 @@
 #eodiro-app-scaffold {
   width: 100%;
 
+  &.is-in-app {
+    padding-bottom: 60px;
+
+    @include support-safe-area {
+      padding-bottom: calc(60px + #{$safe-bottom});
+    }
+  }
+
   #eodiro-app {
     .body-content {
       width: calc(100% - 2.5rem);
