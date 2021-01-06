@@ -1,6 +1,6 @@
-import { CommunityPost } from '@prisma/client'
+import { SafeCommunityPost } from '@/types/schema'
 
-export type CommunityPostWithCounts = CommunityPost & {
+export type CommunityPostWithCounts = SafeCommunityPost & {
   communityCommentsCount: number
   communityPostLikesCount: number
   communityPostBookmarksCount: number

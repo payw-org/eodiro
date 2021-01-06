@@ -2,7 +2,7 @@ import { createHandler, nextApi } from '@/modules/next-api-routes-helpers'
 import { prisma } from '@/modules/prisma'
 import { requireAuthMiddleware } from '@/modules/server/middlewares/require-auth'
 import { validateRequiredReqDataMiddleware } from '@/modules/server/middlewares/validate-required-req-data'
-import { CommunityComment, Prisma } from '@prisma/client'
+import { SafeCommunityComment, SafeCommunitySubcomment } from '@/types/schema'
 import queryString from 'query-string'
 
 export const apiCommunityCommentsUrl = (data: {
@@ -16,10 +16,14 @@ export type ApiCommunityCommentsReqData = {
   cursor?: number
 }
 
-export type ApiCommunityCommentsResData = CommunityComment[]
+export type CommunityCommentWithSubcomments = SafeCommunityComment & {
+  communitySubcomments: SafeCommunitySubcomment[]
+}
+
+export type ApiCommunityCommentsResData = CommunityCommentWithSubcomments[]
 
 export default nextApi({
-  get: createHandler(async (req, res) => {
+  get: createHandler<ApiCommunityCommentsResData>(async (req, res) => {
     await requireAuthMiddleware(req, res)
     await validateRequiredReqDataMiddleware<ApiCommunityCommentsReqData>({
       query: {
@@ -31,23 +35,59 @@ export default nextApi({
       },
     })(req, res)
 
+    const { user } = req
+
     const {
       postId,
       cursor,
     } = (req.query as unknown) as ApiCommunityCommentsReqData
 
-    const args: Prisma.FindManyCommunityCommentArgs = {
-      where: { postId, isDeleted: false },
+    const post = await prisma.communityPost.findUnique({
+      where: { id: postId },
+    })
+
+    if (!post) {
+      res.status(404).end()
+      return
+    }
+
+    const comments = await prisma.communityComment.findMany({
+      where: { postId },
+      include: {
+        communitySubcomments: {
+          where: {
+            isDeleted: false,
+          },
+        },
+      },
       orderBy: { id: 'asc' },
-    }
+      skip: cursor ? 1 : undefined,
+      cursor: cursor ? { id: cursor } : undefined,
+    })
 
-    if (cursor) {
-      args.skip = 1
-      args.cursor = { id: cursor }
-    }
+    const safeComments: ApiCommunityCommentsResData = comments.map(
+      (comment) => {
+        const { userId: u1, isDeleted: d1, ...commentRest } = comment
+        return {
+          ...commentRest,
+          isMine: comment.userId === user.id,
+          communitySubcomments: comment.communitySubcomments.map(
+            (subcomment) => {
+              const {
+                userId: u2,
+                isDeleted: d2,
+                ...subcommentRest
+              } = subcomment
+              return {
+                ...subcommentRest,
+                isMine: subcomment.userId === user.id,
+              }
+            }
+          ),
+        }
+      }
+    )
 
-    const comments = await prisma.communityComment.findMany(args)
-
-    res.json(comments)
+    res.json(safeComments)
   }),
 })

@@ -3,7 +3,7 @@ import { createHandler, nextApi } from '@/modules/next-api-routes-helpers'
 import { prisma } from '@/modules/prisma'
 import { requireAuthMiddleware } from '@/modules/server/middlewares/require-auth'
 import { validateRequiredReqDataMiddleware } from '@/modules/server/middlewares/validate-required-req-data'
-import { CommunityBoard } from '@prisma/client'
+import { SafeCommunityBoard } from '@/types/schema'
 import queryString from 'query-string'
 import { CommunityPostWithCounts } from '../types'
 
@@ -16,7 +16,7 @@ export type ApiCommunityBoardResData = {
   totalPage: number
   page: number
   board:
-    | (CommunityBoard & {
+    | (SafeCommunityBoard & {
         communityPosts: CommunityPostWithCounts[]
       })
     | null
@@ -26,9 +26,11 @@ export const apiCommunityBoardUrl = (data: ApiCommunityBoardReqData) =>
   `/api/community/board?${queryString.stringify(data)}`
 
 export const apiCommunityBoard = async (
-  data: ApiCommunityBoardReqData
+  data: ApiCommunityBoardReqData & {
+    userId: number
+  }
 ): Promise<ApiCommunityBoardResData> => {
-  const { boardId, page } = data
+  const { boardId, page, userId } = data
 
   const take = 30
   const skip = Math.max(page - 1, 0) * take
@@ -55,28 +57,34 @@ export const apiCommunityBoard = async (
     },
   })
 
-  const commentsCountedBoard: ApiCommunityBoardResData['board'] = board
-    ? {
-        ...board,
-        communityPosts: board.communityPosts.map((post) => {
-          const {
-            communityComments,
-            communityPostLikes,
-            communityPostBookmarks,
-            ...rest
-          } = post
+  let commentsCountedBoard: ApiCommunityBoardResData['board'] = null
 
-          return {
-            ...rest,
-            title: rest.title.slice(0, eodiroConsts.POST_LIST_SLICE_LENGTH),
-            body: rest.body.slice(0, eodiroConsts.POST_LIST_SLICE_LENGTH),
-            communityCommentsCount: communityComments.length,
-            communityPostLikesCount: communityPostLikes.length,
-            communityPostBookmarksCount: communityPostBookmarks.length,
-          }
-        }),
-      }
-    : null
+  if (board) {
+    const { isDeleted: d1, ...boardRest } = board
+    commentsCountedBoard = {
+      ...boardRest,
+      communityPosts: board.communityPosts.map((post) => {
+        const {
+          userId: u2,
+          isDeleted: d2,
+          communityComments,
+          communityPostLikes,
+          communityPostBookmarks,
+          ...postRest
+        } = post
+
+        return {
+          ...postRest,
+          isMine: post.userId === userId,
+          title: postRest.title.slice(0, eodiroConsts.POST_LIST_SLICE_LENGTH),
+          body: postRest.body.slice(0, eodiroConsts.POST_LIST_SLICE_LENGTH),
+          communityCommentsCount: communityComments.length,
+          communityPostLikesCount: communityPostLikes.length,
+          communityPostBookmarksCount: communityPostBookmarks.length,
+        }
+      }),
+    }
+  }
 
   return { totalPage, board: commentsCountedBoard, page }
 }
@@ -91,9 +99,11 @@ export default nextApi({
       },
     })(req, res)
 
-    const data = await apiCommunityBoard(
-      (req.query as unknown) as ApiCommunityBoardReqData
-    )
+    const { user } = req
+    const data = await apiCommunityBoard({
+      ...((req.query as unknown) as ApiCommunityBoardReqData),
+      userId: user.id,
+    })
 
     if (!data) {
       res.status(404).end()

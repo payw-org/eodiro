@@ -8,7 +8,11 @@ import { prisma } from '@/modules/prisma'
 import { requireAuthMiddleware } from '@/modules/server/middlewares/require-auth'
 import { validateRequiredReqDataMiddleware } from '@/modules/server/middlewares/validate-required-req-data'
 import { dbNow } from '@/modules/time'
-import { CommunityComment, CommunityPost } from '@prisma/client'
+import {
+  SafeCommunityComment,
+  SafeCommunityPost,
+  SafeCommunitySubcomment,
+} from '@/types/schema'
 import queryString from 'query-string'
 
 // GET
@@ -17,8 +21,10 @@ export type ApiCommunityPostReqData = {
 }
 
 export type ApiCommunityPostResData =
-  | (CommunityPost & {
-      communityComments: CommunityComment[]
+  | (SafeCommunityPost & {
+      communityComments: (SafeCommunityComment & {
+        communitySubcomments: SafeCommunitySubcomment[]
+      })[]
       communityPostLikesCount: number
       communityPostBookmarksCount: number
       likedByMe: boolean
@@ -33,22 +39,48 @@ export const apiCommunityPost = async ({
   postId: number
   userId: number
 }) => {
-  const data = await prisma.communityPost.findUnique({
+  const post = await prisma.communityPost.findUnique({
     where: { id: postId },
     include: {
       communityComments: {
-        where: { isDeleted: false },
         orderBy: { id: 'asc' },
+        include: {
+          communitySubcomments: {
+            where: {
+              isDeleted: false,
+            },
+          },
+        },
       },
       communityPostLikes: true,
       communityPostBookmarks: true,
     },
   })
 
-  if (data && !data.isDeleted) {
-    const { communityPostLikes, communityPostBookmarks, ...rest } = data
-    const countedData = {
+  if (post && !post.isDeleted) {
+    const {
+      userId: u1,
+      isDeleted: d1,
+      communityPostLikes,
+      communityPostBookmarks,
+      ...rest
+    } = post
+    const countedPost: ApiCommunityPostResData = {
       ...rest,
+      isMine: post.userId === userId,
+      communityComments: post.communityComments.map((comment) => {
+        const { userId: u2, isDeleted: d2, ...commentRest } = comment
+        return {
+          ...commentRest,
+          isMine: comment.userId === userId,
+          communitySubcomments: comment.communitySubcomments.map(
+            (subcomment) => ({
+              ...subcomment,
+              isMine: subcomment.userId === userId,
+            })
+          ),
+        }
+      }),
       communityPostLikesCount: communityPostLikes.length,
       communityPostBookmarksCount: communityPostBookmarks.length,
       likedByMe: communityPostLikes.some(
@@ -59,7 +91,7 @@ export const apiCommunityPost = async ({
       ),
     }
 
-    return countedData
+    return countedPost
   }
 
   return null

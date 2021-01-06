@@ -13,7 +13,7 @@ export type ApiCommunityCreateCommentReqData = {
 }
 
 // DELETE
-export const apiCommunityDeleteCommentUrl = `/api/community/comment`
+export const apiCommunityDeleteCommentUrl = apiCommunityCreateCommentUrl
 
 export type ApiCommunityDeleteCommentReqData = {
   commentId: number
@@ -54,7 +54,7 @@ export default nextApi({
     }
 
     // Create a comment
-    await prisma.communityComment.create({
+    const comment = await prisma.communityComment.create({
       data: {
         user: { connect: { id: user?.id } },
         commentedAt: dbNow(),
@@ -75,12 +75,13 @@ export default nextApi({
       if (pushes.length > 0) {
         Push.notify({
           to: pushes.map((push) => push.expoPushToken),
-          title: '회원님의 포스트에 새로운 댓글이 등록되었습니다.',
+          title: '회원님의 포스트에 새로운 댓글이 달렸습니다.',
           body: trimmedBody,
           data: {
             type: 'comment',
             boardId: post.boardId,
             postId: post.id,
+            commentId: comment.id,
           },
           sound: 'default',
         }).catch((error) => {

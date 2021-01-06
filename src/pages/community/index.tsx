@@ -73,7 +73,8 @@ export const getServerSideProps: GetServerSideProps<CommunityHomePageProps> = as
 }) => {
   await nextRequireAuthMiddleware(req, res)
 
-  const boards = await apiCommunityHome()
+  const { user } = req
+  const boards = await apiCommunityHome(user.id)
 
   return { props: { boards } }
 }

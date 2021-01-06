@@ -11,7 +11,9 @@ export type ApiCommunityHomeResData = (CommunityBoard & {
 
 export const apiCommunityHomeUrl = '/api/community/home'
 
-export const apiCommunityHome = async (): Promise<ApiCommunityHomeResData> => {
+export const apiCommunityHome = async (
+  userId: number
+): Promise<ApiCommunityHomeResData> => {
   const boards = await prisma.communityBoard.findMany({
     include: {
       communityPosts: {
@@ -35,16 +37,19 @@ export const apiCommunityHome = async (): Promise<ApiCommunityHomeResData> => {
         ...board,
         communityPosts: board.communityPosts.map((post) => {
           const {
+            userId: u1,
+            isDeleted: d1,
             communityComments,
             communityPostLikes,
             communityPostBookmarks,
-            ...rest
+            ...postRest
           } = post
 
           return {
-            ...rest,
-            title: rest.title.slice(0, eodiroConsts.POST_LIST_SLICE_LENGTH),
-            body: rest.body.slice(0, eodiroConsts.POST_LIST_SLICE_LENGTH),
+            ...postRest,
+            isMine: post.userId === userId,
+            title: postRest.title.slice(0, eodiroConsts.POST_LIST_SLICE_LENGTH),
+            body: postRest.body.slice(0, eodiroConsts.POST_LIST_SLICE_LENGTH),
             communityCommentsCount: communityComments.length,
             communityPostLikesCount: communityPostLikes.length,
             communityPostBookmarksCount: communityPostBookmarks.length,
@@ -61,7 +66,8 @@ export default nextApi({
   get: createHandler<ApiCommunityHomeResData>(async (req, res) => {
     await requireAuthMiddleware(req, res)
 
-    const boards = await apiCommunityHome()
+    const { user } = req
+    const boards = await apiCommunityHome(user.id)
 
     res.json(boards)
   }),

@@ -1,4 +1,3 @@
-import { useUserId } from '@/atoms/auth'
 import { Comments } from '@/components/community/Comments'
 import Information from '@/components/global/Information'
 import { ArrowBlock } from '@/components/ui'
@@ -14,6 +13,7 @@ import {
   ApiCommunityBookmarkPostResData,
   apiCommunityBookmarkPostUrl,
 } from '@/pages/api/community/bookmark-post'
+import { CommunityCommentWithSubcomments } from '@/pages/api/community/comments'
 import {
   ApiCommunityLikePostReqData,
   ApiCommunityLikePostResData,
@@ -26,7 +26,6 @@ import {
   apiCommunityUpsertDeleteUrl,
 } from '@/pages/api/community/post'
 import { communityBoardPageUrl, postEditorPageUrl } from '@/utils/page-urls'
-import { CommunityComment } from '@prisma/client'
 import classNames from 'classnames'
 import { GetServerSideProps, NextPage } from 'next'
 import Link from 'next/link'
@@ -39,13 +38,12 @@ type PostPageProps = {
   post: ApiCommunityPostResData
 }
 
-export const commentsState = atom<CommunityComment[]>({
+export const commentsState = atom<CommunityCommentWithSubcomments[]>({
   key: 'commentsState',
   default: [],
 })
 
 const PostPage: NextPage<PostPageProps> = ({ post }) => {
-  const userId = useUserId()
   const router = useRouter()
   const [comments, setComments] = useRecoilState(commentsState)
   const [likesCount, setLikesCount] = useState(
@@ -61,7 +59,7 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
    * https://github.com/facebookexperimental/Recoil/issues/12
    */
   useEffect(() => {
-    setComments(post?.communityComments as CommunityComment[])
+    setComments(post?.communityComments as CommunityCommentWithSubcomments[])
   }, [setComments, post?.communityComments])
 
   async function deletePost() {
@@ -135,7 +133,7 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
             <div className={$['header']}>
               <span className={$['author']}>{post.randomNickname}</span>
               <Flex className={$['right-side']}>
-                {post.userId === userId && (
+                {post.isMine && (
                   // Show delete and edit buttons when the post is mine
                   <div className={$['its-mine']}>
                     <button
