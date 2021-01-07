@@ -197,12 +197,12 @@ $border-color-dark: rgba(#fff, 0.17);
   }
 }
 
-$border-radius-outer: 0.7rem;
+$border-radius-outer: 12px;
 @mixin border-radius-outer {
   border-radius: $border-radius-outer;
 }
 
-$border-radius-inner: r(2);
+$border-radius-inner: 8px;
 @mixin border-radius-inner {
   border-radius: $border-radius-inner;
 }
