@@ -145,7 +145,7 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
                     </button>
                     <Link href={postEditorPageUrl(post.boardId, post.id)}>
                       <button type="button" className={$['edit']}>
-                        <i className="f7-icons">pencil_outline</i>
+                        <i className="f7-icons">square_pencil</i>
                       </button>
                     </Link>
                   </div>
