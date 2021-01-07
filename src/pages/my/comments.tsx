@@ -88,14 +88,17 @@ export const getServerSideProps: GetServerSideProps<MyCommentsProps> = async ({
 
   const countedPosts = posts.map((post) => {
     const {
+      userId: u1,
+      isDeleted: d1,
       communityComments,
       communityPostBookmarks,
       communityPostLikes,
-      ...rest
+      ...postRest
     } = post
 
     return {
-      ...rest,
+      ...postRest,
+      isMine: u1 === user.id,
       communityCommentsCount: communityComments.length,
       communityPostBookmarksCount: communityPostBookmarks.length,
       communityPostLikesCount: communityPostLikes.length,
