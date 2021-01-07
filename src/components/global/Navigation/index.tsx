@@ -82,7 +82,6 @@ const NavMenus: React.FC = () => {
 const Navigation: React.FC = () => {
   const isScrolled = useContext(NavScrollStateContext)
   const setMenuOpen = useContext(NavMenuOpenDispatchContext)
-  const { userId } = useRecoilValue(authState)
 
   return (
     <nav
