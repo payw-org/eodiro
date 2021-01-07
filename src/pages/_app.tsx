@@ -38,6 +38,16 @@ export default function EdrApp({
       (f = (e: MessageEvent) => {
         if (e.data === 'reload') {
           router.reload()
+        } else {
+          try {
+            const parsed = JSON.parse(e.data)
+
+            if (parsed.type === 'redirect') {
+              router.push(parsed.url)
+            }
+          } catch (parseError) {
+            //
+          }
         }
       })
     )
