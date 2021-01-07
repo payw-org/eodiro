@@ -1,4 +1,5 @@
-import { useUserId } from '@/atoms/auth'
+import { ArrowBlock } from '@/components/ui'
+import { Flex } from '@/components/ui/layouts/Flex'
 import { eodiroRequest } from '@/modules/eodiro-request'
 import { friendlyTime } from '@/modules/time'
 import {
@@ -10,15 +11,18 @@ import {
 import {
   ApiCommunityCommentsResData,
   apiCommunityCommentsUrl,
+  CommunityCommentWithSubcomments,
 } from '@/pages/api/community/comments'
+import {
+  ApiCommunityDeleteSubcommentReqData,
+  apiCommunityDeleteSubcommentUrl,
+} from '@/pages/api/community/subcomment'
 import { commentsState } from '@/pages/community/board/[boardId]/post/[postId]'
 import { Dispatcher } from '@/types/react-helper'
-import { CommunityComment } from '@prisma/client'
+import produce from 'immer'
 import React, { useState } from 'react'
 import { useSetRecoilState } from 'recoil'
-import { ArrowBlock } from '../ui'
-import { Flex } from '../ui/layouts/Flex'
-import $ from './Comments.module.scss'
+import $ from './style.module.scss'
 
 async function deleteComment(commentId: number): Promise<boolean> {
   try {
@@ -42,23 +46,73 @@ async function deleteComment(commentId: number): Promise<boolean> {
   return false
 }
 
+async function deleteSubcomment(subcommentId: number): Promise<boolean> {
+  try {
+    await eodiroRequest<ApiCommunityDeleteSubcommentReqData>({
+      url: apiCommunityDeleteSubcommentUrl,
+      method: 'DELETE',
+      data: {
+        subcommentId,
+      },
+    })
+
+    return true
+  } catch (error) {
+    if (error.response?.status === 404) {
+      window.alert('이미 삭제된 댓글입니다.')
+
+      return false
+    }
+  }
+
+  return false
+}
+
 const CommentItem: React.FC<{
-  comment: CommunityComment
+  comment: CommunityCommentWithSubcomments
 }> = ({ comment }) => {
-  const userId = useUserId()
   const setComments = useSetRecoilState(commentsState)
 
-  async function onDelete() {
+  async function onDeleteComment() {
     if (!window.confirm('정말 삭제하시겠습니까?')) return
 
     const result = await deleteComment(comment.id)
 
     if (result) {
       setComments((prevComments) => {
-        const nextComments = [...prevComments]
-        const index = nextComments.findIndex((c) => c.id === comment.id)
+        const nextComments = produce(prevComments, (draftComments) => {
+          const index = draftComments.findIndex((c) => c.id === comment.id)
 
-        nextComments.splice(index, 1)
+          draftComments.splice(index, 1)
+        })
+
+        return nextComments
+      })
+    }
+  }
+
+  async function onDeleteSubcomment(subcommentId: number) {
+    if (!window.confirm('정말 삭제하시겠습니까?')) return
+
+    const result = await deleteSubcomment(subcommentId)
+
+    if (result) {
+      setComments((prevComments) => {
+        const nextComments = produce(prevComments, (draftComments) => {
+          const commentIndex = draftComments.findIndex(
+            (c) => c.id === comment.id
+          )
+          const subCommentIndex = draftComments[
+            commentIndex
+          ].communitySubcomments.findIndex(
+            (subcomment) => subcomment.id === subcommentId
+          )
+
+          draftComments[commentIndex].communitySubcomments.splice(
+            subCommentIndex,
+            1
+          )
+        })
 
         return nextComments
       })
@@ -70,8 +124,12 @@ const CommentItem: React.FC<{
       <div className={$['comment-header']}>
         <h3 className={$['author']}>{comment.randomNickname}</h3>
         <Flex className={$['right-side']}>
-          {comment.userId === userId && (
-            <button type="button" className={$['delete']} onClick={onDelete}>
+          {comment.isMine && (
+            <button
+              type="button"
+              className={$['delete']}
+              onClick={onDeleteComment}
+            >
               <i className="f7-icons">trash</i>
             </button>
           )}
@@ -81,13 +139,40 @@ const CommentItem: React.FC<{
         </Flex>
       </div>
       <p className={$['body']}>{comment.body}</p>
+
+      {comment.communitySubcomments.length > 0 && (
+        <div className={$['subcomments']}>
+          {comment.communitySubcomments.map((subcomment) => (
+            <div key={subcomment.id} className={$['subcomment-item']}>
+              <div className={$['comment-header']}>
+                <h3 className={$['author']}>{subcomment.randomNickname}</h3>
+                <Flex className={$['right-side']}>
+                  {subcomment.isMine && (
+                    <button
+                      type="button"
+                      className={$['delete']}
+                      onClick={() => onDeleteSubcomment(subcomment.id)}
+                    >
+                      <i className="f7-icons">trash</i>
+                    </button>
+                  )}
+                  <span className={$['commented-at']}>
+                    {friendlyTime(subcomment.subcommentedAt)}
+                  </span>
+                </Flex>
+              </div>
+              <p className={$['body']}>{subcomment.body}</p>
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
 
 export const Comments: React.FC<{
-  comments: CommunityComment[]
-  setComments: Dispatcher<CommunityComment[]>
+  comments: CommunityCommentWithSubcomments[]
+  setComments: Dispatcher<CommunityCommentWithSubcomments[]>
   postId: number
 }> = ({ comments, setComments, postId }) => {
   const [newComment, setNewComment] = useState('')

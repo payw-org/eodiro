@@ -64,6 +64,18 @@
   }
 }
 
+.subcomments {
+  margin-left: 20px;
+  padding-top: 10px;
+}
+
+.subcomment-item {
+  @include elm-fill-distinct;
+  margin-top: 10px;
+  border-radius: $border-radius-inner;
+  padding: 14px;
+}
+
 .new-comment {
   margin-top: 20px;
 }
