@@ -114,7 +114,9 @@ export async function eodiroRequest<RQD = any, RSD = any>(
     console.error(firstTryErr)
 
     if (isClient()) {
-      window.alert(firstTryErr)
+      window.alert(
+        `${firstTryErr.response.status}, ${firstTryErr.response.statusText}`
+      )
     }
 
     throw firstTryErr
