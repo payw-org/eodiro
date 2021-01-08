@@ -42,6 +42,11 @@
       margin-left: 10px;
     }
 
+    .subcomment {
+      color: $eodiro-green-2;
+      margin-right: 10px;
+    }
+
     .delete {
       color: $eodiro-primary-color;
       margin-right: 10px;
@@ -66,7 +71,6 @@
 
 .subcomments {
   margin-left: 20px;
-  padding-top: 10px;
 }
 
 .subcomment-item {
@@ -74,8 +78,41 @@
   margin-top: 10px;
   border-radius: $border-radius-inner;
   padding: 14px;
+  position: relative;
+
+  .arrow {
+    position: absolute;
+    top: 15px;
+    right: calc(100% + 4px);
+    font-size: 16px;
+    color: $base-gray;
+  }
 }
 
-.new-comment {
+.comment-input {
   margin-top: 20px;
+}
+
+.subcomment-input {
+  margin-top: 14px;
+  position: relative;
+
+  input {
+    box-shadow: none;
+    @include elm-fill-distinct;
+  }
+
+  .cancel-new-subcomment {
+    position: absolute;
+    right: calc(100% + 4px);
+    top: 50%;
+    transform: translateY(-50%);
+    color: $eodiro-primary-color;
+  }
+}
+
+.new-subcomment-text-btn {
+  margin-top: 14px;
+  color: $eodiro-green-2;
+  width: 100%;
 }
