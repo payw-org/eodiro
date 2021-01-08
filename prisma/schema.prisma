@@ -194,7 +194,7 @@ model CommunityComment {
   isDeleted            Boolean               @default(false) @map("is_deleted")
   communityPost        CommunityPost         @relation("community_commentTocommunity_post", fields: [postId], references: [id])
   user                 User                  @relation("community_commentTouser", fields: [userId], references: [id])
-  community_subcomment CommunitySubcomment[] @relation("community_commentTocommunity_subcomment")
+  communitySubcomments CommunitySubcomment[] @relation("community_commentTocommunity_subcomment")
 
   @@index([postId], name: "post_id")
   @@index([userId], name: "user_id")
@@ -224,11 +224,15 @@ model CommunityPostBookmark {
 }
 
 model CommunitySubcomment {
-  id                Int              @id @default(autoincrement())
-  userId            Int              @map("user_id")
-  commentId         Int              @map("comment_id")
-  community_comment CommunityComment @relation("community_commentTocommunity_subcomment", fields: [commentId], references: [id])
-  user              User             @relation("community_subcommentTouser", fields: [userId], references: [id])
+  id               Int              @id @default(autoincrement())
+  userId           Int              @map("user_id")
+  commentId        Int              @map("comment_id")
+  randomNickname   String           @default("") @map(name: "random_nickname")
+  body             String
+  subcommentedAt   DateTime         @map(name: "subcommented_at")
+  isDeleted        Boolean          @default(false) @map("is_deleted")
+  communityComment CommunityComment @relation("community_commentTocommunity_subcomment", fields: [commentId], references: [id])
+  user             User             @relation("community_subcommentTouser", fields: [userId], references: [id])
 
   @@index([commentId], name: "comment_id")
   @@index([userId], name: "user_id")
