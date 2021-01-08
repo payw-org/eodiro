@@ -138,9 +138,11 @@ export const getServerSideProps: GetServerSideProps<BoardPageProps> = async ({
 }) => {
   await nextRequireAuthMiddleware(req, res)
 
+  const { user } = req
   const boardInformation = await apiCommunityBoard({
     boardId: Number(params?.boardId),
     page: query.page ? Math.max(Number(query.page), 1) : 1,
+    userId: user.id,
   })
 
   const boardsList = await prisma.communityBoard.findMany({

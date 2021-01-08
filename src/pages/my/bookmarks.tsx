@@ -87,14 +87,17 @@ export const getServerSideProps: GetServerSideProps<MyBookmarksProps> = async ({
 
   const countedPosts = posts.map((post) => {
     const {
+      userId,
+      isDeleted,
       communityComments,
       communityPostBookmarks,
       communityPostLikes,
-      ...rest
+      ...safePostRest
     } = post
 
     return {
-      ...rest,
+      ...safePostRest,
+      isMine: post.userId === user.id,
       communityCommentsCount: communityComments.length,
       communityPostBookmarksCount: communityPostBookmarks.length,
       communityPostLikesCount: communityPostLikes.length,

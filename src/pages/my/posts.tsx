@@ -74,16 +74,19 @@ export const getServerSideProps: GetServerSideProps<MyPostsProps> = async ({
     },
   })
 
-  const countedPosts = posts.map((post) => {
+  const countedPosts: MyPostsProps['posts'] = posts.map((post) => {
     const {
+      userId,
+      isDeleted,
       communityComments,
       communityPostBookmarks,
       communityPostLikes,
-      ...rest
+      ...safePostRest
     } = post
 
     return {
-      ...rest,
+      ...safePostRest,
+      isMine: post.userId === user.id,
       communityCommentsCount: communityComments.length,
       communityPostBookmarksCount: communityPostBookmarks.length,
       communityPostLikesCount: communityPostLikes.length,
