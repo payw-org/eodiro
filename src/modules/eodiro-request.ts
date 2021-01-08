@@ -8,7 +8,6 @@ import { isInApp } from './booleans/is-in-app'
 import { eodiroHost } from './eodiro-host'
 import { JwtErrorName } from './jwt'
 import { reactNativeWebViewPostMessage } from './native/react-native-webview'
-import { isClient } from './utils/is-client'
 
 export enum UnauthorizedError {
   Unauthorized = 'Unauthorized',
@@ -38,7 +37,10 @@ export async function registerPush() {
           expoPushToken,
         })
       } catch (error) {
-        window.alert(error)
+        console.error(error)
+        window.alert(
+          '푸시 토큰 등록에 실패했습니다. 오류가 반복될 시 문의 바랍니다.'
+        )
       }
 
       resolve(expoPushToken)
@@ -112,12 +114,6 @@ export async function eodiroRequest<RQD = any, RSD = any>(
     }
 
     console.error(firstTryErr)
-
-    if (isClient()) {
-      window.alert(
-        `${firstTryErr.response.status}, ${firstTryErr.response.statusText}`
-      )
-    }
 
     throw firstTryErr
   }
