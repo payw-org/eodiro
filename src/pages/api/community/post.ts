@@ -43,6 +43,7 @@ export const apiCommunityPost = async ({
     where: { id: postId },
     include: {
       communityComments: {
+        where: { isDeleted: false },
         orderBy: { id: 'asc' },
         include: {
           communitySubcomments: {
