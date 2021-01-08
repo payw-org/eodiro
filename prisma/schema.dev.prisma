@@ -249,9 +249,3 @@ model Push {
   @@index([userId], name: "user_id")
   @@map("push")
 }
-
-model ActivityNotification {
-  id Int @id @default(autoincrement())
-
-  @@map("activity_notification")
-}
