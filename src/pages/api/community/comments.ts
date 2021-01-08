@@ -42,8 +42,8 @@ export default nextApi({
       cursor,
     } = (req.query as unknown) as ApiCommunityCommentsReqData
 
-    const post = await prisma.communityPost.findUnique({
-      where: { id: postId },
+    const post = await prisma.communityPost.findFirst({
+      where: { id: postId, isDeleted: false },
     })
 
     if (!post) {
@@ -52,7 +52,7 @@ export default nextApi({
     }
 
     const comments = await prisma.communityComment.findMany({
-      where: { postId },
+      where: { postId, isDeleted: false },
       include: {
         communitySubcomments: {
           where: {
