@@ -62,9 +62,12 @@ export const getServerSideProps: GetServerSideProps<MyCommentsProps> = async ({
   const take = 30
   const skip = Math.max(page - 1, 0) * take
   const totalPage = Math.ceil(
-    (await prisma.communityPost.count({
-      where: { userId: user.id },
-    })) / take
+    (
+      await prisma.communityComment.findMany({
+        where: { userId: user.id, isDeleted: false },
+        distinct: ['postId'],
+      })
+    ).length / take
   )
 
   const posts = await prisma.communityPost.findMany({
@@ -79,6 +82,7 @@ export const getServerSideProps: GetServerSideProps<MyCommentsProps> = async ({
     },
     orderBy: { id: 'desc' },
     skip,
+    take,
     include: {
       communityComments: { where: { isDeleted: false } },
       communityPostLikes: true,

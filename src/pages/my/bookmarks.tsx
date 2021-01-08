@@ -62,7 +62,7 @@ export const getServerSideProps: GetServerSideProps<MyBookmarksProps> = async ({
   const take = 30
   const skip = Math.max(page - 1, 0) * take
   const totalPage = Math.ceil(
-    (await prisma.communityPost.count({
+    (await prisma.communityPostBookmark.count({
       where: { userId: user.id },
     })) / take
   )
@@ -78,6 +78,7 @@ export const getServerSideProps: GetServerSideProps<MyBookmarksProps> = async ({
     },
     orderBy: { id: 'desc' },
     skip,
+    take,
     include: {
       communityComments: { where: { isDeleted: false } },
       communityPostLikes: true,
