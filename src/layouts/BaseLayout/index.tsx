@@ -28,7 +28,8 @@ const BaseLayout: React.FC<{
         setAuthData(responseData.authData as AuthData)
       } catch (error) {
         // JWT verification error
-        window.alert(error)
+        console.error(error)
+        window.alert('토큰 인증에 실패했습니다. 재로그인바랍니다.')
       }
     }
 
