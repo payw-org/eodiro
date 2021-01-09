@@ -78,20 +78,28 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
   async function likePost() {
     if (!post) return
 
-    const result = await eodiroRequest<
-      ApiCommunityLikePostReqData,
-      ApiCommunityLikePostResData
-    >({
-      url: apiCommunityLikePostUrl,
-      method: 'POST',
-      data: {
-        postId: post.id,
-      },
-    })
+    try {
+      const result = await eodiroRequest<
+        ApiCommunityLikePostReqData,
+        ApiCommunityLikePostResData
+      >({
+        url: apiCommunityLikePostUrl,
+        method: 'POST',
+        data: {
+          postId: post.id,
+        },
+      })
 
-    if (result) {
-      setLikedByMe(result.isLikedByMe)
-      setLikesCount(result.count)
+      if (result) {
+        setLikedByMe(true)
+        setLikesCount(result.count)
+
+        if (result.alreadyLiked) {
+          window.alert('이미 좋아요했습니다.')
+        }
+      }
+    } catch (error) {
+      window.alert('좋아요하는데 실패했습니다.')
     }
   }
 

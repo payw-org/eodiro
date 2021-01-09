@@ -11,7 +11,7 @@ export type ApiCommunityLikePostReqData = {
 
 export type ApiCommunityLikePostResData = {
   count: number
-  isLikedByMe: boolean
+  alreadyLiked: boolean
 }
 
 export default nextApi({
@@ -36,20 +36,20 @@ export default nextApi({
       return
     }
 
-    const alreadyLiked = await prisma.communityPostLike.findUnique({
+    const alreadyLiked = !!(await prisma.communityPostLike.findUnique({
       where: { userId_postId: { userId, postId } },
-    })
+    }))
 
     if (alreadyLiked) {
-      await prisma.communityPostLike.delete({
-        where: { userId_postId: { userId, postId } },
-      })
+      // await prisma.communityPostLike.delete({
+      //   where: { userId_postId: { userId, postId } },
+      // })
 
       const count = await prisma.communityPostLike.count({
         where: { postId },
       })
 
-      res.json({ isLikedByMe: false, count })
+      res.json({ alreadyLiked, count })
     } else {
       await prisma.communityPostLike.create({
         data: {
@@ -66,7 +66,7 @@ export default nextApi({
         where: { postId },
       })
 
-      res.json({ isLikedByMe: true, count })
+      res.json({ alreadyLiked, count })
     }
   }),
 })
