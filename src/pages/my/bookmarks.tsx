@@ -90,6 +90,7 @@ export const getServerSideProps: GetServerSideProps<MyBookmarksProps> = async ({
     const {
       userId,
       isDeleted,
+      editedAt,
       communityComments,
       communityPostBookmarks,
       communityPostLikes,
@@ -98,6 +99,7 @@ export const getServerSideProps: GetServerSideProps<MyBookmarksProps> = async ({
 
     return {
       ...safePostRest,
+      hasBeenEdited: !!editedAt,
       isMine: post.userId === user.id,
       communityCommentsCount: communityComments.length,
       communityPostBookmarksCount: communityPostBookmarks.length,

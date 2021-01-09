@@ -39,17 +39,25 @@ export const apiCommunityHome = async (
           const {
             userId: u1,
             isDeleted: d1,
+            editedAt,
             communityComments,
             communityPostLikes,
             communityPostBookmarks,
-            ...postRest
+            ...safePostRest
           } = post
 
           return {
-            ...postRest,
+            ...safePostRest,
             isMine: post.userId === userId,
-            title: postRest.title.slice(0, eodiroConsts.POST_LIST_SLICE_LENGTH),
-            body: postRest.body.slice(0, eodiroConsts.POST_LIST_SLICE_LENGTH),
+            hasBeenEdited: !!editedAt,
+            title: safePostRest.title.slice(
+              0,
+              eodiroConsts.POST_LIST_SLICE_LENGTH
+            ),
+            body: safePostRest.body.slice(
+              0,
+              eodiroConsts.POST_LIST_SLICE_LENGTH
+            ),
             communityCommentsCount: communityComments.length,
             communityPostLikesCount: communityPostLikes.length,
             communityPostBookmarksCount: communityPostBookmarks.length,

@@ -94,15 +94,17 @@ export const getServerSideProps: GetServerSideProps<MyCommentsProps> = async ({
     const {
       userId: u1,
       isDeleted: d1,
+      editedAt,
       communityComments,
       communityPostBookmarks,
       communityPostLikes,
-      ...postRest
+      ...safePostRest
     } = post
 
     return {
-      ...postRest,
+      ...safePostRest,
       isMine: u1 === user.id,
+      hasBeenEdited: !!editedAt,
       communityCommentsCount: communityComments.length,
       communityPostBookmarksCount: communityPostBookmarks.length,
       communityPostLikesCount: communityPostLikes.length,
