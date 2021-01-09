@@ -7,7 +7,7 @@
   "main": "src/server/index.js",
   "scripts": {
     "ts-node": "ts-node --project ./tsconfig.node.json -r tsconfig-paths/register",
-    "type-check": "tsc --noEmit",
+    "typecheck": "tsc --noEmit",
     "dev": "npm run generate:dev && next --port 3020",
     "lint": "eslint . --ext .ts,.tsx",
     "build": "npm run generate && npm run build:cron && next build",
