@@ -28,7 +28,8 @@ import {
 import { commentsState } from '@/pages/community/board/[boardId]/post/[postId]'
 import { Dispatcher } from '@/types/react-helper'
 import produce from 'immer'
-import React, { useState } from 'react'
+import { useRouter } from 'next/router'
+import React, { useEffect, useState } from 'react'
 import { useSetRecoilState } from 'recoil'
 import $ from './style.module.scss'
 
@@ -179,7 +180,7 @@ const CommentItem: React.FC<{
   }
 
   return (
-    <div className={$['comment-item']}>
+    <div className={$['comment-item']} data-comment-id={comment.id}>
       <div className={$['comment-header']}>
         <h3 className={$['author']}>{comment.randomNickname}</h3>
         <Flex className={$['right-side']}>
@@ -216,7 +217,11 @@ const CommentItem: React.FC<{
       {(subcomments.length > 0 || newSubcommentActive) && (
         <div className={$['subcomments']}>
           {subcomments.map((subcomment) => (
-            <div key={subcomment.id} className={$['subcomment-item']}>
+            <div
+              key={subcomment.id}
+              className={$['subcomment-item']}
+              data-subcomment-id={subcomment.id}
+            >
               <Icon name="arrow_turn_down_right" className={$['arrow']} />
               <div className={$['comment-header']}>
                 <h3 className={$['author']}>{subcomment.randomNickname}</h3>
@@ -284,6 +289,38 @@ export const Comments: React.FC<{
   postId: number
 }> = ({ comments, setComments, postId }) => {
   const [newComment, setNewComment] = useState('')
+  const router = useRouter()
+
+  useEffect(() => {
+    // If commentId or subcommentId is in query,
+    // scroll to the target comment
+
+    const { query } = router
+
+    if ('commentId' in query || 'subcommentId' in query) {
+      setTimeout(() => {
+        const commentElm = document.querySelector(
+          `[data-${query.commentId ? 'comment' : 'subcomment'}-id="${
+            query.commentId ?? query.subcommentId
+          }"]`
+        )
+
+        commentElm?.scrollIntoView({
+          block: 'center',
+        })
+        commentElm?.classList.add($['indicating'])
+        setTimeout(() => {
+          commentElm?.classList.remove($['indicating'])
+        }, 2000)
+
+        window.history.replaceState(
+          {},
+          document.title,
+          window.location.pathname
+        )
+      }, 0)
+    }
+  }, [router])
 
   async function onKeyUp(e: React.KeyboardEvent<HTMLInputElement>) {
     if (e.key !== 'Enter') return

@@ -43,7 +43,15 @@ export default function EdrApp({
             const parsed = JSON.parse(e.data)
 
             if (parsed.type === 'redirect') {
-              router.push(parsed.url)
+              const splitted = parsed.url.split('?')
+              const pathnameOnly = splitted[0]
+              const query = splitted[1]
+
+              if (window.location.pathname === pathnameOnly) {
+                window.location.search = `?${query}`
+              } else {
+                router.push(parsed.url)
+              }
             }
           } catch (parseError) {
             //
