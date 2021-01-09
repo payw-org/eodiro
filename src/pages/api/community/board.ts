@@ -67,6 +67,7 @@ export const apiCommunityBoard = async (
         const {
           userId: u2,
           isDeleted: d2,
+          editedAt,
           communityComments,
           communityPostLikes,
           communityPostBookmarks,
@@ -76,6 +77,7 @@ export const apiCommunityBoard = async (
         return {
           ...postRest,
           isMine: post.userId === userId,
+          hasBeenEdited: !!editedAt,
           title: postRest.title.slice(0, eodiroConsts.POST_LIST_SLICE_LENGTH),
           body: postRest.body.slice(0, eodiroConsts.POST_LIST_SLICE_LENGTH),
           communityCommentsCount: communityComments.length,
