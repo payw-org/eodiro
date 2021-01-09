@@ -107,10 +107,14 @@ export async function eodiroRequest<RQD = any, RSD = any>(
           return await eodiroRequest<RQD, RSD>(sanitiedReqeuestConfig)
         } catch (refreshErr) {
           await clearAuthCookie()
+          window.alert('로그인이 필요합니다.')
+          window.location.reload()
         }
       }
 
       await clearAuthCookie()
+      window.alert('로그인이 필요합니다.')
+      window.location.reload()
     }
 
     console.error(firstTryErr)
