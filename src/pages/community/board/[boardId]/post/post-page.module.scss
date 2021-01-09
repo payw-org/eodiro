@@ -59,6 +59,12 @@
     }
   }
 
+  .has-been-edited-mark {
+    color: $base-gray;
+    display: inline-block;
+    margin-top: 16px;
+  }
+
   // Likes and bookmarks
   .likes-and-bookmarks {
     margin-top: 40px;

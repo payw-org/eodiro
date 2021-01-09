@@ -62,12 +62,14 @@ export const apiCommunityPost = async ({
     const {
       userId: u1,
       isDeleted: d1,
+      editedAt,
       communityPostLikes,
       communityPostBookmarks,
-      ...rest
+      ...safePostRest
     } = post
     const countedPost: ApiCommunityPostResData = {
-      ...rest,
+      ...safePostRest,
+      hasBeenEdited: !!editedAt,
       isMine: post.userId === userId,
       communityComments: post.communityComments.map((comment) => {
         const { userId: u2, isDeleted: d2, ...commentRest } = comment

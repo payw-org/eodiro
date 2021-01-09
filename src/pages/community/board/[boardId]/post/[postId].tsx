@@ -185,6 +185,9 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
                   return <p key={i}>{line}</p>
                 })}
               </div>
+              {post.hasBeenEdited && (
+                <span className={$['has-been-edited-mark']}>(수정됨)</span>
+              )}
             </article>
 
             {/* Likes and bookmarks */}

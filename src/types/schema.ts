@@ -5,23 +5,26 @@ import {
   CommunitySubcomment,
 } from '@prisma/client'
 
-type Supplement = {
-  isMine: boolean
-}
-
 export type SafeCommunityBoard = Omit<CommunityBoard, 'isDeleted'>
 
-export type SafeCommunityPost = Omit<CommunityPost, 'userId' | 'isDeleted'> &
-  Supplement
+export type SafeCommunityPost = Omit<
+  CommunityPost,
+  'userId' | 'isDeleted' | 'editedAt'
+> & {
+  isMine: boolean
+  hasBeenEdited: boolean
+}
 
 export type SafeCommunityComment = Omit<
   CommunityComment,
   'userId' | 'isDeleted'
-> &
-  Supplement
+> & {
+  isMine: boolean
+}
 
 export type SafeCommunitySubcomment = Omit<
   CommunitySubcomment,
   'userId' | 'isDeleted'
-> &
-  Supplement
+> & {
+  isMine: boolean
+}
