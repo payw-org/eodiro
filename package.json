@@ -17,7 +17,7 @@
     "pm2:restart": "if pm2 show eodiro ; then pm2 restart eodiro ; else echo 'No pm2 instance for eodiro client' ; fi",
     "pm2:stop": "if pm2 show eodiro ; then pm2 stop eodiro ; else echo 'No pm2 instance for eodiro client' ; fi",
     "pm2:delete": "if pm2 show eodiro ; then pm2 delete eodiro ; else echo 'No pm2 instance for eodiro client' ; fi",
-    "pm2:reboot": "npm ci && npm run pm2:stop && npm run pm2:delete && npm run build && npm run pm2:start",
+    "pm2:reboot": "npm ci && npm run pm2:stop && npm run pm2:delete && if npm run build ; then npm run pm2:start ; else npm run pm2:start ; fi",
     "checkout-latest": "git reset --hard && git checkout $(git describe --tags `git rev-list --tags --max-count=1`)",
     "update": "git reset --hard && git fetch --prune && npm run checkout-latest && npm install && npm run pm2:reboot",
     "introspect:dev": "prisma introspect --schema prisma/schema.dev.prisma",
