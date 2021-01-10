@@ -96,6 +96,14 @@ export function friendlyTime(time: Date | string): string {
     postedAt = `${hourDiff}시간 전`
     return postedAt
   }
+  const dayDiff = now.diff(atObj, 'day')
+  if (dayDiff > 0 && dayDiff < 30) {
+    if (dayDiff === 1) {
+      return '어제'
+    }
+    postedAt = `${dayDiff}일 전`
+    return postedAt
+  }
   const yearDiff = now.diff(atObj, 'year')
   if (yearDiff < 1) {
     postedAt = dayjs(time).format('MM/DD HH:mm')
