@@ -27,6 +27,7 @@ import {
 } from '@/pages/api/community/subcomments'
 import { commentsState } from '@/pages/community/board/[boardId]/post/[postId]'
 import { Dispatcher } from '@/types/react-helper'
+import { SafeCommunitySubcomment } from '@/types/schema'
 import produce from 'immer'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -83,7 +84,11 @@ const CommentItem: React.FC<{
   const setComments = useSetRecoilState(commentsState)
   const [newSubcommentActive, setNewSubcommentActive] = useState(false)
   const [newSubcomment, setNewSubcomment] = useState('')
-  const [subcomments, setSubcomments] = useState(comment.communitySubcomments)
+  const [subcomments, setSubcomments] = useState<SafeCommunitySubcomment[]>([])
+
+  useEffect(() => {
+    setSubcomments(comment.communitySubcomments)
+  }, [comment.communitySubcomments])
 
   async function onDeleteComment() {
     if (!window.confirm('정말 삭제하시겠습니까?')) return
