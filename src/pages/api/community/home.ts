@@ -23,7 +23,10 @@ export const apiCommunityHome = async (
           isDeleted: false,
         },
         include: {
-          communityComments: { where: { isDeleted: false } },
+          communityComments: {
+            where: { isDeleted: false },
+            include: { communitySubcomments: true },
+          },
           communityPostLikes: true,
           communityPostBookmarks: true,
         },
@@ -46,6 +49,17 @@ export const apiCommunityHome = async (
             ...safePostRest
           } = post
 
+          const communityCommentsCount =
+            communityComments.length +
+            communityComments.reduce(
+              (accum, comment) => accum + comment.communitySubcomments.length,
+              0
+            )
+
+          communityComments.forEach((comment) => {
+            delete (comment as any).communitySubcomments
+          })
+
           return {
             ...safePostRest,
             isMine: post.userId === userId,
@@ -58,7 +72,7 @@ export const apiCommunityHome = async (
               0,
               eodiroConsts.POST_LIST_SLICE_LENGTH
             ),
-            communityCommentsCount: communityComments.length,
+            communityCommentsCount,
             communityPostLikesCount: communityPostLikes.length,
             communityPostBookmarksCount: communityPostBookmarks.length,
           }

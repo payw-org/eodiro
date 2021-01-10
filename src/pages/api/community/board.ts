@@ -49,7 +49,10 @@ export const apiCommunityBoard = async (
         take,
         where: { isDeleted: false },
         include: {
-          communityComments: { where: { isDeleted: false } },
+          communityComments: {
+            where: { isDeleted: false },
+            include: { communitySubcomments: true },
+          },
           communityPostLikes: true,
           communityPostBookmarks: true,
         },
@@ -71,16 +74,30 @@ export const apiCommunityBoard = async (
           communityComments,
           communityPostLikes,
           communityPostBookmarks,
-          ...postRest
+          ...safePostRest
         } = post
 
+        const communityCommentsCount =
+          communityComments.length +
+          communityComments.reduce(
+            (accum, comment) => accum + comment.communitySubcomments.length,
+            0
+          )
+
+        communityComments.forEach((comment) => {
+          delete (comment as any).communitySubcomments
+        })
+
         return {
-          ...postRest,
+          ...safePostRest,
           isMine: post.userId === userId,
           hasBeenEdited: !!editedAt,
-          title: postRest.title.slice(0, eodiroConsts.POST_LIST_SLICE_LENGTH),
-          body: postRest.body.slice(0, eodiroConsts.POST_LIST_SLICE_LENGTH),
-          communityCommentsCount: communityComments.length,
+          title: safePostRest.title.slice(
+            0,
+            eodiroConsts.POST_LIST_SLICE_LENGTH
+          ),
+          body: safePostRest.body.slice(0, eodiroConsts.POST_LIST_SLICE_LENGTH),
+          communityCommentsCount,
           communityPostLikesCount: communityPostLikes.length,
           communityPostBookmarksCount: communityPostBookmarks.length,
         }
