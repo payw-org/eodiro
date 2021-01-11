@@ -63,7 +63,7 @@ const BoardPage: NextPage<BoardPageProps> = ({
   const boardId = board?.id
 
   return (
-    <Body pageTitle={board?.name ?? '없는 게시판'} titleAlign="center">
+    <Body pageTitle={board?.name ?? '없는 게시판'}>
       {!board ? (
         <Information title="다른 게시판을 이용해주세요." />
       ) : (
