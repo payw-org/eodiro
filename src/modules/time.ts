@@ -70,6 +70,7 @@ export default class Time {
 }
 
 export const dbNow = () => dayjs().add(9, 'hour').toDate()
+export const dbTime = (time: Date) => dayjs(time).add(9, 'hour').toDate()
 
 const isPrimitive = (test: any) => test !== Object(test)
 
@@ -104,6 +105,7 @@ export function friendlyTime(time: Date | string): string {
     postedAt = `${dayDiff}일 전`
     return postedAt
   }
+  // TODO: monthly diff
   const yearDiff = now.diff(atObj, 'year')
   if (yearDiff < 1) {
     postedAt = dayjs(time).format('MM/DD HH:mm')
