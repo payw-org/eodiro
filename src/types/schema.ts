@@ -5,7 +5,10 @@ import {
   CommunitySubcomment,
 } from '@prisma/client'
 
-export type SafeCommunityBoard = Omit<CommunityBoard, 'isDeleted'>
+export type SafeCommunityBoard = Omit<
+  CommunityBoard,
+  'isDeleted' | 'priority' | 'createdAt' | 'activeAt'
+>
 
 export type SafeCommunityPost = Omit<
   CommunityPost,
