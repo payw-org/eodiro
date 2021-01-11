@@ -139,6 +139,7 @@ model User {
   refreshToken                     String?                           @map("refresh_token")
   admins                           Admin?
   changePasswords                  ChangePassword?
+  communityBoardPins               CommunityBoardPin[]               @relation("community_board_pinTouser")
   communityComments                CommunityComment[]                @relation("community_commentTouser")
   communityPosts                   CommunityPost[]                   @relation("community_postTouser")
   communityPostBookmarks           CommunityPostBookmark[]           @relation("community_post_bookmarkTouser")
@@ -152,13 +153,14 @@ model User {
 }
 
 model CommunityBoard {
-  id             Int             @id @default(autoincrement())
-  name           String          @default("")
-  priority       Int             @default(0)
-  isDeleted      Boolean?        @map("is_deleted")
-  createdAt      DateTime        @map("created_at")
-  activeAt       DateTime?       @map("active_at")
-  communityPosts CommunityPost[]
+  id                 Int                 @id @default(autoincrement())
+  name               String              @default("")
+  priority           Int                 @default(0)
+  isDeleted          Boolean?            @map("is_deleted")
+  createdAt          DateTime            @map("created_at")
+  activeAt           DateTime?           @map("active_at")
+  communityBoardPins CommunityBoardPin[] @relation("community_boardTocommunity_board_pin")
+  communityPosts     CommunityPost[]
 
   @@map("community_board")
 }
@@ -227,9 +229,9 @@ model CommunitySubcomment {
   id               Int              @id @default(autoincrement())
   userId           Int              @map("user_id")
   commentId        Int              @map("comment_id")
-  randomNickname   String           @default("") @map(name: "random_nickname")
+  randomNickname   String           @default("") @map("random_nickname")
   body             String
-  subcommentedAt   DateTime         @map(name: "subcommented_at")
+  subcommentedAt   DateTime         @map("subcommented_at")
   isDeleted        Boolean          @default(false) @map("is_deleted")
   communityComment CommunityComment @relation("community_commentTocommunity_subcomment", fields: [commentId], references: [id])
   user             User             @relation("community_subcommentTouser", fields: [userId], references: [id])
@@ -248,4 +250,30 @@ model Push {
 
   @@index([userId], name: "user_id")
   @@map("push")
+}
+
+model CommunityBoardCandidate {
+  id        Int       @id @default(autoincrement())
+  name      String    @default("")
+  createdAt DateTime  @map(name: "created_at")
+  activeAt  DateTime? @map(name: "active_at")
+
+  @@map(name: "community_board_candidate")
+}
+
+model CommunityBoardCandidateVote {
+  id Int @id @default(autoincrement())
+
+  @@map(name: "community_board_candidate_vote")
+}
+
+model CommunityBoardPin {
+  userId         Int            @map(name: "user_id")
+  boardId        Int            @map(name: "board_id")
+  communityBoard CommunityBoard @relation("community_boardTocommunity_board_pin", fields: [boardId], references: [id])
+  user           User           @relation("community_board_pinTouser", fields: [userId], references: [id])
+
+  @@id([userId, boardId])
+  @@index([boardId], name: "board_id")
+  @@map(name: "community_board_pin")
 }
