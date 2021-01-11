@@ -27,7 +27,7 @@
   }
 
   .post-title {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 400;
     transition: color 100ms ease;
   }
@@ -46,11 +46,14 @@
     }
 
     .count-item {
-      margin-right: 10px;
       font-size: 14px;
 
-      &:last-child {
-        margin-right: unset;
+      &:not(:last-child) {
+        margin-right: 10px;
+      }
+
+      &.empty {
+        color: $base-gray;
       }
     }
 
