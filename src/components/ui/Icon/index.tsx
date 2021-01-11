@@ -1234,8 +1234,18 @@ export type IconProps = {
     | 'zoom_in'
     | 'zoom_out'
     | 'zzz'
+  size?: number
 }
 
-export function Icon({ name, className }: IconProps) {
-  return <i className={classNames('f7-icons', className)}>{name}</i>
+export function Icon({ name, size, className }: IconProps) {
+  return (
+    <i
+      className={classNames('f7-icons', className)}
+      style={{
+        fontSize: size ? `${size / 16}rem` : undefined,
+      }}
+    >
+      {name}
+    </i>
+  )
 }
