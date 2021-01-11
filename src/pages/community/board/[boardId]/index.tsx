@@ -69,26 +69,6 @@ const BoardPage: NextPage<BoardPageProps> = ({
       ) : (
         <>
           <div className={$['board-page']}>
-            <div className={$['sidebar']}>
-              <ArrowBlock className={$['boards-list']} flat>
-                <h2 className={$['boards-list-header']}>다른 게시판</h2>
-                {boardsList.map((boardInfo) => (
-                  <Link
-                    href={communityBoardPageUrl(boardInfo.id)}
-                    key={boardInfo.id}
-                  >
-                    <div
-                      className={classNames($['boards-list-item'], {
-                        [$['current']]: boardInfo.id === boardId,
-                      })}
-                    >
-                      {boardInfo.name}
-                    </div>
-                  </Link>
-                ))}
-              </ArrowBlock>
-            </div>
-
             <div className={$['column-posts']}>
               <BoardPosts board={board} totalPage={totalPage} page={page} />
               <div style={{ display: 'none' }}>
@@ -111,6 +91,26 @@ const BoardPage: NextPage<BoardPageProps> = ({
                   })
                 }}
               />
+            </div>
+
+            <div className={$['sidebar']}>
+              <ArrowBlock className={$['boards-list']} flat>
+                <h2 className={$['boards-list-header']}>다른 게시판</h2>
+                {boardsList.map((boardInfo) => (
+                  <Link
+                    href={communityBoardPageUrl(boardInfo.id)}
+                    key={boardInfo.id}
+                  >
+                    <div
+                      className={classNames($['boards-list-item'], {
+                        [$['current']]: boardInfo.id === boardId,
+                      })}
+                    >
+                      {boardInfo.name}
+                    </div>
+                  </Link>
+                ))}
+              </ArrowBlock>
             </div>
           </div>
           <Flex className={$['new-post-btn-wrapper']}>

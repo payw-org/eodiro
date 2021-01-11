@@ -7,18 +7,17 @@
 }
 
 .sidebar {
-  margin-right: 20px;
+  margin-left: 20px;
   min-width: 300px;
   align-self: flex-start;
   position: sticky;
   top: $nav-height + 1.5rem;
 
   @include on-mobile {
-    // position: static;
-    // min-width: 100%;
-    // margin-right: unset;
-    // margin-bottom: 20px;
-    display: none;
+    position: static;
+    min-width: 100%;
+    margin-left: unset;
+    margin-top: 80px;
   }
 
   .boards-list {
