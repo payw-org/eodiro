@@ -1,7 +1,28 @@
 @use '@/assets/styles/main' as *;
 
 .community-page {
-  max-width: 80rem !important;
+  // max-width: 80rem !important;
+}
+
+.community-home-section {
+  margin-bottom: 40px;
+
+  .subhead {
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 15px;
+  }
+}
+
+.board-item {
+  .pin-icon {
+    margin-right: 10px;
+    color: $base-gray;
+
+    &.pinned {
+      color: $eodiro-orange-2;
+    }
+  }
 }
 
 .board-section {
@@ -23,7 +44,7 @@
 }
 
 .board-name {
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 600;
 }
 
@@ -61,4 +82,8 @@
   font-size: 17px;
   font-weight: 400;
   color: $base-gray;
+}
+
+.show-candidates {
+  margin-bottom: 20px;
 }
