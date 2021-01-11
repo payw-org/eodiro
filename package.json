@@ -72,6 +72,7 @@
     "@payw/cau-timetable-scraper-types": "^2.4.0",
     "@prisma/cli": "^2.14.0",
     "@prisma/client": "^2.14.0",
+    "@prisma/sdk": "^2.14.0",
     "@types/app-root-path": "^1.2.4",
     "@types/bcrypt": "^3.0.0",
     "@types/classnames": "^2.2.11",
