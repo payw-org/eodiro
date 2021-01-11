@@ -18,21 +18,27 @@ const PostItem: React.FC<{
           <Flex className={$['counts']} alignCenter>
             <Flex
               alignCenter
-              className={classNames($['count-item'], $['likes-count'])}
+              className={classNames($['count-item'], $['likes-count'], {
+                [$['empty']]: post.communityPostLikesCount === 0,
+              })}
             >
               <Icon name="hand_thumbsup" />
               {post.communityPostLikesCount}
             </Flex>
             <Flex
               alignCenter
-              className={classNames($['count-item'], $['bookmarks-count'])}
+              className={classNames($['count-item'], $['bookmarks-count'], {
+                [$['empty']]: post.communityPostBookmarksCount === 0,
+              })}
             >
               <Icon name="bookmark" />
               {post.communityPostBookmarksCount}
             </Flex>
             <Flex
               alignCenter
-              className={classNames($['count-item'], $['comments-count'])}
+              className={classNames($['count-item'], $['comments-count'], {
+                [$['empty']]: post.communityCommentsCount === 0,
+              })}
             >
               <Icon name="bubble_left" />
               {post.communityCommentsCount}
