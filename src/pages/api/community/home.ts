@@ -14,11 +14,12 @@ export const apiCommunityHomeUrl = '/api/community/home'
 export const apiCommunityHome = async (
   userId: number
 ): Promise<ApiCommunityHomeResData> => {
+  const take = 3
   const boards = await prisma.communityBoard.findMany({
     include: {
       communityPosts: {
         orderBy: { id: 'desc' },
-        take: 8,
+        take,
         where: {
           isDeleted: false,
         },
