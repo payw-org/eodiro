@@ -112,7 +112,7 @@ body {
   padding: 0;
   word-wrap: break-word;
   word-break: keep-all;
-  font-size: 16px;
+  font-size: $default-font-size;
   // user-select: none;
   overflow-anchor: none; // prevent always scroll end
   @include bg;
@@ -185,7 +185,7 @@ a,
 textarea,
 input,
 div {
-  font-size: 1rem;
+  font-size: $default-font-size;
 }
 
 input[type='text'],
