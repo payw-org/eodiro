@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
 
   return (
     <footer id={$['global-footer']}>
-      Copyright © {now.year()}
+      © {now.year()}
       &nbsp;
       <a
         href="https://payw.org"
