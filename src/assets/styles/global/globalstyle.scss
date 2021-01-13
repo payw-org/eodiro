@@ -220,6 +220,10 @@ a {
     height: 100%;
     z-index: 3;
   }
+
+  &.default {
+    color: $eodiro-primary-color;
+  }
 }
 
 span,
