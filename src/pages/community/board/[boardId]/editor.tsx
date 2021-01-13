@@ -78,8 +78,6 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
         },
       })
 
-      window.alert(post ? '수정되었습니다.' : '업로드되었습니다.')
-
       router.replace(communityPostPageUrl(boardId, res.postId))
     } catch (error) {
       console.error(error)
