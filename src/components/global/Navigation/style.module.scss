@@ -126,6 +126,7 @@
 
       .en-menu-link {
         font-weight: 500;
+        margin-left: s(4);
         @include text-color;
 
         &.signin,
@@ -137,7 +138,6 @@
         .en-menu-item {
           font-size: b(2);
           font-weight: fw(4);
-          margin-left: s(4);
           @include clickable;
         }
       }
