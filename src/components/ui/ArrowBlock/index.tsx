@@ -1,6 +1,6 @@
-import { ArrowIcon } from '@/components/global/icons'
 import classNames from 'classnames'
 import React from 'react'
+import { Icon } from '../Icon'
 import $ from './style.module.scss'
 
 export interface ArrowBlockProps {
@@ -35,7 +35,7 @@ export const ArrowBlock: React.FC<ArrowBlockProps> = ({
       <div className={$['ab-body']}>{children}</div>
       {!noArrow && !flat && (
         <div className={$['ab-arrow-container']}>
-          <ArrowIcon direction="right" className={$['ab-arrow']} />
+          <Icon name="chevron_right" className="text-gray-500" />
         </div>
       )}
     </div>
