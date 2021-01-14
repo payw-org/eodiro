@@ -14,13 +14,13 @@ const OpenSourcePage: React.FC<OpenSourcePageProps> = ({ contributors }) => {
         title={{
           subject: '오픈소스',
         }}
-        description="어디로는 자유 공개 소프트웨어입니다."
+        description="어디로는 오픈소스 프로젝트입니다."
       />
 
       <div className={$['manifesto']}>
         <p className={$['paragraph']}>
-          &ldquo;어디로&rdquo;는 모든 소스코드가 공개되어 있는 자유 공개
-          소프트웨어입니다. 서비스를 이용하는 학우분들에겐 더 나은 신뢰감을
+          &ldquo;어디로&rdquo;는 모든 소스코드와 자원이 공개되어 있는 오픈소스
+          프로젝트입니다. 서비스를 이용하는 학우분들에겐 더 나은 신뢰감을
           드리고, 개발자 꿈나무에겐 공부 자료이자 오픈소스에 기여할 수 있는
           기회가 될 것입니다. 자세한 내용은{' '}
           <a
