@@ -17,7 +17,7 @@ export default nextApi({
     const recentBoards = await prisma.communityBoard.findMany({
       where: {
         activeAt: {
-          gte: dbTime(dayjs().subtract(3, 'day').toDate()),
+          gte: dbTime(dayjs().subtract(7, 'day').toDate()),
         },
       },
       orderBy: [{ priority: 'desc' }, { activeAt: 'desc' }],
