@@ -1,0 +1,18 @@
+@use '@/assets/styles/main' as *;
+
+.floating-button {
+  color: #fff;
+  background-color: $eodiro-primary-color;
+  border-radius: 50px;
+  padding: 14px 22px;
+  font-size: 18px;
+  font-weight: 500;
+  @include shadowed;
+  display: flex;
+  align-items: center;
+
+  i {
+    margin-right: 7px;
+    font-size: 1.4em;
+  }
+}
