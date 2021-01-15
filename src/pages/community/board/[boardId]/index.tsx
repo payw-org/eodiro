@@ -91,6 +91,16 @@ const BoardPage: NextPage<BoardPageProps> = ({
                   })
                 }}
               />
+
+              <Flex className={$['new-post-btn-wrapper']}>
+                <Link href={postEditorPageUrl(board.id)}>
+                  <a>
+                    <button type="button" className={$['new-post-btn']}>
+                      <i className="f7-icons">square_pencil</i>새 포스트 작성
+                    </button>
+                  </a>
+                </Link>
+              </Flex>
             </div>
 
             <div className={$['sidebar']}>
@@ -113,15 +123,6 @@ const BoardPage: NextPage<BoardPageProps> = ({
               </ArrowBlock>
             </div>
           </div>
-          <Flex className={$['new-post-btn-wrapper']}>
-            <Link href={postEditorPageUrl(board.id)}>
-              <a>
-                <button type="button" className={$['new-post-btn']}>
-                  <i className="f7-icons">square_pencil</i>새 포스트 작성
-                </button>
-              </a>
-            </Link>
-          </Flex>
         </>
       )}
     </Body>
