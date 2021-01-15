@@ -1,0 +1,22 @@
+@use '@/assets/styles/main' as *;
+
+.pin-icon {
+  position: relative;
+  top: 0.05em;
+}
+
+.board-item {
+  .pin-icon {
+    margin-right: 10px;
+    color: $base-gray;
+
+    &.pinned {
+      color: $eodiro-orange-2;
+    }
+  }
+
+  .board-name {
+    font-size: 20px;
+    font-weight: 600;
+  }
+}

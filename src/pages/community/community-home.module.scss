@@ -1,9 +1,5 @@
 @use '@/assets/styles/main' as *;
 
-.community-page {
-  // max-width: 80rem !important;
-}
-
 .community-home-section {
   margin-bottom: 40px;
 
@@ -18,22 +14,12 @@
 .no-pins-yet {
   @include resolve-optical-illusion;
   color: $base-gray;
+  font-weight: 500;
 }
 
 .pin-icon {
   position: relative;
   top: 0.05em;
-}
-
-.board-item {
-  .pin-icon {
-    margin-right: 10px;
-    color: $base-gray;
-
-    &.pinned {
-      color: $eodiro-orange-2;
-    }
-  }
 }
 
 .board-section {
@@ -54,37 +40,6 @@
   margin-left: 20px;
 }
 
-.board-name {
-  font-size: 20px;
-  font-weight: 600;
-}
-
-.post-item {
-  padding: 10px 0;
-  border-radius: $border-radius-inner;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  .post-title {
-    font-size: 16px;
-    font-weight: 400;
-    transition: color 100ms ease;
-  }
-
-  &:hover {
-    .post-title {
-      color: $eodiro-primary-color;
-    }
-  }
-
-  .post-time {
-    color: $base-gray;
-    font-size: 14px;
-    margin-left: 20px;
-  }
-}
-
 .no-post-yet {
   display: flex;
   align-items: center;
@@ -95,6 +50,6 @@
   color: $base-gray;
 }
 
-.show-candidates {
-  margin-bottom: 20px;
+.see-all-boards {
+  margin-top: 40px;
 }
