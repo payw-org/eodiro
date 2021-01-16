@@ -79,6 +79,7 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
         },
       })
 
+      new EodiroDialog().vagabond(post ? '수정되었습니다.' : '작성되었습니다.')
       router.replace(communityPostPageUrl(boardId, res.postId))
     } catch (error) {
       console.error(error)
