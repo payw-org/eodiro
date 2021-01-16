@@ -2,6 +2,7 @@ import BoardsList from '@/components/community/BoardsList'
 import { LineInput } from '@/components/ui'
 import { ArrowBlock } from '@/components/ui/ArrowBlock'
 import { FloadingButton } from '@/components/ui/FloatingButton'
+import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
 import { eodiroConsts } from '@/constants'
 import { NOT_FOUND } from '@/constants/http-status-code'
@@ -83,6 +84,7 @@ function BoardCandidateItem({ boardCandidate }: BoardCandidateItemProps) {
             className="bg-gray-100 dark:bg-black text-eodiro-grass-2 font-medium px-3 py-2 ml-4 rounded-inner whitespace-nowrap"
             onClick={() => vote(boardCandidate.id)}
           >
+            <Icon name="plus" className="mr-1" />
             투표하기
           </button>
         </div>
@@ -103,7 +105,7 @@ function BoardCandidateItem({ boardCandidate }: BoardCandidateItemProps) {
         </div>
 
         <div className="flex items-center justify-between mt-4">
-          <span className="text-base text-base-gray">
+          <span className="text-base text-eodiro-primary-color">
             {remainingDays}일 뒤 종료
           </span>
           <p className="text-right text-sm text-base-gray">
