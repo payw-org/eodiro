@@ -1,0 +1,8 @@
+@use '@/assets/styles/main' as *;
+
+.new-board {
+  position: sticky;
+  margin-top: 40px;
+  bottom: 20px;
+  bottom: calc(20px + #{$safe-bottom});
+}
