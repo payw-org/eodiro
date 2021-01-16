@@ -13,6 +13,7 @@ export type BodyProps = HeaderProps & {
    * to make body visible.
    */
   hideOnLoad?: boolean
+  width?: 'xsmall' | 'small' | 'default' | 'large'
 }
 
 const Body: FC<BodyProps> = (props) => {
@@ -22,23 +23,23 @@ const Body: FC<BodyProps> = (props) => {
     hasTopGap = true,
     centered = false,
     hideOnLoad = false,
+    width = 'default',
   } = props
 
   return (
-    <>
-      <div
-        className={$$(
-          $['body-content'],
-          bodyClassName,
-          hasTopGap && $['top-gap'],
-          centered && $['centered'],
-          hideOnLoad && $['hidden']
-        )}
-      >
-        <Header {...props} />
-        {children}
-      </div>
-    </>
+    <div
+      className={$$(
+        $['body-content'],
+        bodyClassName,
+        hasTopGap && $['top-gap'],
+        centered && $['centered'],
+        hideOnLoad && $['hidden'],
+        [$[width]]
+      )}
+    >
+      <Header {...props} />
+      {children}
+    </div>
   )
 }
 
