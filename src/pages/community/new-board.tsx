@@ -43,8 +43,8 @@ export default function NewBoardPage() {
     <Body pageTitle="새 게시판" width="xsmall">
       <p className="text-lg mx-1">
         새 게시판은 일주일 이내에 {eodiroConsts.BOARD_CANDIDATE_VOTES_THRESHOLD}
-        건 이상의 투표를 받으면 자동으로 활성화됩니다. 적합한 게시판이 없는지
-        먼저 확인 후 생성 바랍니다.
+        건 이상의 투표를 받으면 자동으로 활성화됩니다. 먼저 유사한 게시판이
+        없는지 확인 후 생성 바랍니다.
       </p>
       <input
         type="text"
