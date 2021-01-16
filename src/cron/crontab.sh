@@ -8,6 +8,9 @@
 # update random nicknames at 00:00
 0 0 * * * /home/ubuntu/.nvm/versions/node/v13.14.0/bin/node /home/ubuntu/eodiro/web/build/cron/update-random-nicknames
 
+# check board candidate votes at 00:00
+0 0 * * * /home/ubuntu/.nvm/versions/node/v13.14.0/bin/node /home/ubuntu/eodiro/web/build/cron/check-board-candidate-votes
+
 # check notice every 15 minutes
 */15 * * * * /home/ubuntu/.nvm/versions/node/v13.14.0/bin/node /home/ubuntu/eodiro/web/build/cron/check-notice
 

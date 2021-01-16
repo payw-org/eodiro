@@ -139,6 +139,9 @@ model User {
   refreshToken                     String?                           @map("refresh_token")
   admins                           Admin?
   changePasswords                  ChangePassword?
+  communityBoards                  CommunityBoard[]                  @relation("community_boardTouser")
+  communityBoardCandidates         CommunityBoardCandidate[]         @relation("community_board_candidateTouser")
+  communityBoardCandidateVotes     CommunityBoardCandidateVote[]     @relation("community_board_candidate_voteTouser")
   communityBoardPins               CommunityBoardPin[]               @relation("community_board_pinTouser")
   communityComments                CommunityComment[]                @relation("community_commentTouser")
   communityPosts                   CommunityPost[]                   @relation("community_postTouser")
@@ -155,13 +158,17 @@ model User {
 model CommunityBoard {
   id                 Int                 @id @default(autoincrement())
   name               String              @default("")
+  description        String?
   priority           Int                 @default(0)
-  isDeleted          Boolean?            @map("is_deleted")
+  isDeleted          Boolean             @default(false) @map("is_deleted")
+  createdBy          Int                 @map("created_by")
   createdAt          DateTime            @map("created_at")
   activeAt           DateTime?           @map("active_at")
+  user               User                @relation("community_boardTouser", fields: [createdBy], references: [id])
   communityBoardPins CommunityBoardPin[] @relation("community_boardTocommunity_board_pin")
   communityPosts     CommunityPost[]
 
+  @@index([createdBy], name: "created_by")
   @@map("community_board")
 }
 
@@ -253,27 +260,36 @@ model Push {
 }
 
 model CommunityBoardCandidate {
-  id        Int       @id @default(autoincrement())
-  name      String    @default("")
-  createdAt DateTime  @map(name: "created_at")
-  activeAt  DateTime? @map(name: "active_at")
+  id                           Int                           @id @default(autoincrement())
+  name                         String                        @default("")
+  description                  String?
+  createdBy                    Int                           @map("created_by")
+  createdAt                    DateTime                      @map("created_at")
+  user                         User                          @relation("community_board_candidateTouser", fields: [createdBy], references: [id])
+  communityBoardCandidateVotes CommunityBoardCandidateVote[] @relation("community_board_candidateTocommunity_board_candidate_vote")
 
-  @@map(name: "community_board_candidate")
+  @@index([createdBy], name: "created_by")
+  @@map("community_board_candidate")
 }
 
 model CommunityBoardCandidateVote {
-  id Int @id @default(autoincrement())
+  boardCandidateId        Int                     @map(name: "board_candidate_id")
+  userId                  Int                     @map(name: "user_id")
+  communityBoardCandidate CommunityBoardCandidate @relation("community_board_candidateTocommunity_board_candidate_vote", fields: [boardCandidateId], references: [id])
+  user                    User                    @relation("community_board_candidate_voteTouser", fields: [userId], references: [id])
 
-  @@map(name: "community_board_candidate_vote")
+  @@id([boardCandidateId, userId])
+  @@index([userId], name: "user_id")
+  @@map("community_board_candidate_vote")
 }
 
 model CommunityBoardPin {
-  userId         Int            @map(name: "user_id")
-  boardId        Int            @map(name: "board_id")
+  userId         Int            @map("user_id")
+  boardId        Int            @map("board_id")
   communityBoard CommunityBoard @relation("community_boardTocommunity_board_pin", fields: [boardId], references: [id])
   user           User           @relation("community_board_pinTouser", fields: [userId], references: [id])
 
   @@id([userId, boardId])
   @@index([boardId], name: "board_id")
-  @@map(name: "community_board_pin")
+  @@map("community_board_pin")
 }

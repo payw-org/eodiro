@@ -7,7 +7,7 @@ import {
 
 export type SafeCommunityBoard = Omit<
   CommunityBoard,
-  'isDeleted' | 'priority' | 'createdAt' | 'activeAt'
+  'isDeleted' | 'priority' | 'activeAt' | 'createdBy'
 >
 
 export type SafeCommunityPost = Omit<
