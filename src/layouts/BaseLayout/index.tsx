@@ -2,6 +2,7 @@ import { authState } from '@/atoms/auth'
 import GlobalFooter from '@/components/global/GlobalFooter'
 import Navigation, { NavContextProvider } from '@/components/global/Navigation'
 import { isInApp as checkIsInApp } from '@/modules/booleans/is-in-app'
+import EodiroDialog from '@/modules/client/eodiro-dialog'
 import { eodiroRequest, registerPush } from '@/modules/eodiro-request'
 import { AuthData } from '@/modules/jwt'
 import { ApiAuthVerifyResData } from '@/pages/api/auth/verify'
@@ -29,7 +30,7 @@ const BaseLayout: React.FC<{
       } catch (error) {
         // JWT verification error
         console.error(error)
-        window.alert('토큰 인증에 실패했습니다. 재로그인바랍니다.')
+        new EodiroDialog().alert('토큰 인증에 실패했습니다. 재로그인바랍니다.')
       }
     }
 

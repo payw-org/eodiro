@@ -7,6 +7,7 @@ import { eodiroConsts } from '@/constants'
 import { NOT_FOUND } from '@/constants/http-status-code'
 import Body from '@/layouts/BaseLayout/Body'
 import Grid from '@/layouts/Grid'
+import EodiroDialog from '@/modules/client/eodiro-dialog'
 import { eodiroRequest } from '@/modules/eodiro-request'
 import { prisma } from '@/modules/prisma'
 import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next-require-auth'
@@ -29,8 +30,13 @@ type BoardCandidateItemProps = {
 
 function BoardCandidateItem({ boardCandidate }: BoardCandidateItemProps) {
   const [votes, setVotes] = useState(boardCandidate.votes)
+  const [isProcessing, setIsProcessing] = useState(false)
 
   async function vote(boardCandidateId: number) {
+    if (isProcessing) return
+
+    setIsProcessing(true)
+
     try {
       const result = await eodiroRequest<
         ApiCommunityVoteBoardCandidateReqData,
@@ -44,17 +50,20 @@ function BoardCandidateItem({ boardCandidate }: BoardCandidateItemProps) {
       })
 
       if (result.alreadyVoted) {
-        window.alert('이미 투표했습니다.')
+        new EodiroDialog().alert('이미 투표했습니다.')
       }
 
       setVotes(result.votes)
     } catch (error) {
       if (error.response?.status === NOT_FOUND) {
-        window.alert('게시판이 삭제되었거나 없는 게시판입니다.')
+        new EodiroDialog().alert('게시판이 삭제되었거나 없는 게시판입니다.')
       } else {
-        window.alert('문제가 발생했습니다.')
+        console.error(error)
+        new EodiroDialog().alert('문제가 발생했습니다.')
       }
     }
+
+    setIsProcessing(false)
   }
 
   const remainingDays = dayjs(

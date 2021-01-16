@@ -2,6 +2,7 @@ import { authState } from '@/atoms/auth'
 import { Button, LineInput } from '@/components/ui'
 import { eodiroConsts } from '@/constants'
 import Body from '@/layouts/BaseLayout/Body'
+import EodiroDialog from '@/modules/client/eodiro-dialog'
 import { eodiroRequest, registerPush } from '@/modules/eodiro-request'
 import { ApiAuthForgotReqBody, apiAuthForgotUrl } from '@/pages/api/auth/forgot'
 import {
@@ -130,16 +131,18 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
         },
       })
 
-      window.alert('포탈 이메일로 암호 변경 요청 이메일을 발송했습니다.')
+      new EodiroDialog().alert(
+        '포탈 이메일로 암호 변경 요청 이메일을 발송했습니다.'
+      )
 
       router.push('/')
     } catch (error) {
       setValidating(false)
 
       if (error.response?.status === 404) {
-        window.alert('가입되어 있지 않은 포탈 아이디입니다.')
+        new EodiroDialog().alert('가입되어 있지 않은 포탈 아이디입니다.')
       } else {
-        window.alert('서버에 문제가 발생했습니다.')
+        new EodiroDialog().alert('서버에 문제가 발생했습니다.')
       }
     }
   }

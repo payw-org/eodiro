@@ -1,0 +1,145 @@
+@use '@/assets/styles/main' as *;
+
+$build-out-time: 700ms;
+$build-in-time: 700ms;
+
+.eodiro-dialog {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  visibility: hidden;
+  transition: visibility $build-out-time ease;
+
+  &.confirm {
+    .act.close {
+      display: none;
+    }
+  }
+
+  &.alert {
+    .act.confirm,
+    .act.cancel {
+      display: none;
+    }
+  }
+
+  &.vagabond {
+    pointer-events: none !important;
+
+    .wall {
+      display: none;
+    }
+
+    .content {
+      border-radius: r(2);
+      width: auto;
+      max-width: calc(100% - #{s(5) * 2});
+      @include text-color-inverted;
+      @include elm-fill-inverted;
+      top: 0;
+
+      .message {
+        padding: s(2) s(3);
+      }
+
+      .actions {
+        display: none;
+      }
+    }
+
+    &.active {
+      .content {
+        animation: dialogIn $build-in-time linear;
+        animation-duration: 0.5s;
+        animation-fill-mode: both;
+      }
+    }
+  }
+
+  .content {
+    width: calc(100% - 2rem);
+    max-width: 20rem;
+    height: auto;
+    background-color: #fff;
+    border-radius: $border-radius-outer;
+    text-align: center;
+    font-size: 1rem;
+    z-index: 1;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 150ms ease, transform 150ms ease;
+    position: relative;
+    top: -4rem;
+    @include shadowed;
+
+    @include dark-mode {
+      background-color: $base-black-soft;
+    }
+
+    .message {
+      padding: s(5);
+      line-height: 1.2;
+      font-size: 1rem;
+    }
+
+    .actions {
+      margin: 0 s(3);
+      text-align: center;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+      @include separator('top');
+
+      .act {
+        cursor: pointer;
+        border-radius: $border-radius-outer;
+        padding: 0.8rem;
+
+        button {
+          color: $eodiro-primary-color;
+          font-size: b(4);
+        }
+
+        &.confirm button {
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  .wall {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    opacity: 0;
+    transition: opacity 150ms ease;
+    background-color: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(3px);
+
+    @include dark-mode {
+      background-color: rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  &.active {
+    visibility: visible;
+    pointer-events: all;
+
+    .content {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .wall {
+      opacity: 1;
+    }
+  }
+}

@@ -20,6 +20,7 @@ import './_document.scss'
 // Always put this line after any other library styles.
 // In VSCode, run command "Save without formatting". (cmd K + S)
 import '@/assets/styles/global/globalstyle.scss'
+import '@/modules/client/eodiro-dialog/style.scss'
 
 type EdrAppProps = AppProps & {
   shouldCheckAuth: boolean

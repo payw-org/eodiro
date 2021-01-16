@@ -1,5 +1,6 @@
 import { Button, LineInput } from '@/components/ui'
 import Body from '@/layouts/BaseLayout/Body'
+import EodiroDialog from '@/modules/client/eodiro-dialog'
 import { prisma } from '@/modules/prisma'
 import { ApiAuthJoinRequestBody } from '@/pages/api/auth/join'
 import Axios from 'axios'
@@ -29,7 +30,7 @@ const ChangePasswordRequestPage: NextPage<ChangePasswordRequestPageProps> = ({
     } as ApiAuthJoinRequestBody)
 
     if (!data.password?.isValid) {
-      window.alert(data.password?.error?.message)
+      new EodiroDialog().alert(data.password?.error?.message)
     } else {
       try {
         await Axios.post('/api/auth/change-password', {
@@ -37,10 +38,12 @@ const ChangePasswordRequestPage: NextPage<ChangePasswordRequestPageProps> = ({
           password,
         })
 
-        window.alert('변경되었습니다. 다시 로그인 해주세요.')
+        new EodiroDialog().alert('변경되었습니다. 다시 로그인 해주세요.')
         router.push('/login')
       } catch (error) {
-        window.alert('암호 변경에 실패했습니다. 반복 시 문의해주세요.')
+        new EodiroDialog().alert(
+          '암호 변경에 실패했습니다. 반복 시 문의해주세요.'
+        )
       }
     }
 

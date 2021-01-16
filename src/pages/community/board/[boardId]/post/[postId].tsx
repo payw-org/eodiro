@@ -5,6 +5,7 @@ import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
 import { eodiroConsts } from '@/constants'
 import Body from '@/layouts/BaseLayout/Body'
+import EodiroDialog from '@/modules/client/eodiro-dialog'
 import { eodiroRequest } from '@/modules/eodiro-request'
 import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next-require-auth'
 import { yyyymmddhhmm } from '@/modules/time'
@@ -63,7 +64,8 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
   }, [setComments, post?.communityComments])
 
   async function deletePost() {
-    if (!post || !window.confirm('정말 삭제하시겠습니까?')) return
+    if (!post || !(await new EodiroDialog().confirm('정말 삭제하시겠습니까?')))
+      return
 
     await eodiroRequest<ApiCommunityDeletePostReqData>({
       url: apiCommunityUpsertDeleteUrl,
@@ -71,7 +73,7 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
       data: { postId: post.id },
     })
 
-    alert('삭제되었습니다.')
+    new EodiroDialog().alert('삭제되었습니다.')
     router.replace(communityBoardPageUrl(post.boardId))
   }
 
@@ -95,11 +97,11 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
         setLikesCount(result.count)
 
         if (result.alreadyLiked) {
-          window.alert('이미 좋아요했습니다.')
+          new EodiroDialog().alert('이미 좋아요했습니다.')
         }
       }
     } catch (error) {
-      window.alert('좋아요하는데 실패했습니다.')
+      new EodiroDialog().alert('좋아요하는데 실패했습니다.')
     }
   }
 

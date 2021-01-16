@@ -6,6 +6,7 @@ import { Cookies } from '@/pages/api/cookie'
 import Axios, { AxiosRequestConfig } from 'axios'
 import produce from 'immer'
 import { isInApp } from './booleans/is-in-app'
+import EodiroDialog from './client/eodiro-dialog'
 import { eodiroHost } from './eodiro-host'
 import { JwtErrorName } from './jwt'
 import { reactNativeWebViewPostMessage } from './native/react-native-webview'
@@ -39,7 +40,7 @@ export async function registerPush() {
         })
       } catch (error) {
         console.error(error)
-        window.alert(
+        new EodiroDialog().alert(
           '푸시 토큰 등록에 실패했습니다. 오류가 반복될 시 문의 바랍니다.'
         )
       }

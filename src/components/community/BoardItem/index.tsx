@@ -1,6 +1,7 @@
 import { ArrowBlock } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
+import EodiroDialog from '@/modules/client/eodiro-dialog'
 import { eodiroRequest } from '@/modules/eodiro-request'
 import {
   ApiCommunityPinBoardReqData,
@@ -45,7 +46,7 @@ export default function BoardItem(props: BoardItemProps) {
       }
     } catch (error) {
       if (error.response?.status === 404) {
-        window.alert('삭제되었거나 존재하지 않는 게시판입니다.')
+        new EodiroDialog().alert('삭제되었거나 존재하지 않는 게시판입니다.')
       }
     }
   }

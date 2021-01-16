@@ -2,6 +2,7 @@ import { ArrowBlock } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
 import { NOT_FOUND } from '@/constants/http-status-code'
+import EodiroDialog from '@/modules/client/eodiro-dialog'
 import { eodiroRequest } from '@/modules/eodiro-request'
 import { friendlyTime } from '@/modules/time'
 import {
@@ -47,7 +48,7 @@ async function deleteComment(commentId: number): Promise<boolean> {
     return true
   } catch (error) {
     if (error.response?.status === 404) {
-      window.alert('이미 삭제된 댓글입니다.')
+      new EodiroDialog().alert('이미 삭제된 댓글입니다.')
 
       return false
     }
@@ -69,7 +70,7 @@ async function deleteSubcomment(subcommentId: number): Promise<boolean> {
     return true
   } catch (error) {
     if (error.response?.status === 404) {
-      window.alert('이미 삭제된 댓글입니다.')
+      new EodiroDialog().alert('이미 삭제된 댓글입니다.')
 
       return false
     }
@@ -91,7 +92,7 @@ const CommentItem: React.FC<{
   }, [comment.communitySubcomments])
 
   async function onDeleteComment() {
-    if (!window.confirm('정말 삭제하시겠습니까?')) return
+    if (!(await new EodiroDialog().confirm('정말 삭제하시겠습니까?'))) return
 
     const result = await deleteComment(comment.id)
 
@@ -109,7 +110,7 @@ const CommentItem: React.FC<{
   }
 
   async function onDeleteSubcomment(subcommentId: number) {
-    if (!window.confirm('정말 삭제하시겠습니까?')) return
+    if (!(await new EodiroDialog().confirm('정말 삭제하시겠습니까?'))) return
 
     const result = await deleteSubcomment(subcommentId)
 
@@ -133,12 +134,12 @@ const CommentItem: React.FC<{
     const body = e.currentTarget.value.trim()
 
     if (body.length === 0) {
-      window.alert('내용을 입력하세요.')
+      new EodiroDialog().alert('내용을 입력하세요.')
       return
     }
 
     if (body.length > 100) {
-      window.alert('댓글은 100자까지만 입력할 수 있습니다.')
+      new EodiroDialog().alert('댓글은 100자까지만 입력할 수 있습니다.')
       return
     }
 
@@ -172,7 +173,7 @@ const CommentItem: React.FC<{
       setSubcomments((prev) => [...prev, ...latestSubcomments])
       setNewSubcommentActive(false)
     } catch (error) {
-      window.alert('삭제된 댓글에는 대댓글을 달 수 없습니다.')
+      new EodiroDialog().alert('삭제된 댓글에는 대댓글을 달 수 없습니다.')
 
       setComments((prev) => {
         const next = produce(prev, (draft) => {
@@ -333,12 +334,12 @@ export const Comments: React.FC<{
     const body = e.currentTarget.value.trim()
 
     if (body.length === 0) {
-      window.alert('내용을 입력하세요.')
+      new EodiroDialog().alert('내용을 입력하세요.')
       return
     }
 
     if (body.length > 100) {
-      window.alert('댓글은 100자까지만 입력할 수 있습니다.')
+      new EodiroDialog().alert('댓글은 100자까지만 입력할 수 있습니다.')
       return
     }
 
@@ -356,7 +357,7 @@ export const Comments: React.FC<{
       })
     } catch (error) {
       if (error.response?.status === NOT_FOUND) {
-        window.alert('삭제된 포스트에는 댓글을 달 수 없습니다.')
+        new EodiroDialog().alert('삭제된 포스트에는 댓글을 달 수 없습니다.')
       }
 
       window.location.reload()
@@ -382,7 +383,7 @@ export const Comments: React.FC<{
         return refreshedComments
       })
     } catch (error) {
-      window.alert('최신 댓글을 불러오는데 실패했습니다.')
+      new EodiroDialog().alert('최신 댓글을 불러오는데 실패했습니다.')
     }
   }
 

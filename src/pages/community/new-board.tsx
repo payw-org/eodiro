@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui'
 import { eodiroConsts } from '@/constants'
 import Body from '@/layouts/BaseLayout/Body'
+import EodiroDialog from '@/modules/client/eodiro-dialog'
 import { eodiroRequest } from '@/modules/eodiro-request'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
@@ -25,13 +26,13 @@ export default function NewBoardPage() {
         },
       })
 
-      window.alert('생성되었습니다.')
+      new EodiroDialog().alert('생성되었습니다.')
       router.replace('/community/all-boards')
     } catch (createError) {
       const errorMessage = createError.response?.data?.message
 
       if (errorMessage) {
-        window.alert(errorMessage)
+        new EodiroDialog().alert(errorMessage)
       }
     }
 

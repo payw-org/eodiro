@@ -2,6 +2,7 @@ import Information from '@/components/global/Information'
 import { Button } from '@/components/ui'
 import { eodiroConsts } from '@/constants'
 import Body from '@/layouts/BaseLayout/Body'
+import EodiroDialog from '@/modules/client/eodiro-dialog'
 import { eodiroRequest } from '@/modules/eodiro-request'
 import { prisma } from '@/modules/prisma'
 import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next-require-auth'
@@ -49,17 +50,17 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
     const trimmedBody = body.trim()
 
     if (trimmedTitle.length < eodiroConsts.MIN_POST_TITLE_LENGTH) {
-      window.alert('제목을 입력해주세요.')
+      new EodiroDialog().alert('제목을 입력해주세요.')
       return
     }
 
     if (trimmedTitle.length > eodiroConsts.MAX_POST_TITLE_LENGTH) {
-      window.alert('제목은 최대 100자입니다.')
+      new EodiroDialog().alert('제목은 최대 100자입니다.')
       return
     }
 
     if (trimmedBody.length < eodiroConsts.MIN_POST_BODY_LENGTH) {
-      window.alert('내용을 입력해주세요.')
+      new EodiroDialog().alert('내용을 입력해주세요.')
       return
     }
 
@@ -83,9 +84,9 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
       console.error(error)
       console.error(error.response)
 
-      // window.alert error message sent from server
+      // Alert error message sent from server
       if (error.reponse?.data) {
-        window.alert(error.response.data)
+        new EodiroDialog().alert(error.response.data)
       }
     }
   }
