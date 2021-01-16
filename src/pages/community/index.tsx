@@ -68,10 +68,7 @@ export default function CommunityHomepage() {
               onUpdatePin={refresh}
             />
           ) : (
-            <div className={$['no-pins-yet']}>
-              <Icon name="pin" className={$['pin-icon']} />을 눌러 자주 이용하는
-              게시판을 고정할 수 있습니다.
-            </div>
+            <div className={$['no-pins-yet']}>최근 게시판이 없습니다.</div>
           )
         ) : recentBoardsError ? (
           <ServerError />
