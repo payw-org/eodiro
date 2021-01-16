@@ -76,7 +76,7 @@ export default function EdrApp({
     const w = globalThis as any
     const { topbar } = w
     topbar.config({
-      barThickness: 3,
+      barThickness: 2,
       barColors: {
         '0': '#ff3852',
         '1': '#ff3852',
@@ -85,7 +85,9 @@ export default function EdrApp({
       shadowColor: 'rgba(0, 0, 0, 0)',
       className: 'eodiro-topbar',
     })
-    Router.events.on('routeChangeStart', topbar.show)
+    Router.events.on('routeChangeStart', () => {
+      topbar.show()
+    })
     Router.events.on('routeChangeComplete', () => {
       ;(document.activeElement as any)?.blur()
       topbar.hide()
