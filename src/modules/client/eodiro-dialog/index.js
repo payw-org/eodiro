@@ -103,7 +103,9 @@ export default class EodiroDialog {
    * @param {'alert' | 'confirm' | 'vagabond'} mode
    */
   open(mode) {
-    disableBodyScroll(document.body)
+    if (mode !== 'vagabond') {
+      disableBodyScroll(document.body)
+    }
 
     setTimeout(() => {
       this.dialogContainerElm.classList.add('active')
