@@ -20,6 +20,18 @@
       min-height: calc(100vh - #{$footer-height});
       position: relative;
 
+      &.xsmall {
+        max-width: 600px;
+      }
+
+      &.small {
+        max-width: 800px;
+      }
+
+      &.large {
+        max-width: 1200px;
+      }
+
       &.top-gap {
         padding-top: $nav-height + ss(2);
       }
