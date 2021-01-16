@@ -40,7 +40,7 @@
     max-width: $app-content-max-width + 1rem;
     height: 100%;
     transition: box-shadow 300ms ease;
-    border-radius: 10px;
+    border-radius: $border-radius-outer;
     overflow: hidden;
 
     &::before {
@@ -85,7 +85,7 @@
     .home-link {
       display: flex;
       @include clickable;
-      margin-right: 0.5rem;
+      margin-right: 0.8rem;
 
       .eodiro-logo {
         width: 2.5rem;
@@ -179,7 +179,6 @@
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 10px 50px rgba(0, 0, 0, 0.2);
-        border-radius: 10px;
 
         &::before {
           content: '';
@@ -223,7 +222,8 @@
         justify-content: center;
 
         .more-icon {
-          height: 40%;
+          @include text-color;
+          font-size: 30px;
         }
       }
     }

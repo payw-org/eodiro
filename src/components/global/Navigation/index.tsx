@@ -1,6 +1,6 @@
 import { authState } from '@/atoms/auth'
-import { VerticalThreeDotsIcon } from '@/components/global/icons'
 import EodiroLogo from '@/components/global/icons/EodiroLogo'
+import { Icon } from '@/components/ui/Icon'
 import classNames from 'classnames'
 import Link from 'next/link'
 import React, { useContext } from 'react'
@@ -111,7 +111,7 @@ const Navigation: React.FC = () => {
             })
           }}
         >
-          <VerticalThreeDotsIcon className={$['more-icon']} />
+          <Icon name="ellipsis_vertical" className={$['more-icon']} />
         </button>
       </div>
     </nav>
