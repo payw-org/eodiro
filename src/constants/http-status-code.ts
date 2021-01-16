@@ -12,3 +12,12 @@ export const NOT_FOUND = 404
 
 // Server errors
 export const INTERNAL_SERVER_ERROR = 500
+
+export const statusCode = {
+  OK,
+  BAD_REQUEST,
+  UNAUTHORIZED,
+  FORBIDDEN,
+  NOT_FOUND,
+  INTERNAL_SERVER_ERROR,
+}
