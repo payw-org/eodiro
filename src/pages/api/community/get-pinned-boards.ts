@@ -19,6 +19,8 @@ export async function getPinnedBoards(data: { userId: number }) {
     select: {
       id: true,
       name: true,
+      description: true,
+      createdAt: true,
     },
   })
 

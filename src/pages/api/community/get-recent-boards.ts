@@ -24,6 +24,8 @@ export default nextApi({
       select: {
         id: true,
         name: true,
+        description: true,
+        createdAt: true,
       },
     })
 
