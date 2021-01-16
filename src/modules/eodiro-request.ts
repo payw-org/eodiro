@@ -1,4 +1,5 @@
 import { eodiroConsts } from '@/constants'
+import { UNAUTHORIZED } from '@/constants/http-status-code'
 import { ApiAuthRefreshResData } from '@/pages/api/auth/refresh'
 import { ApiAuthGeneralErrResData } from '@/pages/api/auth/verify'
 import { Cookies } from '@/pages/api/cookie'
@@ -95,7 +96,7 @@ export async function eodiroRequest<RQD = any, RSD = any>(
     const status = firstTryErr.response?.status as number
 
     // Unauthorized
-    if (status === 401) {
+    if (status === UNAUTHORIZED) {
       const accessUnauthorized = firstTryErr.response
         ?.data as ApiAuthGeneralErrResData
 
@@ -114,8 +115,6 @@ export async function eodiroRequest<RQD = any, RSD = any>(
       await clearAuthCookie()
       window.location.href = '/login'
     }
-
-    console.error(firstTryErr)
 
     throw firstTryErr
   }
