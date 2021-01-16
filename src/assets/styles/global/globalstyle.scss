@@ -249,6 +249,7 @@ button {
   font-family: inherit;
   font-size: 1rem;
   color: $base-gray;
+  outline: none !important;
   @include clickable;
 }
 
