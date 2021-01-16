@@ -64,7 +64,14 @@ export default function BoardItem(props: BoardItemProps) {
             >
               <Icon name={isPinned ? 'pin_fill' : 'pin'} size={22} />
             </button>
-            <span className={$['board-name']}>{board.name}</span>
+            <div>
+              <h1 className="font-semibold text-xl">{board.name}</h1>
+              {board.description && (
+                <p className="text-gray-500 dark:text-gray-400 text-base">
+                  {board.description}
+                </p>
+              )}
+            </div>
           </Flex>
         </ArrowBlock>
       </a>
