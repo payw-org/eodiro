@@ -4,6 +4,8 @@
 
 - Merge eodiro server into eodiro client
 - Deprecated legacy password check is now removed
+- Use client side routing
+- Replace custom icons with F7 icons
 
 ## v3.7.4
 
