@@ -12,7 +12,7 @@ type DataType =
 
 type QueryTestDetailOption = {
   required: boolean
-  dataType: 'number' | 'string'
+  dataType: 'number' | 'string' | 'boolean'
 }
 
 function isQueryTestDetailOption(
@@ -36,7 +36,10 @@ export const validateRequiredReqDataMiddleware = <
   query: testQuery,
 }: {
   body?: Record<keyof T, DataType | QueryTestDetailOption>
-  query?: Record<keyof T, 'number' | 'string' | QueryTestDetailOption>
+  query?: Record<
+    keyof T,
+    'number' | 'string' | 'boolean' | QueryTestDetailOption
+  >
 }) =>
   initMiddleware<NextApi>(async (req, res, next) => {
     if (testQuery) {
@@ -73,7 +76,22 @@ export const validateRequiredReqDataMiddleware = <
             } else if (exist) {
               res.status(400).json({
                 error: {
-                  message: `Data type of query field '${key}' is wrong`,
+                  message: `Data type of query field '${key}' should be number.`,
+                },
+              })
+
+              return
+            }
+          } else if (dataType === 'boolean') {
+            if (queryValue === 'true' || queryValue === 'false') {
+              requestQuery[key] =
+                queryValue === 'true'
+                  ? ((true as unknown) as string)
+                  : ((false as unknown) as string)
+            } else if (exist) {
+              res.status(400).json({
+                error: {
+                  message: `Data type of query field '${key}' should be boolean.`,
                 },
               })
 
@@ -85,7 +103,7 @@ export const validateRequiredReqDataMiddleware = <
           ) {
             res.status(400).json({
               error: {
-                message: `Data type of query field '${key}' is wrong`,
+                message: `Data type of query field '${key}' should be string.`,
               },
             })
 
