@@ -91,11 +91,13 @@ const Navigation: React.FC = () => {
       <BgBar />
 
       <div className={$['en-wrapper']}>
-        <Link href="/">
-          <a className={$['home-link']}>
-            <EodiroLogo className={$['eodiro-logo']} fill="#ff3852" />
-          </a>
-        </Link>
+        <div className="flex items-center justify-center w-10 ml-4 mr-3">
+          <Link href="/">
+            <a className="flex">
+              <EodiroLogo fill="#ff3852" className="w-full h-full" />
+            </a>
+          </Link>
+        </div>
 
         <PageAppTitle />
 

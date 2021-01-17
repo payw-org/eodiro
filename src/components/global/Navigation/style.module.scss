@@ -149,7 +149,7 @@
       width: 3rem;
       @include clickable;
       margin-right: 0.5rem;
-      margin-left: 0.5rem;
+      margin-left: 0.7rem;
       flex: none;
     }
 
@@ -223,7 +223,7 @@
 
         .more-icon {
           @include text-color;
-          font-size: 30px;
+          font-size: 25px;
         }
       }
     }
