@@ -1,0 +1,5 @@
+@use '@/assets/styles/main' as *;
+
+.separator {
+  @include separator('bottom');
+}
