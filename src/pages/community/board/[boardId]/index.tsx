@@ -1,3 +1,4 @@
+import BoardSideBar from '@/components/community/BoardSideBar'
 import { PostsList } from '@/components/community/PostsList'
 import Information from '@/components/global/Information'
 import { ArrowBlock } from '@/components/ui'
@@ -103,25 +104,7 @@ const BoardPage: NextPage<BoardPageProps> = ({
               </Flex>
             </div>
 
-            <div className={$['sidebar']}>
-              <ArrowBlock className={$['boards-list']} flat>
-                <h2 className={$['boards-list-header']}>다른 게시판</h2>
-                {boardsList.map((boardInfo) => (
-                  <Link
-                    href={communityBoardPageUrl(boardInfo.id)}
-                    key={boardInfo.id}
-                  >
-                    <div
-                      className={classNames($['boards-list-item'], {
-                        [$['current']]: boardInfo.id === boardId,
-                      })}
-                    >
-                      {boardInfo.name}
-                    </div>
-                  </Link>
-                ))}
-              </ArrowBlock>
-            </div>
+            <BoardSideBar />
           </div>
         </>
       )}

@@ -1,0 +1,16 @@
+@use '@/assets/styles/main' as *;
+
+.board-sidebar {
+  margin-left: 20px;
+  min-width: 300px;
+  align-self: flex-start;
+  position: sticky;
+  top: $nav-height + 1.5rem;
+
+  @include on-mobile {
+    position: static;
+    min-width: 100%;
+    margin-left: unset;
+    margin-top: 80px;
+  }
+}
