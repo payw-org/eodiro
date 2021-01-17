@@ -305,10 +305,10 @@ export const Comments: React.FC<{
     // If commentId or subcommentId is in query,
     // scroll to the target comment
 
-    const { query } = router
+    setTimeout(() => {
+      const { query } = router
 
-    if ('commentId' in query || 'subcommentId' in query) {
-      setTimeout(() => {
+      if ('commentId' in query || 'subcommentId' in query) {
         const commentElm = document.querySelector(
           `[data-${query.commentId ? 'comment' : 'subcomment'}-id="${
             query.commentId ?? query.subcommentId
@@ -328,8 +328,8 @@ export const Comments: React.FC<{
           document.title,
           window.location.pathname
         )
-      }, 0)
-    }
+      }
+    }, 100)
   }, [router])
 
   async function onKeyUp(e: React.KeyboardEvent<HTMLInputElement>) {
