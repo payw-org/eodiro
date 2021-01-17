@@ -1,4 +1,9 @@
 import { authState } from '@/atoms/auth'
+import {
+  navHiddenState,
+  navScrolledState,
+  navTitleState,
+} from '@/atoms/navigation'
 import EodiroLogo from '@/components/global/icons/EodiroLogo'
 import { Icon } from '@/components/ui/Icon'
 import classNames from 'classnames'
@@ -6,11 +11,8 @@ import Link from 'next/link'
 import React, { useContext } from 'react'
 import { useRecoilValue } from 'recoil'
 import {
-  NavHiddenStateContext,
   NavMenuOpenDispatchContext,
   NavMenuOpenStateContext,
-  NavScrollStateContext,
-  NavTitleStateContext,
 } from './navigation-context'
 import $ from './style.module.scss'
 
@@ -43,12 +45,12 @@ const BgBar: React.FC = () => {
 }
 
 const PageAppTitle: React.FC = () => {
-  const hidden = useContext(NavHiddenStateContext)
-  const title = useContext(NavTitleStateContext)
+  const navHidden = useRecoilValue(navHiddenState)
+  const pageTitle = useRecoilValue(navTitleState)
 
   return (
-    <h1 className={classNames($['page-app-title'], !hidden && $['show'])}>
-      {title}
+    <h1 className={classNames($['page-app-title'], !navHidden && $['show'])}>
+      {pageTitle}
     </h1>
   )
 }
@@ -80,18 +82,20 @@ const NavMenus: React.FC = () => {
 }
 
 const Navigation: React.FC = () => {
-  const isScrolled = useContext(NavScrollStateContext)
+  const navScrolled = useRecoilValue(navScrolledState)
   const setMenuOpen = useContext(NavMenuOpenDispatchContext)
 
   return (
     <nav
       id={$['eodiro-navigation']}
-      className={classNames(isScrolled && $['scrolled'])}
+      className={classNames({
+        [$['scrolled']]: navScrolled,
+      })}
     >
       <BgBar />
 
       <div className={$['en-wrapper']}>
-        <div className="flex items-center justify-center w-10 ml-4 mr-3">
+        <div className="flex items-center justify-center w-10 ml-3 mr-4">
           <Link href="/">
             <a className="flex">
               <EodiroLogo fill="#ff3852" className="w-full h-full" />
