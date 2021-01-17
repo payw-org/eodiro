@@ -86,7 +86,7 @@ const MyPage: NextPage<MyPageProps> = ({ user }) => {
             <a>
               <ArrowBlock>
                 <div className={$['info-block']}>
-                  <h2 className={$['ib-header']}>나의 포스트</h2>
+                  <h2 className={$['ib-header']}>나의 게시물</h2>
                 </div>
               </ArrowBlock>
             </a>
@@ -104,7 +104,7 @@ const MyPage: NextPage<MyPageProps> = ({ user }) => {
             <a>
               <ArrowBlock>
                 <div className={$['info-block']}>
-                  <h2 className={$['ib-header']}>나의 북마크</h2>
+                  <h2 className={$['ib-header']}>나의 책갈피</h2>
                 </div>
               </ArrowBlock>
             </a>

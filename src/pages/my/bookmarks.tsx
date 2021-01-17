@@ -25,7 +25,7 @@ export default function MyBookmarks({
 
   return (
     <Body
-      pageTitle="나의 북마크"
+      pageTitle="나의 책갈피"
       titleAlign="center"
       bodyClassName={$['my-bookmarks-page']}
     >
@@ -33,7 +33,7 @@ export default function MyBookmarks({
         {posts.length > 0 ? (
           <PostsList posts={posts} />
         ) : (
-          <Flex center>아직 북마크가 없습니다.</Flex>
+          <Flex center>아직 책갈피가 없습니다.</Flex>
         )}
       </ArrowBlock>
 
