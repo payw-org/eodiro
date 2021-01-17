@@ -54,7 +54,7 @@ export default nextApi({
     }
 
     // Create a comment
-    const comment = await prisma.communityComment.create({
+    const createComment = prisma.communityComment.create({
       data: {
         user: { connect: { id: user?.id } },
         commentedAt: dbNow(),
@@ -63,6 +63,14 @@ export default nextApi({
         communityPost: { connect: { id: postId } },
       },
     })
+
+    // Increment post comments count
+    const incrementCount = prisma.communityPost.update({
+      where: { id: post.id },
+      data: { commentsCount: { increment: 1 } },
+    })
+
+    const [comment] = await prisma.$transaction([createComment, incrementCount])
 
     // Push notification to the post author
     if (post.userId !== user.id) {
@@ -118,13 +126,21 @@ export default nextApi({
       return
     }
 
-    // Delete
-    await prisma.communityComment.update({
+    // Delete comment
+    const deleteComment = prisma.communityComment.update({
       where: { id: commentId },
       data: {
         isDeleted: true,
       },
     })
+
+    // Decrement post comments count
+    const decrementCount = prisma.communityPost.update({
+      where: { id: comment.postId },
+      data: { commentsCount: { decrement: 1 } },
+    })
+
+    await prisma.$transaction([deleteComment, decrementCount])
 
     res.status(200).end()
   },

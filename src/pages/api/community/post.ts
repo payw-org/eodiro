@@ -43,13 +43,10 @@ export const apiCommunityPost = async ({
     where: { id: postId },
     include: {
       communityComments: {
-        where: { isDeleted: false },
         orderBy: { id: 'asc' },
         include: {
           communitySubcomments: {
-            where: {
-              isDeleted: false,
-            },
+            where: { isDeleted: false },
           },
         },
       },
@@ -71,19 +68,36 @@ export const apiCommunityPost = async ({
       ...safePostRest,
       hasBeenEdited: !!editedAt,
       isMine: post.userId === userId,
-      communityComments: post.communityComments.map((comment) => {
-        const { userId: u2, isDeleted: d2, ...commentRest } = comment
-        return {
-          ...commentRest,
-          isMine: comment.userId === userId,
-          communitySubcomments: comment.communitySubcomments.map(
-            (subcomment) => ({
-              ...subcomment,
-              isMine: subcomment.userId === userId,
-            })
-          ),
-        }
-      }),
+      communityComments: post.communityComments
+        .filter(
+          (comment) =>
+            !(comment.isDeleted && comment.communitySubcomments.length === 0)
+        )
+        .map((comment) => {
+          const { userId: u2, isDeleted: d2, ...commentRest } = comment
+
+          const isDeletedButHasSubcomments =
+            d2 && comment.communitySubcomments.length > 0
+
+          return {
+            ...commentRest,
+            isMine: isDeletedButHasSubcomments
+              ? false
+              : comment.userId === userId,
+            randomNickname: isDeletedButHasSubcomments
+              ? '알수없음'
+              : comment.randomNickname,
+            body: isDeletedButHasSubcomments
+              ? '삭제된 댓글입니다.'
+              : comment.body,
+            communitySubcomments: comment.communitySubcomments.map(
+              (subcomment) => ({
+                ...subcomment,
+                isMine: subcomment.userId === userId,
+              })
+            ),
+          }
+        }),
       communityPostLikesCount: communityPostLikes.length,
       communityPostBookmarksCount: communityPostBookmarks.length,
       likedByMe: communityPostLikes.some(

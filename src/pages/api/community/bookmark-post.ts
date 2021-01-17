@@ -41,17 +41,26 @@ export default nextApi({
     })
 
     if (alreadyBookmarked) {
-      await prisma.communityPostBookmark.delete({
+      // Delete bookmark record
+      const deleteBookmark = prisma.communityPostBookmark.delete({
         where: { userId_postId: { userId, postId } },
       })
 
-      const count = await prisma.communityPostBookmark.count({
-        where: { postId },
+      // Decrement bookmarks count
+      const decrementCount = prisma.communityPost.update({
+        where: { id: postId },
+        data: { bookmarksCount: { decrement: 1 } },
       })
 
-      res.json({ isBookmarkedByMe: false, count })
+      const [, updatedPost] = await prisma.$transaction([
+        deleteBookmark,
+        decrementCount,
+      ])
+
+      res.json({ isBookmarkedByMe: false, count: updatedPost.bookmarksCount })
     } else {
-      await prisma.communityPostBookmark.create({
+      // Create bookmark record
+      const createBookmark = prisma.communityPostBookmark.create({
         data: {
           user: {
             connect: { id: userId },
@@ -62,11 +71,18 @@ export default nextApi({
         },
       })
 
-      const count = await prisma.communityPostBookmark.count({
-        where: { postId },
+      // Increment bookmarks count
+      const incrementCount = prisma.communityPost.update({
+        where: { id: postId },
+        data: { bookmarksCount: { increment: 1 } },
       })
 
-      res.json({ isBookmarkedByMe: true, count })
+      const [, updatedPost] = await prisma.$transaction([
+        createBookmark,
+        incrementCount,
+      ])
+
+      res.json({ isBookmarkedByMe: true, count: updatedPost.bookmarksCount })
     }
   }),
 })

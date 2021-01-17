@@ -51,7 +51,8 @@ export default nextApi({
 
       res.json({ alreadyLiked, count })
     } else {
-      await prisma.communityPostLike.create({
+      // Create post like record
+      const createLike = prisma.communityPostLike.create({
         data: {
           user: {
             connect: { id: userId },
@@ -62,11 +63,18 @@ export default nextApi({
         },
       })
 
-      const count = await prisma.communityPostLike.count({
-        where: { postId },
+      // Increment post likes count
+      const incrementCount = prisma.communityPost.update({
+        where: { id: postId },
+        data: { likesCount: { increment: 1 } },
       })
 
-      res.json({ alreadyLiked, count })
+      const [, updatedPost] = await prisma.$transaction([
+        createLike,
+        incrementCount,
+      ])
+
+      res.json({ alreadyLiked, count: updatedPost.likesCount })
     }
   }),
 })

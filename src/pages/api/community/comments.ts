@@ -52,7 +52,7 @@ export default nextApi({
     }
 
     const comments = await prisma.communityComment.findMany({
-      where: { postId, isDeleted: false },
+      where: { postId },
       include: {
         communitySubcomments: {
           where: {
@@ -65,12 +65,28 @@ export default nextApi({
       cursor: cursor ? { id: cursor } : undefined,
     })
 
-    const safeComments: ApiCommunityCommentsResData = comments.map(
-      (comment) => {
+    const safeComments: ApiCommunityCommentsResData = comments
+      .filter(
+        (comment) =>
+          !(comment.isDeleted && comment.communitySubcomments.length === 0)
+      )
+      .map((comment) => {
         const { userId: u1, isDeleted: d1, ...commentRest } = comment
+
+        const isDeletedButHasSubcomments =
+          d1 && comment.communitySubcomments.length > 0
+
         return {
           ...commentRest,
-          isMine: comment.userId === user.id,
+          isMine: isDeletedButHasSubcomments
+            ? false
+            : comment.userId === user.id,
+          randomNickname: isDeletedButHasSubcomments
+            ? '알수없음'
+            : comment.randomNickname,
+          body: isDeletedButHasSubcomments
+            ? '삭제된 댓글입니다.'
+            : comment.body,
           communitySubcomments: comment.communitySubcomments.map(
             (subcomment) => {
               const {
@@ -85,8 +101,7 @@ export default nextApi({
             }
           ),
         }
-      }
-    )
+      })
 
     res.json(safeComments)
   }),

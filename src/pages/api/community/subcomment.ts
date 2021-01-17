@@ -63,7 +63,7 @@ export default nextApi({
     }
 
     // Create a subcomment
-    const subcomment = await prisma.communitySubcomment.create({
+    const createSubcomment = prisma.communitySubcomment.create({
       data: {
         user: { connect: { id: user?.id } },
         subcommentedAt: dbNow(),
@@ -72,6 +72,17 @@ export default nextApi({
         communityComment: { connect: { id: commentId } },
       },
     })
+
+    // Increment post comments count
+    const incrementCount = prisma.communityPost.update({
+      where: { id: comment.postId },
+      data: { commentsCount: { increment: 1 } },
+    })
+
+    const [subcomment] = await prisma.$transaction([
+      createSubcomment,
+      incrementCount,
+    ])
 
     // Push notification to the comment author
     if (comment.userId !== user.id) {
@@ -129,13 +140,26 @@ export default nextApi({
       return
     }
 
-    // Delete
-    await prisma.communitySubcomment.update({
+    // Delete subcomment
+    const deleteSubcomment = prisma.communitySubcomment.update({
       where: { id: subcommentId },
       data: {
         isDeleted: true,
       },
     })
+
+    // Find the post from comment's post ID
+    const comment = await prisma.communityComment.findUnique({
+      where: { id: subcomment.commentId },
+    })
+
+    // Decrement post comments count
+    const decrementCount = prisma.communityPost.update({
+      where: { id: comment?.postId },
+      data: { commentsCount: { decrement: 1 } },
+    })
+
+    await prisma.$transaction([deleteSubcomment, decrementCount])
 
     res.status(200).end()
   },
