@@ -7,15 +7,24 @@ import {
 
 export type SafeCommunityBoard = Omit<
   CommunityBoard,
-  'isDeleted' | 'priority' | 'activeAt' | 'createdBy'
->
+  | 'isDeleted'
+  | 'priority'
+  | 'activeAt'
+  | 'createdBy'
+  | 'description'
+  | 'createdAt'
+> & {
+  description?: string | null
+  createdAt?: Date
+}
 
 export type SafeCommunityPost = Omit<
   CommunityPost,
-  'userId' | 'isDeleted' | 'editedAt'
+  'userId' | 'isDeleted' | 'editedAt' | 'body'
 > & {
-  isMine: boolean
-  hasBeenEdited: boolean
+  isMine?: boolean
+  hasBeenEdited?: boolean
+  body?: string
 }
 
 export type SafeCommunityComment = Omit<
