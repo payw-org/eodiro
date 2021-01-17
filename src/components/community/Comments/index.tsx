@@ -45,6 +45,8 @@ async function deleteComment(commentId: number): Promise<boolean> {
       },
     })
 
+    new EodiroDialog().vagabond('삭제되었습니다.')
+
     return true
   } catch (error) {
     if (error.response?.status === 404) {
@@ -66,6 +68,8 @@ async function deleteSubcomment(subcommentId: number): Promise<boolean> {
         subcommentId,
       },
     })
+
+    new EodiroDialog().vagabond('삭제되었습니다.')
 
     return true
   } catch (error) {
