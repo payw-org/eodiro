@@ -97,11 +97,12 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
         setLikesCount(result.count)
 
         if (result.alreadyLiked) {
-          new EodiroDialog().alert('이미 좋아요했습니다.')
+          new EodiroDialog().alert('이미 좋아합니다.')
         }
       }
     } catch (error) {
-      new EodiroDialog().alert('좋아요하는데 실패했습니다.')
+      console.error(error)
+      new EodiroDialog().alert('좋아하는데 실패했습니다.')
     }
   }
 
@@ -122,12 +123,18 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
     if (result) {
       setBookmarkedByMe(result.isBookmarkedByMe)
       setBookmarksCount(result.count)
+
+      new EodiroDialog().vagabond(
+        result.isBookmarkedByMe
+          ? '책갈피에 추가되었습니다.'
+          : '책갈피가 취소되었습니다.'
+      )
     }
   }
 
   return (
     <Body
-      pageTitle={post?.title ?? '포스트가 없습니다.'}
+      pageTitle={post?.title ?? '게시물이 없습니다.'}
       titleHidden
       bodyClassName={$['post-page-body']}
     >
@@ -228,7 +235,7 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
             eodiroConsts.TITLE_SENTINEL_SPOT
           )}
         >
-          <Information title="삭제되었거나 없는 포스트입니다." />
+          <Information title="삭제되었거나 없는 게시물입니다." />
         </div>
       )}
     </Body>

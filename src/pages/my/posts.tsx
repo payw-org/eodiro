@@ -21,7 +21,7 @@ export default function MyPosts({ posts, page, totalPage }: MyPostsProps) {
 
   return (
     <Body
-      pageTitle="나의 포스트"
+      pageTitle="나의 게시물"
       titleAlign="center"
       bodyClassName={$['my-posts-page']}
     >
@@ -29,7 +29,7 @@ export default function MyPosts({ posts, page, totalPage }: MyPostsProps) {
         {posts.length > 0 ? (
           <PostsList posts={posts} />
         ) : (
-          <Flex center>아직 포스트가 없습니다.</Flex>
+          <Flex center>아직 게시물이 없습니다.</Flex>
         )}
       </ArrowBlock>
 

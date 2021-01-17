@@ -75,7 +75,7 @@ export default nextApi({
       if (pushes.length > 0) {
         Push.notify({
           to: pushes.map((push) => push.expoPushToken),
-          title: '회원님의 포스트에 새로운 댓글이 달렸습니다.',
+          title: '회원님의 게시물에 새로운 댓글이 달렸습니다.',
           body: trimmedBody,
           data: {
             type: 'comment',

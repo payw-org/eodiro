@@ -94,7 +94,7 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
 
   return (
     <Body
-      pageTitle={title || (post ? '포스트 수정' : '새 포스트')}
+      pageTitle={title || (post ? '게시물 수정' : '새 게시물')}
       titleHidden
       bodyClassName={$['post-editor-page']}
     >
@@ -118,7 +118,7 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
       <textarea
         className={$['body-input']}
         spellCheck={false}
-        placeholder="포스트 내용을 입력하세요."
+        placeholder="게시물 내용을 입력하세요."
         value={body}
         onChange={onChangeBody}
       />

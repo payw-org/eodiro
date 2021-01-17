@@ -361,7 +361,7 @@ export const Comments: React.FC<{
       })
     } catch (error) {
       if (error.response?.status === NOT_FOUND) {
-        new EodiroDialog().alert('삭제된 포스트에는 댓글을 달 수 없습니다.')
+        new EodiroDialog().alert('삭제된 게시물에는 댓글을 달 수 없습니다.')
       }
 
       window.location.reload()

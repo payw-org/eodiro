@@ -42,7 +42,7 @@ const BoardPosts: React.FC<{
           <span className={$['no-posts-icon']}>
             <i className="f7-icons">bin_xmark</i>
           </span>
-          <p className={$['no-posts-label']}>아직 포스트가 없습니다.</p>
+          <p className={$['no-posts-label']}>아직 게시물이 없습니다.</p>
         </Flex>
       )}
     </ArrowBlock>
@@ -96,7 +96,7 @@ const BoardPage: NextPage<BoardPageProps> = ({
                 <Link href={postEditorPageUrl(board.id)}>
                   <a>
                     <button type="button" className={$['new-post-btn']}>
-                      <i className="f7-icons">square_pencil</i>새 포스트 작성
+                      <i className="f7-icons">square_pencil</i>게시물 작성
                     </button>
                   </a>
                 </Link>
