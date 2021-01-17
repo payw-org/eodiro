@@ -72,13 +72,27 @@ export const getServerSideProps: GetServerSideProps<MyCommentsProps> = async ({
 
   const posts = await prisma.communityPost.findMany({
     where: {
-      isDeleted: false,
-      communityComments: {
-        some: {
-          userId: user.id,
-          isDeleted: false,
-        },
+      AND: {
+        isDeleted: false,
       },
+      OR: [
+        {
+          communityComments: {
+            some: {
+              userId: user.id,
+              isDeleted: false,
+            },
+          },
+        },
+        {
+          communitySubcomments: {
+            some: {
+              userId: user.id,
+              isDeleted: false,
+            },
+          },
+        },
+      ],
     },
     orderBy: { id: 'desc' },
     skip,
