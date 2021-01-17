@@ -83,7 +83,7 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
 
     if (res.data.isSigned) {
       setAuthData({ userId: res.data.userId })
-      await registerPush()
+      registerPush()
       router.replace(Cookie.get(eodiroConsts.LAST_PATH) ?? '/')
     } else {
       setSignInFailed(true)

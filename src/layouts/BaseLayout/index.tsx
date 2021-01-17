@@ -24,7 +24,7 @@ const BaseLayout: React.FC<{
           method: 'POST',
         })
 
-        await registerPush()
+        registerPush()
 
         setAuthData(responseData.authData as AuthData)
       } catch (error) {

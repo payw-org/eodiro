@@ -2,9 +2,12 @@ import PageInfo from '@/components/utils/PageInfo'
 import { eodiroConsts } from '@/constants'
 import { phrases } from '@/constants/phrases'
 import BaseLayout from '@/layouts/BaseLayout'
+import EodiroDialog from '@/modules/client/eodiro-dialog'
+import '@/modules/client/eodiro-dialog/style.scss'
 import { eodiroRequest } from '@/modules/eodiro-request'
 import { reactNativeWebViewPostMessage } from '@/modules/native/react-native-webview'
 import { isDev } from '@/modules/utils/is-dev'
+import axios from 'axios'
 import 'intersection-observer'
 import { AppProps } from 'next/app'
 import { AppContextType } from 'next/dist/next-server/lib/utils'
@@ -15,12 +18,9 @@ import { RecoilRoot } from 'recoil'
 import 'swiper/swiper.scss'
 import { SWRConfig } from 'swr'
 import 'tailwindcss/tailwind.css'
+import '../assets/styles/global/globalstyle.scss'
 import { getCookie } from './api/cookie'
 import './_document.scss'
-// Always put this line after any other library styles.
-// In VSCode, run command "Save without formatting". (cmd K + S)
-import '@/assets/styles/global/globalstyle.scss'
-import '@/modules/client/eodiro-dialog/style.scss'
 
 type EdrAppProps = AppProps & {
   shouldCheckAuth: boolean
@@ -39,14 +39,15 @@ export default function EdrApp({
     let f: (e: MessageEvent) => void
     window.addEventListener(
       'message',
-      (f = (e: MessageEvent) => {
+      (f = async (e: MessageEvent) => {
         if (e.data === 'reload') {
           router.reload()
         } else {
           try {
             const parsed = JSON.parse(e.data)
+            const { type } = parsed
 
-            if (parsed.type === 'redirect') {
+            if (type === 'redirect') {
               const splitted = parsed.url.split('?')
               const pathnameOnly = splitted[0]
               const query = splitted[1]
@@ -55,6 +56,19 @@ export default function EdrApp({
                 window.location.search = `?${query}`
               } else {
                 router.push(parsed.url)
+              }
+            } else if (type === 'registerPush') {
+              const { expoPushToken } = parsed
+
+              try {
+                await axios.post('/api/push', {
+                  expoPushToken,
+                })
+              } catch (error) {
+                console.error(error)
+                new EodiroDialog().alert(
+                  '푸시 토큰 등록에 실패했습니다. 오류가 반복될 시 문의 바랍니다.'
+                )
               }
             }
           } catch (parseError) {
