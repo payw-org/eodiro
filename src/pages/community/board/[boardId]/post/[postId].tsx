@@ -97,7 +97,9 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
         setLikesCount(result.count)
 
         if (result.alreadyLiked) {
-          new EodiroDialog().alert('이미 좋아합니다.')
+          new EodiroDialog().alert('이미 좋아합니다 💕')
+        } else {
+          // TODO: Animate likes icon
         }
       }
     } catch (error) {
