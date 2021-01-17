@@ -8,7 +8,7 @@ $build-in-time: 700ms;
   top: 0;
   right: 0;
   left: 0;
-  height: 100vh;
+  bottom: 0;
   z-index: 9999;
   display: flex;
   align-items: center;
@@ -32,33 +32,28 @@ $build-in-time: 700ms;
 
   &.vagabond {
     pointer-events: none !important;
+    align-items: flex-end;
 
     .wall {
       display: none;
     }
 
     .content {
-      border-radius: r(2);
+      border-radius: $border-radius-inner;
       width: auto;
-      max-width: calc(100% - #{s(5) * 2});
+      max-width: calc(100% - 30px);
       @include text-color-inverted;
       @include elm-fill-inverted;
       top: 0;
+      margin-bottom: 40px;
+      margin-bottom: calc(40px + #{$safe-bottom});
 
       .message {
-        padding: s(2) s(3);
+        padding: 10px 12px;
       }
 
       .actions {
         display: none;
-      }
-    }
-
-    &.active {
-      .content {
-        animation: dialogIn $build-in-time linear;
-        animation-duration: 0.5s;
-        animation-fill-mode: both;
       }
     }
   }
@@ -76,7 +71,7 @@ $build-in-time: 700ms;
     transform: scale(1.04);
     transition: opacity 300ms ease, transform 300ms ease;
     position: relative;
-    top: -3rem;
+    top: -1rem;
     @include shadowed;
 
     @include dark-mode {
@@ -121,7 +116,7 @@ $build-in-time: 700ms;
     left: 0;
     opacity: 0;
     transition: opacity 300ms ease;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(3px);
 
     @include dark-mode {
