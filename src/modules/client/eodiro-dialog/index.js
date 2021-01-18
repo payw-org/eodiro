@@ -37,6 +37,7 @@ export default class EodiroDialog {
     // create a DOM
     const wrapper = document.createElement('div')
     wrapper.innerHTML = Mustache.render(modalTemplate, messages[this.lang])
+    /** @type {HTMLElement} */
     this.dialogContainerElm = wrapper.firstElementChild
     document.body.appendChild(this.dialogContainerElm)
     // eslint-disable-next-line no-unused-expressions
@@ -107,15 +108,20 @@ export default class EodiroDialog {
       disableBodyScroll(document.body)
     }
 
+    document.activeElement.blur()
+
     setTimeout(() => {
+      this.dialogContainerElm.ontransitionstart = () => {
+        if (mode === 'alert') {
+          this.closeBtn.querySelector('button').focus()
+        } else if (mode === 'confirm') {
+          this.confirmBtn.querySelector('button').focus()
+        }
+      }
+
       this.dialogContainerElm.classList.add('active')
       this.dialogContainerElm.classList.add(mode)
     }, 0)
-
-    // Focus dialog to prevent enter
-    setTimeout(() => {
-      this.dialogContainerElm.focus()
-    }, 10)
 
     // If vagabond mode, auto-close it after some time
     if (mode === 'vagabond') {
