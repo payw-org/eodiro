@@ -47,6 +47,7 @@
 
     .count-item {
       font-size: 14px;
+      font-variant-numeric: tabular-nums;
 
       &:not(:last-child) {
         margin-right: 10px;
