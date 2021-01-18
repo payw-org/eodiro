@@ -69,6 +69,9 @@ export default nextApi({
         subcommentedAt: dbNow(),
         randomNickname: user?.randomNickname,
         body: trimmedBody,
+        communityPost: {
+          connect: { id: comment.postId },
+        },
         communityComment: { connect: { id: commentId } },
       },
     })
@@ -148,14 +151,9 @@ export default nextApi({
       },
     })
 
-    // Find the post from comment's post ID
-    const comment = await prisma.communityComment.findUnique({
-      where: { id: subcomment.commentId },
-    })
-
     // Decrement post comments count
     const decrementCount = prisma.communityPost.update({
-      where: { id: comment?.postId },
+      where: { id: subcomment.postId },
       data: { commentsCount: { decrement: 1 } },
     })
 
