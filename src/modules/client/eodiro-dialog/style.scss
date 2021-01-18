@@ -71,7 +71,7 @@ $build-in-time: 700ms;
     transform: scale(1.04);
     transition: opacity 300ms ease, transform 300ms ease;
     position: relative;
-    top: -1rem;
+    top: -0.5rem;
     @include shadowed;
 
     @include dark-mode {
@@ -116,11 +116,11 @@ $build-in-time: 700ms;
     left: 0;
     opacity: 0;
     transition: opacity 300ms ease;
-    background-color: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(3px);
+    background-color: rgba(0, 0, 0, 0.15);
+    // backdrop-filter: blur(3px);
 
     @include dark-mode {
-      background-color: rgba(0, 0, 0, 0.7);
+      background-color: rgba(0, 0, 0, 0.6);
     }
   }
 
