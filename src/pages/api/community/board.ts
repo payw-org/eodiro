@@ -32,7 +32,7 @@ export const apiCommunityBoard = async (
 ): Promise<ApiCommunityBoardResData> => {
   const { boardId, page, userId } = data
 
-  const take = 20
+  const take = eodiroConsts.POSTS_TAKE_IN_ONE_PAGE
   const skip = Math.max(page - 1, 0) * take
   const totalPage = Math.ceil(
     (await prisma.communityPost.count({
