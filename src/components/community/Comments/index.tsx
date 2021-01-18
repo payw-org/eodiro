@@ -28,7 +28,6 @@ import {
 } from '@/pages/api/community/subcomments'
 import { commentsState } from '@/pages/community/board/[boardId]/post/[postId]'
 import { Dispatcher } from '@/types/react-helper'
-import { SafeCommunitySubcomment } from '@/types/schema'
 import produce from 'immer'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
@@ -89,11 +88,7 @@ const CommentItem: React.FC<{
   const setComments = useSetRecoilState(commentsState)
   const [newSubcommentActive, setNewSubcommentActive] = useState(false)
   const [newSubcomment, setNewSubcomment] = useState('')
-  const [subcomments, setSubcomments] = useState<SafeCommunitySubcomment[]>([])
-
-  useEffect(() => {
-    setSubcomments(comment.communitySubcomments)
-  }, [comment.communitySubcomments])
+  const subcomments = comment.communitySubcomments
 
   async function onDeleteComment() {
     if (!(await new EodiroDialog().confirm('정말 삭제하시겠습니까?'))) return
@@ -105,7 +100,13 @@ const CommentItem: React.FC<{
         const nextComments = produce(prevComments, (draftComments) => {
           const index = draftComments.findIndex((c) => c.id === comment.id)
 
-          draftComments.splice(index, 1)
+          if (draftComments[index].communitySubcomments.length === 0) {
+            draftComments.splice(index, 1)
+          } else {
+            draftComments[index].randomNickname = '알수없음'
+            draftComments[index].body = '삭제된 댓글입니다.'
+            draftComments[index].isMine = false
+          }
         })
 
         return nextComments
@@ -119,15 +120,22 @@ const CommentItem: React.FC<{
     const result = await deleteSubcomment(subcommentId)
 
     if (result) {
-      setSubcomments((prev) => {
-        const next = produce(prev, (draft) => {
-          const index = draft.findIndex(
-            (subcomment) => subcomment.id === subcommentId
-          )
-          draft.splice(index, 1)
+      const subcommentIndex = subcomments.findIndex(
+        (subcomment) => subcomment.id === subcommentId
+      )
+      const nextSubcomments = produce(subcomments, (draftSubcomments) => {
+        draftSubcomments.splice(subcommentIndex, 1)
+      })
+
+      setComments((prevComments) => {
+        const commentIndex = prevComments.findIndex(
+          (c) => c.id === subcomments[subcommentIndex].commentId
+        )
+        const nextComments = produce(prevComments, (draftComments) => {
+          draftComments[commentIndex].communitySubcomments = nextSubcomments
         })
 
-        return next
+        return nextComments
       })
     }
   }
@@ -174,15 +182,29 @@ const CommentItem: React.FC<{
         }),
       })
 
-      setSubcomments((prev) => [...prev, ...latestSubcomments])
+      const nextSubcomments = produce(subcomments, (draftSubcomments) => {
+        draftSubcomments.push(...latestSubcomments)
+      })
+
+      setComments((prevComments) => {
+        const commentIndex = prevComments.findIndex((c) => c.id === comment.id)
+        const nextComments = produce(prevComments, (draftComments) => {
+          draftComments[commentIndex].communitySubcomments = nextSubcomments
+        })
+
+        return nextComments
+      })
       setNewSubcommentActive(false)
     } catch (error) {
-      new EodiroDialog().alert('삭제된 댓글에는 대댓글을 달 수 없습니다.')
+      new EodiroDialog().alert(
+        '댓글이 삭제되어 더 이상 대댓글을 달 수 없습니다.'
+      )
 
       setComments((prev) => {
         const next = produce(prev, (draft) => {
           const index = draft.findIndex((c) => c.id === comment.id)
-          draft.splice(index, 1)
+          draft[index].randomNickname = '알수없음'
+          draft[index].body = '삭제된 댓글입니다.'
         })
         return next
       })
