@@ -1,12 +1,15 @@
 import BoardsList from '@/components/community/BoardsList'
 import ServerError from '@/components/global/ServerError'
 import { Spinner } from '@/components/global/Spinner'
+import { ArrowBlock } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
 import Body from '@/layouts/BaseLayout/Body'
+import Grid from '@/layouts/Grid'
 import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next-require-auth'
 import { GetServerSideProps } from 'next'
 import Link from 'next/link'
+import { ReactNode } from 'react'
 import useSWR from 'swr'
 import { ApiGetPinnedBoardsResData } from '../api/community/get-pinned-boards'
 import { ApiGetRecentBoardsResData } from '../api/community/get-recent-boards'
@@ -22,17 +25,41 @@ export default function CommunityHomepage() {
     data: recentBoards,
     error: recentBoardsError,
     mutate: updateRecentBoards,
-  } = useSWR<ApiGetRecentBoardsResData>('/api/community/get-recent-boards')
+  } = useSWR<ApiGetRecentBoardsResData>(
+    '/api/community/get-recent-boards?excludePins=true'
+  )
 
   function refresh() {
     updatePinnedBoards()
     updateRecentBoards()
   }
 
+  function SubHead({ children }: { children: ReactNode }) {
+    return <h1 className="text-2xl font-semibold ml-1 mb-4">{children}</h1>
+  }
+
   return (
     <Body pageTitle="커뮤니티" bodyClassName={$['community-page']}>
+      <section className="popular-posts mb-10">
+        <Grid>
+          <Link href="/community/popular">
+            <a>
+              <ArrowBlock>
+                <h2 className="text-xl">
+                  <Icon
+                    name="flame_fill"
+                    className="text-eodiro-primary-color mr-2"
+                  />
+                  인기 게시물
+                </h2>
+              </ArrowBlock>
+            </a>
+          </Link>
+        </Grid>
+      </section>
+
       <section className={$['community-home-section']}>
-        <h1 className={$['subhead']}>고정됨</h1>
+        <SubHead>고정됨</SubHead>
         {pinnedBoards ? (
           pinnedBoards.length > 0 ? (
             <BoardsList
@@ -57,7 +84,7 @@ export default function CommunityHomepage() {
         )}
       </section>
       <section className={$['community-home-section']}>
-        <h1 className={$['subhead']}>최근 게시판</h1>
+        <SubHead>최근 게시판</SubHead>
         {recentBoards ? (
           recentBoards.length > 0 ? (
             <BoardsList

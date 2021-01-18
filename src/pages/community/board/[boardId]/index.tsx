@@ -5,16 +5,13 @@ import { ArrowBlock } from '@/components/ui'
 import { Flex } from '@/components/ui/layouts/Flex'
 import Pagination from '@/components/ui/Pagination'
 import Body from '@/layouts/BaseLayout/Body'
-import { prisma } from '@/modules/prisma'
 import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next-require-auth'
 import {
   apiCommunityBoard,
   ApiCommunityBoardResData,
   apiCommunityBoardUrl,
 } from '@/pages/api/community/board'
-import { communityBoardPageUrl, postEditorPageUrl } from '@/utils/page-urls'
-import { CommunityBoard } from '@prisma/client'
-import classNames from 'classnames'
+import { postEditorPageUrl } from '@/utils/page-urls'
 import { GetServerSideProps, NextPage } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -42,14 +39,10 @@ const BoardPosts: React.FC<{
 }
 
 type BoardPageProps = {
-  boardsList: Pick<CommunityBoard, 'id' | 'name'>[]
   boardInformation: ApiCommunityBoardResData
 }
 
-const BoardPage: NextPage<BoardPageProps> = ({
-  boardsList,
-  boardInformation,
-}) => {
+const BoardPage: NextPage<BoardPageProps> = ({ boardInformation }) => {
   const router = useRouter()
   const { board, page, totalPage } = boardInformation
   const boardId = board?.id
@@ -57,7 +50,7 @@ const BoardPage: NextPage<BoardPageProps> = ({
   return (
     <Body pageTitle={board?.name ?? '없는 게시판'}>
       {!board ? (
-        <Information title="다른 게시판을 이용해주세요." />
+        <Information title="게시판이 삭제되었거나 잘못된 접근입니다. 커뮤니티 홈에서 게시판을 이용해주세요." />
       ) : (
         <>
           <div className={$['board-page']}>
@@ -114,20 +107,25 @@ export const getServerSideProps: GetServerSideProps<BoardPageProps> = async ({
   await nextRequireAuthMiddleware(req, res)
 
   const { user } = req
+
+  const boardIdParam = globalThis.isNaN(parseInt(params?.boardId as string, 10))
+    ? params?.boardId
+    : parseInt(params?.boardId as string, 10)
+
+  let boardId = 0
+
+  if (typeof boardIdParam === 'number') {
+    boardId = boardIdParam
+  }
+
   const boardInformation = await apiCommunityBoard({
-    boardId: Number(params?.boardId),
+    boardId,
     page: query.page ? Math.max(Number(query.page), 1) : 1,
     userId: user.id,
   })
 
-  const boardsList = await prisma.communityBoard.findMany({
-    orderBy: [{ priority: 'desc' }, { activeAt: 'desc' }],
-    select: { id: true, name: true },
-  })
-
   return {
     props: {
-      boardsList,
       boardInformation,
     },
   }
