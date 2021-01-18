@@ -186,15 +186,16 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
                 {post.title}
               </h1>
               <div className={$['body']}>
-                {post.body.split('\n').map((line, i) => {
-                  if (line.length === 0) {
-                    // eslint-disable-next-line react/no-array-index-key
-                    return <br key={i} />
-                  }
+                {post.body &&
+                  post.body.split('\n').map((line, i) => {
+                    if (line.length === 0) {
+                      // eslint-disable-next-line react/no-array-index-key
+                      return <br key={i} />
+                    }
 
-                  // eslint-disable-next-line react/no-array-index-key
-                  return <p key={i}>{line}</p>
-                })}
+                    // eslint-disable-next-line react/no-array-index-key
+                    return <p key={i}>{line}</p>
+                  })}
               </div>
               {post.hasBeenEdited && (
                 <span className={$['has-been-edited-mark']}>(수정됨)</span>
