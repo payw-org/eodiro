@@ -36,7 +36,7 @@ export const apiCommunityBoard = async (
   const skip = Math.max(page - 1, 0) * take
   const totalPage = Math.ceil(
     (await prisma.communityPost.count({
-      where: { communityBoard: { id: boardId } },
+      where: { communityBoard: { id: boardId, isDeleted: false } },
     })) / take
   )
 
