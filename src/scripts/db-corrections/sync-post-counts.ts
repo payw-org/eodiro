@@ -18,8 +18,24 @@ async function sync() {
       .then((comments) => {
         // Comments count including subcomments
         const commentsCount = comments.reduce((accum, comment) => {
-          accum += 1
-          accum += comment.communitySubcomments.length
+          // Count only not-deleted comment
+          if (!comment.isDeleted) {
+            accum += 1
+          }
+
+          // Count subcomment
+          const subcommentsCount = comment.communitySubcomments.reduce(
+            (subAccum, subcomment) => {
+              if (!subcomment.isDeleted) {
+                subAccum += 1
+              }
+
+              return subAccum
+            },
+            0
+          )
+
+          accum += subcommentsCount
 
           return accum
         }, 0)
