@@ -1,11 +1,12 @@
 import {
-  NavHiddenDispatchContext,
-  NavScrollDispatchContext,
-  NavTitleDispatchContext,
-} from '@/components/global/Navigation'
+  navHiddenState,
+  navScrolledState,
+  navTitleState,
+} from '@/atoms/navigation'
 import { eodiroConsts } from '@/constants'
 import classNames from 'classnames'
-import React, { FC, useContext, useEffect, useRef } from 'react'
+import React, { FC, useEffect, useRef } from 'react'
+import { useSetRecoilState } from 'recoil'
 import $ from './style.module.scss'
 
 export type HeaderProps = {
@@ -17,9 +18,9 @@ export type HeaderProps = {
 const Header: FC<HeaderProps> = ({ pageTitle, titleAlign, titleHidden }) => {
   const pageAppTitleRef = useRef<HTMLHeadingElement>(null)
 
-  const setNavTitle = useContext(NavTitleDispatchContext)
-  const setNavHidden = useContext(NavHiddenDispatchContext)
-  const setNavScrolled = useContext(NavScrollDispatchContext)
+  const setNavTitle = useSetRecoilState(navTitleState)
+  const setNavHidden = useSetRecoilState(navHiddenState)
+  const setNavScrolled = useSetRecoilState(navScrolledState)
 
   useEffect(() => {
     setNavTitle(pageTitle)
