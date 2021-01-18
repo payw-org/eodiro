@@ -133,7 +133,8 @@ export default nextApi({
       where: { id: subcommentId },
     })
 
-    if (!subcomment) {
+    // If subcomment doesn't exist or deleted
+    if (!subcomment || subcomment.isDeleted) {
       res.status(404).end()
       return
     }

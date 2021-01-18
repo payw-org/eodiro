@@ -116,7 +116,8 @@ export default nextApi({
       where: { id: commentId },
     })
 
-    if (!comment) {
+    // If comment doesn't exist or deleted
+    if (!comment || comment.isDeleted) {
       res.status(404).end()
       return
     }
