@@ -179,6 +179,9 @@ model CommunityPost {
   title                  String
   body                   String
   randomNickname         String                  @map("random_nickname")
+  likesCount             Int                     @default(0) @map("likes_count")
+  commentsCount          Int                     @default(0) @map("comments_count")
+  bookmarksCount         Int                     @default(0) @map("bookmarks_count")
   postedAt               DateTime                @map("posted_at")
   editedAt               DateTime?               @map("edited_at")
   isDeleted              Boolean                 @default(false) @map("is_deleted")
@@ -187,6 +190,7 @@ model CommunityPost {
   communityComments      CommunityComment[]      @relation("community_commentTocommunity_post")
   communityPostBookmarks CommunityPostBookmark[] @relation("community_postTocommunity_post_bookmark")
   communityPostLikes     CommunityPostLike[]     @relation("community_postTocommunity_post_like")
+  communitySubcomments   CommunitySubcomment[]   @relation("community_postTocommunity_subcomment")
 
   @@index([boardId], name: "board_id")
   @@index([userId], name: "user_id")
@@ -235,15 +239,18 @@ model CommunityPostBookmark {
 model CommunitySubcomment {
   id               Int              @id @default(autoincrement())
   userId           Int              @map("user_id")
+  postId           Int              @map("post_id")
   commentId        Int              @map("comment_id")
   randomNickname   String           @default("") @map("random_nickname")
   body             String
   subcommentedAt   DateTime         @map("subcommented_at")
   isDeleted        Boolean          @default(false) @map("is_deleted")
   communityComment CommunityComment @relation("community_commentTocommunity_subcomment", fields: [commentId], references: [id])
+  communityPost    CommunityPost    @relation("community_postTocommunity_subcomment", fields: [postId], references: [id])
   user             User             @relation("community_subcommentTouser", fields: [userId], references: [id])
 
   @@index([commentId], name: "comment_id")
+  @@index([postId], name: "post_id")
   @@index([userId], name: "user_id")
   @@map("community_subcomment")
 }
@@ -273,8 +280,8 @@ model CommunityBoardCandidate {
 }
 
 model CommunityBoardCandidateVote {
-  boardCandidateId        Int                     @map(name: "board_candidate_id")
-  userId                  Int                     @map(name: "user_id")
+  boardCandidateId        Int                     @map("board_candidate_id")
+  userId                  Int                     @map("user_id")
   communityBoardCandidate CommunityBoardCandidate @relation("community_board_candidateTocommunity_board_candidate_vote", fields: [boardCandidateId], references: [id])
   user                    User                    @relation("community_board_candidate_voteTouser", fields: [userId], references: [id])
 
