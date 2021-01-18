@@ -66,9 +66,16 @@ export const PostsList: React.FC<{
 }> = ({ posts }) => {
   return (
     <div className={$['posts-list']}>
-      {posts.map((post) => (
-        <PostItem key={post.id} post={post} />
-      ))}
+      {posts.length > 0 ? (
+        posts.map((post) => <PostItem key={post.id} post={post} />)
+      ) : (
+        <Flex center column className="py-2">
+          <span className="text-3xl text-eodiro-primary-color">
+            <i className="f7-icons">bin_xmark</i>
+          </span>
+          <p className="mt-1 text-base">게시물이 없습니다.</p>
+        </Flex>
+      )}
     </div>
   )
 }

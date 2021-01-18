@@ -36,16 +36,7 @@ const BoardPosts: React.FC<{
 
   return (
     <ArrowBlock flat className={$['posts-container']}>
-      {data.board.communityPosts.length > 0 ? (
-        <PostsList posts={data.board.communityPosts} />
-      ) : (
-        <Flex center column>
-          <span className={$['no-posts-icon']}>
-            <i className="f7-icons">bin_xmark</i>
-          </span>
-          <p className={$['no-posts-label']}>아직 게시물이 없습니다.</p>
-        </Flex>
-      )}
+      <PostsList posts={data.board.communityPosts} />
     </ArrowBlock>
   )
 }
