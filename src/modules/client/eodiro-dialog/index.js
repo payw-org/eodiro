@@ -25,6 +25,8 @@ export default class EodiroDialog {
    * @param {'ko'|'en'=} lang
    */
   constructor(lang) {
+    this.index = 0
+
     // init language
     if (lang) {
       this.lang = lang
@@ -52,6 +54,8 @@ export default class EodiroDialog {
    * @param {string} msg
    */
   alert(msg) {
+    this.index = EodiroDialog.alertsOrConfirms.push(0) - 1
+
     this.setMsg(msg)
     this.open('alert')
 
@@ -67,6 +71,8 @@ export default class EodiroDialog {
    * @param {string} msg
    */
   confirm(msg) {
+    this.index = EodiroDialog.alertsOrConfirms.push(0) - 1
+
     this.setMsg(msg)
     this.open('confirm')
 
@@ -132,15 +138,20 @@ export default class EodiroDialog {
   }
 
   close() {
-    // remove active class first
-    this.dialogContainerElm.classList.remove('active')
+    EodiroDialog.alertsOrConfirms.splice(this.index, 1)
 
-    if (document.querySelectorAll('.eodiro-dialog').length === 1) {
+    if (EodiroDialog.alertsOrConfirms.length === 0) {
+      // Enable body scroll
       clearAllBodyScrollLocks()
     }
 
-    setTimeout(() => {
-      this.dialogContainerElm.parentElement.removeChild(this.dialogContainerElm)
-    }, 700)
+    this.dialogContainerElm.ontransitionend = () => {
+      this.dialogContainerElm.remove()
+    }
+
+    // Remove active class
+    this.dialogContainerElm.classList.remove('active')
   }
 }
+
+EodiroDialog.alertsOrConfirms = []
