@@ -36,50 +36,50 @@ export default function EdrApp({
   const router = useRouter()
 
   useEffect(() => {
-    let f: (e: MessageEvent) => void
-    window.addEventListener(
-      'message',
-      (f = async (e: MessageEvent) => {
-        if (e.data === 'reload') {
-          router.reload()
-        } else {
-          try {
-            const parsed = JSON.parse(e.data)
-            const { type } = parsed
+    const f = async (e: MessageEvent) => {
+      if (e.data === 'reload') {
+        router.reload()
+      } else {
+        try {
+          const parsed = JSON.parse(e.data)
+          const { type } = parsed
 
-            if (type === 'redirect') {
-              const splitted = parsed.url.split('?')
-              const pathnameOnly = splitted[0]
-              const query = splitted[1]
+          if (type === 'redirect') {
+            const splitted = parsed.url.split('?')
+            const pathnameOnly = splitted[0]
+            const query = splitted[1]
 
-              if (window.location.pathname === pathnameOnly) {
-                window.location.search = `?${query}`
-              } else {
-                router.push(parsed.url)
-              }
-            } else if (type === 'registerPush') {
-              const { expoPushToken } = parsed
-
-              try {
-                await axios.post('/api/push', {
-                  expoPushToken,
-                })
-              } catch (error) {
-                console.error(error)
-                new EodiroDialog().alert(
-                  '푸시 토큰 등록에 실패했습니다. 오류가 반복될 시 문의 바랍니다.'
-                )
-              }
+            if (window.location.pathname === pathnameOnly) {
+              window.location.search = `?${query}`
+            } else {
+              router.push(parsed.url)
             }
-          } catch (parseError) {
-            //
+          } else if (type === 'registerPush') {
+            const { expoPushToken } = parsed
+
+            try {
+              await axios.post('/api/push', {
+                expoPushToken,
+              })
+            } catch (error) {
+              console.error(error)
+              new EodiroDialog().alert(
+                '푸시 토큰 등록에 실패했습니다. 오류가 반복될 시 문의 바랍니다.'
+              )
+            }
           }
+        } catch (parseError) {
+          //
         }
-      })
-    )
+      }
+    }
+
+    window.addEventListener('message', f)
+    document.addEventListener('message' as any, f)
 
     return () => {
       window.removeEventListener('message', f)
+      document.removeEventListener('message' as any, f)
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
