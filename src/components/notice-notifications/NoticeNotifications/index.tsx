@@ -1,4 +1,4 @@
-import { useUserId } from '@/atoms/auth'
+import { authState } from '@/atoms/auth'
 import PageInfo from '@/components/utils/PageInfo'
 import Body from '@/layouts/BaseLayout/Body'
 import { isInApp } from '@/modules/booleans/is-in-app'
@@ -13,11 +13,11 @@ import {
 } from '@/pages/api/notice-notifications'
 import classNames from 'classnames'
 import { useEffect, useState } from 'react'
+import { useRecoilValue } from 'recoil'
 import $ from './style.module.scss'
 
 const NoticeWatcher: React.FC = () => {
-  const userId = useUserId()
-  const isLoggedIn = !!userId
+  const { isLoggedIn } = useRecoilValue(authState)
   const [subscriptions, setSubsciptions] = useState(
     availableVendors.map((vendor) => ({
       ...vendor,

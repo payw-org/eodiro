@@ -1,4 +1,5 @@
-import { AuthData, JwtError, verifyToken } from '@/modules/jwt'
+import { statusCode } from '@/constants/http-status-code'
+import { JwtError, verifyToken } from '@/modules/jwt'
 import { nextApi } from '@/modules/next-api-routes-helpers'
 import { extractToken } from '@/modules/server/extract-token'
 
@@ -6,25 +7,19 @@ export type ApiAuthGeneralErrResData = {
   error: JwtError | null
 }
 
-export type ApiAuthVerifyResData = ApiAuthGeneralErrResData & {
-  authData?: AuthData
-}
+export type ApiAuthVerifyResData = ApiAuthGeneralErrResData
 
 export default nextApi({
   post: async (req, res) => {
     const accessToken = extractToken(req, res, 'access')
 
-    const [error, authData] = await verifyToken(accessToken, 'access')
+    const [error] = await verifyToken(accessToken, 'access')
 
+    // If error, set the status code to 401
     if (error) {
-      res.status(401)
+      res.status(statusCode.UNAUTHORIZED)
     }
 
-    const resData: ApiAuthVerifyResData = {
-      authData,
-      error,
-    }
-
-    res.json(resData)
+    res.json({ error })
   },
 })

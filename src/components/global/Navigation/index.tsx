@@ -56,7 +56,7 @@ const PageAppTitle: React.FC = () => {
 }
 
 const NavMenus: React.FC = () => {
-  const { userId } = useRecoilValue(authState)
+  const { isLoggedIn } = useRecoilValue(authState)
   const menuOpened = useContext(NavMenuOpenStateContext)
 
   return (
@@ -73,9 +73,9 @@ const NavMenus: React.FC = () => {
       <NavItem title="오픈소스" to="/opensource" />
       {/* <NavItem title="꿀팁" to="/tips" /> */}
       <NavItem
-        title={userId ? '마이페이지' : '로그인'}
-        className={userId ? $['my'] : $['signin']}
-        to={userId ? '/my' : '/login'}
+        title={isLoggedIn ? '마이페이지' : '로그인'}
+        className={isLoggedIn ? $['my'] : $['signin']}
+        to={isLoggedIn ? '/my' : '/login'}
       />
     </ul>
   )

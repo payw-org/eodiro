@@ -4,7 +4,6 @@ import Navigation, { NavContextProvider } from '@/components/global/Navigation'
 import { isInApp as checkIsInApp } from '@/modules/booleans/is-in-app'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
 import { eodiroRequest, registerPush } from '@/modules/eodiro-request'
-import { AuthData } from '@/modules/jwt'
 import { ApiAuthVerifyResData } from '@/pages/api/auth/verify'
 import React, { useEffect } from 'react'
 import { useSetRecoilState } from 'recoil'
@@ -19,14 +18,14 @@ const BaseLayout: React.FC<{
   useEffect(() => {
     async function init() {
       try {
-        const responseData = await eodiroRequest<null, ApiAuthVerifyResData>({
+        await eodiroRequest<null, ApiAuthVerifyResData>({
           url: '/api/auth/verify',
           method: 'POST',
         })
 
         registerPush()
 
-        setAuthData(responseData.authData as AuthData)
+        setAuthData({ isLoggedIn: true })
       } catch (error) {
         // JWT verification error
         console.error(error)
