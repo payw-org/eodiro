@@ -41,6 +41,7 @@ export default nextApi({
         activeAt: {
           gte: dbTime(dayjs().subtract(7, 'day').toDate()),
         },
+        isDeleted: false,
       },
       orderBy: [{ priority: 'desc' }, { activeAt: 'desc' }],
       select: {
