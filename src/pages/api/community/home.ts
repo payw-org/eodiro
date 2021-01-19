@@ -16,6 +16,7 @@ export const apiCommunityHome = async (
 ): Promise<ApiCommunityHomeResData> => {
   const take = 3
   const boards = await prisma.communityBoard.findMany({
+    where: { isDeleted: false },
     include: {
       communityPosts: {
         orderBy: { id: 'desc' },
