@@ -66,6 +66,7 @@ export default nextApi({
     })
 
     const safeComments: ApiCommunityCommentsResData = comments
+      // Exclude deleted comments that don't have any subcomments
       .filter(
         (comment) =>
           !(comment.isDeleted && comment.communitySubcomments.length === 0)
