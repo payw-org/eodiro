@@ -75,7 +75,7 @@ export async function eodiroRequest<RQD = any, RSD = any>(
       if (accessUnauthorized.error?.name === JwtErrorName.TokenExpiredError) {
         try {
           await Axios.post<ApiAuthRefreshResData>('/api/auth/refresh')
-          await registerPush()
+          registerPush()
 
           return await eodiroRequest<RQD, RSD>(sanitiedReqeuestConfig)
         } catch (refreshErr) {
