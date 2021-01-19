@@ -62,7 +62,7 @@ export const apiCommunityBoard = async (
 
   let commentsCountedBoard: ApiCommunityBoardResData['board'] = null
 
-  if (board) {
+  if (board && !board.isDeleted) {
     const { isDeleted: d1, ...boardRest } = board
     commentsCountedBoard = {
       ...boardRest,
