@@ -43,6 +43,7 @@ export default nextApi({
     const popularPosts = await prisma.communityPost.findMany({
       where: {
         likesCount: { gte: eodiroConsts.POPULAR_POST_LIKES_THRESHOLD },
+        isDeleted: false,
       },
       orderBy: { id: 'desc' },
       skip,
