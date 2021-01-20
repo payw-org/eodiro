@@ -27,5 +27,4 @@ export const env = {
 
   // Imgur
   IMGUR_CLIENT_ID: '',
-  IMGUR_CLIENT_SECRET: '',
 }
