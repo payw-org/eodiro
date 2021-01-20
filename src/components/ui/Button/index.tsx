@@ -12,6 +12,7 @@ type ButtonProps = {
   onClick?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void
   disabled?: boolean
   accent?:
+    | 'default'
     | 'pink'
     | 'orange'
     | 'yellow'
@@ -35,7 +36,10 @@ export const Button: React.FC<ButtonProps> = ({
   return (
     <button
       type="button"
-      className={classNames($['eodiro-btn'], className, full && $['full'])}
+      className={classNames($['eodiro-btn'], className, {
+        [$['full']]: full,
+        [$['default']]: accent === 'default',
+      })}
       data-accent={accent}
       onClick={onClick}
       disabled={disabled}

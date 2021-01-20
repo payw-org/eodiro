@@ -20,6 +20,12 @@
   @include clickable;
   @include shadowed;
 
+  &.default {
+    @include elm-fill;
+    @include text-color;
+    border: 1px solid transparent;
+  }
+
   &.full {
     width: 100%;
   }
