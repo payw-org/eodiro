@@ -1,0 +1,7 @@
+@use '@/assets/styles/main' as *;
+
+.bottom-buttons {
+  position: sticky;
+  bottom: 1rem;
+  bottom: calc(1rem + #{$safe-bottom});
+}
