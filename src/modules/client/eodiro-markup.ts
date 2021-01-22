@@ -1,10 +1,11 @@
+import { env } from '@/env'
 import escapeHtml from 'escape-html'
 
 const eodiroImageRegExp = /\[ 이미지 \| (.*?) \]/g
 
 export default class EodiroMarkup {
   static generateImageMarkup(imgSrc: string) {
-    return `[ 이미지 | ${imgSrc} ]`
+    return `[ 이미지 | ${imgSrc.replace(env.IMGUR_HOST, '')} ]`
   }
 
   static parse(src: string) {
@@ -19,9 +20,9 @@ export default class EodiroMarkup {
         const imageRegResult = eodiroImageRegExp.exec(line.trim())
 
         if (imageRegResult) {
-          const imgSrc = imageRegResult[1]
+          const imgHash = imageRegResult[1]
           eodiroImageRegExp.lastIndex = 0
-          return `<img src="${imgSrc}" />`
+          return `<img src="${env.IMGUR_HOST}${imgHash}" />`
         }
 
         // eslint-disable-next-line react/no-array-index-key

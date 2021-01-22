@@ -26,5 +26,6 @@ export const env = {
   TIME_ZONE: '',
 
   // Imgur
+  IMGUR_HOST: '',
   IMGUR_CLIENT_ID: '',
 }
