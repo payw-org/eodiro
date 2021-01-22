@@ -1,10 +1,10 @@
 import escapeHtml from 'escape-html'
 
-const eodiroImageRegExp = /\[ 이미지 \((.*?)\) \]/g
+const eodiroImageRegExp = /\[ 이미지 \| (.*?) \]/g
 
 export default class EodiroMarkup {
   static generateImageMarkup(imgSrc: string) {
-    return `[ 이미지 (${imgSrc}) ]`
+    return `[ 이미지 | ${imgSrc} ]`
   }
 
   static parse(src: string) {
@@ -16,7 +16,7 @@ export default class EodiroMarkup {
           return `<br />`
         }
 
-        const imageRegResult = eodiroImageRegExp.exec(line)
+        const imageRegResult = eodiroImageRegExp.exec(line.trim())
 
         if (imageRegResult) {
           const imgSrc = imageRegResult[1]
