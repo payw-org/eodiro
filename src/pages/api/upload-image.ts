@@ -22,7 +22,11 @@ export default nextApi({
     form.uploadDir = './'
     form.keepExtensions = true
 
-    form.parse(req, async (err, fields, files) => {
+    form.parse(req, async (err, _, files) => {
+      if (err) {
+        return res.status(statusCode.INTERNAL_SERVER_ERROR).end()
+      }
+
       const image = files['image'] as any
       const path = appRoot.resolve(image.path)
 
