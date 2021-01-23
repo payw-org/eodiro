@@ -15,10 +15,11 @@ import {
   apiCommunityUpsertPostUrl,
 } from '@/pages/api/community/post'
 import { communityPostPageUrl } from '@/utils/page-urls'
-import classNames from 'classnames'
+import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock'
+import $$ from 'classnames'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import { ChangeEvent, useRef, useState } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import $ from './editor.module.scss'
 
 type PostEditorPageProps = {
@@ -33,6 +34,16 @@ type PostEditorPageProps = {
 
 export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
   const router = useRouter()
+  const [isTutorialOpen, setIsTutorialOpen] = useState(false)
+
+  useEffect(() => {
+    if (isTutorialOpen) {
+      disableBodyScroll(document.body)
+    } else {
+      clearAllBodyScrollLocks()
+    }
+  }, [isTutorialOpen])
+
   const [title, setTitle] = useState(post ? post.title : '')
   const [body, setBody] = useState(post ? post.body : '')
   const bodyTextAreaRef = useRef<HTMLTextAreaElement>(null)
@@ -155,12 +166,19 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
       titleHidden
       width="small"
     >
-      <div
-        className={classNames(
-          eodiroConsts.OVERLAY_SENTINEL_SPOT,
-          eodiroConsts.TITLE_SENTINEL_SPOT
-        )}
-      >
+      <div className={`${eodiroConsts.OVERLAY_SENTINEL_SPOT}`}>
+        <ArrowBlock flat noPadding customHeight>
+          <button
+            type="button"
+            className="p-2 text-center"
+            onClick={() => setIsTutorialOpen(true)}
+          >
+            <Icon name="info_circle_fill" /> 어디로 에디터 도움말
+          </button>
+        </ArrowBlock>
+      </div>
+
+      <div className={$$(eodiroConsts.TITLE_SENTINEL_SPOT, 'mt-4')}>
         <input
           type="text"
           placeholder="제목을 입력하세요."
@@ -251,6 +269,28 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
         <Button onClick={upsertPost} className="flex-1 ml-4">
           {post ? '수정 완료' : '작성 완료'}
         </Button>
+      </div>
+
+      <div
+        className={$$($['tutorial'], {
+          [$['open']]: isTutorialOpen,
+        })}
+      >
+        <div
+          role="button"
+          tabIndex={0}
+          aria-label="Close"
+          className={`${$['bg']} cursor-default`}
+          onClick={() => setIsTutorialOpen(false)}
+        />
+        <article className={$['content']}>
+          <div className="flex items-center justify-between">
+            <h1 className="text-3xl font-semibold">어디로 에디터 도움말</h1>
+            <button type="button" onClick={() => setIsTutorialOpen(false)}>
+              <Icon name="xmark_circle_fill" size={40} />
+            </button>
+          </div>
+        </article>
       </div>
     </Body>
   )
