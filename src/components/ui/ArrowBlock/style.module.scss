@@ -7,8 +7,12 @@
     @include clickable;
   }
 
-  &.custom-padding {
+  &.no-padding {
     padding: 0;
+  }
+
+  &.custom-height {
+    min-height: unset;
   }
 
   .ab-body {

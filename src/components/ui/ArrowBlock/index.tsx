@@ -8,7 +8,8 @@ export interface ArrowBlockProps {
   noArrow?: boolean
   /** If `true`, no effect on hover. */
   flat?: boolean
-  customPadding?: boolean
+  noPadding?: boolean
+  customHeight?: boolean
   onClick?: () => void
 }
 
@@ -17,17 +18,17 @@ export const ArrowBlock: React.FC<ArrowBlockProps> = ({
   noArrow = false,
   flat = false,
   children,
-  customPadding = false,
+  noPadding = false,
+  customHeight = false,
   onClick,
 }) => {
   return (
     <div
-      className={classNames(
-        $['arrow-block'],
-        className,
-        !flat && $['unflat'],
-        customPadding && $['custom-padding']
-      )}
+      className={classNames($['arrow-block'], className, {
+        [$['unflat']]: !flat,
+        [$['no-padding']]: noPadding,
+        [$['custom-height']]: customHeight,
+      })}
       tabIndex={0}
       role="menu"
       onClick={onClick}
