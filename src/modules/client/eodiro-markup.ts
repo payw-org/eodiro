@@ -2,6 +2,7 @@ import { env } from '@/env'
 import escapeHtml from 'escape-html'
 
 const eodiroImageRegExp = /\[ 이미지 \| (.*?) \]/g
+const urlRegExp = /((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?[a-z0-9]+([-.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?)/g
 
 export default class EodiroMarkup {
   static generateImageMarkup(imgSrc: string) {
@@ -25,8 +26,13 @@ export default class EodiroMarkup {
           return `<img src="${env.IMGUR_HOST}${imgHash}" />`
         }
 
+        const escapedLine = escapeHtml(line)
+
         // eslint-disable-next-line react/no-array-index-key
-        return `<p>${escapeHtml(line)}</p>`
+        return `<p>${escapedLine.replace(
+          urlRegExp,
+          `<a href="$1" target="_blank">$1</a>`
+        )}</p>`
       })
       .join('')
   }
