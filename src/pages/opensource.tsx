@@ -1,7 +1,7 @@
 import OpenSourcePage, {
   OpenSourcePageProps,
 } from '@/components/open-source/OpenSourcePage'
-import { config } from '@/config'
+import { env } from '@/env'
 import { Contributor } from '@/types/github-api'
 import Axios from 'axios'
 import { GetServerSideProps, NextPage } from 'next'
@@ -18,7 +18,7 @@ export const getServerSideProps: GetServerSideProps<OpenSourcePageProps> = async
     {
       auth: {
         username: 'jhaemin',
-        password: config.GITHUB_OAUTH_TOKEN,
+        password: env.GITHUB_OAUTH_TOKEN,
       },
     }
   )
@@ -27,7 +27,7 @@ export const getServerSideProps: GetServerSideProps<OpenSourcePageProps> = async
     {
       auth: {
         username: 'jhaemin',
-        password: config.GITHUB_OAUTH_TOKEN,
+        password: env.GITHUB_OAUTH_TOKEN,
       },
     }
   )
@@ -36,7 +36,7 @@ export const getServerSideProps: GetServerSideProps<OpenSourcePageProps> = async
     {
       auth: {
         username: 'jhaemin',
-        password: config.GITHUB_OAUTH_TOKEN,
+        password: env.GITHUB_OAUTH_TOKEN,
       },
     }
   )
@@ -45,7 +45,7 @@ export const getServerSideProps: GetServerSideProps<OpenSourcePageProps> = async
     {
       auth: {
         username: 'jhaemin',
-        password: config.GITHUB_OAUTH_TOKEN,
+        password: env.GITHUB_OAUTH_TOKEN,
       },
     }
   )
