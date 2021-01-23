@@ -33,7 +33,7 @@ type AuthCommonProps = {
 const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
   const router = useRouter()
 
-  const setAuthData = useSetRecoilState(authState)
+  const setAuth = useSetRecoilState(authState)
 
   const [validating, setValidating] = useState(false)
   const [signInFailed, setSignInFailed] = useState(false)
@@ -82,7 +82,7 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
     setValidating(false)
 
     if (res.data.isSigned) {
-      setAuthData({ userId: res.data.userId })
+      setAuth({ isLoggedIn: true })
       registerPush()
       router.replace(Cookie.get(eodiroConsts.LAST_PATH) ?? '/')
     } else {

@@ -21,7 +21,7 @@ type MyPageProps = {
 
 const MyPage: NextPage<MyPageProps> = ({ user }) => {
   const router = useRouter()
-  const setAuthState = useSetRecoilState(authState)
+  const setAuth = useSetRecoilState(authState)
 
   async function signOut() {
     const cookies: Cookies = [
@@ -43,7 +43,7 @@ const MyPage: NextPage<MyPageProps> = ({ user }) => {
       data: cookies,
     })
 
-    setAuthState({ userId: 0 })
+    setAuth({ isLoggedIn: false })
     router.replace('/')
   }
 
