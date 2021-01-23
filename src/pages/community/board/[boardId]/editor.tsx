@@ -217,20 +217,19 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
         </div>
 
         {/* Markup Preview */}
-        <div
-          className="preview"
-          style={{ display: !isPreviewMode ? 'none' : undefined }}
-        >
-          <ArrowBlock flat>
-            <div
-              className="preview"
-              // eslint-disable-next-line react/no-danger
-              dangerouslySetInnerHTML={{
-                __html: EodiroMarkup.parse(body),
-              }}
-            />
-          </ArrowBlock>
-        </div>
+        {isPreviewMode && (
+          <div className="preview">
+            <ArrowBlock flat>
+              <article
+                className="preview"
+                // eslint-disable-next-line react/no-danger
+                dangerouslySetInnerHTML={{
+                  __html: EodiroMarkup.parse(body),
+                }}
+              />
+            </ArrowBlock>
+          </div>
+        )}
       </div>
 
       <div className={`${$['bottom-buttons']} flex items-center mt-4`}>
