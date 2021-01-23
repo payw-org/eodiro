@@ -61,7 +61,7 @@ $nav-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
       transition: background-color 300ms ease;
 
       @supports (backdrop-filter: blur(10px)) {
-        backdrop-filter: blur(5px) saturate(2);
+        backdrop-filter: blur(10px) saturate(1.7);
       }
 
       @include dark-mode {
@@ -198,7 +198,7 @@ $nav-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
           bottom: 0;
           left: 0;
           background-color: rgba(#fff, 0.93);
-          backdrop-filter: blur(4px) saturate(2);
+          backdrop-filter: blur(10px) saturate(1.7);
           z-index: -1;
 
           @include dark-mode {
