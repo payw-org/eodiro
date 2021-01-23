@@ -6,6 +6,7 @@ import { Flex } from '@/components/ui/layouts/Flex'
 import { eodiroConsts } from '@/constants'
 import Body from '@/layouts/BaseLayout/Body'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
+import EodiroMarkup from '@/modules/client/eodiro-markup'
 import { eodiroRequest } from '@/modules/eodiro-request'
 import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next-require-auth'
 import { yyyymmddhhmm } from '@/modules/time'
@@ -185,18 +186,13 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
               >
                 {post.title}
               </h1>
-              <div className={$['body']}>
-                {post.body &&
-                  post.body.split('\n').map((line, i) => {
-                    if (line.length === 0) {
-                      // eslint-disable-next-line react/no-array-index-key
-                      return <br key={i} />
-                    }
-
-                    // eslint-disable-next-line react/no-array-index-key
-                    return <p key={i}>{line}</p>
-                  })}
-              </div>
+              <div
+                className={$['body']}
+                // eslint-disable-next-line react/no-danger
+                dangerouslySetInnerHTML={{
+                  __html: EodiroMarkup.parse(post.body ?? ''),
+                }}
+              />
               {post.hasBeenEdited && (
                 <span className={$['has-been-edited-mark']}>(수정됨)</span>
               )}
