@@ -3,6 +3,7 @@ import { PostsList } from '@/components/community/PostsList'
 import ServerError from '@/components/global/ServerError'
 import { Spinner } from '@/components/global/Spinner'
 import { ArrowBlock } from '@/components/ui'
+import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
 import Pagination from '@/components/ui/Pagination'
 import Body from '@/layouts/BaseLayout/Body'
@@ -24,28 +25,36 @@ export default function CommunityPopularPage() {
     <Body pageTitle="인기 게시물">
       <div className="flex flex-row flex-wrap">
         <div className="posts-column flex-1">
-          {error ? (
-            <ServerError />
-          ) : data ? (
-            <>
+          <ArrowBlock flat noPadding customHeight className="mb-4">
+            <div className="p-2 text-center">
+              <Icon name="info_circle_fill" className="mr-2" />
+              좋아요가 10개 이상이면 인기 게시물에 표시됩니다.
+            </div>
+          </ArrowBlock>
+          <div>
+            {error ? (
+              <ServerError />
+            ) : data ? (
+              <>
+                <ArrowBlock flat>
+                  <PostsList posts={data.popularPosts} />
+                </ArrowBlock>
+                <Pagination
+                  totalPage={data.totalPage}
+                  currentPage={data.page}
+                  onPressPage={(pressedPage) => {
+                    router.push(`/community/popular?page=${pressedPage}`)
+                  }}
+                />
+              </>
+            ) : (
               <ArrowBlock flat>
-                <PostsList posts={data.popularPosts} />
+                <Flex center>
+                  <Spinner />
+                </Flex>
               </ArrowBlock>
-              <Pagination
-                totalPage={data.totalPage}
-                currentPage={data.page}
-                onPressPage={(pressedPage) => {
-                  router.push(`/community/popular?page=${pressedPage}`)
-                }}
-              />
-            </>
-          ) : (
-            <ArrowBlock flat>
-              <Flex center>
-                <Spinner />
-              </Flex>
-            </ArrowBlock>
-          )}
+            )}
+          </div>
         </div>
 
         <BoardSideBar />
