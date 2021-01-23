@@ -221,6 +221,19 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
             </Flex>
           </ArrowBlock>
 
+          <Link href={`/community/board/${post.boardId}`}>
+            <a className="default mt-4 block">
+              <ArrowBlock flat customHeight noPadding>
+                <div className="flex items-center justify-center p-3">
+                  <span className="font-medium">
+                    {post.communityBoard.name}
+                  </span>
+                  &nbsp;더보기
+                </div>
+              </ArrowBlock>
+            </a>
+          </Link>
+
           <Comments
             comments={comments}
             setComments={setComments}

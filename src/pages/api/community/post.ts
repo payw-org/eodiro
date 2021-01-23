@@ -22,6 +22,9 @@ export type ApiCommunityPostReqData = {
 
 export type ApiCommunityPostResData =
   | (SafeCommunityPost & {
+      communityBoard: {
+        name: string
+      }
       communityComments: (SafeCommunityComment & {
         communitySubcomments: SafeCommunitySubcomment[]
       })[]
@@ -48,6 +51,11 @@ export const apiCommunityPost = async ({
           communitySubcomments: {
             where: { isDeleted: false },
           },
+        },
+      },
+      communityBoard: {
+        select: {
+          name: true,
         },
       },
       communityPostLikes: true,
