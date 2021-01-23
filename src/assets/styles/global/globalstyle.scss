@@ -211,6 +211,7 @@ a {
   text-decoration: none;
   color: inherit;
   -webkit-touch-callout: none !important;
+  @include clickable;
 
   &.absolute-link {
     position: absolute;
