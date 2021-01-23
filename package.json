@@ -32,7 +32,6 @@
     "@types/body-scroll-lock": "^2.6.1",
     "app-root-path": "^3.0.0",
     "autoprefixer": "^10.2.1",
-    "aws-sdk": "^2.819.0",
     "axios": "^0.21.1",
     "bcrypt": "^5.0.0",
     "body-scroll-lock": "^3.1.5",
