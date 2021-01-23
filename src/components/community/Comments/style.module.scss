@@ -72,7 +72,7 @@
 }
 
 .subcomments {
-  margin-left: 20px;
+  margin-left: 24px;
 }
 
 .subcomment-item {
@@ -85,14 +85,14 @@
   .arrow {
     position: absolute;
     top: 15px;
-    right: calc(100% + 4px);
+    right: calc(100% + 8px);
     font-size: 16px;
     color: $base-gray;
   }
 }
 
 .comment-input {
-  margin-top: 20px;
+  margin-top: 16px;
 }
 
 .subcomment-input {
@@ -106,7 +106,7 @@
 
   .cancel-new-subcomment {
     position: absolute;
-    right: calc(100% + 4px);
+    right: calc(100% + 8px);
     top: 50%;
     transform: translateY(-50%);
     color: $eodiro-primary-color;
