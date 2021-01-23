@@ -31,7 +31,10 @@ export default class EodiroMarkup {
         // eslint-disable-next-line react/no-array-index-key
         return `<p>${escapedLine.replace(
           urlRegExp,
-          `<a href="$1" target="_blank">$1</a>`
+          (match) =>
+            `<a href="${
+              match.startsWith('http') ? match : `http://${match}`
+            }" target="_blank">${match}</a>`
         )}</p>`
       })
       .join('')
