@@ -36,9 +36,11 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
   const router = useRouter()
   const [isTutorialOpen, setIsTutorialOpen] = useState(false)
 
+  const tutorialContent = useRef<HTMLDivElement>(null)
+
   useEffect(() => {
-    if (isTutorialOpen) {
-      disableBodyScroll(document.body)
+    if (isTutorialOpen && tutorialContent.current) {
+      disableBodyScroll(tutorialContent.current)
     } else {
       clearAllBodyScrollLocks()
     }
@@ -283,14 +285,75 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
           className={`${$['bg']} cursor-default`}
           onClick={() => setIsTutorialOpen(false)}
         />
-        <article className={$['content']}>
-          <div className="flex items-center justify-between">
+        <div className={$['body']}>
+          <div className="flex items-center justify-between p-7 pb-3 bg-white dark:bg-base-black-soft">
             <h1 className="text-3xl font-semibold">어디로 에디터 도움말</h1>
             <button type="button" onClick={() => setIsTutorialOpen(false)}>
               <Icon name="xmark_circle_fill" size={40} />
             </button>
           </div>
-        </article>
+
+          <div
+            ref={tutorialContent}
+            className={`${$['content']} absolute top-0 left-0 h-full w-full overflow-y-auto px-7 pt-28`}
+          >
+            <section>
+              <h2>줄바꿈</h2>
+              <p>
+                엔터를 입력한만큼 줄바꿈이 일어납니다. 게시물의 마지막 줄바꿈은
+                아무리 많이 입력해도 무시됩니다.
+              </p>
+            </section>
+            <section>
+              <h2>이미지 업로드</h2>
+              <p>
+                이미지를 업로드하면 에디터에 다음과 같은 형태로 입력됩니다.
+                <br />
+                <br />
+                <b>
+                  <span className="text-eodiro-green-2">
+                    [ 이미지 | f2M4UHI.png ]
+                  </span>
+                </b>
+                <br />
+                <br />
+                같은 줄에 다른 내용을 함께 입력하거나 이미지 코드를 임의로
+                변경/훼손하면 이미지가 올바르게 표시되지 않습니다.
+                <br />
+                <br />
+                <b>
+                  <span className="text-eodiro-primary-color">
+                    <Icon name="xmark_circle_fill" />
+                  </span>{' '}
+                  [ 이미지 | f2M4UHI.png ]{' '}
+                  <span className="text-eodiro-primary-color">안녕하세요</span>{' '}
+                </b>
+                <br />
+                <b>
+                  <span className="text-eodiro-primary-color">
+                    <Icon name="xmark_circle_fill" />
+                  </span>{' '}
+                  <span className="text-eodiro-primary-color">[이</span>미지{' '}
+                  <span className="text-eodiro-primary-color">|f</span>
+                  2M4UHI.png ]
+                </b>
+                <br />
+                <b>
+                  <span className="text-eodiro-primary-color">
+                    <Icon name="xmark_circle_fill" />
+                  </span>{' '}
+                  [{' '}
+                  <span className="text-eodiro-primary-color">이미지히히</span>{' '}
+                  | f2M4UHI.png ]{' '}
+                </b>
+                <br />
+                <br />
+                이미지 코드를 유실한 경우 내용을 삭제하고 이미지를 새로
+                업로드해주세요.
+              </p>
+            </section>
+          </div>
+        </div>
       </div>
     </Body>
   )

@@ -22,14 +22,14 @@
     transition: opacity 400ms ease;
   }
 
-  .content {
-    padding: 30px;
+  .body {
     border-radius: 30px 30px 0 0;
     z-index: 99001;
     position: fixed;
     bottom: 0;
     left: 50%;
     transform: translateX(-50%) translateY(100%);
+    visibility: hidden;
     width: 100%;
     max-width: 700px;
     height: calc(100% - 50px);
@@ -37,7 +37,26 @@
     overflow-y: auto;
     @include elm-fill;
 
-    transition: transform 400ms ease;
+    transition: transform 400ms ease, visibility 400ms;
+
+    .content {
+      z-index: -1;
+      overflow-y: auto;
+      padding-bottom: 50px;
+      padding-bottom: calc(50px + #{$safe-bottom});
+
+      section {
+        margin-bottom: 50px;
+
+        h2 {
+          font-size: 24px;
+        }
+
+        p {
+          margin-top: 15px;
+        }
+      }
+    }
   }
 
   &.open {
@@ -47,7 +66,8 @@
       opacity: 0.5;
     }
 
-    .content {
+    .body {
+      visibility: visible;
       transform: translateX(-50%) translateY(0%);
       transition: transform 500ms cubic-bezier(0.42, 0.05, 0.06, 1);
     }
