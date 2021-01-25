@@ -161,7 +161,7 @@ const Home: React.FC = () => {
                 </i>
               }
             />
-            <HomeFeatureBox
+            {/* <HomeFeatureBox
               disabled
               title="학식 메뉴"
               to="/cafeteria"
@@ -205,7 +205,7 @@ const Home: React.FC = () => {
                   doc_text_search
                 </i>
               }
-            />
+            /> */}
           </Grid>
         </div>
 
