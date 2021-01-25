@@ -21,14 +21,14 @@ $nav-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
       &::before {
         background-color: rgba(#fff, 1);
 
-        @supports (backdrop-filter: blur(10px)) {
+        @supports (backdrop-filter: blur(20px)) {
           background-color: rgba(#fff, 0.93);
         }
 
         @include dark-mode {
           background-color: rgba(lighten($base-black-soft, 8), 1);
 
-          @supports (backdrop-filter: blur(10px)) {
+          @supports (backdrop-filter: blur(20px)) {
             background-color: rgba(lighten($base-black-soft, 8), 0.93);
           }
         }
@@ -43,6 +43,7 @@ $nav-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
     left: 50%;
     transform: translateX(-50%);
     width: calc(100% - 20px);
+    width: calc(100% - 20px - #{$safe-left} - #{$safe-right});
     max-width: $app-content-max-width + 1rem;
     height: 100%;
     transition: box-shadow 300ms ease;
@@ -60,8 +61,8 @@ $nav-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
       background-color: rgba(#fff, 0);
       transition: background-color 300ms ease;
 
-      @supports (backdrop-filter: blur(10px)) {
-        backdrop-filter: blur(10px) saturate(1.7);
+      @supports (backdrop-filter: blur(20px)) {
+        backdrop-filter: blur(20px) saturate(2);
       }
 
       @include dark-mode {
@@ -72,6 +73,7 @@ $nav-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
 
   .en-wrapper {
     width: calc(100% - 10px);
+    width: calc(100% - 10px - #{$safe-left} - #{$safe-right});
     max-width: $app-content-max-width;
     height: 100%;
     margin: auto;
@@ -198,7 +200,7 @@ $nav-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
           bottom: 0;
           left: 0;
           background-color: rgba(#fff, 0.93);
-          backdrop-filter: blur(10px) saturate(1.7);
+          backdrop-filter: blur(20px) saturate(2);
           z-index: -1;
 
           @include dark-mode {
