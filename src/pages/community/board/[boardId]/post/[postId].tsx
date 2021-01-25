@@ -61,7 +61,7 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
    * https://github.com/facebookexperimental/Recoil/issues/12
    */
   useEffect(() => {
-    setComments(post?.communityComments as CommunityCommentWithSubcomments[])
+    setComments(post?.communityComments ?? [])
   }, [setComments, post?.communityComments])
 
   async function deletePost() {
