@@ -300,8 +300,8 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
             <section>
               <h2>줄바꿈</h2>
               <p>
-                엔터를 입력한만큼 줄바꿈이 일어납니다. 게시물의 마지막 줄바꿈은
-                아무리 많이 입력해도 무시됩니다.
+                엔터를 입력한만큼 줄바꿈이 일어납니다. 게시물의 시작과 끝의
+                줄바꿈은 아무리 많이 입력해도 무시됩니다.
               </p>
             </section>
             <section>
