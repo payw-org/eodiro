@@ -1,3 +1,3 @@
 export const phrases = {
-  SLOGAN: '중앙인을 위한 길잡이 서비스',
+  SLOGAN: '중앙인을 위한 특별한 공간',
 }
