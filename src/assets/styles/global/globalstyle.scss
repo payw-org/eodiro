@@ -275,5 +275,6 @@ hr {
 }
 
 article img {
+  pointer-events: all;
   border-radius: $border-radius-inner;
 }
