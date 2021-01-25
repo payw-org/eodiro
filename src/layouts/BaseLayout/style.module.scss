@@ -14,6 +14,9 @@
   #eodiro-app {
     .body-content {
       width: calc(100% - #{$global-side-gap * 2});
+      width: calc(
+        100% - #{$global-side-gap * 2} - #{$safe-left} - #{$safe-right}
+      );
       max-width: $app-content-max-width;
       margin: auto;
       padding: $nav-height 0 3rem 0;
