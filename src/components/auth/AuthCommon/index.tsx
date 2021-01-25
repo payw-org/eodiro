@@ -103,7 +103,7 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
 
     if (response.data.hasJoined) {
       alert(
-        '중앙대학교 포탈로 인증 이메일이 발송되었습니다. 인증 후 로그인 해주세요.'
+        '중앙대학교 포탈 이메일로 인증 이메일이 발송되었습니다. 인증 후 로그인 해주세요. 인증 메일은 30분동안 유효합니다.'
       )
       router.push('/login')
     } else {
