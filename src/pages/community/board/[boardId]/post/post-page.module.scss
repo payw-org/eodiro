@@ -27,7 +27,7 @@
           }
 
           &.edit {
-            color: $eodiro-blue-1;
+            color: $base-gray;
           }
         }
       }
@@ -72,7 +72,7 @@
     .action-btn {
       font-size: 20px;
       @include bg;
-      padding: 10px 15px;
+      padding: 10px 16px;
       border-radius: 50px;
       font-variant-numeric: tabular-nums;
 
