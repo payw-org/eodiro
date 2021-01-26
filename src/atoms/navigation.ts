@@ -16,3 +16,8 @@ export const navTitleState = atom({
   key: 'navTitleState',
   default: '',
 })
+
+export const isMenuOpenState = atom({
+  key: 'isMenuOpenState',
+  default: false,
+})

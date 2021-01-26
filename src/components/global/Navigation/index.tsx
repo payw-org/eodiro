@@ -1,5 +1,6 @@
 import { authState } from '@/atoms/auth'
 import {
+  isMenuOpenState,
   navHiddenState,
   navScrolledState,
   navTitleState,
@@ -8,15 +9,9 @@ import EodiroLogo from '@/components/global/icons/EodiroLogo'
 import { Icon } from '@/components/ui/Icon'
 import classNames from 'classnames'
 import Link from 'next/link'
-import React, { useContext } from 'react'
-import { useRecoilValue } from 'recoil'
-import {
-  NavMenuOpenDispatchContext,
-  NavMenuOpenStateContext,
-} from './navigation-context'
+import React from 'react'
+import { useRecoilValue, useSetRecoilState } from 'recoil'
 import $ from './style.module.scss'
-
-export * from './navigation-context'
 
 type NavItemProps = {
   className?: string
@@ -25,14 +20,14 @@ type NavItemProps = {
 }
 
 const NavItem: React.FC<NavItemProps> = ({ to, title, className }) => {
-  const setMenuOpen = useContext(NavMenuOpenDispatchContext)
+  const setIsMenuOpen = useSetRecoilState(isMenuOpenState)
 
   return (
     <Link href={to}>
       <button
         type="button"
         className={classNames($['en-menu-link'], className)}
-        onClick={() => setMenuOpen(false)}
+        onClick={() => setIsMenuOpen(false)}
       >
         <li className={$['en-menu-item']}>{title}</li>
       </button>
@@ -57,12 +52,12 @@ const PageAppTitle: React.FC = () => {
 
 const NavMenus: React.FC = () => {
   const { isLoggedIn } = useRecoilValue(authState)
-  const menuOpened = useContext(NavMenuOpenStateContext)
+  const isMenuOpen = useRecoilValue(isMenuOpenState)
 
   return (
     <ul
       className={classNames($['en-menus-container'], {
-        [$['opened']]: menuOpened,
+        [$['opened']]: isMenuOpen,
       })}
     >
       {/* <NavItem title="빈 강의실" to="/vacant" /> */}
@@ -83,7 +78,7 @@ const NavMenus: React.FC = () => {
 
 const Navigation: React.FC = () => {
   const navScrolled = useRecoilValue(navScrolledState)
-  const setMenuOpen = useContext(NavMenuOpenDispatchContext)
+  const setIsMenuOpen = useSetRecoilState(isMenuOpenState)
 
   return (
     <nav
@@ -112,7 +107,7 @@ const Navigation: React.FC = () => {
           className={$['more-tappable']}
           onClick={(e): void => {
             e.preventDefault()
-            setMenuOpen((open) => {
+            setIsMenuOpen((open) => {
               return !open
             })
           }}

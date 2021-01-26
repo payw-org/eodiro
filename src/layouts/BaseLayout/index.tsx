@@ -1,6 +1,6 @@
 import { authState } from '@/atoms/auth'
 import GlobalFooter from '@/components/global/GlobalFooter'
-import Navigation, { NavContextProvider } from '@/components/global/Navigation'
+import Navigation from '@/components/global/Navigation'
 import { isInApp as checkIsInApp } from '@/modules/booleans/is-in-app'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
 import { eodiroRequest, registerPush } from '@/modules/eodiro-request'
@@ -41,16 +41,14 @@ const BaseLayout: React.FC<{
   }, [])
 
   return (
-    <NavContextProvider>
-      <div id={$['eodiro-app-scaffold']}>
-        <div id={$['eodiro-app']}>
-          <Navigation />
-          {children}
-          {!isInApp && <GlobalFooter />}
-          {/* {isInApp ? <AppNavigation /> : <GlobalFooter />} */}
-        </div>
+    <div id={$['eodiro-app-scaffold']}>
+      <div id={$['eodiro-app']}>
+        <Navigation />
+        {children}
+        {!isInApp && <GlobalFooter />}
+        {/* {isInApp ? <AppNavigation /> : <GlobalFooter />} */}
       </div>
-    </NavContextProvider>
+    </div>
   )
 }
 
