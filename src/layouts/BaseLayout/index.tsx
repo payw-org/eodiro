@@ -36,9 +36,7 @@ const BaseLayout: React.FC<{
     if (shouldCheckAuth) {
       init()
     }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [setAuthData, shouldCheckAuth])
 
   return (
     <div id={$['eodiro-app-scaffold']}>
