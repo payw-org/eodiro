@@ -1,7 +1,7 @@
+import Grid from '@/components/ui/layouts/Grid'
 import { eodiroConsts } from '@/constants'
 import { phrases } from '@/constants/phrases'
 import Body from '@/layouts/BaseLayout/Body'
-import Grid from '@/layouts/Grid'
 import EodiroColors from '@/modules/styles/EodiroColors'
 import classNames from 'classnames'
 import Link from 'next/link'

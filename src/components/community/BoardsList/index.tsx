@@ -1,4 +1,4 @@
-import Grid from '@/layouts/Grid'
+import Grid from '@/components/ui/layouts/Grid'
 import { SafeCommunityBoard } from '@/types/schema'
 import BoardItem from '../BoardItem'
 
