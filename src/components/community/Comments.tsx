@@ -32,7 +32,7 @@ import produce from 'immer'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { useSetRecoilState } from 'recoil'
-import $ from './style.module.scss'
+import $ from './Comments.module.scss'
 
 async function deleteComment(commentId: number): Promise<boolean> {
   try {
