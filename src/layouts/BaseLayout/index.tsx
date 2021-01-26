@@ -1,10 +1,13 @@
 import { authState } from '@/atoms/auth'
+import { canGoBackState } from '@/atoms/navigation'
 import GlobalFooter from '@/components/global/GlobalFooter'
 import Navigation from '@/components/global/Navigation'
 import { isInApp as checkIsInApp } from '@/modules/booleans/is-in-app'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
 import { eodiroRequest, registerPush } from '@/modules/eodiro-request'
 import { ApiAuthVerifyResData } from '@/pages/api/auth/verify'
+import axios from 'axios'
+import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
 import { useSetRecoilState } from 'recoil'
 import $ from './style.module.scss'
@@ -37,6 +40,61 @@ const BaseLayout: React.FC<{
       init()
     }
   }, [setAuthData, shouldCheckAuth])
+
+  const router = useRouter()
+  const setCanGoBack = useSetRecoilState(canGoBackState)
+
+  useEffect(() => {
+    const f = async (e: MessageEvent) => {
+      // TODO: replace raw string data with JSON format
+      if (e.data === 'reload') {
+        router.reload()
+      } else {
+        try {
+          const parsed = JSON.parse(e.data)
+          const { type } = parsed
+
+          if (type === 'redirect') {
+            const splitted = parsed.url.split('?')
+            const pathnameOnly = splitted[0]
+            const query = splitted[1]
+
+            if (window.location.pathname === pathnameOnly) {
+              window.location.search = `?${query}`
+            } else {
+              router.push(parsed.url)
+            }
+          } else if (type === 'registerPush') {
+            const { expoPushToken } = parsed
+
+            try {
+              await axios.post('/api/push', {
+                expoPushToken,
+              })
+            } catch (error) {
+              console.error(error)
+              new EodiroDialog().alert(
+                '푸시 토큰 등록에 실패했습니다. 오류가 반복될 시 문의 바랍니다.'
+              )
+            }
+          } else if (type === 'setCanGoBack') {
+            const canGoBack = parsed.value
+            setCanGoBack(canGoBack)
+          }
+        } catch (parseError) {
+          //
+        }
+      }
+    }
+
+    window.addEventListener('message', f)
+    document.addEventListener('message' as any, f)
+
+    return () => {
+      window.removeEventListener('message', f)
+      document.removeEventListener('message' as any, f)
+    }
+  }, [router, setCanGoBack])
 
   return (
     <div id={$['eodiro-app-scaffold']}>

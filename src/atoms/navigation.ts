@@ -21,3 +21,8 @@ export const isMenuOpenState = atom({
   key: 'isMenuOpenState',
   default: false,
 })
+
+export const canGoBackState = atom({
+  key: 'canGoBackState',
+  default: false,
+})

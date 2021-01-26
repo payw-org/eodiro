@@ -2,17 +2,15 @@ import PageInfo from '@/components/utils/PageInfo'
 import { eodiroConsts } from '@/constants'
 import { phrases } from '@/constants/phrases'
 import BaseLayout from '@/layouts/BaseLayout'
-import EodiroDialog from '@/modules/client/eodiro-dialog'
 import '@/modules/client/eodiro-dialog/style.scss'
 import { eodiroRequest } from '@/modules/eodiro-request'
 import { reactNativeWebViewPostMessage } from '@/modules/native/react-native-webview'
 import { isDev } from '@/modules/utils/is-dev'
-import axios from 'axios'
 import 'intersection-observer'
 import { AppProps } from 'next/app'
 import { AppContextType } from 'next/dist/next-server/lib/utils'
 import Head from 'next/head'
-import Router, { useRouter } from 'next/router'
+import Router from 'next/router'
 import React, { useEffect } from 'react'
 import { RecoilRoot } from 'recoil'
 import 'swiper/swiper.scss'
@@ -33,58 +31,6 @@ export default function EdrApp({
   pageProps,
   shouldCheckAuth,
 }: EdrAppProps) {
-  const router = useRouter()
-
-  useEffect(() => {
-    const f = async (e: MessageEvent) => {
-      if (e.data === 'reload') {
-        router.reload()
-      } else {
-        try {
-          const parsed = JSON.parse(e.data)
-          const { type } = parsed
-
-          if (type === 'redirect') {
-            const splitted = parsed.url.split('?')
-            const pathnameOnly = splitted[0]
-            const query = splitted[1]
-
-            if (window.location.pathname === pathnameOnly) {
-              window.location.search = `?${query}`
-            } else {
-              router.push(parsed.url)
-            }
-          } else if (type === 'registerPush') {
-            const { expoPushToken } = parsed
-
-            try {
-              await axios.post('/api/push', {
-                expoPushToken,
-              })
-            } catch (error) {
-              console.error(error)
-              new EodiroDialog().alert(
-                '푸시 토큰 등록에 실패했습니다. 오류가 반복될 시 문의 바랍니다.'
-              )
-            }
-          }
-        } catch (parseError) {
-          //
-        }
-      }
-    }
-
-    window.addEventListener('message', f)
-    document.addEventListener('message' as any, f)
-
-    return () => {
-      window.removeEventListener('message', f)
-      document.removeEventListener('message' as any, f)
-    }
-
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
   useEffect(() => {
     // Set topbar
     const w = globalThis as any
