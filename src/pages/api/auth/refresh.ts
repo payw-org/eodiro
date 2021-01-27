@@ -57,24 +57,29 @@ export default nextApi({
 
       if (refreshErr) {
         // Refresh token error
-      } else {
-        // Sign new access token
-        const newAccessToken = signAccessToken(authData as AuthData)
-
-        // Set access token to cookie
-        setCookie(req, res, {
-          name: eodiroConsts.EDR_ACCESS_TOKEN_NAME,
-          value: newAccessToken,
-          expires: new Date('2038-01-01').toUTCString(),
-        })
-
-        const lastPath = getCookie(req, eodiroConsts.LAST_PATH)
-        redirect(res, lastPath)
-
+        // redirect to login page
+        redirect(res, '/login-please')
         return
       }
+
+      // Sign new access token
+      const newAccessToken = signAccessToken(authData as AuthData)
+
+      // Set access token to cookie
+      setCookie(req, res, {
+        name: eodiroConsts.EDR_ACCESS_TOKEN_NAME,
+        value: newAccessToken,
+        expires: new Date('2038-01-01').toUTCString(),
+      })
+
+      const lastPath = getCookie(req, eodiroConsts.LAST_PATH)
+      redirect(res, lastPath)
+
+      return
     }
 
-    redirect(res, '/login-please')
+    // No error
+    // redirect to home
+    redirect(res, '/')
   },
 })
