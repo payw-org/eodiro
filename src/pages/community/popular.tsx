@@ -7,6 +7,8 @@ import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
 import Pagination from '@/components/ui/Pagination'
 import Body from '@/layouts/BaseLayout/Body'
+import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next-require-auth'
+import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 import { ApiCommunityGetPopularPostsResData } from '../api/community/get-popular-posts'
@@ -61,4 +63,10 @@ export default function CommunityPopularPage() {
       </div>
     </Body>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
+  await nextRequireAuthMiddleware(req, res)
+
+  return { props: {} }
 }
