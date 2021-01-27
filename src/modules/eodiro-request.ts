@@ -28,7 +28,7 @@ export function registerPush() {
   })
 }
 
-async function clearAuthCookie() {
+export async function clearAuthCookie() {
   const cookies: Cookies = [
     {
       name: eodiroConsts.EDR_ACCESS_TOKEN_NAME,
