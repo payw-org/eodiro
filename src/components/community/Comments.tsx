@@ -31,6 +31,7 @@ import { Dispatcher } from '@/types/react-helper'
 import produce from 'immer'
 import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
+import { Unless } from 'react-if'
 import { useSetRecoilState } from 'recoil'
 import $ from './Comments.module.scss'
 
@@ -217,6 +218,23 @@ const CommentItem: React.FC<{
         <h3 className={$['author']}>{comment.randomNickname}</h3>
         <Flex className={$['right-side']}>
           <Flex row>
+            <Unless condition={comment.isMine}>
+              <button type="button">
+                <Icon
+                  name="exclamationmark_triangle"
+                  className="text-eodiro-yellow-2"
+                />
+              </button>
+            </Unless>
+            {comment.isMine && (
+              <button
+                type="button"
+                className={$['delete']}
+                onClick={onDeleteComment}
+              >
+                <i className="f7-icons">trash</i>
+              </button>
+            )}
             {subcomments.length === 0 && (
               <button
                 type="button"
@@ -228,23 +246,15 @@ const CommentItem: React.FC<{
                 <Icon name="bubble_right" />
               </button>
             )}
-            {comment.isMine && (
-              <button
-                type="button"
-                className={$['delete']}
-                onClick={onDeleteComment}
-              >
-                <i className="f7-icons">trash</i>
-              </button>
-            )}
           </Flex>
-          <span className={$['commented-at']}>
-            {friendlyTime(comment.commentedAt)}
-          </span>
         </Flex>
       </div>
 
       <p className={$['body']}>{comment.body}</p>
+
+      <span className="inline-block text-sm text-base-gray mt-1">
+        {friendlyTime(comment.commentedAt)}
+      </span>
 
       {(subcomments.length > 0 || newSubcommentActive) && (
         <div className={$['subcomments']}>
@@ -258,6 +268,14 @@ const CommentItem: React.FC<{
               <div className={$['comment-header']}>
                 <h3 className={$['author']}>{subcomment.randomNickname}</h3>
                 <Flex className={$['right-side']}>
+                  <Unless condition={subcomment.isMine}>
+                    <button type="button">
+                      <Icon
+                        name="exclamationmark_triangle"
+                        className="text-eodiro-yellow-2"
+                      />
+                    </button>
+                  </Unless>
                   {subcomment.isMine && (
                     <button
                       type="button"
@@ -267,12 +285,12 @@ const CommentItem: React.FC<{
                       <i className="f7-icons">trash</i>
                     </button>
                   )}
-                  <span className={$['commented-at']}>
-                    {friendlyTime(subcomment.subcommentedAt)}
-                  </span>
                 </Flex>
               </div>
               <p className={$['body']}>{subcomment.body}</p>
+              <span className="inline-block text-sm text-base-gray mt-1">
+                {friendlyTime(subcomment.subcommentedAt)}
+              </span>
             </div>
           ))}
 

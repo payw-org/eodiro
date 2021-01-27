@@ -42,21 +42,18 @@
 
     .right-side {
       margin-left: 10px;
+
+      button:not(:first-child) {
+        margin-left: 10px;
+      }
     }
 
     .subcomment {
       color: $eodiro-green-2;
-      margin-right: 10px;
     }
 
     .delete {
       color: $eodiro-primary-color;
-      margin-right: 10px;
-    }
-
-    .commented-at {
-      font-size: 14px;
-      color: $base-gray;
     }
   }
 
@@ -79,7 +76,7 @@
   @include elm-fill-distinct;
   margin-top: 10px;
   border-radius: $border-radius-inner;
-  padding: 14px;
+  padding: 10px 12px;
   position: relative;
 
   .arrow {
