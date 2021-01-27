@@ -102,7 +102,7 @@ const Navigation: React.FC = () => {
                 type="button"
                 className="flex"
                 onClick={() => {
-                  window.history.back()
+                  router.back()
                 }}
               >
                 <Icon
