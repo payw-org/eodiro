@@ -4,7 +4,12 @@ import GlobalFooter from '@/components/global/GlobalFooter'
 import Navigation from '@/components/global/Navigation'
 import { isInApp as checkIsInApp } from '@/modules/booleans/is-in-app'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
-import { eodiroRequest, registerPush } from '@/modules/eodiro-request'
+import {
+  clearAuthCookie,
+  eodiroRequest,
+  registerPush,
+} from '@/modules/eodiro-request'
+import { ApiAuthRefreshResData } from '@/pages/api/auth/refresh'
 import { ApiAuthVerifyResData } from '@/pages/api/auth/verify'
 import axios from 'axios'
 import { useRouter } from 'next/router'
@@ -95,6 +100,30 @@ const BaseLayout: React.FC<{
       document.removeEventListener('message' as any, f)
     }
   }, [router, setCanGoBack])
+
+  useEffect(() => {
+    async function sessionPoll() {
+      try {
+        await axios.post<ApiAuthRefreshResData>('/api/auth/refresh')
+        registerPush()
+      } catch (error) {
+        await clearAuthCookie()
+        window.location.href = '/login'
+      }
+    }
+
+    sessionPoll()
+
+    // Session poll (refresh access token) every 15 minutes
+    // in background not to loose authentication
+    const sessionPollInterval = window.setInterval(() => {
+      sessionPoll()
+    }, 1000 * 60 * 15)
+
+    return () => {
+      window.clearInterval(sessionPollInterval)
+    }
+  }, [])
 
   return (
     <div id={$['eodiro-app-scaffold']}>
