@@ -1,5 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["nativeTypes"]
 }
 
 datasource db {
@@ -8,25 +9,25 @@ datasource db {
 }
 
 model Admin {
-  userId Int  @id @map("user_id")
+  userId Int  @id @map("user_id") @db.UnsignedInt
   user   User @relation(fields: [userId], references: [id])
 
   @@map("admin")
 }
 
 model CafeteriaMenu {
-  campus   String
-  servedAt DateTime @map("served_at")
-  data     Json?
+  campus   String   @db.Char(2)
+  servedAt DateTime @map("served_at") @db.Date
+  data     Json?    @db.Json
 
   @@id([campus, servedAt])
   @@map("cafeteria_menu")
 }
 
 model ChangePassword {
-  userId      Int      @id @map("user_id")
-  token       String   @unique
-  requestedAt DateTime @map("requested_at")
+  userId      Int      @id @map("user_id") @db.UnsignedInt
+  token       String   @unique @db.VarChar(40)
+  requestedAt DateTime @map("requested_at") @db.DateTime(0)
   user        User     @relation(fields: [userId], references: [id])
 
   @@index([token], name: "change_password_token")
@@ -34,17 +35,17 @@ model ChangePassword {
 }
 
 model CoverageMajor {
-  coverageCollege       String?                @map("coverage_college")
-  name                  String
-  code                  String                 @id
+  coverageCollege       String?                @map("coverage_college") @db.VarChar(50)
+  name                  String                 @db.VarChar(50)
+  code                  String                 @id @db.VarChar(20)
   coverageMajorLectures CoverageMajorLecture[] @relation("coverage_majorTocoverage_major_lecture")
 
   @@map("coverage_major")
 }
 
 model CoverageMajorLecture {
-  lectureId     String        @map("lecture_id")
-  majorCode     String        @map("major_code")
+  lectureId     String        @map("lecture_id") @db.Char(36)
+  majorCode     String        @map("major_code") @db.VarChar(20)
   lecture       Lecture       @relation(fields: [lectureId], references: [id])
   coverageMajor CoverageMajor @relation("coverage_majorTocoverage_major_lecture", fields: [majorCode], references: [code])
 
@@ -55,23 +56,23 @@ model CoverageMajorLecture {
 }
 
 model Lecture {
-  id                    String                 @id
-  year                  Int?
-  semester              String?
-  campus                String?
-  college               String?
-  major                 String?
-  grade                 Int?
-  credit                Int?
-  course                String?
-  section               String?
-  code                  String?
-  name                  String?
-  professor             String?
-  schedule              String?
-  building              Int?
-  room                  String?
-  note                  String?
+  id                    String                 @id @db.Char(36)
+  year                  Int?                   @db.SmallInt
+  semester              String?                @db.VarChar(10)
+  campus                String?                @db.VarChar(10)
+  college               String?                @db.VarChar(50)
+  major                 String?                @db.VarChar(50)
+  grade                 Int?                   @db.TinyInt
+  credit                Int?                   @db.TinyInt
+  course                String?                @db.VarChar(50)
+  section               String?                @db.VarChar(50)
+  code                  String?                @db.VarChar(50)
+  name                  String?                @db.VarChar(100)
+  professor             String?                @db.VarChar(50)
+  schedule              String?                @db.VarChar(150)
+  building              Int?                   @db.SmallInt
+  room                  String?                @db.VarChar(20)
+  note                  String?                @db.Text
   coverageMajorLectures CoverageMajorLecture[]
   periods               Period[]
 
@@ -79,11 +80,11 @@ model Lecture {
 }
 
 model LiveChat {
-  id             Int      @default(autoincrement())
-  message        String
-  createdAt      DateTime @map("created_at")
-  userId         Int      @map("user_id")
-  randomNickname String   @map("random_nickname")
+  id             Int      @default(autoincrement()) @db.Int
+  message        String   @db.VarChar(100)
+  createdAt      DateTime @map("created_at") @db.DateTime(0)
+  userId         Int      @map("user_id") @db.UnsignedInt
+  randomNickname String   @map("random_nickname") @db.VarChar(30)
   user           User     @relation(fields: [userId], references: [id])
 
   @@id([id, userId])
@@ -92,10 +93,10 @@ model LiveChat {
 }
 
 model NoticeNotificationsSubscription {
-  id           Int      @id @default(autoincrement())
-  userId       Int      @map("user_id")
-  noticeKey    String   @map("notice_key")
-  subscribedAt DateTime @map("subscribed_at")
+  id           Int      @id @default(autoincrement()) @db.UnsignedInt
+  userId       Int      @map("user_id") @db.UnsignedInt
+  noticeKey    String   @map("notice_key") @db.VarChar(255)
+  subscribedAt DateTime @map("subscribed_at") @db.DateTime(0)
   user         User     @relation(fields: [userId], references: [id])
 
   @@index([noticeKey], name: "notice_notifications_subscription_notice_key")
@@ -104,24 +105,24 @@ model NoticeNotificationsSubscription {
 }
 
 model PendingUser {
-  id             Int      @id @default(autoincrement())
-  portalId       String   @unique @map("portal_id")
-  password       String
-  nickname       String   @unique
-  randomNickname String   @map("random_nickname")
-  joinedAt       DateTime @map("joined_at")
-  token          String   @unique
+  id             Int      @id @default(autoincrement()) @db.UnsignedInt
+  portalId       String   @unique @map("portal_id") @db.VarChar(320)
+  password       String   @db.Char(60)
+  nickname       String   @unique @db.VarChar(30)
+  randomNickname String   @map("random_nickname") @db.VarChar(30)
+  joinedAt       DateTime @map("joined_at") @db.DateTime(0)
+  token          String   @unique @db.VarChar(40)
 
   @@map("pending_user")
 }
 
 model Period {
-  lectureId String  @map("lecture_id")
-  day       String
-  startH    Int     @map("start_h")
-  startM    Int     @map("start_m")
-  endH      Int     @map("end_h")
-  endM      Int     @map("end_m")
+  lectureId String  @map("lecture_id") @db.Char(36)
+  day       String  @db.Char(3)
+  startH    Int     @map("start_h") @db.TinyInt
+  startM    Int     @map("start_m") @db.TinyInt
+  endH      Int     @map("end_h") @db.TinyInt
+  endM      Int     @map("end_m") @db.TinyInt
   lecture   Lecture @relation(fields: [lectureId], references: [id])
 
   @@id([lectureId, day, startH, startM, endH, endM])
@@ -130,13 +131,13 @@ model Period {
 }
 
 model User {
-  id                               Int                               @id @default(autoincrement())
-  portalId                         String                            @unique @map("portal_id")
-  password                         String
-  nickname                         String                            @unique
-  randomNickname                   String                            @map("random_nickname")
-  joinedAt                         DateTime                          @map("joined_at")
-  refreshToken                     String?                           @map("refresh_token")
+  id                               Int                               @id @default(autoincrement()) @db.UnsignedInt
+  portalId                         String                            @unique @map("portal_id") @db.VarChar(320)
+  password                         String                            @db.Char(60)
+  nickname                         String                            @unique @db.VarChar(30)
+  randomNickname                   String                            @map("random_nickname") @db.VarChar(30)
+  joinedAt                         DateTime                          @map("joined_at") @db.DateTime(0)
+  refreshToken                     String?                           @map("refresh_token") @db.VarChar(500)
   admins                           Admin?
   changePasswords                  ChangePassword?
   communityBoards                  CommunityBoard[]                  @relation("community_boardTouser")
@@ -156,14 +157,14 @@ model User {
 }
 
 model CommunityBoard {
-  id                 Int                 @id @default(autoincrement())
-  name               String              @default("")
-  description        String?
-  priority           Int                 @default(0)
-  isDeleted          Boolean             @default(false) @map("is_deleted")
-  createdBy          Int                 @map("created_by")
-  createdAt          DateTime            @map("created_at")
-  activeAt           DateTime?           @map("active_at")
+  id                 Int                 @id @default(autoincrement()) @db.UnsignedInt
+  name               String              @default("") @db.VarChar(50)
+  description        String?             @db.VarChar(100)
+  priority           Int                 @default(0) @db.UnsignedSmallInt
+  isDeleted          Boolean             @default(false) @map("is_deleted") @db.TinyInt
+  createdBy          Int                 @map("created_by") @db.UnsignedInt
+  createdAt          DateTime            @map("created_at") @db.DateTime(0)
+  activeAt           DateTime?           @map("active_at") @db.DateTime(0)
   user               User                @relation("community_boardTouser", fields: [createdBy], references: [id])
   communityBoardPins CommunityBoardPin[] @relation("community_boardTocommunity_board_pin")
   communityPosts     CommunityPost[]
@@ -173,18 +174,18 @@ model CommunityBoard {
 }
 
 model CommunityPost {
-  id                     Int                     @id @default(autoincrement())
-  boardId                Int                     @map("board_id")
-  userId                 Int                     @map("user_id")
-  title                  String
-  body                   String
-  randomNickname         String                  @map("random_nickname")
-  likesCount             Int                     @default(0) @map("likes_count")
-  commentsCount          Int                     @default(0) @map("comments_count")
-  bookmarksCount         Int                     @default(0) @map("bookmarks_count")
-  postedAt               DateTime                @map("posted_at")
-  editedAt               DateTime?               @map("edited_at")
-  isDeleted              Boolean                 @default(false) @map("is_deleted")
+  id                     Int                     @id @default(autoincrement()) @db.UnsignedInt
+  boardId                Int                     @map("board_id") @db.UnsignedInt
+  userId                 Int                     @map("user_id") @db.UnsignedInt
+  title                  String                  @db.VarChar(100)
+  body                   String                  @db.Text
+  randomNickname         String                  @map("random_nickname") @db.VarChar(30)
+  likesCount             Int                     @default(0) @map("likes_count") @db.UnsignedMediumInt
+  commentsCount          Int                     @default(0) @map("comments_count") @db.UnsignedMediumInt
+  bookmarksCount         Int                     @default(0) @map("bookmarks_count") @db.UnsignedMediumInt
+  postedAt               DateTime                @map("posted_at") @db.DateTime(0)
+  editedAt               DateTime?               @map("edited_at") @db.DateTime(0)
+  isDeleted              Boolean                 @default(false) @map("is_deleted") @db.TinyInt
   communityBoard         CommunityBoard          @relation(fields: [boardId], references: [id])
   user                   User                    @relation("community_postTouser", fields: [userId], references: [id])
   communityComments      CommunityComment[]      @relation("community_commentTocommunity_post")
@@ -198,13 +199,13 @@ model CommunityPost {
 }
 
 model CommunityComment {
-  id                   Int                   @id @default(autoincrement())
-  postId               Int                   @map("post_id")
-  userId               Int                   @map("user_id")
-  randomNickname       String                @default("") @map("random_nickname")
-  body                 String
-  commentedAt          DateTime              @map("commented_at")
-  isDeleted            Boolean               @default(false) @map("is_deleted")
+  id                   Int                   @id @default(autoincrement()) @db.UnsignedInt
+  postId               Int                   @map("post_id") @db.UnsignedInt
+  userId               Int                   @map("user_id") @db.UnsignedInt
+  randomNickname       String                @default("") @map("random_nickname") @db.VarChar(30)
+  body                 String                @db.Text
+  commentedAt          DateTime              @map("commented_at") @db.DateTime(0)
+  isDeleted            Boolean               @default(false) @map("is_deleted") @db.TinyInt
   communityPost        CommunityPost         @relation("community_commentTocommunity_post", fields: [postId], references: [id])
   user                 User                  @relation("community_commentTouser", fields: [userId], references: [id])
   communitySubcomments CommunitySubcomment[] @relation("community_commentTocommunity_subcomment")
@@ -215,8 +216,8 @@ model CommunityComment {
 }
 
 model CommunityPostLike {
-  userId        Int           @map("user_id")
-  postId        Int           @map("post_id")
+  userId        Int           @map("user_id") @db.UnsignedInt
+  postId        Int           @map("post_id") @db.UnsignedInt
   communityPost CommunityPost @relation("community_postTocommunity_post_like", fields: [postId], references: [id])
   user          User          @relation("community_post_likeTouser", fields: [userId], references: [id])
 
@@ -226,8 +227,8 @@ model CommunityPostLike {
 }
 
 model CommunityPostBookmark {
-  userId        Int           @map("user_id")
-  postId        Int           @map("post_id")
+  userId        Int           @map("user_id") @db.UnsignedInt
+  postId        Int           @map("post_id") @db.UnsignedInt
   communityPost CommunityPost @relation("community_postTocommunity_post_bookmark", fields: [postId], references: [id])
   user          User          @relation("community_post_bookmarkTouser", fields: [userId], references: [id])
 
@@ -237,14 +238,14 @@ model CommunityPostBookmark {
 }
 
 model CommunitySubcomment {
-  id               Int              @id @default(autoincrement())
-  userId           Int              @map("user_id")
-  postId           Int              @map("post_id")
-  commentId        Int              @map("comment_id")
-  randomNickname   String           @default("") @map("random_nickname")
-  body             String
-  subcommentedAt   DateTime         @map("subcommented_at")
-  isDeleted        Boolean          @default(false) @map("is_deleted")
+  id               Int              @id @default(autoincrement()) @db.UnsignedInt
+  userId           Int              @map("user_id") @db.UnsignedInt
+  postId           Int              @map("post_id") @db.UnsignedInt
+  commentId        Int              @map("comment_id") @db.UnsignedInt
+  randomNickname   String           @default("") @map("random_nickname") @db.VarChar(30)
+  body             String           @db.Text
+  subcommentedAt   DateTime         @map("subcommented_at") @db.DateTime(0)
+  isDeleted        Boolean          @default(false) @map("is_deleted") @db.TinyInt
   communityComment CommunityComment @relation("community_commentTocommunity_subcomment", fields: [commentId], references: [id])
   communityPost    CommunityPost    @relation("community_postTocommunity_subcomment", fields: [postId], references: [id])
   user             User             @relation("community_subcommentTouser", fields: [userId], references: [id])
@@ -256,10 +257,10 @@ model CommunitySubcomment {
 }
 
 model Push {
-  userId        Int       @map("user_id")
-  expoPushToken String    @id @default("") @map("expo_push_token")
-  registeredAt  DateTime  @map("registered_at")
-  activeAt      DateTime? @map("active_at")
+  userId        Int       @map("user_id") @db.UnsignedInt
+  expoPushToken String    @id @default("") @map("expo_push_token") @db.VarChar(255)
+  registeredAt  DateTime  @map("registered_at") @db.DateTime(0)
+  activeAt      DateTime? @map("active_at") @db.DateTime(0)
   user          User      @relation("pushTouser", fields: [userId], references: [id])
 
   @@index([userId], name: "user_id")
@@ -267,11 +268,11 @@ model Push {
 }
 
 model CommunityBoardCandidate {
-  id                           Int                           @id @default(autoincrement())
-  name                         String                        @default("")
-  description                  String?
-  createdBy                    Int                           @map("created_by")
-  createdAt                    DateTime                      @map("created_at")
+  id                           Int                           @id @default(autoincrement()) @db.UnsignedInt
+  name                         String                        @default("") @db.VarChar(50)
+  description                  String?                       @db.VarChar(100)
+  createdBy                    Int                           @map("created_by") @db.UnsignedInt
+  createdAt                    DateTime                      @map("created_at") @db.DateTime(0)
   user                         User                          @relation("community_board_candidateTouser", fields: [createdBy], references: [id])
   communityBoardCandidateVotes CommunityBoardCandidateVote[] @relation("community_board_candidateTocommunity_board_candidate_vote")
 
@@ -280,8 +281,8 @@ model CommunityBoardCandidate {
 }
 
 model CommunityBoardCandidateVote {
-  boardCandidateId        Int                     @map("board_candidate_id")
-  userId                  Int                     @map("user_id")
+  boardCandidateId        Int                     @map("board_candidate_id") @db.UnsignedInt
+  userId                  Int                     @map("user_id") @db.UnsignedInt
   communityBoardCandidate CommunityBoardCandidate @relation("community_board_candidateTocommunity_board_candidate_vote", fields: [boardCandidateId], references: [id])
   user                    User                    @relation("community_board_candidate_voteTouser", fields: [userId], references: [id])
 
@@ -291,8 +292,8 @@ model CommunityBoardCandidateVote {
 }
 
 model CommunityBoardPin {
-  userId         Int            @map("user_id")
-  boardId        Int            @map("board_id")
+  userId         Int            @map("user_id") @db.UnsignedInt
+  boardId        Int            @map("board_id") @db.UnsignedInt
   communityBoard CommunityBoard @relation("community_boardTocommunity_board_pin", fields: [boardId], references: [id])
   user           User           @relation("community_board_pinTouser", fields: [userId], references: [id])
 
