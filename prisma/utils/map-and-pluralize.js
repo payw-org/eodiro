@@ -1,3 +1,5 @@
+// TODO: Make npm module (CLI)
+
 const fs = require('fs')
 const pluralize = require('pluralize')
 const { formatSchema } = require('@prisma/sdk')
