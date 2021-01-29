@@ -138,7 +138,7 @@ model User {
   joinedAt                         DateTime                          @map("joined_at")
   refreshToken                     String?                           @map("refresh_token")
   admins                           Admin?
-  changePasswords                  ChangePassword?
+  changePassword                   ChangePassword?
   communityBoards                  CommunityBoard[]                  @relation("community_boardTouser")
   communityBoardCandidates         CommunityBoardCandidate[]         @relation("community_board_candidateTouser")
   communityBoardCandidateVotes     CommunityBoardCandidateVote[]     @relation("community_board_candidate_voteTouser")
