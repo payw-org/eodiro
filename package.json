@@ -20,7 +20,7 @@
     "pm2:reboot": "rm -rf node_modules && npm install && npm run generate && npm run typecheck && npm run build:scripts && next build && npm run pm2:start",
     "checkout-latest": "git reset --hard && git checkout $(git describe --tags `git rev-list --tags --max-count=1`)",
     "update": "git reset --hard && git fetch --prune && npm run checkout-latest && npm install && npm run pm2:reboot",
-    "introspect:dev": "prisma introspect --schema prisma/schema.dev.prisma",
+    "introspect:dev": "prisma introspect --schema prisma/schema.dev.prisma && prismap --schema prisma/schema.dev.prisma",
     "generate:dev": "prisma generate --schema prisma/schema.dev.prisma",
     "introspect": "prisma introspect --schema prisma/schema.prisma",
     "generate": "prisma generate --schema prisma/schema.prisma",
