@@ -12,6 +12,7 @@ import {
   apiNoticeNotificationsSubscribeUrl,
 } from '@/pages/api/notice-notifications'
 import classNames from 'classnames'
+import Link from 'next/link'
 import { useEffect, useState } from 'react'
 import { useRecoilValue } from 'recoil'
 import $ from './style.module.scss'
@@ -109,7 +110,10 @@ const NoticeWatcher: React.FC = () => {
           {!isLoggedIn && (
             <span>
               (<i className="f7-icons">lock_fill</i>
-              <a href="/login">로그인</a> 필요)
+              <Link href="/login">
+                <a>로그인</a>
+              </Link>{' '}
+              필요)
             </span>
           )}
         </h2>
