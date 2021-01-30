@@ -213,7 +213,10 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
 
           <div className="image-upload flex items-center justify-center absolute right-3 bottom-2 w-10 h-10 bg-base-white-blue dark:bg-black rounded-inner">
             {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
-            <label htmlFor="image-upload-input" className="flex">
+            <label
+              htmlFor="image-upload-input"
+              className="flex items-center justify-center w-full h-full"
+            >
               <Icon name="photo" size={24} />
             </label>
             <input
