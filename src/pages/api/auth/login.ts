@@ -67,6 +67,7 @@ export default nextApi({
           name: eodiroConsts.EDR_ACCESS_TOKEN_NAME,
           value: accessToken,
           expires,
+          path: '/',
         },
         ...refreshTokenPaths.map((path) => ({
           name: eodiroConsts.EDR_REFRESH_TOKEN_NAME,

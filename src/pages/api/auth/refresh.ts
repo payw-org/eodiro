@@ -9,6 +9,7 @@ import {
 import { createHandler, nextApi } from '@/modules/next-api-routes-helpers'
 import { extractToken } from '@/modules/server/extract-token'
 import { redirect } from '@/modules/server/redirect'
+import { Cookies } from '@/pages/api/cookie'
 import { getCookie, setCookie } from '../cookie'
 
 export type ApiAuthRefreshResData = {
@@ -80,6 +81,34 @@ export default nextApi({
 
     // No error
     // redirect to home
-    redirect(res, '/')
+    // redirect(res, '/')
+    res.send('')
+  },
+  delete: async (req, res) => {
+    const refreshTokenPaths = ['/api/auth/refresh', '/api/auth/revoke']
+
+    const cookies: Cookies = [
+      {
+        name: eodiroConsts.EDR_ACCESS_TOKEN_NAME,
+        expires: new Date('1997-01-01').toUTCString(),
+        value: '',
+        path: '/',
+      },
+      {
+        name: eodiroConsts.EDR_REFRESH_TOKEN_NAME,
+        expires: new Date('1997-01-01').toUTCString(),
+        value: '',
+      },
+      ...refreshTokenPaths.map((path) => ({
+        name: eodiroConsts.EDR_REFRESH_TOKEN_NAME,
+        expires: new Date('1997-01-01').toUTCString(),
+        value: '',
+        path,
+      })),
+    ]
+
+    setCookie(req, res, cookies)
+
+    res.end()
   },
 })

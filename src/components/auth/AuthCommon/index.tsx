@@ -84,7 +84,7 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
     if (res.data.isSigned) {
       setAuth({ isLoggedIn: true })
       registerPush()
-      router.replace(Cookie.get(eodiroConsts.LAST_PATH) ?? '/')
+      window.location.replace(Cookie.get(eodiroConsts.LAST_PATH) ?? '/')
     } else {
       setSignInFailed(true)
     }

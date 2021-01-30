@@ -1,8 +1,6 @@
-import { eodiroConsts } from '@/constants'
 import { UNAUTHORIZED } from '@/constants/http-status-code'
 import { ApiAuthRefreshResData } from '@/pages/api/auth/refresh'
 import { ApiAuthGeneralErrResData } from '@/pages/api/auth/verify'
-import { Cookies } from '@/pages/api/cookie'
 import Axios, { AxiosRequestConfig } from 'axios'
 import produce from 'immer'
 import { isInApp } from './booleans/is-in-app'
@@ -29,26 +27,10 @@ export function registerPush() {
 }
 
 export async function clearAuthCookie() {
-  const cookies: Cookies = [
-    {
-      name: eodiroConsts.EDR_ACCESS_TOKEN_NAME,
-      expires: new Date('1997-01-01').toUTCString(),
-      value: '',
-    },
-    {
-      name: eodiroConsts.EDR_REFRESH_TOKEN_NAME,
-      expires: new Date('1997-01-01').toUTCString(),
-      value: '',
-    },
-  ]
-
   await Axios({
-    url: '/api/cookie',
-    method: 'POST',
-    data: cookies,
+    url: '/api/auth/refresh',
+    method: 'delete',
   })
-
-  window.location.reload()
 }
 
 export async function eodiroRequest<RQD = any, RSD = any>(
@@ -80,12 +62,10 @@ export async function eodiroRequest<RQD = any, RSD = any>(
           return await eodiroRequest<RQD, RSD>(sanitiedReqeuestConfig)
         } catch (refreshErr) {
           await clearAuthCookie()
-          window.location.href = '/login'
         }
       }
 
       await clearAuthCookie()
-      window.location.href = '/login'
     }
 
     throw firstTryErr

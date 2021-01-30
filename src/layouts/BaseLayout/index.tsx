@@ -108,22 +108,23 @@ const BaseLayout: React.FC<{
         registerPush()
       } catch (error) {
         await clearAuthCookie()
-        window.location.href = '/login'
       }
     }
 
-    sessionPoll()
-
-    // Session poll (refresh access token) every 15 minutes
-    // in background not to loose authentication
-    const sessionPollInterval = window.setInterval(() => {
+    if (shouldCheckAuth) {
       sessionPoll()
-    }, 1000 * 60 * 15)
 
-    return () => {
-      window.clearInterval(sessionPollInterval)
+      // Session poll (refresh access token) every 15 minutes
+      // in background not to loose authentication
+      const sessionPollInterval = window.setInterval(() => {
+        sessionPoll()
+      }, 1000 * 60 * 15)
+
+      return () => {
+        window.clearInterval(sessionPollInterval)
+      }
     }
-  }, [])
+  }, [shouldCheckAuth])
 
   return (
     <div id={$['eodiro-app-scaffold']}>

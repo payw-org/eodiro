@@ -1,17 +1,14 @@
 import { authState } from '@/atoms/auth'
 import { ArrowBlock, Button, FlatBlock } from '@/components/ui'
 import Grid from '@/components/ui/layouts/Grid'
-import { eodiroConsts } from '@/constants'
 import Body from '@/layouts/BaseLayout/Body'
-import { eodiroRequest } from '@/modules/eodiro-request'
+import { clearAuthCookie } from '@/modules/eodiro-request'
 import { RefinedUser } from '@/modules/server/middlewares/require-auth'
 import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next-require-auth'
-import { Cookies } from '@/pages/api/cookie'
 import classNames from 'classnames'
 import dayjs from 'dayjs'
 import { GetServerSideProps, NextPage } from 'next'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
 import { useSetRecoilState } from 'recoil'
 import $ from './style.module.scss'
 
@@ -20,31 +17,13 @@ type MyPageProps = {
 }
 
 const MyPage: NextPage<MyPageProps> = ({ user }) => {
-  const router = useRouter()
   const setAuth = useSetRecoilState(authState)
 
   async function signOut() {
-    const cookies: Cookies = [
-      {
-        name: eodiroConsts.EDR_ACCESS_TOKEN_NAME,
-        expires: new Date('1997-01-01').toUTCString(),
-        value: '',
-      },
-      {
-        name: eodiroConsts.EDR_REFRESH_TOKEN_NAME,
-        expires: new Date('1997-01-01').toUTCString(),
-        value: '',
-      },
-    ]
-
-    await eodiroRequest({
-      url: '/api/cookie',
-      method: 'POST',
-      data: cookies,
-    })
+    await clearAuthCookie()
 
     setAuth({ isLoggedIn: false })
-    router.replace('/')
+    window.location.replace('/')
   }
 
   // TODO: withdrawl
