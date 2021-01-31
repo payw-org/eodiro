@@ -9,29 +9,29 @@ datasource db {
 }
 
 model Admin {
-  userId Int  @id @map(name: "user_id") @db.UnsignedInt
+  userId Int  @id @map("user_id") @db.UnsignedInt
   user   User @relation(fields: [userId], references: [id])
 
-  @@map(name: "admin")
+  @@map("admin")
 }
 
 model CafeteriaMenu {
   campus   String   @db.Char(2)
-  servedAt DateTime @map(name: "served_at") @db.Date
+  servedAt DateTime @map("served_at") @db.Date
   data     Json?    @db.Json
 
   @@id([campus, servedAt])
-  @@map(name: "cafeteria_menu")
+  @@map("cafeteria_menu")
 }
 
 model ChangePassword {
-  userId      Int      @id @map(name: "user_id") @db.UnsignedInt
+  userId      Int      @id @map("user_id") @db.UnsignedInt
   token       String   @unique @db.VarChar(40)
-  requestedAt DateTime @map(name: "requested_at") @db.DateTime(0)
+  requestedAt DateTime @map("requested_at") @db.DateTime(0)
   user        User     @relation(fields: [userId], references: [id])
 
   @@index([token], name: "change_password_token")
-  @@map(name: "change_password")
+  @@map("change_password")
 }
 
 model CommunityBoard {
@@ -39,83 +39,83 @@ model CommunityBoard {
   name               String              @default("") @db.VarChar(50)
   description        String?             @db.VarChar(100)
   priority           Int                 @default(0) @db.UnsignedSmallInt
-  isDeleted          Boolean             @default(false) @map(name: "is_deleted") @db.TinyInt
-  createdBy          Int                 @map(name: "created_by") @db.UnsignedInt
-  createdAt          DateTime            @map(name: "created_at") @db.DateTime(0)
-  activeAt           DateTime?           @map(name: "active_at") @db.DateTime(0)
+  isDeleted          Boolean             @default(false) @map("is_deleted") @db.TinyInt
+  createdBy          Int                 @map("created_by") @db.UnsignedInt
+  createdAt          DateTime            @map("created_at") @db.DateTime(0)
+  activeAt           DateTime?           @map("active_at") @db.DateTime(0)
   user               User                @relation(fields: [createdBy], references: [id])
   communityBoardPins CommunityBoardPin[]
   communityPosts     CommunityPost[]
 
   @@index([createdBy], name: "created_by")
-  @@map(name: "community_board")
+  @@map("community_board")
 }
 
 model CommunityBoardCandidate {
   id                           Int                           @id @default(autoincrement()) @db.UnsignedInt
   name                         String                        @default("") @db.VarChar(50)
   description                  String?                       @db.VarChar(100)
-  createdBy                    Int                           @map(name: "created_by") @db.UnsignedInt
-  createdAt                    DateTime                      @map(name: "created_at") @db.DateTime(0)
+  createdBy                    Int                           @map("created_by") @db.UnsignedInt
+  createdAt                    DateTime                      @map("created_at") @db.DateTime(0)
   user                         User                          @relation(fields: [createdBy], references: [id])
   communityBoardCandidateVotes CommunityBoardCandidateVote[]
 
   @@index([createdBy], name: "created_by")
-  @@map(name: "community_board_candidate")
+  @@map("community_board_candidate")
 }
 
 model CommunityBoardCandidateVote {
-  boardCandidateId        Int                     @map(name: "board_candidate_id") @db.UnsignedInt
-  userId                  Int                     @map(name: "user_id") @db.UnsignedInt
+  boardCandidateId        Int                     @map("board_candidate_id") @db.UnsignedInt
+  userId                  Int                     @map("user_id") @db.UnsignedInt
   communityBoardCandidate CommunityBoardCandidate @relation(fields: [boardCandidateId], references: [id])
   user                    User                    @relation(fields: [userId], references: [id])
 
   @@id([boardCandidateId, userId])
   @@index([userId], name: "user_id")
-  @@map(name: "community_board_candidate_vote")
+  @@map("community_board_candidate_vote")
 }
 
 model CommunityBoardPin {
-  userId         Int            @map(name: "user_id") @db.UnsignedInt
-  boardId        Int            @map(name: "board_id") @db.UnsignedInt
+  userId         Int            @map("user_id") @db.UnsignedInt
+  boardId        Int            @map("board_id") @db.UnsignedInt
   communityBoard CommunityBoard @relation(fields: [boardId], references: [id])
   user           User           @relation(fields: [userId], references: [id])
 
   @@id([userId, boardId])
   @@index([boardId], name: "board_id")
-  @@map(name: "community_board_pin")
+  @@map("community_board_pin")
 }
 
 model CommunityComment {
   id                   Int                   @id @default(autoincrement()) @db.UnsignedInt
-  postId               Int                   @map(name: "post_id") @db.UnsignedInt
-  userId               Int                   @map(name: "user_id") @db.UnsignedInt
-  randomNickname       String                @default("") @map(name: "random_nickname") @db.VarChar(30)
+  postId               Int                   @map("post_id") @db.UnsignedInt
+  userId               Int                   @map("user_id") @db.UnsignedInt
+  randomNickname       String                @default("") @map("random_nickname") @db.VarChar(30)
   body                 String                @db.Text
-  commentedAt          DateTime              @map(name: "commented_at") @db.DateTime(0)
-  isDeleted            Boolean               @default(false) @map(name: "is_deleted") @db.TinyInt
+  commentedAt          DateTime              @map("commented_at") @db.DateTime(0)
+  isDeleted            Boolean               @default(false) @map("is_deleted") @db.TinyInt
   communityPost        CommunityPost         @relation(fields: [postId], references: [id])
   user                 User                  @relation(fields: [userId], references: [id])
   communitySubcomments CommunitySubcomment[]
 
   @@index([postId], name: "post_id")
   @@index([userId], name: "user_id")
-  @@map(name: "community_comment")
+  @@map("community_comment")
 }
 
 model CommunityPost {
   id                     Int                     @id @default(autoincrement()) @db.UnsignedInt
-  boardId                Int                     @map(name: "board_id") @db.UnsignedInt
-  userId                 Int                     @map(name: "user_id") @db.UnsignedInt
+  boardId                Int                     @map("board_id") @db.UnsignedInt
+  userId                 Int                     @map("user_id") @db.UnsignedInt
   title                  String                  @db.VarChar(100)
   body                   String                  @db.Text
-  randomNickname         String                  @map(name: "random_nickname") @db.VarChar(30)
-  likesCount             Int                     @default(0) @map(name: "likes_count") @db.UnsignedMediumInt
-  commentsCount          Int                     @default(0) @map(name: "comments_count") @db.UnsignedMediumInt
-  bookmarksCount         Int                     @default(0) @map(name: "bookmarks_count") @db.UnsignedMediumInt
-  postedAt               DateTime                @map(name: "posted_at") @db.DateTime(0)
-  editedAt               DateTime?               @map(name: "edited_at") @db.DateTime(0)
-  isDeleted              Boolean                 @default(false) @map(name: "is_deleted") @db.TinyInt
+  randomNickname         String                  @map("random_nickname") @db.VarChar(30)
+  likesCount             Int                     @default(0) @map("likes_count") @db.UnsignedMediumInt
+  commentsCount          Int                     @default(0) @map("comments_count") @db.UnsignedMediumInt
+  bookmarksCount         Int                     @default(0) @map("bookmarks_count") @db.UnsignedMediumInt
+  postedAt               DateTime                @map("posted_at") @db.DateTime(0)
+  editedAt               DateTime?               @map("edited_at") @db.DateTime(0)
+  isDeleted              Boolean                 @default(false) @map("is_deleted") @db.TinyInt
   communityBoard         CommunityBoard          @relation(fields: [boardId], references: [id])
   user                   User                    @relation(fields: [userId], references: [id])
   communityComments      CommunityComment[]
@@ -125,40 +125,40 @@ model CommunityPost {
 
   @@index([boardId], name: "board_id")
   @@index([userId], name: "user_id")
-  @@map(name: "community_post")
+  @@map("community_post")
 }
 
 model CommunityPostBookmark {
-  userId        Int           @map(name: "user_id") @db.UnsignedInt
-  postId        Int           @map(name: "post_id") @db.UnsignedInt
+  userId        Int           @map("user_id") @db.UnsignedInt
+  postId        Int           @map("post_id") @db.UnsignedInt
   communityPost CommunityPost @relation(fields: [postId], references: [id])
   user          User          @relation(fields: [userId], references: [id])
 
   @@id([userId, postId])
   @@index([postId], name: "post_id")
-  @@map(name: "community_post_bookmark")
+  @@map("community_post_bookmark")
 }
 
 model CommunityPostLike {
-  userId        Int           @map(name: "user_id") @db.UnsignedInt
-  postId        Int           @map(name: "post_id") @db.UnsignedInt
+  userId        Int           @map("user_id") @db.UnsignedInt
+  postId        Int           @map("post_id") @db.UnsignedInt
   communityPost CommunityPost @relation(fields: [postId], references: [id])
   user          User          @relation(fields: [userId], references: [id])
 
   @@id([userId, postId])
   @@index([postId], name: "post_id")
-  @@map(name: "community_post_like")
+  @@map("community_post_like")
 }
 
 model CommunitySubcomment {
   id               Int              @id @default(autoincrement()) @db.UnsignedInt
-  userId           Int              @map(name: "user_id") @db.UnsignedInt
-  postId           Int              @map(name: "post_id") @db.UnsignedInt
-  commentId        Int              @map(name: "comment_id") @db.UnsignedInt
-  randomNickname   String           @default("") @map(name: "random_nickname") @db.VarChar(30)
+  userId           Int              @map("user_id") @db.UnsignedInt
+  postId           Int              @map("post_id") @db.UnsignedInt
+  commentId        Int              @map("comment_id") @db.UnsignedInt
+  randomNickname   String           @default("") @map("random_nickname") @db.VarChar(30)
   body             String           @db.Text
-  subcommentedAt   DateTime         @map(name: "subcommented_at") @db.DateTime(0)
-  isDeleted        Boolean          @default(false) @map(name: "is_deleted") @db.TinyInt
+  subcommentedAt   DateTime         @map("subcommented_at") @db.DateTime(0)
+  isDeleted        Boolean          @default(false) @map("is_deleted") @db.TinyInt
   communityComment CommunityComment @relation(fields: [commentId], references: [id])
   communityPost    CommunityPost    @relation(fields: [postId], references: [id])
   user             User             @relation(fields: [userId], references: [id])
@@ -166,28 +166,28 @@ model CommunitySubcomment {
   @@index([commentId], name: "comment_id")
   @@index([postId], name: "post_id")
   @@index([userId], name: "user_id")
-  @@map(name: "community_subcomment")
+  @@map("community_subcomment")
 }
 
 model CoverageMajor {
-  coverageCollege       String?                @map(name: "coverage_college") @db.VarChar(50)
+  coverageCollege       String?                @map("coverage_college") @db.VarChar(50)
   name                  String                 @db.VarChar(50)
   code                  String                 @id @db.VarChar(20)
   coverageMajorLectures CoverageMajorLecture[]
 
-  @@map(name: "coverage_major")
+  @@map("coverage_major")
 }
 
 model CoverageMajorLecture {
-  lectureId     String        @map(name: "lecture_id") @db.Char(36)
-  majorCode     String        @map(name: "major_code") @db.VarChar(20)
+  lectureId     String        @map("lecture_id") @db.Char(36)
+  majorCode     String        @map("major_code") @db.VarChar(20)
   lecture       Lecture       @relation(fields: [lectureId], references: [id])
   coverageMajor CoverageMajor @relation(fields: [majorCode], references: [code])
 
   @@id([lectureId, majorCode])
   @@index([lectureId], name: "coverage_major_lecture_lecture_id")
   @@index([majorCode], name: "coverage_major_lecture_major_code")
-  @@map(name: "coverage_major_lecture")
+  @@map("coverage_major_lecture")
 }
 
 model Lecture {
@@ -211,79 +211,79 @@ model Lecture {
   coverageMajorLectures CoverageMajorLecture[]
   periods               Period[]
 
-  @@map(name: "lecture")
+  @@map("lecture")
 }
 
 model LiveChat {
   id             Int      @default(autoincrement()) @db.Int
   message        String   @db.VarChar(100)
-  createdAt      DateTime @map(name: "created_at") @db.DateTime(0)
-  userId         Int      @map(name: "user_id") @db.UnsignedInt
-  randomNickname String   @map(name: "random_nickname") @db.VarChar(30)
+  createdAt      DateTime @map("created_at") @db.DateTime(0)
+  userId         Int      @map("user_id") @db.UnsignedInt
+  randomNickname String   @map("random_nickname") @db.VarChar(30)
   user           User     @relation(fields: [userId], references: [id])
 
   @@id([id, userId])
   @@index([userId], name: "user_id")
-  @@map(name: "live_chat")
+  @@map("live_chat")
 }
 
 model NoticeNotificationsSubscription {
   id           Int      @id @default(autoincrement()) @db.UnsignedInt
-  userId       Int      @map(name: "user_id") @db.UnsignedInt
-  noticeKey    String   @map(name: "notice_key") @db.VarChar(255)
-  subscribedAt DateTime @map(name: "subscribed_at") @db.DateTime(0)
+  userId       Int      @map("user_id") @db.UnsignedInt
+  noticeKey    String   @map("notice_key") @db.VarChar(255)
+  subscribedAt DateTime @map("subscribed_at") @db.DateTime(0)
   user         User     @relation(fields: [userId], references: [id])
 
   @@index([noticeKey], name: "notice_notifications_subscription_notice_key")
   @@index([userId], name: "user_id")
-  @@map(name: "notice_notifications_subscription")
+  @@map("notice_notifications_subscription")
 }
 
 model PendingUser {
   id             Int      @id @default(autoincrement()) @db.UnsignedInt
-  portalId       String   @unique @map(name: "portal_id") @db.VarChar(320)
+  portalId       String   @unique @map("portal_id") @db.VarChar(320)
   password       String   @db.Char(60)
   nickname       String   @unique @db.VarChar(30)
-  randomNickname String   @map(name: "random_nickname") @db.VarChar(30)
-  joinedAt       DateTime @map(name: "joined_at") @db.DateTime(0)
+  randomNickname String   @map("random_nickname") @db.VarChar(30)
+  joinedAt       DateTime @map("joined_at") @db.DateTime(0)
   token          String   @unique @db.VarChar(40)
 
-  @@map(name: "pending_user")
+  @@map("pending_user")
 }
 
 model Period {
-  lectureId String  @map(name: "lecture_id") @db.Char(36)
+  lectureId String  @map("lecture_id") @db.Char(36)
   day       String  @db.Char(3)
-  startH    Int     @map(name: "start_h") @db.TinyInt
-  startM    Int     @map(name: "start_m") @db.TinyInt
-  endH      Int     @map(name: "end_h") @db.TinyInt
-  endM      Int     @map(name: "end_m") @db.TinyInt
+  startH    Int     @map("start_h") @db.TinyInt
+  startM    Int     @map("start_m") @db.TinyInt
+  endH      Int     @map("end_h") @db.TinyInt
+  endM      Int     @map("end_m") @db.TinyInt
   lecture   Lecture @relation(fields: [lectureId], references: [id])
 
   @@id([lectureId, day, startH, startM, endH, endM])
   @@index([lectureId], name: "period_lecture_id")
-  @@map(name: "period")
+  @@map("period")
 }
 
 model Push {
-  userId        Int       @map(name: "user_id") @db.UnsignedInt
-  expoPushToken String    @id @default("") @map(name: "expo_push_token") @db.VarChar(255)
-  registeredAt  DateTime  @map(name: "registered_at") @db.DateTime(0)
-  activeAt      DateTime? @map(name: "active_at") @db.DateTime(0)
+  userId        Int       @map("user_id") @db.UnsignedInt
+  expoPushToken String    @id @default("") @map("expo_push_token") @db.VarChar(255)
+  registeredAt  DateTime  @map("registered_at") @db.DateTime(0)
+  activeAt      DateTime? @map("active_at") @db.DateTime(0)
   user          User      @relation(fields: [userId], references: [id])
 
   @@index([userId], name: "user_id")
-  @@map(name: "push")
+  @@map("push")
 }
 
 model User {
   id                               Int                               @id @default(autoincrement()) @db.UnsignedInt
-  portalId                         String                            @unique @map(name: "portal_id") @db.VarChar(320)
+  portalId                         String                            @unique @map("portal_id") @db.VarChar(320)
   password                         String                            @db.Char(60)
   nickname                         String                            @unique @db.VarChar(30)
-  randomNickname                   String                            @map(name: "random_nickname") @db.VarChar(30)
-  joinedAt                         DateTime                          @map(name: "joined_at") @db.DateTime(0)
-  refreshToken                     String?                           @map(name: "refresh_token") @db.VarChar(500)
+  randomNickname                   String                            @map("random_nickname") @db.VarChar(30)
+  joinedAt                         DateTime                          @map("joined_at") @db.DateTime(0)
+  refreshToken                     String?                           @map("refresh_token") @db.VarChar(500)
   admin                            Admin?
   changePassword                   ChangePassword?
   communityBoards                  CommunityBoard[]
@@ -299,5 +299,16 @@ model User {
   noticeNotificationsSubscriptions NoticeNotificationsSubscription[]
   pushes                           Push[]
 
-  @@map(name: "user")
+  @@map("user")
+}
+
+model Report {
+  id         Int      @id @default(autoincrement()) @db.UnsignedInt
+  target     String   @default("") @db.VarChar(100)
+  targetId   Int      @map("target_id") @db.UnsignedInt
+  title      String   @default("") @db.VarChar(100)
+  body       String?  @db.Text
+  reportedAt DateTime @map("reported_at") @db.DateTime(0)
+
+  @@map("report")
 }
