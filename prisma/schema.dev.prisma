@@ -298,17 +298,21 @@ model User {
   liveChats                        LiveChat[]
   noticeNotificationsSubscriptions NoticeNotificationsSubscription[]
   pushes                           Push[]
+  reports                          Report[]                          @relation("reportTouser")
 
   @@map("user")
 }
 
 model Report {
   id         Int      @id @default(autoincrement()) @db.UnsignedInt
+  userId     Int      @map("user_id") @db.UnsignedInt
   target     String   @default("") @db.VarChar(100)
   targetId   Int      @map("target_id") @db.UnsignedInt
   title      String   @default("") @db.VarChar(100)
   body       String?  @db.Text
   reportedAt DateTime @map("reported_at") @db.DateTime(0)
+  user       User     @relation("reportTouser", fields: [userId], references: [id])
 
+  @@index([userId], name: "user_id")
   @@map("report")
 }
