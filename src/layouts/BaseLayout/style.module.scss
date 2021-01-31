@@ -35,8 +35,9 @@
         max-width: 1200px;
       }
 
+      // @deprecated
       &.top-gap {
-        padding-top: $nav-height + ss(2);
+        padding-top: $nav-height;
       }
 
       &.centered {

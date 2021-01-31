@@ -5,6 +5,9 @@ import $ from './style.module.scss'
 
 export type BodyProps = HeaderProps & {
   bodyClassName?: string
+  /**
+   * @deprecated Don't use this props.
+   */
   hasTopGap?: boolean
   centered?: boolean
   /**

@@ -3,7 +3,7 @@
 $nav-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
 
 #eodiro-navigation {
-  position: fixed;
+  position: sticky;
   top: 10px;
   display: flex;
   align-items: center;
