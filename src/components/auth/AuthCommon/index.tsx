@@ -1,6 +1,5 @@
 import { authState } from '@/atoms/auth'
 import { Button, LineInput } from '@/components/ui'
-import { eodiroConsts } from '@/constants'
 import Body from '@/layouts/BaseLayout/Body'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
 import { eodiroRequest, registerPush } from '@/modules/eodiro-request'
@@ -19,7 +18,6 @@ import {
 } from '@/pages/api/auth/validate'
 import Axios from 'axios'
 import classNames from 'classnames'
-import Cookie from 'js-cookie'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React, { useEffect, useRef, useState } from 'react'
@@ -84,7 +82,8 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
     if (res.data.isSigned) {
       setAuth({ isLoggedIn: true })
       registerPush()
-      window.location.replace(Cookie.get(eodiroConsts.LAST_PATH) ?? '/')
+      // window.location.replace(Cookie.get(eodiroConsts.LAST_PATH) ?? '/')
+      window.location.replace('/')
     } else {
       setSignInFailed(true)
     }
