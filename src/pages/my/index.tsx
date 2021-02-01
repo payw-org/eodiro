@@ -1,5 +1,5 @@
 import { authState } from '@/atoms/auth'
-import { ArrowBlock, Button, FlatBlock } from '@/components/ui'
+import { Button, FlatBlock } from '@/components/ui'
 import Grid from '@/components/ui/layouts/Grid'
 import Body from '@/layouts/BaseLayout/Body'
 import { clearAuthCookie } from '@/modules/eodiro-request'
@@ -8,7 +8,6 @@ import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next
 import classNames from 'classnames'
 import dayjs from 'dayjs'
 import { GetServerSideProps, NextPage } from 'next'
-import Link from 'next/link'
 import { useSetRecoilState } from 'recoil'
 import $ from './style.module.scss'
 
@@ -61,7 +60,7 @@ const MyPage: NextPage<MyPageProps> = ({ user }) => {
             </div>
           </FlatBlock>
 
-          <Link href="/my/posts">
+          {/* <Link href="/my/posts">
             <a>
               <ArrowBlock>
                 <div className={$['info-block']}>
@@ -87,7 +86,7 @@ const MyPage: NextPage<MyPageProps> = ({ user }) => {
                 </div>
               </ArrowBlock>
             </a>
-          </Link>
+          </Link> */}
         </Grid>
       </section>
 
