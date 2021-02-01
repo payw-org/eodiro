@@ -41,7 +41,7 @@ export default function MyComments({
         totalPage={totalPage}
         currentPage={page}
         onPressPage={(nextPage) => {
-          router.push(`/my/posts?page=${nextPage}`)
+          router.push(`/my/comments?page=${nextPage}`)
         }}
       />
     </Body>
