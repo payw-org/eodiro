@@ -24,7 +24,9 @@
     "generate:dev": "prisma generate --schema prisma/schema.dev.prisma",
     "introspect": "prisma introspect --schema prisma/schema.prisma",
     "generate": "prisma generate --schema prisma/schema.prisma",
-    "migrate": "prisma migrate dev --preview-feature --schema prisma/schema.prisma"
+    "db:push:dev": "prisma db push --schema prisma/schema.dev.prisma --preview-feature",
+    "migrate": "prisma migrate dev --preview-feature --schema prisma/schema.prisma",
+    "migrate:dev": "prisma migrate dev --preview-feature --schema prisma/schema.dev.prisma"
   },
   "dependencies": {
     "@payw/eodiro-one-api": "^2.5.0",
