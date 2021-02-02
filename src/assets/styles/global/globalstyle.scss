@@ -110,8 +110,8 @@ body {
   font-family: $ui-font;
   margin: 0;
   padding: 0;
-  word-wrap: break-word;
   word-break: keep-all;
+  overflow-wrap: break-word;
   font-size: $default-font-size;
   // user-select: none;
   overflow-anchor: none; // prevent always scroll end
