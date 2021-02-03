@@ -117,7 +117,7 @@ const Home: React.FC = () => {
               }
               label="beta"
             /> */}
-            {/* <HomeFeatureBox
+            <HomeFeatureBox
               title="커뮤니티"
               to="/community"
               Icon={
@@ -131,7 +131,7 @@ const Home: React.FC = () => {
                 </i>
               }
               // label="beta"
-            /> */}
+            />
             <HomeFeatureBox
               title="학교 공지사항 알림"
               to="/notice-notifications"
