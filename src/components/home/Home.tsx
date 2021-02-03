@@ -101,7 +101,7 @@ const Home: React.FC = () => {
         {/* <LiveEntrance /> */}
 
         <div className={$['features']}>
-          <Grid proportion="extraLarge">
+          <Grid proportion="large">
             {/* <HomeFeatureBox
               title="꿀팁"
               to="/tips"
