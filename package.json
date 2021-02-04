@@ -24,6 +24,7 @@
     "generate:dev": "prisma generate --schema prisma/schema.dev.prisma",
     "introspect": "prisma introspect --schema prisma/schema.prisma",
     "generate": "prisma generate --schema prisma/schema.prisma",
+    "db:push": "prisma db push --schema prisma/schema.prisma --preview-feature",
     "db:push:dev": "prisma db push --schema prisma/schema.dev.prisma --preview-feature",
     "migrate": "prisma migrate dev --preview-feature --schema prisma/schema.prisma",
     "migrate:dev": "prisma migrate dev --preview-feature --schema prisma/schema.dev.prisma"
