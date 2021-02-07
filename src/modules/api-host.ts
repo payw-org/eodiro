@@ -13,9 +13,6 @@ import { isDev } from './utils/is-dev'
 
 // TODO: refactor the class name for universal usage
 
-/**
- * @deprecated
- */
 export default class ApiHost {
   static apiHost: string
 
