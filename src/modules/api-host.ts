@@ -73,4 +73,9 @@ export default class ApiHost {
 
     return this.setHost(host, cdn)
   }
+
+  public static resolve(path: string) {
+    const resolvedPath = path.startsWith('/') ? path : `/${path}`
+    return ApiHost.getHost() + resolvedPath
+  }
 }
