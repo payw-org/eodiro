@@ -1,5 +1,5 @@
 import PageInfo from '@/components/utils/PageInfo'
-import { eodiroConsts } from '@/constants'
+import { eodiroConst } from '@/constants'
 import { phrases } from '@/constants/phrases'
 import BaseLayout from '@/layouts/BaseLayout'
 import '@/modules/client/eodiro-dialog/style.scss'
@@ -158,8 +158,8 @@ EdrApp.getInitialProps = async ({ ctx }: AppContextType) => {
     const cookie = getCookie(req)
 
     if (
-      cookie[eodiroConsts.EDR_ACCESS_TOKEN_NAME] ||
-      cookie[eodiroConsts.EDR_REFRESH_TOKEN_NAME]
+      cookie[eodiroConst.EDR_ACCESS_TOKEN_NAME] ||
+      cookie[eodiroConst.EDR_REFRESH_TOKEN_NAME]
     ) {
       shouldCheckAuth = true
     }

@@ -1,4 +1,4 @@
-import { eodiroConsts } from '@/constants'
+import { eodiroConst } from '@/constants'
 import { AuthData, signAccessToken, signRefreshToken } from '@/modules/jwt'
 import { nextApi } from '@/modules/next-api-routes-helpers'
 import { prisma } from '@/modules/prisma'
@@ -64,13 +64,13 @@ export default nextApi({
 
       setCookie(req, res, [
         {
-          name: eodiroConsts.EDR_ACCESS_TOKEN_NAME,
+          name: eodiroConst.EDR_ACCESS_TOKEN_NAME,
           value: accessToken,
           expires,
           path: '/',
         },
         ...refreshTokenPaths.map((path) => ({
-          name: eodiroConsts.EDR_REFRESH_TOKEN_NAME,
+          name: eodiroConst.EDR_REFRESH_TOKEN_NAME,
           value: refreshToken,
           expires,
           path,

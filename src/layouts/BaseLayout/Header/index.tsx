@@ -3,7 +3,7 @@ import {
   navScrolledState,
   navTitleState,
 } from '@/atoms/navigation'
-import { eodiroConsts } from '@/constants'
+import { eodiroConst } from '@/constants'
 import classNames from 'classnames'
 import React, { FC, useEffect, useRef } from 'react'
 import { useSetRecoilState } from 'recoil'
@@ -29,21 +29,21 @@ const Header: FC<HeaderProps> = ({ pageTitle, titleAlign, titleHidden }) => {
   useEffect(() => {
     // Sentinel spots
     const overlaySentinelSpot = titleHidden
-      ? document.querySelector(`.${eodiroConsts.OVERLAY_SENTINEL_SPOT}`)
+      ? document.querySelector(`.${eodiroConst.OVERLAY_SENTINEL_SPOT}`)
       : pageAppTitleRef.current
     const titleSentinelSpot = titleHidden
-      ? document.querySelector(`.${eodiroConsts.TITLE_SENTINEL_SPOT}`)
+      ? document.querySelector(`.${eodiroConst.TITLE_SENTINEL_SPOT}`)
       : pageAppTitleRef.current
 
     if (!overlaySentinelSpot) {
       console.error(
-        `The navigation Overlay Sentinel Spot is not set. Set class name '${eodiroConsts.OVERLAY_SENTINEL_SPOT}'.`
+        `The navigation Overlay Sentinel Spot is not set. Set class name '${eodiroConst.OVERLAY_SENTINEL_SPOT}'.`
       )
     }
 
     if (!titleSentinelSpot) {
       console.error(
-        `The navigation Title Sentinel Spot is not set. Set class name '${eodiroConsts.TITLE_SENTINEL_SPOT}'.`
+        `The navigation Title Sentinel Spot is not set. Set class name '${eodiroConst.TITLE_SENTINEL_SPOT}'.`
       )
     }
 

@@ -1,5 +1,5 @@
 import Grid from '@/components/ui/layouts/Grid'
-import { eodiroConsts } from '@/constants'
+import { eodiroConst } from '@/constants'
 import { phrases } from '@/constants/phrases'
 import Body from '@/layouts/BaseLayout/Body'
 import EodiroColors from '@/modules/styles/EodiroColors'
@@ -76,7 +76,7 @@ const Home: React.FC = () => {
         <h1
           className={classNames(
             $['header'],
-            `${eodiroConsts.OVERLAY_SENTINEL_SPOT} ${eodiroConsts.TITLE_SENTINEL_SPOT}`
+            `${eodiroConst.OVERLAY_SENTINEL_SPOT} ${eodiroConst.TITLE_SENTINEL_SPOT}`
           )}
         >
           <div

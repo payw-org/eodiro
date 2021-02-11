@@ -1,4 +1,4 @@
-import { eodiroConsts } from '@/constants'
+import { eodiroConst } from '@/constants'
 import { prisma } from '@/modules/prisma'
 import dayjs from 'dayjs'
 
@@ -20,7 +20,7 @@ async function run() {
     if (
       remainingDays >= 0 &&
       candidate.communityBoardCandidateVotes.length >=
-        eodiroConsts.BOARD_CANDIDATE_VOTES_THRESHOLD
+        eodiroConst.BOARD_CANDIDATE_VOTES_THRESHOLD
     ) {
       // Over threshold votes
 

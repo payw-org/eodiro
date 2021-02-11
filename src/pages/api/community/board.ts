@@ -1,4 +1,4 @@
-import { eodiroConsts } from '@/constants'
+import { eodiroConst } from '@/constants'
 import { createHandler, nextApi } from '@/modules/next-api-routes-helpers'
 import { prisma } from '@/modules/prisma'
 import { requireAuthMiddleware } from '@/modules/server/middlewares/require-auth'
@@ -32,7 +32,7 @@ export const apiCommunityBoard = async (
 ): Promise<ApiCommunityBoardResData> => {
   const { boardId, page, userId } = data
 
-  const take = eodiroConsts.POSTS_TAKE_IN_ONE_PAGE
+  const take = eodiroConst.POSTS_TAKE_IN_ONE_PAGE
   const skip = Math.max(page - 1, 0) * take
   const totalPage = Math.ceil(
     (await prisma.communityPost.count({
@@ -94,9 +94,9 @@ export const apiCommunityBoard = async (
           hasBeenEdited: !!editedAt,
           title: safePostRest.title.slice(
             0,
-            eodiroConsts.POST_LIST_SLICE_LENGTH
+            eodiroConst.POST_LIST_SLICE_LENGTH
           ),
-          body: safePostRest.body.slice(0, eodiroConsts.POST_LIST_SLICE_LENGTH),
+          body: safePostRest.body.slice(0, eodiroConst.POST_LIST_SLICE_LENGTH),
           communityCommentsCount,
           communityPostLikesCount: communityPostLikes.length,
           communityPostBookmarksCount: communityPostBookmarks.length,

@@ -1,4 +1,4 @@
-export const eodiroConsts = {
+export const eodiroConst = {
   OVERLAY_SENTINEL_SPOT: 'overlay-sentinel-spot',
   TITLE_SENTINEL_SPOT: 'title-sentinel-spot',
   MIN_NICKNAME_LENGTH: 2,

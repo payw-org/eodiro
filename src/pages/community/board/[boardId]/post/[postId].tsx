@@ -3,7 +3,7 @@ import Information from '@/components/global/Information'
 import { ArrowBlock } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
-import { eodiroConsts } from '@/constants'
+import { eodiroConst } from '@/constants'
 import Body from '@/layouts/BaseLayout/Body'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
 import EodiroMarkup from '@/modules/client/eodiro-markup'
@@ -146,7 +146,7 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
           <ArrowBlock
             className={classNames(
               $['post-container'],
-              eodiroConsts.OVERLAY_SENTINEL_SPOT
+              eodiroConst.OVERLAY_SENTINEL_SPOT
             )}
             flat
           >
@@ -181,7 +181,7 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
               <h1
                 className={classNames(
                   $['title'],
-                  eodiroConsts.TITLE_SENTINEL_SPOT
+                  eodiroConst.TITLE_SENTINEL_SPOT
                 )}
               >
                 {post.title}
@@ -243,8 +243,8 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
       ) : (
         <div
           className={classNames(
-            eodiroConsts.OVERLAY_SENTINEL_SPOT,
-            eodiroConsts.TITLE_SENTINEL_SPOT
+            eodiroConst.OVERLAY_SENTINEL_SPOT,
+            eodiroConst.TITLE_SENTINEL_SPOT
           )}
         >
           <Information title="삭제되었거나 없는 게시물입니다." />

@@ -1,4 +1,4 @@
-import { eodiroConsts } from '@/constants'
+import { eodiroConst } from '@/constants'
 import {
   createHandler,
   nextApi,
@@ -204,28 +204,26 @@ export default nextApi({
       const trimmedTitle = title.trim()
       const trimmedBody = body.trim()
 
-      if (trimmedTitle.length < eodiroConsts.MIN_POST_TITLE_LENGTH) {
+      if (trimmedTitle.length < eodiroConst.MIN_POST_TITLE_LENGTH) {
         res
           .status(400)
           .send(
-            `Title is too short (min: ${eodiroConsts.MIN_POST_TITLE_LENGTH})`
+            `Title is too short (min: ${eodiroConst.MIN_POST_TITLE_LENGTH})`
           )
         return
       }
 
-      if (trimmedTitle.length > eodiroConsts.MAX_POST_TITLE_LENGTH) {
+      if (trimmedTitle.length > eodiroConst.MAX_POST_TITLE_LENGTH) {
         res
           .status(400)
-          .send(
-            `Title is too long (max: ${eodiroConsts.MAX_POST_TITLE_LENGTH})`
-          )
+          .send(`Title is too long (max: ${eodiroConst.MAX_POST_TITLE_LENGTH})`)
         return
       }
 
-      if (trimmedBody.length < eodiroConsts.MIN_POST_BODY_LENGTH) {
+      if (trimmedBody.length < eodiroConst.MIN_POST_BODY_LENGTH) {
         res
           .status(400)
-          .send(`Body is too short (min: ${eodiroConsts.MIN_POST_BODY_LENGTH})`)
+          .send(`Body is too short (min: ${eodiroConst.MIN_POST_BODY_LENGTH})`)
         return
       }
 

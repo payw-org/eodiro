@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui'
-import { eodiroConsts } from '@/constants'
+import { eodiroConst } from '@/constants'
 import Body from '@/layouts/BaseLayout/Body'
 import classNames from 'classnames'
 import { NextPage } from 'next'
@@ -11,8 +11,8 @@ const Page: NextPage = () => {
     <Body pageTitle="로그인 해주세요." centered titleHidden>
       <h1
         className={classNames(
-          eodiroConsts.OVERLAY_SENTINEL_SPOT,
-          eodiroConsts.TITLE_SENTINEL_SPOT
+          eodiroConst.OVERLAY_SENTINEL_SPOT,
+          eodiroConst.TITLE_SENTINEL_SPOT
         )}
       >
         로그인 해주세요.

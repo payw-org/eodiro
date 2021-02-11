@@ -1,4 +1,4 @@
-import { eodiroConsts } from '@/constants'
+import { eodiroConst } from '@/constants'
 import { JwtErrorName, verifyToken } from '@/modules/jwt'
 import initMiddleware from '@/modules/next-api-routes-helpers'
 import { prisma } from '@/modules/prisma'
@@ -11,7 +11,7 @@ function storeLastPath(req: IncomingMessage, res: ServerResponse) {
   if (!req.url?.includes('_next')) {
     // Store last path
     setCookie(req, res, {
-      name: eodiroConsts.LAST_PATH,
+      name: eodiroConst.LAST_PATH,
       value: req.url as string,
       httpOnly: false,
     })

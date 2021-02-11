@@ -2,7 +2,7 @@ import Information from '@/components/global/Information'
 import { Spinner } from '@/components/global/Spinner'
 import { ArrowBlock, Button } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
-import { eodiroConsts } from '@/constants'
+import { eodiroConst } from '@/constants'
 import Body from '@/layouts/BaseLayout/Body'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
 import EodiroMarkup from '@/modules/client/eodiro-markup'
@@ -68,17 +68,17 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
     const trimmedTitle = title.trim()
     const trimmedBody = body.trim()
 
-    if (trimmedTitle.length < eodiroConsts.MIN_POST_TITLE_LENGTH) {
+    if (trimmedTitle.length < eodiroConst.MIN_POST_TITLE_LENGTH) {
       new EodiroDialog().alert('제목을 입력해주세요.')
       return
     }
 
-    if (trimmedTitle.length > eodiroConsts.MAX_POST_TITLE_LENGTH) {
+    if (trimmedTitle.length > eodiroConst.MAX_POST_TITLE_LENGTH) {
       new EodiroDialog().alert('제목은 최대 100자입니다.')
       return
     }
 
-    if (trimmedBody.length < eodiroConsts.MIN_POST_BODY_LENGTH) {
+    if (trimmedBody.length < eodiroConst.MIN_POST_BODY_LENGTH) {
       new EodiroDialog().alert('내용을 입력해주세요.')
       return
     }
@@ -168,7 +168,7 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
       titleHidden
       width="small"
     >
-      <div className={`${eodiroConsts.OVERLAY_SENTINEL_SPOT}`}>
+      <div className={`${eodiroConst.OVERLAY_SENTINEL_SPOT}`}>
         <ArrowBlock flat noPadding customHeight>
           <button
             type="button"
@@ -180,7 +180,7 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
         </ArrowBlock>
       </div>
 
-      <div className={$$(eodiroConsts.TITLE_SENTINEL_SPOT, 'mt-4')}>
+      <div className={$$(eodiroConst.TITLE_SENTINEL_SPOT, 'mt-4')}>
         <input
           type="text"
           placeholder="제목을 입력하세요."
@@ -188,7 +188,7 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
           autoComplete="off"
           value={title}
           onChange={onChangeTitle}
-          maxLength={eodiroConsts.MAX_POST_TITLE_LENGTH}
+          maxLength={eodiroConst.MAX_POST_TITLE_LENGTH}
         />
       </div>
 

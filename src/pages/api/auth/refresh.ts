@@ -1,4 +1,4 @@
-import { eodiroConsts } from '@/constants'
+import { eodiroConst } from '@/constants'
 import {
   AuthData,
   JwtError,
@@ -37,7 +37,7 @@ export default nextApi({
 
         // Set cookie
         setCookie(req, res, {
-          name: eodiroConsts.EDR_ACCESS_TOKEN_NAME,
+          name: eodiroConst.EDR_ACCESS_TOKEN_NAME,
           value: newAccessToken,
           expires: new Date('2038-01-01').toUTCString(),
         })
@@ -68,12 +68,12 @@ export default nextApi({
 
       // Set access token to cookie
       setCookie(req, res, {
-        name: eodiroConsts.EDR_ACCESS_TOKEN_NAME,
+        name: eodiroConst.EDR_ACCESS_TOKEN_NAME,
         value: newAccessToken,
         expires: new Date('2038-01-01').toUTCString(),
       })
 
-      const lastPath = getCookie(req, eodiroConsts.LAST_PATH)
+      const lastPath = getCookie(req, eodiroConst.LAST_PATH)
       redirect(res, lastPath)
 
       return
@@ -89,18 +89,18 @@ export default nextApi({
 
     const cookies: Cookies = [
       {
-        name: eodiroConsts.EDR_ACCESS_TOKEN_NAME,
+        name: eodiroConst.EDR_ACCESS_TOKEN_NAME,
         expires: new Date('1997-01-01').toUTCString(),
         value: '',
         path: '/',
       },
       {
-        name: eodiroConsts.EDR_REFRESH_TOKEN_NAME,
+        name: eodiroConst.EDR_REFRESH_TOKEN_NAME,
         expires: new Date('1997-01-01').toUTCString(),
         value: '',
       },
       ...refreshTokenPaths.map((path) => ({
-        name: eodiroConsts.EDR_REFRESH_TOKEN_NAME,
+        name: eodiroConst.EDR_REFRESH_TOKEN_NAME,
         expires: new Date('1997-01-01').toUTCString(),
         value: '',
         path,

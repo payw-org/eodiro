@@ -1,4 +1,4 @@
-import { eodiroConsts } from '@/constants'
+import { eodiroConst } from '@/constants'
 import { createHandler, nextApi } from '@/modules/next-api-routes-helpers'
 import { prisma } from '@/modules/prisma'
 import { requireAuthMiddleware } from '@/modules/server/middlewares/require-auth'
@@ -29,20 +29,20 @@ export default nextApi({
 
     const { page = 1 } = req.query as ApiCommunityGetPopularReqPosts
 
-    const take = eodiroConsts.POSTS_TAKE_IN_ONE_PAGE
+    const take = eodiroConst.POSTS_TAKE_IN_ONE_PAGE
     const skip = Math.max(page - 1, 0) * take
 
     const totalPage = Math.ceil(
       (await prisma.communityPost.count({
         where: {
-          likesCount: { gte: eodiroConsts.POPULAR_POST_LIKES_THRESHOLD },
+          likesCount: { gte: eodiroConst.POPULAR_POST_LIKES_THRESHOLD },
         },
       })) / take
     )
 
     const popularPosts = await prisma.communityPost.findMany({
       where: {
-        likesCount: { gte: eodiroConsts.POPULAR_POST_LIKES_THRESHOLD },
+        likesCount: { gte: eodiroConst.POPULAR_POST_LIKES_THRESHOLD },
         isDeleted: false,
       },
       orderBy: { id: 'desc' },

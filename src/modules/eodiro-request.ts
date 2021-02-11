@@ -34,16 +34,19 @@ export async function clearAuthCookie() {
 }
 
 export async function eodiroRequest<RQD = any, RSD = any>(
-  axiosReqeustConfig: EodiroRequestConfig<RQD>
+  axiosRequestConfig: EodiroRequestConfig<RQD>
 ): Promise<RSD> {
-  const sanitiedReqeuestConfig = produce(axiosReqeustConfig, (draftConfig) => {
+  const sanitizedRequestConfig = produce(axiosRequestConfig, (draftConfig) => {
     if (draftConfig.url?.startsWith('/')) {
+      // TODO: Replace eodiroHost with ApiHost
       draftConfig.url = eodiroHost + draftConfig.url
     }
+
+    draftConfig.withCredentials = true
   })
 
   try {
-    const response = await Axios(sanitiedReqeuestConfig)
+    const response = await Axios(sanitizedRequestConfig)
 
     return response.data as RSD
   } catch (firstTryErr) {
@@ -59,7 +62,7 @@ export async function eodiroRequest<RQD = any, RSD = any>(
           await Axios.post<ApiAuthRefreshResData>('/api/auth/refresh')
           registerPush()
 
-          return await eodiroRequest<RQD, RSD>(sanitiedReqeuestConfig)
+          return await eodiroRequest<RQD, RSD>(sanitizedRequestConfig)
         } catch (refreshErr) {
           await clearAuthCookie()
         }

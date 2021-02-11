@@ -5,7 +5,7 @@ import { FloadingButton } from '@/components/ui/FloatingButton'
 import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
 import Grid from '@/components/ui/layouts/Grid'
-import { eodiroConsts } from '@/constants'
+import { eodiroConst } from '@/constants'
 import { NOT_FOUND } from '@/constants/http-status-code'
 import Body from '@/layouts/BaseLayout/Body'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
@@ -72,7 +72,7 @@ function BoardCandidateItem({ boardCandidate }: BoardCandidateItemProps) {
   ).diff(new Date(), 'day')
 
   const gaugePercent =
-    (votes / eodiroConsts.BOARD_CANDIDATE_VOTES_THRESHOLD) * 100
+    (votes / eodiroConst.BOARD_CANDIDATE_VOTES_THRESHOLD) * 100
 
   return (
     <ArrowBlock key={boardCandidate.id} flat>
@@ -109,7 +109,7 @@ function BoardCandidateItem({ boardCandidate }: BoardCandidateItemProps) {
             {remainingDays}일 뒤 종료
           </span>
           <p className="text-right text-sm text-base-gray">
-            {votes} / {eodiroConsts.BOARD_CANDIDATE_VOTES_THRESHOLD}
+            {votes} / {eodiroConst.BOARD_CANDIDATE_VOTES_THRESHOLD}
           </p>
         </div>
 

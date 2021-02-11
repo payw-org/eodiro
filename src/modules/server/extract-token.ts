@@ -1,4 +1,4 @@
-import { eodiroConsts } from '@/constants'
+import { eodiroConst } from '@/constants'
 import { getCookie } from '@/pages/api/cookie'
 import { IncomingMessage, ServerResponse } from 'http'
 import { NextApiRequest, NextApiResponse } from 'next'
@@ -16,8 +16,8 @@ export const extractToken = (
   const tokenFromCookie =
     cookie[
       type === 'access'
-        ? eodiroConsts.EDR_ACCESS_TOKEN_NAME
-        : eodiroConsts.EDR_REFRESH_TOKEN_NAME
+        ? eodiroConst.EDR_ACCESS_TOKEN_NAME
+        : eodiroConst.EDR_REFRESH_TOKEN_NAME
     ]
 
   if (tokenFromCookie) {
