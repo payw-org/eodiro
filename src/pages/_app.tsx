@@ -33,29 +33,29 @@ export default function EdrApp({
 }: EdrAppProps) {
   useEffect(() => {
     // Set topbar
-    const w = globalThis as any
-    const { topbar } = w
-    topbar.config({
-      barThickness: 2,
-      barColors: {
-        '0': '#ff3852',
-        '1': '#ff3852',
-      },
-      shadowBlur: 0,
-      shadowColor: 'rgba(0, 0, 0, 0)',
-      className: 'eodiro-topbar',
-    })
-    Router.events.on('routeChangeStart', () => {
-      topbar.show()
-    })
-    Router.events.on('routeChangeComplete', () => {
-      ;(document.activeElement as any)?.blur()
-      topbar.hide()
-    })
-    Router.events.on('routeChangeError', () => {
-      ;(document.activeElement as any)?.blur()
-      topbar.hide()
-    })
+    // const w = globalThis as any
+    // const { topbar } = w
+    // topbar.config({
+    //   barThickness: 2,
+    //   barColors: {
+    //     '0': '#ff3852',
+    //     '1': '#ff3852',
+    //   },
+    //   shadowBlur: 0,
+    //   shadowColor: 'rgba(0, 0, 0, 0)',
+    //   className: 'eodiro-topbar',
+    // })
+    // Router.events.on('routeChangeStart', () => {
+    //   topbar.show()
+    // })
+    // Router.events.on('routeChangeComplete', () => {
+    //   ;(document.activeElement as any)?.blur()
+    //   topbar.hide()
+    // })
+    // Router.events.on('routeChangeError', () => {
+    //   ;(document.activeElement as any)?.blur()
+    //   topbar.hide()
+    // })
 
     if ('scrollRestoration' in window.history) {
       window.history.scrollRestoration = 'manual'
