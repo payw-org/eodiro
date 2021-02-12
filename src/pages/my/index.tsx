@@ -2,7 +2,7 @@ import { authState } from '@/atoms/auth'
 import { Button, FlatBlock } from '@/components/ui'
 import Grid from '@/components/ui/layouts/Grid'
 import Body from '@/layouts/BaseLayout/Body'
-import { clearAuthCookie } from '@/modules/eodiro-request'
+import { logOut } from '@/modules/api/log-out'
 import { RefinedUser } from '@/modules/server/middlewares/require-auth'
 import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next-require-auth'
 import classNames from 'classnames'
@@ -18,8 +18,8 @@ type MyPageProps = {
 const MyPage: NextPage<MyPageProps> = ({ user }) => {
   const setAuth = useSetRecoilState(authState)
 
-  async function signOut() {
-    await clearAuthCookie()
+  async function onLogOut() {
+    await logOut()
 
     setAuth({ isLoggedIn: false })
     window.location.replace('/')
@@ -95,7 +95,7 @@ const MyPage: NextPage<MyPageProps> = ({ user }) => {
         <Button
           className={$['signout-btn']}
           label="로그아웃"
-          onClick={signOut}
+          onClick={onLogOut}
         />
         {/* <Button label="모든 기기에서 로그아웃" onClick={revoke} /> */}
       </section>

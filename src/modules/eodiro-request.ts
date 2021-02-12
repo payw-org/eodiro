@@ -1,10 +1,10 @@
 import { UNAUTHORIZED } from '@/constants/http-status-code'
-import { ApiAuthRefreshResData } from '@/pages/api/auth/refresh'
-import { ApiAuthGeneralErrResData } from '@/pages/api/auth/verify'
+import { ApiAuthRefreshResData } from '@payw/eodiro-server-types/api/auth/refresh'
+import { ApiAuthGeneralErrResData } from '@payw/eodiro-server-types/api/auth/verify'
 import Axios, { AxiosRequestConfig } from 'axios'
-import produce from 'immer'
+import ApiHost from './api-host'
+import { logOut } from './api/log-out'
 import { isInApp } from './booleans/is-in-app'
-import { eodiroHost } from './eodiro-host'
 import { JwtErrorName } from './jwt'
 import { reactNativeWebViewPostMessage } from './native/react-native-webview'
 
@@ -26,27 +26,14 @@ export function registerPush() {
   })
 }
 
-export async function clearAuthCookie() {
-  await Axios({
-    url: '/api/auth/refresh',
-    method: 'delete',
-  })
-}
-
 export async function eodiroRequest<RQD = any, RSD = any>(
   axiosRequestConfig: EodiroRequestConfig<RQD>
 ): Promise<RSD> {
-  const sanitizedRequestConfig = produce(axiosRequestConfig, (draftConfig) => {
-    if (draftConfig.url?.startsWith('/')) {
-      // TODO: Replace eodiroHost with ApiHost
-      draftConfig.url = eodiroHost + draftConfig.url
-    }
-
-    draftConfig.withCredentials = true
-  })
-
   try {
-    const response = await Axios(sanitizedRequestConfig)
+    const response = await Axios({
+      withCredentials: true,
+      ...axiosRequestConfig,
+    })
 
     return response.data as RSD
   } catch (firstTryErr) {
@@ -59,16 +46,18 @@ export async function eodiroRequest<RQD = any, RSD = any>(
 
       if (accessUnauthorized.error?.name === JwtErrorName.TokenExpiredError) {
         try {
-          await Axios.post<ApiAuthRefreshResData>('/api/auth/refresh')
+          await Axios.post<ApiAuthRefreshResData>(
+            ApiHost.resolve('/auth/refresh')
+          )
           registerPush()
 
-          return await eodiroRequest<RQD, RSD>(sanitizedRequestConfig)
+          return await eodiroRequest<RQD, RSD>(axiosRequestConfig)
         } catch (refreshErr) {
-          await clearAuthCookie()
+          await logOut()
         }
       }
 
-      await clearAuthCookie()
+      await logOut()
     }
 
     throw firstTryErr

@@ -2,15 +2,12 @@ import { authState } from '@/atoms/auth'
 import { canGoBackState } from '@/atoms/navigation'
 import GlobalFooter from '@/components/global/GlobalFooter'
 import Navigation from '@/components/global/Navigation'
+import ApiHost from '@/modules/api-host'
+import { logOut } from '@/modules/api/log-out'
 import { isInApp as checkIsInApp } from '@/modules/booleans/is-in-app'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
-import {
-  clearAuthCookie,
-  eodiroRequest,
-  registerPush,
-} from '@/modules/eodiro-request'
-import { ApiAuthRefreshResData } from '@/pages/api/auth/refresh'
-import { ApiAuthVerifyResData } from '@/pages/api/auth/verify'
+import { eodiroRequest, registerPush } from '@/modules/eodiro-request'
+import { ApiAuthVerifyResData } from '@payw/eodiro-server-types/api/auth/verify'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import React, { useEffect } from 'react'
@@ -27,8 +24,8 @@ const BaseLayout: React.FC<{
     async function init() {
       try {
         await eodiroRequest<null, ApiAuthVerifyResData>({
-          url: '/api/auth/verify',
-          method: 'POST',
+          url: ApiHost.resolve('/auth/verify'),
+          method: 'post',
         })
 
         registerPush()
@@ -104,10 +101,14 @@ const BaseLayout: React.FC<{
   useEffect(() => {
     async function sessionPoll() {
       try {
-        await axios.post<ApiAuthRefreshResData>('/api/auth/refresh')
+        await axios({
+          method: 'post',
+          url: ApiHost.resolve('/auth/refresh'),
+          withCredentials: true,
+        })
         registerPush()
       } catch (error) {
-        await clearAuthCookie()
+        await logOut()
       }
     }
 
