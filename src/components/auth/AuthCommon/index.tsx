@@ -1,22 +1,23 @@
 import { authState } from '@/atoms/auth'
 import { Button, LineInput } from '@/components/ui'
 import Body from '@/layouts/BaseLayout/Body'
+import ApiHost from '@/modules/api-host'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
 import { eodiroRequest, registerPush } from '@/modules/eodiro-request'
-import { ApiAuthForgotReqBody, apiAuthForgotUrl } from '@/pages/api/auth/forgot'
+import { ApiAuthForgotReqBody } from '@payw/eodiro-server-types/api/auth/forgot'
 import {
   ApiAuthJoinRequestBody,
   ApiAuthJoinResponseData,
-} from '@/pages/api/auth/join'
+} from '@payw/eodiro-server-types/api/auth/join'
 import {
   ApiAuthLoginReqBody,
   ApiAuthLoginResData,
-} from '@/pages/api/auth/login'
+} from '@payw/eodiro-server-types/api/auth/log-in'
 import {
   ApiAuthValidateRequestBody,
   ApiAuthValidateResponseData,
-} from '@/pages/api/auth/validate'
-import Axios from 'axios'
+} from '@payw/eodiro-server-types/api/auth/validate'
+import axios from 'axios'
 import classNames from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -64,7 +65,7 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
     }
   }
 
-  async function login(): Promise<void> {
+  async function logIn(): Promise<void> {
     setValidating(true)
 
     const loginData: ApiAuthLoginReqBody = {
@@ -72,17 +73,18 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
       password,
     }
 
-    const res = await Axios.post<ApiAuthLoginResData>(
-      '/api/auth/login',
-      loginData
-    )
-
-    setValidating(false)
+    const res = await axios
+      .post<ApiAuthLoginResData>(ApiHost.resolve('/auth/log-in'), loginData, {
+        withCredentials: true,
+      })
+      .finally(() => {
+        setValidating(false)
+      })
 
     if (res.data.isSigned) {
       setAuth({ isLoggedIn: true })
       registerPush()
-      // window.location.replace(Cookie.get(eodiroConsts.LAST_PATH) ?? '/')
+      // window.location.replace(Cookie.get(eodiroConst.LAST_PATH) ?? '/')
       window.location.replace('/')
     } else {
       setSignInFailed(true)
@@ -93,8 +95,8 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
     setValidating(true)
 
     const joinData: ApiAuthJoinRequestBody = { portalId, nickname, password }
-    const response = await Axios.post<ApiAuthJoinResponseData>(
-      '/api/auth/join',
+    const response = await axios.post<ApiAuthJoinResponseData>(
+      '/auth/join',
       joinData
     )
 
@@ -123,7 +125,7 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
 
     try {
       await eodiroRequest<ApiAuthForgotReqBody>({
-        url: apiAuthForgotUrl,
+        url: ApiHost.resolve('/auth/forgot'),
         method: 'post',
         data: {
           portalId,
@@ -178,8 +180,8 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
               const validatingData: ApiAuthValidateRequestBody = {
                 portalId: value,
               }
-              const response = await Axios.post<ApiAuthValidateResponseData>(
-                '/api/auth/validate',
+              const response = await axios.post<ApiAuthValidateResponseData>(
+                '/auth/validate',
                 validatingData
               )
 
@@ -211,7 +213,7 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
             disabled={validating}
             onChangeThrottle={[
               async (value): Promise<void> => {
-                const response = await Axios.post<ApiAuthValidateResponseData>(
+                const response = await axios.post<ApiAuthValidateResponseData>(
                   '/api/auth/validate',
                   {
                     nickname: value,
@@ -246,7 +248,7 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
             setValue={setPassword}
             onEnter={(): void => {
               if (mode === 'signin') {
-                login()
+                logIn()
               } else if (mode === 'join') {
                 join()
               }
@@ -255,7 +257,7 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
             onChangeThrottle={[
               async (value): Promise<void> => {
                 if (mode === 'join') {
-                  const response = await Axios.post<ApiAuthValidateResponseData>(
+                  const response = await axios.post<ApiAuthValidateResponseData>(
                     '/api/auth/validate',
                     {
                       password: value,
@@ -293,7 +295,7 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
           disabled={validating}
           onClick={(): void => {
             if (mode === 'signin') {
-              login()
+              logIn()
             } else if (mode === 'join') {
               join()
             } else if (mode === 'forgot') {
