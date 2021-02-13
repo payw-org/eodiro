@@ -73,7 +73,7 @@ const NavMenus: React.FC = () => {
       <NavItem
         title={isLoggedIn ? '마이페이지' : '로그인'}
         className={isLoggedIn ? $['my'] : $['signin']}
-        to={isLoggedIn ? '/my' : '/login'}
+        to={isLoggedIn ? '/my' : '/log-in'}
       />
     </ul>
   )
