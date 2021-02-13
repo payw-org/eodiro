@@ -15,10 +15,15 @@ import React, { useEffect } from 'react'
 import { RecoilRoot } from 'recoil'
 import 'swiper/swiper.scss'
 import { SWRConfig } from 'swr'
-import 'tailwindcss/tailwind.css'
-import '../assets/styles/global/globalstyle.scss'
 import { getCookie } from './api/cookie'
 import './_document.scss'
+
+// Keep the order
+// tailwindcss -> globalstyle
+// Tip: In VSCode, run `save without formatting` (cmd + K + S)
+import '@/assets/styles/global/framework7-icons.scss'
+import 'tailwindcss/tailwind.css'
+import '@/assets/styles/global/globalstyle.scss'
 
 type EdrAppProps = AppProps & {
   shouldCheckAuth: boolean

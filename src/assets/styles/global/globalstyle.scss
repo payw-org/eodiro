@@ -6,11 +6,9 @@
 @use '@/assets/styles/classes/colors';
 @use '@/assets/styles/page/class.scss';
 
+// @deprecated Use f7-icons
 // Octicons
 @use '@/assets/styles/global/octicon';
-
-// Framework7 Icons
-@use '@/assets/styles/global/framework7-icons';
 
 // Classes
 @use '@/assets/styles/classes/index';
