@@ -3,7 +3,6 @@ import { canGoBackState } from '@/atoms/navigation'
 import GlobalFooter from '@/components/global/GlobalFooter'
 import Navigation from '@/components/global/Navigation'
 import ApiHost from '@/modules/api-host'
-import { logOut } from '@/modules/api/log-out'
 import { isInApp as checkIsInApp } from '@/modules/booleans/is-in-app'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
 import { eodiroRequest, registerPush } from '@/modules/eodiro-request'
@@ -24,12 +23,11 @@ const BaseLayout: React.FC<{
     async function init() {
       try {
         await eodiroRequest<null, ApiAuthVerifyResData>({
-          url: ApiHost.resolve('/auth/verify'),
           method: 'post',
+          url: ApiHost.resolve('/auth/verify'),
         })
 
         registerPush()
-
         setAuthData({ isLoggedIn: true })
       } catch (error) {
         // JWT verification error
@@ -97,35 +95,6 @@ const BaseLayout: React.FC<{
       document.removeEventListener('message' as any, f)
     }
   }, [router, setCanGoBack])
-
-  useEffect(() => {
-    async function sessionPoll() {
-      try {
-        await axios({
-          method: 'post',
-          url: ApiHost.resolve('/auth/refresh'),
-          withCredentials: true,
-        })
-        registerPush()
-      } catch (error) {
-        await logOut()
-      }
-    }
-
-    if (shouldCheckAuth) {
-      sessionPoll()
-
-      // Session poll (refresh access token) every 15 minutes
-      // in background not to loose authentication
-      const sessionPollInterval = window.setInterval(() => {
-        sessionPoll()
-      }, 1000 * 60 * 15)
-
-      return () => {
-        window.clearInterval(sessionPollInterval)
-      }
-    }
-  }, [shouldCheckAuth])
 
   return (
     <div id={$['eodiro-app-scaffold']}>
