@@ -114,9 +114,9 @@
 
 // Box Shadow
 @mixin shadowed {
-  box-shadow: 0 8px 18px rgba($color: #000, $alpha: 0.04);
+  box-shadow: 0 1.5px 3px rgba($color: #000, $alpha: 0.15);
   @include dark-mode {
-    box-shadow: inset 0 0 0 1px rgba($color: #fff, $alpha: 0.05);
+    box-shadow: inset 0 0 0 1px rgba($color: #fff, $alpha: 0.1);
   }
 }
 
