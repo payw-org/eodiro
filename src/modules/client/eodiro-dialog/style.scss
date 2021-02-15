@@ -72,16 +72,15 @@ $build-in-time: 700ms;
     transition: opacity 300ms ease, transform 300ms ease;
     position: relative;
     top: -0.5rem;
-    @include shadowed;
 
     @include dark-mode {
       background-color: $base-black-soft;
     }
 
     .message {
-      padding: s(5);
-      line-height: 1.2;
-      font-size: 1rem;
+      padding: 1.2rem;
+      line-height: 1.4;
+      font-size: 1.1rem;
     }
 
     .actions {
@@ -98,7 +97,7 @@ $build-in-time: 700ms;
 
         button {
           color: $eodiro-primary-color;
-          font-size: b(4);
+          font-size: 1.1rem;
         }
 
         &.confirm button {
@@ -116,8 +115,8 @@ $build-in-time: 700ms;
     left: 0;
     opacity: 0;
     transition: opacity 300ms ease;
-    background-color: rgba(0, 0, 0, 0.15);
-    // backdrop-filter: blur(3px);
+    background-color: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(2px);
 
     @include dark-mode {
       background-color: rgba(0, 0, 0, 0.6);
