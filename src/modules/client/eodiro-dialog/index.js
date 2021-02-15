@@ -145,9 +145,11 @@ export default class EodiroDialog {
       clearAllBodyScrollLocks()
     }
 
+    // Remove active class
+    this.dialogContainerElm.classList.remove('active')
+
     setTimeout(() => {
-      // Remove active class
-      this.dialogContainerElm.classList.remove('active')
+      this.dialogContainerElm.remove()
     }, 300)
   }
 }
