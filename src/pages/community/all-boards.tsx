@@ -1,36 +1,39 @@
 import BoardsList from '@/components/community/BoardsList'
+import ServerError from '@/components/global/ServerError'
+import { Spinner } from '@/components/global/Spinner'
 import { LineInput } from '@/components/ui'
 import { ArrowBlock } from '@/components/ui/ArrowBlock'
-import { FloadingButton } from '@/components/ui/FloatingButton'
+import { FloatingButton } from '@/components/ui/FloatingButton'
 import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
 import Grid from '@/components/ui/layouts/Grid'
 import { eodiroConst } from '@/constants'
 import { NOT_FOUND } from '@/constants/http-status-code'
 import Body from '@/layouts/BaseLayout/Body'
+import ApiHost from '@/modules/api-host'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
 import { eodiroRequest } from '@/modules/eodiro-request'
-import { prisma } from '@/modules/prisma'
-import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next-require-auth'
-import { SafeCommunityBoard } from '@/types/schema'
-import dayjs from 'dayjs'
-import { GetServerSideProps } from 'next'
-import Link from 'next/link'
-import { useState } from 'react'
+import { Unpacked } from '@/types/unpacked'
 import {
-  ApiCommunityVoteBoardCandidateReqData,
+  ApiCommunityAllBoardCandidatesResData,
+  ApiCommunityAllBoardsResData,
+} from '@payw/eodiro-server-types/api/community/all-boards'
+import {
+  ApiCommunityVoteBoardCandidateReqBody,
   ApiCommunityVoteBoardCandidateResData,
-} from '../api/community/vote-board-candidate'
+} from '@payw/eodiro-server-types/api/community/vote-board-candidate'
+import dayjs from 'dayjs'
+import Link from 'next/link'
+import { useEffect, useState } from 'react'
+import useSWR from 'swr'
 import $ from './all-boards.module.scss'
 
-type BoardCandidate = SafeCommunityBoard & { votes: number; isMine: boolean }
-
 type BoardCandidateItemProps = {
-  boardCandidate: BoardCandidate
+  boardCandidate: Unpacked<ApiCommunityAllBoardCandidatesResData>
 }
 
 function BoardCandidateItem({ boardCandidate }: BoardCandidateItemProps) {
-  const [votes, setVotes] = useState(boardCandidate.votes)
+  const [votes, setVotes] = useState(boardCandidate.votesCount)
   const [isProcessing, setIsProcessing] = useState(false)
 
   async function vote(boardCandidateId: number) {
@@ -40,11 +43,11 @@ function BoardCandidateItem({ boardCandidate }: BoardCandidateItemProps) {
 
     try {
       const result = await eodiroRequest<
-        ApiCommunityVoteBoardCandidateReqData,
+        ApiCommunityVoteBoardCandidateReqBody,
         ApiCommunityVoteBoardCandidateResData
       >({
         method: 'post',
-        url: '/api/community/vote-board-candidate',
+        url: ApiHost.resolve('/community/vote-board-candidate'),
         data: {
           boardCandidateId,
         },
@@ -54,7 +57,7 @@ function BoardCandidateItem({ boardCandidate }: BoardCandidateItemProps) {
         new EodiroDialog().alert('이미 투표했습니다.')
       }
 
-      setVotes(result.votes)
+      setVotes(result.votesCount)
     } catch (error) {
       if (error.response?.status === NOT_FOUND) {
         new EodiroDialog().alert('게시판이 삭제되었거나 없는 게시판입니다.')
@@ -125,29 +128,65 @@ function BoardCandidateItem({ boardCandidate }: BoardCandidateItemProps) {
   )
 }
 
-type AllBoardsPageProps = {
-  boards: (SafeCommunityBoard & { isPinned: boolean })[]
-  boardCandidates: BoardCandidate[]
-}
+export default function AllBoardsPage() {
+  const [
+    filteredBoards,
+    setFilteredBoards,
+  ] = useState<ApiCommunityAllBoardsResData>()
+  const [
+    filteredBoardCandidates,
+    setFilteredBoardCandidates,
+  ] = useState<ApiCommunityAllBoardCandidatesResData>()
 
-export default function AllBoardsPage({
-  boards,
-  boardCandidates,
-}: AllBoardsPageProps) {
-  const [filteredBoards, setFilteredBoards] = useState(boards)
-  const [filteredboardCandidates, setFilteredboardCandidates] = useState(
-    boardCandidates
+  const {
+    data: allBoards,
+    error: allBoardsError,
+    mutate: setAllBoards,
+  } = useSWR<ApiCommunityAllBoardsResData>(
+    ApiHost.resolve('/community/all-boards')
+  )
+  const {
+    data: allBoardCandidates,
+    error: allBoardCandidatesError,
+    mutate: setBoardCandidates,
+  } = useSWR<ApiCommunityAllBoardCandidatesResData>(
+    ApiHost.resolve('/community/all-board-candidates')
   )
 
+  useEffect(() => {
+    if (allBoards) {
+      setFilteredBoards(allBoards)
+    }
+  }, [allBoards])
+
+  useEffect(() => {
+    if (allBoardCandidates) {
+      setFilteredBoardCandidates(allBoardCandidates)
+    }
+  }, [allBoardCandidates])
+
   function search(searchString: string) {
-    setFilteredBoards(
-      boards.filter((board) => board.name.includes(searchString))
-    )
-    setFilteredboardCandidates(
-      boardCandidates.filter((candidateBoard) =>
-        candidateBoard.name.includes(searchString)
-      )
-    )
+    setAllBoards((prevAllBoards) => {
+      if (prevAllBoards) {
+        setFilteredBoards(
+          prevAllBoards.filter((board) => board.name.includes(searchString))
+        )
+      }
+
+      return prevAllBoards
+    })
+
+    setBoardCandidates((prevBoardsCandidates) => {
+      if (prevBoardsCandidates) {
+        setFilteredBoardCandidates(
+          prevBoardsCandidates.filter((board) =>
+            board.name.includes(searchString)
+          )
+        )
+      }
+
+      return prevBoardsCandidates
+    })
   }
 
   return (
@@ -159,13 +198,25 @@ export default function AllBoardsPage({
         placeholder="게시판 이름으로 검색"
       />
 
-      {filteredBoards.length > 0 && (
-        <div className="boards mb-20">
-          <BoardsList boards={filteredBoards} />
+      {allBoardsError !== undefined ? (
+        <ServerError />
+      ) : filteredBoards !== undefined ? (
+        filteredBoards.length > 0 && (
+          <div className="boards mb-20">
+            <BoardsList
+              boards={filteredBoards as ApiCommunityAllBoardsResData}
+            />
+          </div>
+        )
+      ) : (
+        <div className="flex justify-center">
+          <Spinner />
         </div>
       )}
 
-      {filteredboardCandidates.length > 0 && (
+      {allBoardCandidatesError !== undefined ? (
+        <ServerError />
+      ) : filteredBoardCandidates !== undefined ? (
         <div className="candidate-boards">
           <h1 className="font-semibold text-2xl ml-1">투표중인 게시판</h1>
           <p className="mx-1 mt-3 text-base-gray">
@@ -174,83 +225,29 @@ export default function AllBoardsPage({
           </p>
 
           <Grid className="mt-5">
-            {filteredboardCandidates.map((boardCandidate) => (
-              <BoardCandidateItem
-                key={boardCandidate.id}
-                boardCandidate={boardCandidate}
-              />
-            ))}
+            {(filteredBoardCandidates as ApiCommunityAllBoardCandidatesResData).map(
+              (boardCandidate) => (
+                <BoardCandidateItem
+                  key={boardCandidate.id}
+                  boardCandidate={boardCandidate}
+                />
+              )
+            )}
           </Grid>
+        </div>
+      ) : (
+        <div className="flex justify-center">
+          <Spinner />
         </div>
       )}
 
       <Flex center className={$['new-board']}>
         <Link href="/community/new-board">
           <a>
-            <FloadingButton>새 게시판 만들기</FloadingButton>
+            <FloatingButton>새 게시판 만들기</FloatingButton>
           </a>
         </Link>
       </Flex>
     </Body>
   )
-}
-
-export const getServerSideProps: GetServerSideProps<AllBoardsPageProps> = async ({
-  req,
-  res,
-}) => {
-  await nextRequireAuthMiddleware(req, res)
-
-  const { user } = req
-
-  // Fetch all boards
-  const allBoards = await prisma.communityBoard.findMany({
-    orderBy: [{ priority: 'desc' }, { name: 'asc' }],
-  })
-
-  const myPins = await prisma.communityBoardPin.findMany({
-    where: { userId: user.id },
-  })
-
-  const boards = allBoards.map((board) => {
-    const pinIndex = myPins.findIndex((pin) => pin.boardId === board.id)
-
-    if (pinIndex !== -1) {
-      myPins.splice(pinIndex, 1)
-
-      return {
-        ...board,
-        isPinned: true,
-      }
-    }
-
-    return {
-      ...board,
-      isPinned: false,
-    }
-  })
-
-  const boardCandidates = await prisma.communityBoardCandidate.findMany({
-    orderBy: [{ createdAt: 'asc' }],
-    include: {
-      communityBoardCandidateVotes: true,
-    },
-  })
-
-  return {
-    props: {
-      boards,
-      boardCandidates: boardCandidates
-        .map((boardCandidate) => {
-          const { communityBoardCandidateVotes, ...rest } = boardCandidate
-
-          return {
-            ...rest,
-            votes: communityBoardCandidateVotes.length,
-            isMine: boardCandidate.createdBy === user.id,
-          }
-        })
-        .sort((a, b) => b.votes - a.votes),
-    },
-  }
 }

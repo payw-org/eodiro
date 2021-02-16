@@ -1,32 +1,34 @@
 import BoardsList from '@/components/community/BoardsList'
 import ServerError from '@/components/global/ServerError'
 import { Spinner } from '@/components/global/Spinner'
+import { withRequireAuth } from '@/components/hoc/with-require-auth'
 import { ArrowBlock } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
 import Grid from '@/components/ui/layouts/Grid'
 import Body from '@/layouts/BaseLayout/Body'
-import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next-require-auth'
-import { GetServerSideProps } from 'next'
+import ApiHost from '@/modules/api-host'
+import { ApiCommunityPinnedBoardsResData } from '@payw/eodiro-server-types/api/community/pinned-boards'
+import { ApiCommunityRecentBoardsResData } from '@payw/eodiro-server-types/api/community/recent-boards'
 import Link from 'next/link'
 import { ReactNode } from 'react'
 import useSWR from 'swr'
-import { ApiGetPinnedBoardsResData } from '../api/community/get-pinned-boards'
-import { ApiGetRecentBoardsResData } from '../api/community/get-recent-boards'
 import $ from './community-home.module.scss'
 
-export default function CommunityHomepage() {
+function CommunityHomepage() {
   const {
     data: pinnedBoards,
     error: pinnedBoardsError,
     mutate: updatePinnedBoards,
-  } = useSWR<ApiGetPinnedBoardsResData>('/api/community/get-pinned-boards')
+  } = useSWR<ApiCommunityPinnedBoardsResData>(
+    ApiHost.resolve('/community/pinned-boards')
+  )
   const {
     data: recentBoards,
     error: recentBoardsError,
     mutate: updateRecentBoards,
-  } = useSWR<ApiGetRecentBoardsResData>(
-    '/api/community/get-recent-boards?excludePins=true'
+  } = useSWR<ApiCommunityRecentBoardsResData>(
+    ApiHost.resolve('/community/recent-boards?excludePins=true')
   )
 
   function refresh() {
@@ -117,8 +119,4 @@ export default function CommunityHomepage() {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  await nextRequireAuthMiddleware(req, res)
-
-  return { props: {} }
-}
+export default withRequireAuth(CommunityHomepage)

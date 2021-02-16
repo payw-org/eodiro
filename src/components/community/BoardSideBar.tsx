@@ -1,7 +1,8 @@
 import { Spinner } from '@/components/global/Spinner'
 import { ArrowBlock } from '@/components/ui/ArrowBlock'
-import { ApiGetRecentBoardsResData } from '@/pages/api/community/get-recent-boards'
+import ApiHost from '@/modules/api-host'
 import { communityBoardPageUrl } from '@/utils/page-urls'
+import { ApiCommunityRecentBoardsResData } from '@payw/eodiro-server-types/api/community/recent-boards'
 import $$ from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -11,8 +12,8 @@ import Separator from '../utils/Separator'
 import $ from './BoardSideBar.module.scss'
 
 export default function BoardSideBar() {
-  const { data: boardsList, error } = useSWR<ApiGetRecentBoardsResData>(
-    '/api/community/get-recent-boards?onlyNames=true'
+  const { data: boardsList, error } = useSWR<ApiCommunityRecentBoardsResData>(
+    ApiHost.resolve('/community/recent-boards?onlyNames=true')
   )
 
   const router = useRouter()
@@ -33,7 +34,9 @@ export default function BoardSideBar() {
             <div>
               {boardsList.map((boardInfo) => (
                 <Link
-                  href={communityBoardPageUrl(boardInfo.id)}
+                  href={communityBoardPageUrl({
+                    boardId: boardInfo.id,
+                  })}
                   key={boardInfo.id}
                 >
                   <a

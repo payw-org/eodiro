@@ -1,132 +1,109 @@
 import BoardSideBar from '@/components/community/BoardSideBar'
 import { PostsList } from '@/components/community/PostsList'
-import Information from '@/components/global/Information'
+import { Spinner } from '@/components/global/Spinner'
+import { withRequireAuth } from '@/components/hoc/with-require-auth'
 import { ArrowBlock } from '@/components/ui'
 import { Flex } from '@/components/ui/layouts/Flex'
 import Pagination from '@/components/ui/Pagination'
 import Body from '@/layouts/BaseLayout/Body'
-import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next-require-auth'
-import {
-  apiCommunityBoard,
-  ApiCommunityBoardResData,
-  apiCommunityBoardUrl,
-} from '@/pages/api/community/board'
+import ApiHost from '@/modules/api-host'
 import { postEditorPageUrl } from '@/utils/page-urls'
-import { GetServerSideProps, NextPage } from 'next'
+import { ApiCommunityPostsListResData } from '@payw/eodiro-server-types/api/community/posts-list'
+import { CommunityPostsList } from '@payw/eodiro-server-types/types/schema'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import { Else, If, Then, When } from 'react-if'
 import useSWR from 'swr'
 import $ from './board-page.module.scss'
 
 const BoardPosts: React.FC<{
-  totalPage: ApiCommunityBoardResData['totalPage']
-  page: ApiCommunityBoardResData['page']
-  board: Exclude<ApiCommunityBoardResData['board'], null>
-}> = (initialData) => {
-  const { board, page } = initialData
-
-  const { data } = useSWR(apiCommunityBoardUrl({ boardId: board.id, page }), {
-    initialData,
-  })
-
-  if (!data) return null
+  boardId: number
+  page: number
+}> = ({ boardId, page }) => {
+  const router = useRouter()
+  const {
+    data: postsListData,
+    error: postsListError,
+  } = useSWR<ApiCommunityPostsListResData>(
+    ApiHost.resolve(`/community/posts-list?boardId=${boardId}&page=${page}`)
+  )
 
   return (
-    <ArrowBlock flat className={$['posts-container']}>
-      <PostsList posts={data.board.communityPosts} />
-    </ArrowBlock>
+    <>
+      <ArrowBlock flat className={$['posts-container']}>
+        <If condition={postsListError !== undefined}>
+          <Then>
+            <div>불러올 수 없습니다.</div>
+          </Then>
+          <Else>
+            <If condition={postsListData !== undefined}>
+              <Then>
+                <PostsList posts={postsListData?.posts as CommunityPostsList} />
+              </Then>
+              <Else>
+                <div className="flex justify-center">
+                  <Spinner />
+                </div>
+              </Else>
+            </If>
+          </Else>
+        </If>
+      </ArrowBlock>
+      <When condition={postsListData !== undefined}>
+        <Pagination
+          totalPage={postsListData?.totalPage as number}
+          currentPage={postsListData?.page as number}
+          onPressPage={(pressedPage) => {
+            router.push({
+              pathname: '/community/board/[boardId]',
+              query: {
+                boardId,
+                page: pressedPage,
+              },
+            })
+          }}
+        />
+      </When>
+    </>
   )
 }
 
-type BoardPageProps = {
-  boardInformation: ApiCommunityBoardResData
-}
-
-const BoardPage: NextPage<BoardPageProps> = ({ boardInformation }) => {
+function BoardPage() {
   const router = useRouter()
-  const { board, page, totalPage } = boardInformation
-  const boardId = board?.id
+  const boardId = parseInt(router.query.boardId as string, 10) || 0
+  const page = parseInt(router.query.page as string, 10) || 1
+  const { data: boardNameData, error: boardNameError } = useSWR<{
+    boardName: string
+  }>(ApiHost.resolve(`/community/board-name?boardId=${boardId}`))
+
+  const pageTitle = boardNameError
+    ? '없는 게시판'
+    : (router.query.boardName as string) ?? boardNameData?.boardName ?? ''
 
   return (
-    <Body pageTitle={board?.name ?? '없는 게시판'}>
-      {!board ? (
-        <Information title="게시판이 삭제되었거나 잘못된 접근입니다. 커뮤니티 홈에서 게시판을 이용해주세요." />
-      ) : (
-        <>
-          <div className={$['board-page']}>
-            <div className={$['column-posts']}>
-              <BoardPosts board={board} totalPage={totalPage} page={page} />
-              <div style={{ display: 'none' }}>
-                <BoardPosts
-                  board={board}
-                  totalPage={totalPage}
-                  page={page + 1}
-                />
-              </div>
-              <Pagination
-                totalPage={totalPage ?? 0}
-                currentPage={page ?? 0}
-                onPressPage={(pressedPage) => {
-                  router.push({
-                    pathname: '/community/board/[boardId]',
-                    query: {
-                      boardId,
-                      page: pressedPage,
-                    },
-                  })
-                }}
-              />
-
-              <Flex className={$['new-post-btn-wrapper']}>
-                <Link href={postEditorPageUrl(board.id)}>
-                  <a>
-                    <button type="button" className={$['new-post-btn']}>
-                      <i className="f7-icons">square_pencil</i>게시물 작성
-                    </button>
-                  </a>
-                </Link>
-              </Flex>
-            </div>
-
-            <BoardSideBar />
+    <Body pageTitle={pageTitle}>
+      <div className={$['board-page']}>
+        <div className={$['column-posts']}>
+          <BoardPosts boardId={boardId} page={page} />
+          <div style={{ display: 'none' }}>
+            <BoardPosts boardId={boardId} page={page + 1} />
           </div>
-        </>
-      )}
+
+          <Flex className={$['new-post-btn-wrapper']}>
+            <Link href={postEditorPageUrl(boardId)}>
+              <a>
+                <button type="button" className={$['new-post-btn']}>
+                  <i className="f7-icons">square_pencil</i>게시물 작성
+                </button>
+              </a>
+            </Link>
+          </Flex>
+        </div>
+
+        <BoardSideBar />
+      </div>
     </Body>
   )
 }
 
-export default BoardPage
-
-export const getServerSideProps: GetServerSideProps<BoardPageProps> = async ({
-  req,
-  res,
-  query,
-  params,
-}) => {
-  await nextRequireAuthMiddleware(req, res)
-
-  const { user } = req
-
-  const boardIdParam = globalThis.isNaN(parseInt(params?.boardId as string, 10))
-    ? params?.boardId
-    : parseInt(params?.boardId as string, 10)
-
-  let boardId = 0
-
-  if (typeof boardIdParam === 'number') {
-    boardId = boardIdParam
-  }
-
-  const boardInformation = await apiCommunityBoard({
-    boardId,
-    page: query.page ? Math.max(Number(query.page), 1) : 1,
-    userId: user.id,
-  })
-
-  return {
-    props: {
-      boardInformation,
-    },
-  }
-}
+export default withRequireAuth(BoardPage)

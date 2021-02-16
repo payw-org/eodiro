@@ -2,7 +2,8 @@ import { Button, LineInput } from '@/components/ui'
 import Body from '@/layouts/BaseLayout/Body'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
 import { prisma } from '@/modules/prisma'
-import { ApiAuthJoinRequestBody } from '@/pages/api/auth/join'
+import { logInUrl } from '@/utils/page-urls'
+import { ApiAuthJoinRequestBody } from '@payw/eodiro-server-types/api/auth/join'
 import Axios from 'axios'
 import { GetServerSideProps, NextPage } from 'next'
 import { useRouter } from 'next/router'
@@ -39,7 +40,7 @@ const ChangePasswordRequestPage: NextPage<ChangePasswordRequestPageProps> = ({
         })
 
         new EodiroDialog().alert('변경되었습니다. 다시 로그인 해주세요.')
-        router.push('/login')
+        router.push(logInUrl)
       } catch (error) {
         new EodiroDialog().alert(
           '암호 변경에 실패했습니다. 반복 시 문의해주세요.'
