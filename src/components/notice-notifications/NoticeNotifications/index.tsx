@@ -11,6 +11,7 @@ import {
   ApiNoticeNotificationsSubscribeResData,
   apiNoticeNotificationsSubscribeUrl,
 } from '@/pages/api/notice-notifications'
+import { logInUrl } from '@/utils/page-urls'
 import classNames from 'classnames'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -110,7 +111,7 @@ const NoticeWatcher: React.FC = () => {
           {!isLoggedIn && (
             <span>
               (<i className="f7-icons">lock_fill</i>
-              <Link href="/login">
+              <Link href={logInUrl}>
                 <a>로그인</a>
               </Link>{' '}
               필요)

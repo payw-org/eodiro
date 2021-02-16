@@ -75,7 +75,11 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
     })
 
     new EodiroDialog().alert('삭제되었습니다.')
-    router.replace(communityBoardPageUrl(post.boardId))
+    router.replace(
+      communityBoardPageUrl({
+        boardId: post.boardId,
+      })
+    )
   }
 
   async function likePost() {

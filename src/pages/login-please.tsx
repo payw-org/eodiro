@@ -1,6 +1,7 @@
 import { Button } from '@/components/ui'
 import { eodiroConst } from '@/constants'
 import Body from '@/layouts/BaseLayout/Body'
+import { logInUrl } from '@/utils/page-urls'
 import classNames from 'classnames'
 import { NextPage } from 'next'
 import Link from 'next/link'
@@ -17,7 +18,7 @@ const Page: NextPage = () => {
       >
         로그인 해주세요.
       </h1>
-      <Link href="/login">
+      <Link href={logInUrl}>
         <a>
           <Button className={$['login-btn']}>로그인</Button>
         </a>

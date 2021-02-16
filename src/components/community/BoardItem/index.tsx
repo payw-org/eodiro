@@ -52,7 +52,12 @@ export default function BoardItem(props: BoardItemProps) {
   }
 
   return (
-    <Link href={communityBoardPageUrl(board.id)}>
+    <Link
+      href={communityBoardPageUrl({
+        boardId: board.id,
+        boardName: board.name,
+      })}
+    >
       <a>
         <ArrowBlock>
           <Flex row justifyStart className={$['board-item']}>

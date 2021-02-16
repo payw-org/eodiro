@@ -4,6 +4,7 @@ import Body from '@/layouts/BaseLayout/Body'
 import ApiHost from '@/modules/api-host'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
 import { eodiroRequest, registerPush } from '@/modules/eodiro-request'
+import { logInUrl } from '@/utils/page-urls'
 import { ApiAuthForgotReqBody } from '@payw/eodiro-server-types/api/auth/forgot'
 import {
   ApiAuthJoinRequestBody,
@@ -81,11 +82,11 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
         setValidating(false)
       })
 
-    if (res.data.isSigned) {
-      setAuth({ isLoggedIn: true })
+    if (res.data?.isSigned) {
       registerPush()
+      setAuth({ isLoggedIn: true })
+      router.replace('/')
       // window.location.replace(Cookie.get(eodiroConst.LAST_PATH) ?? '/')
-      window.location.replace('/')
     } else {
       setSignInFailed(true)
     }
@@ -96,17 +97,17 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
 
     const joinData: ApiAuthJoinRequestBody = { portalId, nickname, password }
     const response = await axios.post<ApiAuthJoinResponseData>(
-      '/auth/join',
+      ApiHost.resolve('/auth/join'),
       joinData
     )
 
     setValidating(false)
 
     if (response.data.hasJoined) {
-      alert(
-        '중앙대학교 포탈 이메일로 인증 이메일이 발송되었습니다. 인증 후 로그인 해주세요. 인증 메일은 30분동안 유효합니다.'
+      new EodiroDialog().alert(
+        '중앙대학교 포탈로 인증 메일이 발송되었습니다. 인증 후 로그인 해주세요. 인증 메일은 30분동안 유효합니다.'
       )
-      router.push('/login')
+      router.push(logInUrl)
     } else {
       const { validations } = response.data
 
@@ -181,7 +182,7 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
                 portalId: value,
               }
               const response = await axios.post<ApiAuthValidateResponseData>(
-                '/auth/validate',
+                ApiHost.resolve('/auth/validate'),
                 validatingData
               )
 
@@ -214,7 +215,7 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
             onChangeThrottle={[
               async (value): Promise<void> => {
                 const response = await axios.post<ApiAuthValidateResponseData>(
-                  '/api/auth/validate',
+                  ApiHost.resolve('/auth/validate'),
                   {
                     nickname: value,
                   } as ApiAuthJoinRequestBody
@@ -258,7 +259,7 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
               async (value): Promise<void> => {
                 if (mode === 'join') {
                   const response = await axios.post<ApiAuthValidateResponseData>(
-                    '/api/auth/validate',
+                    ApiHost.resolve('/auth/validate'),
                     {
                       password: value,
                     } as ApiAuthJoinRequestBody
@@ -306,7 +307,7 @@ const AuthCommonContent: React.FC<AuthCommonProps> = ({ mode }) => {
         <div className={$['more']}>
           {mode !== 'signin' && (
             <p>
-              이미 가입했나요? <Link href="/login">로그인 →</Link>
+              이미 가입했나요? <Link href={logInUrl}>로그인 →</Link>
             </p>
           )}
           {mode === 'signin' && (

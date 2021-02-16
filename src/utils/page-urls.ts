@@ -1,5 +1,20 @@
-export function communityBoardPageUrl(boardId: number, page?: number) {
-  return `/community/board/${boardId}${page ? `?page=${page}` : ''}`
+import queryString from 'query-string'
+
+export const logInUrl = `/log-in`
+
+export function communityBoardPageUrl({
+  boardId,
+  boardName,
+  page,
+}: {
+  boardId: number
+  boardName?: string
+  page?: number
+}) {
+  return `/community/board/${boardId}?${queryString.stringify({
+    boardName,
+    page,
+  })}`
 }
 
 export const communityPostPageUrl = (boardId: number, postId: number) =>

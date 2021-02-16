@@ -7,6 +7,7 @@ import {
   navTitleState,
 } from '@/atoms/navigation'
 import { Icon } from '@/components/ui/Icon'
+import { logInUrl } from '@/utils/page-urls'
 import classNames from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
@@ -73,7 +74,7 @@ const NavMenus: React.FC = () => {
       <NavItem
         title={isLoggedIn ? '마이페이지' : '로그인'}
         className={isLoggedIn ? $['my'] : $['signin']}
-        to={isLoggedIn ? '/my' : '/log-in'}
+        to={isLoggedIn ? '/my' : logInUrl}
       />
     </ul>
   )
