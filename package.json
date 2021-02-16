@@ -6,7 +6,7 @@
   "repository": "https://github.com/payw-org/eodiro.git",
   "main": "src/server/index.js",
   "scripts": {
-    "update:server": "npm update @payw/eodiro-server-types",
+    "update:server-types": "npm update @payw/eodiro-server-types",
     "ts-node": "ts-node --project ./tsconfig.node.json -r tsconfig-paths/register",
     "typecheck": "tsc --noEmit",
     "dev": "npm run generate:dev && next --port 3020",
