@@ -31,6 +31,7 @@
     "migrate:dev": "prisma migrate dev --preview-feature --schema prisma/schema.dev.prisma"
   },
   "dependencies": {
+    "@juggle/resize-observer": "^3.2.0",
     "@payw/eodiro-one-api": "^2.5.0",
     "@popmotion/popcorn": "^0.4.4",
     "@types/body-scroll-lock": "^2.6.1",

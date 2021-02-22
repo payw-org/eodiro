@@ -15,15 +15,11 @@ import React, { useEffect } from 'react'
 import { RecoilRoot } from 'recoil'
 import 'swiper/swiper.scss'
 import { SWRConfig } from 'swr'
+import 'tailwindcss/tailwind.css'
+import '../assets/styles/global/framework7-icons.scss'
+import '../assets/styles/global/globalstyle.scss'
 import { getCookie } from './api/cookie'
 import './_document.scss'
-
-// Keep the order
-// tailwindcss -> globalstyle
-// Tip: In VSCode, run `save without formatting` (cmd + K + S)
-import '@/assets/styles/global/framework7-icons.scss'
-import 'tailwindcss/tailwind.css'
-import '@/assets/styles/global/globalstyle.scss'
 
 type EdrAppProps = AppProps & {
   shouldCheckAuth: boolean
@@ -37,6 +33,15 @@ export default function EdrApp({
   shouldCheckAuth,
 }: EdrAppProps) {
   useEffect(() => {
+    // Resize Observer Polyfill
+    ;(async () => {
+      if ('ResizeObserver' in window === false) {
+        // Loads polyfill asynchronously, only if required.
+        const module = await import('@juggle/resize-observer')
+        window.ResizeObserver = module.ResizeObserver as any
+      }
+    })()
+
     // Set topbar
     // const w = globalThis as any
     // const { topbar } = w
