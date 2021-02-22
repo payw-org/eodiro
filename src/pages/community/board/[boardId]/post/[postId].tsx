@@ -5,16 +5,12 @@ import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
 import { eodiroConst } from '@/constants'
 import Body from '@/layouts/BaseLayout/Body'
+import ApiHost from '@/modules/api-host'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
 import EodiroMarkup from '@/modules/client/eodiro-markup'
 import { eodiroRequest } from '@/modules/eodiro-request'
 import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next-require-auth'
 import { yyyymmddhhmm } from '@/modules/time'
-import {
-  ApiCommunityBookmarkPostReqData,
-  ApiCommunityBookmarkPostResData,
-  apiCommunityBookmarkPostUrl,
-} from '@/pages/api/community/bookmark-post'
 import { CommunityCommentWithSubcomments } from '@/pages/api/community/comments'
 import {
   ApiCommunityLikePostReqData,
@@ -28,6 +24,10 @@ import {
   apiCommunityUpsertDeleteUrl,
 } from '@/pages/api/community/post'
 import { communityBoardPageUrl, postEditorPageUrl } from '@/utils/page-urls'
+import {
+  ApiCommunityBookmarkPostReqBody,
+  ApiCommunityBookmarkPostResData,
+} from '@payw/eodiro-server-types/api/community/bookmark-post'
 import classNames from 'classnames'
 import { GetServerSideProps, NextPage } from 'next'
 import Link from 'next/link'
@@ -117,10 +117,10 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
     if (!post) return
 
     const result = await eodiroRequest<
-      ApiCommunityBookmarkPostReqData,
+      ApiCommunityBookmarkPostReqBody,
       ApiCommunityBookmarkPostResData
     >({
-      url: apiCommunityBookmarkPostUrl,
+      url: ApiHost.resolve('/community/bookmark-post'),
       method: 'POST',
       data: {
         postId: post.id,
