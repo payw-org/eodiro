@@ -1,9 +1,10 @@
 import $$ from 'classnames'
-import React, { FC } from 'react'
+import React, { ReactNode } from 'react'
 import Header, { HeaderProps } from './Header'
 import $ from './style.module.scss'
 
 export type BodyProps = HeaderProps & {
+  children: ReactNode
   bodyClassName?: string
   /**
    * @deprecated Don't use this props.
@@ -19,7 +20,7 @@ export type BodyProps = HeaderProps & {
   width?: 'xsmall' | 'small' | 'default' | 'large'
 }
 
-const Body: FC<BodyProps> = (props) => {
+function Body(props: BodyProps) {
   const {
     children,
     bodyClassName,
