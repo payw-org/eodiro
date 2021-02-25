@@ -1,7 +1,6 @@
 import { UNAUTHORIZED } from '@/constants/http-status-code'
-import { ApiAuthRefreshResData } from '@payw/eodiro-server-types/api/auth/refresh'
 import { ApiAuthGeneralErrResData } from '@payw/eodiro-server-types/api/auth/verify'
-import Axios, { AxiosRequestConfig } from 'axios'
+import axios, { AxiosRequestConfig } from 'axios'
 import ApiHost from './api-host'
 import { logOut } from './api/log-out'
 import { isInApp } from './booleans/is-in-app'
@@ -30,7 +29,7 @@ export async function eodiroRequest<RQD = any, RSD = any>(
   axiosRequestConfig: EodiroRequestConfig<RQD>
 ): Promise<RSD> {
   try {
-    const response = await Axios({
+    const response = await axios({
       withCredentials: true,
       ...axiosRequestConfig,
     })
@@ -46,9 +45,11 @@ export async function eodiroRequest<RQD = any, RSD = any>(
 
       if (accessUnauthorized.error?.name === JwtErrorName.TokenExpiredError) {
         try {
-          await Axios.post<ApiAuthRefreshResData>(
-            ApiHost.resolve('/auth/refresh')
-          )
+          await eodiroRequest({
+            method: 'post',
+            url: ApiHost.resolve('/auth/refresh'),
+          })
+
           registerPush()
 
           return await eodiroRequest<RQD, RSD>(axiosRequestConfig)
