@@ -1,5 +1,6 @@
 import { Comments } from '@/components/community/Comments'
 import Information from '@/components/global/Information'
+import { Spinner } from '@/components/global/Spinner'
 import { ArrowBlock } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
@@ -9,17 +10,14 @@ import ApiHost from '@/modules/api-host'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
 import EodiroMarkup from '@/modules/client/eodiro-markup'
 import { eodiroRequest } from '@/modules/eodiro-request'
-import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next-require-auth'
 import { yyyymmddhhmm } from '@/modules/time'
 import { CommunityCommentWithSubcomments } from '@/pages/api/community/comments'
 import {
   ApiCommunityLikePostReqData,
   ApiCommunityLikePostResData,
-  apiCommunityLikePostUrl,
 } from '@/pages/api/community/like-post'
 import {
   ApiCommunityDeletePostReqData,
-  apiCommunityPost,
   ApiCommunityPostResData,
   apiCommunityUpsertDeleteUrl,
 } from '@/pages/api/community/post'
@@ -28,8 +26,8 @@ import {
   ApiCommunityBookmarkPostReqBody,
   ApiCommunityBookmarkPostResData,
 } from '@payw/eodiro-server-types/api/community/bookmark-post'
+import { ApiCommunityGetPostResData } from '@payw/eodiro-server-types/api/community/post'
 import classNames from 'classnames'
-import { GetServerSideProps, NextPage } from 'next'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
@@ -45,24 +43,46 @@ export const commentsState = atom<CommunityCommentWithSubcomments[]>({
   default: [],
 })
 
-const PostPage: NextPage<PostPageProps> = ({ post }) => {
+function PostPage() {
   const router = useRouter()
   const [comments, setComments] = useRecoilState(commentsState)
-  const [likesCount, setLikesCount] = useState(
-    post?.communityPostLikesCount ?? 0
-  )
-  const [bookmarksCount, setBookmarksCount] = useState(
-    post?.communityPostBookmarksCount ?? 0
-  )
+  // const { data: post } = useSWR<ApiCommunityGetPostResData>(
+  //   ApiHost.resolve('/community/post')
+  // )
+  const [post, setPost] = useState<
+    ApiCommunityGetPostResData | undefined | null
+  >(undefined)
+
+  useEffect(() => {
+    eodiroRequest<any, ApiCommunityGetPostResData>({
+      method: 'get',
+      url: ApiHost.resolve(`/community/post?postId=${router.query.postId}`),
+    })
+      .then((data) => setPost(data))
+      .catch((error) => {
+        setPost(null)
+        console.error(error)
+      })
+  }, [router.query.postId])
+
+  const [likesCount, setLikesCount] = useState(0)
+  const [bookmarksCount, setBookmarksCount] = useState(0)
   const [likedByMe, setLikedByMe] = useState(post?.likedByMe)
   const [bookmarkedByMe, setBookmarkedByMe] = useState(post?.bookmarkedByMe)
+
+  useEffect(() => {
+    if (!post) return
+
+    setLikesCount(post.likesCount)
+    setBookmarksCount(post.bookmarksCount)
+  }, [post])
 
   /**
    * https://github.com/facebookexperimental/Recoil/issues/12
    */
-  useEffect(() => {
-    setComments(post?.communityComments ?? [])
-  }, [setComments, post?.communityComments])
+  // useEffect(() => {
+  //   setComments(post?.communityComments ?? [])
+  // }, [setComments, post?.communityComments])
 
   async function deletePost() {
     if (!post || !(await new EodiroDialog().confirm('정말 삭제하시겠습니까?')))
@@ -90,7 +110,7 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
         ApiCommunityLikePostReqData,
         ApiCommunityLikePostResData
       >({
-        url: apiCommunityLikePostUrl,
+        url: ApiHost.resolve('/community/like-post'),
         method: 'POST',
         data: {
           postId: post.id,
@@ -145,7 +165,24 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
       titleHidden
       bodyClassName={$['post-page-body']}
     >
-      {post ? (
+      {post === undefined ? (
+        <ArrowBlock
+          className={`${eodiroConst.OVERLAY_SENTINEL_SPOT} ${eodiroConst.TITLE_SENTINEL_SPOT}`}
+        >
+          <div className="flex items-center justify-center">
+            <Spinner />
+          </div>
+        </ArrowBlock>
+      ) : post === null ? (
+        <div
+          className={classNames(
+            eodiroConst.OVERLAY_SENTINEL_SPOT,
+            eodiroConst.TITLE_SENTINEL_SPOT
+          )}
+        >
+          <Information title="삭제되었거나 없는 게시물입니다." />
+        </div>
+      ) : (
         <>
           <ArrowBlock
             className={classNames(
@@ -244,37 +281,9 @@ const PostPage: NextPage<PostPageProps> = ({ post }) => {
             postId={post.id}
           />
         </>
-      ) : (
-        <div
-          className={classNames(
-            eodiroConst.OVERLAY_SENTINEL_SPOT,
-            eodiroConst.TITLE_SENTINEL_SPOT
-          )}
-        >
-          <Information title="삭제되었거나 없는 게시물입니다." />
-        </div>
       )}
     </Body>
   )
 }
 
 export default PostPage
-
-export const getServerSideProps: GetServerSideProps<PostPageProps> = async ({
-  req,
-  res,
-  query,
-}) => {
-  await nextRequireAuthMiddleware(req, res)
-
-  const { user } = req
-
-  const post = await apiCommunityPost({
-    postId: Number(query.postId),
-    userId: user.id,
-  })
-
-  return {
-    props: { post },
-  }
-}
