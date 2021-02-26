@@ -1,11 +1,11 @@
 import { ReactNode } from 'react'
 import $ from './style.module.scss'
 
-type FloadingButtonProps = {
+type FloatingButtonProps = {
   children: ReactNode
 }
 
-export function FloadingButton({ children }: FloadingButtonProps) {
+export function FloatingButton({ children }: FloatingButtonProps) {
   return (
     <button type="button" className={$['floating-button']}>
       {children}
