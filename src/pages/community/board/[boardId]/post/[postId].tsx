@@ -65,16 +65,26 @@ function PostPage() {
       })
   }, [router.query.postId])
 
-  const [likesCount, setLikesCount] = useState(0)
-  const [bookmarksCount, setBookmarksCount] = useState(0)
-  const [likedByMe, setLikedByMe] = useState(post?.likedByMe)
-  const [bookmarkedByMe, setBookmarkedByMe] = useState(post?.bookmarkedByMe)
+  const [likes, setLikes] = useState({
+    count: 0,
+    byMe: false,
+  })
+  const [bookmarks, setBookmarks] = useState({
+    count: 0,
+    byMe: false,
+  })
 
   useEffect(() => {
     if (!post) return
 
-    setLikesCount(post.likesCount)
-    setBookmarksCount(post.bookmarksCount)
+    setLikes({
+      count: post.likesCount,
+      byMe: post.likedByMe,
+    })
+    setBookmarks({
+      count: post.bookmarksCount,
+      byMe: post.bookmarkedByMe,
+    })
   }, [post])
 
   /**
@@ -118,8 +128,10 @@ function PostPage() {
       })
 
       if (result) {
-        setLikedByMe(true)
-        setLikesCount(result.count)
+        setLikes({
+          count: result.count,
+          byMe: true,
+        })
 
         if (result.alreadyLiked) {
           new EodiroDialog().alert('이미 좋아합니다 💕')
@@ -148,8 +160,10 @@ function PostPage() {
     })
 
     if (result) {
-      setBookmarkedByMe(result.isBookmarkedByMe)
-      setBookmarksCount(result.count)
+      setBookmarks({
+        count: result.count,
+        byMe: result.isBookmarkedByMe,
+      })
 
       new EodiroDialog().vagabond(
         result.isBookmarkedByMe
@@ -243,21 +257,21 @@ function PostPage() {
             <Flex row justifyCenter className={$['likes-and-bookmarks']}>
               <Flex
                 className={classNames($['action-btn'], $['likes'], {
-                  [$['active']]: likedByMe,
+                  [$['active']]: likes.byMe,
                 })}
                 onClick={likePost}
               >
                 <Icon name="hand_thumbsup_fill" />
-                <span>{likesCount}</span>
+                <span>{likes.count}</span>
               </Flex>
               <Flex
                 className={classNames($['action-btn'], $['bookmarks'], {
-                  [$['active']]: bookmarkedByMe,
+                  [$['active']]: bookmarks.byMe,
                 })}
                 onClick={bookmarkPost}
               >
                 <Icon name="bookmark_fill" />
-                <span>{bookmarksCount}</span>
+                <span>{bookmarks.count}</span>
               </Flex>
             </Flex>
           </ArrowBlock>
