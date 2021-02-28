@@ -100,8 +100,14 @@ const Header: FC<HeaderProps> = ({ pageTitle, titleAlign, titleHidden }) => {
         titleHidden && $['hidden']
       )}
     >
-      <span ref={pageAppTitleRef} className={$['page-title']}>
-        {pageTitle}
+      <span
+        ref={pageAppTitleRef}
+        className={$['page-title']}
+        style={{
+          opacity: pageTitle ? undefined : 0,
+        }}
+      >
+        {pageTitle || 'placeholder'}
       </span>
     </h1>
   )
