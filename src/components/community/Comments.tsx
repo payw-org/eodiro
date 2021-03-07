@@ -2,43 +2,30 @@ import { ArrowBlock } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
 import { NOT_FOUND } from '@/constants/http-status-code'
+import ApiHost from '@/modules/api-host'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
 import { eodiroRequest } from '@/modules/eodiro-request'
 import { friendlyTime } from '@/modules/time'
-import {
-  ApiCommunityCreateCommentReqData,
-  apiCommunityCreateCommentUrl,
-  ApiCommunityDeleteCommentReqData,
-  apiCommunityDeleteCommentUrl,
-} from '@/pages/api/community/comment'
-import {
-  ApiCommunityCommentsResData,
-  apiCommunityCommentsUrl,
-  CommunityCommentWithSubcomments,
-} from '@/pages/api/community/comments'
-import {
-  ApiCommunityCreateSubcommentReqData,
-  apiCommunityCreateSubcommentUrl,
-  ApiCommunityDeleteSubcommentReqData,
-  apiCommunityDeleteSubcommentUrl,
-} from '@/pages/api/community/subcomment'
-import {
-  apiCommunityGetSubcommentsUrl,
-  ApiCommunitySubcommentsResData,
-} from '@/pages/api/community/subcomments'
-import { commentsState } from '@/pages/community/board/[boardId]/post/[postId]'
 import { Dispatcher } from '@/types/react-helper'
+import { Unpacked } from '@/types/unpacked'
+import {
+  ApiCommunityCreateCommentReqBody,
+  ApiCommunityCreateSubcommentReqBody,
+  ApiCommunityDeleteCommentReqBody,
+  ApiCommunityDeleteSubcommentReqBody,
+  ApiCommunityGetCommentsResData,
+  ApiCommunitySubcommentsResData,
+} from '@payw/eodiro-server-types/api/community/comment'
 import produce from 'immer'
 import { useRouter } from 'next/router'
+import queryString from 'query-string'
 import React, { useEffect, useState } from 'react'
-import { Unless } from 'react-if'
-import { useSetRecoilState } from 'recoil'
 import $ from './Comments.module.scss'
 
 async function deleteComment(commentId: number): Promise<boolean> {
   try {
-    await eodiroRequest<ApiCommunityDeleteCommentReqData>({
-      url: apiCommunityDeleteCommentUrl,
+    await eodiroRequest<ApiCommunityDeleteCommentReqBody>({
+      url: ApiHost.resolve('/community/comment'),
       method: 'DELETE',
       data: {
         commentId,
@@ -61,8 +48,8 @@ async function deleteComment(commentId: number): Promise<boolean> {
 
 async function deleteSubcomment(subcommentId: number): Promise<boolean> {
   try {
-    await eodiroRequest<ApiCommunityDeleteSubcommentReqData>({
-      url: apiCommunityDeleteSubcommentUrl,
+    await eodiroRequest<ApiCommunityDeleteSubcommentReqBody>({
+      url: ApiHost.resolve('/community/subcomment'),
       method: 'DELETE',
       data: {
         subcommentId,
@@ -84,9 +71,9 @@ async function deleteSubcomment(subcommentId: number): Promise<boolean> {
 }
 
 const CommentItem: React.FC<{
-  comment: CommunityCommentWithSubcomments
-}> = ({ comment }) => {
-  const setComments = useSetRecoilState(commentsState)
+  comment: Unpacked<ApiCommunityGetCommentsResData>
+  setComments: Dispatcher<ApiCommunityGetCommentsResData>
+}> = ({ comment, setComments }) => {
   const [newSubcommentActive, setNewSubcommentActive] = useState(false)
   const [newSubcomment, setNewSubcomment] = useState('')
   const subcomments = comment.communitySubcomments
@@ -160,9 +147,9 @@ const CommentItem: React.FC<{
     setNewSubcomment('')
 
     try {
-      await eodiroRequest<ApiCommunityCreateSubcommentReqData>({
+      await eodiroRequest<ApiCommunityCreateSubcommentReqBody>({
         method: 'POST',
-        url: apiCommunityCreateSubcommentUrl,
+        url: ApiHost.resolve('/community/subcomment'),
         data: {
           body,
           commentId: comment.id,
@@ -174,12 +161,15 @@ const CommentItem: React.FC<{
         ApiCommunitySubcommentsResData
       >({
         method: 'GET',
-        url: apiCommunityGetSubcommentsUrl({
-          commentId: comment.id,
-          cursor:
-            subcomments.length > 0
-              ? subcomments[subcomments.length - 1].id
-              : undefined,
+        url: queryString.stringifyUrl({
+          url: ApiHost.resolve('/community/subcomments'),
+          query: {
+            commentId: comment.id,
+            cursor:
+              subcomments.length > 0
+                ? subcomments[subcomments.length - 1].id
+                : undefined,
+          },
         }),
       })
 
@@ -197,18 +187,22 @@ const CommentItem: React.FC<{
       })
       setNewSubcommentActive(false)
     } catch (error) {
-      new EodiroDialog().alert(
-        '댓글이 삭제되어 더 이상 대댓글을 달 수 없습니다.'
-      )
+      console.error(error.data)
 
-      setComments((prev) => {
-        const next = produce(prev, (draft) => {
-          const index = draft.findIndex((c) => c.id === comment.id)
-          draft[index].randomNickname = '알수없음'
-          draft[index].body = '삭제된 댓글입니다.'
+      if (error.response?.status === 404) {
+        new EodiroDialog().alert(
+          '댓글이 삭제되어 더 이상 대댓글을 달 수 없습니다.'
+        )
+
+        setComments((prev) => {
+          const next = produce(prev, (draft) => {
+            const index = draft.findIndex((c) => c.id === comment.id)
+            draft[index].randomNickname = '알수없음'
+            draft[index].body = '삭제된 댓글입니다.'
+          })
+          return next
         })
-        return next
-      })
+      }
     }
   }
 
@@ -218,14 +212,14 @@ const CommentItem: React.FC<{
         <h3 className={$['author']}>{comment.randomNickname}</h3>
         <Flex className={$['right-side']}>
           <Flex row>
-            <Unless condition={comment.isMine}>
+            {/* <Unless condition={comment.isMine}>
               <button type="button">
                 <Icon
                   name="exclamationmark_triangle"
                   className="text-eodiro-yellow-2"
                 />
               </button>
-            </Unless>
+            </Unless> */}
             {comment.isMine && (
               <button
                 type="button"
@@ -268,14 +262,14 @@ const CommentItem: React.FC<{
               <div className={$['comment-header']}>
                 <h3 className={$['author']}>{subcomment.randomNickname}</h3>
                 <Flex className={$['right-side']}>
-                  <Unless condition={subcomment.isMine}>
+                  {/* <Unless condition={subcomment.isMine}>
                     <button type="button">
                       <Icon
                         name="exclamationmark_triangle"
                         className="text-eodiro-yellow-2"
                       />
                     </button>
-                  </Unless>
+                  </Unless> */}
                   {subcomment.isMine && (
                     <button
                       type="button"
@@ -334,8 +328,8 @@ const CommentItem: React.FC<{
 }
 
 export const Comments: React.FC<{
-  comments: CommunityCommentWithSubcomments[]
-  setComments: Dispatcher<CommunityCommentWithSubcomments[]>
+  comments: ApiCommunityGetCommentsResData
+  setComments: Dispatcher<ApiCommunityGetCommentsResData>
   postId: number
 }> = ({ comments, setComments, postId }) => {
   const [newComment, setNewComment] = useState('')
@@ -391,9 +385,9 @@ export const Comments: React.FC<{
     setNewComment('')
 
     try {
-      await eodiroRequest<ApiCommunityCreateCommentReqData>({
+      await eodiroRequest<ApiCommunityCreateCommentReqBody>({
         method: 'POST',
-        url: apiCommunityCreateCommentUrl,
+        url: ApiHost.resolve('/community/comment'),
         data: {
           body,
           postId,
@@ -412,13 +406,18 @@ export const Comments: React.FC<{
     try {
       const latestComments = await eodiroRequest<
         null,
-        ApiCommunityCommentsResData
+        ApiCommunityGetCommentsResData
       >({
         method: 'GET',
-        url: apiCommunityCommentsUrl({
-          postId,
-          cursor:
-            comments.length > 0 ? comments[comments.length - 1].id : undefined,
+        url: queryString.stringifyUrl({
+          url: ApiHost.resolve('/community/comments'),
+          query: {
+            postId,
+            cursor:
+              comments.length > 0
+                ? comments[comments.length - 1].id
+                : undefined,
+          },
         }),
       })
 
@@ -438,7 +437,11 @@ export const Comments: React.FC<{
         {comments.length > 0 ? (
           <>
             {comments.map((comment) => (
-              <CommentItem key={comment.id} comment={comment} />
+              <CommentItem
+                key={comment.id}
+                comment={comment}
+                setComments={setComments}
+              />
             ))}
           </>
         ) : (

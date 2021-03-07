@@ -11,59 +11,59 @@ import EodiroDialog from '@/modules/client/eodiro-dialog'
 import EodiroMarkup from '@/modules/client/eodiro-markup'
 import { eodiroRequest } from '@/modules/eodiro-request'
 import { yyyymmddhhmm } from '@/modules/time'
-import { CommunityCommentWithSubcomments } from '@/pages/api/community/comments'
-import {
-  ApiCommunityLikePostReqData,
-  ApiCommunityLikePostResData,
-} from '@/pages/api/community/like-post'
-import {
-  ApiCommunityDeletePostReqData,
-  ApiCommunityPostResData,
-  apiCommunityUpsertDeleteUrl,
-} from '@/pages/api/community/post'
+import { Dispatcher } from '@/types/react-helper'
 import { communityBoardPageUrl, postEditorPageUrl } from '@/utils/page-urls'
 import {
   ApiCommunityBookmarkPostReqBody,
   ApiCommunityBookmarkPostResData,
 } from '@payw/eodiro-server-types/api/community/bookmark-post'
-import { ApiCommunityGetPostResData } from '@payw/eodiro-server-types/api/community/post'
+import { ApiCommunityGetCommentsResData } from '@payw/eodiro-server-types/api/community/comment'
+import {
+  ApiCommunityLikePostReqBody,
+  ApiCommunityLikePostResData,
+} from '@payw/eodiro-server-types/api/community/like-post'
+import {
+  ApiCommunityDeletePostReqBody,
+  ApiCommunityGetPostResData,
+} from '@payw/eodiro-server-types/api/community/post'
 import classNames from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
-import { atom, useRecoilState } from 'recoil'
 import $ from './post-page.module.scss'
-
-type PostPageProps = {
-  post: ApiCommunityPostResData
-}
-
-export const commentsState = atom<CommunityCommentWithSubcomments[]>({
-  key: 'commentsState',
-  default: [],
-})
 
 function PostPage() {
   const router = useRouter()
-  const [comments, setComments] = useRecoilState(commentsState)
-  // const { data: post } = useSWR<ApiCommunityGetPostResData>(
-  //   ApiHost.resolve('/community/post')
-  // )
+  const [comments, setComments] = useState<
+    ApiCommunityGetCommentsResData | null | undefined
+  >(undefined)
   const [post, setPost] = useState<
-    ApiCommunityGetPostResData | undefined | null
+    ApiCommunityGetPostResData | null | undefined
   >(undefined)
 
   useEffect(() => {
+    const { postId } = router.query
+
     eodiroRequest<any, ApiCommunityGetPostResData>({
       method: 'get',
-      url: ApiHost.resolve(`/community/post?postId=${router.query.postId}`),
+      url: ApiHost.resolve(`/community/post?postId=${postId}`),
     })
       .then((data) => setPost(data))
       .catch((error) => {
         setPost(null)
         console.error(error)
       })
-  }, [router.query.postId])
+
+    eodiroRequest<any, ApiCommunityGetCommentsResData>({
+      method: 'get',
+      url: ApiHost.resolve(`/community/comments?postId=${postId}`),
+    })
+      .then((data) => setComments(data))
+      .catch((error) => {
+        setComments(null)
+        console.error(error)
+      })
+  }, [router.query])
 
   const [likes, setLikes] = useState({
     count: 0,
@@ -98,8 +98,8 @@ function PostPage() {
     if (!post || !(await new EodiroDialog().confirm('정말 삭제하시겠습니까?')))
       return
 
-    await eodiroRequest<ApiCommunityDeletePostReqData>({
-      url: apiCommunityUpsertDeleteUrl,
+    await eodiroRequest<ApiCommunityDeletePostReqBody>({
+      url: ApiHost.resolve('/community/post'),
       method: 'DELETE',
       data: { postId: post.id },
     })
@@ -117,7 +117,7 @@ function PostPage() {
 
     try {
       const result = await eodiroRequest<
-        ApiCommunityLikePostReqData,
+        ApiCommunityLikePostReqBody,
         ApiCommunityLikePostResData
       >({
         url: ApiHost.resolve('/community/like-post'),
@@ -289,11 +289,23 @@ function PostPage() {
             </a>
           </Link>
 
-          <Comments
-            comments={comments}
-            setComments={setComments}
-            postId={post.id}
-          />
+          {comments === undefined ? (
+            <ArrowBlock>
+              <div className="flex items-center justify-center">
+                <Spinner />
+              </div>
+            </ArrowBlock>
+          ) : comments === null ? (
+            <Information title="댓글을 불러올 수 없습니다." />
+          ) : (
+            <Comments
+              comments={comments}
+              setComments={
+                setComments as Dispatcher<ApiCommunityGetCommentsResData>
+              }
+              postId={post.id}
+            />
+          )}
         </>
       )}
     </Body>

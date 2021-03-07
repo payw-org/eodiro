@@ -4,17 +4,17 @@ import { ArrowBlock, Button } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import { eodiroConst } from '@/constants'
 import Body from '@/layouts/BaseLayout/Body'
+import ApiHost from '@/modules/api-host'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
 import EodiroMarkup from '@/modules/client/eodiro-markup'
 import { eodiroRequest } from '@/modules/eodiro-request'
 import { prisma } from '@/modules/prisma'
 import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next-require-auth'
-import {
-  ApiCommunityUpsertPostReqData,
-  ApiCommunityUpsertPostResData,
-  apiCommunityUpsertPostUrl,
-} from '@/pages/api/community/post'
 import { communityPostPageUrl } from '@/utils/page-urls'
+import {
+  ApiCommunityUpsertPostReqBody,
+  ApiCommunityUpsertPostResData,
+} from '@payw/eodiro-server-types/api/community/post'
 import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock'
 import $$ from 'classnames'
 import { GetServerSideProps } from 'next'
@@ -85,10 +85,10 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
 
     try {
       const res = await eodiroRequest<
-        ApiCommunityUpsertPostReqData,
+        ApiCommunityUpsertPostReqBody,
         ApiCommunityUpsertPostResData
       >({
-        url: apiCommunityUpsertPostUrl,
+        url: ApiHost.resolve('/community/post'),
         method: 'POST',
         data: {
           title: trimmedTitle,
