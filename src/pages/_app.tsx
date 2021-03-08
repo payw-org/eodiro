@@ -15,8 +15,11 @@ import React, { useEffect } from 'react'
 import { RecoilRoot } from 'recoil'
 import 'swiper/swiper.scss'
 import { SWRConfig } from 'swr'
-import 'tailwindcss/tailwind.css'
+// Keep the imports order
+// f7 icons -> tailwind -> globalstyle
+// CMD + K -> S (VSCode shortcut)
 import '../assets/styles/global/framework7-icons.scss'
+import 'tailwindcss/tailwind.css'
 import '../assets/styles/global/globalstyle.scss'
 import { getCookie } from './api/cookie'
 import './_document.scss'
