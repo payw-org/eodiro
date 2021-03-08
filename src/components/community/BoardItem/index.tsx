@@ -1,14 +1,15 @@
 import { ArrowBlock } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
+import ApiHost from '@/modules/api-host'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
 import { eodiroRequest } from '@/modules/eodiro-request'
-import {
-  ApiCommunityPinBoardReqData,
-  ApiCommunityPinBoardResData,
-} from '@/pages/api/community/pin-board'
 import { SafeCommunityBoard } from '@/types/schema'
 import { communityBoardPageUrl } from '@/utils/page-urls'
+import {
+  ApiCommunityPinBoardReqBody,
+  ApiCommunityPinBoardResData,
+} from '@payw/eodiro-server-types/api/community/board'
 import classNames from 'classnames'
 import Link from 'next/link'
 import React, { useState } from 'react'
@@ -29,10 +30,10 @@ export default function BoardItem(props: BoardItemProps) {
 
     try {
       const result = await eodiroRequest<
-        ApiCommunityPinBoardReqData,
+        ApiCommunityPinBoardReqBody,
         ApiCommunityPinBoardResData
       >({
-        url: '/api/community/pin-board',
+        url: ApiHost.resolve('/community/board/pin'),
         method: 'post',
         data: {
           boardId: board.id,
