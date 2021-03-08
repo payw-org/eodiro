@@ -1,9 +1,14 @@
-import { UNAUTHORIZED } from '@/constants/http-status-code'
+import {
+  INTERNAL_SERVER_ERROR,
+  NOT_FOUND,
+  UNAUTHORIZED,
+} from '@/constants/http-status-code'
 import { ApiAuthGeneralErrResData } from '@payw/eodiro-server-types/api/auth/verify'
 import axios, { AxiosRequestConfig } from 'axios'
 import ApiHost from './api-host'
 import { logOut } from './api/log-out'
 import { isInApp } from './booleans/is-in-app'
+import EodiroDialog from './client/eodiro-dialog'
 import { JwtErrorName } from './jwt'
 import { reactNativeWebViewPostMessage } from './native/react-native-webview'
 
@@ -35,12 +40,12 @@ export async function eodiroRequest<RQD = any, RSD = any>(
     })
 
     return response.data as RSD
-  } catch (firstTryErr) {
-    const status = firstTryErr.response?.status as number
+  } catch (error) {
+    const status = error.response?.status as number
 
     // Unauthorized
     if (status === UNAUTHORIZED) {
-      const accessUnauthorized = firstTryErr.response
+      const accessUnauthorized = error.response
         ?.data as ApiAuthGeneralErrResData
 
       if (accessUnauthorized.error?.name === JwtErrorName.TokenExpiredError) {
@@ -59,8 +64,14 @@ export async function eodiroRequest<RQD = any, RSD = any>(
       }
 
       await logOut()
+    } else if (status === NOT_FOUND) {
+      new EodiroDialog().alert('요청 API 주소가 잘못되었습니다.')
+    } else if (status === INTERNAL_SERVER_ERROR) {
+      new EodiroDialog().alert('어디로 서버에 문제가 발생했습니다.')
     }
 
-    throw firstTryErr
+    console.error(error)
+
+    throw error
   }
 }
