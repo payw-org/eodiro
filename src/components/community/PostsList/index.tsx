@@ -3,7 +3,6 @@ import { Flex } from '@/components/ui/layouts/Flex'
 import { friendlyTime } from '@/modules/time'
 import { SafeCommunityPost } from '@/types/schema'
 import { communityPostPageUrl } from '@/utils/page-urls'
-import { CommunityPostsList } from '@payw/eodiro-server-types/types/schema'
 import classNames from 'classnames'
 import Link from 'next/link'
 import $ from './style.module.scss'
@@ -62,7 +61,7 @@ const PostItem: React.FC<{
 }
 
 export const PostsList: React.FC<{
-  posts: CommunityPostsList
+  posts: SafeCommunityPost[]
 }> = ({ posts }) => {
   return (
     <div className={$['posts-list']}>
