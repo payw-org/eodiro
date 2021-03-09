@@ -224,16 +224,22 @@ export default function AllBoardsPage() {
             자동으로 활성화됩니다.
           </p>
 
-          <Grid className="mt-5">
-            {(filteredBoardCandidates as ApiCommunityAllBoardCandidatesResData).map(
-              (boardCandidate) => (
-                <BoardCandidateItem
-                  key={boardCandidate.id}
-                  boardCandidate={boardCandidate}
-                />
-              )
-            )}
-          </Grid>
+          {filteredBoardCandidates.length > 0 ? (
+            <Grid className="mt-5">
+              {(filteredBoardCandidates as ApiCommunityAllBoardCandidatesResData).map(
+                (boardCandidate) => (
+                  <BoardCandidateItem
+                    key={boardCandidate.id}
+                    boardCandidate={boardCandidate}
+                  />
+                )
+              )}
+            </Grid>
+          ) : (
+            <ArrowBlock flat className="mt-4">
+              투표중인 게시판이 없습니다.
+            </ArrowBlock>
+          )}
         </div>
       ) : (
         <div className="flex justify-center">
