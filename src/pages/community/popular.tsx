@@ -7,20 +7,21 @@ import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
 import Pagination from '@/components/ui/Pagination'
 import Body from '@/layouts/BaseLayout/Body'
+import ApiHost from '@/modules/api-host'
 import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next-require-auth'
+import { ApiCommunityGetPopularPostsResData } from '@payw/eodiro-server-types/api/community/popular-posts'
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
-import { ApiCommunityGetPopularPostsResData } from '../api/community/get-popular-posts'
 
 export default function CommunityPopularPage() {
   const router = useRouter()
   const page = parseInt(router.query.page as string, 10)
   // convert page to number
   const { data, error } = useSWR<ApiCommunityGetPopularPostsResData>(
-    `/api/community/get-popular-posts?page=${
-      !globalThis.isNaN(page) ? page : 1
-    }`
+    ApiHost.resolve(
+      `/community/posts/popular?page=${!globalThis.isNaN(page) ? page : 1}`
+    )
   )
 
   return (
