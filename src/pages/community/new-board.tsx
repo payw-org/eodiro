@@ -1,25 +1,43 @@
+import { withRequireAuth } from '@/components/hoc/with-require-auth'
 import { Button } from '@/components/ui'
 import { eodiroConst } from '@/constants'
 import Body from '@/layouts/BaseLayout/Body'
+import ApiHost from '@/modules/api-host'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
 import { eodiroRequest } from '@/modules/eodiro-request'
+import { ApiCommunityCreateNewBoardReqBody } from '@payw/eodiro-server-types/api/community/board'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
-import { ApiCommunityCreateNewBoardReqData } from '../api/community/create-new-board'
 
-export default function NewBoardPage() {
+function NewBoardPage() {
   const [isProcessing, setIsProcessing] = useState(false)
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const router = useRouter()
 
   async function createNewBoard() {
+    if (!name.trim()) {
+      new EodiroDialog().alert('게시판 이름을 입력해주세요.')
+      return
+    }
+    if (name.trim().length > eodiroConst.MAX_BOARD_TITLE_LENGTH) {
+      new EodiroDialog().alert('게시판 이름은 최대 50자입니다.')
+      return
+    }
+    if (
+      description.trim() &&
+      description.trim().length > eodiroConst.MAX_BOARD_DESCRIPTION_LENGTH
+    ) {
+      new EodiroDialog().alert('게시판 이름은 최대 50자입니다.')
+      return
+    }
+
     setIsProcessing(true)
 
     try {
-      await eodiroRequest<ApiCommunityCreateNewBoardReqData>({
-        method: 'post',
-        url: '/api/community/create-new-board',
+      await eodiroRequest<ApiCommunityCreateNewBoardReqBody>({
+        method: 'POST',
+        url: ApiHost.resolve('/community/board'),
         data: {
           name,
           description: description || undefined,
@@ -28,11 +46,9 @@ export default function NewBoardPage() {
 
       new EodiroDialog().alert('생성되었습니다.')
       router.replace('/community/all-boards')
-    } catch (createError) {
-      const errorMessage = createError.response?.data?.message
-
-      if (errorMessage) {
-        new EodiroDialog().alert(errorMessage)
+    } catch (error) {
+      if (error.response?.status === 400) {
+        new EodiroDialog().alert('')
       }
     }
 
@@ -71,3 +87,5 @@ export default function NewBoardPage() {
     </Body>
   )
 }
+
+export default withRequireAuth(NewBoardPage)
