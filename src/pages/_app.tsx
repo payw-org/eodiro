@@ -1,5 +1,4 @@
 import PageInfo from '@/components/utils/PageInfo'
-import { eodiroConst } from '@/constants'
 import { phrases } from '@/constants/phrases'
 import BaseLayout from '@/layouts/BaseLayout'
 import '@/modules/client/eodiro-dialog/style.scss'
@@ -8,7 +7,6 @@ import { reactNativeWebViewPostMessage } from '@/modules/native/react-native-web
 import { isDev } from '@/modules/utils/is-dev'
 import 'intersection-observer'
 import { AppProps } from 'next/app'
-import { AppContextType } from 'next/dist/next-server/lib/utils'
 import Head from 'next/head'
 import Router from 'next/router'
 import React, { useEffect } from 'react'
@@ -21,20 +19,13 @@ import { SWRConfig } from 'swr'
 import '../assets/styles/global/framework7-icons.scss'
 import 'tailwindcss/tailwind.css'
 import '../assets/styles/global/globalstyle.scss'
-import { getCookie } from './api/cookie'
 import './_document.scss'
 
-type EdrAppProps = AppProps & {
-  shouldCheckAuth: boolean
-}
+type EdrAppProps = AppProps
 
 const cachedScrollPositions: [x: number, y: number][] = []
 
-export default function EdrApp({
-  Component,
-  pageProps,
-  shouldCheckAuth,
-}: EdrAppProps) {
+export default function EdrApp({ Component, pageProps }: EdrAppProps) {
   useEffect(() => {
     // Resize Observer Polyfill
     ;(async () => {
@@ -153,30 +144,11 @@ export default function EdrApp({
             },
           }}
         >
-          <BaseLayout shouldCheckAuth={shouldCheckAuth}>
+          <BaseLayout>
             <Component {...pageProps} />
           </BaseLayout>
         </SWRConfig>
       </RecoilRoot>
     </>
   )
-}
-
-EdrApp.getInitialProps = async ({ ctx }: AppContextType) => {
-  const { req } = ctx
-
-  let shouldCheckAuth = false
-
-  if (req) {
-    const cookie = getCookie(req)
-
-    if (
-      cookie[eodiroConst.EDR_ACCESS_TOKEN_NAME] ||
-      cookie[eodiroConst.EDR_REFRESH_TOKEN_NAME]
-    ) {
-      shouldCheckAuth = true
-    }
-  }
-
-  return { shouldCheckAuth }
 }

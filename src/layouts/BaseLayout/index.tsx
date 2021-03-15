@@ -13,9 +13,7 @@ import React, { useEffect } from 'react'
 import { useSetRecoilState } from 'recoil'
 import $ from './style.module.scss'
 
-const BaseLayout: React.FC<{
-  shouldCheckAuth: boolean
-}> = ({ children, shouldCheckAuth }) => {
+const BaseLayout: React.FC = ({ children }) => {
   const setAuthData = useSetRecoilState(authState)
   const isInApp = checkIsInApp()
 
@@ -32,14 +30,11 @@ const BaseLayout: React.FC<{
       } catch (error) {
         // JWT verification error
         console.error(error)
-        new EodiroDialog().alert('토큰 인증에 실패했습니다. 재로그인바랍니다.')
       }
     }
 
-    if (shouldCheckAuth) {
-      init()
-    }
-  }, [setAuthData, shouldCheckAuth])
+    init()
+  }, [setAuthData])
 
   const router = useRouter()
   const setCanGoBack = useSetRecoilState(canGoBackState)
