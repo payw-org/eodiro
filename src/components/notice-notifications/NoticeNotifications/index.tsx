@@ -20,7 +20,7 @@ import $ from './style.module.scss'
 
 const NoticeWatcher: React.FC = () => {
   const { isLoggedIn } = useRecoilValue(authState)
-  const [subscriptions, setSubsciptions] = useState(
+  const [subscriptions, setSubscriptions] = useState(
     availableVendors.map((vendor) => ({
       ...vendor,
       isSubscribed: false,
@@ -43,7 +43,7 @@ const NoticeWatcher: React.FC = () => {
         method: 'get',
       })
 
-      setSubsciptions((prev) => {
+      setSubscriptions((prev) => {
         const next = prev.map((sub) => ({
           ...sub,
           isSubscribed: mySubscriptions.includes(sub.key),
@@ -72,7 +72,7 @@ const NoticeWatcher: React.FC = () => {
       },
     })
 
-    setSubsciptions((prev) => {
+    setSubscriptions((prev) => {
       const next = [...prev]
       const keyIndex = next.findIndex((sub) => sub.key === key)
       next[keyIndex].isSubscribed = result.subscribed
