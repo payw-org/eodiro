@@ -1,5 +1,6 @@
 import Information from '@/components/global/Information'
 import { Spinner } from '@/components/global/Spinner'
+import { withRequireAuth } from '@/components/hoc/with-require-auth'
 import { ArrowBlock, Button } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import { eodiroConst } from '@/constants'
@@ -8,32 +9,26 @@ import ApiHost from '@/modules/api-host'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
 import EodiroMarkup from '@/modules/client/eodiro-markup'
 import { eodiroRequest } from '@/modules/eodiro-request'
-import { prisma } from '@/modules/prisma'
-import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next-require-auth'
 import { communityPostPageUrl } from '@/utils/page-urls'
 import {
+  ApiCommunityGetPostResData,
   ApiCommunityUpsertPostReqBody,
   ApiCommunityUpsertPostResData,
 } from '@payw/eodiro-server-types/api/community/post'
 import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock'
 import $$ from 'classnames'
-import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import $ from './editor.module.scss'
 
-type PostEditorPageProps = {
-  boardId: number
-  post: {
-    id: number
-    title: string
-    body: string
-    userId: number
-  } | null
-}
-
-export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
+function PostEditorPage() {
   const router = useRouter()
+  const postId = router.query.postId
+    ? parseInt(router.query.postId as string, 10)
+    : undefined
+  const boardId = router.query.boardId
+    ? parseInt(router.query.boardId as string, 10)
+    : 0
   const [isTutorialOpen, setIsTutorialOpen] = useState(false)
 
   const tutorialContent = useRef<HTMLDivElement>(null)
@@ -46,13 +41,29 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
     }
   }, [isTutorialOpen])
 
-  const [title, setTitle] = useState(post ? post.title : '')
-  const [body, setBody] = useState(post ? post.body : '')
+  const [title, setTitle] = useState('')
+  const [body, setBody] = useState('')
   const bodyTextAreaRef = useRef<HTMLTextAreaElement>(null)
   const [isPreviewMode, setIsPreviewMode] = useState(false)
   const [isUploadingImage, setIsUploadingImage] = useState(false)
 
-  if (!boardId) {
+  useEffect(() => {
+    async function loadPost() {
+      const post = await eodiroRequest<any, ApiCommunityGetPostResData>({
+        method: 'GET',
+        url: ApiHost.resolve(`/community/post?postId=${postId}`),
+      })
+
+      setTitle(post.title)
+      setBody(post.body)
+    }
+
+    if (postId) {
+      loadPost()
+    }
+  }, [postId])
+
+  if (boardId === 0) {
     return <Information title="잘못된 접근입니다." />
   }
 
@@ -94,11 +105,13 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
           title: trimmedTitle,
           body: trimmedBody,
           boardId,
-          postId: post?.id,
+          postId,
         },
       })
 
-      new EodiroDialog().vagabond(post ? '수정되었습니다.' : '작성되었습니다.')
+      new EodiroDialog().vagabond(
+        postId ? '수정되었습니다.' : '작성되었습니다.'
+      )
       router.replace(communityPostPageUrl(boardId, res.postId))
     } catch (error) {
       console.error(error)
@@ -164,7 +177,7 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
 
   return (
     <Body
-      pageTitle={title || (post ? '게시물 수정' : '새 게시물')}
+      pageTitle={title || (postId ? '게시물 수정' : '새 게시물')}
       titleHidden
       width="small"
     >
@@ -272,7 +285,7 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
           )}
         </Button>
         <Button onClick={upsertPost} className="flex-1 ml-4">
-          {post ? '수정 완료' : '작성 완료'}
+          {postId ? '수정 완료' : '작성 완료'}
         </Button>
       </div>
 
@@ -362,42 +375,4 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
   )
 }
 
-export const getServerSideProps: GetServerSideProps<PostEditorPageProps> = async ({
-  req,
-  res,
-  query,
-}) => {
-  await nextRequireAuthMiddleware(req, res)
-
-  const boardId = query.boardId ? Number(query.boardId) : 0
-  const postId = query.postId ? Number(query.postId) : undefined
-  let post: {
-    id: number
-    title: string
-    body: string
-    userId: number
-  } | null = null
-
-  if (postId) {
-    post = await prisma.communityPost.findUnique({
-      where: { id: postId },
-      select: {
-        id: true,
-        title: true,
-        body: true,
-        userId: true,
-      },
-    })
-  }
-
-  const board = await prisma.communityBoard.findUnique({
-    where: { id: boardId },
-  })
-
-  if (!board || (postId && !post) || (post && post.userId !== req.user.id)) {
-    res.writeHead(404)
-    res.end()
-  }
-
-  return { props: { boardId, post } }
-}
+export default withRequireAuth(PostEditorPage)

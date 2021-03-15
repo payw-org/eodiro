@@ -2,19 +2,18 @@ import BoardSideBar from '@/components/community/BoardSideBar'
 import { PostsList } from '@/components/community/PostsList'
 import ServerError from '@/components/global/ServerError'
 import { Spinner } from '@/components/global/Spinner'
+import { withRequireAuth } from '@/components/hoc/with-require-auth'
 import { ArrowBlock } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
 import Pagination from '@/components/ui/Pagination'
 import Body from '@/layouts/BaseLayout/Body'
 import ApiHost from '@/modules/api-host'
-import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next-require-auth'
 import { ApiCommunityGetPopularPostsResData } from '@payw/eodiro-server-types/api/community/popular-posts'
-import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
 import useSWR from 'swr'
 
-export default function CommunityPopularPage() {
+function CommunityPopularPage() {
   const router = useRouter()
   const page = parseInt(router.query.page as string, 10)
   // convert page to number
@@ -66,8 +65,4 @@ export default function CommunityPopularPage() {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
-  await nextRequireAuthMiddleware(req, res)
-
-  return { props: {} }
-}
+export default withRequireAuth(CommunityPopularPage)
