@@ -105,7 +105,7 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
       console.error(error.response)
 
       // Alert error message sent from server
-      if (error.reponse?.data) {
+      if (error.response?.data) {
         new EodiroDialog().alert(error.response.data)
       }
     }
