@@ -1,5 +1,5 @@
 import Grid from '@/components/ui/layouts/Grid'
-import { SafeCommunityBoard } from '@/types/schema'
+import { SafeCommunityBoard } from '@payw/eodiro-server-types/types/schema'
 import BoardItem from '../BoardItem'
 
 type BoardsListProps = {

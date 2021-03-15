@@ -9,7 +9,7 @@ import Body from '@/layouts/BaseLayout/Body'
 import ApiHost from '@/modules/api-host'
 import { postEditorPageUrl } from '@/utils/page-urls'
 import { ApiCommunityPostsListResData } from '@payw/eodiro-server-types/api/community/posts-list'
-import { CommunityPostsList } from '@payw/eodiro-server-types/types/schema'
+import { SafeCommunityPost } from '@payw/eodiro-server-types/types/schema'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { Else, If, Then, When } from 'react-if'
@@ -38,7 +38,9 @@ const BoardPosts: React.FC<{
           <Else>
             <If condition={postsListData !== undefined}>
               <Then>
-                <PostsList posts={postsListData?.posts as CommunityPostsList} />
+                <PostsList
+                  posts={postsListData?.posts as SafeCommunityPost[]}
+                />
               </Then>
               <Else>
                 <div className="flex justify-center">

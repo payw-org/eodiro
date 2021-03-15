@@ -4,12 +4,12 @@ import { Flex } from '@/components/ui/layouts/Flex'
 import ApiHost from '@/modules/api-host'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
 import { eodiroRequest } from '@/modules/eodiro-request'
-import { SafeCommunityBoard } from '@/types/schema'
 import { communityBoardPageUrl } from '@/utils/page-urls'
 import {
   ApiCommunityPinBoardReqBody,
   ApiCommunityPinBoardResData,
 } from '@payw/eodiro-server-types/api/community/board'
+import { SafeCommunityBoard } from '@payw/eodiro-server-types/types/schema'
 import classNames from 'classnames'
 import Link from 'next/link'
 import React, { useState } from 'react'

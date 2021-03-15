@@ -1,11 +1,10 @@
 import { Button, LineInput } from '@/components/ui'
 import Body from '@/layouts/BaseLayout/Body'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
-import { prisma } from '@/modules/prisma'
 import { logInUrl } from '@/utils/page-urls'
 import { ApiAuthJoinRequestBody } from '@payw/eodiro-server-types/api/auth/join'
 import Axios from 'axios'
-import { GetServerSideProps, NextPage } from 'next'
+import { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import $ from './style.module.scss'
@@ -80,33 +79,6 @@ const ChangePasswordRequestPage: NextPage<ChangePasswordRequestPageProps> = ({
       {!valid && <p>암호 변경 요청이 만료되었거나 유효하지 않습니다.</p>}
     </Body>
   )
-}
-
-export const getServerSideProps: GetServerSideProps<ChangePasswordRequestPageProps> = async ({
-  query,
-}) => {
-  const token = query.t as string
-
-  const changeRequest = await prisma.changePassword.findUnique({
-    where: { token },
-    include: { user: { select: { id: true } } },
-  })
-
-  if (!changeRequest) {
-    return {
-      props: {
-        userId: 0,
-        valid: false,
-      },
-    }
-  }
-
-  return {
-    props: {
-      userId: changeRequest.user.id,
-      valid: true,
-    },
-  }
 }
 
 export default ChangePasswordRequestPage
