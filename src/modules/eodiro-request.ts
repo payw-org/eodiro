@@ -1,6 +1,5 @@
 import {
   INTERNAL_SERVER_ERROR,
-  NOT_FOUND,
   UNAUTHORIZED,
 } from '@/constants/http-status-code'
 import { ApiAuthGeneralErrResData } from '@payw/eodiro-server-types/api/auth/verify'
@@ -70,8 +69,6 @@ export async function eodiroRequest<RQD = any, RSD = any>(
       }
 
       await logOut()
-    } else if (status === NOT_FOUND) {
-      new EodiroDialog().alert('요청 API 주소가 잘못되었습니다.')
     } else if (status === INTERNAL_SERVER_ERROR) {
       new EodiroDialog().alert('어디로 서버에 문제가 발생했습니다.')
     }
