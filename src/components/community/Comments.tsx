@@ -199,6 +199,7 @@ const CommentItem: React.FC<{
             const index = draft.findIndex((c) => c.id === comment.id)
             draft[index].randomNickname = '알수없음'
             draft[index].body = '삭제된 댓글입니다.'
+            draft[index].isMine = false
           })
           return next
         })
