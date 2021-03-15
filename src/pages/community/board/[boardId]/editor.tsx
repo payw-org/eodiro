@@ -127,7 +127,7 @@ export default function PostEditorPage({ boardId, post }: PostEditorPageProps) {
     try {
       const result = await eodiroRequest({
         method: 'post',
-        url: '/api/upload-image',
+        url: ApiHost.resolve('/upload-image'),
         data: formData,
       })
 
