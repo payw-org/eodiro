@@ -1,29 +1,49 @@
 import { authState } from '@/atoms/auth'
-import { Button, FlatBlock } from '@/components/ui'
+import { ArrowBlock, Button, FlatBlock } from '@/components/ui'
 import Grid from '@/components/ui/layouts/Grid'
 import Body from '@/layouts/BaseLayout/Body'
+import ApiHost from '@/modules/api-host'
 import { logOut } from '@/modules/api/log-out'
-import { RefinedUser } from '@/modules/server/middlewares/require-auth'
-import { nextRequireAuthMiddleware } from '@/modules/server/ssr-middlewares/next-require-auth'
+import { eodiroRequest } from '@/modules/eodiro-request'
+import { SafeUser } from '@payw/eodiro-server-types/api/my'
 import classNames from 'classnames'
 import dayjs from 'dayjs'
-import { GetServerSideProps, NextPage } from 'next'
+import { NextPage } from 'next'
+import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useEffect, useState } from 'react'
 import { useSetRecoilState } from 'recoil'
 import $ from './style.module.scss'
 
-type MyPageProps = {
-  user: RefinedUser
-}
-
-const MyPage: NextPage<MyPageProps> = ({ user }) => {
+const MyPage: NextPage = () => {
+  const router = useRouter()
   const setAuth = useSetRecoilState(authState)
+  const [user, setUser] = useState<SafeUser>({
+    portalId: '-',
+    nickname: '-',
+    randomNickname: '-',
+    joinedAt: new Date('1996-03-11'),
+  })
 
   async function onLogOut() {
     await logOut()
 
     setAuth({ isLoggedIn: false })
-    window.location.replace('/')
+    router.replace('/')
   }
+
+  useEffect(() => {
+    async function loadInformation() {
+      const fetchedUser = await eodiroRequest<any, SafeUser>({
+        url: ApiHost.resolve('/my/information'),
+        method: 'GET',
+      })
+
+      setUser(fetchedUser)
+    }
+
+    loadInformation()
+  }, [])
 
   // TODO: withdrawl
   // async function revoke() {
@@ -60,7 +80,7 @@ const MyPage: NextPage<MyPageProps> = ({ user }) => {
             </div>
           </FlatBlock>
 
-          {/* <Link href="/my/posts">
+          <Link href="/my/posts">
             <a>
               <ArrowBlock>
                 <div className={$['info-block']}>
@@ -86,7 +106,7 @@ const MyPage: NextPage<MyPageProps> = ({ user }) => {
                 </div>
               </ArrowBlock>
             </a>
-          </Link> */}
+          </Link>
         </Grid>
       </section>
 
@@ -101,21 +121,6 @@ const MyPage: NextPage<MyPageProps> = ({ user }) => {
       </section>
     </Body>
   )
-}
-
-export const getServerSideProps: GetServerSideProps<MyPageProps> = async ({
-  req,
-  res,
-}) => {
-  await nextRequireAuthMiddleware(req, res)
-
-  const { user } = req
-
-  return {
-    props: {
-      user,
-    },
-  }
 }
 
 export default MyPage
