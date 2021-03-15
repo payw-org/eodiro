@@ -4,13 +4,19 @@ import {
   UNAUTHORIZED,
 } from '@/constants/http-status-code'
 import { ApiAuthGeneralErrResData } from '@payw/eodiro-server-types/api/auth/verify'
-import { JwtErrorName } from '@payw/eodiro-server-types/modules/jwt'
 import axios, { AxiosRequestConfig } from 'axios'
 import ApiHost from './api-host'
 import { logOut } from './api/log-out'
 import { isInApp } from './booleans/is-in-app'
 import EodiroDialog from './client/eodiro-dialog'
 import { reactNativeWebViewPostMessage } from './native/react-native-webview'
+
+enum JwtErrorName {
+  TokenExpiredError = 'TokenExpiredError',
+  JsonWebTokenError = 'JsonWebTokenError',
+  NotBeforeError = 'NotBeforeError',
+  RefreshTokenRevokedError = 'RefreshTokenRevokedError',
+}
 
 export enum UnauthorizedError {
   Unauthorized = 'Unauthorized',
