@@ -1,17 +1,16 @@
 import { authState } from '@/atoms/auth'
 import PageInfo from '@/components/utils/PageInfo'
 import Body from '@/layouts/BaseLayout/Body'
+import ApiHost from '@/modules/api-host'
 import { isInApp } from '@/modules/booleans/is-in-app'
 import { eodiroRequest } from '@/modules/eodiro-request'
 import { availableVendors } from '@/modules/server/cau-notice-watcher/vendors'
+import { logInUrl } from '@/utils/page-urls'
 import {
   ApiNoticeNotificationsGetResData,
-  apiNoticeNotificationsGetUrl,
-  ApiNoticeNotificationsSubscribeReqData,
+  ApiNoticeNotificationsSubscribeReqBody,
   ApiNoticeNotificationsSubscribeResData,
-  apiNoticeNotificationsSubscribeUrl,
-} from '@/pages/api/notice-notifications'
-import { logInUrl } from '@/utils/page-urls'
+} from '@payw/eodiro-server-types/api/notice-notifications'
 import classNames from 'classnames'
 import Link from 'next/link'
 import { useEffect, useState } from 'react'
@@ -39,7 +38,7 @@ const NoticeWatcher: React.FC = () => {
         void,
         ApiNoticeNotificationsGetResData
       >({
-        url: apiNoticeNotificationsGetUrl,
+        url: ApiHost.resolve('/notice-notifications'),
         method: 'get',
       })
 
@@ -62,10 +61,10 @@ const NoticeWatcher: React.FC = () => {
     setIsSyncing(true)
 
     const result = await eodiroRequest<
-      ApiNoticeNotificationsSubscribeReqData,
+      ApiNoticeNotificationsSubscribeReqBody,
       ApiNoticeNotificationsSubscribeResData
     >({
-      url: apiNoticeNotificationsSubscribeUrl,
+      url: ApiHost.resolve('/notice-notifications'),
       method: 'post',
       data: {
         key,
