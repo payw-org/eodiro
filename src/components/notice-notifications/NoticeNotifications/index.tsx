@@ -4,9 +4,9 @@ import Body from '@/layouts/BaseLayout/Body'
 import ApiHost from '@/modules/api-host'
 import { isInApp } from '@/modules/booleans/is-in-app'
 import { eodiroRequest } from '@/modules/eodiro-request'
-import { availableVendors } from '@/modules/server/cau-notice-watcher/vendors'
 import { logInUrl } from '@/utils/page-urls'
 import {
+  ApiNoticeNotificationsGetPublishers,
   ApiNoticeNotificationsGetResData,
   ApiNoticeNotificationsSubscribeReqBody,
   ApiNoticeNotificationsSubscribeResData,
@@ -19,16 +19,33 @@ import $ from './style.module.scss'
 
 const NoticeWatcher: React.FC = () => {
   const { isLoggedIn } = useRecoilValue(authState)
-  const [subscriptions, setSubscriptions] = useState(
-    availableVendors.map((vendor) => ({
-      ...vendor,
-      isSubscribed: false,
-    }))
-  )
+  const [subscriptions, setSubscriptions] = useState<
+    {
+      key: string
+      name: string
+      isSubscribed: boolean
+    }[]
+  >([])
   const [isSyncing, setIsSyncing] = useState(true)
 
   useEffect(() => {
     async function init() {
+      // Load all publishers
+      const publishers = await eodiroRequest<
+        any,
+        ApiNoticeNotificationsGetPublishers
+      >({
+        url: ApiHost.resolve('/notice-notifications/publishers'),
+        method: 'GET',
+      })
+
+      setSubscriptions(
+        publishers.map((publisher) => ({
+          ...publisher,
+          isSubscribed: false,
+        }))
+      )
+
       if (!isLoggedIn) {
         setIsSyncing(false)
         return
