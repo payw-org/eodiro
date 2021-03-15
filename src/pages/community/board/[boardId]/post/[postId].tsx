@@ -44,6 +44,8 @@ function PostPage() {
   useEffect(() => {
     const { postId } = router.query
 
+    if (!postId) return
+
     eodiroRequest<any, ApiCommunityGetPostResData>({
       method: 'get',
       url: ApiHost.resolve(`/community/post?postId=${postId}`),
