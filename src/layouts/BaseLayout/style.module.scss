@@ -20,7 +20,7 @@
       max-width: $app-content-max-width;
       margin: auto;
       padding: $nav-height 0 3rem 0;
-      min-height: calc(100vh - #{$footer-height});
+      min-height: calc(100vh - #{$footer-height + $nav-height});
       position: relative;
 
       &.xsmall {
