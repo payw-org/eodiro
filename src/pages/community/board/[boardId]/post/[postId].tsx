@@ -184,6 +184,7 @@ function PostPage() {
     >
       {post === undefined ? (
         <ArrowBlock
+          flat
           className={`${eodiroConst.OVERLAY_SENTINEL_SPOT} ${eodiroConst.TITLE_SENTINEL_SPOT}`}
         >
           <div className="flex items-center justify-center">
