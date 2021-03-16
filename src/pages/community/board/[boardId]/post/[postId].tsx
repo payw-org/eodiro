@@ -1,6 +1,7 @@
 import { Comments } from '@/components/community/Comments'
 import Information from '@/components/global/Information'
 import { Spinner } from '@/components/global/Spinner'
+import { withRequireAuth } from '@/components/hoc/with-require-auth'
 import { ArrowBlock } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
@@ -314,4 +315,4 @@ function PostPage() {
   )
 }
 
-export default PostPage
+export default withRequireAuth(PostPage)

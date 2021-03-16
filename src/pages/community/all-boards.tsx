@@ -1,6 +1,7 @@
 import BoardsList from '@/components/community/BoardsList'
 import ServerError from '@/components/global/ServerError'
 import { Spinner } from '@/components/global/Spinner'
+import { withRequireAuth } from '@/components/hoc/with-require-auth'
 import { LineInput } from '@/components/ui'
 import { ArrowBlock } from '@/components/ui/ArrowBlock'
 import { FloatingButton } from '@/components/ui/FloatingButton'
@@ -128,7 +129,7 @@ function BoardCandidateItem({ boardCandidate }: BoardCandidateItemProps) {
   )
 }
 
-export default function AllBoardsPage() {
+function AllBoardsPage() {
   const [
     filteredBoards,
     setFilteredBoards,
@@ -257,3 +258,5 @@ export default function AllBoardsPage() {
     </Body>
   )
 }
+
+export default withRequireAuth(AllBoardsPage)
