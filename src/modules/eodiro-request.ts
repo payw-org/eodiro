@@ -1,4 +1,5 @@
 import {
+  FORBIDDEN,
   INTERNAL_SERVER_ERROR,
   UNAUTHORIZED,
 } from '@/constants/http-status-code'
@@ -66,9 +67,11 @@ export async function eodiroRequest<RQD = any, RSD = any>(
         } catch (refreshErr) {
           await logOut()
         }
+      } else {
+        await logOut()
       }
-
-      await logOut()
+    } else if (status === FORBIDDEN) {
+      new EodiroDialog().alert('권한이 없습니다.')
     } else if (status === INTERNAL_SERVER_ERROR) {
       new EodiroDialog().alert('어디로 서버에 문제가 발생했습니다.')
     }
