@@ -210,7 +210,7 @@ const Home: React.FC = () => {
         </div>
 
         {/* eodiro landing information */}
-        <h1 className="text-2xl font-semibold mt-24">
+        <h1 className={$.landingInfoHeader}>
           자랑스러운 중앙인, 환영합니다.{' '}
           <span role="img" aria-label="raise hand">
             ✋
@@ -229,7 +229,7 @@ const Home: React.FC = () => {
                 </p>
               </div>
               <div className={$.landingInfoSection}>
-                <h2 className={$.landingInfoTitle}>우리만의 공간</h2>
+                <h2 className={$.landingInfoTitle}>우리끼리만 속닥속닥</h2>
                 <p className={$.landingInfoDescription}>
                   어디로는 중앙대학교 구성원만을 위해 만들어진 플랫폼입니다.
                   이용에 필요한 정보는{' '}
@@ -240,8 +240,11 @@ const Home: React.FC = () => {
                   >
                     포탈
                   </a>{' '}
-                  이메일 단 하나뿐이죠. 지금 바로 빠르게 가입하고 식지 않는
-                  열정에 합류하세요.
+                  이메일 단 하나뿐이죠. 지금 바로 빠르게{' '}
+                  <Link href="/join">
+                    <a>가입</a>
+                  </Link>{' '}
+                  하고 서로에게 귀를 기울여보세요.
                 </p>
               </div>
               <div className={$.landingInfoSection}>
@@ -251,9 +254,9 @@ const Home: React.FC = () => {
                   <Link href="/opensource">
                     <a>오픈소스</a>
                   </Link>{' '}
-                  프로젝트입니다. 필요한 기능을 요청하거나 직접 개발할 수도
-                  있죠. 누구에게나 어디로의 미래에 대해 논하고 성장시킬 수 있는
-                  기회가 주어집니다.
+                  프로젝트입니다. 필요한 기능을 요청하거나 직접 개발에 참여할 수
+                  있습니다. 누구에게나 어디로의 미래에 대해 논하고 성장시킬 수
+                  있는 기회가 주어집니다.
                 </p>
               </div>
             </div>

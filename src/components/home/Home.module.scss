@@ -154,6 +154,15 @@
   align-items: flex-end;
 }
 
+.landingInfoHeader {
+  @include separator('top');
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 50px;
+  padding-top: 50px;
+  line-height: 1;
+}
+
 .landingInfoContent {
   flex: 1;
 }
