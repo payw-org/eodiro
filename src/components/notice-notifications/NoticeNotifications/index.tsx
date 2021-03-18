@@ -2,7 +2,6 @@ import { authState } from '@/atoms/auth'
 import PageInfo from '@/components/utils/PageInfo'
 import Body from '@/layouts/BaseLayout/Body'
 import ApiHost from '@/modules/api-host'
-import { isInApp } from '@/modules/booleans/is-in-app'
 import { eodiroRequest } from '@/modules/eodiro-request'
 import { logInUrl } from '@/utils/page-urls'
 import {
@@ -108,11 +107,11 @@ const NoticeWatcher: React.FC = () => {
         description="이제 더 이상 학교 공지사항을 놓치지 마세요."
       />
 
-      {!isInApp() && (
-        <p className={$['not-app-tip']}>
-          이 기능은 앱에서만 이용할 수 있습니다.
-        </p>
-      )}
+      <Link href="/notifications">
+        <a>
+          <p className={$['configure-notifications']}>실시간 알림 설정하기</p>
+        </a>
+      </Link>
 
       <h2 className={$['subtitle']}>더 이상 학교 공지사항을 놓치지 마세요.</h2>
       <p className={$['paragraph']}>
