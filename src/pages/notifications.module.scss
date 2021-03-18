@@ -1,0 +1,35 @@
+@use '@/assets/styles/main' as *;
+
+.notifications-page {
+  max-width: 800px !important;
+}
+
+.tutorial-step {
+  margin-top: 60px;
+
+  .tutorial-step-header {
+    margin-bottom: 15px;
+  }
+
+  .tutorial-step-description {
+    color: $base-gray;
+    margin-bottom: 25px;
+  }
+}
+
+.installation-platforms {
+  .platform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .platform-logo {
+      font-size: 40px;
+    }
+
+    .platform-name {
+      font-size: 15px;
+      margin-top: 10px;
+    }
+  }
+}
