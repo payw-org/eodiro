@@ -149,12 +149,12 @@
   }
 }
 
-.landingInfo {
+.landing-info {
   display: flex;
   align-items: flex-end;
 }
 
-.landingInfoHeader {
+.landing-info-header {
   @include separator('top');
   font-size: 1.5rem;
   font-weight: 600;
@@ -163,42 +163,42 @@
   line-height: 1;
 }
 
-.landingInfoContent {
+.landing-info-content {
   flex: 1;
 }
 
-.studentVector {
+.student-vector {
   width: 100%;
   height: auto;
   flex: 1;
   margin: 0 0 0 3rem;
 }
 
-.landingInfoSection {
+.landing-info-section {
   max-width: 30rem;
   margin-top: 2rem;
 }
 
 @include on-mobile {
-  .landingInfo {
+  .landing-info {
     display: block;
   }
 
-  .landingInfoSection {
+  .landing-info-section {
     max-width: none;
   }
 
-  .studentVector {
+  .student-vector {
     margin: 5rem auto 0 auto;
     max-width: 500px;
   }
 }
 
-.landingInfoTitle {
+.landing-info-title {
   font-size: 1.1rem;
 }
 
-.landingInfoDescription {
+.landing-info-description {
   color: $base-gray;
   margin-top: 7px;
 }

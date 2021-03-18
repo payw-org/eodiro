@@ -210,27 +210,27 @@ const Home: React.FC = () => {
         </div>
 
         {/* eodiro landing information */}
-        <h1 className={$.landingInfoHeader}>
+        <h1 className={$['landing-info-header']}>
           자랑스러운 중앙인, 환영합니다.{' '}
           <span role="img" aria-label="raise hand">
             ✋
           </span>
         </h1>
-        <div className={$.landingInfo}>
-          <div className={$.landingInfoContent}>
+        <div className={$['landing-info']}>
+          <div className={$['landing-info-content']}>
             <div>
-              <div className={$.landingInfoSection}>
-                <h2 className={$.landingInfoTitle}>익명 기본 탑재</h2>
-                <p className={$.landingInfoDescription}>
+              <div className={$['landing-info-section']}>
+                <h2 className={$['landing-info-title']}>익명 기본 탑재</h2>
+                <p className={$['landing-info-description']}>
                   어디로는 익명성을 보장하기 위해 수만가지의 조합이 있는 랜덤
                   닉네임을 사용합니다. 한 번 부여받은 닉네임은 하루동안 유지되며
                   익명성 남용을 방지합니다. 내일은 어떤 닉네임일지 궁금하지
                   않나요?
                 </p>
               </div>
-              <div className={$.landingInfoSection}>
-                <h2 className={$.landingInfoTitle}>우리끼리만 속닥속닥</h2>
-                <p className={$.landingInfoDescription}>
+              <div className={$['landing-info-section']}>
+                <h2 className={$['landing-info-title']}>우리끼리만 속닥속닥</h2>
+                <p className={$['landing-info-description']}>
                   어디로는 중앙대학교 구성원만을 위해 만들어진 플랫폼입니다.
                   이용에 필요한 정보는{' '}
                   <a
@@ -247,9 +247,9 @@ const Home: React.FC = () => {
                   하고 서로에게 귀를 기울여보세요.
                 </p>
               </div>
-              <div className={$.landingInfoSection}>
-                <h2 className={$.landingInfoTitle}>함께 만드는 어디로</h2>
-                <p className={$.landingInfoDescription}>
+              <div className={$['landing-info-section']}>
+                <h2 className={$['landing-info-title']}>함께 만드는 어디로</h2>
+                <p className={$['landing-info-description']}>
                   어디로는{' '}
                   <Link href="/opensource">
                     <a>오픈소스</a>
@@ -262,7 +262,7 @@ const Home: React.FC = () => {
             </div>
           </div>
           <svg
-            className={$.studentVector}
+            className={$['student-vector']}
             id="e8806aae-1dd3-4f44-829b-8bd04a0ec3ea"
             data-name="Layer 1"
             xmlns="http://www.w3.org/2000/svg"
