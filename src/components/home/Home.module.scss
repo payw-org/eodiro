@@ -148,3 +148,48 @@
     }
   }
 }
+
+.landingInfo {
+  display: flex;
+  align-items: flex-end;
+}
+
+.landingInfoContent {
+  flex: 1;
+}
+
+.studentVector {
+  width: 100%;
+  height: auto;
+  flex: 1;
+  margin: 0 0 0 3rem;
+}
+
+.landingInfoSection {
+  max-width: 30rem;
+  margin-top: 2rem;
+}
+
+@include on-mobile {
+  .landingInfo {
+    display: block;
+  }
+
+  .landingInfoSection {
+    max-width: none;
+  }
+
+  .studentVector {
+    margin: 5rem auto 0 auto;
+    max-width: 500px;
+  }
+}
+
+.landingInfoTitle {
+  font-size: 1.1rem;
+}
+
+.landingInfoDescription {
+  color: $base-gray;
+  margin-top: 7px;
+}
