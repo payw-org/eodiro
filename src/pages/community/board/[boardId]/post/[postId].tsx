@@ -31,42 +31,25 @@ import classNames from 'classnames'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
+import useSWR from 'swr'
 import $ from './post-page.module.scss'
 
 function PostPage() {
   const router = useRouter()
-  const [comments, setComments] = useState<
-    ApiCommunityGetCommentsResData | null | undefined
-  >(undefined)
-  const [post, setPost] = useState<
-    ApiCommunityGetPostResData | null | undefined
-  >(undefined)
-
-  useEffect(() => {
-    const { postId } = router.query
-
-    if (!postId) return
-
-    eodiroRequest<any, ApiCommunityGetPostResData>({
-      method: 'get',
-      url: ApiHost.resolve(`/community/post?postId=${postId}`),
-    })
-      .then((data) => setPost(data))
-      .catch((error) => {
-        setPost(null)
-        console.error(error)
-      })
-
-    eodiroRequest<any, ApiCommunityGetCommentsResData>({
-      method: 'get',
-      url: ApiHost.resolve(`/community/comments?postId=${postId}`),
-    })
-      .then((data) => setComments(data))
-      .catch((error) => {
-        setComments(null)
-        console.error(error)
-      })
-  }, [router.query])
+  const { postId } = router.query
+  const {
+    data: post,
+    error: getPostError,
+  } = useSWR<ApiCommunityGetPostResData>(
+    ApiHost.resolve(`/community/post?postId=${postId}`)
+  )
+  const {
+    data: comments,
+    error: getCommentsError,
+    mutate: setComments,
+  } = useSWR<ApiCommunityGetCommentsResData>(
+    ApiHost.resolve(`/community/comments?postId=${postId}`)
+  )
 
   const [likes, setLikes] = useState({
     count: 0,
@@ -191,7 +174,7 @@ function PostPage() {
             <Spinner />
           </div>
         </ArrowBlock>
-      ) : post === null ? (
+      ) : getPostError ? (
         <div
           className={classNames(
             eodiroConst.OVERLAY_SENTINEL_SPOT,
@@ -299,7 +282,7 @@ function PostPage() {
                 <Spinner />
               </div>
             </ArrowBlock>
-          ) : comments === null ? (
+          ) : getCommentsError ? (
             <Information title="댓글을 불러올 수 없습니다." />
           ) : (
             <Comments
