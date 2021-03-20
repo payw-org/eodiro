@@ -118,8 +118,5 @@ export const LineInput = React.memo(
         </div>
       )
     }
-  ),
-  (prevProps, nextProps) => {
-    return prevProps.value === nextProps.value
-  }
+  )
 )
