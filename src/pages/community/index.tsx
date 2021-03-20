@@ -52,7 +52,7 @@ function CommunityHomepage() {
                     name="flame_fill"
                     className="text-eodiro-primary-color mr-2"
                   />
-                  인기 게시물
+                  인기 글
                 </h2>
               </ArrowBlock>
             </a>

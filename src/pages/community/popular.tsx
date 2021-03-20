@@ -24,13 +24,13 @@ function CommunityPopularPage() {
   )
 
   return (
-    <Body pageTitle="인기 게시물">
+    <Body pageTitle="인기 글">
       <div className="flex flex-row flex-wrap">
         <div className="posts-column flex-1">
           <ArrowBlock flat noPadding customHeight className="mb-4">
             <div className="p-2 text-center">
               <Icon name="info_circle_fill" className="mr-2" />
-              좋아요가 10개 이상이면 인기 게시물에 표시됩니다.
+              좋아요가 10개 이상이면 인기 글에 표시됩니다.
             </div>
           </ArrowBlock>
           <div>
