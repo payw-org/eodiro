@@ -1,6 +1,6 @@
 @use '@/assets/styles/main' as *;
 
-$nav-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+$nav-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
 
 #eodiro-navigation {
   position: sticky;
@@ -60,7 +60,7 @@ $nav-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
       left: 0;
       box-shadow: none;
       background-color: rgba(#fff, 0);
-      transition: background-color 400ms ease;
+      // transition: background-color 100ms ease;
 
       @include dark-mode {
         background-color: rgba(lighten($base-black-soft, 10), 0);
