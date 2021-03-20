@@ -2,7 +2,7 @@ import BoardSideBar from '@/components/community/BoardSideBar'
 import { PostsList } from '@/components/community/PostsList'
 import { Spinner } from '@/components/global/Spinner'
 import { withRequireAuth } from '@/components/hoc/with-require-auth'
-import { ArrowBlock } from '@/components/ui'
+import { ArrowBlock, LineInput } from '@/components/ui'
 import { Flex } from '@/components/ui/layouts/Flex'
 import Pagination from '@/components/ui/Pagination'
 import Body from '@/layouts/BaseLayout/Body'
@@ -12,6 +12,8 @@ import { ApiCommunityPostsListResData } from '@payw/eodiro-server-types/api/comm
 import { SafeCommunityPost } from '@payw/eodiro-server-types/types/schema'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import queryString from 'query-string'
+import { useEffect, useState } from 'react'
 import { Else, If, Then, When } from 'react-if'
 import useSWR from 'swr'
 import $ from './board-page.module.scss'
@@ -21,15 +23,50 @@ const BoardPosts: React.FC<{
   page: number
 }> = ({ boardId, page }) => {
   const router = useRouter()
+  const [contains, setContains] = useState('')
+  const [containsInput, setContainsInput] = useState('')
   const {
     data: postsListData,
     error: postsListError,
   } = useSWR<ApiCommunityPostsListResData>(
-    ApiHost.resolve(`/community/posts-list?boardId=${boardId}&page=${page}`)
+    queryString.stringifyUrl({
+      url: ApiHost.resolve('/community/posts-list'),
+      query: {
+        boardId,
+        page,
+        contains,
+      },
+    })
   )
+
+  useEffect(() => {
+    if (router.query.contains !== undefined) {
+      const containsQuery = router.query.contains as string
+      setContainsInput(containsQuery)
+      setContains(containsQuery)
+    }
+  }, [router.query.contains])
 
   return (
     <>
+      <LineInput
+        type="search"
+        className="mb-4"
+        placeholder="게시물 검색"
+        value={containsInput}
+        setValue={setContainsInput}
+        onChangeThrottle={[
+          (value) => {
+            const urlAndQuery = queryString.parseUrl(window.location.href)
+            router.replace(
+              queryString.stringifyUrl({
+                url: urlAndQuery.url,
+                query: { ...urlAndQuery.query, contains: value },
+              })
+            )
+          },
+        ]}
+      />
       <ArrowBlock flat className={$['posts-container']}>
         <If condition={postsListError !== undefined}>
           <Then>
