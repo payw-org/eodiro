@@ -48,7 +48,7 @@ export default function MyPostsLists({ type }: MyPostsListProps) {
             totalPage={data.totalPage}
             currentPage={data.page}
             onPressPage={(nextPage) => {
-              router.push(`/my/posts?page=${nextPage}`)
+              router.push(`/my/${type}?page=${nextPage}`)
             }}
           />
         </>
