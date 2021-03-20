@@ -243,7 +243,7 @@ const Home: React.FC = () => {
                   이메일 단 하나뿐이죠. 지금 바로 빠르게{' '}
                   <Link href="/join">
                     <a>가입</a>
-                  </Link>{' '}
+                  </Link>
                   하고 서로에게 귀를 기울여보세요.
                 </p>
               </div>
