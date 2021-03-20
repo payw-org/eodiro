@@ -30,6 +30,7 @@ const BaseLayout: React.FC = ({ children }) => {
       } catch (error) {
         // JWT verification error
         console.error(error)
+        setAuthData({ isLoggedIn: false })
       }
     }
 

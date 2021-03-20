@@ -12,7 +12,11 @@ export function withRequireAuth(Component: FC) {
   return function RequireAuthWrapperComponent() {
     const { isLoggedIn } = useRecoilValue(authState)
 
-    if (isLoggedIn) {
+    if (isLoggedIn === undefined) {
+      return <></>
+    }
+
+    if (isLoggedIn === true) {
       return <Component />
     }
 
