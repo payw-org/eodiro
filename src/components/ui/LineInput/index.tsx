@@ -22,6 +22,7 @@ type LineInputProps = {
   disabled?: boolean
   autoComplete?: string
   alignCenter?: boolean
+  maxLength?: number
 }
 
 const IconField = React.memo(() => {
@@ -51,6 +52,7 @@ export const LineInput = React.memo(
         disabled = false,
         autoComplete,
         alignCenter,
+        maxLength,
       },
       ref
     ) => {
@@ -66,6 +68,7 @@ export const LineInput = React.memo(
             disabled={disabled}
             type={type === 'search' ? 'text' : type}
             spellCheck="false"
+            maxLength={maxLength}
             placeholder={placeholder}
             className={classNames(
               $['li-field'],
