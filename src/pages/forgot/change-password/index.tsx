@@ -72,7 +72,7 @@ const ChangePasswordRequestPage = () => {
           )
           router.push('/log-in')
         } else if (status === BAD_REQUEST) {
-          new EodiroDialog().alert('암호 조건을 다시 확인해주세요.')
+          new EodiroDialog().alert(error.response?.message)
         }
 
         console.error(error)
