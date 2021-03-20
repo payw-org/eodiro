@@ -111,9 +111,9 @@ const MyPage: NextPage = () => {
       </section>
 
       {/* Sign out section */}
-      <section className={$['signout-section']}>
+      <section className={$['sign-out-section']}>
         <Button
-          className={$['signout-btn']}
+          className={$['sign-out-btn']}
           label="로그아웃"
           onClick={onLogOut}
         />

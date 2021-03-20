@@ -37,14 +37,14 @@
     }
   }
 
-  .signout-section {
+  .sign-out-section {
     margin-top: s(6);
     padding-top: s(6);
     @include separator('top');
     display: flex;
     justify-content: center;
 
-    .signout-btn {
+    .sign-out-btn {
       margin-right: s(3);
     }
   }
