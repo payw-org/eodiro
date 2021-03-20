@@ -130,7 +130,7 @@ const Home: React.FC = () => {
                   square_favorites_alt
                 </i>
               }
-              // label="beta"
+              label="beta"
             />
             <HomeFeatureBox
               title="학교 공지사항 알림"
@@ -145,7 +145,7 @@ const Home: React.FC = () => {
                   app_badge
                 </i>
               }
-              // label="beta"
+              label="beta"
             />
             <HomeFeatureBox
               title="오픈 소스"
