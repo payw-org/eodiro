@@ -1,11 +1,15 @@
 import { withRequireAuth } from '@/components/hoc/with-require-auth'
-import { Button } from '@/components/ui'
+import { Button, LineInput } from '@/components/ui'
 import { eodiroConst } from '@/constants'
 import Body from '@/layouts/BaseLayout/Body'
 import ApiHost from '@/modules/api-host'
 import EodiroDialog from '@/modules/client/eodiro-dialog'
 import { eodiroRequest } from '@/modules/eodiro-request'
-import { ApiCommunityCreateNewBoardReqBody } from '@payw/eodiro-server-types/api/community/board'
+import {
+  ApiCommunityCheckBoardNameReqBody,
+  ApiCommunityCheckBoardNameResData,
+  ApiCommunityCreateNewBoardReqBody,
+} from '@payw/eodiro-server-types/api/community/board'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 
@@ -13,6 +17,8 @@ function NewBoardPage() {
   const [isProcessing, setIsProcessing] = useState(false)
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
+  const [isAvailable, setIsAvailable] = useState(false)
+  const [boardNameErrMsg, setBoardNameErrMsg] = useState('')
   const router = useRouter()
 
   async function createNewBoard() {
@@ -48,7 +54,7 @@ function NewBoardPage() {
       router.replace('/community/all-boards')
     } catch (error) {
       if (error.response?.status === 400) {
-        new EodiroDialog().alert('')
+        new EodiroDialog().alert(error.response?.data?.message)
       }
     }
 
@@ -57,19 +63,55 @@ function NewBoardPage() {
 
   return (
     <Body pageTitle="새 게시판" width="xsmall">
-      <p className="text-lg mx-1">
+      <p className="text-lg mx-1 text-base-gray">
         새 게시판은 일주일 이내에 {eodiroConst.BOARD_CANDIDATE_VOTES_THRESHOLD}
         건 이상의 투표를 받으면 자동으로 활성화됩니다. 먼저 유사한 게시판이
         없는지 확인 후 생성 바랍니다.
       </p>
-      <input
+      <LineInput
         type="text"
         maxLength={50}
         placeholder="게시판 이름 (최대 50자)"
         className="mt-5"
         value={name}
-        onChange={(e) => setName(e.currentTarget.value)}
+        setValue={setName}
+        onChangeHook={() => setIsProcessing(true)}
+        onChangeThrottle={[
+          (value) => {
+            eodiroRequest<
+              ApiCommunityCheckBoardNameReqBody,
+              ApiCommunityCheckBoardNameResData
+            >({
+              method: 'POST',
+              url: ApiHost.resolve('/community/board/check'),
+              data: {
+                name: value,
+              },
+            })
+              .then((data) => {
+                setIsAvailable(data.isAvailable)
+
+                if (!data.isAvailable) {
+                  setBoardNameErrMsg('같은 이름의 게시판이 존재합니다.')
+                } else {
+                  setBoardNameErrMsg('')
+                }
+              })
+              .catch(() => {
+                setIsAvailable(false)
+                setBoardNameErrMsg('')
+              })
+              .finally(() => {
+                setIsProcessing(false)
+              })
+          },
+        ]}
       />
+      {boardNameErrMsg && (
+        <span className="inline-block text-center w-full mt-2 text-eodiro-primary-color">
+          {boardNameErrMsg}
+        </span>
+      )}
       <textarea
         placeholder="게시판 설명 (최대 100자)"
         className="mt-4 h-36"
@@ -80,7 +122,7 @@ function NewBoardPage() {
         full
         className="mt-6"
         onClick={createNewBoard}
-        disabled={isProcessing}
+        disabled={!isAvailable || isProcessing}
       >
         투표 시작
       </Button>
