@@ -3,7 +3,10 @@ import Head from 'next/head'
 export type PageInfoProps = {
   title: {
     subject: string
-    /** When enabled, concatenate the prefix "어디로 -" */
+    /**
+     * When disabled, concatenate the suffix like "{title} | 어디로"
+     * @default false
+     */
     onlySubject?: boolean
     feature?: string
   }
