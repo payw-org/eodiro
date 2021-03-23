@@ -6,6 +6,7 @@ import { ArrowBlock } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
 import Grid from '@/components/ui/layouts/Grid'
+import PageInfo from '@/components/utils/PageInfo'
 import Body from '@/layouts/BaseLayout/Body'
 import ApiHost from '@/modules/api-host'
 import { ApiCommunityPinnedBoardsResData } from '@payw/eodiro-server-types/api/community/pinned-boards'
@@ -42,6 +43,12 @@ function CommunityHomepage() {
 
   return (
     <Body pageTitle="커뮤니티" bodyClassName={$['community-page']}>
+      <PageInfo
+        title={{
+          subject: '커뮤니티',
+        }}
+      />
+
       <section className="popular-posts mb-10">
         <Grid>
           <Link href="/community/popular">
