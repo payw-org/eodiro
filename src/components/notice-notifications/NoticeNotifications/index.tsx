@@ -1,4 +1,5 @@
 import { authState } from '@/atoms/auth'
+import { Icon } from '@/components/ui/Icon'
 import PageInfo from '@/components/utils/PageInfo'
 import Body from '@/layouts/BaseLayout/Body'
 import ApiHost from '@/modules/api-host'
@@ -107,18 +108,20 @@ const NoticeWatcher: React.FC = () => {
         description="이제 더 이상 학교 공지사항을 놓치지 마세요."
       />
 
-      <Link href="/notifications">
-        <a>
-          <p className={$['configure-notifications']}>실시간 알림 설정하기</p>
-        </a>
-      </Link>
-
       <h2 className={$['subtitle']}>더 이상 학교 공지사항을 놓치지 마세요.</h2>
       <p className={$['paragraph']}>
         어디로 공지사항 알림은 학교 홈페이지 곳곳에 올라오는 공지사항을 최대
         15분 이내에 텔레그램을 통해 알려주는 기능입니다. 매번 새로운 공지사항을
         확인하기 위해 웹사이트를 들락날락할 필요가 없어지죠.
       </p>
+
+      <Link href="/notifications">
+        <a>
+          <p className={$['configure-notifications']}>
+            실시간 알림 설정하기 <Icon name="chevron_right" />
+          </p>
+        </a>
+      </Link>
 
       <div className={$['config-box']}>
         <h2 className={$['subtitle']}>
