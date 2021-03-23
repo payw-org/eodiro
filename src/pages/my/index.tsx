@@ -1,5 +1,6 @@
 import { authState } from '@/atoms/auth'
 import { ArrowBlock, Button, FlatBlock } from '@/components/ui'
+import { Icon } from '@/components/ui/Icon'
 import Grid from '@/components/ui/layouts/Grid'
 import Body from '@/layouts/BaseLayout/Body'
 import ApiHost from '@/modules/api-host'
@@ -84,7 +85,13 @@ const MyPage: NextPage = () => {
             <a>
               <ArrowBlock>
                 <div className={$['info-block']}>
-                  <h2 className={$['ib-header']}>나의 게시물</h2>
+                  <h2 className={$['ib-header']}>
+                    <Icon
+                      name="doc_plaintext"
+                      className="mr-1 font-bold text-eodiro-primary-color"
+                    />{' '}
+                    나의 게시물
+                  </h2>
                 </div>
               </ArrowBlock>
             </a>
@@ -93,7 +100,13 @@ const MyPage: NextPage = () => {
             <a>
               <ArrowBlock>
                 <div className={$['info-block']}>
-                  <h2 className={$['ib-header']}>나의 댓글</h2>
+                  <h2 className={$['ib-header']}>
+                    <Icon
+                      name="bubble_left"
+                      className="mr-1 font-bold text-eodiro-green-2"
+                    />{' '}
+                    나의 댓글
+                  </h2>
                 </div>
               </ArrowBlock>
             </a>
@@ -102,7 +115,13 @@ const MyPage: NextPage = () => {
             <a>
               <ArrowBlock>
                 <div className={$['info-block']}>
-                  <h2 className={$['ib-header']}>나의 책갈피</h2>
+                  <h2 className={$['ib-header']}>
+                    <Icon
+                      name="bookmark"
+                      className="mr-1 font-bold text-eodiro-yellow-2"
+                    />{' '}
+                    나의 책갈피
+                  </h2>
                 </div>
               </ArrowBlock>
             </a>
