@@ -1,6 +1,6 @@
 // import { LecturesApi } from '@/api'
 // import ServerError from '@/components/global/ServerError'
-// import { ArrowBlock, LineInput, LineInputOnChangeHook } from '@/components/ui'
+// import { Tile, LineInput, LineInputOnChangeHook } from '@/components/ui'
 // import InfiniteScrollContainer from '@/components/utils/InfiniteScrollContainer'
 // import PageInfo from '@/components/utils/PageInfo'
 // import Body from '@/layouts/BaseLayout/Body'
@@ -135,7 +135,7 @@
 //               <Grid className={$['lecture-container']}>
 //                 {displayLectures.map((lecture, i) => {
 //                   return (
-//                     <ArrowBlock
+//                     <Tile
 //                       noArrow
 //                       flat
 //                       key={lecture.code}
@@ -201,7 +201,7 @@
 //                           강의 계획서
 //                         </a>
 //                       </div>
-//                     </ArrowBlock>
+//                     </Tile>
 //                   )
 //                 })}
 //               </Grid>

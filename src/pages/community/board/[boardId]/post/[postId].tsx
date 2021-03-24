@@ -2,7 +2,7 @@ import { Comments } from '@/components/community/Comments'
 import Information from '@/components/global/Information'
 import { Spinner } from '@/components/global/Spinner'
 import { withRequireAuth } from '@/components/hoc/with-require-auth'
-import { ArrowBlock } from '@/components/ui'
+import { Tile } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
 import { eodiroConst } from '@/constants'
@@ -166,14 +166,14 @@ function PostPage() {
       bodyClassName={$['post-page-body']}
     >
       {post === undefined ? (
-        <ArrowBlock
+        <Tile
           flat
           className={`${eodiroConst.OVERLAY_SENTINEL_SPOT} ${eodiroConst.TITLE_SENTINEL_SPOT}`}
         >
           <div className="flex items-center justify-center">
             <Spinner />
           </div>
-        </ArrowBlock>
+        </Tile>
       ) : getPostError ? (
         <div
           className={classNames(
@@ -185,7 +185,7 @@ function PostPage() {
         </div>
       ) : (
         <>
-          <ArrowBlock
+          <Tile
             className={classNames(
               $['post-container'],
               eodiroConst.OVERLAY_SENTINEL_SPOT
@@ -261,27 +261,27 @@ function PostPage() {
                 <span>{bookmarks.count}</span>
               </Flex>
             </Flex>
-          </ArrowBlock>
+          </Tile>
 
           <Link href={`/community/board/${post.boardId}`}>
             <a className="default mt-4 block">
-              <ArrowBlock flat customHeight noPadding>
+              <Tile flat customHeight noPadding>
                 <div className="flex items-center justify-center p-3">
                   <span className="font-medium">
                     {post.communityBoard.name}
                   </span>
                   &nbsp;더보기
                 </div>
-              </ArrowBlock>
+              </Tile>
             </a>
           </Link>
 
           {comments === undefined ? (
-            <ArrowBlock>
+            <Tile>
               <div className="flex items-center justify-center">
                 <Spinner />
               </div>
-            </ArrowBlock>
+            </Tile>
           ) : getCommentsError ? (
             <Information title="댓글을 불러올 수 없습니다." />
           ) : (

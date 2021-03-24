@@ -6,7 +6,7 @@ import useSWR from 'swr'
 import { PostsList } from '../community/PostsList'
 import ServerError from '../global/ServerError'
 import { Spinner } from '../global/Spinner'
-import { ArrowBlock } from '../ui'
+import { Tile } from '../ui'
 import { Flex } from '../ui/layouts/Flex'
 import Pagination from '../ui/Pagination'
 
@@ -36,13 +36,13 @@ export default function MyPostsLists({ type }: MyPostsListProps) {
         </div>
       ) : (
         <>
-          <ArrowBlock flat>
+          <Tile flat>
             {data.posts.length > 0 ? (
               <PostsList posts={data.posts} />
             ) : (
               <Flex center>아직 게시물이 없습니다.</Flex>
             )}
-          </ArrowBlock>
+          </Tile>
 
           <Pagination
             totalPage={data.totalPage}

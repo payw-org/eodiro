@@ -2,7 +2,7 @@ import BoardSideBar from '@/components/community/BoardSideBar'
 import { PostsList } from '@/components/community/PostsList'
 import { Spinner } from '@/components/global/Spinner'
 import { withRequireAuth } from '@/components/hoc/with-require-auth'
-import { ArrowBlock, LineInput } from '@/components/ui'
+import { LineInput, Tile } from '@/components/ui'
 import { Flex } from '@/components/ui/layouts/Flex'
 import Pagination from '@/components/ui/Pagination'
 import Body from '@/layouts/BaseLayout/Body'
@@ -67,7 +67,7 @@ const BoardPosts: React.FC<{
           },
         ]}
       />
-      <ArrowBlock flat className={$['posts-container']}>
+      <Tile flat className={$['posts-container']}>
         <If condition={postsListError !== undefined}>
           <Then>
             <div>불러올 수 없습니다.</div>
@@ -87,7 +87,7 @@ const BoardPosts: React.FC<{
             </If>
           </Else>
         </If>
-      </ArrowBlock>
+      </Tile>
       <When condition={postsListData !== undefined}>
         <Pagination
           totalPage={postsListData?.totalPage as number}

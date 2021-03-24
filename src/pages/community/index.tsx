@@ -2,7 +2,7 @@ import BoardsList from '@/components/community/BoardsList'
 import ServerError from '@/components/global/ServerError'
 import { Spinner } from '@/components/global/Spinner'
 import { withRequireAuth } from '@/components/hoc/with-require-auth'
-import { ArrowBlock } from '@/components/ui'
+import { Tile } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
 import Grid from '@/components/ui/layouts/Grid'
@@ -53,7 +53,7 @@ function CommunityHomepage() {
         <Grid>
           <Link href="/community/popular">
             <a>
-              <ArrowBlock>
+              <Tile>
                 <h2 className="text-xl">
                   <Icon
                     name="flame_fill"
@@ -61,7 +61,7 @@ function CommunityHomepage() {
                   />
                   인기 글
                 </h2>
-              </ArrowBlock>
+              </Tile>
             </a>
           </Link>
         </Grid>

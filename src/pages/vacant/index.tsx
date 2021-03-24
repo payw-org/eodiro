@@ -1,5 +1,5 @@
 // import $ from './style.module.scss'
-// import { ArrowBlock } from '@/components/ui'
+// import { Tile } from '@/components/ui'
 // import Body from '@/layouts/BaseLayout/Body'
 // import EodiroLink from '@/components/utils/EodiroLink'
 // import Grid from '@/layouts/Grid'
@@ -36,7 +36,7 @@
 //             <Grid className={$['building-container']}>
 //               {buildingsInfo.map((info, i) => {
 //                 return (
-//                   <ArrowBlock key={info.building_number + i}>
+//                   <Tile key={info.building_number + i}>
 //                     <div className={$['building-info-wrapper']}>
 //                       <EodiroLink
 //                         href={'/vacant/[buildingNumber]'}
@@ -59,7 +59,7 @@
 //                         <span className={$['total']}>{info.total}</span>
 //                       </div>
 //                     </div>
-//                   </ArrowBlock>
+//                   </Tile>
 //                 )
 //               })}
 //             </Grid>

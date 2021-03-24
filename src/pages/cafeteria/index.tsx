@@ -1,6 +1,6 @@
 // import { CafeteriaApi, CafeteriaMenus } from '@/api'
 // import Information from '@/components/global/Information'
-// import { ArrowBlock } from '@/components/ui'
+// import { Tile } from '@/components/ui'
 // import PageInfo from '@/components/utils/PageInfo'
 // import Body from '@/layouts/BaseLayout/Body'
 // import Grid from '@/layouts/Grid'
@@ -27,7 +27,7 @@
 //       {timeGroup.length > 0 ? (
 //         timeGroup.map((restaurant) => {
 //           return (
-//             <ArrowBlock flat noArrow key={restaurant.name}>
+//             <Tile flat noArrow key={restaurant.name}>
 //               <div>
 //                 <h2 className={$['restaurant-name']}>{restaurant.name}</h2>
 //                 {restaurant.meals.length > 0 ? (
@@ -57,7 +57,7 @@
 //                   <p className={$['no-menus']}>학식이 없습니다.</p>
 //                 )}
 //               </div>
-//             </ArrowBlock>
+//             </Tile>
 //           )
 //         })
 //       ) : (

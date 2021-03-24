@@ -1,5 +1,5 @@
 import { authState } from '@/atoms/auth'
-import { ArrowBlock, Button, FlatBlock } from '@/components/ui'
+import { Button, FlatBlock, Tile } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import Grid from '@/components/ui/layouts/Grid'
 import Body from '@/layouts/BaseLayout/Body'
@@ -83,7 +83,7 @@ const MyPage: NextPage = () => {
 
           <Link href="/my/posts">
             <a>
-              <ArrowBlock>
+              <Tile>
                 <div className={$['info-block']}>
                   <h2 className={$['ib-header']}>
                     <Icon
@@ -93,12 +93,12 @@ const MyPage: NextPage = () => {
                     나의 게시물
                   </h2>
                 </div>
-              </ArrowBlock>
+              </Tile>
             </a>
           </Link>
           <Link href="/my/comments">
             <a>
-              <ArrowBlock>
+              <Tile>
                 <div className={$['info-block']}>
                   <h2 className={$['ib-header']}>
                     <Icon
@@ -108,12 +108,12 @@ const MyPage: NextPage = () => {
                     나의 댓글
                   </h2>
                 </div>
-              </ArrowBlock>
+              </Tile>
             </a>
           </Link>
           <Link href="/my/bookmarks">
             <a>
-              <ArrowBlock>
+              <Tile>
                 <div className={$['info-block']}>
                   <h2 className={$['ib-header']}>
                     <Icon
@@ -123,7 +123,7 @@ const MyPage: NextPage = () => {
                     나의 책갈피
                   </h2>
                 </div>
-              </ArrowBlock>
+              </Tile>
             </a>
           </Link>
         </Grid>

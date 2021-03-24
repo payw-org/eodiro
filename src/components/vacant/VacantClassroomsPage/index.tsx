@@ -3,7 +3,7 @@
 // import { clearAllBodyScrollLocks, disableBodyScroll } from 'body-scroll-lock'
 
 // import $ from './style.module.scss'
-// import { ArrowBlock } from '@/components/ui'
+// import { Tile } from '@/components/ui'
 // import Body from '@/layouts/BaseLayout/Body'
 // import Grid from '@/layouts/Grid'
 // import { NextPage } from 'next'
@@ -112,7 +112,7 @@
 //                 }
 
 //                 return (
-//                   <ArrowBlock
+//                   <Tile
 //                     key={info.classroom_number}
 //                     className={mergeClassNames(
 //                       $['classroom-info-container'],
@@ -155,7 +155,7 @@
 //                         </p>
 //                       )}
 //                     </div>
-//                   </ArrowBlock>
+//                   </Tile>
 //                 )
 //               })}
 //             </Grid>

@@ -1,7 +1,7 @@
 import Information from '@/components/global/Information'
 import { Spinner } from '@/components/global/Spinner'
 import { withRequireAuth } from '@/components/hoc/with-require-auth'
-import { ArrowBlock, Button } from '@/components/ui'
+import { Button, Tile } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import { eodiroConst } from '@/constants'
 import Body from '@/layouts/BaseLayout/Body'
@@ -182,7 +182,7 @@ function PostEditorPage() {
       width="small"
     >
       <div className={`${eodiroConst.OVERLAY_SENTINEL_SPOT}`}>
-        <ArrowBlock flat noPadding customHeight>
+        <Tile flat noPadding customHeight>
           <button
             type="button"
             className="p-2 text-center"
@@ -190,7 +190,7 @@ function PostEditorPage() {
           >
             <Icon name="info_circle_fill" /> 어디로 에디터 도움말
           </button>
-        </ArrowBlock>
+        </Tile>
       </div>
 
       <div className={$$(eodiroConst.TITLE_SENTINEL_SPOT, 'mt-4')}>
@@ -255,7 +255,7 @@ function PostEditorPage() {
         {/* Markup Preview */}
         {isPreviewMode && (
           <div className="preview">
-            <ArrowBlock flat>
+            <Tile flat>
               <article
                 className="preview"
                 // eslint-disable-next-line react/no-danger
@@ -263,7 +263,7 @@ function PostEditorPage() {
                   __html: EodiroMarkup.parse(body),
                 }}
               />
-            </ArrowBlock>
+            </Tile>
           </div>
         )}
       </div>

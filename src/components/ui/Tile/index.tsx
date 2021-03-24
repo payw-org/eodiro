@@ -3,7 +3,7 @@ import React from 'react'
 import { Icon } from '../Icon'
 import $ from './style.module.scss'
 
-export interface ArrowBlockProps {
+export interface TileProps {
   className?: string
   noArrow?: boolean
   /** If `true`, no effect on hover. */
@@ -13,7 +13,7 @@ export interface ArrowBlockProps {
   onClick?: () => void
 }
 
-export const ArrowBlock: React.FC<ArrowBlockProps> = ({
+export const Tile: React.FC<TileProps> = ({
   className,
   noArrow = false,
   flat = false,

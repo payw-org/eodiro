@@ -1,4 +1,4 @@
-import { ArrowBlock } from '@/components/ui'
+import { Tile } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import Grid from '@/components/ui/layouts/Grid'
 import Body from '@/layouts/BaseLayout/Body'
@@ -31,10 +31,10 @@ export default function NotificationsPage() {
               rel="noreferrer"
               href="https://apps.apple.com/kr/app/telegram-messenger/id686449807"
             >
-              <ArrowBlock flat className={$['platform']} customHeight>
+              <Tile flat className={$['platform']} customHeight>
                 <Icon name="logo_apple" className={$['platform-logo']} />
                 <span className={$['platform-name']}>iOS / iPadOS</span>
-              </ArrowBlock>
+              </Tile>
             </a>
             <a
               className={$['platform-link']}
@@ -42,10 +42,10 @@ export default function NotificationsPage() {
               rel="noreferrer"
               href="https://apps.apple.com/kr/app/telegram/id747648890?mt=12"
             >
-              <ArrowBlock flat className={$['platform']} customHeight>
+              <Tile flat className={$['platform']} customHeight>
                 <Icon name="logo_apple" className={$['platform-logo']} />
                 <span className={$['platform-name']}>macOS</span>
-              </ArrowBlock>
+              </Tile>
             </a>
             <a
               className={$['platform-link']}
@@ -53,10 +53,10 @@ export default function NotificationsPage() {
               rel="noreferrer"
               href="https://play.google.com/store/apps/details?id=org.telegram.messenger&hl=ko&gl=US"
             >
-              <ArrowBlock flat className={$['platform']} customHeight>
+              <Tile flat className={$['platform']} customHeight>
                 <Icon name="logo_android" className={$['platform-logo']} />
                 <span className={$['platform-name']}>Android</span>
-              </ArrowBlock>
+              </Tile>
             </a>
             <a
               className={$['platform-link']}
@@ -64,10 +64,10 @@ export default function NotificationsPage() {
               rel="noreferrer"
               href="https://www.microsoft.com/ko-kr/p/telegram-desktop/9nztwsqntd0s?activetab=pivot:overviewtab"
             >
-              <ArrowBlock flat className={$['platform']} customHeight>
+              <Tile flat className={$['platform']} customHeight>
                 <Icon name="logo_windows" className={$['platform-logo']} />
                 <span className={$['platform-name']}>Windows</span>
-              </ArrowBlock>
+              </Tile>
             </a>
           </Grid>
         </div>

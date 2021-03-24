@@ -3,11 +3,11 @@ import ServerError from '@/components/global/ServerError'
 import { Spinner } from '@/components/global/Spinner'
 import { withRequireAuth } from '@/components/hoc/with-require-auth'
 import { LineInput } from '@/components/ui'
-import { ArrowBlock } from '@/components/ui/ArrowBlock'
 import { FloatingButton } from '@/components/ui/FloatingButton'
 import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
 import Grid from '@/components/ui/layouts/Grid'
+import { Tile } from '@/components/ui/Tile'
 import { eodiroConst } from '@/constants'
 import { NOT_FOUND } from '@/constants/http-status-code'
 import Body from '@/layouts/BaseLayout/Body'
@@ -79,7 +79,7 @@ function BoardCandidateItem({ boardCandidate }: BoardCandidateItemProps) {
     (votes / eodiroConst.BOARD_CANDIDATE_VOTES_THRESHOLD) * 100
 
   return (
-    <ArrowBlock key={boardCandidate.id} flat>
+    <Tile key={boardCandidate.id} flat>
       <div>
         <div className="flex items-center justify-between">
           <h2 className="text-xl">{boardCandidate.name}</h2>
@@ -125,7 +125,7 @@ function BoardCandidateItem({ boardCandidate }: BoardCandidateItemProps) {
           </div>
         )} */}
       </div>
-    </ArrowBlock>
+    </Tile>
   )
 }
 
@@ -237,9 +237,9 @@ function AllBoardsPage() {
               )}
             </Grid>
           ) : (
-            <ArrowBlock flat className="mt-4">
+            <Tile flat className="mt-4">
               투표중인 게시판이 없습니다.
-            </ArrowBlock>
+            </Tile>
           )}
         </div>
       ) : (

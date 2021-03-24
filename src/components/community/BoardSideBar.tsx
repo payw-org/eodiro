@@ -1,5 +1,5 @@
 import { Spinner } from '@/components/global/Spinner'
-import { ArrowBlock } from '@/components/ui/ArrowBlock'
+import { Tile } from '@/components/ui/Tile'
 import ApiHost from '@/modules/api-host'
 import { communityBoardPageUrl } from '@/utils/page-urls'
 import { ApiCommunityRecentBoardsResData } from '@payw/eodiro-server-types/api/community/recent-boards'
@@ -22,7 +22,7 @@ export default function BoardSideBar() {
 
   return (
     <div className={$['board-sidebar']}>
-      <ArrowBlock flat>
+      <Tile flat>
         <div className="p-1">
           <h2>다른 게시판</h2>
 
@@ -62,7 +62,7 @@ export default function BoardSideBar() {
             </a>
           </Link>
         </div>
-      </ArrowBlock>
+      </Tile>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import { ArrowBlock } from '@/components/ui'
+import { Tile } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
 import ApiHost from '@/modules/api-host'
@@ -60,7 +60,7 @@ export default function BoardItem(props: BoardItemProps) {
       })}
     >
       <a>
-        <ArrowBlock>
+        <Tile>
           <Flex row justifyStart className={$['board-item']}>
             <button
               type="button"
@@ -80,7 +80,7 @@ export default function BoardItem(props: BoardItemProps) {
               )}
             </div>
           </Flex>
-        </ArrowBlock>
+        </Tile>
       </a>
     </Link>
   )

@@ -5,7 +5,7 @@ import { logInUrl } from '@/utils/page-urls'
 import Link from 'next/link'
 import { FC } from 'react'
 import { useRecoilValue } from 'recoil'
-import { ArrowBlock } from '../ui'
+import { Tile } from '../ui'
 import { Icon } from '../ui/Icon'
 
 export function withRequireAuth(Component: FC) {
@@ -25,7 +25,7 @@ export function withRequireAuth(Component: FC) {
         <div>
           <Link href={logInUrl}>
             <a>
-              <ArrowBlock noArrow>
+              <Tile noArrow>
                 <div
                   className={`${eodiroConst.TITLE_SENTINEL_SPOT} ${eodiroConst.OVERLAY_SENTINEL_SPOT} flex flex-col px-8 py-6`}
                 >
@@ -37,7 +37,7 @@ export function withRequireAuth(Component: FC) {
                     로그인이 필요한 서비스입니다.
                   </p>
                 </div>
-              </ArrowBlock>
+              </Tile>
             </a>
           </Link>
         </div>

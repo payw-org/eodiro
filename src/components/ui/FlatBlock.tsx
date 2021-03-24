@@ -1,10 +1,10 @@
 import React from 'react'
-import { ArrowBlock, ArrowBlockProps } from './ArrowBlock'
+import { Tile, TileProps } from './Tile'
 
 /**
  * @deprecated
  */
-export const FlatBlock: React.FC<ArrowBlockProps> = (props) => {
+export const FlatBlock: React.FC<TileProps> = (props) => {
   const flatBlockProps = { ...props }
 
   flatBlockProps.flat = true
@@ -12,5 +12,5 @@ export const FlatBlock: React.FC<ArrowBlockProps> = (props) => {
 
   const { children } = props
 
-  return <ArrowBlock {...flatBlockProps}>{children}</ArrowBlock>
+  return <Tile {...flatBlockProps}>{children}</Tile>
 }

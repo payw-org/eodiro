@@ -1,4 +1,4 @@
-import { ArrowBlock } from '@/components/ui'
+import { Tile } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
 import { NOT_FOUND } from '@/constants/http-status-code'
@@ -434,7 +434,7 @@ export const Comments: React.FC<{
   return (
     <section className={$['comments-section']}>
       <h1 className={$['comments-headline']}>댓글</h1>
-      <ArrowBlock className={$['comments']} flat>
+      <Tile className={$['comments']} flat>
         {comments.length > 0 ? (
           <>
             {comments.map((comment) => (
@@ -448,7 +448,7 @@ export const Comments: React.FC<{
         ) : (
           <h1 className={$['no-comments-yet']}>아직 댓글이 없습니다.</h1>
         )}
-      </ArrowBlock>
+      </Tile>
       <div>
         <input
           type="text"

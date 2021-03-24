@@ -3,7 +3,7 @@ import { PostsList } from '@/components/community/PostsList'
 import ServerError from '@/components/global/ServerError'
 import { Spinner } from '@/components/global/Spinner'
 import { withRequireAuth } from '@/components/hoc/with-require-auth'
-import { ArrowBlock } from '@/components/ui'
+import { Tile } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import { Flex } from '@/components/ui/layouts/Flex'
 import Pagination from '@/components/ui/Pagination'
@@ -27,20 +27,20 @@ function CommunityPopularPage() {
     <Body pageTitle="인기 글">
       <div className="flex flex-row flex-wrap">
         <div className="posts-column flex-1">
-          <ArrowBlock flat noPadding customHeight className="mb-4">
+          <Tile flat noPadding customHeight className="mb-4">
             <div className="p-2 text-center">
               <Icon name="info_circle_fill" className="mr-2" />
               좋아요가 10개 이상이면 인기 글에 표시됩니다.
             </div>
-          </ArrowBlock>
+          </Tile>
           <div>
             {error ? (
               <ServerError />
             ) : data ? (
               <>
-                <ArrowBlock flat>
+                <Tile flat>
                   <PostsList posts={data.popularPosts} />
-                </ArrowBlock>
+                </Tile>
                 <Pagination
                   totalPage={data.totalPage}
                   currentPage={data.page}
@@ -50,11 +50,11 @@ function CommunityPopularPage() {
                 />
               </>
             ) : (
-              <ArrowBlock flat>
+              <Tile flat>
                 <Flex center>
                   <Spinner />
                 </Flex>
-              </ArrowBlock>
+              </Tile>
             )}
           </div>
         </div>
