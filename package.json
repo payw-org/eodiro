@@ -9,7 +9,7 @@
     "update:server-types": "npm update @payw/eodiro-server-types",
     "ts-node": "ts-node --project ./tsconfig.node.json -r tsconfig-paths/register",
     "typecheck": "tsc --noEmit",
-    "dev": "npm run && next --port 3020",
+    "dev": "next --port 3020",
     "lint": "eslint . --ext .ts,.tsx",
     "build": "next build",
     "start": "next start --port 3000",
