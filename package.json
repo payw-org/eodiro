@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit",
     "dev": "next --port 3020",
     "lint": "eslint . --ext .ts,.tsx",
-    "build": "next build",
+    "build": "rm -rf .next && next build",
     "start": "next start --port 3000",
     "pm2:start": "if pm2 show eodiro ; then npm run pm2:stop && npm run pm2:delete && npm run pm2:start ; else pm2 start npm --name 'eodiro' -- run start ; fi",
     "pm2:restart": "if pm2 show eodiro ; then pm2 restart eodiro ; else echo 'No pm2 instance for eodiro client' ; fi",
