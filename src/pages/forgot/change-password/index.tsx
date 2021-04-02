@@ -10,12 +10,13 @@ import {
   ApiAuthValidateResponseData,
 } from '@payw/eodiro-server-types/api/auth/validate'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import $ from './style.module.scss'
 
 const ChangePasswordRequestPage = () => {
   const router = useRouter()
   const token = router.query.t as string
+  const inputRef = useRef<HTMLInputElement>(null)
   const [password, setPassword] = useState('')
   const [isValidating, setIsValidating] = useState(false)
   const [isAvailable, setIsAvailable] = useState(false)
@@ -47,6 +48,7 @@ const ChangePasswordRequestPage = () => {
       })
       .finally(() => {
         setIsValidating(false)
+        inputRef.current?.focus()
       })
   }
 
@@ -87,6 +89,7 @@ const ChangePasswordRequestPage = () => {
       bodyClassName={$['change-password-request']}
     >
       <LineInput
+        ref={inputRef}
         type="password"
         value={password}
         placeholder="새 암호를 입력하세요."
