@@ -117,7 +117,7 @@ export default function NotificationsPage() {
           <span className="font-semibold text-eodiro-primary-color">
             /logout
           </span>
-          을 입력하면 더 이상 알림을 받지 않을 수 있습니다.
+          을 입력하여 알림 받기를 중단할 수 있습니다.
         </p>
       </div>
     </Body>
