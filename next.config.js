@@ -2,6 +2,9 @@ const FilterWarningsPlugin = require('webpack-filter-warnings-plugin')
 const path = require('path')
 
 module.exports = {
+  future: {
+    webpack5: true,
+  },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     if (!isServer) {
       // Noop resolution of @prisma/client in the browser
