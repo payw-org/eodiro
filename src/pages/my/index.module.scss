@@ -1,5 +1,11 @@
 @use '@/assets/styles/main' as *;
 
+.section {
+  &:not(:first-child) {
+    margin-top: 50px;
+  }
+}
+
 .eodiro-my {
   .info-section {
     .section-header {
