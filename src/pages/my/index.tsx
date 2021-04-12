@@ -14,7 +14,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { useSetRecoilState } from 'recoil'
-import $ from './style.module.scss'
+import $ from './index.module.scss'
 
 const MyPage: NextPage = () => {
   const router = useRouter()
@@ -24,6 +24,7 @@ const MyPage: NextPage = () => {
     nickname: '-',
     randomNickname: '-',
     joinedAt: new Date('1996-03-11'),
+    point: 0,
   })
 
   async function onLogOut() {
@@ -58,8 +59,15 @@ const MyPage: NextPage = () => {
   // }
 
   return (
-    <Body pageTitle={`${user.nickname}님`} bodyClassName={$['eodiro-my']}>
-      <section className={$['info-section']}>
+    <Body pageTitle={`${user.nickname}님`}>
+      <section className={classNames($['section'])}>
+        <h1 className={$['section-header']}>포인트</h1>
+        <Tile flat className={$['section-body']}>
+          <div className={$['gauge-']} />
+        </Tile>
+      </section>
+
+      <section className={classNames($['section'], $['info-section'])}>
         <h1 className={$['section-header']}>기본 정보</h1>
         <Grid proportion="large" className={$['section-body']}>
           <Tile flat>

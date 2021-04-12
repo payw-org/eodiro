@@ -4,54 +4,50 @@
   &:not(:first-child) {
     margin-top: 50px;
   }
+
+  .section-header {
+    font-weight: 600;
+    font-size: h(3);
+    @include resolve-optical-illusion;
+  }
+
+  .section-body {
+    margin-top: s(3);
+  }
 }
 
-.eodiro-my {
-  .info-section {
-    .section-header {
-      font-weight: 600;
-      font-size: h(3);
-      @include resolve-optical-illusion;
-    }
+.my-posts {
+  margin-top: 30px;
 
-    .section-body {
-      margin-top: s(3);
-    }
+  .my-post-item {
+    margin-top: 10px;
   }
 
-  .my-posts {
-    margin-top: 30px;
+  .post-item-boardName {
+    margin-right: 15px;
+  }
+}
 
-    .my-post-item {
-      margin-top: 10px;
-    }
+.info-block {
+  text-align: center;
 
-    .post-item-boardName {
-      margin-right: 15px;
+  .ib-header {
+    font-size: b(8);
+
+    & + * {
+      margin-top: 12px;
     }
   }
+}
 
-  .info-block {
-    text-align: center;
+.sign-out-section {
+  margin-top: s(6);
+  padding-top: s(6);
+  @include separator('top');
+  display: flex;
+  justify-content: center;
 
-    .ib-header {
-      font-size: b(8);
-
-      & + * {
-        margin-top: 12px;
-      }
-    }
-  }
-
-  .sign-out-section {
-    margin-top: s(6);
-    padding-top: s(6);
-    @include separator('top');
-    display: flex;
-    justify-content: center;
-
-    .sign-out-btn {
-      margin-right: s(3);
-    }
+  .sign-out-btn {
+    margin-right: s(3);
   }
 }
