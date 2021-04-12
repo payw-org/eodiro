@@ -1,5 +1,5 @@
 import { authState } from '@/atoms/auth'
-import { Button, FlatBlock, Tile } from '@/components/ui'
+import { Button, Tile } from '@/components/ui'
 import { Icon } from '@/components/ui/Icon'
 import Grid from '@/components/ui/layouts/Grid'
 import Body from '@/layouts/BaseLayout/Body'
@@ -62,24 +62,24 @@ const MyPage: NextPage = () => {
       <section className={$['info-section']}>
         <h1 className={$['section-header']}>기본 정보</h1>
         <Grid proportion="large" className={$['section-body']}>
-          <FlatBlock>
+          <Tile flat>
             <div className={$['info-block']}>
               <h2 className={$['ib-header']}>가입일</h2>
               <p>{dayjs(user.joinedAt).format('YYYY년 M월 D일')}</p>
             </div>
-          </FlatBlock>
-          <FlatBlock>
+          </Tile>
+          <Tile flat>
             <div className={$['info-block']}>
               <h2 className={$['ib-header']}>포탈 이메일</h2>
               <p>{user.portalId}</p>
             </div>
-          </FlatBlock>
-          <FlatBlock>
+          </Tile>
+          <Tile flat>
             <div className={classNames($['info-block'], $['random-nickname'])}>
               <h2 className={$['ib-header']}>오늘의 랜덤 닉네임</h2>
               <p>{user.randomNickname}</p>
             </div>
-          </FlatBlock>
+          </Tile>
 
           <Link href="/my/posts">
             <a>
