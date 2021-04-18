@@ -3,7 +3,7 @@ const path = require('path')
 
 module.exports = {
   future: {
-    webpack5: true,
+    webpack5: false,
   },
   webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
     if (!isServer) {
