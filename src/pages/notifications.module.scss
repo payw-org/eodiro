@@ -2,6 +2,10 @@
 
 .notifications-page {
   max-width: 800px !important;
+
+  img {
+    @include shadowed;
+  }
 }
 
 .tutorial-step {
