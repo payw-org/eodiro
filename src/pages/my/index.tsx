@@ -60,12 +60,12 @@ const MyPage: NextPage = () => {
 
   return (
     <Body pageTitle={`${user.nickname}님`}>
-      {/* <section className={classNames($['section'])}>
+      <section className={classNames($['section'])}>
         <h1 className={$['section-header']}>포인트</h1>
         <Tile flat className={$['section-body']}>
           <div className={$['point-value']}>{user.point?.toLocaleString()}</div>
         </Tile>
-      </section> */}
+      </section>
 
       <section className={classNames($['section'], $['info-section'])}>
         <h1 className={$['section-header']}>기본 정보</h1>
