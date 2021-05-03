@@ -103,9 +103,6 @@ export default function EdrApp({ Component, pageProps }: EdrAppProps) {
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover"
         />
-        {/* @deprecated */}
-        <script src="/modules/topbar.min.js" />
-
         {/* Google Analytics */}
         {!isDev() && (
           <script
