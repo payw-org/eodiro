@@ -59,7 +59,7 @@
     "@payw/cau-timetable-scraper-types": "^2.4.0",
     "@payw/eodiro-server-types": "^1.0.38",
     "@types/app-root-path": "^1.2.4",
-    "@types/bcrypt": "^3.0.1",
+    "@types/bcrypt": "^5.0.0",
     "@types/classnames": "^2.3.0",
     "@types/cookie": "^0.4.0",
     "@types/escape-html": "^1.0.1",
