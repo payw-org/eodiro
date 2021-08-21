@@ -84,7 +84,7 @@ return <div classNames={mergeClassNames('bg', isAppeard && 'appear')} />
 
 ### Get the latest fresh state
 
-If your familiar with React and React hook APIs, you know there is a problem called **stale state**. It happens when you use React state inside a callback function. The state you just use is freezed inside the callback function at the time you register it. We recognize the problem and found a solution using [functional updates](https://reactjs.org/docs/hooks-reference.html#functional-updates) asynchronously.
+If you're familiar with React and React hook APIs, you know there is a problem called **stale state**. It happens when you use React state inside a callback function. The state you just use is freezed inside the callback function at the time you register it. We recognize the problem and found a solution using [functional updates](https://reactjs.org/docs/hooks-reference.html#functional-updates) asynchronously.
 
 **`getState(dispatch)`**
 
